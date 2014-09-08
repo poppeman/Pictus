@@ -27,7 +27,7 @@ SUITE(TestCThumbProvider) {
 	};
 
 	TEST_FIXTURE(CreateIStreamFixture, GenerateNullParams) {
-		Create(TX("bw.tga"));
+		Create(TX("simple.tga"));
 		cptp.Initialize(is, 0);
 		CHECK_EQUAL(E_POINTER, cptp.GetThumbnail(32, 0, 0));
 		CHECK_EQUAL(E_INVALIDARG, cptp.GetThumbnail(0, 0, 0));
