@@ -4,12 +4,12 @@
 
 			Copyright(c) Pontus Mårdnäs.
 			www.poppeman.se
-			poppeman@gmail.com
+			pontus@mardnas.se
 
 
 1. Introduction:
 ================
-Pictus is a free (as in beer) image viewer. It is
+Pictus is a free image viewer. It is
 designed to be fast and simple to use while avoiding to
 waste precious screen space.
 
@@ -29,7 +29,8 @@ There are some super secret keyboard controls that can't be customized yet thoug
 A. Contact:
 ===========
 Looking for the latest version? Visit http://www.poppeman.se
-Want to send me hatemail? Send it to poppeman@gmail.com
+Want to send me hatemail? Send it to pontus@mardnas.se
+Want to contribue to development? https://github.com/poppeman/Pictus
 
 
 Y. Stuff nobody reads:
