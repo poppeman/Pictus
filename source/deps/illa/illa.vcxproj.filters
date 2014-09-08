@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Codecs">
+      <UniqueIdentifier>{02169c85-c625-474c-a207-af2886e83bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\BMP">
+      <UniqueIdentifier>{9d3c708a-1e77-44bd-abfa-aef2618f9805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\GIF">
+      <UniqueIdentifier>{3c56ce80-7ca6-48a4-b31b-e51aa0d3ae45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\GIF\LZW">
+      <UniqueIdentifier>{2449aebf-acf9-438b-8123-cc1e51312610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\GIF\Structure">
+      <UniqueIdentifier>{bd34f863-bb3a-4ae3-91e0-c650e2f01593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\GIF\Composer">
+      <UniqueIdentifier>{82bf22fa-0b0b-496b-b0bd-68f60b9d7d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\JPEG">
+      <UniqueIdentifier>{4f503e8f-8d4e-4041-a4c8-c7a75d77bf45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\PCX">
+      <UniqueIdentifier>{98f3cf22-8580-4945-9b0c-501a3f268d98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\PNG">
+      <UniqueIdentifier>{0989ad20-c734-4050-bd42-a3b6a8e9ec12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\PSP">
+      <UniqueIdentifier>{be5b4c3f-304b-4770-916e-5a2e3a4ed606}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\TGA">
+      <UniqueIdentifier>{28d2832e-a404-44b4-9016-5f84ff236cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\TIFF">
+      <UniqueIdentifier>{23950d22-095d-4b91-a2ef-453d30a9d431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\TIFF\Loaders">
+      <UniqueIdentifier>{4343a49f-cef3-4b7c-a26f-6f5fcc6490f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\TIFF\Converters">
+      <UniqueIdentifier>{dac6c387-528b-43f9-877f-4a7c38c11f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\PSD">
+      <UniqueIdentifier>{649a35eb-43ee-44c5-a53c-a2d02b63f09f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\WBMP">
+      <UniqueIdentifier>{ad88acba-3b7f-4cc9-9d01-b172349ceda3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codecs\XYZ">
+      <UniqueIdentifier>{980e8d2d-d281-4d6d-8ce2-edf0ff750a9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Filters">
+      <UniqueIdentifier>{457aa0e5-f1b5-4b2f-bfcc-c2cc96035a12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface">
+      <UniqueIdentifier>{fa7da0d1-1ccf-4fd6-8fa3-e878881be025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface\Locks">
+      <UniqueIdentifier>{ad609b2d-4010-4bac-bf17-33d049ba2087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface\Implementations">
+      <UniqueIdentifier>{9505c340-0c12-491a-9c2a-464c564c8603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{23063b4c-3b53-4fbe-b485-7f0abc92e481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image">
+      <UniqueIdentifier>{b907fb90-2dae-4d24-ba40-78712f7400cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image\Composer">
+      <UniqueIdentifier>{6011c797-e3b8-4666-8012-9a29926b0c72}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="c_factory.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="codec.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="codec_static.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="codecmgr.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="bmp_fileheader.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="bmp_header.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_bmp.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="f_bmp.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_gif.cpp">
+      <Filter>Codecs\GIF</Filter>
+    </ClCompile>
+    <ClCompile Include="f_gif.cpp">
+      <Filter>Codecs\GIF</Filter>
+    </ClCompile>
+    <ClCompile Include="gif_stringtable.cpp">
+      <Filter>Codecs\GIF\LZW</Filter>
+    </ClCompile>
+    <ClCompile Include="gif_imagedescriptor.cpp">
+      <Filter>Codecs\GIF\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="gif_io.cpp">
+      <Filter>Codecs\GIF\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="imagecomposer_gif.cpp">
+      <Filter>Codecs\GIF\Composer</Filter>
+    </ClCompile>
+    <ClCompile Include="c_jpeg.cpp">
+      <Filter>Codecs\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="f_jpeg.cpp">
+      <Filter>Codecs\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="c_pcx.cpp">
+      <Filter>Codecs\PCX</Filter>
+    </ClCompile>
+    <ClCompile Include="f_pcx.cpp">
+      <Filter>Codecs\PCX</Filter>
+    </ClCompile>
+    <ClCompile Include="pcx_header.cpp">
+      <Filter>Codecs\PCX</Filter>
+    </ClCompile>
+    <ClCompile Include="c_png.cpp">
+      <Filter>Codecs\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="f_png.cpp">
+      <Filter>Codecs\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="c_psp.cpp">
+      <Filter>Codecs\PSP</Filter>
+    </ClCompile>
+    <ClCompile Include="f_psp.cpp">
+      <Filter>Codecs\PSP</Filter>
+    </ClCompile>
+    <ClCompile Include="psp_chunkskipper.cpp">
+      <Filter>Codecs\PSP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_tga.cpp">
+      <Filter>Codecs\TGA</Filter>
+    </ClCompile>
+    <ClCompile Include="c_tga_decoder.cpp">
+      <Filter>Codecs\TGA</Filter>
+    </ClCompile>
+    <ClCompile Include="c_tga_header.cpp">
+      <Filter>Codecs\TGA</Filter>
+    </ClCompile>
+    <ClCompile Include="c_tga_raw.cpp">
+      <Filter>Codecs\TGA</Filter>
+    </ClCompile>
+    <ClCompile Include="c_tga_rle.cpp">
+      <Filter>Codecs\TGA</Filter>
+    </ClCompile>
+    <ClCompile Include="f_tga.cpp">
+      <Filter>Codecs\TGA</Filter>
+    </ClCompile>
+    <ClCompile Include="c_tiff.cpp">
+      <Filter>Codecs\TIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="f_tiff.cpp">
+      <Filter>Codecs\TIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="tiff_loader.cpp">
+      <Filter>Codecs\TIFF\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="tiff_striploader.cpp">
+      <Filter>Codecs\TIFF\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="tiff_tileloader.cpp">
+      <Filter>Codecs\TIFF\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="tiff_cieconverter.cpp">
+      <Filter>Codecs\TIFF\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="tiff_converter.cpp">
+      <Filter>Codecs\TIFF\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="tiff_rawconverter.cpp">
+      <Filter>Codecs\TIFF\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="tiff_ycbcrconverter.cpp">
+      <Filter>Codecs\TIFF\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="c_psd.cpp">
+      <Filter>Codecs\PSD</Filter>
+    </ClCompile>
+    <ClCompile Include="f_psd.cpp">
+      <Filter>Codecs\PSD</Filter>
+    </ClCompile>
+    <ClCompile Include="psd_header.cpp">
+      <Filter>Codecs\PSD</Filter>
+    </ClCompile>
+    <ClCompile Include="psd_shared.cpp">
+      <Filter>Codecs\PSD</Filter>
+    </ClCompile>
+    <ClCompile Include="c_wbmp.cpp">
+      <Filter>Codecs\WBMP</Filter>
+    </ClCompile>
+    <ClCompile Include="f_wbmp.cpp">
+      <Filter>Codecs\WBMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_xyz.cpp">
+      <Filter>Codecs\XYZ</Filter>
+    </ClCompile>
+    <ClCompile Include="f_xyz.cpp">
+      <Filter>Codecs\XYZ</Filter>
+    </ClCompile>
+    <ClCompile Include="filter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_bilinear.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_brightness_contrast.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_colorkey.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_directcopy.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_gamma.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_int.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_lanczos3.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_nearest.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_premultiply.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_rotatefixed.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_setalpha.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_solidcolor.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filterjob.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_lockedarea.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surfacemgr.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_lock.cpp">
+      <Filter>Surface\Locks</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_lock_exclusive.cpp">
+      <Filter>Surface\Locks</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_lock_swmr.cpp">
+      <Filter>Surface\Locks</Filter>
+    </ClCompile>
+    <ClCompile Include="swsurface.cpp">
+      <Filter>Surface\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="color_io.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="types.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="imagecomposer.cpp">
+      <Filter>Image\Composer</Filter>
+    </ClCompile>
+    <ClCompile Include="imagecomposer_static.cpp">
+      <Filter>Image\Composer</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="c_factory.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codec.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codec_static.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecmgr.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="bmp_fileheader.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="bmp_header.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="f_bmp.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_gif.h">
+      <Filter>Codecs\GIF</Filter>
+    </ClInclude>
+    <ClInclude Include="f_gif.h">
+      <Filter>Codecs\GIF</Filter>
+    </ClInclude>
+    <ClInclude Include="gif_stringtable.h">
+      <Filter>Codecs\GIF\LZW</Filter>
+    </ClInclude>
+    <ClInclude Include="gif_imagedescriptor.h">
+      <Filter>Codecs\GIF\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="gif_io.h">
+      <Filter>Codecs\GIF\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="imagecomposer_gif.h">
+      <Filter>Codecs\GIF\Composer</Filter>
+    </ClInclude>
+    <ClInclude Include="c_jpeg.h">
+      <Filter>Codecs\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="f_jpeg.h">
+      <Filter>Codecs\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="c_pcx.h">
+      <Filter>Codecs\PCX</Filter>
+    </ClInclude>
+    <ClInclude Include="f_pcx.h">
+      <Filter>Codecs\PCX</Filter>
+    </ClInclude>
+    <ClInclude Include="pcx_header.h">
+      <Filter>Codecs\PCX</Filter>
+    </ClInclude>
+    <ClInclude Include="c_png.h">
+      <Filter>Codecs\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="f_png.h">
+      <Filter>Codecs\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="c_psp.h">
+      <Filter>Codecs\PSP</Filter>
+    </ClInclude>
+    <ClInclude Include="f_psp.h">
+      <Filter>Codecs\PSP</Filter>
+    </ClInclude>
+    <ClInclude Include="psp_chunkskipper.h">
+      <Filter>Codecs\PSP</Filter>
+    </ClInclude>
+    <ClInclude Include="psp_defines.h">
+      <Filter>Codecs\PSP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_tga.h">
+      <Filter>Codecs\TGA</Filter>
+    </ClInclude>
+    <ClInclude Include="c_tga_decoder.h">
+      <Filter>Codecs\TGA</Filter>
+    </ClInclude>
+    <ClInclude Include="c_tga_header.h">
+      <Filter>Codecs\TGA</Filter>
+    </ClInclude>
+    <ClInclude Include="c_tga_raw.h">
+      <Filter>Codecs\TGA</Filter>
+    </ClInclude>
+    <ClInclude Include="c_tga_rle.h">
+      <Filter>Codecs\TGA</Filter>
+    </ClInclude>
+    <ClInclude Include="f_tga.h">
+      <Filter>Codecs\TGA</Filter>
+    </ClInclude>
+    <ClInclude Include="c_tiff.h">
+      <Filter>Codecs\TIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="f_tiff.h">
+      <Filter>Codecs\TIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="tiff_loader.h">
+      <Filter>Codecs\TIFF\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="tiff_striploader.h">
+      <Filter>Codecs\TIFF\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="tiff_tileloader.h">
+      <Filter>Codecs\TIFF\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="tiff_cieconverter.h">
+      <Filter>Codecs\TIFF\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="tiff_converter.h">
+      <Filter>Codecs\TIFF\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="tiff_rawconverter.h">
+      <Filter>Codecs\TIFF\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="tiff_ycbcrconverter.h">
+      <Filter>Codecs\TIFF\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="c_psd.h">
+      <Filter>Codecs\PSD</Filter>
+    </ClInclude>
+    <ClInclude Include="f_psd.h">
+      <Filter>Codecs\PSD</Filter>
+    </ClInclude>
+    <ClInclude Include="psd_header.h">
+      <Filter>Codecs\PSD</Filter>
+    </ClInclude>
+    <ClInclude Include="psd_shared.h">
+      <Filter>Codecs\PSD</Filter>
+    </ClInclude>
+    <ClInclude Include="c_wbmp.h">
+      <Filter>Codecs\WBMP</Filter>
+    </ClInclude>
+    <ClInclude Include="f_wbmp.h">
+      <Filter>Codecs\WBMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_xyz.h">
+      <Filter>Codecs\XYZ</Filter>
+    </ClInclude>
+    <ClInclude Include="f_xyz.h">
+      <Filter>Codecs\XYZ</Filter>
+    </ClInclude>
+    <ClInclude Include="filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="filter_bilinear.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="filter_generic.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="filter_int.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="filterjob.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="lut_gamma.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="render.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surfacefactory.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surfacemgr.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_lock.h">
+      <Filter>Surface\Locks</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_lock_exclusive.h">
+      <Filter>Surface\Locks</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_lock_swmr.h">
+      <Filter>Surface\Locks</Filter>
+    </ClInclude>
+    <ClInclude Include="swsurface.h">
+      <Filter>Surface\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="color_conv.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="color_io.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="geom.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="imagecomposer.h">
+      <Filter>Image\Composer</Filter>
+    </ClInclude>
+    <ClInclude Include="imagecomposer_static.h">
+      <Filter>Image\Composer</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,131 @@
+#include "StdAfx.h"
+#include "file.h"
+#include "fileops.h"
+
+namespace IO {
+	using std::mutex;
+
+	mutex g_mutexSHFileOperation;
+
+	struct HANDLETOMAPPINGS {
+		UINT              uNumberOfMappings;  // Number of mappings in the array.
+		LPSHNAMEMAPPING   lpSHNameMapping;    // Pointer to the array of mappings.
+	};
+
+	bool DoFileExist(const std::wstring& file) {
+		if (file==TX("")) return false;
+		IO::FileReader r(file);
+		return r.Open();
+
+		/*FILE* f = 0;
+		if ((_wfopen_s(&f, file.c_str(), TX("rb")) == 0) && (f != 0)) {
+			fclose(f);
+			return true;
+		}
+		return false;*/
+	}
+
+	bool DoPathExist(const std::wstring& file) {
+		DWORD dwAttr=GetFileAttributes(file.c_str());
+
+		if (dwAttr==INVALID_FILE_ATTRIBUTES)		
+			return false;
+
+		if (dwAttr&FILE_ATTRIBUTE_DIRECTORY)
+			return true;
+		else
+			return false;
+	}
+
+	static std::vector<wchar_t> ToTerminatedcharArray(const std::wstring& in) {
+		size_t len = in.length() + 2; // Two extra due to _two_ terminating chars.
+		std::vector<wchar_t> pFromWString(len);
+
+		// Copy source-file into the struct and apply the extra terminator.
+		errno_t copyRet = wcscpy_s(&pFromWString[0], len, in.c_str());
+		if (copyRet != 0) DO_THROW(Err::CriticalError, TX("Couldn't copy string to buffer."));
+
+		//pFromWString.get()[len - 1] = 0;	// Shuts up vs2005 code analysis
+
+		return pFromWString;
+	}
+
+	bool performDeleteRecycle(const std::wstring& file, bool doRecycle, HWND hwnd) {
+		//COND_STRICT(hwnd != 0, Err::InvalidParam, TX("hwnd was null."));
+		SHFILEOPSTRUCT sfop;
+		ZeroMemory(&sfop, sizeof(sfop));
+
+		auto pFromWString = ToTerminatedcharArray(file);
+		sfop.pFrom = &pFromWString[0];
+		sfop.wFunc = FO_DELETE;
+		sfop.fFlags = FOF_SILENT;
+
+		if(hwnd == 0)
+			sfop.fFlags |= FOF_NOCONFIRMATION;
+
+		if (doRecycle)
+			sfop.fFlags |= FOF_ALLOWUNDO;
+
+		sfop.hwnd = hwnd;
+
+		std::lock_guard<std::mutex> l(g_mutexSHFileOperation);
+		return (SHFileOperation(&sfop) == 0) && (sfop.fAnyOperationsAborted == false);
+	}
+
+	bool FileDelete(const std::wstring& file, HWND hwnd) {
+		return performDeleteRecycle(file, false, hwnd);
+	}
+
+	bool FileRecycle(const std::wstring& file, HWND hwnd) {
+		return performDeleteRecycle(file, true, hwnd);
+	}
+
+	bool Move(const std::wstring& old_path, const std::wstring& new_path) {
+		// Not updated
+		assert(false);
+		return (::MoveFile(old_path.c_str(), new_path.c_str()) != 0);
+	}
+
+	std::wstring Rename(const std::wstring& old_name, const std::wstring& new_name, HWND hwnd) {
+		SHFILEOPSTRUCT sfop;
+		ZeroMemory(&sfop, sizeof(sfop));
+
+		auto pOldName = ToTerminatedcharArray(old_name);
+		auto pNewName = ToTerminatedcharArray(new_name);
+		sfop.pFrom = &pOldName[0];
+		sfop.pTo = &pNewName[0];
+		sfop.wFunc = FO_RENAME;
+		sfop.fFlags = FOF_SILENT | FOF_ALLOWUNDO | FOF_WANTMAPPINGHANDLE;
+		sfop.hwnd = hwnd;
+
+		if(hwnd == 0)
+			sfop.fFlags |= FOF_NOCONFIRMATION;
+
+		//		int ticket = pause_folders(GetPath(old_name));
+
+		bool toRet = false;
+		{
+			std::lock_guard<std::mutex> l(g_mutexSHFileOperation);
+			toRet = (SHFileOperation(&sfop) == 0) && (sfop.fAnyOperationsAborted == false);
+		}
+
+		std::wstring resulting_name = new_name;
+
+		HANDLETOMAPPINGS* s = reinterpret_cast<HANDLETOMAPPINGS*>(sfop.hNameMappings);
+		if(s && s->uNumberOfMappings == 1)
+			resulting_name = s->lpSHNameMapping[0].pszNewPath;
+
+		SHFreeNameMappings(sfop.hNameMappings);
+
+		/*if (toRet)
+			renamed_file(old_name, resulting_name);
+
+		restore_folders(ticket);*/
+		if(!toRet) return TX("");
+		return resulting_name;
+	}
+
+	bool SupportRecycle() {
+		return true;
+	}
+}

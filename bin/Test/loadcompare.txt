@@ -1,0 +1,324 @@
+
+///////////////////////////////////////////////
+//	BMP
+///////////////////////////////////////////////
+
+// Invalid
+!BMP/badbitcount.bmp
+!BMP/badheadersize.bmp
+!BMP/badplanes.bmp
+
+// 1 bpp
+BMP/pal1.bmp, BMP/pal1.png
+BMP/pal1bg.bmp, BMP/pal1bg.png
+BMP/pal1wb.bmp, BMP/pal1.png
+BMP/pal1p1.bmp, BMP/pal1p1.png
+
+// TODO: 2 bpp
+
+// 4 bpp
+BMP/pal4.bmp, BMP/pal4.png
+// TODO: Make reference version
+// BMP/pal4rletrns.bmp, BMP/pal4rletrns.png
+BMP/pal4rle.bmp, BMP/pal4.png
+
+// 8 bpp
+BMP/pal8.bmp, BMP/pal8.png
+BMP/pal8-0.bmp, BMP/pal8.png
+BMP/pal8rle.bmp, BMP/pal8.png
+BMP/pal8w126.bmp, BMP/pal8w126.png
+BMP/pal8w125.bmp, BMP/pal8w125.png
+BMP/pal8w124.bmp, BMP/pal8w124.png
+// TODO: Make reference version
+// BMP/pal8rletrns.bmp, BMP/pal8.png
+// TODO: Handle this version:
+// BMP/pal8topdown.bmp, BMP/pal8topdown.bmp
+BMP/pal8offs.bmp, BMP/pal8.png
+BMP/pal8os2.bmp, BMP/pal8.png
+BMP/pal8os2sp.bmp, BMP/pal8.png
+
+// 16 bpp
+BMP/rgb16.bmp, BMP/rgb16.png
+BMP/rgb16-565.bmp, BMP/rgb16-565.bmp
+
+// 24 bpp
+BMP/rgb24.bmp, BMP/rgb24.png
+BMP/rgb24pal.bmp, BMP/rgb24.png
+
+
+// 32 bpp
+BMP/rgb32.bmp, BMP/rgb24.png
+BMP/rgb32bf.bmp, BMP/rgb24.png
+
+
+///////////////////////////////////////////////
+//	GIF
+///////////////////////////////////////////////
+!GIF/empty.gif
+GIF/aim-dot.gif, GIF/aim-dot.png
+
+///////////////////////////////////////////////
+//	JPEG
+///////////////////////////////////////////////
+
+!JPEG/empty.jpg
+
+JPEG/bl_gray_sheeps1.jpg, JPEG/bl_gray_sheeps1.tga
+JPEG/bl_rgb_sheeps1.jpg, JPEG/bl_rgb_sheeps1.tga
+JPEG/op_rgb_sheeps1.jpg, JPEG/op_rgb_sheeps1.tga
+JPEG/pr_rgb_sheeps1.jpg, JPEG/pr_rgb_sheeps1.tga
+
+///////////////////////////////////////////////
+//	PCX
+///////////////////////////////////////////////
+
+PCX/b01.pcx, PCX/b01.tga
+PCX/b04.pcx, PCX/b04.tga
+PCX/b08.pcx, PCX/b08.tga
+PCX/b24.pcx, PCX/b24.tga
+
+PCX/rgbtest.pcx, PCX/rgbtest.tga
+
+PCX/uc_b01.pcx, PCX/b01.tga
+PCX/uc_b04.pcx, PCX/b04.tga
+PCX/uc_b08.pcx, PCX/b08.tga
+PCX/uc_b24.pcx, PCX/b24.tga
+
+PCX/uc_rgbtest.pcx, PCX/rgbtest.tga
+
+
+///////////////////////////////////////////////
+//	PNG
+///////////////////////////////////////////////
+!PNG/xlfn0g04.png
+!PNG/x00n0g01.png
+!PNG/xcrn0g04.png
+
+PNG/aim-dot.tga, PNG/aim-dot.png
+
+
+////(PNG_ZLIB)
+
+PNG/z00n2c08.png, PNG/z.tga
+PNG/z03n2c08.png, PNG/z.tga
+PNG/z06n2c08.png, PNG/z.tga
+PNG/z09n2c08.png, PNG/z.tga
+
+
+////(PNG_SIZES)
+PNG/s01i3p01.png, PNG/s01.tga
+PNG/s01n3p01.png, PNG/s01.tga
+
+PNG/s02i3p01.png, PNG/s02.tga
+PNG/s02n3p01.png, PNG/s02.tga
+
+PNG/s03i3p01.png, PNG/s03.tga
+PNG/s03n3p01.png, PNG/s03.tga
+
+PNG/s04i3p01.png, PNG/s04.tga
+PNG/s04n3p01.png, PNG/s04.tga
+
+PNG/s05i3p02.png, PNG/s05.tga
+PNG/s05n3p02.png, PNG/s05.tga
+
+PNG/s06i3p02.png, PNG/s06.tga
+PNG/s06n3p02.png, PNG/s06.tga
+
+PNG/s07i3p02.png, PNG/s07.tga
+PNG/s07n3p02.png, PNG/s07.tga
+
+PNG/s08i3p02.png, PNG/s08.tga
+PNG/s08n3p02.png, PNG/s08.tga
+
+PNG/s09i3p02.png, PNG/s09.tga
+PNG/s09n3p02.png, PNG/s09.tga
+
+//			s3x series
+
+PNG/s32i3p04.png, PNG/s32.tga
+PNG/s32n3p04.png, PNG/s32.tga
+
+PNG/s33i3p04.png, PNG/s33.tga
+PNG/s33n3p04.png, PNG/s33.tga
+
+PNG/s34i3p04.png, PNG/s34.tga
+PNG/s34n3p04.png, PNG/s34.tga
+
+PNG/s35i3p04.png, PNG/s35.tga
+PNG/s35n3p04.png, PNG/s35.tga
+
+PNG/s36i3p04.png, PNG/s36.tga
+PNG/s36n3p04.png, PNG/s36.tga
+
+PNG/s37i3p04.png, PNG/s37.tga
+PNG/s37n3p04.png, PNG/s37.tga
+
+PNG/s38i3p04.png, PNG/s38.tga
+PNG/s38n3p04.png, PNG/s38.tga
+
+PNG/s39i3p04.png, PNG/s39.tga
+PNG/s39n3p04.png, PNG/s39.tga
+
+PNG/s40i3p04.png, PNG/s40.tga
+PNG/s40n3p04.png, PNG/s40.tga
+
+
+
+///////////////////////////////////////////////
+//	PSD
+///////////////////////////////////////////////
+
+////(BasicCompressionModes)
+
+PSD/test2.psd, PSD/test2.png
+
+
+////(Indexed)
+
+PSD/indexed.psd, PSD/test2.png
+
+
+////(Grayscale)
+
+PSD/grayscale.psd, PSD/grayscale.png
+
+
+////(Bitmap)
+
+PSD/bitmap.psd, PSD/bitmap.png
+PSD/uneven.psd, PSD/uneven.png
+
+
+///////////////////////////////////////////////
+//	PSP
+///////////////////////////////////////////////
+
+
+////(PSP_1BIT)
+
+PSP/01g124.pspimage, PSP/01g124.tga
+PSP/01g125.pspimage, PSP/01g125.tga
+PSP/01g126.pspimage, PSP/01g126.tga
+
+
+////(PSP_1BIT_RLE)
+
+PSP/01g124_rle.pspimage, PSP/01g124.tga
+PSP/01g125_rle.pspimage, PSP/01g125.tga
+PSP/01g126_rle.pspimage, PSP/01g126.tga
+
+
+////(PSP_4BIT)
+
+PSP/04w124.pspimage, PSP/04w124.tga
+PSP/04w125.pspimage, PSP/04w125.tga
+PSP/04w126.pspimage, PSP/04w126.tga
+
+
+
+//(PSP_4BIT_RLE)
+
+PSP/04w124_rle.pspimage, PSP/04w124.tga
+PSP/04w125_rle.pspimage, PSP/04w125.tga
+PSP/04w126_rle.pspimage, PSP/04w126.tga
+
+
+//(PSP_8BIT)
+
+PSP/08g124.pspimage, PSP/08g124.tga
+
+PSP/08w124.pspimage, PSP/24w124.tga
+PSP/08w125.pspimage, PSP/24w125.tga
+PSP/08w126.pspimage, PSP/24w126.tga
+
+
+//(PSP_8BIT_RLE)
+
+PSP/08g124_rle.pspimage, PSP/08g124.tga
+
+PSP/08w124_rle.pspimage, PSP/24w124.tga
+PSP/08w125_rle.pspimage, PSP/24w125.tga
+PSP/08w126_rle.pspimage, PSP/24w126.tga
+
+
+//(PSP_24BIT)
+
+PSP/24w124.pspimage, PSP/24w124.tga
+PSP/24w125.pspimage, PSP/24w125.tga
+PSP/24w126.pspimage, PSP/24w126.tga
+
+
+//(PSP_24BIT_RLE)
+
+PSP/24w124_rle.pspimage, PSP/24w124.tga
+PSP/24w125_rle.pspimage, PSP/24w125.tga
+PSP/24w126_rle.pspimage, PSP/24w126.tga
+
+
+
+
+///////////////////////////////////////////////
+//	TGA
+///////////////////////////////////////////////
+
+TGA/aim-dot.tga, TGA/aim-dot.png
+
+
+//(TGA_BW)
+
+//TGA/bw.tga, TGA/bw.png
+
+
+//(BPP_UNK)
+
+TGA/test1.tga, TGA/test1.png
+TGA/test2.tga, TGA/test2.png
+//TGA/test3.tga, TGA/test3.png
+TGA/test4.tga, TGA/test4.png
+TGA/test5.tga, TGA/test5.png
+
+
+//(RleAcrossScanlines)
+TGA/rgbnoise.tga, TGA/rgbnoise.png
+
+
+///////////////////////////////////////////////
+//	TIFF
+///////////////////////////////////////////////
+//TIFF/cramps.tif, TIFF/cramps.tga
+//TIFF/quad-lzw.tif, TIFF/quad-lzw.tga
+//TIFF/quad-tile.tif, TIFF/quad-tile.tga
+//TIFF/strike.tif, TIFF/strike.tga
+//TIFF/text.tif, TIFF/text.tga
+//TIFF/ycbcr-cat.tif, TIFF/ycbcr-cat.tga
+//TIFF/depth/flower-minisblack-02.tif, TIFF/depth/flower-minisblack-02.tga
+//TIFF/depth/flower-minisblack-04.tif, TIFF/depth/flower-minisblack-04.tga
+//TIFF/depth/flower-minisblack-06.tif, TIFF/depth/flower-minisblack-06.tga
+//TIFF/depth/flower-minisblack-08.tif, TIFF/depth/flower-minisblack-08.tga
+//TIFF/depth/flower-palette-02.tif, TIFF/depth/flower-palette-02.tga
+//TIFF/depth/flower-palette-04.tif, TIFF/depth/flower-palette-04.tga
+//TIFF/depth/flower-palette-08.tif, TIFF/depth/flower-palette-08.tga
+//TIFF/depth/flower-rgb-contig-08.tif, TIFF/depth/flower-rgb-contig-08.tga
+////////////////////////////////
+
+//TIFF/cramps-tile.tif, TIFF/cramps.tga
+//TIFF/dscf0013.tif, TIFF/dscf0013.tga
+//TIFF/fax2d.tif, TIFF/fax2d.tga
+//TIFF/g3test.tif, TIFF/g3test.tga
+//TIFF/jello.tif, TIFF/jello.tga
+//TIFF/ladoga.tif, TIFF/ladoga.tga
+////	TIFF/off_l16.tif, TIFF/off_l16.tga
+//TIFF/pc260001.tif, TIFF/pc260001.tga
+//TIFF/quad-jpeg.tif, TIFF/quad-jpeg.tga
+
+///////////////////////////////////////////////
+//	WBMP
+///////////////////////////////////////////////
+// TODO: Get hold of some nifty test data
+
+
+///////////////////////////////////////////////
+//	XYZ
+///////////////////////////////////////////////
+
+// TODO: Get hold of some nifty test data

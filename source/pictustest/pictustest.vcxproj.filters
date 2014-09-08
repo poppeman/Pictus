@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pictus">
+      <UniqueIdentifier>{fba2c93c-7488-4c06-8d2c-821508036985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pictus\Cacher">
+      <UniqueIdentifier>{4f2af926-2416-4fa9-b039-459a9aa29acc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pictus\Cacher\Background">
+      <UniqueIdentifier>{60306b79-4a69-46a1-8f7b-b4e4d1838341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pictus\Renderer">
+      <UniqueIdentifier>{b4d86c48-7ee6-4173-814b-4b896a0cc49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pictus\Viewer">
+      <UniqueIdentifier>{0e2a54c8-d559-409a-8af0-ff7c7980604e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pictus\Viewer\Viewport">
+      <UniqueIdentifier>{2066bc8d-c37f-4a1e-bae5-89a33a49082b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pictus\WinAPI">
+      <UniqueIdentifier>{304a9098-dc54-487c-ac5a-59af8b5c19d6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_geom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ic_queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_image_dimensions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_pan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_tilemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_wintypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_zoomstrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\image_dimensions.cpp">
+      <Filter>Pictus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\imagecache.cpp">
+      <Filter>Pictus\Cacher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\imagecache_fileentry.cpp">
+      <Filter>Pictus\Cacher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_backgroundprocessor.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_imageloader.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_queue.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_workerthread.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_worklist.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_workpackage.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\w32_ddsurface.cpp">
+      <Filter>Pictus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\w32_renderer.cpp">
+      <Filter>Pictus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\w32_rs_tilemanager.cpp">
+      <Filter>Pictus\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\view_pan.cpp">
+      <Filter>Pictus\Viewer\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\zoomstrategy.cpp">
+      <Filter>Pictus\Viewer\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\wintypes.cpp">
+      <Filter>Pictus\WinAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\image_dimensions.h">
+      <Filter>Pictus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache.h">
+      <Filter>Pictus\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache_event.h">
+      <Filter>Pictus\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache_fileentry.h">
+      <Filter>Pictus\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache_shared.h">
+      <Filter>Pictus\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_backgroundprocessor.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_imageloader.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_queue.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_workerthread.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_worklist.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_workpackage.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\w32_ddsurface.h">
+      <Filter>Pictus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\w32_renderer.h">
+      <Filter>Pictus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\w32_rs_tilemanager.h">
+      <Filter>Pictus\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\view_pan.h">
+      <Filter>Pictus\Viewer\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\zoomstrategy.h">
+      <Filter>Pictus\Viewer\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\wintypes.h">
+      <Filter>Pictus\WinAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

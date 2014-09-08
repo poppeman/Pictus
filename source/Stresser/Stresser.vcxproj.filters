@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pictus">
+      <UniqueIdentifier>{f3c769e1-8fa8-424a-944e-28b5129822b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pictus\Cacher">
+      <UniqueIdentifier>{5cdca1d7-273d-4f45-bb3d-91f6883298f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pictus\Cacher\Background">
+      <UniqueIdentifier>{a4539d33-39a3-4e8b-9cc1-45107af0381f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BasicThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CacheUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderManipulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadRunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\imagecache.cpp">
+      <Filter>Pictus\Cacher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\imagecache_fileentry.cpp">
+      <Filter>Pictus\Cacher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_backgroundprocessor.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_imageloader.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_queue.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_workerthread.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_worklist.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\ic_workpackage.cpp">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BasicThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CacheUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderManipulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache.h">
+      <Filter>Pictus\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache_event.h">
+      <Filter>Pictus\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache_fileentry.h">
+      <Filter>Pictus\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache_shared.h">
+      <Filter>Pictus\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_backgroundprocessor.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_imageloader.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_queue.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_workerthread.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_worklist.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\ic_workpackage.h">
+      <Filter>Pictus\Cacher\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

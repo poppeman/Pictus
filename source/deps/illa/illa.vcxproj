@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F4FB9D4B-8041-4C4E-8EA3-7EA57B7CB1BA}</ProjectGuid>
+    <RootNamespace>illa</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <SccProjectName>Svn</SccProjectName>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\orz\Shared.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\orz\Shared.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\orz\Shared.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\orz\Shared.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="c_factory.cpp" />
+    <ClCompile Include="codec.cpp" />
+    <ClCompile Include="codec_static.cpp" />
+    <ClCompile Include="codecmgr.cpp" />
+    <ClCompile Include="bmp_fileheader.cpp" />
+    <ClCompile Include="bmp_header.cpp" />
+    <ClCompile Include="c_bmp.cpp" />
+    <ClCompile Include="f_bmp.cpp" />
+    <ClCompile Include="c_gif.cpp" />
+    <ClCompile Include="f_gif.cpp" />
+    <ClCompile Include="gif_stringtable.cpp" />
+    <ClCompile Include="gif_imagedescriptor.cpp" />
+    <ClCompile Include="gif_io.cpp" />
+    <ClCompile Include="imagecomposer_gif.cpp" />
+    <ClCompile Include="c_jpeg.cpp" />
+    <ClCompile Include="f_jpeg.cpp" />
+    <ClCompile Include="c_pcx.cpp" />
+    <ClCompile Include="f_pcx.cpp" />
+    <ClCompile Include="pcx_header.cpp" />
+    <ClCompile Include="c_png.cpp" />
+    <ClCompile Include="f_png.cpp" />
+    <ClCompile Include="c_psp.cpp" />
+    <ClCompile Include="f_psp.cpp" />
+    <ClCompile Include="psp_chunkskipper.cpp" />
+    <ClCompile Include="c_tga.cpp" />
+    <ClCompile Include="c_tga_decoder.cpp" />
+    <ClCompile Include="c_tga_header.cpp" />
+    <ClCompile Include="c_tga_raw.cpp" />
+    <ClCompile Include="c_tga_rle.cpp" />
+    <ClCompile Include="f_tga.cpp" />
+    <ClCompile Include="c_tiff.cpp" />
+    <ClCompile Include="f_tiff.cpp" />
+    <ClCompile Include="tiff_loader.cpp" />
+    <ClCompile Include="tiff_striploader.cpp" />
+    <ClCompile Include="tiff_tileloader.cpp" />
+    <ClCompile Include="tiff_cieconverter.cpp" />
+    <ClCompile Include="tiff_converter.cpp" />
+    <ClCompile Include="tiff_rawconverter.cpp" />
+    <ClCompile Include="tiff_ycbcrconverter.cpp" />
+    <ClCompile Include="c_psd.cpp" />
+    <ClCompile Include="f_psd.cpp" />
+    <ClCompile Include="psd_header.cpp" />
+    <ClCompile Include="psd_shared.cpp" />
+    <ClCompile Include="c_wbmp.cpp" />
+    <ClCompile Include="f_wbmp.cpp" />
+    <ClCompile Include="c_xyz.cpp" />
+    <ClCompile Include="f_xyz.cpp" />
+    <ClCompile Include="filter.cpp" />
+    <ClCompile Include="filter_bilinear.cpp" />
+    <ClCompile Include="filter_brightness_contrast.cpp" />
+    <ClCompile Include="filter_colorkey.cpp" />
+    <ClCompile Include="filter_directcopy.cpp" />
+    <ClCompile Include="filter_gamma.cpp" />
+    <ClCompile Include="filter_int.cpp" />
+    <ClCompile Include="filter_lanczos3.cpp" />
+    <ClCompile Include="filter_nearest.cpp" />
+    <ClCompile Include="filter_premultiply.cpp" />
+    <ClCompile Include="filter_rotatefixed.cpp" />
+    <ClCompile Include="filter_setalpha.cpp" />
+    <ClCompile Include="filter_solidcolor.cpp" />
+    <ClCompile Include="filterjob.cpp" />
+    <ClCompile Include="render.cpp" />
+    <ClCompile Include="surface.cpp" />
+    <ClCompile Include="surface_lockedarea.cpp" />
+    <ClCompile Include="surfacemgr.cpp" />
+    <ClCompile Include="surface_lock.cpp" />
+    <ClCompile Include="surface_lock_exclusive.cpp" />
+    <ClCompile Include="surface_lock_swmr.cpp" />
+    <ClCompile Include="swsurface.cpp" />
+    <ClCompile Include="color_io.cpp" />
+    <ClCompile Include="types.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="imagecomposer.cpp" />
+    <ClCompile Include="imagecomposer_static.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="c_factory.h" />
+    <ClInclude Include="codec.h" />
+    <ClInclude Include="codec_static.h" />
+    <ClInclude Include="codecmgr.h" />
+    <ClInclude Include="bmp_fileheader.h" />
+    <ClInclude Include="bmp_header.h" />
+    <ClInclude Include="c_bmp.h" />
+    <ClInclude Include="f_bmp.h" />
+    <ClInclude Include="c_gif.h" />
+    <ClInclude Include="f_gif.h" />
+    <ClInclude Include="gif_stringtable.h" />
+    <ClInclude Include="gif_imagedescriptor.h" />
+    <ClInclude Include="gif_io.h" />
+    <ClInclude Include="imagecomposer_gif.h" />
+    <ClInclude Include="c_jpeg.h" />
+    <ClInclude Include="f_jpeg.h" />
+    <ClInclude Include="c_pcx.h" />
+    <ClInclude Include="f_pcx.h" />
+    <ClInclude Include="pcx_header.h" />
+    <ClInclude Include="c_png.h" />
+    <ClInclude Include="f_png.h" />
+    <ClInclude Include="c_psp.h" />
+    <ClInclude Include="f_psp.h" />
+    <ClInclude Include="psp_chunkskipper.h" />
+    <ClInclude Include="psp_defines.h" />
+    <ClInclude Include="c_tga.h" />
+    <ClInclude Include="c_tga_decoder.h" />
+    <ClInclude Include="c_tga_header.h" />
+    <ClInclude Include="c_tga_raw.h" />
+    <ClInclude Include="c_tga_rle.h" />
+    <ClInclude Include="f_tga.h" />
+    <ClInclude Include="c_tiff.h" />
+    <ClInclude Include="f_tiff.h" />
+    <ClInclude Include="tiff_loader.h" />
+    <ClInclude Include="tiff_striploader.h" />
+    <ClInclude Include="tiff_tileloader.h" />
+    <ClInclude Include="tiff_cieconverter.h" />
+    <ClInclude Include="tiff_converter.h" />
+    <ClInclude Include="tiff_rawconverter.h" />
+    <ClInclude Include="tiff_ycbcrconverter.h" />
+    <ClInclude Include="c_psd.h" />
+    <ClInclude Include="f_psd.h" />
+    <ClInclude Include="psd_header.h" />
+    <ClInclude Include="psd_shared.h" />
+    <ClInclude Include="c_wbmp.h" />
+    <ClInclude Include="f_wbmp.h" />
+    <ClInclude Include="c_xyz.h" />
+    <ClInclude Include="f_xyz.h" />
+    <ClInclude Include="filter.h" />
+    <ClInclude Include="filter_bilinear.h" />
+    <ClInclude Include="filter_generic.h" />
+    <ClInclude Include="filter_int.h" />
+    <ClInclude Include="filterjob.h" />
+    <ClInclude Include="lut_gamma.h" />
+    <ClInclude Include="render.h" />
+    <ClInclude Include="surface.h" />
+    <ClInclude Include="surfacefactory.h" />
+    <ClInclude Include="surfacemgr.h" />
+    <ClInclude Include="surface_lock.h" />
+    <ClInclude Include="surface_lock_exclusive.h" />
+    <ClInclude Include="surface_lock_swmr.h" />
+    <ClInclude Include="swsurface.h" />
+    <ClInclude Include="color_conv.h" />
+    <ClInclude Include="color_io.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="geom.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="image.h" />
+    <ClInclude Include="imagecomposer.h" />
+    <ClInclude Include="imagecomposer_static.h" />
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libjpeg\libjpeg.vcxproj">
+      <Project>{662a8e06-04fa-4fca-952e-3a8bfd34b377}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libpng\libpng.vcxproj">
+      <Project>{f201d5d7-f12f-4487-9a1d-6f23c240ea53}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libtiff\libtiff.vcxproj">
+      <Project>{08bad763-8922-4054-994e-192ab6834dbe}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\orz\orz.vcxproj">
+      <Project>{8aa1cd74-0fc8-4f7a-8299-81b6e5856181}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

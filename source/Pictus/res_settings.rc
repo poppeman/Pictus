@@ -1,0 +1,288 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "res_settings.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+#include "res_viewer.h"
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "res_settings.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "#include ""res_viewer.h""\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Swedish (Sweden) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_SVE)
+LANGUAGE LANG_SWEDISH, SUBLANG_SWEDISH
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SETTINGS DIALOGEX 0, 0, 374, 274
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,192,252,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,252,50,14
+    PUSHBUTTON      "Apply",IDC_APPLY,312,252,50,14
+    CONTROL         "",IDC_TREE_NAV,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,6,6,110,246
+END
+
+IDD_SET_MEMORY DIALOGEX 0, 0, 256, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Automatically set memory limit",IDC_AUTOMEM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,12,156,10
+    EDITTEXT        IDC_MEMLIMIT,24,25,34,12,ES_AUTOHSCROLL
+    GROUPBOX        "Memory",IDC_GROUP_MEMORY,6,0,240,42
+    LTEXT           "MB",IDC_MEM_MB,66,25,103,8
+END
+
+IDD_SET_VIEWER DIALOGEX 0, 0, 256, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO_MAG,18,24,96,42,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_MIN,138,24,96,42,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Reset zoom between images",IDC_RESETZOOM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,48,223,10
+    COMBOBOX        IDC_COMBO_VIEWER_DEFAULTZOOM,18,72,96,36,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_VIEWER_RESIZEBEHAVIOUR,138,72,96,36,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Reset pan between images",IDC_RESETPAN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,121,228,10
+    CONTROL         "Resize window to fit image",IDC_SIZETOIMAGE,"Button",BS_AUTOCHECKBOX | BS_NOTIFY | WS_TABSTOP,12,133,228,10
+    CONTROL         "Center window on screen",IDC_SIZETO_SCREEN,"Button",BS_AUTORADIOBUTTON | WS_GROUP,24,145,216,10
+    CONTROL         "Center window on current position",IDC_SIZETO_CURRENT,
+                    "Button",BS_AUTORADIOBUTTON,24,157,216,10
+    CONTROL         "Do not reposition",IDC_SIZETO_NOTHING,"Button",BS_AUTORADIOBUTTON,24,169,216,10
+    GROUPBOX        "Zooming",IDC_GROUP_ZOOMING,6,0,240,96
+    GROUPBOX        "Magnification",IDC_GROUP_MAG,12,12,108,30
+    GROUPBOX        "Minification",IDC_GROUP_MIN,132,12,108,30
+    GROUPBOX        "Viewer",IDC_GROUP_VIEWER,6,96,240,90
+    GROUPBOX        "Default zoom mode",IDC_GROUP_VIEWER_DEFAULTZOOM,12,60,108,30
+    GROUPBOX        "Resize behaviour",IDC_GROUP_VIEWER_RESIZEBEHAVIOUR,132,60,108,30
+    CONTROL         "Check1",IDC_CHECK_VIEWER_WRAPAROUND,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,108,228,10
+END
+
+IDD_SET_ADVANCED DIALOGEX 0, 0, 256, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Allow multiple instances",IDC_MULT_INSTANCE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,0,91,10
+END
+
+IDD_SET_COLOR DIALOGEX 0, 0, 256, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_R,120,132,23,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_G,120,150,23,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_B,120,168,23,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_HUE,204,132,23,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_LUM,204,150,23,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_SAT,204,168,23,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SLIDER_LUM,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,234,12,13,93
+    CONTROL         "",IDC_COLOR_PICK,"PICTUS_COLOR_PICKER",0x0,6,0,158,104
+    GROUPBOX        "HLS",IDC_GROUP_COLOR_HLS,174,120,72,72
+    CONTROL         "",IDC_SPIN_LUM,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,228,150,11,14
+    LTEXT           "Lum:",IDC_TEXT_COLOR_LUM,180,150,16,8
+    CONTROL         "",IDC_SPIN_HUE,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,228,132,11,14
+    LTEXT           "Hue:",IDC_TEXT_COLOR_HUE,180,132,16,8
+    CONTROL         "",IDC_SPIN_SAT,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,228,168,11,14
+    LTEXT           "Sat:",IDC_TEXT_COLOR_SAT,180,168,14,8
+    LTEXT           "Sat",IDC_TEXT_COLOR_SAT_SLIDER,234,0,12,8
+    CONTROL         "Custom1",IDC_COLOR_PREVIEW,"PICTUS_COLOR_PREVIEW",0x0,12,132,60,48
+    GROUPBOX        "Preview",IDC_GROUP_COLOR_PREVIEW,6,120,72,72
+    GROUPBOX        "RGB",IDC_GROUP_COLOR_RGB,90,120,72,72
+    CONTROL         "",IDC_SPIN_G,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,144,150,11,14
+    CONTROL         "",IDC_SPIN_R,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,144,132,11,14
+    CONTROL         "",IDC_SPIN_B,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,144,168,11,14
+    LTEXT           "G:",IDC_TEXT_COLOR_G,102,150,8,8
+    LTEXT           "R:",IDC_TEXT_COLOR_R,102,132,8,8
+    LTEXT           "B:",IDC_TEXT_COLOR_B,102,168,8,8
+END
+
+IDD_SET_ABOUT DIALOGEX 0, 0, 256, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "This software is based in part on the work of\n the Independent JPEG Group.",IDC_TEXT_ABOUT_LIBJPEG,6,132,240,17
+    LTEXT           "This software is freeware. If you were charged for this, you have been scammed.",IDC_TEXT_ABOUT_FREEWARE,6,114,240,17
+    LTEXT           "PNG support is provided through libpng and zlib.",IDC_TEXT_ABOUT_LIBPNG,6,156,240,8
+    LTEXT           "Pictus",IDC_ABOUT_HEADER,7,0,242,81
+    LTEXT           "VERSION",IDC_TEXT_ABOUT_VERSION,6,84,240,8
+    LTEXT           "Copyright Pontus Mårdnäs.",IDC_STATIC,6,96,240,8
+END
+
+IDD_SET_CTRL_MOUSE DIALOGEX 0, 0, 256, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO_CTRL_LMOUSE,12,12,120,114,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_CTRL_MMOUSE,12,30,120,101,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_CTRL_RMOUSE,12,48,120,93,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_CTRL_LMOUSEDBL,12,84,120,89,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_CTRL_MMOUSEDBL,12,102,120,104,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_CTRL_RMOUSEDBL,12,120,120,109,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_CTRL_MWHEELUP,12,156,120,84,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_CTRL_MWHEELDOWN,12,174,120,68,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Click",IDC_GROUP_CLICK,6,0,240,66
+    LTEXT           "Left mouse button",IDC_TEXT_CTRL_LMOUSECLICK,144,12,90,8
+    LTEXT           "Right mouse button",IDC_TEXT_CTRL_RMOUSECLICK,144,48,96,8
+    LTEXT           "Middle mouse button",IDC_TEXT_CTRL_MMOUSECLICK,144,30,96,8
+    LTEXT           "Mouse wheel up",IDC_TEXT_CTRL_MWHEELUP,144,156,96,8
+    LTEXT           "Mouse wheel down",IDC_TEXT_CTRL_MWHEELDOWN,144,174,96,8
+    GROUPBOX        "Scroll wheel",IDC_GROUP_MWHEEL,6,144,240,48
+    GROUPBOX        "Double-click",IDC_GROUP_DOUBLECLICK,6,72,240,66
+    LTEXT           "Left mouse button",IDC_TEXT_CTRL_LMOUSEDOUBLECLICK,144,84,96,8
+    LTEXT           "Right mouse button",IDC_TEXT_CTRL_RMOUSEDOUBLECLICK,144,120,96,8
+    LTEXT           "Middle mouse button",IDC_TEXT_CTRL_MMOUSEDOUBLECLICK,144,102,96,8
+END
+
+IDD_SET_LANGUAGE DIALOGEX 0, 0, 256, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO_LANG,12,12,228,68,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Static",IDC_GROUP_LANG,6,0,240,30
+END
+
+IDD_SET_INTERFACE DIALOGEX 0, 0, 256, 242
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Check1",IDC_CHECK_INTERFACE_SHOWSTATUSBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,12,222,10
+    CONTROL         "Check1",IDC_CHECK_INTERFACE_ALWAYSONTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,42,242,10
+    GROUPBOX        "Static",IDC_GROUP_INTERFACE_STATUSBAR,6,0,240,30
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_SETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 367
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 267
+    END
+
+    IDD_SET_MEMORY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        BOTTOMMARGIN, 196
+    END
+
+    IDD_SET_VIEWER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+    END
+
+    IDD_SET_ADVANCED, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        BOTTOMMARGIN, 196
+    END
+
+    IDD_SET_COLOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        BOTTOMMARGIN, 196
+    END
+
+    IDD_SET_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        BOTTOMMARGIN, 196
+    END
+
+    IDD_SET_CTRL_MOUSE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        BOTTOMMARGIN, 196
+    END
+
+    IDD_SET_LANGUAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        BOTTOMMARGIN, 196
+    END
+
+    IDD_SET_INTERFACE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        BOTTOMMARGIN, 196
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Swedish (Sweden) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

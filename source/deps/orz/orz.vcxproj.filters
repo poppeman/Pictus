@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Util">
+      <UniqueIdentifier>{1079d8ba-6c9e-48d1-836b-0843f24c0404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="i18n">
+      <UniqueIdentifier>{304c98b4-367d-4ead-bd46-45fcc3275861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{979d4fcb-b0ed-46d7-821d-934047c16c14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Folder">
+      <UniqueIdentifier>{7b6f832d-0584-44b8-9030-c4059d446d9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Folder\Win32">
+      <UniqueIdentifier>{6c0c9a27-1c0e-45e8-9b1a-7fd6e86d32bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Folder\Strategy">
+      <UniqueIdentifier>{245721fa-2104-4d74-92c6-c6fd2bde8bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{1ad4dcf1-6fe8-43ad-943c-c03827fcaa08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sys">
+      <UniqueIdentifier>{975db8a3-aa77-4b85-80b3-21eac9680f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sys\Info">
+      <UniqueIdentifier>{ce11f1ee-43fb-4b82-b875-4638fa6c0b53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{6255cace-fdd8-4fca-8bb5-d06513756ff8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bitconvert.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="orz_math.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="stopwatch.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="streamconv.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="intl.h">
+      <Filter>i18n</Filter>
+    </ClInclude>
+    <ClInclude Include="file.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="file_cache.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="fileops.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="stream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="stream_file.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="stream_mem.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="stream_windows.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="folder.h">
+      <Filter>IO\Folder</Filter>
+    </ClInclude>
+    <ClInclude Include="folder_iterator.h">
+      <Filter>IO\Folder</Filter>
+    </ClInclude>
+    <ClInclude Include="folder_monitor.h">
+      <Filter>IO\Folder</Filter>
+    </ClInclude>
+    <ClInclude Include="folder_types.h">
+      <Filter>IO\Folder</Filter>
+    </ClInclude>
+    <ClInclude Include="w32_folder.h">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="w32_folder_iterator.h">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="w32_folder_monitor_rdcw.h">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="folder_imp.h">
+      <Filter>IO\Folder\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="folder_monitor_imp.h">
+      <Filter>IO\Folder\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="exception.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="sysinfo.h">
+      <Filter>Sys\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="threadpool.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="bitconvert.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="orz_math.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="stopwatch.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="streamconv.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="intl.cpp">
+      <Filter>i18n</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="file_cache.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="fileops.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="logger.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="stream.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="stream_file.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="stream_mem.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="stream_windows.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="folder.cpp">
+      <Filter>IO\Folder</Filter>
+    </ClCompile>
+    <ClCompile Include="folder_iterator.cpp">
+      <Filter>IO\Folder</Filter>
+    </ClCompile>
+    <ClCompile Include="folder_monitor.cpp">
+      <Filter>IO\Folder</Filter>
+    </ClCompile>
+    <ClCompile Include="folder_types.cpp">
+      <Filter>IO\Folder</Filter>
+    </ClCompile>
+    <ClCompile Include="w32_folder.cpp">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="w32_folder_iterator.cpp">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="w32_folder_monitor_rdcw.cpp">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="folder_imp.cpp">
+      <Filter>IO\Folder\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="folder_monitor_imp.cpp">
+      <Filter>IO\Folder\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="types.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="sysinfo_win.cpp">
+      <Filter>Sys\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="threadpool.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shared.props" />
+  </ItemGroup>
+</Project>

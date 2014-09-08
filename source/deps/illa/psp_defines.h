@@ -1,0 +1,109 @@
+#ifndef PSP_DEFINES_H
+#define PSP_DEFINES_H
+
+namespace Img {
+	enum PSPVersion {
+		PSPVersion5 = 3,
+		PSPVersion6 = 4,
+		PSPVersion7 = 5,
+		PSPVersion8 = 6,
+	};
+
+	enum PSPBlockID {
+		PSP_IMAGE_BLOCK=0,
+		PSP_CREATOR_BLOCK,
+		PSP_COLOR_BLOCK,
+		PSP_LAYER_START_BLOCK,
+		PSP_LAYER_BLOCK,
+		PSP_CHANNEL_BLOCK,
+		PSP_SELECTION_BLOCK,
+		PSP_ALPHA_BANK_BLOCK,
+		PSP_ALPHA_CHANNEL_BLOCK,
+		PSP_COMPOSITE_IMAGE_BLOCK,
+		PSP_EXTENDED_DATA_BLOCK,
+		PSP_TUBE_BLOCK,
+		PSP_ADJUSTMENT_EXTENSION_BLOCK,
+		PSP_VECTOR_EXTENSION_BLOCK,
+		PSP_SHAPE_BLOCK,
+		PSP_PAINTSTYLE_BLOCK,
+		PSP_COMPOSITE_IMAGE_BANK_BLOCK,
+		PSP_COMPOSITE_ATTRIBUTES_BLOCK,
+		PSP_JPEG_BLOCK,
+		PSP_LINESTYLE_BLOCK,
+		PSP_TABLE_BANK_BLOCK,
+		PSP_TABLE_BLOCK,
+		PSP_PAPER_BLOCK,
+		PSP_PATTERN_BLOCK,
+		PSP_GRADIENT_BLOCK,
+		PSP_GROUP_EXTENSION_BLOCK,
+		PSP_MASK_EXTENSION_BLOCK,
+		PSP_BRUSH_BLOCK,
+	};
+
+	enum PSPLayerType {
+		LTUndefined=0,
+		LTRaster,
+		LTFloatingRasterSelection,
+		LTVector,
+		LTAdjustment,
+		LTGroup,
+		LTMask
+	};
+
+	enum PSPBlendModes {
+		LAYER_BLEND_NORMAL,
+		LAYER_BLEND_DARKEN,
+		LAYER_BLEND_LIGHTEN,
+		LAYER_BLEND_LEGACY_HUE,
+		LAYER_BLEND_LEGACY_SATURATION,
+		LAYER_BLEND_LEGACY_COLOR,
+		LAYER_BLEND_LEGACY_LUMINOSITY,
+		LAYER_BLEND_MULTIPLY,
+		LAYER_BLEND_SCREEN,
+		LAYER_BLEND_DISSOLVE,
+		LAYER_BLEND_OVERLAY,
+		LAYER_BLEND_HARD_LIGHT,
+		LAYER_BLEND_SOFT_LIGHT,
+		LAYER_BLEND_DIFFERENCE,
+		LAYER_BLEND_DODGE,
+		LAYER_BLEND_BURN,
+		LAYER_BLEND_EXCLUSION,
+		LAYER_BLEND_TRUE_HUE,
+		LAYER_BLEND_TRUE_SATURATION,
+		LAYER_BLEND_TRUE_COLOR,
+		LAYER_BLEND_TRUE_LIGHTNESS,
+		LAYER_BLEND_ADJUST = 255,
+	};
+
+	enum PSPDIBType {
+		PSP_DIB_IMAGE = 0, // Layer color bitmap
+		PSP_DIB_TRANS_MASK, // Layer transparency mask bitmap
+		PSP_DIB_USER_MASK, // Layer user mask bitmap
+		PSP_DIB_SELECTION, // Selection mask bitmap
+		PSP_DIB_ALPHA_MASK, // Alpha channel mask bitmap
+		PSP_DIB_THUMBNAIL, // Thumbnail bitmap
+		PSP_DIB_THUMBNAIL_TRANS_MASK, // Thumbnail transparency mask
+		PSP_DIB_ADJUSTMENT_LAYER, // Adjustment layer bitmap
+		PSP_DIB_COMPOSITE, // Composite image bitmap
+		PSP_DIB_COMPOSITE_TRANS_MASK, // Composite image transparency
+		PSP_DIB_PAPER, // Paper bitmap
+		PSP_DIB_PATTERN, // Pattern bitmap
+		PSP_DIB_PATTERN_TRANS_MASK, // Pattern transparency mask
+	};
+
+	enum PSPChannelType {
+		PSP_CHANNEL_COMPOSITE = 0, // Channel of single channel bitmap
+		PSP_CHANNEL_RED, // Red channel of 24-bit bitmap
+		PSP_CHANNEL_GREEN, // Green channel of 24-bit bitmap
+		PSP_CHANNEL_BLUE, // Blue channel of 24-bit bitmap
+	};
+
+	enum PSPCompression {
+		PSP_COMP_NONE = 0, // No compression
+		PSP_COMP_RLE, // RLE compression
+		PSP_COMP_LZ77, // LZ77 compression
+		PSP_COMP_JPEG // JPEG compression (only used by thumbnail and composite image)
+	};
+}
+
+#endif

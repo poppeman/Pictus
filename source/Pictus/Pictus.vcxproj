@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7BA6B263-61EB-473C-A7D5-95892E9FB829}</ProjectGuid>
+    <RootNamespace>Pictus</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <SccProjectName>Svn</SccProjectName>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\deps\orz\Shared.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\deps\orz\Shared.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\deps\orz\Shared.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\deps\orz\Shared.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>comctl32.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>Pictus.exe.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <EnableDpiAwareness>true</EnableDpiAwareness>
+    </Manifest>
+    <PostBuildEvent>
+      <Command />
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>comctl32.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>Pictus.exe.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <EnableDpiAwareness>true</EnableDpiAwareness>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>comctl32.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>Pictus.exe.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <EnableDpiAwareness>true</EnableDpiAwareness>
+    </Manifest>
+    <PostBuildEvent>
+      <Message>Creating distribution ...</Message>
+      <Command>md ..\..\dist
+..\..\deps\zip -j -9 ..\..\dist\pictus32.zip ..\Release\Pictus.exe ..\..\docs\readme.txt license_en.txt license_sv.txt
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>../deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>comctl32.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>Pictus.exe.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <EnableDpiAwareness>true</EnableDpiAwareness>
+    </Manifest>
+    <PostBuildEvent>
+      <Message>Creating distribution...</Message>
+      <Command>md ..\..\dist
+..\..\deps\zip -j -9 ..\..\dist\pictus64.zip ..\x64\Release\Pictus.exe ..\..\docs\readme.txt license_en.txt license_sv.txt
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="license_en.txt" />
+    <Text Include="license_sv.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dlg_about.cpp" />
+    <ClCompile Include="dlg_advanced.cpp" />
+    <ClCompile Include="dlg_cache.cpp" />
+    <ClCompile Include="dlg_controls.cpp" />
+    <ClCompile Include="dlg_language.cpp" />
+    <ClCompile Include="gdiwrapper.cpp" />
+    <ClCompile Include="settings.cpp" />
+    <ClCompile Include="settings_page.cpp" />
+    <ClCompile Include="dlg_color.cpp" />
+    <ClCompile Include="dlg_interface.cpp" />
+    <ClCompile Include="dlg_view.cpp" />
+    <ClCompile Include="cnt_colorpick.cpp" />
+    <ClCompile Include="cnt_colorpreview.cpp" />
+    <ClCompile Include="actionmap.cpp" />
+    <ClCompile Include="adjust.cpp" />
+    <ClCompile Include="filterstring.cpp" />
+    <ClCompile Include="getevent.cpp" />
+    <ClCompile Include="rename.cpp" />
+    <ClCompile Include="timeconvert.cpp" />
+    <ClCompile Include="viewer.cpp" />
+    <ClCompile Include="viewer_contextmenu.cpp" />
+    <ClCompile Include="viewer_keyboard.cpp" />
+    <ClCompile Include="view_pan.cpp" />
+    <ClCompile Include="viewarea.cpp" />
+    <ClCompile Include="viewport.cpp" />
+    <ClCompile Include="zoomstrategy.cpp" />
+    <ClCompile Include="builder_viewport.cpp" />
+    <ClCompile Include="factory_renderer.cpp" />
+    <ClCompile Include="imagelist.cpp" />
+    <ClCompile Include="monitor.cpp" />
+    <ClCompile Include="notification.cpp" />
+    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="w32_main.cpp" />
+    <ClCompile Include="wallpaper.cpp" />
+    <ClCompile Include="win7taskbar.cpp" />
+    <ClCompile Include="wintypes.cpp" />
+    <ClCompile Include="basewin.cpp" />
+    <ClCompile Include="window.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="dialog.cpp" />
+    <ClCompile Include="control.cpp" />
+    <ClCompile Include="ctrl_button.cpp" />
+    <ClCompile Include="ctrl_combobox.cpp" />
+    <ClCompile Include="ctrl_editbox.cpp" />
+    <ClCompile Include="ctrl_listview.cpp" />
+    <ClCompile Include="ctrl_statusbar.cpp" />
+    <ClCompile Include="ctrl_statusbar_part.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="version.cpp" />
+    <ClCompile Include="registry.cpp" />
+    <ClCompile Include="w32_assure_folder.cpp" />
+    <ClCompile Include="w32_registry.cpp" />
+    <ClCompile Include="image_dimensions.cpp" />
+    <ClCompile Include="w32_rendertarget.cpp" />
+    <ClCompile Include="w32_ddsurface.cpp" />
+    <ClCompile Include="w32_renderer.cpp" />
+    <ClCompile Include="d3d_ddsurface.cpp" />
+    <ClCompile Include="rendertargetd3d.cpp" />
+    <ClCompile Include="w32_redrawstrategy.cpp" />
+    <ClCompile Include="w32_rs_tiled.cpp" />
+    <ClCompile Include="w32_rs_tilemanager.cpp" />
+    <ClCompile Include="imagecache.cpp" />
+    <ClCompile Include="imagecache_fileentry.cpp" />
+    <ClCompile Include="ic_backgroundprocessor.cpp" />
+    <ClCompile Include="ic_imageloader.cpp" />
+    <ClCompile Include="ic_queue.cpp" />
+    <ClCompile Include="ic_workerthread.cpp" />
+    <ClCompile Include="ic_worklist.cpp" />
+    <ClCompile Include="ic_workpackage.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dlg_about.h" />
+    <ClInclude Include="dlg_advanced.h" />
+    <ClInclude Include="dlg_cache.h" />
+    <ClInclude Include="dlg_controls.h" />
+    <ClInclude Include="dlg_language.h" />
+    <ClInclude Include="gdiwrapper.h" />
+    <ClInclude Include="settings.h" />
+    <ClInclude Include="settings_page.h" />
+    <ClInclude Include="dlg_color.h" />
+    <ClInclude Include="dlg_interface.h" />
+    <ClInclude Include="dlg_view.h" />
+    <ClInclude Include="cnt_colorpick.h" />
+    <ClInclude Include="cnt_colorpreview.h" />
+    <ClInclude Include="actionmap.h" />
+    <ClInclude Include="adjust.h" />
+    <ClInclude Include="filterstring.h" />
+    <ClInclude Include="getevent.h" />
+    <ClInclude Include="rename.h" />
+    <ClInclude Include="res_settings.h" />
+    <ClInclude Include="res_viewer.h" />
+    <ClInclude Include="timeconvert.h" />
+    <ClInclude Include="viewer.h" />
+    <ClInclude Include="viewer_contextmenu.h" />
+    <ClInclude Include="viewer_keyboard.h" />
+    <ClInclude Include="view_pan.h" />
+    <ClInclude Include="viewarea.h" />
+    <ClInclude Include="viewport.h" />
+    <ClInclude Include="zoomstrategy.h" />
+    <ClInclude Include="builder_viewport.h" />
+    <ClInclude Include="factory_renderer.h" />
+    <ClInclude Include="cursor.h" />
+    <ClInclude Include="imagelist.h" />
+    <ClInclude Include="monitor.h" />
+    <ClInclude Include="notification.h" />
+    <ClInclude Include="timer.h" />
+    <ClInclude Include="wallpaper.h" />
+    <ClInclude Include="win7taskbar.h" />
+    <ClInclude Include="wintypes.h" />
+    <ClInclude Include="basewin.h" />
+    <ClInclude Include="window.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="dialog.h" />
+    <ClInclude Include="control.h" />
+    <ClInclude Include="ctrl_button.h" />
+    <ClInclude Include="ctrl_combobox.h" />
+    <ClInclude Include="ctrl_editbox.h" />
+    <ClInclude Include="ctrl_listview.h" />
+    <ClInclude Include="ctrl_statusbar.h" />
+    <ClInclude Include="ctrl_statusbar_part.h" />
+    <ClInclude Include="app_types.h" />
+    <ClInclude Include="appreg.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="res_version.h" />
+    <ClInclude Include="version.h" />
+    <ClInclude Include="registry.h" />
+    <ClInclude Include="w32_assure_folder.h" />
+    <ClInclude Include="image_dimensions.h" />
+    <ClInclude Include="w32_rendertarget.h" />
+    <ClInclude Include="w32_ddsurface.h" />
+    <ClInclude Include="w32_renderer.h" />
+    <ClInclude Include="d3d_ddsurface.h" />
+    <ClInclude Include="rendertargetd3d.h" />
+    <ClInclude Include="w32_redrawstrategy.h" />
+    <ClInclude Include="w32_rs_tiled.h" />
+    <ClInclude Include="w32_rs_tilemanager.h" />
+    <ClInclude Include="imagecache.h" />
+    <ClInclude Include="imagecache_event.h" />
+    <ClInclude Include="imagecache_fileentry.h" />
+    <ClInclude Include="imagecache_shared.h" />
+    <ClInclude Include="ic_backgroundprocessor.h" />
+    <ClInclude Include="ic_imageloader.h" />
+    <ClInclude Include="ic_queue.h" />
+    <ClInclude Include="ic_workerthread.h" />
+    <ClInclude Include="ic_worklist.h" />
+    <ClInclude Include="ic_workpackage.h" />
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res_settings.rc" />
+    <ResourceCompile Include="res_viewer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="keys_dword.inc" />
+    <None Include="keys_string.inc" />
+    <None Include="lang_sids.inc" />
+    <None Include="lang_table.inc" />
+    <None Include="values_dword.inc" />
+    <None Include="values_string.inc" />
+    <None Include="version.rc2" />
+    <None Include="Res\cursor_app_pan2.cur" />
+    <None Include="PictInst.iss" />
+    <None Include="PictInst32.iss" />
+    <None Include="PictInst64.iss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="Pictus.exe.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Res\document.ico" />
+    <Image Include="Res\icon_app1.ico" />
+    <Image Include="Res\thumbtoolbar96.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\deps\D3DWrap\D3DWrap.vcxproj">
+      <Project>{1041595a-f33c-497d-80bd-d3723da0c9ad}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\deps\illa\illa.vcxproj">
+      <Project>{f4fb9d4b-8041-4c4e-8ea3-7ea57b7cb1ba}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\deps\orz\orz.vcxproj">
+      <Project>{8aa1cd74-0fc8-4f7a-8299-81b6e5856181}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

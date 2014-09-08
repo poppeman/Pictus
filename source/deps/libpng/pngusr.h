@@ -1,0 +1,4 @@
+
+#define PNG_NO_WRITE_SUPPORTED
+#define PNG_NO_MNG_FEATURES
+#define PNG_NO_STDIO
