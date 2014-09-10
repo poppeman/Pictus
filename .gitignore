@@ -13,6 +13,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.suo
 
 # Compiler gunk
 *.sdf
