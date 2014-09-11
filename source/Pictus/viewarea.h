@@ -11,7 +11,7 @@
 #include "zoomstrategy.h"
 
 namespace App {
-	class ViewArea:public Win::Window {
+	/*class ViewArea:public Win::Window {
 	public:
 		static const wchar_t* ClassName;
 
@@ -87,7 +87,7 @@ namespace App {
 		Img::Properties m_props;
 		float m_imageZoom;
 		Filter::FilterMode m_magFilter, m_minFilter;
-	};
+	};*/
 }
 
 #endif

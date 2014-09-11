@@ -13,7 +13,7 @@
 
 #include "viewport.h"
 
-namespace App {
+/*namespace App {
 	const wchar_t* App::ViewArea::ClassName = TX("Pictus ViewSurface");
 
 	using namespace Reg::Keys;
@@ -362,3 +362,4 @@ namespace App {
 		return m_props.BackgroundColor;
 	}
 }
+*/

@@ -3,10 +3,16 @@
 
 #include "illa/image.h"
 
-#include "viewarea.h"
 #include "window.h"
 #include "zoomstrategy.h"
 #include "timer.h"
+#include "view_pan.h"
+
+#include "w32_renderer.h"
+#include "w32_redrawstrategy.h"
+#include "w32_rendertarget.h"
+
+#include "monitor.h"
 
 namespace App {
 	class ViewPort:public Win::Window {
@@ -64,13 +70,16 @@ namespace App {
 		void Pan(const Geom::SizeInt& deltaPan);
 
 		Geom::SizeInt UnzoomedImageSize();
+		Geom::SizeInt GetImageUnzoomedSize() const;
 		Geom::SizeInt ZoomedImageSize();
 
 		ViewPort();
 
 	private:
 		bool HandleMouseMove(Win::MouseEvent e);
-
+		bool HandleMouseDown(Win::MouseEvent e);
+		bool HandleMouseUp(Win::MouseEvent e);
+		void ImageRefreshCallback();
 		bool PerformOnCreate();
 
 		bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
@@ -78,26 +87,40 @@ namespace App {
 		bool PerformOnSize(const Geom::SizeInt& sz);
 		bool PerformOnDropFiles(const StringVector& files);
 
+		void ZoomSet(const ZoomStrategy::Result& r);
+
 		void CursorHideCallback();
 
 		void updateCursor();
 
 		void ZoomUpdated();
+		Filter::FilterMode ActiveFilterMode() const;
+
+		void setSurface();
 
 		Win::Timer m_hideTimer;
+		Win::Timer m_animationTimer;
+		Win::WinRenderTarget m_renderTarget;
+
+		Geom::PointInt m_oldMousePosition;
+		ViewPan m_pan;
+		bool m_isPanning;
+		const Win::Monitor* m_currentPanMonitor;
 
 		HWND m_hParent;
-
-		ViewArea m_viewArea;
 
 		HWND m_hOldParent;
 		CursorMode m_cursorMode;
 		RECT m_oldSize;
 		bool m_isCursorVisible;
-		Geom::PointInt m_prevMousePos;
+		Img::Image::Ptr m_image;
+
+		Img::Properties m_props;
 
 		ZoomStrategy m_zoom;
 		float m_displayZoom;
+		float m_imageZoom;
+		Filter::FilterMode m_magFilter, m_minFilter;
 	};
 }
 
