@@ -266,7 +266,7 @@ TGA/aim-dot.tga, TGA/aim-dot.png
 
 //(TGA_BW)
 
-//TGA/bw.tga, TGA/bw.png
+TGA/bw.tga, TGA/bw.png
 
 
 //(BPP_UNK)
@@ -314,8 +314,8 @@ TGA/rgbnoise.tga, TGA/rgbnoise.png
 ///////////////////////////////////////////////
 //	WBMP
 ///////////////////////////////////////////////
-// TODO: Get hold of some nifty test data
 
+WBMP/simple.wbmp, WBMP/simple.png
 
 ///////////////////////////////////////////////
 //	XYZ
