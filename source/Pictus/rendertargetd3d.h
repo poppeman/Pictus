@@ -18,11 +18,10 @@ namespace Win {
 
 	private:
 		Geom::SizeInt RenderAreaSize();
-		Geom::RectInt GetInvalidArea();
 
 		bool OnTargetWindowChanged();
 
-		RenderStatus OnBeginRender();
+		RenderStatus OnBeginRender(Img::Color backgroundColor) override;
 		void OnEndRender();
 
 		void CreateTextures();

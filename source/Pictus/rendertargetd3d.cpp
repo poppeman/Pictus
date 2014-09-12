@@ -32,7 +32,7 @@ namespace Win {
 		return true;
 	}
 
-	Renderer::RenderStatus RendererD3D::OnBeginRender() {
+	Renderer::RenderStatus RendererD3D::OnBeginRender(Img::Color backgroundColor) {
 		if (m_direct3d == 0) DO_THROW(Err::CriticalError, TX("Direct3D not yet initialized."));
 
 		if (m_direct3d->IsLost())
@@ -50,7 +50,7 @@ namespace Win {
 
 		m_direct3d->BeginDraw();
 		m_direct3d->SetSwapChain(m_swapChain);
-		m_direct3d->Clear(0xff, 23, 230, 90);
+		m_direct3d->Clear(0xff, backgroundColor.R, backgroundColor.G, backgroundColor.B);
 
 		return RS_OK;
 	}
@@ -122,9 +122,5 @@ namespace Win {
 
 	RendererD3D::~RendererD3D() {
 		m_softTex.reset();
-	}
-
-	Geom::RectInt RendererD3D::GetInvalidArea() {
-		return RectInt(PointInt(0, 0), RenderAreaSize());
 	}
 }

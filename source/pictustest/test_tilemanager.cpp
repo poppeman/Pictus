@@ -50,6 +50,9 @@ SUITE(TileManager) {
 			pcalls.push_back(p);
 		}
 
+		RenderStatus OnBeginRender(Img::Color) override { return Renderer::RS_OK; }
+		void OnEndRender() {}
+
 		StubRenderer():m_pan(false) {}
 	private:
 		bool m_pan;
@@ -100,7 +103,7 @@ SUITE(TileManager) {
 		m->SetViewportSize(SizeInt(400, 400));
 		TileManager::RequestedArea ar = m->RequestDDSurface(RectInt(PointInt(0, 0), SizeInt(256, 256)));
 		ar = m->RequestDDSurface(RectInt(PointInt(256, 256), SizeInt(512, 512)));
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(1, r->pcalls.size());
 		if(r->pcalls.size() < 1) return;
 		CHECK_EQUAL(RectInt(PointInt(0, 0), SizeInt(400, 400)), r->pcalls[0].destRect);
@@ -174,7 +177,7 @@ SUITE(TileManager) {
 	TEST_FIXTURE(SimpleFixture, TestSimpleRender) {
 		m->SetViewportSize(SizeInt(400, 400));
 		m->AddOffset(SizeInt(10, 20));
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(4, r->pcalls.size());
 
 		if(r->pcalls.size() != 4) return;
@@ -186,20 +189,20 @@ SUITE(TileManager) {
 	}
 
 	TEST_FIXTURE(SimplePanFixture, TestNOOPRender) {
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(0, r->pcalls.size());
 	}
 
 
 	TEST_FIXTURE(SimplePanFixture, TestPanNOOPRender) {
 		m->AddOffset(SizeInt(10, 10));
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(0, r->pcalls.size());
 	}
 
 	TEST_FIXTURE(SimplePanFixture, TestDefaultRender) {
 		DDSurface::Ptr s = m->RequestDDSurface(RectInt(PointInt(10, 20), SizeInt(30, 40))).Surface;
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(1, r->pcalls.size());
 		if(r->pcalls.size() < 1) return;
 		CHECK_EQUAL(s, r->pcalls[0].source);
@@ -210,7 +213,7 @@ SUITE(TileManager) {
 	TEST_FIXTURE(SimplePanFixture, TestHorizontalPanRenderNegative) {
 		m->AddOffset(SizeInt(-10, 0));
 		DDSurface::Ptr s = m->RequestDDSurface(RectInt(PointInt(390, 0), SizeInt(10, 400))).Surface;
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(1, r->pcalls.size());
 
 		if(r->pcalls.size() != 1) return;
@@ -222,7 +225,7 @@ SUITE(TileManager) {
 	TEST_FIXTURE(SimplePanFixture, TestHorizontalPanRenderPositive) {
 		m->AddOffset(SizeInt(10, 0));
 		DDSurface::Ptr s = m->RequestDDSurface(RectInt(PointInt(0, 0), SizeInt(10, 400))).Surface;
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(1, r->pcalls.size());
 
 		if(r->pcalls.size() != 1) return;
@@ -234,7 +237,7 @@ SUITE(TileManager) {
 	TEST_FIXTURE(SimplePanFixture, TestVerticalPanRenderNegative) {
 		m->AddOffset(SizeInt(0, -10));
 		DDSurface::Ptr s = m->RequestDDSurface(RectInt(PointInt(0, 390), SizeInt(400, 10))).Surface;
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(1, r->pcalls.size());
 
 		if(r->pcalls.size() != 1) return;
@@ -246,7 +249,7 @@ SUITE(TileManager) {
 	TEST_FIXTURE(SimplePanFixture, TestVerticalPanRenderPositive) {
 		m->AddOffset(SizeInt(0, 10));
 		DDSurface::Ptr s = m->RequestDDSurface(RectInt(PointInt(0, 0), SizeInt(400, 10))).Surface;
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(1, r->pcalls.size());
 
 		if(r->pcalls.size() != 1) return;
@@ -268,7 +271,7 @@ SUITE(TileManager) {
 		surfs[2].s = m->RequestDDSurface(RectInt(PointInt(10, 0), SizeInt(400, 10))).Surface;
 		for(int i=0;i<3;i++) surfs[i].verified = false;
 
-		m->Render();
+		m->Render({ 0, 0 });
 		CHECK_EQUAL(3, r->pcalls.size());
 		if(r->pcalls.size() != 3) return;
 		for(int i=0;i<3;i++) {

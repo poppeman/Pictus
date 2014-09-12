@@ -20,9 +20,9 @@ namespace Win {
 		};
 		RequestedArea RequestDDSurface(const Geom::RectInt& areaToRequest) const;
 
-		void Render();
+		void Render(Geom::SizeInt offset);
 
-		void RenderTiles(bool renderAll);
+		void RenderTiles(Geom::SizeInt offset, bool renderAll);
 		TileManager(Renderer::Ptr device);
 
 		typedef std::shared_ptr<TileManager> Ptr;

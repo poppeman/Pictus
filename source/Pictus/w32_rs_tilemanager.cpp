@@ -11,15 +11,15 @@ namespace Win {
 		SizeInt ourOffset = m_topLeftOffset;
 		if (ourOffset.Width < 0) ourOffset.Width -= MaximumTileEdgeLength - 1;
 		if (ourOffset.Height < 0) ourOffset.Height -= MaximumTileEdgeLength - 1;
-		PointInt newTlIndex = PointInt(0, 0) + ourOffset / MaximumTileEdgeLength;
+		auto newTlIndex = PointInt(0, 0) + ourOffset / MaximumTileEdgeLength;
 
 		for(int y = 0; y < newTlIndex.Y; ++y) {
-			TileRowPtr r = m_tiles.front();
+			auto r = m_tiles.front();
 			m_tiles.pop_front();
 			m_tiles.push_back(r);
 		}
 		for(int y = 0; y < -newTlIndex.Y; ++y) {
-			TileRowPtr r = m_tiles.back();
+			auto r = m_tiles.back();
 			m_tiles.pop_back();
 			m_tiles.push_front(r);
 		}
@@ -48,7 +48,7 @@ namespace Win {
 	}
 
 	void TileManager::SetViewportSize( const SizeInt& dims ) {
-		COND_STRICT(dims.Width > 0 && dims.Height > 0, Err::InvalidParam, TX("Invalid dimensions: ") + ToWString(dims.Width) + TX(", ") + ToWString(dims.Height));
+		COND_STRICT(dims.Width >= 0 && dims.Height >= 0, Err::InvalidParam, TX("Invalid dimensions: ") + ToWString(dims.Width) + TX(", ") + ToWString(dims.Height));
 		const SizeInt texDims = SizeInt(MaximumTileEdgeLength, MaximumTileEdgeLength);
 		const SizeInt numTiles = SizeInt(2, 2) + dims / MaximumTileEdgeLength;
 
@@ -56,8 +56,9 @@ namespace Win {
 		m_tiles.resize(numTiles.Height);
 
 		for(auto& r: m_tiles) {
-			if (r == 0)
+			if (r == 0) {
 				r.reset(new TileRow);
+			}
 			r->resize(numTiles.Width);
 
 			for(auto& t: *r) {
@@ -71,17 +72,25 @@ namespace Win {
 	}
 
 	TileManager::TileManager(Renderer::Ptr device):m_device(device) {
-		COND_STRICT(device, Err::InvalidParam, TX("Device may not be null."));
+		if (device == nullptr) {
+			DO_THROW(Err::InvalidParam, TX("Device may not be null."));
+		}
 	}
 
-	void TileManager::Render() {
-		COND_STRICT(m_topLeftOffset.Width >= 0, Err::CriticalError, TX("Offset (X) should always be positive"));
-		COND_STRICT(m_topLeftOffset.Height >= 0, Err::CriticalError, TX("Offset (Y) should always be positive"));
+	void TileManager::Render(Geom::SizeInt offset) {
+		if (m_topLeftOffset.Width < 0) {
+			DO_THROW(Err::CriticalError, TX("Offset (X) should always be positive"));
+		}
+		if (m_topLeftOffset.Height < 0) {
+			DO_THROW(Err::CriticalError, TX("Offset (Y) should always be positive"));
+		}
 
-		if((m_panDelta.Width != 0 || m_panDelta.Height != 0))
-			RenderTiles(!m_device->PanCurrentView(m_panDelta));
-		else 
-			RenderTiles(false);
+		if ((m_panDelta.Width != 0 || m_panDelta.Height != 0)) {
+			RenderTiles(offset, !m_device->PanCurrentView(m_panDelta));
+		}
+		else {
+			RenderTiles(offset, false);
+		}
 
 		m_panDelta = SizeInt(0, 0);
 	}
@@ -143,22 +152,24 @@ namespace Win {
 		return ra;
 	}
 
-	void TileManager::RenderTiles(bool renderAll) {
+	void TileManager::RenderTiles(Geom::SizeInt offset, bool renderAll) {
 		if(m_tiles.empty()) return;
 
-		size_t xtiles = m_tiles[0]->size();
-		size_t ytiles = m_tiles.size();
-		RectInt view(PointInt(0, 0), m_viewSize);
+		auto xtiles = m_tiles[0]->size();
+		auto ytiles = m_tiles.size();
+		RectInt view{ { 0, 0 }, m_viewSize };
 
-		SizeFloat ppAdj = SizeFloat(-0.5f, -0.5f);
+		auto ppAdj = SizeFloat{ -0.5f, -0.5f };
 		for (size_t y = 0; y < ytiles; ++y) {
 			for (size_t x = 0; x < xtiles; ++x) {
-				RectInt currUncropped = RectInt(PointInt(x, y) * MaximumTileEdgeLength, SizeInt(1, 1) * MaximumTileEdgeLength);
+				auto currUncropped = RectInt{ PointInt( x, y ) * MaximumTileEdgeLength, SizeInt(1, 1) * MaximumTileEdgeLength };
 				SizeInt tlDelta;
 				SizeInt srcDelta;
 				if(!renderAll) {
 					RectInt dirtyRect = (*m_tiles[y])[x].dirtyRect;
-					if(!IsPositive(dirtyRect.Dimensions())) continue;
+					if (!IsPositive(dirtyRect.Dimensions())) {
+						continue;
+					}
 					tlDelta = dirtyRect.TopLeft() - PointInt(0, 0);
 					srcDelta = tlDelta;
 					currUncropped.Dimensions(Minimum(currUncropped.Dimensions(), dirtyRect.Dimensions()));
@@ -167,15 +178,22 @@ namespace Win {
 				(*m_tiles[y])[x].dirtyRect.Dimensions(SizeInt(0, 0));
 				currUncropped.TopLeft(currUncropped.TopLeft() - m_topLeftOffset + tlDelta);
 
-				RectInt currCropped = view.Crop(currUncropped);
+				auto currCropped = view.Crop(currUncropped);
 
-				if(renderAll)
+				if (renderAll) {
 					srcDelta = currCropped.TopLeft() - currUncropped.TopLeft();
+				}
 
-				if(!IsPositive(currCropped.Dimensions())) continue;
-				if(!view.Contains(currCropped.TopLeft())) continue;
+				if (!IsPositive(currCropped.Dimensions())) {
+					continue;
+				}
+				if (!view.Contains(currCropped.TopLeft())) {
+					continue;
+				}
 
-				m_device->PresentFromDDSurface(currCropped,
+				currCropped.TopLeft(currCropped.TopLeft() + offset);
+				m_device->PresentFromDDSurface(
+					currCropped,
 					(*m_tiles[y])[x].surface,
 					Maximum(PointInt(0, 0) + srcDelta, PointInt(0, 0)));
 			}

@@ -11,7 +11,6 @@ namespace Win {
 		DDSurface::Ptr CreateDDSurface();
 
 		virtual Geom::SizeInt RenderAreaSize()=0;
-		virtual Geom::RectInt GetInvalidArea();
 
 		virtual bool PanCurrentView(const Geom::SizeInt& offset);
 
@@ -22,7 +21,7 @@ namespace Win {
 			RS_OK,
 		};
 
-		RenderStatus BeginRender();
+		RenderStatus BeginRender(Img::Color backgroundColor);
 
 		void RenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props);
 		void PresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft);
@@ -46,8 +45,8 @@ namespace Win {
 		virtual void OnPresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft)=0;
 
 		virtual bool OnTargetWindowChanged();
-		virtual RenderStatus OnBeginRender();
-		virtual void OnEndRender();
+		virtual RenderStatus OnBeginRender(Img::Color backgroundColor)=0;
+		virtual void OnEndRender()=0;
 	};
 }
 

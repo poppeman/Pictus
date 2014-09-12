@@ -8,13 +8,18 @@ namespace Win {
 		return OnTargetWindowChanged();
 	}
 
-	Renderer::RenderStatus Renderer::BeginRender() {
-		if (m_hwnd == 0) DO_THROW(Err::CriticalError, TX("Target window not set."));
-		return OnBeginRender();
+	Renderer::RenderStatus Renderer::BeginRender(Img::Color backgroundColor) {
+		if (m_hwnd == nullptr) {
+			DO_THROW(Err::CriticalError, TX("Target window not set."));
+		}
+
+		return OnBeginRender(backgroundColor);
 	}
 
 	void Renderer::EndRender() {
-		if (m_hwnd == 0) DO_THROW(Err::CriticalError, TX("Target window not set."));
+		if (m_hwnd == nullptr) {
+			DO_THROW(Err::CriticalError, TX("Target window not set."));
+		}
 		OnEndRender();
 	}
 
@@ -23,7 +28,7 @@ namespace Win {
 
 	HWND Renderer::TargetWindow() { return m_hwnd; }
 	bool Renderer::OnTargetWindowChanged() { return true; }
-	Renderer::RenderStatus Renderer::OnBeginRender() { return Renderer::RS_OK; }
+
 	void Renderer::OnEndRender() {}
 
 	void Renderer::RenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props) {
@@ -36,16 +41,13 @@ namespace Win {
 
 	DDSurface::Ptr Renderer::CreateDDSurface() {
 		DDSurface::Ptr s = OnCreateDDSurface();
-		COND_STRICT(s, Err::CriticalError, TX("Failed to create surface."));
+		if (s == nullptr) {
+			DO_THROW(Err::CriticalError, TX("Failed to create surface."));
+		}
 		return s;
 	}
 
 	bool Renderer::PanCurrentView(const Geom::SizeInt& ) {
 		return false;
-	}
-
-	Geom::RectInt Renderer::GetInvalidArea() {
-		using namespace Geom;
-		return RectInt(PointInt(0, 0), SizeInt(0, 0));
 	}
 }
