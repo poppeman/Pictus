@@ -1,7 +1,7 @@
 Reg::DWordNode c_DWordSettings[34]={
 	{TX("ResetZoom"), 0},
-	{TX("MagFilter"), Filter::FilterBilinear},
-	{TX("MinFilter"), Filter::FilterBilinear},
+	{TX("MagFilter"), static_cast<int>(Filter::Mode::Bilinear)},
+	{TX("MinFilter"), static_cast<int>(Filter::Mode::Bilinear)},
 	{TX("AutoMemoryLimit"), 1},
 	{TX("ManualMemoryLimit"), 32},
 	{TX("ResizeWindow"), 0},

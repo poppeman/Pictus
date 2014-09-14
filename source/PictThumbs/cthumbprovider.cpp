@@ -136,7 +136,7 @@ _Use_decl_annotations_ IFACEMETHODIMP CPictusThumbnailProvider::GetThumbnail(UIN
 		Img::FilterBufferAndLock src = GenerateFilterBuffer(s);
 
 		Img::Properties props;
-		props.ResampleFilter = Filter::FilterLanczos3;
+		props.ResampleFilter = Filter::Mode::Lanczos3;
 		props.Zoom = outDims.scale; 
 		props.RetainAlpha = true;
 

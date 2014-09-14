@@ -29,8 +29,9 @@ SUITE(Filters_Resample)
 		// Filter to empty targets. All of these should fail.
 		m_bufferDestination.filterBuffer.BufferData = 0;
 
-		for(int i = 0; i < FilterNum; i++)
-			CHECK_THROW(Scale::AutoFilter(FilterMode(i), m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.0), Err::InvalidParam);
+		for (auto i = 0; i < static_cast<int>(Mode::Num); i++) {
+			CHECK_THROW(Scale::AutoFilter(Filter::Mode(i), m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.0), Err::InvalidParam);
+		}
 	}
 
 	TEST_FIXTURE(ReferenceRotationFixture, Empty_Sources)
@@ -38,39 +39,40 @@ SUITE(Filters_Resample)
 		// Filter from empty sources. All of these should fail.
 		m_bufferSource.BufferData = 0;
 
-		for(int i = 0; i < FilterNum; i++)
-			CHECK_THROW(Scale::AutoFilter(FilterMode(i), m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.0), Err::InvalidParam);
+		for (int i = 0; i < static_cast<int>(Mode::Num); i++)
+			CHECK_THROW(Scale::AutoFilter(Filter::Mode(i), m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.0), Err::InvalidParam);
 	}
 
 	TEST_FIXTURE(ReferenceRotationFixture, Invalid_Filters)
 	{
 		// Use invalid filters
-		CHECK_THROW(Scale::AutoFilter(FilterUndefined, m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.3f), Err::InvalidParam);
-		CHECK_THROW(Scale::AutoFilter(FilterNum, m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.3f), Err::InvalidParam);
+		CHECK_THROW(Scale::AutoFilter(Mode::Undefined, m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.3f), Err::InvalidParam);
+		CHECK_THROW(Scale::AutoFilter(Mode::Num, m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.3f), Err::InvalidParam);
 
 		// Use invalid formats
-		for(int i = 0; i < FilterNum; i++)
+		for (int i = 0; i < static_cast<int>(Mode::Num); i++)
 		{
-			CHECK_THROW(Scale::AutoFilter(FilterMode(i), m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::Num, (i==FilterDirectCopy?1.0f:1.3f)), Err::InvalidParam);
-			CHECK_THROW(Scale::AutoFilter(FilterMode(i), m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format(static_cast<int>(Img::Format::Num) + 3), (i==FilterDirectCopy?1.0f:1.3f)), Err::InvalidParam);
+			auto m = Filter::Mode(i);
+			CHECK_THROW(Scale::AutoFilter(m, m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::Num, (m == Mode::DirectCopy ? 1.0f : 1.3f)), Err::InvalidParam);
+			CHECK_THROW(Scale::AutoFilter(m, m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format(static_cast<int>(Img::Format::Num) + 3), (m == Mode::DirectCopy ? 1.0f : 1.3f)), Err::InvalidParam);
 		}
 	}
 
 	TEST_FIXTURE(PaddedBuffersFixture, DirectCopy_NonMatchingStride)
 	{
-		Scale::AutoFilter(FilterDirectCopy, m_bufferSource.filterBuffer, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.0f);
+		Scale::AutoFilter(Mode::DirectCopy, m_bufferSource.filterBuffer, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 1.0f);
 		CHECK_EQUAL(CheckPaddingUntouched(m_bufferDestination, DestinationPadding), true);
 	}
 
 	TEST_FIXTURE(PaddedBuffersFixture, Nearest_NonMatchingStride)
 	{
-		Scale::AutoFilter(FilterNearestNeighbor, m_bufferSource.filterBuffer, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 2.0f);
+		Scale::AutoFilter(Mode::NearestNeighbor, m_bufferSource.filterBuffer, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 2.0f);
 		CHECK_EQUAL(CheckPaddingUntouched(m_bufferDestination, DestinationPadding), true);
 	}
 
 	TEST_FIXTURE(PaddedBuffersFixture, Bilinear_NonMatchingStride)
 	{
-		Scale::AutoFilter(FilterBilinear, m_bufferSource.filterBuffer, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 2.0f);
+		Scale::AutoFilter(Mode::Bilinear, m_bufferSource.filterBuffer, m_bufferDestination.filterBuffer, m_regionDefault, Img::Format::ARGB8888, 2.0f);
 		CHECK_EQUAL(CheckPaddingUntouched(m_bufferDestination, DestinationPadding), true);
 	}
 }

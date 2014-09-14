@@ -94,19 +94,19 @@ void TestResample(_T T, Img::Format fmt)
 
 struct TestNearestNeighbor {
 	void Run(FilterBuffer& src, FilterBuffer& dst, const Geom::RectInt& region, Img::Format fmt, float zoom) {
-		Filter::Scale::AutoFilter(Filter::FilterNearestNeighbor, src, dst, region, fmt, zoom);
+		Filter::Scale::AutoFilter(Filter::Mode::NearestNeighbor, src, dst, region, fmt, zoom);
 	}
 };
 
 struct TestBilinear {
 	void Run(FilterBuffer& src, FilterBuffer& dst, const Geom::RectInt& region, Img::Format fmt, float zoom) {
-		Filter::Scale::AutoFilter(Filter::FilterBilinear, src, dst, region, fmt, zoom);
+		Filter::Scale::AutoFilter(Filter::Mode::Bilinear, src, dst, region, fmt, zoom);
 	}
 };
 
 struct TestLanczos3 {
 	void Run(FilterBuffer& src, FilterBuffer& dst, const Geom::RectInt& region, Img::Format fmt, float zoom) {
-		Filter::Scale::AutoFilter(Filter::FilterLanczos3, src, dst, region, fmt, zoom);
+		Filter::Scale::AutoFilter(Filter::Mode::Lanczos3, src, dst, region, fmt, zoom);
 	}
 };
 

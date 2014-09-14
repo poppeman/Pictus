@@ -207,7 +207,7 @@ namespace Img {
 			4,
 			pDest,
 			strideDest);
-		Filter::Scale::AutoFilter(Filter::FilterDirectCopy, src, dst, sourceRect, GetFormat(), 1.0f);
+		Filter::Scale::AutoFilter(Filter::Mode::DirectCopy, src, dst, sourceRect, GetFormat(), 1.0f);
 
 		if (gamma != 10) {
 			Filter::Adjust::Gamma(dst, dst, RectInt(PointInt(0, 0), dst.Dimensions), PointInt(0, 0), gamma);

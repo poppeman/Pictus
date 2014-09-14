@@ -10,7 +10,7 @@ namespace Filter {
 			static const int ChunkSize = 256;
 
 			void Construct(int chunk, const FilterBuffer& dest, const Geom::RectInt& croppedRegion);
-			static void SetSource(const FilterMode mode, const FilterBuffer* source, Img::Format format, float zoom);
+			static void SetSource(const Filter::Mode mode, const FilterBuffer* source, Img::Format format, float zoom);
 
 			void Run();
 			void operator()();
@@ -18,8 +18,8 @@ namespace Filter {
 		private:
 			FilterJob& operator=(const FilterJob& rhs);
 
-			FilterMode m_our_mode;
-			static FilterMode m_mode;
+			Filter::Mode m_our_mode;
+			static Filter::Mode m_mode;
 			static const FilterBuffer* m_source;
 			static Img::Format m_format;
 			static float m_zoom;

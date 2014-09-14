@@ -180,9 +180,13 @@ namespace App {
 		}
 	}
 
-	Filter::FilterMode ViewPort::ActiveFilterMode() const {
-		COND_STRICT(m_minFilter != Filter::FilterUndefined, Err::InvalidCall, TX("Minification filter not set."));
-		COND_STRICT(m_magFilter != Filter::FilterUndefined, Err::InvalidCall, TX("Magnification filter not set."));
+	Filter::Mode ViewPort::ActiveFilterMode() const {
+		if (m_minFilter == Filter::Mode::Undefined) {
+			DO_THROW(Err::InvalidCall, TX("Minification filter not set."));
+		}
+		if (m_magFilter == Filter::Mode::Undefined) {
+			DO_THROW(Err::InvalidCall, TX("Magnification filter not set."));
+		}
 
 		if (m_props.Zoom < 1.0) {
 			return m_minFilter;
@@ -268,8 +272,9 @@ namespace App {
 	}
 
 	void ViewPort::CursorHideCallback() {
-		if(GetForegroundWindow() == Parent()->Handle())
+		if (GetForegroundWindow() == Parent()->Handle()) {
 			ShowCursor(false);
+		}
 	}
 
 	SizeInt ViewPort::ZoomedImageSize() {
@@ -277,11 +282,11 @@ namespace App {
 	}
 
 	Geom::SizeInt ViewPort::GetImageUnzoomedSize() const {
-		if (m_image == 0) {
+		if (m_image == nullptr) {
 			return SizeInt(0, 0);
 		}
 
-		const Geom::SizeInt sz = m_image->GetSize();
+		const auto sz = m_image->GetSize();
 
 		if (m_props.Angle == Filter::Rotate90 || m_props.Angle == Filter::Rotate270) {
 			return sz.Flipped();
@@ -320,9 +325,7 @@ namespace App {
 			newRect.Top((sz.Height - r.ZoomedSize.Height) / 2);
 		}
 
-		//m_viewArea.ZoomSet(r.ZoomedSize, r.ZoomSurface);
 		ZoomSet(r);
-		//m_viewArea.MoveResize(newRect);
 
 		return true;
 	}
@@ -389,9 +392,11 @@ namespace App {
 	}
 
 	bool ViewPort::PerformOnDropFiles( const StringVector& files ) {
-		Win::Window* parentWindow = dynamic_cast<Win::Window*>(Parent());
+		auto parentWindow = dynamic_cast<Win::Window*>(Parent());
+		if (parentWindow == nullptr) {
+			DO_THROW(Err::CriticalError, TX("Parent window was not a proper window."));
+		}
 
-		COND_STRICT(parentWindow, Err::CriticalError, TX("Parent window was not a proper window."));
 		return parentWindow->OnDropFiles(files);
 	}
 
@@ -404,11 +409,11 @@ namespace App {
 		m_renderTarget.SetRedrawStrategy(strategy);
 	}
 
-	void ViewPort::MagnificationFilter( Filter::FilterMode mode ) {
+	void ViewPort::MagnificationFilter( Filter::Mode mode ) {
 		m_magFilter = mode;
 	}
 
-	void ViewPort::MinificationFilter( Filter::FilterMode mode ) {
+	void ViewPort::MinificationFilter( Filter::Mode mode ) {
 		m_minFilter = mode;
 	}
 

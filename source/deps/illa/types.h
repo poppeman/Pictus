@@ -160,13 +160,13 @@ namespace Img {
 
 
 namespace Filter {
-	enum FilterMode {
-		FilterUndefined = 255,
-		FilterDirectCopy = 0,
-		FilterNearestNeighbor,
-		FilterBilinear,
-		FilterLanczos3,
-		FilterNum
+	enum class Mode {
+		Undefined = 255,
+		DirectCopy = 0,
+		NearestNeighbor,
+		Bilinear,
+		Lanczos3,
+		Num
 	};
 
 	enum RotationAngle {
@@ -202,7 +202,7 @@ namespace Img {
 		int						Brightness;
 		int						Contrast;
 		int						Gamma;
-		Filter::FilterMode		ResampleFilter;
+		Filter::Mode		ResampleFilter;
 		bool					RetainAlpha;
 		Img::Color				BackgroundColor;
 		float					Zoom;

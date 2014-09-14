@@ -44,8 +44,8 @@ namespace App {
 		// Panning
 		void Pan(const Geom::SizeInt& deltaPan);
 
-		void MagnificationFilter(Filter::FilterMode mode);
-		void MinificationFilter(Filter::FilterMode mode);
+		void MagnificationFilter(Filter::Mode mode);
+		void MinificationFilter(Filter::Mode mode);
 
 		ViewArea();
 
@@ -68,7 +68,7 @@ namespace App {
 		void setSurface();
 
 		bool handlePanning(const Win::MouseEvent& e);
-		Filter::FilterMode ActiveFilterMode() const;
+		Filter::Mode ActiveFilterMode() const;
 
 		Win::WinRenderTarget m_renderTarget;
 
@@ -86,7 +86,7 @@ namespace App {
 
 		Img::Properties m_props;
 		float m_imageZoom;
-		Filter::FilterMode m_magFilter, m_minFilter;
+		Filter::Mode m_magFilter, m_minFilter;
 	};*/
 }
 

@@ -38,8 +38,8 @@ namespace App {
 	using namespace Geom;
 
 	void ValidateFilterMode(Reg::Keys::DWORDKey dw) {
-		if (Reg::Key(dw) >= Filter::FilterNum) {
-			Reg::Key(dw, Filter::FilterBilinear);
+		if (Reg::Key(dw) >= static_cast<int>(Filter::Mode::Num)) {
+			Reg::Key(dw, static_cast<int>(Filter::Mode::Bilinear));
 		}
 	}
 
@@ -1032,8 +1032,8 @@ namespace App {
 
 		m_statusBar->Visible(Reg::Key(DWShowStatusBar) != 0);
 
-		m_viewPort.MinificationFilter(Filter::FilterMode(Reg::Key(DWMinFilter)));
-		m_viewPort.MagnificationFilter(Filter::FilterMode(Reg::Key(DWMagFilter)));
+		m_viewPort.MinificationFilter(Filter::Mode(Reg::Key(DWMinFilter)));
+		m_viewPort.MagnificationFilter(Filter::Mode(Reg::Key(DWMagFilter)));
 
 		UpdateMemoryLimits();
 		m_viewPort.BackgroundColor(Img::Color::FromDWord(Reg::Key(DWBackgroundColor)));

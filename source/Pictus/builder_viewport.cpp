@@ -13,11 +13,13 @@ namespace App {
 		port.BackgroundColor(Img::Color::FromDWord(Reg::Key(DWBackgroundColor)));
 
 		RendererFactory rf;
-		if(!port.SetRenderer(rf.CreateRenderer())) DO_THROW(Err::Unsupported, TX("Could not find a working renderer."));
+		if (!port.SetRenderer(rf.CreateRenderer())) {
+			DO_THROW(Err::Unsupported, TX("Could not find a working renderer."));
+		}
 
 		port.SetRedrawStrategy(RedrawStrategy::Ptr(new RedrawStrategyTiled));
 
-		port.MinificationFilter(Filter::FilterMode(Reg::Key(DWMinFilter)));
-		port.MagnificationFilter(Filter::FilterMode(Reg::Key(DWMagFilter)));
+		port.MinificationFilter(Filter::Mode(Reg::Key(DWMinFilter)));
+		port.MagnificationFilter(Filter::Mode(Reg::Key(DWMagFilter)));
 	}
 }

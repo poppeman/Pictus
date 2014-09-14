@@ -23,8 +23,8 @@
 		:m_isPanning(false),
 		 m_imageZoom(1.0f),
 		 m_currentPanMonitor(0),
-		 m_magFilter(Filter::FilterUndefined),
-		 m_minFilter(Filter::FilterUndefined)
+		 m_magFilter(Filter::Mode::Undefined),
+		 m_minFilter(Filter::Mode::Undefined)
 	{
 		Img::SurfaceFactory(&m_renderTarget);
 		OnMouseButtonDown.connect(bind(&ViewArea::HandleMouseDown, this, _1));
@@ -158,9 +158,9 @@
 		}
 	}
 
-	Filter::FilterMode ViewArea::ActiveFilterMode() const {
-		COND_STRICT(m_minFilter != Filter::FilterUndefined, Err::InvalidCall, TX("Minification filter not set."));
-		COND_STRICT(m_magFilter != Filter::FilterUndefined, Err::InvalidCall, TX("Magnification filter not set."));
+	Filter::Mode ViewArea::ActiveFilterMode() const {
+		COND_STRICT(m_minFilter != Filter::Mode::Undefined, Err::InvalidCall, TX("Minification filter not set."));
+		COND_STRICT(m_magFilter != Filter::Mode::Undefined, Err::InvalidCall, TX("Magnification filter not set."));
 
 		if (m_props.Zoom < 1.0) {
 			return m_minFilter;
@@ -279,11 +279,11 @@
 		m_renderTarget.SetRedrawStrategy(strategy);
 	}
 
-	void ViewArea::MagnificationFilter( Filter::FilterMode mode ) {
+	void ViewArea::MagnificationFilter( Filter::Mode mode ) {
 		m_magFilter = mode;
 	}
 
-	void ViewArea::MinificationFilter(Filter::FilterMode mode) {
+	void ViewArea::MinificationFilter(Filter::Mode mode) {
 		m_minFilter = mode;
 	}
 

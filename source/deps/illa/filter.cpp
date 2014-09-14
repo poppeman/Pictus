@@ -15,9 +15,10 @@ namespace Filter {
 
 	// TODO: Consider moving this into a class instead, containing the threadpool. This would remove the global threadpool and
 	// allow this method to be threadsafe.
-	void Scale::AutoFilter(_In_ const FilterMode mode, _In_ const FilterBuffer& source, _Inout_ FilterBuffer& dest, _In_ const Geom::RectInt& uncroppedRegion, _In_ Img::Format format, _In_ _In_range_(0, 1000000000) float zoom) {
+	void Scale::AutoFilter(_In_ const Filter::Mode mode, _In_ const FilterBuffer& source, _Inout_ FilterBuffer& dest, _In_ const Geom::RectInt& uncroppedRegion, _In_ Img::Format format, _In_ _In_range_(0, 1000000000) float zoom) {
 		// TODO: Make this function thread-safe. Function assumes that only one thread calls this function, otherwise the thread pool gets messed up.
-		if (mode < 0 || mode >= FilterNum) {
+		auto modeNum = static_cast<int>(mode);
+		if (modeNum < 0 || modeNum >= static_cast<int>(Mode::Num)) {
 			DO_THROW(Err::InvalidParam, TX("Invalid filter mode."));
 		}
 

@@ -24,8 +24,12 @@ namespace Win {
 			m_tiles.push_front(r);
 		}
 
-		while (m_topLeftOffset.Height >= MaximumTileEdgeLength) m_topLeftOffset += SizeInt(0, -MaximumTileEdgeLength);
-		while (m_topLeftOffset.Height < 0) m_topLeftOffset += SizeInt(0, MaximumTileEdgeLength);
+		while (m_topLeftOffset.Height >= MaximumTileEdgeLength) {
+			m_topLeftOffset += SizeInt(0, -MaximumTileEdgeLength);
+		}
+		while (m_topLeftOffset.Height < 0) {
+			m_topLeftOffset += SizeInt(0, MaximumTileEdgeLength);
+		}
 
 		for (int x = 0; x < newTlIndex.X; ++x) {
 			for (size_t y = 0; y < m_tiles.size(); ++y) {
@@ -48,7 +52,9 @@ namespace Win {
 	}
 
 	void TileManager::SetViewportSize( const SizeInt& dims ) {
-		COND_STRICT(dims.Width >= 0 && dims.Height >= 0, Err::InvalidParam, TX("Invalid dimensions: ") + ToWString(dims.Width) + TX(", ") + ToWString(dims.Height));
+		if (dims.Width < 0 || dims.Height < 0) {
+			DO_THROW(Err::InvalidParam, TX("Invalid dimensions: ") + ToWString(dims.Width) + TX(", ") + ToWString(dims.Height));
+		}
 		const SizeInt texDims = SizeInt(MaximumTileEdgeLength, MaximumTileEdgeLength);
 		const SizeInt numTiles = SizeInt(2, 2) + dims / MaximumTileEdgeLength;
 
@@ -64,7 +70,9 @@ namespace Win {
 			for(auto& t: *r) {
 				if(t.surface == 0) {
 					t.surface = m_device->CreateDDSurface();
-					COND_STRICT(t.surface, Err::CriticalError, TX("Failed to create surface."));
+					if (t.surface == nullptr) {
+						DO_THROW(Err::CriticalError, TX("Failed to create surface."));
+					}
 					t.surface->Create(texDims);
 				}
 			}

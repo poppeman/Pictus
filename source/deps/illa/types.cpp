@@ -167,7 +167,7 @@ namespace Img {
 		:Brightness(0),
 		 Contrast(ContrastStep),
 		 Gamma(10),
-		 ResampleFilter(Filter::FilterNearestNeighbor),
+		 ResampleFilter(Filter::Mode::NearestNeighbor),
 		 RetainAlpha(false),
 		 BackgroundColor(0xff, 0xff, 0xff, 0xff),
 		 Zoom(1.0f),

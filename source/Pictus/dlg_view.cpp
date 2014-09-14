@@ -104,9 +104,9 @@ namespace App {
 
 	void SetView::SetupFilterBox(Win::ComboBox* ctrl) {
 		ctrl->Reset(); //SendDlgItemMessage(Handle(), id, CB_RESETCONTENT, 0, 0); 
-		ctrl->AddItem(SIDFilterNearestNeighbor, Filter::FilterNearestNeighbor);
-		ctrl->AddItem(SIDFilterBilinear, Filter::FilterBilinear);
-		ctrl->AddItem(SIDFilterLanczos3, Filter::FilterLanczos3);
+		ctrl->AddItem(SIDFilterNearestNeighbor, static_cast<int>(Filter::Mode::NearestNeighbor));
+		ctrl->AddItem(SIDFilterBilinear, static_cast<int>(Filter::Mode::Bilinear));
+		ctrl->AddItem(SIDFilterLanczos3, static_cast<int>(Filter::Mode::Lanczos3));
 	}
 
 	SetView::SetView():App::SettingsPage(IDD_SET_VIEWER) {}

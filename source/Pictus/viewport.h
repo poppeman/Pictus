@@ -61,8 +61,8 @@ namespace App {
 		void ActiveCursorMode(const CursorMode m);
 		CursorMode ActiveCursorMode() const;
 
-		void MagnificationFilter(Filter::FilterMode mode);
-		void MinificationFilter(Filter::FilterMode mode);
+		void MagnificationFilter(Filter::Mode mode);
+		void MinificationFilter(Filter::Mode mode);
 
 		void ImageUpdated();
 
@@ -94,7 +94,7 @@ namespace App {
 		void updateCursor();
 
 		void ZoomUpdated();
-		Filter::FilterMode ActiveFilterMode() const;
+		Filter::Mode ActiveFilterMode() const;
 
 		void setSurface();
 
@@ -120,7 +120,7 @@ namespace App {
 		ZoomStrategy m_zoom;
 		float m_displayZoom;
 		float m_imageZoom;
-		Filter::FilterMode m_magFilter, m_minFilter;
+		Filter::Mode m_magFilter, m_minFilter;
 	};
 }
 
