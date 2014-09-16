@@ -61,30 +61,28 @@ namespace App {
 
 		setSurface();
 
-		if (!m_image) {
-			return;
-		}
+		if (m_image != nullptr) {
+			m_pan.ResizeConstraints(image->GetSize());
+			m_pan.ResizeViewport(GetSize());
 
-		m_pan.ResizeConstraints(image->GetSize());
-		m_pan.ResizeViewport(GetSize());
+			if (diff) {
+				m_image->RestartAnimation();
+			}
 
-		if (diff) {
-			m_image->RestartAnimation();
-		}
+			if (diff && Reg::Key(DWResetPan)) {
+				m_pan.Reset();
+			}
 
-		if (diff && Reg::Key(DWResetPan)) {
-			m_pan.Reset();
-		}
+			if (m_image->IsHeaderInformationValid() && m_image->Delay() != -1) {
+				m_animationTimer.Create(m_image->Delay());	// It's animated, start timer and stuff
+			}
+			else if (m_image->IsFinished() == false) {
+				m_animationTimer.Create(Img::RedrawDelay);	// Not animated or uncertain. Redraw periodically
+			}
 
-		if (m_image->IsHeaderInformationValid() && m_image->Delay() != -1) {
-			m_animationTimer.Create(m_image->Delay());	// It's animated, start timer and stuff
-		}
-		else if (m_image->IsFinished() == false) {
-			m_animationTimer.Create(Img::RedrawDelay);	// Not animated or uncertain. Redraw periodically
 		}
 
 		InvalidateRect(Handle(), 0, false);
-
 		OnSize(GetSize());
 	}
 
