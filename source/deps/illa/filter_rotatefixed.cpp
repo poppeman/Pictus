@@ -5,12 +5,12 @@
 namespace Filter {
 	namespace Transformation {
 		_Check_return_ bool IsInplace( _In_ RotationAngle angle ) {
-			switch(angle) {
-				case RotateDefault:
-				case FlipX:
-				case FlipY:
-				case Rotate180:
-					return true;
+			switch (angle) {
+			case RotationAngle::RotateDefault:
+			case RotationAngle::FlipX:
+			case RotationAngle::FlipY:
+			case RotationAngle::Rotate180:
+				return true;
 			}
 			return false;
 		}
@@ -19,17 +19,17 @@ namespace Filter {
 			bool doSupport = true;
 			Geom::SizeInt reqSize = source.Dimensions;
 
-			switch(angle) {
-				case RotateDefault:
-				case FlipX:
-				case FlipY:
-				case Rotate180:
-					break;
+			switch (angle) {
+			case RotationAngle::RotateDefault:
+			case RotationAngle::FlipX:
+			case RotationAngle::FlipY:
+			case RotationAngle::Rotate180:
+				break;
 
-				default:
-					doSupport = false;
-					reqSize = source.Dimensions.Flipped();
-					break;
+			default:
+				doSupport = false;
+				reqSize = source.Dimensions.Flipped();
+				break;
 			}
 
 			if (supportInPlace) {
@@ -162,32 +162,32 @@ namespace Filter {
 				DO_THROW(Err::InvalidParam, TX("Null buffer not allowed."));
 			}
 
-			switch(angle) {
-				case Filter::RotateDefault:
-					if (source.BufferData != dest.BufferData) {
-						DO_THROW(Err::InvalidParam, TX("Operation not yet supported (inplace non-rotation)"));
-					}
-					break;
-				case Filter::FlipX:
-					mirror(source, dest, region, destTopLeft);
-					break;
-				case Filter::FlipY:
-					flip(source, dest, region, destTopLeft);
-					break;
-				case Filter::Rotate90:
-					rot90(source, dest, region, destTopLeft);
-					break;
-				case Filter::Rotate180:
-					mirror(source, dest, region, destTopLeft);
-					flip(dest, dest, Geom::RectInt(destTopLeft, region.Dimensions()), destTopLeft);
-					break;
+			switch (angle) {
+			case Filter::RotationAngle::RotateDefault:
+				if (source.BufferData != dest.BufferData) {
+					DO_THROW(Err::InvalidParam, TX("Operation not yet supported (inplace non-rotation)"));
+				}
+				break;
+			case Filter::RotationAngle::FlipX:
+				mirror(source, dest, region, destTopLeft);
+				break;
+			case Filter::RotationAngle::FlipY:
+				flip(source, dest, region, destTopLeft);
+				break;
+			case Filter::RotationAngle::Rotate90:
+				rot90(source, dest, region, destTopLeft);
+				break;
+			case Filter::RotationAngle::Rotate180:
+				mirror(source, dest, region, destTopLeft);
+				flip(dest, dest, Geom::RectInt(destTopLeft, region.Dimensions()), destTopLeft);
+				break;
 
-				case Filter::Rotate270:
-					rot270(source, dest, region, destTopLeft);
-					break;
+			case Filter::RotationAngle::Rotate270:
+				rot270(source, dest, region, destTopLeft);
+				break;
 
-				default:
-					DO_THROW(Err::InvalidParam, TX("Rotation angle not supported:") + ToWString(angle));
+			default:
+				DO_THROW(Err::InvalidParam, TX("Rotation angle not supported:") + ToWString(angle));
 			}
 		}
 	}
