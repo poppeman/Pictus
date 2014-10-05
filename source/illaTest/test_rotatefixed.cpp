@@ -13,20 +13,20 @@ SUITE(Filters_RotateFixed)
 	TEST_FIXTURE(ReferenceRotationFixture, Empty_Target)
 	{
 		m_bufferDestination.filterBuffer.BufferData = 0;
-		CHECK_THROW(Transformation::RotateFixed(m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, m_positionTargetDefault, RotateDefault), Err::InvalidParam);
+		CHECK_THROW(Transformation::RotateFixed(m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, m_positionTargetDefault, RotationAngle::RotateDefault), Err::InvalidParam);
 	}
 
 	TEST_FIXTURE(ReferenceRotationFixture, Empty_Source)
 	{
 		m_bufferSource.BufferData = 0;
-		CHECK_THROW(Transformation::RotateFixed(m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, m_positionTargetDefault, RotateDefault), Err::InvalidParam);
+		CHECK_THROW(Transformation::RotateFixed(m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, m_positionTargetDefault, RotationAngle::RotateDefault), Err::InvalidParam);
 	}
 	// To add: Invalid region, invalid top-left, cropping, non-matching strides, etc
 
 	TEST_FIXTURE(ReferenceRotationFixture, InvalidAngle)
 	{
-		CHECK_THROW(Transformation::RotateFixed(m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, m_positionTargetDefault, Filter::RotateUndefined), Err::InvalidParam);
-		CHECK_THROW(Transformation::RotateFixed(m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, m_positionTargetDefault, Filter::RotationAngle(42)), Err::InvalidParam);
+		CHECK_THROW(Transformation::RotateFixed(m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, m_positionTargetDefault, Filter::RotationAngle::RotateUndefined), Err::InvalidParam);
+		CHECK_THROW(Transformation::RotateFixed(m_bufferSource, m_bufferDestination.filterBuffer, m_regionDefault, m_positionTargetDefault, static_cast<Filter::RotationAngle>(42)), Err::InvalidParam);
 	}
 
 	TEST_FIXTURE(ReferenceRotationFixture, BasicMirror)
@@ -42,8 +42,9 @@ SUITE(Filters_RotateFixed)
 		Transformation::RotateFixed(
 			m_bufferSource,
 			m_bufferDestination.filterBuffer,
-			Geom::RectInt(Geom::PointInt(1, 1), Geom::SizeInt(2, 2)),
-			Geom::PointInt(2, 1), Filter::FlipX);
+			{ Geom::PointInt{ 1, 1 }, Geom::SizeInt{ 2, 2 } },
+			{ 2, 1 },
+			Filter::RotationAngle::FlipX);
 		CHECK_EQUAL(BuffersEqual(cReferenceDestBufferMirror, (uint32_t*)m_bufferDestination.filterBuffer.BufferData, 4 * 4), true);
 	}
 
@@ -60,8 +61,9 @@ SUITE(Filters_RotateFixed)
 		Transformation::RotateFixed(
 			m_bufferSource,
 			m_bufferDestination.filterBuffer,
-			Geom::RectInt(Geom::PointInt(1, 1), Geom::SizeInt(2, 2)),
-			Geom::PointInt(2, 1), Filter::FlipY);
+			{ Geom::PointInt(1, 1), Geom::SizeInt(2, 2) },
+			{ 2, 1 },
+			Filter::RotationAngle::FlipY);
 		CHECK_EQUAL(BuffersEqual(cReferenceDestBuffer, (uint32_t*)m_bufferDestination.filterBuffer.BufferData, 4 * 4), true);
 	}	
 
@@ -78,8 +80,9 @@ SUITE(Filters_RotateFixed)
 		Transformation::RotateFixed(
 			m_bufferSource,
 			m_bufferDestination.filterBuffer,
-			Geom::RectInt(Geom::PointInt(1, 1), Geom::SizeInt(3, 2)),
-			Geom::PointInt(2, 1), Filter::Rotate90);
+			{ Geom::PointInt(1, 1), Geom::SizeInt(3, 2) },
+			{ 2, 1 },
+			Filter::RotationAngle::Rotate90);
 		CHECK_EQUAL(BuffersEqual(cReferenceDestBuffer, (uint32_t*)m_bufferDestination.filterBuffer.BufferData, 4 * 4), true);
 	}
 
@@ -96,8 +99,9 @@ SUITE(Filters_RotateFixed)
 		Transformation::RotateFixed(
 			m_bufferSource,
 			m_bufferDestination.filterBuffer,
-			Geom::RectInt(Geom::PointInt(1, 1), Geom::SizeInt(2, 2)),
-			Geom::PointInt(2, 1), Filter::Rotate180);
+			{ Geom::PointInt(1, 1), Geom::SizeInt(2, 2) },
+			{ 2, 1 },
+			Filter::RotationAngle::Rotate180);
 		CHECK_EQUAL(BuffersEqual(cReferenceDestBuffer, (uint32_t*)m_bufferDestination.filterBuffer.BufferData, 4 * 4), true);
 	}
 
@@ -114,8 +118,9 @@ SUITE(Filters_RotateFixed)
 		Transformation::RotateFixed(
 			m_bufferSource,
 			m_bufferDestination.filterBuffer,
-			Geom::RectInt(Geom::PointInt(1, 1), Geom::SizeInt(2, 2)),
-			Geom::PointInt(2, 1), Filter::Rotate270);
+			{ Geom::PointInt(1, 1), Geom::SizeInt(2, 2) },
+			{ 2, 1 },
+			Filter::RotationAngle::Rotate270);
 		CHECK_EQUAL(true == BuffersEqual(cReferenceDestBuffer, (uint32_t*)m_bufferDestination.filterBuffer.BufferData, 4 * 4), true);
 	}
 }

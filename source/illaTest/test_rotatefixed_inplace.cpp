@@ -27,7 +27,8 @@ SUITE(Filters_RotateFixed)
 			m_bufferSource,
 			m_bufferDestination.filterBuffer,
 			c_RegionInplace,
-			Geom::PointInt(1, 1), Filter::FlipX);
+			{ 1, 1 },
+			Filter::RotationAngle::FlipX);
 		CHECK_EQUAL(BuffersEqual(cReferenceDestBufferMirror, (uint32_t*)m_bufferDestination.filterBuffer.BufferData, 4 * 4), true);
 	}
 
@@ -47,7 +48,8 @@ SUITE(Filters_RotateFixed)
 			m_bufferSource,
 			m_bufferDestination.filterBuffer,
 			c_RegionInplace,
-			Geom::PointInt(1, 1), Filter::FlipY);
+			{ 1, 1 },
+			Filter::RotationAngle::FlipY);
 		CHECK_EQUAL(BuffersEqual(cReferenceDestBuffer, (uint32_t*)m_bufferDestination.filterBuffer.BufferData, 4 * 4), true);
 	}
 
@@ -57,7 +59,8 @@ SUITE(Filters_RotateFixed)
 			m_bufferDestination.filterBuffer,
 			m_bufferDestination.filterBuffer,
 			c_RegionInplace,
-			Geom::PointInt(1, 1), Filter::Rotate90), Err::InvalidParam);
+			{ 1, 1 },
+			Filter::RotationAngle::Rotate90), Err::InvalidParam);
 	}
 
 
@@ -76,7 +79,8 @@ SUITE(Filters_RotateFixed)
 			m_bufferSource,
 			m_bufferDestination.filterBuffer,
 			c_RegionInplace,
-			Geom::PointInt(1, 1), Filter::Rotate180);
+			{ 1, 1 },
+			Filter::RotationAngle::Rotate180);
 		CHECK_EQUAL(BuffersEqual(cReferenceDestBuffer, (uint32_t*)m_bufferDestination.filterBuffer.BufferData, 4 * 4), true);
 	}
 
@@ -86,7 +90,8 @@ SUITE(Filters_RotateFixed)
 			m_bufferDestination.filterBuffer,
 			m_bufferDestination.filterBuffer,
 			c_RegionInplace,
-			Geom::PointInt(1, 1), Filter::Rotate270), Err::InvalidParam);
+			{ 1, 1 },
+			Filter::RotationAngle::Rotate270), Err::InvalidParam);
 	}
 
 }

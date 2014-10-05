@@ -32,35 +32,7 @@ namespace Img {
 };
 
 std::wstring ToWString(const Img::Format& imgFormat);
-inline std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt) {
-	switch (fmt) {
-	case Img::Format::Undefined:
-		in << "Undefined";
-		break;
-	case Img::Format::ARGB8888:
-		in << "ARGB8888";
-		break;
-	case Img::Format::XRGB8888:
-		in << "XRGB8888";
-		break;
-	case Img::Format::ARGB1555:
-		in << "ARGB1555";
-		break;
-	case Img::Format::XRGB1555:
-		in << "XRGB1555";
-		break;
-	case Img::Format::RGB565:
-		in << "RGB565";
-		break;
-	case Img::Format::Index8:
-		in << "Indexed8";
-		break;
-	default:
-		in << "Unknown(" << static_cast<int>(fmt) << ")";
-		break;
-	}
-	return in;
-}
+std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt);
 
 
 #include "geom.h"
@@ -169,7 +141,7 @@ namespace Filter {
 		Num
 	};
 
-	enum RotationAngle {
+	enum class RotationAngle {
 		RotateDefault,
 		FlipX,
 		FlipY,
@@ -198,6 +170,10 @@ namespace Filter {
 
 	Geom::SizeInt CalculateUnzoomedSize(_In_ Geom::SizeInt defaultDims, _In_ Filter::RotationAngle angle);
 }
+
+
+std::wstring ToWString(const Filter::RotationAngle& angle);
+std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Filter::RotationAngle& c);
 
 namespace Img {
 	struct Properties {

@@ -17,28 +17,25 @@ namespace App {
 	}
 
 	Geom::RectInt ImageDimensions::TranslatedSurfaceSourceRect(const Geom::RectInt& destArea) const {
-		if(m_angle == Filter::Rotate90)
-			return RectInt(PointInt(
-				destArea.Top(),
-				m_image.Height - destArea.Left() - destArea.Width()),
-				destArea.Dimensions().Flipped());
-		if(m_angle == Filter::Rotate180)
-			return RectInt(PointInt(
-				m_image.Width - destArea.Left() - destArea.Width(),
-				m_image.Height - destArea.Top() - destArea.Height()),
-				destArea.Dimensions());
-		if(m_angle == Filter::Rotate270)
-			return RectInt(PointInt(
-				m_image.Width - destArea.Top() - destArea.Height(),
-				destArea.Left()),
-				destArea.Dimensions().Flipped());
-		if(m_angle == Filter::FlipX)
-			return RectInt(PointInt(m_image.Width - destArea.Left() - destArea.Width(), destArea.Top()), destArea.Dimensions());
-		if(m_angle == Filter::FlipY)
-			return RectInt(PointInt(destArea.Left(), m_image.Height - destArea.Top() - destArea.Height()), destArea.Dimensions());
+		if (m_angle == Filter::RotationAngle::Rotate90) {
+			return{ PointInt{ destArea.Top(), m_image.Height - destArea.Left() - destArea.Width() }, destArea.Dimensions().Flipped() };
+		}
+		if (m_angle == Filter::RotationAngle::Rotate180) {
+			return{ PointInt{ m_image.Width - destArea.Left() - destArea.Width(), m_image.Height - destArea.Top() - destArea.Height() }, destArea.Dimensions() };
+		}
+		if (m_angle == Filter::RotationAngle::Rotate270) {
+			return{ PointInt{ m_image.Width - destArea.Top() - destArea.Height(), destArea.Left() }, destArea.Dimensions().Flipped() };
+		}
+		if (m_angle == Filter::RotationAngle::FlipX) {
+			return{ PointInt{ m_image.Width - destArea.Left() - destArea.Width(), destArea.Top() }, destArea.Dimensions() };
+		}
+		if (m_angle == Filter::RotationAngle::FlipY) {
+			return{ PointInt{destArea.Left(), m_image.Height - destArea.Top() - destArea.Height() }, destArea.Dimensions() };
+		}
 
-		if(m_angle == Filter::RotateDefault)
+		if (m_angle == Filter::RotationAngle::RotateDefault) {
 			return destArea;
+		}
 
 		DO_THROW(Err::InvalidCall, TX("Invalid angle."));
 	}
@@ -59,7 +56,5 @@ namespace App {
 		m_surface = sz;
 	}
 
-	ImageDimensions::ImageDimensions():m_angle(Filter::RotateDefault) {
-	}
-
+	ImageDimensions::ImageDimensions() :m_angle{ Filter::RotationAngle::RotateDefault } {}
 }
