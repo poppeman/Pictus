@@ -45,9 +45,7 @@ namespace App {
 		RegisterClassEx(&wc);
 
 		// Create window without any nifty features
-		if(!ConstructWindow(RectInt(PointInt(0, 0), SizeInt(1, 1)), WS_EX_ACCEPTFILES, ClassName, TX(""), WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN)) return false;
-
-		return true;
+		return ConstructWindow(RectInt(PointInt(0, 0), SizeInt(1, 1)), WS_EX_ACCEPTFILES, ClassName, TX(""), WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN);
 	}
 
 	void ViewPort::setSurface() {
@@ -143,10 +141,8 @@ namespace App {
 	bool ViewPort::PerformOnPaint() {
 		setSurface();
 
-		SizeInt zoomedSize = ZoomedImageSize();
-
 		// TODO: This may call BEFORE the surface is allocated, and will thus fail when attempting to lock.
-		if (m_image && m_image->IsHeaderInformationValid() && AreaNonZero(zoomedSize) && (AreaNonZero(GetSize()))) {
+		if (m_image && m_image->IsHeaderInformationValid() && AreaNonZero(ZoomedImageSize()) && (AreaNonZero(GetSize()))) {
 			bool status = m_image->IsFinished();
 
 			m_props.ResampleFilter = ActiveFilterMode();
@@ -195,7 +191,9 @@ namespace App {
 
 
 	bool ViewPort::PerformOnApp(int index, WPARAM wp, LPARAM lp) {
-		if(Parent()) return Parent()->OnApp(index, wp, lp);
+		if (Parent()) {
+			return Parent()->OnApp(index, wp, lp);
+		}
 		return false;
 	}
 
@@ -230,22 +228,26 @@ namespace App {
 			DO_THROW(Err::CriticalError, TX("Current panning monitor not set."));
 		}
 
-		PointInt globalPosition = MouseCursorPos();
-		PointInt mousePosition = globalPosition;
+		auto globalPosition = MouseCursorPos();
+		auto mousePosition = globalPosition;
 
 		const Geom::RectInt& screen = m_currentPanMonitor->Region();
 
-		if (mousePosition.X >= (screen.Right() - 1))
+		if (mousePosition.X >= (screen.Right() - 1)) {
 			mousePosition.X = screen.Left() + 1;
+		}
 
-		if (mousePosition.X <= screen.Left())
+		if (mousePosition.X <= screen.Left()) {
 			mousePosition.X = screen.Right() - 2;
+		}
 
-		if (mousePosition.Y >= (screen.Bottom() - 1))
+		if (mousePosition.Y >= (screen.Bottom() - 1)) {
 			mousePosition.Y = screen.Top() + 1;
+		}
 
-		if (mousePosition.Y <= screen.Top())
+		if (mousePosition.Y <= screen.Top()) {
 			mousePosition.Y = screen.Bottom() - 2;
+		}
 
 		if (globalPosition != mousePosition) {
 			SetCursorPos(mousePosition.X, mousePosition.Y);
@@ -275,42 +277,21 @@ namespace App {
 		}
 	}
 
+	SizeInt ViewPort::OptimalViewportSize() {
+		return Img::CalculateUnzoomedSize(m_image, m_props.Angle);
+	}
+
 	SizeInt ViewPort::ZoomedImageSize() {
-		return RoundCast(GetImageUnzoomedSize() * m_imageZoom);
-	}
-
-	Geom::SizeInt ViewPort::GetImageUnzoomedSize() const {
-		if (m_image == nullptr) {
-			return SizeInt(0, 0);
-		}
-
-		const auto sz = m_image->GetSize();
-
-		if (m_props.Angle == Filter::Rotate90 || m_props.Angle == Filter::Rotate270) {
-			return sz.Flipped();
-		}
-		return sz;
-	}
-
-	Geom::SizeInt ViewPort::UnzoomedImageSize() {
-		const Img::Surface::Ptr s = m_renderTarget.CurrentSurface();
-		if (s == 0) {
-			return Geom::SizeInt(0, 0);
-		}
-
-		const Geom::SizeInt sz = s->GetSize();
-
-		if (m_props.Angle == Filter::Rotate90 || m_props.Angle == Filter::Rotate270) {
-			return sz.Flipped();
-		}
-
-		return sz;
+		return RoundCast(Img::CalculateUnzoomedSize(m_image, m_props.Angle) * m_imageZoom);
 	}
 
 	bool ViewPort::PerformOnSize(const SizeInt& sz) {
 		// Make sure that the image is in a useful state
 		m_zoom.ResizeBehaviour(App::ResizeBehaviour(Reg::Key(DWResizeBehaviour)));
-		ZoomStrategy::Result r = m_zoom.CalculateViewAreaSize(GetSize(), UnzoomedImageSize(), GetImageUnzoomedSize());
+		auto r = m_zoom.CalculateViewAreaSize(
+			GetSize(),
+			Img::CalculateUnzoomedSize(m_renderTarget.CurrentSurface(), m_props.Angle),
+			Img::CalculateUnzoomedSize(m_image, m_props.Angle));
 		m_displayZoom = r.ZoomImage;
 
 		Geom::RectInt newRect(Geom::PointInt(0, 0), r.ZoomedSize);
@@ -343,7 +324,6 @@ namespace App {
 	}
 
 	void ViewPort::updateCursor() {
-		//DestroyTimer(HideTimer);
 		m_hideTimer.Destroy();
 
 		switch(m_cursorMode) {

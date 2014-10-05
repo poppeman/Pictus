@@ -44,6 +44,8 @@ namespace Img {
 		bool m_isHeaderDataValid;
 		Geom::SizeInt m_size;
 	};
+
+	_Check_return_ Geom::SizeInt CalculateUnzoomedSize(_In_opt_ std::shared_ptr<Image> img, _In_ Filter::RotationAngle angle);
 }
 
 #endif

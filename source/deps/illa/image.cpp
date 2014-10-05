@@ -92,4 +92,12 @@ namespace Img {
 
 		return Surface::Ptr();
 	}
+
+	_Use_decl_annotations_ Geom::SizeInt CalculateUnzoomedSize(std::shared_ptr<Image> img, Filter::RotationAngle angle) {
+		if (img == nullptr) {
+			return SizeInt(0, 0);
+		}
+
+		return Filter::CalculateUnzoomedSize(img->GetSize(), angle);
+	}
 }

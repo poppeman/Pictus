@@ -195,6 +195,8 @@ namespace Filter {
 		FilterBuffer(const Geom::SizeInt& sz_ = Geom::SizeInt(0, 0), int ps_ = 0, uint8_t* data_ = 0, size_t stride_ = 0);
 		FilterBuffer(const Geom::SizeInt& sz_, int ps_, uint8_t* data_, size_t stride_, const Img::Palette& pal);
 	};
+
+	Geom::SizeInt CalculateUnzoomedSize(_In_ Geom::SizeInt defaultDims, _In_ Filter::RotationAngle angle);
 }
 
 namespace Img {

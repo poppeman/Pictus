@@ -143,6 +143,7 @@ namespace Win {
 	void BaseWindow::MoveResize(const PointInt& newPos, const SizeInt& newSize) {
 		m_isMoveByUser = false;
 		::MoveWindow(Handle(), newPos.X, newPos.Y, newSize.Width, newSize.Height, true);
+		::UpdateWindow(Handle());
 	}
 
 	PointInt BaseWindow::MouseCursorPos() {

@@ -308,4 +308,12 @@ namespace Img {
 		fbl.filterBuffer.Construct(src->GetSize(), src->PixelSize(), fbl.lock->Buffer(), fbl.lock->Stride(), src->GetPalette());
 		return fbl;
 	}
+
+	_Check_return_ Geom::SizeInt CalculateUnzoomedSize(_In_opt_ std::shared_ptr<Surface> surf, _In_ Filter::RotationAngle angle) {
+		if (surf == nullptr) {
+			return Geom::SizeInt{ 0, 0 };
+		}
+
+		return Filter::CalculateUnzoomedSize(surf->GetSize(), angle);
+	}
 }

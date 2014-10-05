@@ -12,25 +12,29 @@ namespace Win {
 		}
 
 		const Monitor* FindAt(const Geom::PointInt& coordinate) {
-			const Monitor* found = performSearch(coordinate);
+			auto found = performSearch(coordinate);
 			if ((found == 0) && (coordinate.X < 0 || coordinate.Y < 0)) {
 				Geom::PointInt cappedCoordinate = Maximum(coordinate, Geom::PointInt(0, 0));
 				found = performSearch(cappedCoordinate);
 			}
 
-			COND_STRICT(found, Err::InvalidParam, TX("Couldn't find a monitor for virtual screen coordinate: ") + ToWString(coordinate));
+			if (found == nullptr) {
+				DO_THROW(Err::InvalidParam, TX("Couldn't find a monitor for virtual screen coordinate: ") + ToWString(coordinate));
+			}
+
 			return found;
 		}
 
 	private:
 		const Monitor* performSearch(const Geom::PointInt& coordinate) {
-			for(const auto& i : m_monitors)
+			for (const auto& i : m_monitors) {
 				if (i.Region().Contains(coordinate)) return &i;
+			}
 
 			return 0;
 		}
 
-		void						AddMonitor(HMONITOR hMonitor) {
+		void AddMonitor(HMONITOR hMonitor) {
 			m_monitors.push_back(Monitor(hMonitor));
 		}
 
@@ -40,16 +44,16 @@ namespace Win {
 			return TRUE;
 		}
 
-		MonitorList		m_monitors;
+		MonitorList m_monitors;
 	};
 
-	MonitorStore					g_store;
+	MonitorStore g_store;
 
 	void PollMonitors() {
 		g_store.Probe();
 	}
 
-	_Check_return_ _Ret_ const Monitor* FindMonitorAt( _In_ const Geom::PointInt& coordinate ) {
+	_Check_return_ _Ret_ const Monitor* FindMonitorAt( _In_ Geom::PointInt coordinate ) {
 		PollMonitors();
 		return g_store.FindAt(coordinate);
 	}
@@ -68,11 +72,11 @@ namespace Win {
 		m_workArea	= RECTToRect(mi.rcWork);
 	}
 
-	_Check_return_ const Geom::RectInt& Monitor::Region() const {
+	_Check_return_ Geom::RectInt Monitor::Region() const {
 		return m_region;
 	}
 
-	_Check_return_ const Geom::RectInt& Monitor::WorkArea() const {
+	_Check_return_ Geom::RectInt Monitor::WorkArea() const {
 		return m_workArea;
 	}
 }

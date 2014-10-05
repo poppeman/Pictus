@@ -113,6 +113,8 @@ namespace Img {
 	};
 	
 	FilterBufferAndLock GenerateFilterBuffer(Img::Surface::Ptr src);
+
+	_Check_return_ Geom::SizeInt CalculateUnzoomedSize(_In_opt_ std::shared_ptr<Surface> surf, _In_ Filter::RotationAngle angle);
 }
 
 #endif

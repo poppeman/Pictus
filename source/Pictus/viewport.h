@@ -69,8 +69,7 @@ namespace App {
 		// Panning
 		void Pan(const Geom::SizeInt& deltaPan);
 
-		Geom::SizeInt UnzoomedImageSize();
-		Geom::SizeInt GetImageUnzoomedSize() const;
+		Geom::SizeInt OptimalViewportSize();
 		Geom::SizeInt ZoomedImageSize();
 
 		ViewPort();

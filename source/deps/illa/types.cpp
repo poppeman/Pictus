@@ -34,6 +34,13 @@ namespace Filter {
 	FilterBuffer::FilterBuffer( const Geom::SizeInt& sz_, int ps_, uint8_t* data_, size_t stride_, const Img::Palette& pal_  ) {
 		Construct(sz_, ps_, data_, stride_, pal_);
 	}
+
+	Geom::SizeInt CalculateUnzoomedSize(_In_ Geom::SizeInt defaultDims, _In_ RotationAngle angle) {
+		if (angle == Filter::Rotate90 || angle == Filter::Rotate270) {
+			return defaultDims.Flipped();
+		}
+		return defaultDims;
+	}
 }
 
 

@@ -6,8 +6,8 @@
 namespace Win {
 	class Monitor {
 	public:
-		_Check_return_ const Geom::RectInt& Region() const;
-		_Check_return_ const Geom::RectInt& WorkArea() const;
+		_Check_return_ Geom::RectInt Region() const;
+		_Check_return_ Geom::RectInt WorkArea() const;
 
 		Monitor(_In_ HMONITOR hMonitor);
 
@@ -19,7 +19,7 @@ namespace Win {
 		HMONITOR m_hMonitor;
 	};
 
-	_Check_return_ _Ret_ const Monitor* FindMonitorAt(_In_ const Geom::PointInt& coordinate);
+	_Check_return_ _Ret_ const Monitor* FindMonitorAt(_In_ Geom::PointInt coordinate);
 }
 
 #endif

@@ -86,7 +86,7 @@ namespace App {
 			m_sDirectory = params;
 		}
 		else {
-			m_sDirectory = TX("");
+			m_sDirectory = L"";
 		}
 
 		// Look for another process (disallow if the setting requires that)
@@ -100,7 +100,7 @@ namespace App {
 				}
 
 				// Tell the instance to open the new location/file (if applicable)
-				if (params != TX("")) {
+				if (params.empty() == false) {
 					// Dodge const-incorrectness
 					boost::scoped_array<wchar_t> pStrData(new wchar_t[params.length() + 1]);
 					wcscpy_s(pStrData.get(), (params.length() + 1), params.c_str());
@@ -126,13 +126,13 @@ namespace App {
 		CloseHandle(m_singleMutex);
 
 		if (UnhandledExceptionOcurred()) {
-			MessageBox(0, UnhandledExceptionDescription().c_str(), TX("Pictus error"), MB_OK);
+			MessageBox(nullptr, UnhandledExceptionDescription().c_str(), L"Pictus error", MB_OK);
 		}
 	}
 
 	bool Viewer::Show(bool doShow) {
 		auto img = m_viewPort.Image();
-		auto allocated = IsPositive(m_viewPort.UnzoomedImageSize());
+		auto allocated = IsPositive(m_viewPort.OptimalViewportSize());
 		auto defective = img?!img->IsHeaderInformationValid() && img->IsFinished():true;
 		ImageChanged();
 		if (m_doMaximize == false && !allocated && !defective) {
@@ -169,7 +169,7 @@ namespace App {
 
 		m_cacher.MessageTarget(this);
 		// TODO: FIXME: This is very wrong, should be set to something that isn't hardcoded.
-		m_cacher.SetMaximumResolutionHint(Geom::SizeInt(1024, 1024));
+		m_cacher.SetMaximumResolutionHint(Geom::SizeInt(64, 64));
 		m_folderMonitor.OnEvent.connect([this](IO::FileEvent e) { FolderEvent(e); });
 
 		m_cacher.WrapAround(Reg::Key(DWBrowseWrapAround) != 0);
@@ -788,22 +788,24 @@ namespace App {
 	}
 
 	void Viewer::ImageChanged() {
-		if (IsZoomed(Handle())) return;
-		if (m_viewPort.Image() == 0) return;
-
-		const SizeInt& imageSize = m_viewPort.UnzoomedImageSize();
-
-		if (!IsPositive(imageSize))
+		if (IsZoomed(Handle()) || m_viewPort.Image() == nullptr) {
 			return;
+		}
 
-		if (ViewportMode() != SM_Normal) return;
+		auto imageSize = m_viewPort.OptimalViewportSize();
+
+		if (!IsPositive(imageSize)) {
+			return;
+		}
+
+		if (ViewportMode() != SM_Normal) {
+			return;
+		}
 
 		if (Reg::Key(DWResizeWindow)) {
 			// The window should be resized some way.
 			SizeInt newSize;
-			const SizeInt& szClientArea	= ClientRect().Dimensions();
-
-			SizeInt windowEdges = GetSize() - szClientArea;
+			SizeInt windowEdges = GetSize() - ClientRect().Dimensions();
 
 			if (Reg::Key(DWShowStatusBar)) {
 				windowEdges.Height += m_statusBar->Position().Height();

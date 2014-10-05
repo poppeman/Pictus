@@ -123,7 +123,7 @@ namespace Geom {
 		const T Bottom() const { return m_topLeft.Y + m_size.Height; }
 		void Bottom(const int nb) { m_size.Height = nb - m_topLeft.Y; }
 
-		const Size<T>& Dimensions() const { return m_size; }
+		Size<T> Dimensions() const { return m_size; }
 		void Dimensions(const Size<T>& sz) { m_size = sz; }
 
 		const Point<T>& TopLeft() const { return m_topLeft; }
