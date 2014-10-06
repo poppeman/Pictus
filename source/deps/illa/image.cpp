@@ -19,7 +19,7 @@ namespace Img {
 	_Use_decl_annotations_ void Image::SetHeaderData(const Geom::SizeInt& size, ImageComposer::Ptr composer) {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 		if (composer == nullptr) {
-			DO_THROW(Err::InvalidParam, TX("Composer was null."));
+			DO_THROW(Err::InvalidParam, L"Composer was null.");
 		}
 
 		m_composer = composer;
@@ -30,7 +30,7 @@ namespace Img {
 	_Use_decl_annotations_ void Image::FinishImage(int loadTime) {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 
-		loadTime = loadTime;
+		m_loadTime = loadTime;
 		isFinished = true;
 	}
 

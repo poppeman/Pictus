@@ -477,11 +477,13 @@ namespace App {
 	}
 
 	std::wstring Viewer::UII_LoadProgress(Img::Image::Ptr image) {
-		if(!image || (image->IsHeaderInformationValid() == false && image->IsFinished()))
-			return TX("");
+		if (image == nullptr || (image->IsHeaderInformationValid() == false && image->IsFinished())) {
+			return L"";
+		}
 
-		if(image->IsFinished())
+		if (image->IsFinished()) {
 			return GetWString(SIDLoadedIn) + ToWString(image->LoadTime() / 1000.0f) + GetWString(SIDSeconds);
+		}
 
 		return GetWString(SIDLoading);
 	}
