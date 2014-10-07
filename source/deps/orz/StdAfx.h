@@ -13,10 +13,13 @@
 #else
 #define _Check_return_
 #define _In_
+#define _In_range_(x, y)
 #define _In_reads_bytes_(x)
 #define _Out_writes_bytes_(x)
 #define _Out_writes_bytes_all_(x)
 #define _Out_writes_all_(x)
+#define _Inout_
+#define _Ret_
 #define _Ret_z_
 #define _Use_decl_annotations_
 #endif

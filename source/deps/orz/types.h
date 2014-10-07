@@ -40,7 +40,7 @@ bool IsDecimal(const std::wstring& s);
 // I don't want to remove ALL pre/post checks in release build but it can be
 // very nifty to remove the silliest ones
 
-std::wstring DoThrowBuildDescription(const wchar_t* filename, int line, wchar_t* functionName, const std::wstring& description);
+std::wstring DoThrowBuildDescription(const wchar_t* filename, int line, const wchar_t* functionName, const std::wstring& description);
 
 #ifdef _MSC_VER
 #define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(TX(__FILE__), __LINE__, TX(__FUNCTION__), description))
@@ -78,7 +78,7 @@ namespace Num {
 	const float Pi = 3.14159265358979323846f;
 	const float Pi_2 = 1.57079632679489661923f;
 	const float Pi_4 = 0.785398163397448309616f;
-};
+}
 
 std::wstring ToUpper(const std::wstring& s);
 std::wstring ToLower(const std::wstring& s);

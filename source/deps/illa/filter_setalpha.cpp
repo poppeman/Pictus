@@ -4,7 +4,7 @@
 
 namespace Filter {
 	namespace Alpha {
-		void Alpha::SetAlpha(const FilterBuffer& source, int alpha) {
+		void SetAlpha(const FilterBuffer& source, int alpha) {
 			if (source.BufferData == nullptr) {
 				DO_THROW(Err::InvalidParam, TX("Null buffer not allowed."));
 			}

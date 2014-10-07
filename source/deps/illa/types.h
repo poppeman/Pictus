@@ -29,7 +29,7 @@ namespace Img {
 
 	uint8_t EstimatePixelSize(Format sf);
 	bool HasAlpha(Format sf);
-};
+}
 
 std::wstring ToWString(const Img::Format& imgFormat);
 inline std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt) {

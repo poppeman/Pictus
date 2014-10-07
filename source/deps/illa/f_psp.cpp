@@ -11,4 +11,4 @@ namespace Img {
 		AddExtension(TX("PSP"));
 		AddExtension(TX("PSPIMAGE"));
 	}
-};
+}

@@ -1,4 +1,3 @@
-
 #ifndef IMAGECACHE_THREAD_H
 #define IMAGECACHE_THREAD_H
 
@@ -9,7 +8,7 @@
 
 namespace Img {
 	class Image;
-};
+}
 
 namespace Img { 
 	class BackgroundProcessor {

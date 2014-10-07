@@ -42,6 +42,6 @@ namespace Filter {
 		// Precondition: Buffer must be ARGB8888 or XRGB8888
 		void SetAlpha(const FilterBuffer& source, int alpha);
 	}
-};
+}
 
 #endif

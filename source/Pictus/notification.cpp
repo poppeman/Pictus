@@ -24,7 +24,7 @@ namespace Win {
 	}
 
 	void Notification::ToolTip(const std::wstring& text) {
-		_tcscpy_s(m_nid.szTip, 128, text.c_str());
+        wcscpy_s(m_nid.szTip, 128, text.c_str());
 		SET_OR_UNSET(text != TX(""), m_nid.uFlags, NIF_TIP);
 	}
 
@@ -44,8 +44,8 @@ namespace Win {
 
 	void Notification::Balloon(const std::wstring& text, const std::wstring& caption, DWORD msTimeout) {
 		m_nid.uFlags |= NIF_INFO;
-		_tcscpy_s(m_nid.szInfo, 256, text.c_str());
-		_tcscpy_s(m_nid.szInfoTitle, 64, caption.c_str());
+        wcscpy_s(m_nid.szInfo, 256, text.c_str());
+        wcscpy_s(m_nid.szInfoTitle, 64, caption.c_str());
 		m_nid.dwInfoFlags = NIIF_NONE;
 		m_nid.uTimeout = msTimeout;
 		m_nid.uVersion = NOTIFYICON_VERSION;

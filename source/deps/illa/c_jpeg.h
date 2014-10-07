@@ -8,7 +8,7 @@
 #endif
 extern "C" {
 	#include "libjpeg/jpeglib.h"
-};
+}
 
 #include "orz/file.h"
 

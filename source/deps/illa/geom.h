@@ -142,7 +142,7 @@ namespace Geom {
 		}
 
 		bool Contains(const Rect<T>& pt) const {
-			return (Contains(pt.TopLeft()) && Contains(pt.BottomRight() - SizeInt(1, 1)));
+			return (Contains(pt.TopLeft()) && Contains(pt.BottomRight() - Size<T>{1, 1}));
 		}
 
 		Rect<T> Crop(const Rect<T>& toCrop) const {

@@ -12,6 +12,6 @@ namespace Reg {
 
 	void Load(const std::wstring& name);
 	void Save(const std::wstring& name);
-};
+}
 
 #endif

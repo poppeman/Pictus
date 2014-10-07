@@ -4,43 +4,48 @@
 #include "app_types.h"
 
 namespace Win {
-	enum MouseButton {
-		NoButton,
-		Left,
-		Right,
-		Middle,
-		Extra1,
-		Extra2
-	};
+    enum MouseButton {
+        NoButton,
+        Left,
+        Right,
+        Middle,
+        Extra1,
+        Extra2
+    };
 
-	class MouseEvent {
-	public:
-		MouseButton Button;
-		Geom::PointInt Position;
-		int WheelTicks;
+    class MouseEvent {
+    public:
+        MouseButton Button;
+        Geom::PointInt Position;
+        int WheelTicks;
 
-		MouseEvent():Button(Left), Position(0, 0), WheelTicks(0) {}
-		MouseEvent(_In_ LPARAM lParam):Position(static_cast<SHORT>(LOWORD(lParam)), static_cast<SHORT>(HIWORD(lParam))), WheelTicks(0) { }
-	};
+        MouseEvent() : Button(Left), Position(0, 0), WheelTicks(0) {
+        }
 
-	class KeyEvent {
-	public:
-		WPARAM Key;
-		bool AltPressed;
-		bool CtrlPressed;
-		bool ShiftPressed;
+        MouseEvent(_In_ LPARAM lParam)
+                : Position(static_cast<SHORT>(LOWORD(lParam)), static_cast<SHORT>(HIWORD(lParam))), WheelTicks(0) {
+        }
+    };
 
-		bool operator <(const _In_ KeyEvent& rhs) const;
+    class KeyEvent {
+    public:
+        WPARAM Key;
+        bool AltPressed;
+        bool CtrlPressed;
+        bool ShiftPressed;
 
-		KeyEvent(_In_ WPARAM key, _In_ bool isAltPressed, _In_ bool isCtrlPressed, _In_ bool isShiftPressed);
-	};
+        bool operator<(const _In_ KeyEvent &rhs) const;
 
-	std::wstring LongPath(_In_ const std::wstring& path);
+        KeyEvent(_In_ WPARAM key, _In_ bool isAltPressed, _In_ bool isCtrlPressed, _In_ bool isShiftPressed);
+    };
 
-	Geom::RectInt RECTToRect(_In_ const RECT& rect);
-	RECT RectToRECT(_In_ const Geom::RectInt& rect);
+    std::wstring LongPath(_In_ const std::wstring &path);
 
-	POINT PointToPOINT(_In_ const Geom::PointInt& point);
-};
+    Geom::RectInt RECTToRect(_In_ const RECT &rect);
+
+    RECT RectToRECT(_In_ const Geom::RectInt &rect);
+
+    POINT PointToPOINT(_In_ const Geom::PointInt &point);
+}
 
 #endif

@@ -23,7 +23,6 @@ namespace App {
 //		ViewerSettingsChanged,
 		ViewerListUpdate,
 	};
-
-};
+}
 
 #endif

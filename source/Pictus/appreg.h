@@ -34,7 +34,7 @@ namespace Reg {
 
 	namespace Keys {
 #include "keys_dword.inc"
-	};
+	}
 }
 
 inline std::basic_ostream<wchar_t>& operator<<(std::basic_ostream<wchar_t>& in, const App::ResizePositionMethod& fmt) {

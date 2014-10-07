@@ -27,6 +27,6 @@ namespace Img {
 	const size_t MaxSurfaceBytes = (size_t)1024 * (size_t)1024 * (size_t)1024;
 #endif
 	const int MaxSurfaceDim = 100000;
-};
+}
 
 #endif

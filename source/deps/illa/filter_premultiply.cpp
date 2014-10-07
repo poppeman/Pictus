@@ -4,7 +4,7 @@
 
 namespace Filter {
 	namespace Alpha {
-		void Alpha::PremultiplyAlphaBuffer(const FilterBuffer& source) {
+		void PremultiplyAlphaBuffer(const FilterBuffer& source) {
 			if (source.BufferData == nullptr) {
 				DO_THROW(Err::InvalidParam, TX("Null buffer not allowed."));
 			}
