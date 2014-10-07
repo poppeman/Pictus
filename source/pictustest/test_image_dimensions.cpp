@@ -19,13 +19,13 @@ SUITE(ImgDimSuite) {
 
 	TEST(AngleProperty) {
 		ImageDimensions id;
-		CHECK_EQUAL(Filter::RotateDefault, id.Angle());
-		id.Angle(Filter::Rotate270);
-		CHECK_EQUAL(Filter::Rotate270, id.Angle());
+		CHECK_EQUAL(Filter::RotationAngle::RotateDefault, id.Angle());
+		id.Angle(Filter::RotationAngle::Rotate270);
+		CHECK_EQUAL(Filter::RotationAngle::Rotate270, id.Angle());
 	}
 
 	TEST_FIXTURE(IdFixture, InvalidAngle) {
-		id.Angle(Filter::RotateUndefined);
+		id.Angle(Filter::RotationAngle::RotateUndefined);
 		CHECK_THROW(id.TranslatedSurfaceSourceRect(RectInt(PointInt(0, 0), imgDims)), Err::InvalidCall);
 	}
 
@@ -39,16 +39,16 @@ SUITE(ImgDimSuite) {
 
 	TEST_FIXTURE(IdFixture, FullRotationShapeKeep) {
 		RectInt rect(PointInt(0, 0), imgDims);
-		id.Angle(RotateDefault);
+		id.Angle(RotationAngle::RotateDefault);
 		CHECK_EQUAL(rect, id.TranslatedSurfaceSourceRect(rect));
 
-		id.Angle(Rotate180);
+		id.Angle(RotationAngle::Rotate180);
 		CHECK_EQUAL(rect, id.TranslatedSurfaceSourceRect(rect));
 
-		id.Angle(FlipX);
+		id.Angle(RotationAngle::FlipX);
 		CHECK_EQUAL(rect, id.TranslatedSurfaceSourceRect(rect));
 
-		id.Angle(FlipY);
+		id.Angle(RotationAngle::FlipY);
 		CHECK_EQUAL(rect, id.TranslatedSurfaceSourceRect(rect));
 	}
 
@@ -56,10 +56,10 @@ SUITE(ImgDimSuite) {
 		RectInt rect(PointInt(0, 0), imgDims.Flipped());
 		RectInt rotRect(PointInt(0, 0), imgDims);
 
-		id.Angle(Rotate90);
+		id.Angle(RotationAngle::Rotate90);
 		CHECK_EQUAL(rotRect, id.TranslatedSurfaceSourceRect(rect));
 
-		id.Angle(Rotate270);
+		id.Angle(RotationAngle::Rotate270);
 		CHECK_EQUAL(rotRect, id.TranslatedSurfaceSourceRect(rect));
 	}
 
@@ -101,29 +101,31 @@ SUITE(ImgDimSuite) {
 
 	TEST_FIXTURE(IdFixture, KeepsShape) {
 		RectInt destRect(PointInt(15, 12), SizeInt(33, 54));
-		id.Angle(Rotate180);
+		id.Angle(RotationAngle::Rotate180);
 		CHECK_EQUAL(destRect, id.TranslatedSurfaceSourceRect(id.TranslatedSurfaceSourceRect(destRect)));
-		id.Angle(FlipX);
+		id.Angle(RotationAngle::FlipX);
 		CHECK_EQUAL(destRect, id.TranslatedSurfaceSourceRect(id.TranslatedSurfaceSourceRect(destRect)));
-		id.Angle(FlipY);
+		id.Angle(RotationAngle::FlipY);
 		CHECK_EQUAL(destRect, id.TranslatedSurfaceSourceRect(id.TranslatedSurfaceSourceRect(destRect)));
 	}
 
 	TEST_FIXTURE(IdFixture, KeepsShape90) {
 		RectInt destRect(PointInt(15, 12), SizeInt(33, 54));
-		id.Angle(Rotate90);
+		id.Angle(RotationAngle::Rotate90);
 		RectInt srcRect(destRect);
-		for(int i = 0; i < 4; ++i)
+		for (auto i = 0; i < 4; ++i) {
 			srcRect = id.TranslatedSurfaceSourceRect(srcRect);
+		}
 		CHECK_EQUAL(destRect, srcRect);
 	}
 
 	TEST_FIXTURE(IdFixture, KeepsShape270) {
 		RectInt destRect(PointInt(15, 12), SizeInt(33, 54));
-		id.Angle(Rotate270);
+		id.Angle(RotationAngle::Rotate270);
 		RectInt srcRect(destRect);
-		for(int i = 0; i < 4; ++i)
+		for (auto i = 0; i < 4; ++i) {
 			srcRect = id.TranslatedSurfaceSourceRect(srcRect);
+		}
 		CHECK_EQUAL(destRect, srcRect);
 	}
 }

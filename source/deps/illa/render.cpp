@@ -7,27 +7,29 @@ namespace Geom {
 	template <typename T>
 	Rect<T> RotateRect(const Rect<T>& rectToRotate, const Size<T>& boundaries, Filter::RotationAngle angle) {
 		switch(angle) {
-		case Filter::RotateDefault:
+		case Filter::RotationAngle::RotateDefault:
 			return rectToRotate;
 
-		case Filter::FlipX:
-			return Geom::RectInt(
-				Geom::PointInt(boundaries.Width - rectToRotate.Left() - rectToRotate.Width(), rectToRotate.Top()),
-				rectToRotate.Dimensions());
+		case Filter::RotationAngle::FlipX:
+			return {
+				Geom::PointInt{ boundaries.Width - rectToRotate.Left() - rectToRotate.Width(), rectToRotate.Top() },
+				rectToRotate.Dimensions() };
 
-		case Filter::FlipY:
-			return Geom::RectInt(
-				Geom::PointInt(rectToRotate.Left(), boundaries.Height - rectToRotate.Top() - rectToRotate.Height()),
-				rectToRotate.Dimensions());
+		case Filter::RotationAngle::FlipY:
+			return {
+				Geom::PointInt{ rectToRotate.Left(), boundaries.Height - rectToRotate.Top() - rectToRotate.Height() },
+				rectToRotate.Dimensions() };
 
-		case Filter::Rotate90:
-			return Geom::RectInt(Geom::PointInt(rectToRotate.Top(), boundaries.Width - rectToRotate.Right()), Geom::SizeInt(rectToRotate.Height(), rectToRotate.Width()));
+		case Filter::RotationAngle::Rotate90:
+			return {
+				Geom::PointInt{ rectToRotate.Top(), boundaries.Width - rectToRotate.Right() },
+				Geom::SizeInt{ rectToRotate.Height(), rectToRotate.Width() } };
 
-		case Filter::Rotate180:
-			return RotateRect(RotateRect(rectToRotate, boundaries, Filter::FlipY), boundaries, Filter::FlipX);
+		case Filter::RotationAngle::Rotate180:
+			return RotateRect(RotateRect(rectToRotate, boundaries, Filter::RotationAngle::FlipY), boundaries, Filter::RotationAngle::FlipX);
 
-		case Filter::Rotate270:
-			return RotateRect(RotateRect(RotateRect(rectToRotate, boundaries, Filter::FlipY), boundaries, Filter::FlipX), boundaries, Filter::Rotate90);
+		case Filter::RotationAngle::Rotate270:
+			return RotateRect(RotateRect(RotateRect(rectToRotate, boundaries, Filter::RotationAngle::FlipY), boundaries, Filter::RotationAngle::FlipX), boundaries, Filter::RotationAngle::Rotate90);
 
 		default:
 			DO_THROW(Err::Unsupported, TX("Rotation method not yet implemented"));
@@ -40,10 +42,7 @@ namespace Img {
 		using namespace Geom;
 
 		// Apply rotation to coordinates
-		Geom::SizeInt rotatedSize = RoundCast((props.Angle == Filter::Rotate90 || props.Angle == Filter::Rotate270)?
-			source.Dimensions.Flipped():
-			source.Dimensions);
-
+		auto rotatedSize = Filter::CalculateUnzoomedSize(source.Dimensions, props.Angle);
 		rotatedSize = RoundCast(rotatedSize * props.Zoom);
 
 		RectInt dstRect = RotateRect(region, rotatedSize, props.Angle);
