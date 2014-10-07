@@ -1,9 +1,5 @@
 #include "StdAfx.h"
-
 #include "folder_imp.h"
-#include "folder.h"
-
-//#pragma comment(lib, "shlwapi.lib")
 
 namespace IO {
 /*	bool FolderImplementation::Path(const std::wstring& path) {

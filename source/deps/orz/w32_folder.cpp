@@ -16,8 +16,9 @@ namespace IO {
 
 	std::wstring FolderWin32::SetFolderSlashes(const std::wstring& inPath) {
 		char trm = *inPath.rbegin();
-		if(trm != TX('\\') && trm != TX('/'))
-			return inPath + TX("\\");
+		if(trm != L'\\' && trm != L'/') {
+            return inPath + L"\\";
+        }
 		return inPath;
 	}
 }

@@ -29,7 +29,7 @@ namespace IO {
 		FileReader(_In_ Stream::Ptr s);
 
 	private:
-		FileReader(const FileReader& b);
+		FileReader(const FileReader& b)=delete;
 		Stream::Ptr m_stream;
 	};
 
