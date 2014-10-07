@@ -40,10 +40,13 @@ bool IsDecimal(const std::wstring& s);
 // I don't want to remove ALL pre/post checks in release build but it can be
 // very nifty to remove the silliest ones
 
-std::wstring DoThrowBuildDescription(wchar_t* filename, int line, wchar_t* functionName, const std::wstring& description);
+std::wstring DoThrowBuildDescription(const wchar_t* filename, int line, wchar_t* functionName, const std::wstring& description);
 
-
+#ifdef _MSC_VER
 #define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(TX(__FILE__), __LINE__, TX(__FUNCTION__), description))
+#else
+#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(L"UNK_FILE", 0, L"UNK_FUNC", std::wstring(description)))
+#endif
 #define COND_STRICT(condition, exception, description) { if ((condition) == false) DO_THROW(exception, (description)); }
 
 namespace Util {

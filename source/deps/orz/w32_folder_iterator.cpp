@@ -8,7 +8,7 @@ namespace IO {
 			return true;
 		}
 
-		return(FindNextFile(m_handle, &m_currentEntry) != 0);
+		return(FindNextFileW(m_handle, &m_currentEntry) != 0);
 	}
 
 	FolderEntry FolderFileIteratorWin32::OnCurrentEntry() {
@@ -27,7 +27,7 @@ namespace IO {
 	}
 
 	FolderFileIteratorWin32::FolderFileIteratorWin32(const std::wstring& path):m_handle(0), m_first(true) {
-		m_handle = FindFirstFile((path + TX("*.*")).c_str(), &m_currentEntry);
+		m_handle = FindFirstFileW((path + TX("*.*")).c_str(), &m_currentEntry);
 		if (m_handle == INVALID_HANDLE_VALUE) {
 			DO_THROW(Err::InvalidParam, TX("Call to FindFirstFile failed. Path = ") + path);
 		}

@@ -16,7 +16,7 @@ namespace IO {
 		void FindNext();
 
 		bool m_first;
-		WIN32_FIND_DATA m_currentEntry;
+		WIN32_FIND_DATAW m_currentEntry;
 
 		HANDLE m_handle;
 	};

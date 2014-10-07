@@ -21,7 +21,7 @@ namespace Sys {
 
 		_Use_decl_annotations_ const std::wstring ExePath() {
 			wchar_t strExe[MAX_PATH];
-			::GetModuleFileName(0, strExe, (sizeof(strExe) / sizeof(wchar_t)) - 1);
+			::GetModuleFileNameW(0, strExe, (sizeof(strExe) / sizeof(wchar_t)) - 1);
 			return strExe;
 		}
 	}

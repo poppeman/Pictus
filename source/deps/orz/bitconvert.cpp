@@ -76,15 +76,15 @@ namespace Util {
 				StreamConverter sc;
 				sc.ChangeWordSize(sourceBitDepth);
 				if (sc.AddBytes(source, (numSourceWords * sourceBitDepth + 7) / 8) == false) {
-					DO_THROW(Err::CriticalError, TX("Couldn't insert source data into conversion stream."));
+					DO_THROW(Err::CriticalError, L"Couldn't insert source data into conversion stream.");
 				}
 
 				if (sc.GetWordsAsByteMsbToLsb(dest, numSourceWords) == false) {
-					DO_THROW(Err::CriticalError, TX("Couldn't convert data."));
+					DO_THROW(Err::CriticalError, L"Couldn't convert data.");
 				}
 			}
 			else {
-				DO_THROW(Err::Unsupported, TX("Unsupported word size: ") + ToWString(sourceBitDepth));
+				DO_THROW(Err::Unsupported, std::wstring(L"Unsupported word size: ") + ToWString(sourceBitDepth));
 			}
 		}
 	}

@@ -31,11 +31,11 @@ namespace IO {
 
 	_Use_decl_annotations_ void FileReader::ReadFull(void* buf, size_t size) {
 		if (IsOpen() == false) {
-			DO_THROW(Err::FileNotOpen, TX("File is not open."));
+			DO_THROW(Err::FileNotOpen, L"File is not open.");
 		}
 
 		if (m_stream->Read(buf, size, 1) != 1) {
-			DO_THROW(Err::EndOfFile, TX("Reached EOF in a call to ReadFull"));
+			DO_THROW(Err::EndOfFile,L"Reached EOF in a call to ReadFull");
 		}
 	}
 
