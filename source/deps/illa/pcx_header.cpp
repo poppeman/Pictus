@@ -4,7 +4,7 @@
 
 namespace Img {
 	namespace Internal {
-		bool PCXHeader::Load(IO::FileReader::Ptr file) noexcept {
+		bool PCXHeader::Load(IO::FileReader::Ptr file) {
 			enum {
 				Version_2_5				= 0,
 				Version_2_8_PAL			= 2,
