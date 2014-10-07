@@ -9,7 +9,7 @@ namespace Img {
 	namespace Internal {
 		class PCXHeader {
 		public:
-			bool Load(IO::FileReader::Ptr file) throw();
+			bool Load(IO::FileReader::Ptr file) noexcept;
 
 			uint8_t Version;
 			bool IsCompressed;

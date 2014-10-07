@@ -12,7 +12,7 @@ namespace Img {
 		void Restart();
 
 		ImageComposer();
-		virtual ~ImageComposer()=0 {}
+		virtual ~ImageComposer()=0;
 
 		typedef std::shared_ptr<ImageComposer> Ptr;
 

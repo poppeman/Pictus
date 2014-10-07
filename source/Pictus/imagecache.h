@@ -90,6 +90,6 @@ namespace Img {
 	};
 
 	bool FillCacher(Cacher& cache, IO::Folder& folder);
-};
+}
 
 #endif

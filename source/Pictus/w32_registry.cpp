@@ -18,4 +18,4 @@ namespace Reg {
 		for (int i = 0; i < Reg::Keys::FinalDWORD; ++i)
 			WritePrivateProfileString(TX("Settings"), c_DWordSettings[i].Name, ToWString(c_DWordSettings[i].Value).c_str(), full_name.c_str());
 	}
-};
+}

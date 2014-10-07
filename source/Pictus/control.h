@@ -27,8 +27,6 @@ namespace Win {
 		static Ptr GetControl(HWND hwnd);
 		static void DestructControls();
 
-		typedef std::shared_ptr<Control> Ptr;
-
 		Control();
 
 	private:

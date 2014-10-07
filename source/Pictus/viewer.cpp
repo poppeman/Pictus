@@ -691,8 +691,7 @@ namespace App {
 	}
 
 	void Viewer::OnLoadMessage(Img::MessageReceiver::LoadMessage msg, Img::Image* pImage, const std::wstring& desc) {
-		CacheNotification not = {pImage, msg, desc};
-		AddNotification(not);
+		AddNotification({pImage, msg, desc});
 	}
 
 	void Viewer::HandleCacheNotification() {
@@ -701,17 +700,17 @@ namespace App {
 			DO_THROW(Err::CriticalError, TX("Notification queue is empty."));
 		}
 
-		CacheNotification not = m_cacheNotifications.front();
+		CacheNotification notification = m_cacheNotifications.front();
 		m_cacheNotifications.pop_front();
 		l.unlock();
 
-		if(not.message == Img::MessageReceiver::LoadErrorCritical) {
-			m_exceptionDescription = not.desc;
+		if(notification.message == Img::MessageReceiver::LoadErrorCritical) {
+			m_exceptionDescription = notification.desc;
 			m_exceptionOcurred = true;
 			PostMessage(Handle(), WM_CLOSE, 0, 0);
 		}
-		if (not.image == m_viewPort.Image().get()) {
-			switch (not.message) {
+		if (notification.image == m_viewPort.Image().get()) {
+			switch (notification.message) {
 				case Img::MessageReceiver::LoadDone:
 					m_viewPort.ImageUpdated();
 					UpdateImageInformation();
@@ -729,7 +728,9 @@ namespace App {
 					break;
 			}
 
-			if(m_attemptToShow && not.message >= Img::MessageReceiver::LoadAllocated) Show(true);
+			if(m_attemptToShow && notification.message >= Img::MessageReceiver::LoadAllocated) {
+                Show(true);
+            }
 		}
 	}
 
@@ -739,20 +740,20 @@ namespace App {
 			DO_THROW(Err::CriticalError, TX("Notification queue is empty."));
 		}
 
-		IO::FileEvent not = m_folderNotifications.front();
+		IO::FileEvent notification = m_folderNotifications.front();
 		m_folderNotifications.pop_front();
 		l.unlock();
 
-		std::wstring full_path = not.Path + not.Entry.Name;
+		std::wstring full_path = notification.Path + notification.Entry.Name;
 
-		switch (not.Type) {
+		switch (notification.Type) {
 			case IO::MonitoredFolderDeleted:
 				ActiveImage(Img::Image::Ptr());
 				m_cacher.Clear();
 				m_folderMonitor.Close();
 				break;
 			case IO::FileRenamed:
-				m_cacher.RenamedImage(not.Path + not.Entry.PreviousName, not.Path + not.Entry.Name);
+				m_cacher.RenamedImage(notification.Path + notification.Entry.PreviousName, notification.Path + notification.Entry.Name);
 				break;
 			case IO::FileAdded:
 				ActiveImage(m_cacher.AddImageLast(full_path));

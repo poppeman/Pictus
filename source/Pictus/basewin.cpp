@@ -242,8 +242,8 @@ namespace Win {
 		return ret;
 	}
 	bool BaseWindow::OnSize(const SizeInt& sz)  { return PerformOnSize(sz); }
-	bool BaseWindow::OnHScroll(WPARAM wp, LPARAM lp) { return PerformOnHScroll(wp, lp); };
-	bool BaseWindow::OnVScroll(WPARAM wp, LPARAM lp) { return PerformOnVScroll(wp, lp); };
+	bool BaseWindow::OnHScroll(WPARAM wp, LPARAM lp) { return PerformOnHScroll(wp, lp); }
+	bool BaseWindow::OnVScroll(WPARAM wp, LPARAM lp) { return PerformOnVScroll(wp, lp); }
 	bool BaseWindow::OnNotificationAreaIconClick(size_t id) { return PerformOnNotificationAreaIconClick(id); }
 
 	bool BaseWindow::OnApp(int index, WPARAM wp, LPARAM lp) { return PerformOnApp(index, wp, lp); }

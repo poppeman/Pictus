@@ -10,4 +10,4 @@ namespace Img {
 	FactoryPSD::FactoryPSD():ICodecFactory(TX("Adobe Photoshop")) {
 		AddExtension(TX("PSD"));
 	}
-};
+}
