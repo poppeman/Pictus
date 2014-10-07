@@ -1,6 +1,5 @@
 #include "StdAfx.h"
 #include "fileops.h"
-#include <mutex>
 
 namespace IO {
 	using std::mutex;
@@ -103,7 +102,7 @@ namespace IO {
 
 		//		int ticket = pause_folders(GetPath(old_name));
 
-		bool toRet = false;
+		bool toRet;
 		{
 			std::lock_guard<std::mutex> l(g_mutexSHFileOperation);
 			toRet = (SHFileOperationW(&sfop) == 0) && (sfop.fAnyOperationsAborted == false);

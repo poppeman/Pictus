@@ -1,5 +1,4 @@
 #include "StdAfx.h"
-#include "file.h"
 #include "stream_file.h"
 
 namespace IO {
@@ -60,17 +59,14 @@ namespace IO {
 	{}
 
 	_Use_decl_annotations_ bool FileWriter::Open(const std::wstring& name, bool append) {
-		Close();   // Might be re-using the object.
+        Close();   // Might be re-using the object.
 
-		if (name.empty()) {
-			return false;
-		}
+        if (name.empty()) {
+            return false;
+        }
 
-		return (_wfopen_s(
-			&m_file,
-			name.c_str(),
-			append?TX("ab"):TX("wb")) == 0);
-	}
+        return _wfopen_s(&m_file, name.c_str(), append ? L"ab" : L"wb") == 0;
+    }
 
 	void FileWriter::Close() {
 		if (m_file != 0)

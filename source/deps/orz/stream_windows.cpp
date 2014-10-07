@@ -49,7 +49,7 @@ namespace IO {
 	}
 
 	_Use_decl_annotations_ void StreamWindows::performSeek(FileInt position, SeekMethod m) {
-		DWORD dwOrigin = STREAM_SEEK_SET;
+		DWORD dwOrigin;
 
 		if (m == IO::SeekMethod::Begin) {
 			dwOrigin = STREAM_SEEK_SET;
