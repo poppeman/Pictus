@@ -8,7 +8,18 @@
 #define _SECURE_SCL 0
 #endif
 
+#ifdef _MSC_VER
 #include <codeanalysis\warnings.h>
+#else
+#define _Check_return_
+#define _In_
+#define _In_reads_bytes_(x)
+#define _Out_writes_bytes_(x)
+#define _Out_writes_bytes_all_(x)
+#define _Out_writes_all_(x)
+#define _Ret_z_
+#define _Use_decl_annotations_
+#endif
 
 #pragma warning (push)
 #pragma warning (disable: 4503)
@@ -25,6 +36,7 @@
 #include <windows.h>
 #include <shellapi.h>
 #include <Shlwapi.h>
+#include <share.h>
 #include <thread>
 #include <mutex>
 #include <condition_variable>

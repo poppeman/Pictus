@@ -17,7 +17,7 @@ namespace IO {
 		std::wstring cropped = path.substr(0, path.length()-1);
 		ZeroMemory(&m_ol, sizeof(m_ol));
 
-		m_directory = CreateFile(
+		m_directory = CreateFileW(
 			cropped.c_str(),
 			FILE_LIST_DIRECTORY,
 			FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
@@ -86,7 +86,7 @@ namespace IO {
 				&lpOverlapped,
 				100);
 
-			if(!PathIsDirectory(Path().c_str())) {
+			if(!PathIsDirectoryW(Path().c_str())) {
 				FolderDeleted();
 				break;
 			}
