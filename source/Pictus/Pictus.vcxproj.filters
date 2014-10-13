@@ -294,6 +294,9 @@
     <ClCompile Include="gdiwrapper.cpp">
       <Filter>Imaging\Renderer\GDI</Filter>
     </ClCompile>
+    <ClCompile Include="appreg.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlg_about.h">
@@ -533,6 +536,9 @@
     <ResourceCompile Include="res_viewer.rc">
       <Filter>Viewer</Filter>
     </ResourceCompile>
+    <ResourceCompile Include="version.rc">
+      <Filter>Shared</Filter>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="keys_dword.inc">
@@ -545,9 +551,6 @@
       <Filter>Shared</Filter>
     </None>
     <None Include="values_dword.inc">
-      <Filter>Shared</Filter>
-    </None>
-    <None Include="version.rc2">
       <Filter>Shared</Filter>
     </None>
     <None Include="Res\cursor_app_pan2.cur">
