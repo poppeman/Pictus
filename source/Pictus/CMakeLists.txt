@@ -16,3 +16,4 @@ endif(MINGW)
 
 add_executable(Pictus ${PICTUS_CPP_SRCS} ${PICTUS_RC_SRCS} ${DEPS_DIRECTORY})
 target_link_libraries(Pictus illa orz d3dwrap comctl32 ${Boost_LIBRARIES})
+add_dependencies(Pictus orzTest illaTest pictusTest)
