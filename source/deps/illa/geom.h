@@ -323,7 +323,7 @@ namespace Geom {
 
 		Rect(Point<T> p1, Point<T> p2) :
 				m_topLeft{Util::Min(p1.X, p2.X), Util::Min(p1.Y, p2.Y)},
-				m_size{abs(p1.X - p2.X), abs(p1.Y - p2.Y)} {
+				m_size{std::abs(p1.X - p2.X), std::abs(p1.Y - p2.Y)} {
 		}
 
 		Rect() {
