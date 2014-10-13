@@ -205,6 +205,7 @@
     <Text Include="license_sv.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="appreg.cpp" />
     <ClCompile Include="dlg_about.cpp" />
     <ClCompile Include="dlg_advanced.cpp" />
     <ClCompile Include="dlg_cache.cpp" />
@@ -371,7 +372,7 @@
     <None Include="lang_table.inc" />
     <None Include="values_dword.inc" />
     <None Include="values_string.inc" />
-    <None Include="version.rc2" />
+    <ResourceCompile Include="version.rc" />
     <None Include="Res\cursor_app_pan2.cur" />
     <None Include="PictInst.iss" />
     <None Include="PictInst32.iss" />
