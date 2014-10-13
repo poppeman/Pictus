@@ -152,7 +152,7 @@ BEGIN
     LTEXT           "PNG support is provided through libpng and zlib.",IDC_TEXT_ABOUT_LIBPNG,6,156,240,8
     LTEXT           "Pictus",IDC_ABOUT_HEADER,7,0,242,81
     LTEXT           "VERSION",IDC_TEXT_ABOUT_VERSION,6,84,240,8
-    LTEXT           "Copyright Pontus MÂrdn‰s.",IDC_STATIC,6,96,240,8
+    LTEXT           "Copyright Pontus M√•rdn√§s",IDC_STATIC,6,96,240,8
 END
 
 IDD_SET_CTRL_MOUSE DIALOGEX 0, 0, 256, 242

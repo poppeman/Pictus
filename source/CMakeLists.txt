@@ -8,4 +8,7 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 link_libraries(${Boost_LIBRARIES})
 
 add_subdirectory (deps)
+add_subdirectory (orzTest)
+add_subdirectory (illaTest)
+add_subdirectory (pictusTest)
 add_subdirectory (Pictus)

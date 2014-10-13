@@ -36,8 +36,11 @@ namespace Win {
 		Button* CreateButton(DWORD id);
 
 		virtual bool Show(bool doShow);
-		inline const int Width() const { return GetSize().Width; }
-		inline const int Height() const { return GetSize().Height; }
+
+        const int Width() const;
+
+        const int Height() const;
+
 		const Geom::SizeInt GetSize() const;
 		Geom::RectInt ClientRect();
 		Geom::PointInt PositionScreen();
@@ -46,7 +49,8 @@ namespace Win {
 		BaseWindow* Parent();
 		HWND& Handle();
 		const HWND& Handle() const;
-		HINSTANCE& GetHINSTANCE() { return m_hInstance; }
+
+        HINSTANCE & GetHINSTANCE();
 		void Redraw();
 		void Update();
 
@@ -66,9 +70,9 @@ namespace Win {
 
 		static void ShowCursor(bool doShow);
 
-		static bool CursorVisible() { return m_isCursorVisible; }
+        static bool CursorVisible();
 
-		bool DisplayContextMenu(DWORD idMenu, const Geom::PointInt& pos, bool absoluteCoords=false);
+        bool DisplayContextMenu(DWORD idMenu, const Geom::PointInt& pos, bool absoluteCoords=false);
 		bool DisplayContextMenu(HMENU hMenu, const Geom::PointInt& pos, bool absoluteCoords=false);
 
 		void QueueMessage(unsigned message, WPARAM wParam, LPARAM lParam);
@@ -106,9 +110,9 @@ namespace Win {
 		static LRESULT CALLBACK WndProcDelegate(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	protected:
-		void Parent(Win::BaseWindow* pParent) { m_pParent=pParent; }
+        void Parent(Win::BaseWindow* pParent);
 
-		void Handle(HWND hwnd) { m_hwnd = hwnd; }
+        void Handle(HWND hwnd);
 		void performRedraw();
 
 		LRESULT baseWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, bool doDefProc);
@@ -128,22 +132,22 @@ namespace Win {
 		void UpdateCaption();
 
 
-		virtual bool PerformOnClose() { return true; }
-		virtual bool PerformOnPaint()  { return false; }
-		virtual bool PerformOnEraseBackground(HDC hdc)  { hdc; return false; }
-		virtual bool PerformOnContextMenu(const Geom::PointInt& pt)  { pt; return false; }
-		virtual bool PerformOnchar(uint32_t key, int count, bool pressed) { (key, count, pressed); return false; }
-		virtual bool PerformOnCommand(int id, WPARAM wp, LPARAM lp)  { (id, wp, lp); return false; }
-		virtual bool PerformOnMove(const Geom::PointInt& pt, bool isByUser)  { (pt, isByUser); return false; }
-		virtual bool PerformOnSize(const Geom::SizeInt& sz)  { sz; return false; }
-		virtual bool PerformOnHScroll(WPARAM wp, LPARAM lp) { (wp, lp); return false; };
-		virtual bool PerformOnVScroll(WPARAM wp, LPARAM lp) { (wp, lp); return false; };
-		virtual bool PerformOnNotificationAreaIconClick(size_t id) { (id); return false; }
-		virtual bool PerformOnApp(int index, WPARAM wp, LPARAM lp) { (index, wp, lp); return false; }
-		virtual bool PerformOnCopyData(const COPYDATASTRUCT* pcds)  { pcds; return false; }
-		virtual void PerformOnCreateContextMenu(HMENU hMenu) { hMenu; }
+        virtual bool PerformOnClose();
+        virtual bool PerformOnPaint();
+        virtual bool PerformOnEraseBackground(HDC hdc);
+        virtual bool PerformOnContextMenu(const Geom::PointInt& pt);
+        virtual bool PerformOnchar(uint32_t key, int count, bool pressed);
+        virtual bool PerformOnCommand(int id, WPARAM wp, LPARAM lp);
+        virtual bool PerformOnMove(const Geom::PointInt& pt, bool isByUser);
+        virtual bool PerformOnSize(const Geom::SizeInt& sz);
+        virtual bool PerformOnHScroll(WPARAM wp, LPARAM lp);
+        virtual bool PerformOnVScroll(WPARAM wp, LPARAM lp);
+        virtual bool PerformOnNotificationAreaIconClick(size_t id);
+        virtual bool PerformOnApp(int index, WPARAM wp, LPARAM lp);
+        virtual bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
+        virtual void PerformOnCreateContextMenu(HMENU hMenu);
 
-		// Generic
+        // Generic
 		HWND m_hwnd;
 		HINSTANCE m_hInstance;
 

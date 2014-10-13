@@ -1,5 +1,6 @@
 
 #include "res_version.h"
+#include "winres.h"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION		RC_FILE_VERSION
@@ -11,7 +12,7 @@ VS_VERSION_INFO VERSIONINFO
 	FILEOS			VOS_NT_WINDOWS32
 	FILETYPE		VFT_APP
 	BEGIN
-		BLOCK "std::wstringFileInfo"
+		BLOCK "StringFileInfo"
 		BEGIN
 			BLOCK "041d04b0"
 			BEGIN
@@ -19,7 +20,7 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileVersion", STR_RC_FILE_VERSION
 				VALUE "CompanyName", "poppeman.se"
 				VALUE "InternalName", "Pictus"
-				VALUE "LegalCopyright", "Copyright Pontus MÂrdn‰s."
+				VALUE "LegalCopyright", "Copyright Pontus M√•rdn√§s."
 				VALUE "OriginalFilename", "Pictus.exe"
 				VALUE "ProductName", "Pictus"
 				VALUE "ProductVersion", STR_RC_FILE_VERSION

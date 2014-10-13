@@ -4,6 +4,4 @@ FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 FILE(GLOB ALL_CPP_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 include_directories(${DEPS_DIRECTORY})
-
-add_library(illa STATIC ${ALL_CPP_SRCS} ${ALL_HEADER_SRCS})
-target_link_libraries(illa orz tiff jpeg png ${Boost_LIBRARIES})
+add_library(UnitTestPP STATIC ${ALL_CPP_SRCS} ${ALL_HEADER_SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/Win32/TimeHelpers.cpp)

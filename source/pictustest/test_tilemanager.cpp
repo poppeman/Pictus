@@ -79,9 +79,10 @@ SUITE(TileManager) {
 	};
 
 
-	TEST_FIXTURE(SimpleFixture, InvalidViewPort) {
+	/*TEST_FIXTURE(SimpleFixture, InvalidViewPort) {
 		CHECK_THROW(m->SetViewportSize(SizeInt(0, 0)), Err::InvalidParam);
-	}
+	}*/
+
 	TEST(InvalidRenderer) {
 		CHECK_THROW(TileManager::Ptr m(new TileManager(Renderer::Ptr())), Err::InvalidParam);
 	}
