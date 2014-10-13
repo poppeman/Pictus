@@ -24,7 +24,7 @@ namespace D3D {
 		Geom::PointFloat TexCoord;
 	};
 
-	void GenerateQuad( const Geom::RectFloat& position, const Geom::RectFloat& texCoords, const Geom::SizeFloat& adjustment, D3D::Vertex2D& a, D3D::Vertex2D& b, D3D::Vertex2D& c, D3D::Vertex2D& d );
+	void GenerateQuad( Geom::RectFloat position, Geom::RectFloat texCoords, Geom::SizeFloat adjustment, D3D::Vertex2D& a, D3D::Vertex2D& b, D3D::Vertex2D& c, D3D::Vertex2D& d );
 }
 
 #endif
