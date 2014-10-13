@@ -49,7 +49,7 @@ namespace Filter {
 			void operator=(const PaletteToDWord&) = delete;
 		};
 
-		template <typename T, class U> inline void performBilinear(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, float zoom, U pixelConverter) {
+		template <typename T, class U> void performBilinear(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, float zoom, U pixelConverter) {
 			int width = region.Width();
 			int height = region.Height();
 			using namespace Internal;
@@ -59,11 +59,13 @@ namespace Filter {
 			std::vector<Contrib> x_contrib(width);
 			std::vector<Contrib> y_contrib(height);
 
-			for(int i = 0; i < width; ++i)
-				set_contrib(x_contrib, i, width, source.Dimensions.Width, static_cast<uint32_t>(((region.Left() + i + 0.25f) / zoom) * BMUL));
+			for(int i = 0; i < width; ++i) {
+                set_contrib(x_contrib, i, width, source.Dimensions.Width, static_cast<uint32_t>(((region.Left() + i + 0.25f) / zoom) * BMUL));
+            }
 
-			for(int i = 0; i < height; ++i)
-				set_contrib(y_contrib, i, height, source.Dimensions.Height, static_cast<uint32_t>(((region.Top() + i + 0.25f) / zoom) * BMUL));
+			for(int i = 0; i < height; ++i) {
+                set_contrib(y_contrib, i, height, source.Dimensions.Height, static_cast<uint32_t>(((region.Top() + i + 0.25f) / zoom) * BMUL));
+            }
 
 			uint8_t* destCurrentScanlinePtr = dest.BufferData;
 			int rw = region.Width();

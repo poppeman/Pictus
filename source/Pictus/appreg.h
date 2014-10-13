@@ -10,6 +10,7 @@ namespace App {
 		PositionNothing
 	};
 
+    // TODO: Convert to enum class
 	enum MouseAction {
 		MouseDisable,
 		MousePan,
@@ -37,23 +38,6 @@ namespace Reg {
 	}
 }
 
-inline std::basic_ostream<wchar_t>& operator<<(std::basic_ostream<wchar_t>& in, const App::ResizePositionMethod& fmt) {
-	switch (fmt) {
-	case App::ResizePositionMethod::PositionToScreen:
-		in << L"PositionToScreen";
-		break;
-	case App::ResizePositionMethod::PositionToCurrent:
-		in << L"PositionToCurrent";
-		break;
-	case App::ResizePositionMethod::PositionNothing:
-		in << L"PositionNothing";
-		break;
-	default:
-		in << L"Unknown(" << static_cast<int>(fmt) << L")";
-		break;
-	}
-	return in;
-}
-
+std::basic_ostream<wchar_t>& operator<<(std::basic_ostream<wchar_t>& in, const App::ResizePositionMethod& fmt);
 
 #endif
