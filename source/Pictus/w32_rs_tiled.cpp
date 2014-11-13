@@ -13,7 +13,7 @@ namespace Win {
 		auto client = RoundCast(surfaceToRender->GetSize() * props.Zoom);
 
 		if (m_tiles == nullptr) {
-			m_tiles.reset(new TileManager(renderer));
+			m_tiles = std::make_shared<TileManager>(renderer);
 			m_redrawNext = true;
 		}
 
@@ -28,6 +28,7 @@ namespace Win {
 			TouchTiles(dirtyRect);
 		}
 
+		// TODO: memcmp?
 		if ((memcmp(&m_prevProperties, &props, sizeof(props)) != 0) ||
 			(m_prevSurface != surfaceToRender.get())) {
 			m_redrawNext = true;
@@ -84,7 +85,7 @@ namespace Win {
 		if (offset.Width < 0) offset.Width = 0;
 		if (offset.Height < 0) offset.Height = 0;
 
-		m_tiles->Render(offset);
+		m_tiles->Render(offset, props.Angle);
 	}
 
 	RedrawStrategyTiled::RedrawStrategyTiled()
@@ -92,7 +93,10 @@ namespace Win {
 		 m_prevSurface(nullptr)
 	{}
 
-	void RedrawStrategyTiled::RenderArea( Renderer::Ptr renderer, Img::Surface::Ptr surface, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props ) {
+	void RedrawStrategyTiled::RenderArea( Renderer::Ptr renderer, Img::Surface::Ptr surface, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, Img::Properties props ) {
+		// We intentionally remove any rotation set here. The rotation will instead be handled by the GPU when the tiles are rendered to screen.
+		props.Angle = Filter::RotationAngle::RotateDefault;
+
 		// If the region actually gets cropped, there will be graphical glitching but that is better than an exception.
 		auto croppedDestinationArea(destinationArea.Crop({ { 0, 0 }, RoundCast(surface->GetSize() * props.Zoom) }));
 		SizeInt wa;

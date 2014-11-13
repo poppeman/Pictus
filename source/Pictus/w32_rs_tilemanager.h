@@ -20,22 +20,24 @@ namespace Win {
 		};
 		RequestedArea RequestDDSurface(const Geom::RectInt& areaToRequest) const;
 
-		void Render(Geom::SizeInt offset);
+		void Render(Geom::SizeInt offset, Filter::RotationAngle angle);
 
-		void RenderTiles(Geom::SizeInt offset, bool renderAll);
+		void RenderTiles(Geom::SizeInt offset, Filter::RotationAngle angle);
 		TileManager(Renderer::Ptr device);
 
 		typedef std::shared_ptr<TileManager> Ptr;
 
 	private:
-		Geom::RectInt determineLockableRect(const Geom::RectInt& r) const;
-		Geom::PointInt determineTileCoords(const Geom::PointInt& p) const;
-
-		Renderer::Ptr m_device;
 		struct Tile {
 			DDSurface::Ptr surface;
 			Geom::RectInt dirtyRect;
 		};
+
+		Geom::RectInt determineLockableRect(const Geom::RectInt& r) const;
+		Geom::PointInt determineTileCoords(const Geom::PointInt& p) const;
+		Tile& PickTile(size_t x, size_t y, Filter::RotationAngle angle);
+
+		Renderer::Ptr m_device;
 
 		typedef std::deque<Tile> TileRow;
 		typedef std::shared_ptr<TileRow> TileRowPtr;

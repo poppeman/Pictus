@@ -24,7 +24,7 @@ namespace Win {
 		RenderStatus BeginRender(Img::Color backgroundColor);
 
 		void RenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props);
-		void PresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft);
+		void PresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft, Filter::RotationAngle angle);
 
 		void EndRender();
 
@@ -42,7 +42,7 @@ namespace Win {
 		virtual DDSurface::Ptr OnCreateDDSurface()=0;
 
 		virtual void OnRenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props)=0;
-		virtual void OnPresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft)=0;
+		virtual void OnPresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft, Filter::RotationAngle angle)=0;
 
 		virtual bool OnTargetWindowChanged();
 		virtual RenderStatus OnBeginRender(Img::Color backgroundColor)=0;

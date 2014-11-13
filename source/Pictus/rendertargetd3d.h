@@ -19,16 +19,16 @@ namespace Win {
 	private:
 		Geom::SizeInt RenderAreaSize();
 
-		bool OnTargetWindowChanged();
+		bool OnTargetWindowChanged() override;
 
 		RenderStatus OnBeginRender(Img::Color backgroundColor) override;
-		void OnEndRender();
+		void OnEndRender() override;
 
 		void CreateTextures();
 
 		DDSurface::Ptr OnCreateDDSurface();
-		void OnRenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props);
-		void OnPresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft);
+		void OnRenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props) override;
+		void OnPresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft, Filter::RotationAngle angle) override;
 
 		enum {
 			MaximumTileEdgeLength = 512,

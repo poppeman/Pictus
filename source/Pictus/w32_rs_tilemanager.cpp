@@ -4,36 +4,42 @@
 namespace Win {
 	using namespace Geom;
 
-	void TileManager::AddOffset( const Geom::SizeInt& pt ) {
+	void TileManager::AddOffset(const Geom::SizeInt& pt) {
 		m_panDelta += pt;
 
 		m_topLeftOffset += -pt;
-		SizeInt ourOffset = m_topLeftOffset;
-		if (ourOffset.Width < 0) ourOffset.Width -= MaximumTileEdgeLength - 1;
-		if (ourOffset.Height < 0) ourOffset.Height -= MaximumTileEdgeLength - 1;
+		auto ourOffset = m_topLeftOffset;
+		if (ourOffset.Width < 0) {
+			ourOffset.Width -= MaximumTileEdgeLength - 1;
+		}
+		if (ourOffset.Height < 0) {
+			ourOffset.Height -= MaximumTileEdgeLength - 1;
+		}
 		auto newTlIndex = PointInt(0, 0) + ourOffset / MaximumTileEdgeLength;
 
-		for(int y = 0; y < newTlIndex.Y; ++y) {
+		for (int y = 0; y < newTlIndex.Y; ++y) {
 			auto r = m_tiles.front();
 			m_tiles.pop_front();
 			m_tiles.push_back(r);
 		}
-		for(int y = 0; y < -newTlIndex.Y; ++y) {
+
+		for (int y = 0; y < -newTlIndex.Y; ++y) {
 			auto r = m_tiles.back();
 			m_tiles.pop_back();
 			m_tiles.push_front(r);
 		}
 
 		while (m_topLeftOffset.Height >= MaximumTileEdgeLength) {
-			m_topLeftOffset += SizeInt(0, -MaximumTileEdgeLength);
+			m_topLeftOffset += {0, -MaximumTileEdgeLength};
 		}
+
 		while (m_topLeftOffset.Height < 0) {
-			m_topLeftOffset += SizeInt(0, MaximumTileEdgeLength);
+			m_topLeftOffset += {0, MaximumTileEdgeLength};
 		}
 
 		for (int x = 0; x < newTlIndex.X; ++x) {
 			for (size_t y = 0; y < m_tiles.size(); ++y) {
-				Tile t = m_tiles[y]->front();
+				auto t = m_tiles[y]->front();
 				m_tiles[y]->pop_front();
 				m_tiles[y]->push_back(t);
 			}
@@ -41,34 +47,38 @@ namespace Win {
 
 		for (int x = 0; x < -newTlIndex.X; ++x) {
 			for (size_t y = 0; y < m_tiles.size(); ++y) {
-				Tile t = m_tiles[y]->back();
+				auto t = m_tiles[y]->back();
 				m_tiles[y]->pop_back();
 				m_tiles[y]->push_front(t);
 			}
 		}
 
-		while (m_topLeftOffset.Width >= MaximumTileEdgeLength) m_topLeftOffset += SizeInt(-MaximumTileEdgeLength, 0);
-		while (m_topLeftOffset.Width < 0) m_topLeftOffset += SizeInt(MaximumTileEdgeLength, 0);
+		while (m_topLeftOffset.Width >= MaximumTileEdgeLength) {
+			m_topLeftOffset += SizeInt(-MaximumTileEdgeLength, 0);
+		}
+		while (m_topLeftOffset.Width < 0) {
+			m_topLeftOffset += SizeInt(MaximumTileEdgeLength, 0);
+		}
 	}
 
-	void TileManager::SetViewportSize( const SizeInt& dims ) {
+	void TileManager::SetViewportSize(const SizeInt& dims) {
 		if (dims.Width < 0 || dims.Height < 0) {
 			DO_THROW(Err::InvalidParam, TX("Invalid dimensions: ") + ToWString(dims.Width) + TX(", ") + ToWString(dims.Height));
 		}
-		const SizeInt texDims = SizeInt(MaximumTileEdgeLength, MaximumTileEdgeLength);
+		const SizeInt texDims{ MaximumTileEdgeLength, MaximumTileEdgeLength };
 		const SizeInt numTiles = SizeInt(2, 2) + dims / MaximumTileEdgeLength;
 
 		m_viewSize = dims;
 		m_tiles.resize(numTiles.Height);
 
-		for(auto& r: m_tiles) {
-			if (r == 0) {
-				r.reset(new TileRow);
+		for (auto& r : m_tiles) {
+			if (r == nullptr) {
+				r = std::make_shared<TileRow>();
 			}
 			r->resize(numTiles.Width);
 
-			for(auto& t: *r) {
-				if(t.surface == 0) {
+			for (auto& t : *r) {
+				if (t.surface == 0) {
 					t.surface = m_device->CreateDDSurface();
 					if (t.surface == nullptr) {
 						DO_THROW(Err::CriticalError, TX("Failed to create surface."));
@@ -79,13 +89,13 @@ namespace Win {
 		}
 	}
 
-	TileManager::TileManager(Renderer::Ptr device):m_device(device) {
+	TileManager::TileManager(Renderer::Ptr device) :m_device(device) {
 		if (device == nullptr) {
 			DO_THROW(Err::InvalidParam, TX("Device may not be null."));
 		}
 	}
 
-	void TileManager::Render(Geom::SizeInt offset) {
+	void TileManager::Render(Geom::SizeInt offset, Filter::RotationAngle angle) {
 		if (m_topLeftOffset.Width < 0) {
 			DO_THROW(Err::CriticalError, TX("Offset (X) should always be positive"));
 		}
@@ -93,75 +103,95 @@ namespace Win {
 			DO_THROW(Err::CriticalError, TX("Offset (Y) should always be positive"));
 		}
 
-		if ((m_panDelta.Width != 0 || m_panDelta.Height != 0)) {
-			RenderTiles(offset, !m_device->PanCurrentView(m_panDelta));
-		}
-		else {
-			RenderTiles(offset, false);
-		}
+		RenderTiles(offset, angle);
 
-		m_panDelta = SizeInt(0, 0);
+		m_panDelta = { 0, 0 };
 	}
 
-	Geom::RectInt TileManager::determineLockableRect( const RectInt& r ) const {
-		COND_STRICT(IsPositive(r.Dimensions()), Err::InvalidParam, TX("Invalid dimensions"));
-		COND_STRICT(m_topLeftOffset.AtLeastInclusive(SizeInt(0, 0)), Err::CriticalError, TX("Invalid offset"));
+	Geom::RectInt TileManager::determineLockableRect(const RectInt& r) const {
+		if (IsPositive(r.Dimensions()) == false) {
+			DO_THROW(Err::InvalidParam, L"Invalid dimensions");
+		}
 
-		PointInt pannedTopLeft = r.TopLeft() + m_topLeftOffset;
-		while(pannedTopLeft.X >= MaximumTileEdgeLength) pannedTopLeft.X -= MaximumTileEdgeLength;
-		while(pannedTopLeft.Y >= MaximumTileEdgeLength) pannedTopLeft.Y -= MaximumTileEdgeLength;
+		if (m_topLeftOffset.AtLeastInclusive({ 0, 0 }) == false) {
+			DO_THROW(Err::CriticalError, L"Invalid offset");
+		}
 
-		PointInt croppedBottomRight = Geom::Minimum(r.BottomRight(), PointInt(0, 0) + m_topLeftOffset + m_viewSize);
-		SizeInt outSize = Maximum(SizeInt(0, 0), 
+		auto pannedTopLeft = r.TopLeft() + m_topLeftOffset;
+		while (pannedTopLeft.X >= MaximumTileEdgeLength) {
+			pannedTopLeft.X -= MaximumTileEdgeLength;
+		}
+		while (pannedTopLeft.Y >= MaximumTileEdgeLength) {
+			pannedTopLeft.Y -= MaximumTileEdgeLength;
+		}
+
+		auto croppedBottomRight = Geom::Minimum(r.BottomRight(), PointInt(0, 0) + m_topLeftOffset + m_viewSize);
+		auto outSize = Maximum(SizeInt(0, 0),
 			Minimum(
-				SizeInt(MaximumTileEdgeLength, MaximumTileEdgeLength) + (PointInt(0, 0) - pannedTopLeft),
-				croppedBottomRight - PointInt(0, 0),
-				r.Dimensions()));
+			SizeInt(MaximumTileEdgeLength, MaximumTileEdgeLength) + (PointInt(0, 0) - pannedTopLeft),
+			croppedBottomRight - PointInt(0, 0),
+			r.Dimensions()));
 
-		COND_STRICT(IsPositive(outSize), Err::CriticalError, TX("Calculation error, rect became empty."));
-		return RectInt(pannedTopLeft, outSize);
+		if (IsPositive(outSize) == false) {
+			DO_THROW(Err::CriticalError, L"Calculation error, rect became empty.");
+		}
+		return{ pannedTopLeft, outSize };
 	}
 
-	Geom::PointInt TileManager::determineTileCoords( const Geom::PointInt& p ) const {
-		COND_STRICT(m_topLeftOffset.AtLeastInclusive(SizeInt(0, 0)), Err::CriticalError, TX("Invalid offset"));
+	Geom::PointInt TileManager::determineTileCoords(const Geom::PointInt& p) const {
+		if (m_topLeftOffset.AtLeastInclusive({ 0, 0 }) == false) {
+			DO_THROW(Err::CriticalError, L"Invalid offset");
+		}
 
 		PointInt toRet = (p + m_topLeftOffset) / MaximumTileEdgeLength;
-		COND_STRICT(toRet.Y < static_cast<int>(m_tiles.size()) && toRet.X < static_cast<int>(m_tiles[toRet.Y]->size()),
-			Err::InvalidParam, TX("Tile coordinates out of bounds: ") + ToWString(toRet));
+		if (toRet.Y >= static_cast<int>(m_tiles.size()) || toRet.X >= static_cast<int>(m_tiles[toRet.Y]->size())) {
+			DO_THROW(Err::InvalidParam, L"Tile coordinates out of bounds: " + ToWString(toRet));
+		}
 		return toRet;
 	}
 
 	TileManager::RequestedArea TileManager::RequestDDSurface(const Geom::RectInt& areaToRequest) const {
-		COND_STRICT(IsPositive(areaToRequest.Dimensions()), Err::InvalidParam, TX("Zero or negative size."));
+		if (IsPositive(areaToRequest.Dimensions()) == false) {
+			DO_THROW(Err::InvalidParam, TX("Zero or negative size."));
+		}
 
-		Geom::PointInt tileCoords= determineTileCoords(areaToRequest.TopLeft());
+		auto tileCoords = determineTileCoords(areaToRequest.TopLeft());
 
 		RequestedArea ra;
 		ra.WriteableArea = determineLockableRect(areaToRequest);
 
-		COND_STRICT(IsPositive(ra.WriteableArea.Dimensions()), Err::CriticalError, TX("Invalid writeable area."));
-		COND_STRICT(ra.WriteableArea.TopLeft().AtLeastInclusive(PointInt(0, 0)), Err::CriticalError, TX("Invalid top-left of writable area"));
+		if (IsPositive(ra.WriteableArea.Dimensions()) == false) {
+			DO_THROW(Err::CriticalError, L"Invalid writeable area.");
+		}
+		if (ra.WriteableArea.TopLeft().AtLeastInclusive({ 0, 0 }) == false) {
+			DO_THROW(Err::CriticalError, TX("Invalid top-left of writable area"));
+		}
 
 		Tile& t = (*m_tiles[tileCoords.Y])[tileCoords.X];
-		if(!IsPositive(t.dirtyRect.Dimensions())) {
+		if (!IsPositive(t.dirtyRect.Dimensions())) {
 			t.dirtyRect = ra.WriteableArea;
 		}
 		else {
 			t.dirtyRect.TopLeft(Minimum(t.dirtyRect.TopLeft(), ra.WriteableArea.TopLeft()));
 			t.dirtyRect.BottomRight(Maximum(t.dirtyRect.BottomRight(), ra.WriteableArea.BottomRight()));
 		}
-		COND_STRICT(t.dirtyRect.TopLeft().AtLeastInclusive(PointInt(0, 0)),
-			Err::CriticalError, TX("Dirty rect became invalid (TL too small)."));
-		COND_STRICT(t.dirtyRect.TopLeft().AtMostExclusive(PointInt(MaximumTileEdgeLength, MaximumTileEdgeLength)),
-			Err::CriticalError, TX("Dirty rect became invalid (TL too large)."));
-		COND_STRICT(t.dirtyRect.Dimensions().AtLeastInclusive(SizeInt(0, 0)),
-			Err::CriticalError, TX("Dirty rect became invalid (negative size)."));
+		if (t.dirtyRect.TopLeft().AtLeastInclusive({ 0, 0 }) == false) {
+			DO_THROW(Err::CriticalError, L"Dirty rect became invalid (TL too small).");
+		}
+		if (t.dirtyRect.TopLeft().AtMostExclusive({ MaximumTileEdgeLength, MaximumTileEdgeLength }) == false) {
+			DO_THROW(Err::CriticalError, L"Dirty rect became invalid (TL too large).");
+		}
+		if (t.dirtyRect.Dimensions().AtLeastInclusive({ 0, 0 }) == false) {
+			DO_THROW(Err::CriticalError, L"Dirty rect became invalid (negative size).");
+		}
 		ra.Surface = t.surface;
 		return ra;
 	}
 
-	void TileManager::RenderTiles(Geom::SizeInt offset, bool renderAll) {
-		if(m_tiles.empty()) return;
+	void TileManager::RenderTiles(Geom::SizeInt offset, Filter::RotationAngle angle) {
+		if (m_tiles.empty()) {
+			return;
+		}
 
 		auto xtiles = m_tiles[0]->size();
 		auto ytiles = m_tiles.size();
@@ -170,27 +200,17 @@ namespace Win {
 		auto ppAdj = SizeFloat{ -0.5f, -0.5f };
 		for (size_t y = 0; y < ytiles; ++y) {
 			for (size_t x = 0; x < xtiles; ++x) {
-				auto currUncropped = RectInt{ PointInt( x, y ) * MaximumTileEdgeLength, SizeInt(1, 1) * MaximumTileEdgeLength };
+				auto currUncropped = RectInt{ PointInt(x, y) * MaximumTileEdgeLength, SizeInt(1, 1) * MaximumTileEdgeLength };
 				SizeInt tlDelta;
 				SizeInt srcDelta;
-				if(!renderAll) {
-					RectInt dirtyRect = (*m_tiles[y])[x].dirtyRect;
-					if (!IsPositive(dirtyRect.Dimensions())) {
-						continue;
-					}
-					tlDelta = dirtyRect.TopLeft() - PointInt(0, 0);
-					srcDelta = tlDelta;
-					currUncropped.Dimensions(Minimum(currUncropped.Dimensions(), dirtyRect.Dimensions()));
-				}
 
-				(*m_tiles[y])[x].dirtyRect.Dimensions(SizeInt(0, 0));
+				auto tile = PickTile(x, y, Filter::RotationAngle::RotateDefault);
+
+				tile.dirtyRect.Dimensions({ 0, 0 });
 				currUncropped.TopLeft(currUncropped.TopLeft() - m_topLeftOffset + tlDelta);
 
 				auto currCropped = view.Crop(currUncropped);
-
-				if (renderAll) {
-					srcDelta = currCropped.TopLeft() - currUncropped.TopLeft();
-				}
+				srcDelta = currCropped.TopLeft() - currUncropped.TopLeft();
 
 				if (!IsPositive(currCropped.Dimensions())) {
 					continue;
@@ -202,9 +222,25 @@ namespace Win {
 				currCropped.TopLeft(currCropped.TopLeft() + offset);
 				m_device->PresentFromDDSurface(
 					currCropped,
-					(*m_tiles[y])[x].surface,
-					Maximum(PointInt(0, 0) + srcDelta, PointInt(0, 0)));
+					tile.surface,
+					Maximum(PointInt(0, 0) + srcDelta, PointInt(0, 0)),
+					angle);
 			}
 		}
 	}
+
+	TileManager::Tile& TileManager::PickTile(size_t x, size_t y, Filter::RotationAngle angle) {
+		auto w = m_tiles[0]->size();
+		auto h = m_tiles.size();
+		switch (angle) {
+			case Filter::RotationAngle::FlipX:
+				x =  w - 1 - x;
+				break;
+			case Filter::RotationAngle::FlipY:
+				y = h - 1 - y;
+				break;
+		}
+		return (*m_tiles[y])[x];
+	}
+
 }

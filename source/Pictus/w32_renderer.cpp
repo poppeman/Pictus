@@ -35,8 +35,8 @@ namespace Win {
 		OnRenderToDDSurface(dest, source, zoomedImagePosition, destinationArea,  props);
 	}
 
-	void Renderer::PresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft) {
-		OnPresentFromDDSurface(destRect, source, sourceTopLeft);
+	void Renderer::PresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft, Filter::RotationAngle angle) {
+		OnPresentFromDDSurface(destRect, source, sourceTopLeft, angle);
 	}
 
 	DDSurface::Ptr Renderer::CreateDDSurface() {

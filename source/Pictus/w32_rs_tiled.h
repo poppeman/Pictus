@@ -11,9 +11,9 @@ namespace Win {
 
 	private:
 		void OnReset();
-		void OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, const Geom::PointInt& pan, const Img::Properties& props);
+		void OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, const Geom::PointInt& pan, const Img::Properties& props) override;
 
-		void RenderArea(Renderer::Ptr renderer, Img::Surface::Ptr surface, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props);
+		void RenderArea(Renderer::Ptr renderer, Img::Surface::Ptr surface, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, Img::Properties props);
 		void TouchTiles(const Geom::RectInt& destinationArea);
 
 		bool m_redrawNext;
