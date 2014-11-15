@@ -11,10 +11,7 @@ namespace Win {
 
 		auto client = RoundCast(surfaceToRender->GetSize() * props.Zoom);
 
-		// TODO: Recalculate pan according to rotation
-		//pan = renderer->Transform(pan, client);
-
-		//Geom::SizeInt client = renderer->RenderAreaSize();
+		pan = renderer->TransformPan(pan, client);
 
 		if (m_tiles == nullptr) {
 			m_tiles = std::make_shared<TileManager>(renderer);

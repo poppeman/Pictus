@@ -29,20 +29,26 @@ namespace Win {
 		return sz;
 	}
 
-	/*Geom::PointInt Renderer::Transform(Geom::PointInt sz, Geom::SizeInt areaSize) {
+	Geom::PointInt Renderer::TransformPan(Geom::PointInt sz, Geom::SizeInt imageSize) {
 		auto ras = RenderAreaSize();
 		switch (Angle) {
 			case Filter::RotationAngle::FlipX:
-				return{ areaSize.Width - (ras.Width + sz.X), sz.Y };
+				return{ std::max(0, (imageSize.Width - ras.Width) - sz.X), sz.Y };
+
 			case Filter::RotationAngle::FlipY:
-				return{ sz.X, areaSize.Height - (ras.Height + sz.Y) };
+				return{ sz.X, std::max(0, (imageSize.Height - ras.Height) - sz.Y) };
+
 			case Filter::RotationAngle::Rotate90:
-				return{ sz.Y, areaSize.Height - (sz.X + ras.Width) };
+				return{ sz.Y, std::max(0, (imageSize.Height - ras.Width) - sz.X) };
+
+			case Filter::RotationAngle::Rotate180:
+				return{ std::max(0, (imageSize.Width - ras.Width) - sz.X), std::max(0, (imageSize.Height - ras.Height) - sz.Y) };
+
 			case Filter::RotationAngle::Rotate270:
-				return{ areaSize.Width - (sz.Y + ras.Height), sz.X };
+				return{ std::max(0, (imageSize.Width - ras.Height) - sz.Y), sz.X };
 		}
 		return sz;
-	}*/
+	}
 
 	bool Renderer::TargetWindow( HWND hwnd ) {
 		m_hwnd = hwnd;

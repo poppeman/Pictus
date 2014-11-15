@@ -15,8 +15,8 @@ namespace Win {
 		DDSurface::Ptr CreateDDSurface();
 
 		Geom::SizeInt TransformedRenderAreaSize();
-		//Geom::PointInt Transform(Geom::PointInt sz, Geom::SizeInt areaSize);
 		Geom::SizeInt Transform(Geom::SizeInt sz);
+		Geom::PointInt TransformPan(Geom::PointInt sz, Geom::SizeInt imageSize);
 
 		bool TargetWindow(HWND hwnd);
 
