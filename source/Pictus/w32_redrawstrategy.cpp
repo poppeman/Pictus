@@ -3,9 +3,13 @@
 
 namespace Win {
 	void RedrawStrategy::Render( Renderer::Ptr newRenderer, Img::Surface::Ptr surfaceToRender, const Geom::PointInt& pan, const Img::Properties& props ) {
-		COND_STRICT(newRenderer, Err::InvalidParam, TX("newRenderer was null."));
+		if (newRenderer == nullptr) {
+			DO_THROW(Err::InvalidParam, TX("newRenderer was null."));
+		}
 
-		if(newRenderer->BeginRender(props.BackgroundColor) == Renderer::RS_CurrentViewLost) {
+		newRenderer->Angle = props.Angle;
+
+		if (newRenderer->BeginRender(props.BackgroundColor) == Renderer::RenderStatus::CurrentViewLost) {
 			Reset();
 			newRenderer->BeginRender(props.BackgroundColor);
 		}

@@ -7,7 +7,7 @@ namespace D3D {
 	// All of this is fairly horrible, but the long-term solution will probably be to migrate to D3D10/11 which
 	// includes decent matrix classes out of the box (without D3DX dependencies).
 
-	D3DMATRIX OrthogonalProjection(Geom::RectFloat zoomedArea);
+	D3DMATRIX OrthographicProjection(Geom::RectFloat zoomedArea);
 
 	D3DMATRIX Identity();
 

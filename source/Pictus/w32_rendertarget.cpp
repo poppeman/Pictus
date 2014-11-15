@@ -52,4 +52,9 @@ namespace Win {
 		}
 		return m_renderer->CreateSurface();
 	}
+
+	Geom::SizeInt WinRenderTarget::TransformedSize() const {
+		return m_renderer->TransformedRenderAreaSize();
+	}
+
 }

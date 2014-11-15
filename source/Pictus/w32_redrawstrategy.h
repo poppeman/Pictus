@@ -14,7 +14,7 @@ namespace Win {
 		typedef std::shared_ptr<RedrawStrategy> Ptr;
 
 	private:
-		virtual void OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, const Geom::PointInt& pan, const Img::Properties& props)=0;
+		virtual void OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, Geom::PointInt pan, Img::Properties props)=0;
 		virtual void OnReset()=0;
 	};
 }

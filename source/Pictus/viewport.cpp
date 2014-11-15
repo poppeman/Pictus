@@ -61,7 +61,7 @@ namespace App {
 
 		if (m_image != nullptr) {
 			m_pan.ResizeConstraints(image->GetSize());
-			m_pan.ResizeViewport(GetSize());
+			m_pan.ResizeViewport(m_renderTarget.TransformedSize());
 
 			if (diff) {
 				m_image->RestartAnimation();

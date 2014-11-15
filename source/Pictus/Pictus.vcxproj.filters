@@ -251,9 +251,6 @@
     <ClCompile Include="d3d_ddsurface.cpp">
       <Filter>Imaging\Renderer\Direct3D</Filter>
     </ClCompile>
-    <ClCompile Include="rendertargetd3d.cpp">
-      <Filter>Imaging\Renderer\Direct3D</Filter>
-    </ClCompile>
     <ClCompile Include="w32_redrawstrategy.cpp">
       <Filter>Imaging\Renderer\Strategy</Filter>
     </ClCompile>
@@ -477,9 +474,6 @@
       <Filter>Imaging\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="d3d_ddsurface.h">
-      <Filter>Imaging\Renderer\Direct3D</Filter>
-    </ClInclude>
-    <ClInclude Include="rendertargetd3d.h">
       <Filter>Imaging\Renderer\Direct3D</Filter>
     </ClInclude>
     <ClInclude Include="w32_redrawstrategy.h">

@@ -263,7 +263,6 @@
     <ClCompile Include="w32_ddsurface.cpp" />
     <ClCompile Include="w32_renderer.cpp" />
     <ClCompile Include="d3d_ddsurface.cpp" />
-    <ClCompile Include="rendertargetd3d.cpp" />
     <ClCompile Include="w32_redrawstrategy.cpp" />
     <ClCompile Include="w32_rs_tiled.cpp" />
     <ClCompile Include="w32_rs_tilemanager.cpp" />
@@ -345,7 +344,6 @@
     <ClInclude Include="w32_ddsurface.h" />
     <ClInclude Include="w32_renderer.h" />
     <ClInclude Include="d3d_ddsurface.h" />
-    <ClInclude Include="rendertargetd3d.h" />
     <ClInclude Include="w32_redrawstrategy.h" />
     <ClInclude Include="w32_rs_tiled.h" />
     <ClInclude Include="w32_rs_tilemanager.h" />

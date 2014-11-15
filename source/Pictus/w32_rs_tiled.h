@@ -10,11 +10,11 @@ namespace Win {
 		RedrawStrategyTiled();
 
 	private:
-		void OnReset();
-		void OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, const Geom::PointInt& pan, const Img::Properties& props) override;
+		void OnReset() override;
+		void OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, Geom::PointInt pan, Img::Properties props) override;
 
-		void RenderArea(Renderer::Ptr renderer, Img::Surface::Ptr surface, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, Img::Properties props);
-		void TouchTiles(const Geom::RectInt& destinationArea);
+		void RenderArea(Renderer::Ptr renderer, Img::Surface::Ptr surface, Geom::PointInt zoomedImagePosition, Geom::RectInt destinationArea, Img::Properties props);
+		void TouchTiles(Geom::RectInt destinationArea);
 
 		bool m_redrawNext;
 		Geom::PointInt m_currPosition;

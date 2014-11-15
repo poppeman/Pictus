@@ -18,6 +18,8 @@ namespace Win {
 		void SetSurface(Img::Surface::Ptr surface);
 		bool TargetWindow(HWND hwnd);
 
+		Geom::SizeInt TransformedSize() const;
+
 		Img::Surface::Ptr CreateSurface();
 
 		WinRenderTarget();

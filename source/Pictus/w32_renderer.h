@@ -3,33 +3,37 @@
 
 #include "illa/surface.h"
 #include "w32_ddsurface.h"
+#include "D3DWrap/d3d_device.h"
+#include "D3DWrap/d3d_swapchain.h"
 
 namespace Win {
-	class Renderer {
+	class Renderer final {
 	public:
-		virtual Img::Surface::Ptr CreateSurface()=0;
+		Filter::RotationAngle Angle;
+
+		Img::Surface::Ptr CreateSurface();
 		DDSurface::Ptr CreateDDSurface();
 
-		virtual Geom::SizeInt RenderAreaSize()=0;
-
-		virtual bool PanCurrentView(const Geom::SizeInt& offset);
+		Geom::SizeInt TransformedRenderAreaSize();
+		//Geom::PointInt Transform(Geom::PointInt sz, Geom::SizeInt areaSize);
+		Geom::SizeInt Transform(Geom::SizeInt sz);
 
 		bool TargetWindow(HWND hwnd);
 
-		enum RenderStatus {
-			RS_CurrentViewLost,
-			RS_OK,
+		enum class RenderStatus {
+			CurrentViewLost,
+			OK,
 		};
 
 		RenderStatus BeginRender(Img::Color backgroundColor);
-
 		void RenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props);
-		void PresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft, Filter::RotationAngle angle);
+
+		void PresentFromDDSurface(Geom::RectInt destRect, DDSurface::Ptr source, Geom::PointInt sourceTopLeft);
 
 		void EndRender();
 
 		Renderer();
-		virtual ~Renderer();
+		~Renderer();
 
 		typedef std::shared_ptr<Renderer> Ptr;
 
@@ -39,14 +43,22 @@ namespace Win {
 	private:
 		HWND m_hwnd;
 
-		virtual DDSurface::Ptr OnCreateDDSurface()=0;
+		enum {
+			MaximumTileEdgeLength = 512,
+			VbFmt = D3D::VFPositionXYZ | D3D::VFTex01,
+		};
 
-		virtual void OnRenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props)=0;
-		virtual void OnPresentFromDDSurface(const Geom::RectInt& destRect, DDSurface::Ptr source, const Geom::PointInt& sourceTopLeft, Filter::RotationAngle angle)=0;
+		struct Vertex {
+			float x, y, z;
+			float u, v;
+		};
 
-		virtual bool OnTargetWindowChanged();
-		virtual RenderStatus OnBeginRender(Img::Color backgroundColor)=0;
-		virtual void OnEndRender()=0;
+		void CreateTextures();
+		Geom::SizeInt RenderAreaSize();
+
+		D3D::Texture::Ptr m_softTex;
+		D3D::Device::Ptr m_direct3d;
+		D3D::SwapChain::Ptr m_swapChain;
 	};
 }
 

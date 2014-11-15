@@ -4,13 +4,17 @@
 namespace Win {
 	using namespace Geom;
 
-	void RedrawStrategyTiled::OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, const Geom::PointInt& pan, const Img::Properties& props) {
+	void RedrawStrategyTiled::OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, Geom::PointInt pan, Img::Properties props) {
 		if (surfaceToRender == nullptr) {
 			return;
 		}
 
-		//Geom::SizeInt client = renderer->RenderAreaSize();
 		auto client = RoundCast(surfaceToRender->GetSize() * props.Zoom);
+
+		// TODO: Recalculate pan according to rotation
+		//pan = renderer->Transform(pan, client);
+
+		//Geom::SizeInt client = renderer->RenderAreaSize();
 
 		if (m_tiles == nullptr) {
 			m_tiles = std::make_shared<TileManager>(renderer);
@@ -41,6 +45,7 @@ namespace Win {
 			m_redrawNext = true;
 		}
 
+		m_redrawNext = true;
 
 		if (m_redrawNext || surfaceToRender->IsDirty()) {
 			RenderArea(renderer, surfaceToRender, pan, { { 0, 0 }, client }, props);
@@ -81,11 +86,11 @@ namespace Win {
 		m_prevProperties = props;
 		m_redrawNext = false;
 
-		auto offset = RoundCast((renderer->RenderAreaSize() - client) * 0.5f);
+		auto offset = RoundCast((renderer->TransformedRenderAreaSize() - client) * 0.5f);
 		if (offset.Width < 0) offset.Width = 0;
 		if (offset.Height < 0) offset.Height = 0;
 
-		m_tiles->Render(offset, props.Angle);
+		m_tiles->Render(offset);
 	}
 
 	RedrawStrategyTiled::RedrawStrategyTiled()
@@ -93,14 +98,14 @@ namespace Win {
 		 m_prevSurface(nullptr)
 	{}
 
-	void RedrawStrategyTiled::RenderArea( Renderer::Ptr renderer, Img::Surface::Ptr surface, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, Img::Properties props ) {
+	void RedrawStrategyTiled::RenderArea(Renderer::Ptr renderer, Img::Surface::Ptr surface, Geom::PointInt zoomedImagePosition, Geom::RectInt destinationArea, Img::Properties props) {
 		// We intentionally remove any rotation set here. The rotation will instead be handled by the GPU when the tiles are rendered to screen.
 		props.Angle = Filter::RotationAngle::RotateDefault;
 
 		// If the region actually gets cropped, there will be graphical glitching but that is better than an exception.
 		auto croppedDestinationArea(destinationArea.Crop({ { 0, 0 }, RoundCast(surface->GetSize() * props.Zoom) }));
 		SizeInt wa;
-		int y=croppedDestinationArea.Top();
+		int y = croppedDestinationArea.Top();
 		do {
 			int x = croppedDestinationArea.Left();
 			do {
@@ -117,15 +122,15 @@ namespace Win {
 					props);
 
 				x += wa.Width;
-			} while(wa.Width > 0 && x < croppedDestinationArea.Right());
+			} while (wa.Width > 0 && x < croppedDestinationArea.Right());
 			y += wa.Height;
-		} while(wa.Height > 0 && y < croppedDestinationArea.Bottom());
+		} while (wa.Height > 0 && y < croppedDestinationArea.Bottom());
 	}
 
 
-	void RedrawStrategyTiled::TouchTiles( const Geom::RectInt& destinationArea ) {
+	void RedrawStrategyTiled::TouchTiles(Geom::RectInt destinationArea) {
 		SizeInt wa;
-		int y=destinationArea.Top();
+		int y = destinationArea.Top();
 		do {
 			int x = destinationArea.Left();
 			do {
@@ -135,9 +140,9 @@ namespace Win {
 				wa = ar.WriteableArea.Dimensions();
 
 				x += wa.Width;
-			} while(wa.Width > 0 && x < destinationArea.Right());
+			} while (wa.Width > 0 && x < destinationArea.Right());
 			y += wa.Height;
-		} while(wa.Height > 0 && y < destinationArea.Bottom());
+		} while (wa.Height > 0 && y < destinationArea.Bottom());
 	}
 
 	void RedrawStrategyTiled::OnReset() {

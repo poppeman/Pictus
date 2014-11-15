@@ -95,7 +95,7 @@ namespace Win {
 		}
 	}
 
-	void TileManager::Render(Geom::SizeInt offset, Filter::RotationAngle angle) {
+	void TileManager::Render(Geom::SizeInt offset) {
 		if (m_topLeftOffset.Width < 0) {
 			DO_THROW(Err::CriticalError, TX("Offset (X) should always be positive"));
 		}
@@ -103,7 +103,43 @@ namespace Win {
 			DO_THROW(Err::CriticalError, TX("Offset (Y) should always be positive"));
 		}
 
-		RenderTiles(offset, angle);
+		if (m_tiles.empty()) {
+			return;
+		}
+
+		auto xtiles = m_tiles[0]->size();
+		auto ytiles = m_tiles.size();
+		RectInt view{ { 0, 0 }, m_viewSize };
+
+		auto ppAdj = SizeFloat{ -0.5f, -0.5f };
+		for (size_t y = 0; y < ytiles; ++y) {
+			for (size_t x = 0; x < xtiles; ++x) {
+				auto currUncropped = RectInt{ PointInt(x, y) * MaximumTileEdgeLength, SizeInt(1, 1) * MaximumTileEdgeLength };
+				SizeInt tlDelta;
+				SizeInt srcDelta;
+
+				auto& tile = (*m_tiles[y])[x];
+
+				tile.dirtyRect.Dimensions({ 0, 0 });
+				currUncropped.TopLeft(currUncropped.TopLeft() - m_topLeftOffset + tlDelta);
+
+				auto currCropped = view.Crop(currUncropped);
+				srcDelta = currCropped.TopLeft() - currUncropped.TopLeft();
+
+				if (!IsPositive(currCropped.Dimensions())) {
+					continue;
+				}
+				if (!view.Contains(currCropped.TopLeft())) {
+					continue;
+				}
+
+				currCropped.TopLeft(currCropped.TopLeft() + offset);
+				m_device->PresentFromDDSurface(
+					currCropped,
+					tile.surface,
+					Maximum(PointInt(0, 0) + srcDelta, PointInt(0, 0)));
+			}
+		}
 
 		m_panDelta = { 0, 0 };
 	}
@@ -187,60 +223,4 @@ namespace Win {
 		ra.Surface = t.surface;
 		return ra;
 	}
-
-	void TileManager::RenderTiles(Geom::SizeInt offset, Filter::RotationAngle angle) {
-		if (m_tiles.empty()) {
-			return;
-		}
-
-		auto xtiles = m_tiles[0]->size();
-		auto ytiles = m_tiles.size();
-		RectInt view{ { 0, 0 }, m_viewSize };
-
-		auto ppAdj = SizeFloat{ -0.5f, -0.5f };
-		for (size_t y = 0; y < ytiles; ++y) {
-			for (size_t x = 0; x < xtiles; ++x) {
-				auto currUncropped = RectInt{ PointInt(x, y) * MaximumTileEdgeLength, SizeInt(1, 1) * MaximumTileEdgeLength };
-				SizeInt tlDelta;
-				SizeInt srcDelta;
-
-				auto tile = PickTile(x, y, Filter::RotationAngle::RotateDefault);
-
-				tile.dirtyRect.Dimensions({ 0, 0 });
-				currUncropped.TopLeft(currUncropped.TopLeft() - m_topLeftOffset + tlDelta);
-
-				auto currCropped = view.Crop(currUncropped);
-				srcDelta = currCropped.TopLeft() - currUncropped.TopLeft();
-
-				if (!IsPositive(currCropped.Dimensions())) {
-					continue;
-				}
-				if (!view.Contains(currCropped.TopLeft())) {
-					continue;
-				}
-
-				currCropped.TopLeft(currCropped.TopLeft() + offset);
-				m_device->PresentFromDDSurface(
-					currCropped,
-					tile.surface,
-					Maximum(PointInt(0, 0) + srcDelta, PointInt(0, 0)),
-					angle);
-			}
-		}
-	}
-
-	TileManager::Tile& TileManager::PickTile(size_t x, size_t y, Filter::RotationAngle angle) {
-		auto w = m_tiles[0]->size();
-		auto h = m_tiles.size();
-		switch (angle) {
-			case Filter::RotationAngle::FlipX:
-				x =  w - 1 - x;
-				break;
-			case Filter::RotationAngle::FlipY:
-				y = h - 1 - y;
-				break;
-		}
-		return (*m_tiles[y])[x];
-	}
-
 }

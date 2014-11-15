@@ -20,9 +20,8 @@ namespace Win {
 		};
 		RequestedArea RequestDDSurface(const Geom::RectInt& areaToRequest) const;
 
-		void Render(Geom::SizeInt offset, Filter::RotationAngle angle);
+		void Render(Geom::SizeInt offset);
 
-		void RenderTiles(Geom::SizeInt offset, Filter::RotationAngle angle);
 		TileManager(Renderer::Ptr device);
 
 		typedef std::shared_ptr<TileManager> Ptr;
@@ -35,7 +34,6 @@ namespace Win {
 
 		Geom::RectInt determineLockableRect(const Geom::RectInt& r) const;
 		Geom::PointInt determineTileCoords(const Geom::PointInt& p) const;
-		Tile& PickTile(size_t x, size_t y, Filter::RotationAngle angle);
 
 		Renderer::Ptr m_device;
 

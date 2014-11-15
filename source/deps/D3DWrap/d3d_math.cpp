@@ -5,7 +5,7 @@
 namespace D3D {
 	using Geom::RectFloat;
 
-	D3DMATRIX OrthogonalProjection(RectFloat zoomedArea) {
+	D3DMATRIX OrthographicProjection(RectFloat zoomedArea) {
 		D3DMATRIX proj;
 		ZeroMemory(&proj, sizeof(proj));
 		proj._11 = 2.0f / (zoomedArea.Right() - zoomedArea.Left());
