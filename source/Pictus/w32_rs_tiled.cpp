@@ -32,9 +32,16 @@ namespace Win {
 			TouchTiles(dirtyRect);
 		}
 
-		// TODO: memcmp?
-		if ((memcmp(&m_prevProperties, &props, sizeof(props)) != 0) ||
-			(m_prevSurface != surfaceToRender.get())) {
+		// Only force a full redraw if relevant properties have changed. Angle for instance
+		// does not require a redraw, as rotation is handled entirely during rendering.
+		if (props.BackgroundColor != m_prevProperties.BackgroundColor ||
+			props.Brightness != m_prevProperties.Brightness ||
+			props.Contrast != m_prevProperties.Contrast ||
+			props.Gamma != m_prevProperties.Gamma ||
+			props.ResampleFilter != m_prevProperties.ResampleFilter ||
+			props.RetainAlpha != m_prevProperties.RetainAlpha ||
+			props.Zoom != m_prevProperties.Zoom ||
+			m_prevSurface != surfaceToRender.get()) {
 			m_redrawNext = true;
 		}
 
@@ -42,10 +49,8 @@ namespace Win {
 		auto delta = m_currPosition - pan;
 		auto sizeDelta = m_currentSize - client;
 		if (abs(sizeDelta.Width) > client.Width || abs(sizeDelta.Height) > client.Height) {
-			m_redrawNext = true;
+			//m_redrawNext = true;
 		}
-
-		m_redrawNext = true;
 
 		if (m_redrawNext || surfaceToRender->IsDirty()) {
 			RenderArea(renderer, surfaceToRender, pan, { { 0, 0 }, client }, props);
