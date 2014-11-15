@@ -229,7 +229,6 @@
     <ClCompile Include="viewer_contextmenu.cpp" />
     <ClCompile Include="viewer_keyboard.cpp" />
     <ClCompile Include="view_pan.cpp" />
-    <ClCompile Include="viewarea.cpp" />
     <ClCompile Include="viewport.cpp" />
     <ClCompile Include="zoomstrategy.cpp" />
     <ClCompile Include="builder_viewport.cpp" />
@@ -307,7 +306,6 @@
     <ClInclude Include="viewer_contextmenu.h" />
     <ClInclude Include="viewer_keyboard.h" />
     <ClInclude Include="view_pan.h" />
-    <ClInclude Include="viewarea.h" />
     <ClInclude Include="viewport.h" />
     <ClInclude Include="zoomstrategy.h" />
     <ClInclude Include="builder_viewport.h" />

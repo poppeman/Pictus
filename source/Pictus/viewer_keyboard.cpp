@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "viewer_keyboard.h"
 #include "viewer.h"
+#include "registry.h"
 
 namespace App {
 
@@ -19,6 +20,9 @@ namespace App {
 		AddMapping(VK_OEM_MINUS, ZoomOut);
 		AddMapping(VK_SUBTRACT, ZoomOut);
 		AddMapping(VK_NUMPAD1, ZoomOut);
+
+		AddMapping('0', [=]() { owner->ZoomMode(App::ZoomMode(Reg::Key(Reg::Keys::DWDefaultZoomMode))); });
+		AddMapping('1', [=]() { owner->ZoomMode(ZoomFullSize); });
 
 		AddMapping(VK_MULTIPLY, [=]() { owner->ZoomMode(ZoomFree); });
 		AddMapping(VK_UP, [=]() { owner->PanUp(); });

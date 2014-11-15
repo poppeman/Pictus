@@ -152,9 +152,6 @@
     <ClCompile Include="view_pan.cpp">
       <Filter>Viewer\Viewport</Filter>
     </ClCompile>
-    <ClCompile Include="viewarea.cpp">
-      <Filter>Viewer\Viewport</Filter>
-    </ClCompile>
     <ClCompile Include="viewport.cpp">
       <Filter>Viewer\Viewport</Filter>
     </ClCompile>
@@ -366,9 +363,6 @@
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="view_pan.h">
-      <Filter>Viewer\Viewport</Filter>
-    </ClInclude>
-    <ClInclude Include="viewarea.h">
       <Filter>Viewer\Viewport</Filter>
     </ClInclude>
     <ClInclude Include="viewport.h">
