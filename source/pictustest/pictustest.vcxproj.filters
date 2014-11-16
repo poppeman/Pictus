@@ -47,9 +47,6 @@
     <ClCompile Include="test_pan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test_tilemanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="test_wintypes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,12 +81,6 @@
       <Filter>Pictus\Cacher\Background</Filter>
     </ClCompile>
     <ClCompile Include="..\Pictus\w32_ddsurface.cpp">
-      <Filter>Pictus\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Pictus\w32_renderer.cpp">
-      <Filter>Pictus\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Pictus\w32_rs_tilemanager.cpp">
       <Filter>Pictus\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\Pictus\view_pan.cpp">
@@ -143,12 +134,6 @@
       <Filter>Pictus\Cacher\Background</Filter>
     </ClInclude>
     <ClInclude Include="..\Pictus\w32_ddsurface.h">
-      <Filter>Pictus\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Pictus\w32_renderer.h">
-      <Filter>Pictus\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Pictus\w32_rs_tilemanager.h">
       <Filter>Pictus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\Pictus\view_pan.h">

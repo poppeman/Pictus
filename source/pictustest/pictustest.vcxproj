@@ -183,7 +183,6 @@
     <ClCompile Include="test_ic_queue.cpp" />
     <ClCompile Include="test_image_dimensions.cpp" />
     <ClCompile Include="test_pan.cpp" />
-    <ClCompile Include="test_tilemanager.cpp" />
     <ClCompile Include="test_wintypes.cpp" />
     <ClCompile Include="test_zoomstrategy.cpp" />
     <ClCompile Include="..\Pictus\image_dimensions.cpp" />
@@ -196,8 +195,6 @@
     <ClCompile Include="..\Pictus\ic_worklist.cpp" />
     <ClCompile Include="..\Pictus\ic_workpackage.cpp" />
     <ClCompile Include="..\Pictus\w32_ddsurface.cpp" />
-    <ClCompile Include="..\Pictus\w32_renderer.cpp" />
-    <ClCompile Include="..\Pictus\w32_rs_tilemanager.cpp" />
     <ClCompile Include="..\Pictus\view_pan.cpp" />
     <ClCompile Include="..\Pictus\zoomstrategy.cpp" />
     <ClCompile Include="..\Pictus\wintypes.cpp" />
@@ -222,8 +219,6 @@
     <ClInclude Include="..\Pictus\ic_worklist.h" />
     <ClInclude Include="..\Pictus\ic_workpackage.h" />
     <ClInclude Include="..\Pictus\w32_ddsurface.h" />
-    <ClInclude Include="..\Pictus\w32_renderer.h" />
-    <ClInclude Include="..\Pictus\w32_rs_tilemanager.h" />
     <ClInclude Include="..\Pictus\view_pan.h" />
     <ClInclude Include="..\Pictus\zoomstrategy.h" />
     <ClInclude Include="..\Pictus\wintypes.h" />
