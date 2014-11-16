@@ -59,14 +59,14 @@ namespace IO {
 	{}
 
 	_Use_decl_annotations_ bool FileWriter::Open(const std::wstring& name, bool append) {
-        Close();   // Might be re-using the object.
+		Close();   // Might be re-using the object.
 
-        if (name.empty()) {
-            return false;
-        }
+		if (name.empty()) {
+			return false;
+		}
 
-        return _wfopen_s(&m_file, name.c_str(), append ? L"ab" : L"wb") == 0;
-    }
+		return _wfopen_s(&m_file, name.c_str(), append ? L"ab" : L"wb") == 0;
+	}
 
 	void FileWriter::Close() {
 		if (m_file != 0)
@@ -91,6 +91,7 @@ namespace IO {
 		Close();
 	}
 
+	// TODO: Replace this with Boost.filesystem or something else that doesn't scream of NIH.
 	void replace_substrings(std::wstring& str, const std::wstring& toFind, const std::wstring& toWrite, size_t offset=0) {
 		std::size_t pos = offset;
 		while(pos != std::wstring::npos) {

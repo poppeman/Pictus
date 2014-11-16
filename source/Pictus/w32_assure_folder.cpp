@@ -3,9 +3,21 @@
 #include "io.h"
 #include "orz/fileops.h"
 
+
+
 std::wstring assure_folder(std::wstring name) {
 	std::wstring path = IO::GetPath(name);
 	std::wstring filename = IO::GetFile(name);
+
+	// See if there is an ini next to the .exe-file. If so, use that one (Portable mode).
+	wchar_t exePath[MAX_PATH];
+	if (GetModuleFileName(GetModuleHandle(nullptr), exePath, MAX_PATH) != 0) {
+		std::wstring totalExe = IO::GetPath(exePath);
+		totalExe += filename;
+		if (IO::DoFileExist(totalExe)) {
+			return totalExe;
+		}
+	}
 
 	// Always use the Application Data folder as a base
 	wchar_t sLoc[MAX_PATH];
