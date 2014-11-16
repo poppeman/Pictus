@@ -84,25 +84,25 @@ Root: HKLM; Subkey: "SOFTWARE\RegisteredApplications"; ValueType: string; ValueN
 
 Root: HKCR; Subkey: "Pictus.BMP"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.BMP\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.GIF"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.GIF"; ValueType: string; ValueData: "GIF image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.GIF\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.JPG"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.JPG"; ValueType: string; ValueData: "Jpeg image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.JPG\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.PCX"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.PCX"; ValueType: string; ValueData: "PCX image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.PCX\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.PNG"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.PNG"; ValueType: string; ValueData: "PNG image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.PNG\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.PSD"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.PSD"; ValueType: string; ValueData: "Photoshop image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.PSD\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.PSP"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.PSP"; ValueType: string; ValueData: "Paint Shop Pro image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.PSP\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.TGA"; ValueType: string; ValueData: "TGA image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.TGA"; ValueType: string; ValueData: "Targa TGA image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.TGA\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.TIF"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.TIF"; ValueType: string; ValueData: "TIFF image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.TIF\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.WBMP"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.WBMP"; ValueType: string; ValueData: "Wireless bitmap image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.WBMP\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Pictus.XYZ"; ValueType: string; ValueData: "Bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.XYZ"; ValueType: string; ValueData: "XYZ image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.XYZ\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
 
 Root: HKCR; Subkey: ".bmp"; ValueType: String; ValueData: "Pictus.BMP"; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: assoc_bmp
