@@ -13,8 +13,7 @@ namespace D3D {
 			DO_THROW(Err::Direct3DError, L"Failed locking texture");
 		}
 
-		Lock l = {static_cast<unsigned char*>(lr.pBits), lr.Pitch};
-		return l;
+		return{ static_cast<unsigned char*>(lr.pBits), lr.Pitch };
 	}
 
 	void Texture::UnlockRegion() {
@@ -22,7 +21,9 @@ namespace D3D {
 	}
 
 	Geom::SizeInt Texture::GetSize() {
-		if (m_texture == 0) DO_THROW(Err::CriticalError, TX("RenderTarget not created."));
+		if (m_texture == nullptr) {
+			DO_THROW(Err::CriticalError, TX("RenderTarget not created."));
+		}
 		LPDIRECT3DSURFACE9 surface;
 		m_texture->GetSurfaceLevel(0, &surface);
 
@@ -40,7 +41,9 @@ namespace D3D {
 	}
 
 	LPDIRECT3DTEXTURE9 Texture::D3DObject() {
-		if (m_texture == 0) DO_THROW(Err::CriticalError, TX("Object not yet created."));
+		if (m_texture == nullptr) {
+			DO_THROW(Err::CriticalError, TX("Object not yet created."));
+		}
 		return m_texture;
 	}
 

@@ -121,6 +121,9 @@ namespace Win {
 	}
 
 	void Renderer::CreateTextures() {
+		// This MAY be a slight performance hog. Not verified by profiling though, and should probably be solved
+		// by using a more modern D3D version.
+		//if ((m_swapChain == nullptr) || (m_swapChain->GetSize().AtLeastInclusive(RenderAreaSize()) == false))
 		if ((m_swapChain == nullptr) || (m_swapChain->GetSize() != RenderAreaSize())) {
 			m_swapChain = m_direct3d->CreateSwapChain(TargetWindow());
 		}
@@ -142,6 +145,10 @@ namespace Win {
 			Filter::FilterBuffer dst(m_softTex->GetSize(), 4, l.Buffer, l.Pitch);
 
 			Img::FilterBufferAndLock src = GenerateFilterBuffer(source);
+			if (src.lock == nullptr) {
+				m_softTex->UnlockRegion();
+				return;
+			}
 
 			Img::RenderToBuffer(dst, src.filterBuffer, source->GetFormat(), RectInt(zoomedImagePosition, destinationArea.Dimensions()), props);
 

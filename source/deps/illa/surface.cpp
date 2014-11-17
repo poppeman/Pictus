@@ -80,9 +80,12 @@ namespace Img {
 			}
 
 			uint8_t* pData = onLockSurface(region, method);
-			if (!pData) {
-				DO_THROW(Err::CriticalError, TX("Couldn't lock surface."));
+			if (pData == nullptr) {
+				return Surface::LockedArea::Ptr();
 			}
+			/*if (!pData) {
+				DO_THROW(Err::CriticalError, TX("Couldn't lock surface."));
+			}*/
 
 			if (method == LockReadWrite) {
 				ForceDirty();
@@ -305,6 +308,9 @@ namespace Img {
 	FilterBufferAndLock GenerateFilterBuffer(Surface::Ptr src) {
 		FilterBufferAndLock fbl;
 		fbl.lock = src->LockSurface(Img::LockRead);
+		if (fbl.lock == nullptr) {
+			return fbl;
+		}
 		fbl.filterBuffer.Construct(src->GetSize(), src->PixelSize(), fbl.lock->Buffer(), fbl.lock->Stride(), src->GetPalette());
 		return fbl;
 	}

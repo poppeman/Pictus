@@ -13,7 +13,7 @@ namespace Img {
 		m_pDIData.clear();
 		try {
 			m_pDIData.resize(static_cast<size_t>(Width()) * static_cast<size_t>(Height()) * static_cast<size_t>(PixelSize()));
-			m_activeBufferPtr.store(&m_pDIData[0]);
+			m_activeBufferPtr.store(m_pDIData.data());
 		}
 		catch(std::bad_alloc&) {
 			return false;
@@ -23,7 +23,9 @@ namespace Img {
 
 	uint8_t* SurfaceSoftware::onLockSurface(const RectInt& region, Img::LockMethod ) {
 		auto curr = m_activeBufferPtr.load();
-		if(curr == 0) return 0;
+		if (curr == nullptr) {
+			return nullptr;
+		}
 
 		return &curr[region.Left() * PixelSize() + region.Top() * onStride()];
 	}
@@ -47,7 +49,7 @@ namespace Img {
 	}
 
 	void SurfaceSoftware::onDeallocate() {
-		m_activeBufferPtr.store(0);
+		m_activeBufferPtr.store(nullptr);
 		m_pDIData.clear();
 	}
 }

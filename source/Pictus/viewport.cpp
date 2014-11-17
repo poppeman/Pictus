@@ -146,16 +146,7 @@ namespace App {
 			bool status = m_image->IsFinished();
 
 			m_props.ResampleFilter = ActiveFilterMode();
-			try {
-				m_renderTarget.Render(m_pan.TopLeft(), m_props);
-			}
-			catch (Err::Exception& ex) {
-				Log << L"Encountered exception:\n\n" << ex.Desc() << L"\n";
-			}
-			catch (...) {
-				Log << "Unknown exception." << "\n";
-			}
-			// TODO: The exception eater here is quite horrible.
+			m_renderTarget.Render(m_pan.TopLeft(), m_props);
 
 			if ((m_image->Delay() == -1) && status)
 				m_animationTimer.Destroy();

@@ -4,7 +4,7 @@
 #include "illa/types.h"
 
 namespace D3D {
-	class Texture {
+	class Texture final {
 	public:
 		Texture(LPDIRECT3DTEXTURE9 tex);
 		~Texture();

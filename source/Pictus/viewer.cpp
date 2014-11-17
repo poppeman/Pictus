@@ -169,7 +169,7 @@ namespace App {
 
 		m_cacher.MessageTarget(this);
 		// TODO: FIXME: This is very wrong, should be set to something that isn't hardcoded.
-		m_cacher.SetMaximumResolutionHint(Geom::SizeInt(64, 64));
+		m_cacher.SetMaximumResolutionHint(Geom::SizeInt(25600, 25600));
 		m_folderMonitor.OnEvent.connect([this](IO::FileEvent e) { FolderEvent(e); });
 
 		m_cacher.WrapAround(Reg::Key(DWBrowseWrapAround) != 0);
