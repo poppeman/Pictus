@@ -290,7 +290,7 @@ namespace D3D {
 
 	Device::~Device() {
 		Release();
-		DropDirect3D();
+		//DropDirect3D();
 	}
 
 	void Device::SetRenderTarget(Texture::Ptr renderTarget) {
