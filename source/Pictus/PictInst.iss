@@ -36,7 +36,7 @@ Source: "..\x64\release\Pictus.exe"; DestDir: "{app}"; Flags: replacesameversion
 Source: "..\release\Pictus.exe"; DestDir: "{app}"; Flags: replacesameversion; Check: not Is64BitInstallMode
 Source: "..\x64\release\PictThumbs.dll"; DestDir: "{app}"; Flags: replacesameversion regserver; Check: Is64BitInstallMode; Components: integration
 Source: "..\release\PictThumbs.dll"; DestDir: "{app}"; Flags: replacesameversion regserver; Check: not Is64BitInstallMode; Components: integration
-Source: "..\..\docs\Readme.txt"; DestDir: "{app}"; Flags: replacesameversion
+Source: "..\..\Readme.txt"; DestDir: "{app}"; Flags: replacesameversion
 
 [Icons]
 Name: "{commonprograms}\Pictus"; Filename: "{app}\Pictus.exe"
