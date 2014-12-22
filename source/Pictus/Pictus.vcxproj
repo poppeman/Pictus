@@ -169,7 +169,7 @@
     <PostBuildEvent>
       <Message>Creating distribution ...</Message>
       <Command>md ..\..\dist
-..\..\deps\zip -j -9 ..\..\dist\pictus32.zip ..\Release\Pictus.exe ..\..\docs\readme.txt license_en.txt license_sv.txt
+..\..\bin\zip -j -9 ..\..\dist\pictus32.zip ..\Release\Pictus.exe ..\..\readme.txt license_en.txt license_sv.txt
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -196,7 +196,7 @@
     <PostBuildEvent>
       <Message>Creating distribution...</Message>
       <Command>md ..\..\dist
-..\..\deps\zip -j -9 ..\..\dist\pictus64.zip ..\x64\Release\Pictus.exe ..\..\docs\readme.txt license_en.txt license_sv.txt
+..\..\bin\zip -j -9 ..\..\dist\pictus64.zip ..\x64\Release\Pictus.exe ..\..\readme.txt license_en.txt license_sv.txt
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
