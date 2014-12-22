@@ -274,7 +274,7 @@ struct png_struct_def
 #ifdef PNG_READ_GAMMA_SUPPORTED
    png_color_16 background_1; /* background normalized to gamma 1.0 */
 #endif
-#endif /* PNG_bKGD_SUPPORTED */
+#endif /* bKGD */
 
 #ifdef PNG_WRITE_FLUSH_SUPPORTED
    png_flush_ptr output_flush_fn; /* Function for flushing output */
@@ -331,7 +331,7 @@ struct png_struct_def
    int process_mode;                 /* what push library is currently doing */
    int cur_palette;                  /* current push library palette index */
 
-#endif /* PNG_PROGRESSIVE_READ_SUPPORTED */
+#endif /* PROGRESSIVE_READ */
 
 #if defined(__TURBOC__) && !defined(_Windows) && !defined(__FLAT__)
 /* For the Borland special 64K segment handler */
@@ -365,7 +365,7 @@ struct png_struct_def
 #if PNG_LIBPNG_VER < 10700
 /* To do: remove this from libpng-1.7 */
 #ifdef PNG_TIME_RFC1123_SUPPORTED
-   char time_buffer[29]; /* std::wstring to hold RFC 1123 time text */
+   char time_buffer[29]; /* String to hold RFC 1123 time text */
 #endif
 #endif
 
