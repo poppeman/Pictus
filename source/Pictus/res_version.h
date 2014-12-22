@@ -1,6 +1,6 @@
 #define PICTUS_VER_MAJOR		1
-#define PICTUS_VER_MINOR		1
-#define PICTUS_VER_REVISION		6
+#define PICTUS_VER_MINOR		2
+#define PICTUS_VER_REVISION		0
 #define PICTUS_VER_BUILD		0
 
 #define LOC_TX_(a,b,c,d) L#a#b#c#d
