@@ -82,7 +82,6 @@ namespace Win {
 		// If the device still is lost, some resources (some possibly outside of this object) are being held that must be released.
 		// Return so any external objects can do the required cleanup before attempting again.
 		if (m_direct3d->IsLost()) {
-			m_swapChain.reset();
 			m_softTex.reset();
 			return RenderStatus::CurrentViewLost;
 		}
@@ -90,7 +89,6 @@ namespace Win {
 		CreateTextures();
 
 		m_direct3d->BeginDraw();
-		m_direct3d->SetSwapChain(m_swapChain);
 		m_direct3d->Clear(0xff, backgroundColor.R, backgroundColor.G, backgroundColor.B);
 
 		auto proj = D3D::OrthographicProjection({ { 0, 0 }, RenderAreaSize().StaticCast<float>() });
@@ -108,7 +106,6 @@ namespace Win {
 		}
 
 		m_direct3d->EndDraw();
-		m_swapChain->Present();
 	}
 
 	Renderer::Renderer():m_hwnd(0) {}
@@ -121,11 +118,8 @@ namespace Win {
 	}
 
 	void Renderer::CreateTextures() {
-		// This MAY be a slight performance hog. Not verified by profiling though, and should probably be solved
-		// by using a more modern D3D version.
-		//if ((m_swapChain == nullptr) || (m_swapChain->GetSize().AtLeastInclusive(RenderAreaSize()) == false))
-		if ((m_swapChain == nullptr) || (m_swapChain->GetSize() != RenderAreaSize())) {
-			m_swapChain = m_direct3d->CreateSwapChain(TargetWindow());
+		if (m_direct3d->BackBufferSize() != RenderAreaSize()) {
+			m_direct3d->ResizeBackBuffer(RenderAreaSize());
 		}
 	}
 

@@ -1,8 +1,6 @@
 #ifndef D3D_COMMON_H
 #define D3D_COMMON_H
 
-#define SAFE_RELEASE(p) if (p) { p->Release(); p = 0; }
-
 #include "illa/types.h"
 
 namespace Err {
@@ -25,6 +23,12 @@ namespace D3D {
 	};
 
 	void GenerateQuad(Geom::RectFloat position, Geom::RectFloat texCoords, Geom::SizeFloat adjustment, Geom::SizeInt targetSize, Filter::RotationAngle angle, D3D::Vertex2D& a, D3D::Vertex2D& b, D3D::Vertex2D& c, D3D::Vertex2D& d);
+
+	template<typename T> void ComRelease(T* obj) {
+		if (obj != nullptr) {
+			obj->Release();
+		}
+	}
 }
 
 #endif

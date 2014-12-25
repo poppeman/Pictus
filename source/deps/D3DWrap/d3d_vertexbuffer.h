@@ -12,7 +12,6 @@ namespace D3D {
 	class VertexBuffer {
 	public:
 		VertexBuffer(LPDIRECT3DVERTEXBUFFER9 vb, DWORD fvf, size_t bytes);
-		~VertexBuffer();
 
 		uint8_t* Lock();
 		void Unlock();
@@ -25,7 +24,7 @@ namespace D3D {
 		typedef std::shared_ptr<VertexBuffer> Ptr;
 
 	private:
-		LPDIRECT3DVERTEXBUFFER9 m_vb;
+		std::shared_ptr<IDirect3DVertexBuffer9> m_vb;
 		bool m_isLocked;
 		size_t m_sizeInBytes;
 		DWORD m_fvf;

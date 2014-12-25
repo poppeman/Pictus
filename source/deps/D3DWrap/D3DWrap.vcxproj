@@ -152,7 +152,6 @@
     <ClCompile Include="d3d_common.cpp" />
     <ClCompile Include="d3d_device.cpp" />
     <ClCompile Include="d3d_math.cpp" />
-    <ClCompile Include="d3d_swapchain.cpp" />
     <ClCompile Include="d3d_texture.cpp" />
     <ClCompile Include="d3d_vertexbuffer.cpp" />
     <ClCompile Include="int_d3d_types.cpp" />
@@ -167,7 +166,6 @@
     <ClInclude Include="d3d_common.h" />
     <ClInclude Include="d3d_device.h" />
     <ClInclude Include="d3d_math.h" />
-    <ClInclude Include="d3d_swapchain.h" />
     <ClInclude Include="d3d_texture.h" />
     <ClInclude Include="d3d_vertexbuffer.h" />
     <ClInclude Include="int_d3d_types.h" />

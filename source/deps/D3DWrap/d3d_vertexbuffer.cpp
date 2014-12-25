@@ -4,14 +4,15 @@
 #include "d3d_common.h"
 
 namespace D3D {
-	VertexBuffer::VertexBuffer( LPDIRECT3DVERTEXBUFFER9 vb, DWORD fvf, size_t bytes ):m_vb(vb), m_isLocked(false), m_fvf(fvf), m_sizeInBytes(bytes) {
+	VertexBuffer::VertexBuffer(LPDIRECT3DVERTEXBUFFER9 vb, DWORD fvf, size_t bytes) :
+		m_vb{ vb, ComRelease < IDirect3DVertexBuffer9 > },
+		m_isLocked(false),
+		m_fvf(fvf),
+		m_sizeInBytes(bytes)
+	{
 		if (vb == 0) {
 			DO_THROW(Err::CriticalError, TX("Vertex buffer not initialized"));
 		}
-	}
-
-	VertexBuffer::~VertexBuffer() {
-		SAFE_RELEASE(m_vb);
 	}
 
 	uint8_t* VertexBuffer::Lock() {
@@ -37,7 +38,7 @@ namespace D3D {
 	}
 
 	LPDIRECT3DVERTEXBUFFER9 VertexBuffer::D3DObject() {
-		return m_vb;
+		return m_vb.get();
 	}
 
 	DWORD VertexBuffer::FVFDefinition() {

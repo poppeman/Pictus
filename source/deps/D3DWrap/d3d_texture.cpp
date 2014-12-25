@@ -34,17 +34,15 @@ namespace D3D {
 		return Geom::SizeInt(desc.Width, desc.Height);
 	}
 
-	Texture::Texture(LPDIRECT3DTEXTURE9 tex):m_texture(tex) {}
-
-	Texture::~Texture() {
-		SAFE_RELEASE(m_texture);
-	}
+	Texture::Texture(LPDIRECT3DTEXTURE9 tex)
+		:m_texture{ tex, ComRelease < IDirect3DTexture9 > }
+	{}
 
 	LPDIRECT3DTEXTURE9 Texture::D3DObject() {
 		if (m_texture == nullptr) {
 			DO_THROW(Err::CriticalError, TX("Object not yet created."));
 		}
-		return m_texture;
+		return m_texture.get();
 	}
 
 	D3DFORMAT Texture::D3DFormat() {

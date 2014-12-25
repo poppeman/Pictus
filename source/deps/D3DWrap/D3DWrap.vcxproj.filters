@@ -20,9 +20,6 @@
     <ClCompile Include="d3d_math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="d3d_swapchain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="d3d_texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -44,9 +41,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="d3d_math.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="d3d_swapchain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="d3d_texture.h">

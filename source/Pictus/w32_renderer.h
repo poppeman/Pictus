@@ -4,7 +4,6 @@
 #include "illa/surface.h"
 #include "w32_ddsurface.h"
 #include "D3DWrap/d3d_device.h"
-#include "D3DWrap/d3d_swapchain.h"
 
 namespace Win {
 	class Renderer final {
@@ -58,7 +57,6 @@ namespace Win {
 
 		D3D::Texture::Ptr m_softTex;
 		D3D::Device::Ptr m_direct3d;
-		D3D::SwapChain::Ptr m_swapChain;
 	};
 }
 

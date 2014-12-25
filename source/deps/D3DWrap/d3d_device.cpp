@@ -3,9 +3,14 @@
 #include "d3d_device.h"
 #include "d3d_common.h"
 #include "int_d3d_types.h"
+#include <memory>
 
 namespace D3D {
 	using Geom::SizeInt;
+
+	template<typename T> ::std::shared_ptr<T> WrapRelease(T* obj) {
+		return ::std::shared_ptr<T>( obj, ComRelease<T>);
+	}
 
 	bool Device::Initialize(HWND hwndFocus, bool doWindowed, int device) {
 		// Can occur of Direct3D9 is not installed.
@@ -32,14 +37,19 @@ namespace D3D {
 			m_presentParams.BackBufferHeight	= 128;
 		}
 
+		// TODO: Only attempt flip model for Win7 or greater
+		m_presentParams.SwapEffect = D3DSWAPEFFECT_FLIPEX;
+
 #if 1
-		auto hr = m_d3d->CreateDevice(
+		IDirect3DDevice9Ex* pdev = nullptr;
+		auto hr = m_d3d->CreateDeviceEx(
 			device,
 			D3DDEVTYPE_HAL,
 			hwndFocus,
 			D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 			&m_presentParams,
-			&m_device);
+			nullptr,
+			&pdev);
 
 		switch (hr) {
 		case D3DERR_DEVICELOST:
@@ -51,6 +61,8 @@ namespace D3D {
 		case D3DERR_OUTOFVIDEOMEMORY:
 			throw Err::Direct3DError(L"Not enough video memory to initialize Direct3D.");
 		}
+
+		m_device = WrapRelease(pdev);
 
 #else
 		bool foundPerf = false;
@@ -83,41 +95,26 @@ namespace D3D {
 		return true;
 	}
 
+	void Device::ResizeBackBuffer(const Geom::SizeInt& newSize) {
+		m_presentParams.BackBufferWidth = newSize.Width;
+		m_presentParams.BackBufferHeight = newSize.Height;
+
+		m_device->ResetEx(&m_presentParams, nullptr);
+	}
+
+	Geom::SizeInt Device::BackBufferSize() const {
+		IDirect3DSurface9* pbuf;
+		m_device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pbuf);
+		D3DSURFACE_DESC desc;
+		pbuf->GetDesc(&desc);
+		pbuf->Release();
+		return Geom::SizeInt{ static_cast<int>(desc.Width), static_cast<int>(desc.Height) };
+	}
+
+
 
 	void Device::Clear( int a, int r, int g, int b ) {
 		m_device->Clear(0, 0, D3DCLEAR_TARGET, D3DCOLOR_ARGB(a, r, g, b), 0, 0);
-	}
-
-	SwapChain::Ptr Device::CreateSwapChain(HWND hwnd) {
-		if (m_device == 0) {
-			DO_THROW(Err::CriticalError, TX("Device not initialized."));
-		}
-
-		// Recreate swap chain if needed
-		LPDIRECT3DSWAPCHAIN9 swapChain = 0;
-		m_device->GetSwapChain(0, &swapChain);
-
-		D3DPRESENT_PARAMETERS pp;
-		ZeroMemory(&pp, sizeof(pp));
-
-		if (swapChain) {
-			swapChain->GetPresentParameters(&pp);
-			swapChain->Release();
-		}
-
-		pp.Windowed = TRUE;
-		pp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-		pp.BackBufferFormat = D3DFMT_UNKNOWN;
-		pp.BackBufferCount = 1;
-		pp.BackBufferWidth = 0;
-		pp.BackBufferHeight = 0;
-		pp.hDeviceWindow = hwnd;
-
-		if (m_device->CreateAdditionalSwapChain(&pp, &swapChain) != D3D_OK) {
-			DO_THROW(Err::Direct3DError, TX("Couldn't create new swap chain."));
-		}
-
-		return std::make_shared<SwapChain>(swapChain, hwnd);
 	}
 
 	Texture::Ptr Device::CreateTexture(const Geom::SizeInt& dimensions, D3DFORMAT fmt, D3DPOOL pool) {
@@ -169,30 +166,6 @@ namespace D3D {
 		}
 
 		m_device->SetTexture(stage, texture->D3DObject());
-	}
-
-	void Device::SetSwapChain(SwapChain::Ptr swapChain) {
-		if (m_device == 0) {
-			DO_THROW(Err::CriticalError, TX("Device not initialized."));
-		}
-		if (swapChain == 0){
-			DO_THROW(Err::InvalidParam, TX("Null pointer not really valid."));
-		}
-		m_currentSwapChain = swapChain;
-
-		LPDIRECT3DSWAPCHAIN9 sc = m_currentSwapChain->D3DObject();
-		if (sc == 0) {
-			DO_THROW(Err::CriticalError, TX("Swap chain was not initialized."));
-		}
-
-		LPDIRECT3DSURFACE9 backBuffer = 0;
-		if (sc->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &backBuffer) != D3D_OK) {
-			DO_THROW(Err::Direct3DError, TX("Couldn't get back buffer from swap chain."));
-		}
-		if (m_device->SetRenderTarget(0, backBuffer) != D3D_OK) {
-			DO_THROW(Err::Direct3DError, TX("Couldn't set render target."));
-		}
-		backBuffer->Release();
 	}
 
 	void Device::ResampleFilter(DWORD stage, D3DTEXTUREFILTERTYPE filter) {
@@ -260,7 +233,7 @@ namespace D3D {
 	}
 
 	void Device::EndDraw() {
-		if (m_device == 0) {
+		if (m_device == nullptr) {
 			DO_THROW(Err::CriticalError, TX("Device not initialized."));
 		}
 		if (m_isDrawing == false) {
@@ -268,6 +241,8 @@ namespace D3D {
 		}
 
 		m_device->EndScene();
+		m_device->PresentEx(0, 0, 0, 0, 0);
+
 		m_isDrawing = false;
 	}
 
@@ -283,18 +258,18 @@ namespace D3D {
 
 	Device::Device():
 		m_device{ 0 },
-		m_isDrawing{ false },
-		m_d3d{ nullptr }
+		m_isDrawing{ false }
 	{
-		m_d3d = Direct3DCreate9(D3D_SDK_VERSION);
+		IDirect3D9Ex* pdex = 0;
+		if (FAILED(Direct3DCreate9Ex(D3D_SDK_VERSION, &pdex))) {
+			pdex = 0;
+		}
+
+		m_d3d = WrapRelease(pdex);
 	}
 
 	Device::~Device() {
 		Release();
-		if (m_d3d) {
-			m_d3d->Release();
-			m_d3d = nullptr;
-		}
 	}
 
 	void Device::SetRenderTarget(Texture::Ptr renderTarget) {
@@ -329,7 +304,7 @@ namespace D3D {
 	}
 
 	void Device::Present() {
-		m_device->Present(0, 0, 0, 0);
+		m_device->PresentEx(0, 0, 0, 0, 0);
 	}
 
 	bool Device::IsLost() {
@@ -337,14 +312,12 @@ namespace D3D {
 	}
 
 	bool Device::Reset() {
-		m_currentSwapChain.reset();
-		HRESULT hret = m_device->Reset(&m_presentParams);
+		HRESULT hret = m_device->ResetEx(&m_presentParams, nullptr);
 		return (hret == D3D_OK);
 	}
 
 	void Device::Release() {
-		m_currentSwapChain.reset();
-		SAFE_RELEASE(m_device);
+		m_device = nullptr;
 	}
 
 	void Device::SetVertexBuffer( VertexBuffer::Ptr vb, int stride ) {
