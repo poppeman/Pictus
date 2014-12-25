@@ -7,7 +7,6 @@ namespace D3D {
 	class Texture final {
 	public:
 		Texture(LPDIRECT3DTEXTURE9 tex);
-		~Texture();
 
 		struct Lock {
 			uint8_t* Buffer;
@@ -25,7 +24,7 @@ namespace D3D {
 		typedef std::shared_ptr<Texture> Ptr;
 
 	private:
-		LPDIRECT3DTEXTURE9 m_texture;
+		std::shared_ptr<IDirect3DTexture9> m_texture;
 	};
 }
 
