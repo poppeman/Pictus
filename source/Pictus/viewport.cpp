@@ -151,6 +151,10 @@ namespace App {
 			if ((m_image->Delay() == -1) && status)
 				m_animationTimer.Destroy();
 
+			// Direct3D9 Ex (with FLIPEX) doesn't seem to validate the window the same way as vanilla D3D9.
+			// Therefore we do it ourselves to prevent WM_PAINT spam.
+			ValidateRect(Handle(), nullptr);
+
 			return true;
 		}
 		else {
