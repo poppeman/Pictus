@@ -29,9 +29,6 @@
     <ClCompile Include="d3d_vertexbuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="int_d3d_base.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="int_d3d_types.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -56,9 +53,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="d3d_vertexbuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="int_d3d_base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="int_d3d_types.h">

@@ -3,7 +3,6 @@
 #include "d3d_device.h"
 #include "d3d_common.h"
 #include "int_d3d_types.h"
-#include "int_d3d_base.h"
 
 namespace D3D {
 	using Geom::SizeInt;
@@ -285,12 +284,17 @@ namespace D3D {
 	Device::Device():
 		m_device{ 0 },
 		m_isDrawing{ false },
-		m_d3d{ RequestDirect3D() }
-	{}
+		m_d3d{ nullptr }
+	{
+		m_d3d = Direct3DCreate9(D3D_SDK_VERSION);
+	}
 
 	Device::~Device() {
 		Release();
-		//DropDirect3D();
+		if (m_d3d) {
+			m_d3d->Release();
+			m_d3d = nullptr;
+		}
 	}
 
 	void Device::SetRenderTarget(Texture::Ptr renderTarget) {
