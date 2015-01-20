@@ -187,7 +187,10 @@ namespace Img {
 	}
 
 	void Surface::copyConvertAnyTo32( Surface::Ptr source, RectInt &sourceAreaToCopy, PointInt destinationTopLeft ) {
-		LockedArea::Ptr lockedDestination = LockSurface(RectInt(destinationTopLeft, sourceAreaToCopy.Dimensions()));
+		auto clippedDims = RectInt(destinationTopLeft, GetSize()).Crop(sourceAreaToCopy).Dimensions();
+		sourceAreaToCopy.Dimensions(clippedDims);
+
+		LockedArea::Ptr lockedDestination = LockSurface({ destinationTopLeft, clippedDims });
 		uint8_t* pNewDest = lockedDestination->Buffer();
 
 		source->CopyRectToBuffer(pNewDest, lockedDestination->Stride(), sourceAreaToCopy, Img::Color(0xff, 0xff, 0xff, 0xff), 0, 10, 10, false);
