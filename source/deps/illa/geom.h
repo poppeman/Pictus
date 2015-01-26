@@ -304,6 +304,11 @@ namespace Geom {
 			return (Contains(pt.TopLeft()) && Contains(pt.BottomRight() - Size<T>{1, 1}));
 		}
 
+
+		/*
+			Determine the intersection rect between two existing rects.
+			TODO: Rename and move to a free function.
+		*/		
 		Rect<T> Crop(const Rect<T> &toCrop) const {
 			Rect<T> r(toCrop);
 			r.TopLeft(Maximum(toCrop.TopLeft(), TopLeft()));
@@ -333,6 +338,43 @@ namespace Geom {
 		Size<T> m_size;
 		Point<T> m_topLeft;
 	};
+
+
+	/*
+	This function is used where part of a source canvas needs to be constrained to a destination canvas when placed at a given position.
+
+	Clipping is based on two criterias:
+
+	*	Ensure that the source rectangle does not go out of the source canvas bounds.
+	*	Ensure that the source rectangle does not go out of the destination canvas bounds.
+	*/
+	template <typename T>
+	Rect<T> ClipSource(const Rect<T>& destinationCanvas, const Point<T>& destinationTopLeft, const Rect<T>& sourceCanvas, const Point<T>& sourceTopLeft, const Size<T>& dims) {
+		// Placement of destination rect if there's no clipping needed
+		Rect<T> unclipped{
+			destinationTopLeft,
+			dims
+		};
+
+		// Available area (in destination canvas) that the result rect can occupy
+		Rect<T> clipper{
+			destinationTopLeft,
+			destinationCanvas.BottomRight()
+		};
+
+		// Clip unclipped rect to available space
+		auto clipped = clipper.Crop(unclipped);
+
+		// Adjust source rect according to applied clipping
+		auto delta = Rect < T >(
+			Point<T>(Point < T > {0, 0} +(unclipped.TopLeft() - clipped.TopLeft())),
+			Size<T>(unclipped.Dimensions() - clipped.Dimensions())
+			);
+		auto sourceRect = Rect<T>{ Point<T>{0, 0} +(sourceTopLeft - delta.TopLeft()), dims - delta.Dimensions() };
+
+		// Finally, make sure the source rect is within the source canvas
+		return sourceRect.Crop(sourceCanvas);
+	}
 
 	typedef Size<int> SizeInt;
 	typedef Point<int> PointInt;

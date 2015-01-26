@@ -52,6 +52,18 @@ SUITE(RectangleSuite)
 		CHECK_EQUAL(RectInt(PointInt(100, 200), PointInt(300, 323)), r1.Crop(r2));
 		CHECK_EQUAL(r1.Crop(r2), r2.Crop(r1));
 	}
+
+	TEST(ClipSize) {
+		RectInt dstCanvas{ { 0, 0 }, PointInt{ 400, 400 } };
+		RectInt srcCanvas{ { 0, 0 }, PointInt{ 200, 200 } };
+
+		CHECK_EQUAL(RectInt({ 50, 50 }, PointInt{ 100, 100 }), 
+			Geomz::ClipSource(dstCanvas, PointInt{ 100, 200 }, srcCanvas, PointInt{ 50, 50 }, SizeInt{ 50, 50 }));
+
+
+		CHECK_EQUAL(RectInt({ 50, 50 }, PointInt{ 200, 200 }),
+			Geomz::ClipSource(dstCanvas, PointInt{ 100, 200 }, srcCanvas, PointInt{ 50, 50 }, SizeInt{ 999, 999 }));
+	}
 }
 
 /*******
