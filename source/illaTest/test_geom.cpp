@@ -57,12 +57,11 @@ SUITE(RectangleSuite)
 		RectInt dstCanvas{ { 0, 0 }, PointInt{ 400, 400 } };
 		RectInt srcCanvas{ { 0, 0 }, PointInt{ 200, 200 } };
 
-		CHECK_EQUAL(RectInt({ 50, 50 }, PointInt{ 100, 100 }), 
-			Geomz::ClipSource(dstCanvas, PointInt{ 100, 200 }, srcCanvas, PointInt{ 50, 50 }, SizeInt{ 50, 50 }));
+		auto a = Geom::ClipSource(dstCanvas, PointInt{ 100, 200 }, srcCanvas, PointInt{ 50, 50 }, SizeInt{ 50, 50 });
+		CHECK_EQUAL(RectInt({ 50, 50 }, PointInt{ 100, 100 }), a);
 
-
-		CHECK_EQUAL(RectInt({ 50, 50 }, PointInt{ 200, 200 }),
-			Geomz::ClipSource(dstCanvas, PointInt{ 100, 200 }, srcCanvas, PointInt{ 50, 50 }, SizeInt{ 999, 999 }));
+		auto b = Geom::ClipSource(dstCanvas, PointInt{ 100, 200 }, srcCanvas, PointInt{ 50, 50 }, SizeInt{ 999, 999 });
+		CHECK_EQUAL(RectInt({ 50, 50 }, PointInt{ 200, 200 }), b);
 	}
 }
 
