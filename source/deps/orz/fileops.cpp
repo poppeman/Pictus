@@ -42,7 +42,7 @@ namespace IO {
 		errno_t copyRet = wcscpy_s(&pFromWString[0], len, in.c_str());
 		if (copyRet != 0) DO_THROW(Err::CriticalError, L"Couldn't copy string to buffer.");
 
-		//pFromWString.get()[len - 1] = 0;	// Shuts up vs2005 code analysis
+		pFromWString[len - 1] = 0;	
 
 		return pFromWString;
 	}
