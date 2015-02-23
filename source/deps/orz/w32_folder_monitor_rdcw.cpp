@@ -146,7 +146,7 @@ namespace IO {
 
 	std::wstring FolderMonitorWin32RDCW::ExtractFilename(PFILE_NOTIFY_INFORMATION currChange) {
 		wchar_t tmpstr[MAX_PATH];
-		memcpy_s(tmpstr, MAX_PATH * sizeof(char), currChange->FileName, currChange->FileNameLength);
+		wmemcpy_s(tmpstr, MAX_PATH, currChange->FileName, currChange->FileNameLength);
 		tmpstr[currChange->FileNameLength / 2] = 0;
 		return std::wstring(tmpstr);
 	}
