@@ -335,16 +335,17 @@ namespace App {
 		return true;
 	}
 
-	bool Viewer::PerformOnSize(const SizeInt&) {
-		if(ViewportMode() == SM_Fullscreen)
+
+	bool Viewer::RecalculateViewportSize() {
+		if (ViewportMode() == SM_Fullscreen)
 			return false;
 
-		if(!IsZoomed(Handle()) && !IsIconic(Handle()))
+		if (!IsZoomed(Handle()) && !IsIconic(Handle()))
 			m_previousNonMaximizedWindowRegion = WindowRect();
 
 		RectInt client = ClientRect();
 
-		if(m_statusBar->Visible()) {
+		if (m_statusBar->Visible()) {
 			m_viewPort.Resize(SizeInt(client.Width(), client.Height() - m_statusBar->Position().Height()));
 			UpdateImageInformation();
 		}
@@ -352,6 +353,10 @@ namespace App {
 			m_viewPort.Resize(client.Dimensions());
 
 		return true;
+	}
+
+	bool Viewer::PerformOnSize(const SizeInt&) {
+		return RecalculateViewportSize();
 	}
 
 	bool Viewer::PerformOnMove(const PointInt&, bool byUser) {
@@ -1035,7 +1040,8 @@ namespace App {
 		Reg::Save(cg_SettingsLocation);
 		m_cacher.WrapAround(Reg::Key(DWBrowseWrapAround) != 0);
 
-		m_statusBar->Visible(Reg::Key(DWShowStatusBar) != 0);
+		m_statusBar->Visible((Reg::Key(DWShowStatusBar) != 0) && ViewportMode() != SM_Fullscreen);
+		RecalculateViewportSize();
 
 		m_viewPort.MinificationFilter(Filter::Mode(Reg::Key(DWMinFilter)));
 		m_viewPort.MagnificationFilter(Filter::Mode(Reg::Key(DWMagFilter)));

@@ -110,6 +110,8 @@ namespace App {
 		std::wstring UII_ImageResolution(Img::Image::Ptr image);
 		std::wstring UII_LastModified(FileInt date);
 
+		bool RecalculateViewportSize();
+
 		void ZoomIn();
 		void ZoomOut();
 		void ZoomToggleFullSizeDefaultZoom();
