@@ -86,13 +86,13 @@ namespace Img {
 
 	int ImageComposerGif::OnDelay() {
 		if (m_ids == nullptr) {
-			return 50;
+			return 10;
 		}
 		if (m_ids->size() == 1) {
 			return -1;
 		}
-		if (m_frameLoading <= m_currentFrame) {
-			return 50;
+		if (m_frameLoading <= m_currentFrame || !m_isRendered) {
+			return 10;
 		}
 		if (m_currentFrame < m_ids->size()) {
 			return (*m_ids)[m_currentFrame]->Delay;
