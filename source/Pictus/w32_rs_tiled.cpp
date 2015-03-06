@@ -9,7 +9,11 @@ namespace Win {
 			return;
 		}
 
-		auto client = RoundCast(surfaceToRender->GetSize() * props.Zoom);
+		// Use the smallest subset of the image's zoomed size and the actual viewport size (often window client size).
+		auto transformedSurfaceSize = RoundCast(surfaceToRender->GetSize() * props.Zoom);
+		auto client = renderer->TransformedRenderAreaSize();
+		client.Width = std::min(client.Width, transformedSurfaceSize.Width);
+		client.Height = std::min(client.Height, transformedSurfaceSize.Height);
 
 		pan = renderer->TransformPan(pan, client);
 
@@ -22,11 +26,6 @@ namespace Win {
 
 		if (IsPositive(client) == false) {
 			return;
-		}
-
-		auto dirtyRect = RectInt({ 0, 0 }, client);
-		if (IsPositive(dirtyRect.Dimensions())) {
-			TouchTiles(dirtyRect);
 		}
 
 		// Only force a full redraw if relevant properties have changed. Angle for instance
@@ -45,9 +44,6 @@ namespace Win {
 		// Pre-calculate amount of panning and window resize
 		auto delta = m_currPosition - pan;
 		auto sizeDelta = m_currentSize - client;
-		if (abs(sizeDelta.Width) > client.Width || abs(sizeDelta.Height) > client.Height) {
-			//m_redrawNext = true;
-		}
 
 		if (m_redrawNext || surfaceToRender->IsDirty()) {
 			RenderArea(renderer, surfaceToRender, pan, { { 0, 0 }, client }, props);
@@ -104,33 +100,6 @@ namespace Win {
 		// We intentionally remove any rotation set here. The rotation will instead be handled by the GPU when the tiles are rendered to screen.
 		props.Angle = Filter::RotationAngle::RotateDefault;
 
-		// If the region actually gets cropped, there will be graphical glitching but that is better than an exception.
-		auto croppedDestinationArea(destinationArea.Crop({ { 0, 0 }, RoundCast(surface->GetSize() * props.Zoom) }));
-		SizeInt wa;
-		int y = croppedDestinationArea.Top();
-		do {
-			int x = croppedDestinationArea.Left();
-			do {
-				auto remainingSize = -(PointInt(x, y) - croppedDestinationArea.BottomRight());
-
-				auto ar = m_tiles->RequestDDSurface({ { x, y }, remainingSize });
-				wa = ar.WriteableArea.Dimensions();
-
-				renderer->RenderToDDSurface(
-					ar.Surface,
-					surface,
-					zoomedImagePosition + (PointInt(x, y) - croppedDestinationArea.TopLeft()),
-					ar.WriteableArea,
-					props);
-
-				x += wa.Width;
-			} while (wa.Width > 0 && x < croppedDestinationArea.Right());
-			y += wa.Height;
-		} while (wa.Height > 0 && y < croppedDestinationArea.Bottom());
-	}
-
-
-	void RedrawStrategyTiled::TouchTiles(Geom::RectInt destinationArea) {
 		SizeInt wa;
 		int y = destinationArea.Top();
 		do {
@@ -138,8 +107,15 @@ namespace Win {
 			do {
 				auto remainingSize = -(PointInt(x, y) - destinationArea.BottomRight());
 
-				auto ar = m_tiles->RequestDDSurface(RectInt(PointInt(x, y), remainingSize));
+				auto ar = m_tiles->RequestDDSurface({ { x, y }, remainingSize });
 				wa = ar.WriteableArea.Dimensions();
+
+				renderer->RenderToDDSurface(
+					ar.Surface,
+					surface,
+					zoomedImagePosition + (PointInt(x, y) - destinationArea.TopLeft()),
+					ar.WriteableArea,
+					props);
 
 				x += wa.Width;
 			} while (wa.Width > 0 && x < destinationArea.Right());
