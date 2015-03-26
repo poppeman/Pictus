@@ -38,6 +38,18 @@ namespace Win {
 		m_redrawStrategy->Render(m_renderer, m_surface, sourceZoomedTopLeft, props);
 	}
 
+	void WinRenderTarget::Clear(Img::Color backgroundColor) {
+		if (m_hwnd == nullptr) {
+			DO_THROW(Err::CriticalError, TX("TargetWindow not set"));
+		}
+		if (m_renderer == nullptr) {
+			DO_THROW(Err::CriticalError, TX("Renderer not set"));
+		}
+
+		m_renderer->BeginRender(backgroundColor);
+		m_renderer->EndRender();
+	}
+
 	void WinRenderTarget::SetSurface( Img::Surface::Ptr surface ) {
 		m_surface = surface;
 	}

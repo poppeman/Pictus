@@ -15,6 +15,7 @@ namespace Win {
 		//Geom::SizeInt CurrentSurfaceSizeUnzoomed() const;
 		Img::Surface::Ptr CurrentSurface() const;
 		void Render(const Geom::PointInt& sourceZoomedTopLeft, const Img::Properties& props);
+		void Clear(Img::Color backgroundColor);
 		void SetSurface(Img::Surface::Ptr surface);
 		bool TargetWindow(HWND hwnd);
 

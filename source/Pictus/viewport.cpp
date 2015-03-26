@@ -158,13 +158,7 @@ namespace App {
 			return true;
 		}
 		else {
-			PAINTSTRUCT ps;
-			BeginPaint(Handle(), &ps);
-			HBRUSH brush = CreateSolidBrush(Img::ABGR_ARGB(ToARGBDWORD(m_props.BackgroundColor)));
-
-			FillRect(ps.hdc, &ps.rcPaint, brush);
-			DeleteObject(brush);
-			EndPaint(Handle(), &ps);
+			m_renderTarget.Clear(m_props.BackgroundColor);
 			return true;
 		}
 	}
