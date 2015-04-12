@@ -60,8 +60,16 @@ namespace App {
 			m_center,
 			PointFloat(0, 0) + m_constraints - m_viewportSize * 0.5f);
 
-		COND_STRICT(m_center.AtMostInclusive(PointInt(0, 0) + m_constraints), Err::CriticalError, TX("Calculation error (Center)."));
-		COND_STRICT(IsZeroOrPositive(TopLeft()), Err::CriticalError, TX("Calculation error (TopLeft)."));
-		COND_STRICT(BottomRight().AtMostInclusive(PointInt(0, 0) + m_constraints), Err::CriticalError, TX("Calculation error (BottomRight)."));
+		if (m_center.AtMostInclusive(PointInt{ 0, 0 } +m_constraints) == false) {
+			DO_THROW(Err::CriticalError, L"Calculation error (Center).");
+		}
+
+		if (IsZeroOrPositive(TopLeft()) == false) {
+			DO_THROW(Err::CriticalError, L"Calculation error (TopLeft).");
+		}
+
+		if (BottomRight().AtMostInclusive(PointInt{ 0, 0 } + m_constraints) == false) {
+			DO_THROW(Err::CriticalError, L"Calculation error (BottomRight).");
+		}
 	}
 }
