@@ -25,7 +25,7 @@ namespace App {
 
 		Geom::PointFloat m_center;
 		Geom::SizeInt m_viewportSize;
-		Geom::SizeInt m_constrains;
+		Geom::SizeInt m_constraints;
 
 	};
 }

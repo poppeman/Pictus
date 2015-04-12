@@ -28,14 +28,14 @@ namespace App {
 	}
 	
 	void ViewPan::ResizeConstraints(const Geom::SizeInt& maxDims) {
-		SizeFloat scale = IsPositive(m_constrains)?maxDims.StaticCast<float>() / m_constrains.StaticCast<float>():SizeFloat(0, 0);
+		SizeFloat scale = IsPositive(m_constraints)?maxDims.StaticCast<float>() / m_constraints.StaticCast<float>():SizeFloat(0, 0);
 		m_center = m_center * scale;
-		m_constrains = maxDims;
+		m_constraints = maxDims;
 		Refresh();
 	}
 
 	const Geom::SizeInt& ViewPan::Constraints() const {
-		return m_constrains;
+		return m_constraints;
 	}
 
 	const Geom::PointInt ViewPan::TopLeft() const {
@@ -50,7 +50,7 @@ namespace App {
 
 	const Geom::PointInt ViewPan::BottomRight() const {
 		return Geom::Minimum(
-			PointInt(0, 0) + m_constrains,
+			PointInt(0, 0) + m_constraints,
 			(m_center + m_viewportSize * 0.5f).StaticCast<int>());
 	}
 
@@ -58,10 +58,10 @@ namespace App {
 		m_center = Geom::Constrain(
 			PointFloat(0, 0) + m_viewportSize * 0.5f,
 			m_center,
-			PointFloat(0, 0) + m_constrains - m_viewportSize * 0.5f);
+			PointFloat(0, 0) + m_constraints - m_viewportSize * 0.5f);
 
-		COND_STRICT(m_center.AtMostInclusive(PointInt(0, 0) + m_constrains), Err::CriticalError, TX("Calculation error (Center)."));
+		COND_STRICT(m_center.AtMostInclusive(PointInt(0, 0) + m_constraints), Err::CriticalError, TX("Calculation error (Center)."));
 		COND_STRICT(IsZeroOrPositive(TopLeft()), Err::CriticalError, TX("Calculation error (TopLeft)."));
-		COND_STRICT(BottomRight().AtMostInclusive(PointInt(0, 0) + m_constrains), Err::CriticalError, TX("Calculation error (BottomRight)."));
+		COND_STRICT(BottomRight().AtMostInclusive(PointInt(0, 0) + m_constraints), Err::CriticalError, TX("Calculation error (BottomRight)."));
 	}
 }
