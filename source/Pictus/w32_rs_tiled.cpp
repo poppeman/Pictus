@@ -15,7 +15,7 @@ namespace Win {
 		client.Width = std::min(client.Width, transformedSurfaceSize.Width);
 		client.Height = std::min(client.Height, transformedSurfaceSize.Height);
 
-		pan = renderer->TransformPan(pan, client);
+		pan = renderer->TransformPan(pan, transformedSurfaceSize);
 
 		if (m_tiles == nullptr) {
 			m_tiles = std::make_shared<TileManager>(renderer);
