@@ -38,7 +38,7 @@ namespace App {
 		AddMapping(VK_NEXT, ImageNext);
 		AddMapping(VK_SPACE, ImageNextSkip, Shift);
 		AddMapping(VK_NEXT, ImageNextSkip, Shift);
-		AddMapping(VK_LEFT, ImageNext, Alt);
+		AddMapping(VK_RIGHT, ImageNext, Alt);
 
 		KeyActionMap::Function_Type ImagePrev = [=]() { owner->ImagePrev(1); };
 		KeyActionMap::Function_Type ImagePrevSkip = [=]() { owner->ImagePrev(Viewer::ShiftSkipLength); };
@@ -46,7 +46,7 @@ namespace App {
 		AddMapping(VK_PRIOR, ImagePrev);
 		AddMapping(VK_BACK, ImagePrevSkip, Shift);
 		AddMapping(VK_PRIOR, ImagePrevSkip, Shift);
-		AddMapping(VK_RIGHT, ImagePrev, Alt);
+		AddMapping(VK_LEFT, ImagePrev, Alt);
 
 
 		AddMapping(VK_DELETE, [=]() { owner->RemoveImage(Viewer::RemoveRecycle); });
