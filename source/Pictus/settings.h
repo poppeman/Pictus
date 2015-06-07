@@ -3,10 +3,6 @@
 
 #include "dialog.h"
 
-namespace Img {
-	class CodecFactoryStore;
-}
-
 namespace App {
 	class SettingsPage;
 
@@ -16,7 +12,7 @@ namespace App {
 
 		Geom::PointInt GetPagePosition();
 
-		Settings(Img::CodecFactoryStore* cfs);
+		Settings();
 
 		typedef std::shared_ptr<Settings> Ptr;
 

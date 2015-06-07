@@ -6,7 +6,7 @@
 namespace App {
 	class SetColor:public App::SettingsPage {
 	public:
-		bool IsRootPage();
+		bool IsRootPage() const override;
 
 		SetColor();
 

@@ -174,7 +174,7 @@ namespace App {
 		:App::SettingsPage(IDD_SET_COLOR)
 	{}
 
-	bool SetColor::IsRootPage() {
+	bool SetColor::IsRootPage() const {
 		return false;
 	}
 }

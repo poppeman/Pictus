@@ -12,6 +12,7 @@
 #include "dlg_advanced.h"
 #include "dlg_cache.h"
 #include "dlg_about.h"
+#include "dlg_keyboard.h"
 
 #include "ctrl_button.h"
 
@@ -101,15 +102,16 @@ namespace App {
 		TreeView_DeleteAllItems(GetDlgItem(Handle(), IDC_TREE_NAV));
 	}
 
-	Settings::Settings(Img::CodecFactoryStore* cfs):Win::Dialog(IDD_SETTINGS) {
-		m_pages.push_back(PagePtr(new SetView));
-		m_pages.push_back(PagePtr(new SetInterface));
-		m_pages.push_back(PagePtr(new SetColor));
-		m_pages.push_back(PagePtr(new SetLanguage));
-		m_pages.push_back(PagePtr(new SetControls));
-		m_pages.push_back(PagePtr(new SetAdvanced));
-		m_pages.push_back(PagePtr(new SetPageCache));
-		m_pages.push_back(PagePtr(new SetAbout));
+	Settings::Settings():Win::Dialog(IDD_SETTINGS) {
+		m_pages.push_back(std::make_shared<SetView>());
+		m_pages.push_back(std::make_shared<SetInterface>());
+		m_pages.push_back(std::make_shared<SetColor>());
+		m_pages.push_back(std::make_shared<SetLanguage>());
+		m_pages.push_back(std::make_shared<SetControls>());
+		m_pages.push_back(std::make_shared<SetKeyboard>());
+		m_pages.push_back(std::make_shared<SetAdvanced>());
+		m_pages.push_back(std::make_shared<SetPageCache>());
+		m_pages.push_back(std::make_shared<SetAbout>());
 	}
 
 	HTREEITEM Settings::AddSettingsPageRoot(const std::wstring& name, int index, HTREEITEM hPrev) {

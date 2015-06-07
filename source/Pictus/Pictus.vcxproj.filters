@@ -76,6 +76,9 @@
     <Filter Include="Imaging\Renderer\GDI">
       <UniqueIdentifier>{20404d52-ea0c-4ec8-af9f-cd2f87bcc8eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Settings\Controls">
+      <UniqueIdentifier>{e7e3a60f-8168-4a82-a559-c245ed9f26b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license_en.txt">
@@ -93,9 +96,6 @@
       <Filter>Settings</Filter>
     </ClCompile>
     <ClCompile Include="dlg_cache.cpp">
-      <Filter>Settings</Filter>
-    </ClCompile>
-    <ClCompile Include="dlg_controls.cpp">
       <Filter>Settings</Filter>
     </ClCompile>
     <ClCompile Include="dlg_language.cpp">
@@ -291,6 +291,12 @@
     <ClCompile Include="appreg.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
+    <ClCompile Include="dlg_controls.cpp">
+      <Filter>Settings\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="dlg_keyboard.cpp">
+      <Filter>Settings\Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlg_about.h">
@@ -300,9 +306,6 @@
       <Filter>Settings</Filter>
     </ClInclude>
     <ClInclude Include="dlg_cache.h">
-      <Filter>Settings</Filter>
-    </ClInclude>
-    <ClInclude Include="dlg_controls.h">
       <Filter>Settings</Filter>
     </ClInclude>
     <ClInclude Include="dlg_language.h">
@@ -516,6 +519,12 @@
     <ClInclude Include="gdiwrapper.h">
       <Filter>Imaging\Renderer\GDI</Filter>
     </ClInclude>
+    <ClInclude Include="dlg_controls.h">
+      <Filter>Settings\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="dlg_keyboard.h">
+      <Filter>Settings\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res_settings.rc">
@@ -552,12 +561,6 @@
     </None>
     <None Include="PictInst64.iss">
       <Filter>Installer</Filter>
-    </None>
-    <None Include="keys_string.inc">
-      <Filter>Settings</Filter>
-    </None>
-    <None Include="values_string.inc">
-      <Filter>Settings</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

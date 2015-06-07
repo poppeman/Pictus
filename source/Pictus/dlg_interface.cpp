@@ -25,7 +25,7 @@ namespace App {
 
 	SetInterface::SetInterface():App::SettingsPage(IDD_SET_INTERFACE) {}
 
-	bool SetInterface::IsRootPage() {
+	bool SetInterface::IsRootPage() const {
 		return false;
 	}
 }

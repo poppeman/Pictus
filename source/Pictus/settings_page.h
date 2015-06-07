@@ -7,7 +7,7 @@ namespace App {
 	class SettingsPage:public Win::Dialog {
 	public:
 		void getSettings() { PerformOnInitPage(); }
-		virtual bool IsRootPage() { return true; }
+		virtual bool IsRootPage() const { return true; }
 
 		void WriteSettings() { onWriteSettings(); }
 

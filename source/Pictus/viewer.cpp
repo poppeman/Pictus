@@ -69,7 +69,7 @@ namespace App {
 
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateImageInformation(); });
 
-		m_settings = std::make_shared<Settings>(m_codecs);
+		m_settings = std::make_shared<Settings>();
 		m_settings->OnSettingsChanged.connect([&]() { SettingsChanged(); });
 
 		m_cacher.SetCodecFactoryStore(m_codecs);

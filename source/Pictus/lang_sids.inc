@@ -140,5 +140,11 @@ enum StringID {
 	SIDAssociationSetup=138,
 	SIDPictusDescription=139,
 	SIDDirectXFailed=140,
-	FinalSID=141,
+	SIDKeyboard=141,
+	SIDGroupAction=142,
+	SIDGroupAssignedShortcuts=143,
+	SIDLabelKey=144,
+	SIDAssign=145,
+	SIDRandom=146,
+	FinalSID=147,
 };

@@ -210,6 +210,7 @@
     <ClCompile Include="dlg_advanced.cpp" />
     <ClCompile Include="dlg_cache.cpp" />
     <ClCompile Include="dlg_controls.cpp" />
+    <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
     <ClCompile Include="gdiwrapper.cpp" />
     <ClCompile Include="settings.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="dlg_advanced.h" />
     <ClInclude Include="dlg_cache.h" />
     <ClInclude Include="dlg_controls.h" />
+    <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
     <ClInclude Include="gdiwrapper.h" />
     <ClInclude Include="settings.h" />
@@ -363,11 +365,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="keys_dword.inc" />
-    <None Include="keys_string.inc" />
     <None Include="lang_sids.inc" />
     <None Include="lang_table.inc" />
     <None Include="values_dword.inc" />
-    <None Include="values_string.inc" />
     <ResourceCompile Include="version.rc" />
     <None Include="Res\cursor_app_pan2.cur" />
     <None Include="PictInst.iss" />
