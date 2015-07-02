@@ -6,6 +6,8 @@
 #include "orz/sysinfo.h"
 
 int WINAPI wWinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ wchar_t* pCmdLine, _In_ int) {
+	SetThemeAppProperties(STAP_ALLOW_NONCLIENT | STAP_ALLOW_CONTROLS | STAP_ALLOW_WEBCONTENT);
+
 	INITCOMMONCONTROLSEX icce;
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_BAR_CLASSES | ICC_TREEVIEW_CLASSES | ICC_UPDOWN_CLASS | ICC_LISTVIEW_CLASSES;

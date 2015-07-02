@@ -70,6 +70,9 @@ namespace App {
 
 		// Pick first page by default
 		TreeView_SelectItem(GetDlgItem(Handle(), IDC_TREE_NAV), hFirst);
+
+		SetWindowTheme(GetDlgItem(Handle(), IDC_TREE_NAV), L"Explorer", 0);
+
 		return true;
 	}
 

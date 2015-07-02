@@ -5,7 +5,7 @@
 #define D3D_DEBUG_INFO
 #define _WIN32_WINNT 0x0600
 #define WINVER 0x0600
-#define _WIN32_IE 0x0600
+#define _WIN32_IE 0x0900
 
 #include "illa/StdAfx.h"
 #include "D3DWrap/StdAfx.h"
@@ -16,6 +16,7 @@
 #include <objbase.h>
 #include <wininet.h>
 #include <shobjidl.h>
+#include <Uxtheme.h>
 
 #include <shlobj.h>
 

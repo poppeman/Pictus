@@ -297,6 +297,9 @@
     <ClCompile Include="dlg_keyboard.cpp">
       <Filter>Settings\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="app_types.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlg_about.h">

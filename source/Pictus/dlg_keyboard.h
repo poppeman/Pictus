@@ -14,12 +14,21 @@ namespace App {
 
 	private:
 		void AddShortcut();
+		void SetShortcutFunction();
 
 		bool PerformOnInitPage() override;
 		void onWriteSettings() override;
 
 		Win::ComboBox* m_functions;
 		Win::ListView* m_assigned;
+
+		struct ShortcutEntry {
+			wchar_t Key;
+			KeyAction Action;
+		};
+
+		std::map<LPARAM, ShortcutEntry> m_shortcuts;
+		LPARAM m_currentIndex;
 	};
 }
 

@@ -30,12 +30,13 @@ namespace Win {
 		SendMessage(Handle(), LVM_SETCOLUMN, index, (LPARAM)&lvc);
 	}
 
-	int ListView::AddItem(const std::wstring& caption) {
+	int ListView::AddItem(const std::wstring& caption, LPARAM data) {
 		LVITEM lvi;
 		ZeroMemory(&lvi, sizeof(lvi));
-		lvi.mask = LVIF_TEXT;
+		lvi.mask = LVIF_TEXT | LVIF_PARAM;
 		lvi.pszText = (wchar_t*)caption.c_str();
 		lvi.iItem = m_index;
+		lvi.lParam = data;
 		ListView_InsertItem(Handle(), &lvi);
 
 		return m_index++;
@@ -51,6 +52,19 @@ namespace Win {
 		ListView_SetItem(Handle(), &lvi);
 	}
 
+	int ListView::GetSelectedRow() const {
+		return ListView_GetNextItem(Handle(), -1, LVNI_SELECTED);
+	}
+
+	LPARAM ListView::GetItemParam(int row) const {
+		LVITEM lvi;
+		ZeroMemory(&lvi, sizeof(lvi));
+		lvi.mask = LVIF_PARAM;
+		lvi.iItem = row;
+		ListView_GetItem(Handle(), &lvi);
+		return lvi.lParam;
+	}
+
 	void ListView::Check(size_t index, bool doCheck) {
 		ListView_SetCheckState(Handle(), index, doCheck);
 	}
@@ -62,4 +76,9 @@ namespace Win {
 	void ListView::Style(DWORD flags) {
 		ListView_SetExtendedListViewStyle(Handle(), flags);
 	}
+
+	ListView::ListView(int id, HWND hwnd) :Control(id, hwnd), m_index(0) {
+		//SetWindowTheme(hwnd, L"Explorer", NULL);
+	}
+
 }

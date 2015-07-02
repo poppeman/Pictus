@@ -1,5 +1,5 @@
 enum StringID {
-	SIDUndefined=0,
+	SIDInvalid=0,
 	SIDLanguageName=1,
 	SIDOpen=2,
 	SIDZoom=3,
@@ -144,7 +144,8 @@ enum StringID {
 	SIDGroupAction=142,
 	SIDGroupAssignedShortcuts=143,
 	SIDLabelKey=144,
-	SIDAssign=145,
-	SIDRandom=146,
-	FinalSID=147,
+	SIDAdd=145,
+	SIDUndefined=146,
+	SIDRandom=147,
+	FinalSID=148,
 };

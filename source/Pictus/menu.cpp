@@ -11,7 +11,7 @@ namespace Win {
 			m_index		= index;
 		}
 
-		IMenuItem():m_string_id(App::SIDUndefined), m_index(0) {}
+		IMenuItem():m_string_id(App::SIDInvalid), m_index(0) {}
 		virtual ~IMenuItem() {}
 
 	protected:
