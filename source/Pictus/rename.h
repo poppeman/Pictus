@@ -20,9 +20,6 @@ namespace App {
 		void OnCancel();
 
 		std::wstring m_name;
-
-		static WNDPROC m_prevEditWndProc;
-		static LRESULT CALLBACK FilterEditWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	};
 }
 
