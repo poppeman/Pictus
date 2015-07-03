@@ -71,10 +71,6 @@ namespace Util {
 }
 
 namespace Num {
-	const float FEps = std::numeric_limits<float>::epsilon();
-	const double DEps = std::numeric_limits<double>::epsilon();
-	const long double LDEpsilon = std::numeric_limits<long double>::epsilon();
-
 	const float Pi = 3.14159265358979323846f;
 	const float Pi_2 = 1.57079632679489661923f;
 	const float Pi_4 = 0.785398163397448309616f;

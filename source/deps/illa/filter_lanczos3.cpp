@@ -17,7 +17,7 @@ namespace Filter {
 
 		template <int _rad>
 		float LanczosEval(float x)  {
-			if ((x < Num::DEps) && (-Num::DEps < x))
+			if ((x < std::numeric_limits<float>::epsilon()) && (-std::numeric_limits<float>::epsilon() < x))
 				return 1.0;
 			return Sinc(x) * Sinc(x / _rad);
 		}
