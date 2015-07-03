@@ -207,6 +207,7 @@
   <ItemGroup>
     <ClCompile Include="appreg.cpp" />
     <ClCompile Include="app_types.cpp" />
+    <ClCompile Include="ctrl_keypress.cpp" />
     <ClCompile Include="dlg_about.cpp" />
     <ClCompile Include="dlg_advanced.cpp" />
     <ClCompile Include="dlg_cache.cpp" />
@@ -283,6 +284,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ctrl_keypress.h" />
     <ClInclude Include="dlg_about.h" />
     <ClInclude Include="dlg_advanced.h" />
     <ClInclude Include="dlg_cache.h" />

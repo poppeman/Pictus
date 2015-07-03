@@ -4,6 +4,7 @@
 #include "settings_page.h"
 #include "ctrl_combobox.h"
 #include "ctrl_listview.h"
+#include "ctrl_keypress.h"
 
 namespace App {
 	class SetKeyboard :public App::SettingsPage {
@@ -21,6 +22,7 @@ namespace App {
 
 		Win::ComboBox* m_functions;
 		Win::ListView* m_assigned;
+		App::Keypress* m_keypress;
 
 		struct ShortcutEntry {
 			wchar_t Key;

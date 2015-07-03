@@ -300,6 +300,9 @@
     <ClCompile Include="app_types.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
+    <ClCompile Include="ctrl_keypress.cpp">
+      <Filter>Settings\Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlg_about.h">
@@ -527,6 +530,9 @@
     </ClInclude>
     <ClInclude Include="dlg_keyboard.h">
       <Filter>Settings\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="ctrl_keypress.h">
+      <Filter>Settings\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

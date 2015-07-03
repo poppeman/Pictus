@@ -57,6 +57,8 @@ namespace App {
 
 		CreateButton(IDC_BUTTON_KEYBOARD_ADD)->OnClick.connect([this]() { AddShortcut(); });
 
+		m_keypress = Keypress::CreateKeypress(IDC_EDIT_KEYBOARD_KEY, Handle());
+
 		SetWindowTheme(m_functions->Handle(), L"Explorer", 0);
 
 		return true;
