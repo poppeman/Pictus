@@ -79,4 +79,19 @@ namespace Num {
 std::wstring ToUpper(const std::wstring& s);
 std::wstring ToLower(const std::wstring& s);
 
+template <typename C>
+std::basic_string<C> Implode(const std::vector<std::basic_string<C>> arr, const C* glue = 0) {
+	std::basic_stringstream<C> toret;
+	bool first = true;
+	for (const auto& item : arr) {
+		if (!first) {
+			toret << glue;
+		}
+		toret << item;
+		first = false;
+	}
+	return toret.str();
+}
+
+
 #endif

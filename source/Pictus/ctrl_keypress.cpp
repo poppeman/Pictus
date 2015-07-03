@@ -25,16 +25,19 @@ namespace App {
 				auto isShift = GetKeyState(VK_SHIFT) & 0x8000;
 				auto isAlt = GetKeyState(VK_MENU) & 0x8000;
 
-				std::wstring wstr;
-				if (isCtrl) wstr += L"Ctrl";
-				if (isShift) wstr += L"Shift";
-				if (isAlt) wstr += L"Alt";
+				std::vector<std::wstring> items;
+
+				if (isCtrl) items.push_back(L"Ctrl");
+				if (isShift) items.push_back(L"Shift");
+				if (isAlt) items.push_back(L"Alt");
 
 				if (c == VK_CONTROL) c = L'';
 				if (c == VK_MENU) c = L'';
-				wstr += L" + ";
+				std::wstring tmp;
+				tmp += c;
+				items.push_back(tmp);
 
-				wstr += c;
+				auto wstr = Implode(items, L" + ");
 
 				SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)wstr.c_str());
 				return 0;
