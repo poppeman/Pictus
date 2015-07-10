@@ -33,7 +33,7 @@ namespace IO {
 			DO_THROW(Err::FileNotOpen, L"File is not open.");
 		}
 
-		if (m_stream->Read(buf, size, 1) != 1) {
+		if (size > 0 && m_stream->Read(buf, size, 1) != 1) {
 			DO_THROW(Err::EndOfFile,L"Reached EOF in a call to ReadFull");
 		}
 	}
