@@ -20,6 +20,9 @@
 
 #include <shlobj.h>
 
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+
 #include "orz/logger.h"
 
 #endif // STDAFX_H

@@ -29,7 +29,7 @@ namespace App {
 
 namespace Reg {
 	struct DWordNode {
-		const wchar_t* Name;
+		const char* Name;
 		int Value;
 	};
 
