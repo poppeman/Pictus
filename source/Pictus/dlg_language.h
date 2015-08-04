@@ -11,8 +11,8 @@ namespace App {
 		SetLanguage();
 
 	private:
-		bool PerformOnInitPage();
-		void onWriteSettings();
+		bool PerformOnInitPage(const Reg::Settings& settings) override;
+		void onWriteSettings(Reg::Settings& settings) override;
 
 		Win::ComboBox* m_cbLang;
 	};

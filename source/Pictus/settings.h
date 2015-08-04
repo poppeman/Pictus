@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include "dialog.h"
+#include "appreg.h"
 
 namespace App {
 	class SettingsPage;
@@ -12,7 +13,7 @@ namespace App {
 
 		Geom::PointInt GetPagePosition();
 
-		Settings();
+		Settings(Reg::Settings& settings);
 
 		typedef std::shared_ptr<Settings> Ptr;
 
@@ -38,7 +39,7 @@ namespace App {
 		typedef std::vector<PagePtr> PageList;
 		PageList m_pages;
 		Geom::PointInt m_pagePos;
-
+		Reg::Settings& m_settings;
 	};
 }
 

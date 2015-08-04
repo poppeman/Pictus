@@ -6,7 +6,7 @@
 namespace App {
 	using namespace Intl;
 
-	bool SetAbout::PerformOnInitPage() {
+	bool SetAbout::PerformOnInitPage(const Reg::Settings&) {
 		Caption(App::SIDAbout);
 
 		ControlText(IDC_TEXT_ABOUT_FREEWARE, SIDAboutFreeware);
@@ -35,4 +35,10 @@ namespace App {
 			m_headerFont = 0;
 		}
 	}
+
+	void SetAbout::onWriteSettings(Reg::Settings&)
+	{
+
+	}
+
 }

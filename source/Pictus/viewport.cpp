@@ -8,18 +8,18 @@
 const wchar_t* App::ViewPort::ClassName = TX("Pictus ViewPort");
 
 namespace App {
-	using namespace Reg::Keys;
 	using Geom::RectInt;
 	using Geom::PointInt;
 	using Geom::SizeInt;
 
-	ViewPort::ViewPort()
-		:m_isCursorVisible(true),
+	ViewPort::ViewPort():
+		m_isCursorVisible(true),
 		m_cursorMode(CursorShow),
 		m_displayZoom(1.0f),
 		m_imageZoom(1.0f),
 		m_currentPanMonitor(nullptr),
-		m_isPanning(false)
+		m_isPanning(false),
+		m_resetPan(false)
 	{
 		Img::SurfaceFactory(&m_renderTarget);
 		OnMouseMove.connect([&](Win::MouseEvent e) { return HandleMouseMove(e); });
@@ -67,7 +67,7 @@ namespace App {
 				m_image->RestartAnimation();
 			}
 
-			if (diff && Reg::Key(DWResetPan)) {
+			if (diff && m_resetPan) {
 				m_pan.Reset();
 			}
 
@@ -187,7 +187,7 @@ namespace App {
 	}
 
 	bool ViewPort::HandleMouseDown(Win::MouseEvent e) {
-		if (MouseStandardEvent(e) == MousePan) {
+		if (MouseStandardEvent(e, m_mouseConfig) == MousePan) {
 			m_isPanning = true;
 			m_oldMousePosition = MouseCursorPos();
 			m_currentPanMonitor = Win::FindMonitorAt(m_oldMousePosition);
@@ -209,7 +209,7 @@ namespace App {
 	bool ViewPort::HandleMouseMove(Win::MouseEvent e) {
 		updateCursor();
 
-		if (!((MouseStandardEvent(e) == MousePan) && m_isPanning == true)) {
+		if (!((MouseStandardEvent(e, m_mouseConfig)) && m_isPanning == true)) {
 			return false;
 		}
 
@@ -276,7 +276,6 @@ namespace App {
 
 	bool ViewPort::PerformOnSize(const SizeInt& sz) {
 		// Make sure that the image is in a useful state
-		m_zoom.ResizeBehaviour(App::ResizeBehaviour(Reg::Key(DWResizeBehaviour)));
 		auto r = m_zoom.CalculateViewAreaSize(
 			GetSize(),
 			Img::CalculateUnzoomedSize(m_renderTarget.CurrentSurface(), m_props.Angle),
@@ -415,5 +414,17 @@ namespace App {
 
 	float ViewPort::ZoomLevel() const {
 		return m_displayZoom;
+	}
+
+	void ViewPort::ResetPan(bool doReset) {
+		m_resetPan = doReset;
+	}
+
+	void ViewPort::MouseConfig(const Reg::MouseSettings mouseConfig) {
+		m_mouseConfig = mouseConfig;
+	}
+
+	void ViewPort::ResizeBehaviour(App::ResizeBehaviour newResizeBehaviour) {
+		m_zoom.ResizeBehaviour(newResizeBehaviour);
 	}
 }

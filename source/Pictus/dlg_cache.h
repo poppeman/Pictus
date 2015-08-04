@@ -12,8 +12,9 @@ namespace App {
 		SetPageCache();
 
 	private:
-		bool PerformOnInitPage();
-		void onWriteSettings();
+		bool PerformOnInitPage(const Reg::Settings& settings) override;
+		void onWriteSettings(Reg::Settings& settings) override;
+
 		void UpdateControls();
 
 		Win::EditBox* m_cacheSize;

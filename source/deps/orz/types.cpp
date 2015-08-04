@@ -59,6 +59,12 @@ std::wstring DoThrowBuildDescription(const wchar_t* filename, int lineNum, const
 	return L"\nFile: " + ::std::wstring(filename) + L"\nLine: " + ::ToWString(lineNum) + L"\nFunction: " + ::std::wstring(functionName) + L"\n\nDescription: " + description;
 }
 
-std::string ToAString( const std::wstring& s ) {
+std::string ToAString(const std::wstring& s) {
 	return std::string(s.begin(), s.end());
+}
+
+std::string ToAString(int i) {
+	std::stringstream ss;
+	ss << i;
+	return ss.str();
 }

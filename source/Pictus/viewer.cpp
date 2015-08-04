@@ -33,27 +33,21 @@ const wchar_t* App::Viewer::AppTitle = TX("Pictus");
 namespace App {
 	using namespace Win;
 	using namespace Intl;
-	using namespace Reg::Keys;
 
 	using namespace Geom;
 
-	void ValidateFilterMode(Reg::Keys::DWORDKey dw) {
-		if (Reg::Key(dw) >= static_cast<int>(Filter::Mode::Num)) {
-			Reg::Key(dw, static_cast<int>(Filter::Mode::Bilinear));
-		}
-	}
-
-	Viewer::Viewer(Img::CodecFactoryStore* cfs, const std::wstring params)
-		:m_singleMutex{ 0 },
+	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg, const std::wstring params):
+		m_singleMutex{ 0 },
 		m_doMaximize{ false },
 		m_screenMode{ SM_Normal },
 		m_codecs{ cfs },
-		m_attemptToShow{ false }
+		m_attemptToShow{ false },
+		m_cfg( cfg )
 	{
 		m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
-		OnMouseButtonDown.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e), e); });
-		OnMouseWheel.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e), e); });
-		OnMouseButtonDoubleClick.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseDblEvent(e), e); });
+		OnMouseButtonDown.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
+		OnMouseWheel.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
+		OnMouseButtonDoubleClick.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseDblEvent(e, m_cfg.Mouse), e); });
 		OnTaskbarButton.connect([this](int id) { PerformOnTaskbarButton(id); });
 
 		m_mouseMap.AddAction(MouseFullscreen, [this](Win::MouseEvent) { ToggleFullscreenMode(); });
@@ -69,7 +63,7 @@ namespace App {
 
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateImageInformation(); });
 
-		m_settings = std::make_shared<Settings>();
+		m_settings = std::make_shared<Settings>(m_cfg);
 		m_settings->OnSettingsChanged.connect([&]() { SettingsChanged(); });
 
 		m_cacher.SetCodecFactoryStore(m_codecs);
@@ -78,9 +72,6 @@ namespace App {
 			16,
 			0,
 			CLR_DEFAULT);
-
-		ValidateFilterMode(DWMagFilter);
-		ValidateFilterMode(DWMinFilter);
 
 		if ((params.length() > 0) && (params.at(0) != TX('-')) && (IO::DoFileExist(params) || IO::DoPathExist(params))) {
 			m_sDirectory = params;
@@ -92,7 +83,7 @@ namespace App {
 		// Look for another process (disallow if the setting requires that)
 		m_singleMutex = CreateMutex(0, true, (std::wstring(TX("Local\\")) + ClassName).c_str());
 
-		if ((GetLastError() == ERROR_ALREADY_EXISTS) && (Reg::Key(DWMultipleInstances) == false)) {
+		if ((GetLastError() == ERROR_ALREADY_EXISTS) && (m_cfg.View.MultipleInstances == false)) {
 			if (HWND hwnd = ::FindWindow(ClassName, 0)) {
 				SetForegroundWindow(hwnd);
 				if (IsIconic(hwnd)) {
@@ -114,6 +105,8 @@ namespace App {
 				throw Err::DuplicateInstance();
 			}
 		}
+
+		UpdateViewportConfig();
 	}
 
 	Viewer::~Viewer() {
@@ -155,8 +148,8 @@ namespace App {
 
 		m_viewPort.Image(pImage);
 
-		if (Reg::Key(DWResetZoom)) {
-			ZoomMode(App::ZoomMode(Reg::Key(DWDefaultZoomMode)));
+		if (m_cfg.View.ResetZoom) {
+			ZoomMode(m_cfg.View.DefaultZoomMode);
 		}
 
 		UpdateImageInformation();
@@ -172,7 +165,7 @@ namespace App {
 		m_cacher.SetMaximumResolutionHint(Geom::SizeInt(25600, 25600));
 		m_folderMonitor.OnEvent.connect([this](IO::FileEvent e) { FolderEvent(e); });
 
-		m_cacher.WrapAround(Reg::Key(DWBrowseWrapAround) != 0);
+		m_cacher.WrapAround(m_cfg.View.BrowseWrapAround);
 
 		WNDCLASSEX wc;
 		ZeroMemory(&wc, sizeof(wc));
@@ -185,20 +178,20 @@ namespace App {
 		wc.style			= CS_DBLCLKS;
 		RegisterClassEx(&wc);
 
-		int w = Util::Constrain<int>(MinWindowWidth, Reg::Key(DWWindowSizeWidth), GetSystemMetrics(SM_CXVIRTUALSCREEN));
-		int h = Util::Constrain<int>(MinWindowHeight, Reg::Key(DWWindowSizeHeight), GetSystemMetrics(SM_CYVIRTUALSCREEN));
+		int w = Util::Constrain<int>(MinWindowWidth, m_cfg.View.WindowSizeWidth, GetSystemMetrics(SM_CXVIRTUALSCREEN));
+		int h = Util::Constrain<int>(MinWindowHeight, m_cfg.View.WindowSizeHeight, GetSystemMetrics(SM_CYVIRTUALSCREEN));
 
-		int x = Util::Constrain<int>(0, Reg::Key(DWWindowPosX), GetSystemMetrics(SM_CXVIRTUALSCREEN) - w);
-		int y = Util::Constrain<int>(0, Reg::Key(DWWindowPosY), GetSystemMetrics(SM_CYVIRTUALSCREEN) - h);
+		int x = Util::Constrain<int>(0, m_cfg.View.WindowPosX, GetSystemMetrics(SM_CXVIRTUALSCREEN) - w);
+		int y = Util::Constrain<int>(0, m_cfg.View.WindowPosY, GetSystemMetrics(SM_CYVIRTUALSCREEN) - h);
 
 		if(!ConstructWindow(RectInt(PointInt(x, y), SizeInt(w, h)), WS_EX_ACCEPTFILES, ClassName, AppTitle, WS_OVERLAPPEDWINDOW)) return false;
 		m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);
 
-		AlwaysOnTop(Reg::Key(DWAlwaysOnTop) != 0);
+		AlwaysOnTop(m_cfg.View.AlwaysOnTop);
 
-		ZoomMode(App::ZoomMode(Reg::Key(DWDefaultZoomMode)));
+		ZoomMode(m_cfg.View.DefaultZoomMode);
 
-		if (Reg::Key(DWMaximized)) {
+		if (m_cfg.View.Maximized) {
 			m_doMaximize = true;
 		}
 
@@ -215,14 +208,15 @@ namespace App {
 		m_statusParts[StatusProgress].Width(StatFieldTimeWidth);
 		m_statusParts[StatusFileSize].Width(StatFieldFileSizeWidth);
 		m_statusParts[StatusLastModified].Width(StatFieldLastModified);
-		for(int i=0;i<StatusNumParts; ++i)
+		for (int i = 0; i < StatusNumParts; ++i) {
 			m_statusBar->Add(m_statusParts[i]);
+		}
 
-		m_statusBar->Visible(Reg::Key(DWShowStatusBar)!=0);
+		m_statusBar->Visible(m_cfg.View.ShowStatusBar);
 
 		try {
 			ViewportBuilder b;
-			b.BuildViewport(m_viewPort, this);
+			b.BuildViewport(m_viewPort, this, m_cfg);
 		}
 		catch(Err::Exception& e) {
 			MessageBox(0, (GetWString(SIDDirectXFailed) + std::wstring(L"\n\n") + e.Desc()).c_str(), 0, MB_OK);
@@ -255,13 +249,13 @@ namespace App {
 
 		// Don't want to save bogus values!
 		if (!IsIconic(Handle())) {
-			Reg::Key(DWWindowSizeWidth, sz.Width);
-			Reg::Key(DWWindowSizeHeight, sz.Height);
-			Reg::Key(DWWindowPosX, pt.X);
-			Reg::Key(DWWindowPosY, pt.Y);
+			m_cfg.View.WindowSizeWidth = sz.Width;
+			m_cfg.View.WindowSizeHeight = sz.Height;
+			m_cfg.View.WindowPosX = pt.X;
+			m_cfg.View.WindowPosY = pt.Y;
 		};
 
-		Reg::Key(DWMaximized, IsZoomed(Handle()));
+		m_cfg.View.Maximized = IsZoomed(Handle()) != 0;
 
 		return true;
 	}
@@ -371,21 +365,21 @@ namespace App {
 	}
 
 	void Viewer::AnchorTL(const PointInt& pt) {
-		Reg::Key(DWWindowAnchorTLX, pt.X);
-		Reg::Key(DWWindowAnchorTLY, pt.Y);
+		m_cfg.View.WindowAnchorTLX = pt.X;
+		m_cfg.View.WindowAnchorTLY = pt.Y;
 	}
 
 	PointInt Viewer::AnchorTL() const {
-		return PointInt(Reg::Key(DWWindowAnchorTLX), Reg::Key(DWWindowAnchorTLY));
+		return{ m_cfg.View.WindowAnchorTLX, m_cfg.View.WindowAnchorTLY };
 	}
 
 	void Viewer::AnchorCenter(const PointInt& pt) {
-		Reg::Key(DWWindowAnchorCenterX, pt.X);
-		Reg::Key(DWWindowAnchorCenterY, pt.Y);
+		m_cfg.View.WindowAnchorCenterX = pt.X;
+		m_cfg.View.WindowAnchorCenterY = pt.Y;
 	}
 
 	PointInt Viewer::AnchorCenter() const {
-		return PointInt(Reg::Key(DWWindowAnchorCenterX), Reg::Key(DWWindowAnchorCenterY));
+		return{ m_cfg.View.WindowAnchorCenterX, m_cfg.View.WindowAnchorCenterY };
 	}
 
 	bool Viewer::PerformOnDropFiles(const StringVector& files) {
@@ -520,7 +514,7 @@ namespace App {
 
 	void Viewer::ZoomToggleFullSizeDefaultZoom() {
 		if (m_viewPort.ZoomMode() == App::ZoomFullSize) {
-			ZoomMode(App::ZoomMode(Reg::Key(DWDefaultZoomMode)));
+			ZoomMode(m_cfg.View.DefaultZoomMode);
 		}
 		else {
 			ZoomFullSize();
@@ -574,7 +568,7 @@ namespace App {
 		}
 		else {
 			SetWindowLongPtr(Handle(), GWL_STYLE, m_previousWindowStyle);
-			m_statusBar->Visible(Reg::Key(DWShowStatusBar) != 0);
+			m_statusBar->Visible(m_cfg.View.ShowStatusBar);
 			MoveResize(m_previousWindowRegion);
 			m_viewPort.ActiveCursorMode(ViewPort::CursorShow);
 		}
@@ -789,10 +783,10 @@ namespace App {
 	}
 
 	void Viewer::UpdateMemoryLimits() {
-		if (Reg::Key(DWDoAutoMemoryLimit) != 0)
+		if (m_cfg.Cache.DoAutoMemoryLimit)
 			m_cacher.MemoryLimit(Sys::Info::TotalPhysicalMemory() / 16);
 		else
-			m_cacher.MemoryLimit(Reg::Key(DWManualMemoryLimit) * 1024 * 1024);
+			m_cacher.MemoryLimit(m_cfg.Cache.ManualMemoryLimit * 1024 * 1024);
 	}
 
 	void Viewer::ImageChanged() {
@@ -810,12 +804,12 @@ namespace App {
 			return;
 		}
 
-		if (Reg::Key(DWResizeWindow)) {
+		if (m_cfg.View.ResizeWindow) {
 			// The window should be resized some way.
 			SizeInt newSize;
 			SizeInt windowEdges = GetSize() - ClientRect().Dimensions();
 
-			if (Reg::Key(DWShowStatusBar)) {
+			if (m_cfg.View.ShowStatusBar) {
 				windowEdges.Height += m_statusBar->Position().Height();
 			}
 
@@ -827,14 +821,14 @@ namespace App {
 				float xratio = static_cast<float>(rtDesktop.Width() - windowEdges.Width) / imageSize.Width;
 				float yratio = static_cast<float>(rtDesktop.Height() - windowEdges.Height) / imageSize.Height;
 
-				ResizeBehaviour mode = ResizeBehaviour(Reg::Key(DWResizeBehaviour));
+				ResizeBehaviour mode = m_cfg.View.ResizeBehaviour;
 				newSize = calculateImageSize(mode, xratio, yratio, imageSize, windowEdges);
 			}
 			else {
 				newSize = calculateCappedImageSize(m_viewPort.ZoomedImageSize(), windowEdges);
 			}
 
-			PointInt newTopLeft = calculateWindowTopLeft(ResizePositionMethod(Reg::Key(DWResizePositionMethod)), newSize);
+			PointInt newTopLeft = calculateWindowTopLeft(m_cfg.View.ResizePositionMethod, newSize);
 
 			MoveResize(newTopLeft, newSize);
 
@@ -1035,26 +1029,33 @@ namespace App {
 	}
 
 	void Viewer::SettingsChanged() {
-		// This one needs to be written to the registry
-		Reg::Key(DWMultipleInstances, Reg::Key(DWMultipleInstances));
-		Reg::Save(cg_SettingsLocation);
-		m_cacher.WrapAround(Reg::Key(DWBrowseWrapAround) != 0);
+		Reg::Save(cg_SettingsLocation, m_cfg);
+		m_cacher.WrapAround(m_cfg.View.BrowseWrapAround);
 
-		m_statusBar->Visible((Reg::Key(DWShowStatusBar) != 0) && ViewportMode() != SM_Fullscreen);
+		m_statusBar->Visible(m_cfg.View.ShowStatusBar && ViewportMode() != SM_Fullscreen);
 		RecalculateViewportSize();
 
-		m_viewPort.MinificationFilter(Filter::Mode(Reg::Key(DWMinFilter)));
-		m_viewPort.MagnificationFilter(Filter::Mode(Reg::Key(DWMagFilter)));
+		UpdateViewportConfig();
 
 		UpdateMemoryLimits();
-		m_viewPort.BackgroundColor(Img::Color::FromDWord(Reg::Key(DWBackgroundColor)));
 		m_viewPort.Redraw();
 
-		AlwaysOnTop(Reg::Key(DWAlwaysOnTop) != 0);
+		AlwaysOnTop(m_cfg.View.AlwaysOnTop);
 		ImageChanged();
 	}
 
 	void Viewer::FolderEvent(IO::FileEvent e) {
 		AddNotification(e);
 	}
+
+	void Viewer::UpdateViewportConfig()
+	{
+		m_viewPort.MinificationFilter(m_cfg.Render.MinFilter);
+		m_viewPort.MagnificationFilter(m_cfg.Render.MagFilter);
+		m_viewPort.ResizeBehaviour(m_cfg.View.ResizeBehaviour);
+		m_viewPort.ResetPan(m_cfg.View.ResetPan);
+		m_viewPort.MouseConfig(m_cfg.Mouse);
+		m_viewPort.BackgroundColor(m_cfg.Render.BackgroundColor);
+	}
+
 }

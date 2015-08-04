@@ -259,7 +259,6 @@
     <ClCompile Include="version.cpp" />
     <ClCompile Include="registry.cpp" />
     <ClCompile Include="w32_assure_folder.cpp" />
-    <ClCompile Include="w32_registry.cpp" />
     <ClCompile Include="image_dimensions.cpp" />
     <ClCompile Include="w32_rendertarget.cpp" />
     <ClCompile Include="w32_ddsurface.cpp" />

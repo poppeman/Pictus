@@ -34,7 +34,7 @@ namespace App {
 		m_shortcuts[shortcutIndex].Action = action;
 	}
 
-	bool SetKeyboard::PerformOnInitPage() {
+	bool SetKeyboard::PerformOnInitPage(const Reg::Settings& settings) {
 		Caption(SIDKeyboard);
 		ControlText(IDC_GROUP_KEYBOARD_ACTION, SIDGroupAction);
 		ControlText(IDC_GROUP_KEYBOARD_ASSIGNED, SIDGroupAssignedShortcuts);
@@ -64,7 +64,7 @@ namespace App {
 		return true;
 	}
 
-	void SetKeyboard::onWriteSettings() {
+	void SetKeyboard::onWriteSettings(Reg::Settings& settings) {
 		//throw std::logic_error("The method or operation is not implemented.");
 	}
 }

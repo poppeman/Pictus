@@ -6,14 +6,13 @@
 #include "ctrl_button.h"
 
 namespace App {
-	using namespace Reg::Keys;
 	using namespace Intl;
 
 	void SetView::ToggleResizeWindow() {
 		DoToggleResizeWindow(IsDlgButtonChecked(Handle(), IDC_SIZETOIMAGE)!=0);
 	}
 
-	bool SetView::PerformOnInitPage() {
+	bool SetView::PerformOnInitPage(const Reg::Settings& settings) {
 		CreateButton(IDC_SIZETOIMAGE)->OnClick.connect([this]() { ToggleResizeWindow(); });
 		Caption(App::SIDViewer);
 
@@ -39,60 +38,66 @@ namespace App {
 		m_cbDefaultZoom->Reset();
 		m_cbDefaultZoom->AddItem(SIDZoomFullSize, ZoomFree);
 		m_cbDefaultZoom->AddItem(SIDZoomFitImage, ZoomFitImage);
-		m_cbDefaultZoom->SetSelection(Reg::Key(DWDefaultZoomMode));
+		m_cbDefaultZoom->SetSelection(settings.View.DefaultZoomMode);
 
 		ControlText(IDC_GROUP_VIEWER_RESIZEBEHAVIOUR, SIDGroupRM);
 		m_cbResizeBehavior->Reset();
 		m_cbResizeBehavior->AddItem(SIDRMBoth, ResizeEnlargeOrReduce);
 		m_cbResizeBehavior->AddItem(SIDRMEnlargeOnly, ResizeEnlargeOnly);
 		m_cbResizeBehavior->AddItem(SIDRMReduceOnly, ResizeReduceOnly);
-		m_cbResizeBehavior->SetSelection(Reg::Key(DWResizeBehaviour));
+		m_cbResizeBehavior->SetSelection(settings.View.ResizeBehaviour);
 
 		SetupFilterBox(m_cbMagFilter);
-		m_cbMagFilter->SetSelection(Reg::Key(DWMagFilter));
+		m_cbMagFilter->SetSelection(static_cast<int>(settings.Render.MagFilter));
 
 		SetupFilterBox(m_cbMinFilter);
-		m_cbMinFilter->SetSelection(Reg::Key(DWMinFilter));
+		m_cbMinFilter->SetSelection(static_cast<int>(settings.Render.MinFilter));
 
-		SetCheckBox(IDC_CHECK_VIEWER_WRAPAROUND, Reg::Key(DWBrowseWrapAround) != 0);
-		SetCheckBox(IDC_RESETZOOM, Reg::Key(DWResetZoom) != 0);
-		SetCheckBox(IDC_RESETPAN,  Reg::Key(DWResetPan) != 0);
-		DoToggleResizeWindow(Reg::Key(DWResizeWindow) != 0);
+		SetCheckBox(IDC_CHECK_VIEWER_WRAPAROUND, settings.View.BrowseWrapAround);
+		SetCheckBox(IDC_RESETZOOM, settings.View.ResetZoom);
+		SetCheckBox(IDC_RESETPAN,  settings.View.ResetPan);
+		DoToggleResizeWindow(settings.View.ResizeWindow);
 
 		// Position method
-		ResizePositionMethod posmethod = static_cast<ResizePositionMethod>(Reg::Key(DWResizePositionMethod));
-		if (posmethod == ResizePositionMethod::PositionToScreen)
+		auto posmethod = static_cast<ResizePositionMethod>(settings.View.ResizePositionMethod);
+		if (posmethod == ResizePositionMethod::PositionToScreen) {
 			SetCheckBox(IDC_SIZETO_SCREEN, true);
+		}
 
-		if (posmethod == ResizePositionMethod::PositionToCurrent)
+		if (posmethod == ResizePositionMethod::PositionToCurrent) {
 			SetCheckBox(IDC_SIZETO_CURRENT, true);
+		}
 
-		if (posmethod == ResizePositionMethod::PositionNothing)
+		if (posmethod == ResizePositionMethod::PositionNothing) {
 			SetCheckBox(IDC_SIZETO_NOTHING, true);
+		}
 
 		return true;
 	}
 
-	void SetView::onWriteSettings() {
-		Reg::Key(DWBrowseWrapAround, GetCheckBox(IDC_CHECK_VIEWER_WRAPAROUND));
-		Reg::Key(DWResetZoom, GetCheckBox(IDC_RESETZOOM));
-		Reg::Key(DWResetPan,  GetCheckBox(IDC_RESETPAN));
-		Reg::Key(DWResizeWindow, GetCheckBox(IDC_SIZETOIMAGE));
-		Reg::Key(DWMinFilter, m_cbMinFilter->GetSelectionData());
-		Reg::Key(DWMagFilter, m_cbMagFilter->GetSelectionData());
+	void SetView::onWriteSettings(Reg::Settings& settings) {
+		settings.View.BrowseWrapAround = GetCheckBox(IDC_CHECK_VIEWER_WRAPAROUND);
+		settings.View.ResetZoom = GetCheckBox(IDC_RESETZOOM);
+		settings.View.ResetPan = GetCheckBox(IDC_RESETPAN);
+		settings.View.ResizeWindow = GetCheckBox(IDC_SIZETOIMAGE);
+		settings.Render.MinFilter = Filter::Mode(m_cbMinFilter->GetSelectionData());
+		settings.Render.MagFilter = Filter::Mode(m_cbMagFilter->GetSelectionData());
 
-		Reg::Key(DWDefaultZoomMode, m_cbDefaultZoom->GetSelectionData());
-		Reg::Key(DWResizeBehaviour, m_cbResizeBehavior->GetSelectionData());
+		settings.View.DefaultZoomMode = App::ZoomMode(m_cbDefaultZoom->GetSelectionData());
+		settings.View.ResizeBehaviour = App::ResizeBehaviour(m_cbResizeBehavior->GetSelectionData());
 
-		ResizePositionMethod posmethod = static_cast<ResizePositionMethod>(Reg::Key(DWResizePositionMethod));
-		if (IsDlgButtonChecked(Handle(), IDC_SIZETO_SCREEN))
+		auto posmethod = settings.View.ResizePositionMethod;
+		if (IsDlgButtonChecked(Handle(), IDC_SIZETO_SCREEN)) {
 			posmethod = ResizePositionMethod::PositionToScreen;
-		else if (IsDlgButtonChecked(Handle(), IDC_SIZETO_CURRENT))
+		}
+		else if (IsDlgButtonChecked(Handle(), IDC_SIZETO_CURRENT)) {
 			posmethod = ResizePositionMethod::PositionToCurrent;
-		else if (IsDlgButtonChecked(Handle(), IDC_SIZETO_NOTHING))
+		}
+		else if (IsDlgButtonChecked(Handle(), IDC_SIZETO_NOTHING)) {
 			posmethod = ResizePositionMethod::PositionNothing;
+		}
 
-		Reg::Key(DWResizePositionMethod, static_cast<uint32_t>(posmethod));
+		settings.View.ResizePositionMethod = posmethod;
 	}
 
 	void SetView::DoToggleResizeWindow(bool newState) {

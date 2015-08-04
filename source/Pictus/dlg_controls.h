@@ -10,12 +10,12 @@ namespace App {
 		SetControls();
 
 	private:
-		bool PerformOnInitPage();
+		bool PerformOnInitPage(const Reg::Settings& settings) override;
+		void onWriteSettings(Reg::Settings& settings) override;
 
-		void onWriteSettings();
-		void initMouseButtonList(Win::ComboBox* ctrl, DWORD key, bool resetSelection=true);
-		void initMouseDblList(Win::ComboBox* ctrl, DWORD key, bool resetSelection=true);
-		void initMouseWheelList(Win::ComboBox* ctrl, DWORD key, bool resetSelection=true);
+		void initMouseButtonList(Win::ComboBox* ctrl, App::MouseAction action);
+		void initMouseDblList(Win::ComboBox* ctrl, App::MouseAction action);
+		void initMouseWheelList(Win::ComboBox* ctrl, App::MouseAction action);
 
 		Win::ComboBox* m_cbLeftMouse;
 		Win::ComboBox* m_cbMiddleMouse;

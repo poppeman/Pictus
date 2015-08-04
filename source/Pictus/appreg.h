@@ -2,6 +2,8 @@
 #define APPREG_H
 
 #include "orz/intl.h"
+#include "illa/types.h"
+#include "app_types.h"
 
 namespace App {
 	enum class ResizePositionMethod {
@@ -10,7 +12,7 @@ namespace App {
 		PositionNothing
 	};
 
-    // TODO: Convert to enum class
+	// TODO: Convert to enum class
 	enum MouseAction {
 		MouseDisable,
 		MousePan,
@@ -28,14 +30,57 @@ namespace App {
 }
 
 namespace Reg {
-	struct DWordNode {
-		const char* Name;
-		int Value;
+	struct RenderSettings {
+		Filter::Mode MagFilter;
+		Filter::Mode MinFilter;
+		Img::Color BackgroundColor;
 	};
 
-	namespace Keys {
-#include "keys_dword.inc"
-	}
+	struct ViewSettings {
+		bool ResetZoom;
+		App::ResizePositionMethod ResizePositionMethod;
+		bool ResizeWindow;
+		bool ResetPan;
+		Intl::Language Language;
+		int32_t WindowSizeWidth;
+		int32_t WindowSizeHeight;
+		int32_t WindowPosX;
+		int32_t WindowPosY;
+		int32_t WindowAnchorTLX;
+		int32_t WindowAnchorTLY;
+		int32_t WindowAnchorCenterX;
+		int32_t WindowAnchorCenterY;
+		bool Maximized;
+		App::ZoomMode DefaultZoomMode;
+		App::ResizeBehaviour ResizeBehaviour;
+		bool ShowStatusBar;
+		bool AlwaysOnTop;
+		bool BrowseWrapAround;
+		bool MultipleInstances;
+	};
+
+	struct MouseSettings {
+		App::MouseAction OnMouseLeft;
+		App::MouseAction OnMouseMiddle;
+		App::MouseAction OnMouseRight;
+		App::MouseAction OnMouseLeftDbl;
+		App::MouseAction OnMouseMiddleDbl;
+		App::MouseAction OnMouseRightDbl;
+		App::MouseAction OnMouseWheelUp;
+		App::MouseAction OnMouseWheelDown;
+	};
+
+	struct CacheSettings {
+		bool DoAutoMemoryLimit;
+		size_t ManualMemoryLimit;
+	};
+
+	struct Settings {
+		RenderSettings Render;
+		ViewSettings View;
+		MouseSettings Mouse;
+		CacheSettings Cache;
+	};
 }
 
 std::basic_ostream<wchar_t>& operator<<(std::basic_ostream<wchar_t>& in, const App::ResizePositionMethod& fmt);

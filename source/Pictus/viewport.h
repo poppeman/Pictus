@@ -13,6 +13,7 @@
 #include "w32_rendertarget.h"
 
 #include "monitor.h"
+#include "appreg.h"
 
 namespace App {
 	class ViewPort:public Win::Window {
@@ -41,11 +42,15 @@ namespace App {
 		void BackgroundColor(const Img::Color& col);
 		const Img::Color& BackgroundColor() const;
 
+		void MouseConfig(const Reg::MouseSettings mouseConfig);
+
 		void ZoomIn();
 		void ZoomOut();
 		void ZoomMode(App::ZoomMode mode);
 		App::ZoomMode ZoomMode() const;
 		float ZoomLevel() const;
+
+		void ResizeBehaviour(App::ResizeBehaviour newResizeBehaviour);
 
 		void Rotate(Filter::RotationAngle r);
 
@@ -65,6 +70,8 @@ namespace App {
 		void MinificationFilter(Filter::Mode mode);
 
 		void ImageUpdated();
+
+		void ResetPan(bool doReset);
 
 		// Panning
 		void Pan(const Geom::SizeInt& deltaPan);
@@ -100,6 +107,7 @@ namespace App {
 		Win::Timer m_hideTimer;
 		Win::Timer m_animationTimer;
 		Win::WinRenderTarget m_renderTarget;
+		Reg::MouseSettings m_mouseConfig;
 
 		Geom::PointInt m_oldMousePosition;
 		ViewPan m_pan;
@@ -115,6 +123,8 @@ namespace App {
 		Img::Image::Ptr m_image;
 
 		Img::Properties m_props;
+
+		bool m_resetPan;
 
 		ZoomStrategy m_zoom;
 		float m_displayZoom;

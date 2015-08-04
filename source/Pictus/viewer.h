@@ -25,8 +25,6 @@
 #include "imagelist.h"
 
 namespace App {
-	class ViewPort;
-
 	class Viewer:public Win::Window, public Img::MessageReceiver {
 	public:
 		static const wchar_t* ClassName;
@@ -35,7 +33,7 @@ namespace App {
 		bool Show(bool doShow);
 		void ActiveImage(Img::Image::Ptr pImage);
 
-		explicit Viewer(Img::CodecFactoryStore* cfs, const std::wstring params=TX(""));
+		explicit Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config, const std::wstring params=TX(""));
 		~Viewer();
 
 	private:
@@ -83,6 +81,9 @@ namespace App {
 		void ShowSettings();
 		void OpenDirectoryInExplorer();
 		void SettingsChanged();
+
+		void UpdateViewportConfig();
+
 		void Sort(Img::Cacher::SortMethod m);
 
 		bool PerformOnCreate();
@@ -228,6 +229,7 @@ namespace App {
 		typedef ActionMapParam<MouseAction, Win::MouseEvent> MouseActionMap;
 		MouseActionMap m_mouseMap;
 
+		Reg::Settings m_cfg;
 	};
 }
 

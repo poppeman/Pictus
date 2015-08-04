@@ -50,6 +50,10 @@ namespace Img {
 			return Color(static_cast<uint8_t>(dw >> 24), static_cast<uint8_t>((dw & 0xff0000) >> 16), static_cast<uint8_t>((dw & 0xff00) >> 8), static_cast<uint8_t>(dw&0xff));
 		}
 
+		uint32_t ToDWord() const {
+			return (A << 24) + (R << 16) + (G << 8) + B;
+		}
+
 		Color() {}
 	};
 

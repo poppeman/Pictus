@@ -6,11 +6,10 @@
 
 namespace App {
 	using namespace Win;
-	using namespace Reg::Keys;
 
-	void ViewportBuilder::BuildViewport(App::ViewPort& port, Win::BaseWindow* parent) {
+	void ViewportBuilder::BuildViewport(App::ViewPort& port, Win::BaseWindow* parent, Reg::Settings settings) {
 		port.Create(parent);
-		port.BackgroundColor(Img::Color::FromDWord(Reg::Key(DWBackgroundColor)));
+		port.BackgroundColor(settings.Render.BackgroundColor);
 
 		RendererFactory rf;
 		if (!port.SetRenderer(rf.CreateRenderer())) {
@@ -19,7 +18,9 @@ namespace App {
 
 		port.SetRedrawStrategy(RedrawStrategy::Ptr(new RedrawStrategyTiled));
 
-		port.MinificationFilter(Filter::Mode(Reg::Key(DWMinFilter)));
-		port.MagnificationFilter(Filter::Mode(Reg::Key(DWMagFilter)));
+		port.MinificationFilter(settings.Render.MinFilter);
+		port.MagnificationFilter(settings.Render.MagFilter);
+		port.ResetPan(settings.View.ResetPan);
+		port.ResizeBehaviour(settings.View.ResizeBehaviour);
 	}
 }

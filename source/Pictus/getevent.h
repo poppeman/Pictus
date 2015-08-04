@@ -5,8 +5,8 @@
 #include "wintypes.h"
 
 namespace App {
-	App::MouseAction MouseStandardEvent(const Win::MouseEvent& e);
-	App::MouseAction MouseDblEvent(const Win::MouseEvent& e);
+	App::MouseAction MouseStandardEvent(const Win::MouseEvent& e, Reg::MouseSettings cfg);
+	App::MouseAction MouseDblEvent(const Win::MouseEvent& e, Reg::MouseSettings cfg);
 }
 
 #endif

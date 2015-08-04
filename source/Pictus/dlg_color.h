@@ -17,8 +17,9 @@ namespace App {
 		bool PerformOnVScroll(WPARAM wp, LPARAM lp);
 		bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
 
-		bool PerformOnInitPage();
-		void onWriteSettings();
+		bool PerformOnInitPage(const Reg::Settings& settings) override;
+		void onWriteSettings(Reg::Settings& settings) override;
+
 		void updatePreviewColor();
 
 	private:

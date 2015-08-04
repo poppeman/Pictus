@@ -230,9 +230,6 @@
     <ClCompile Include="registry.cpp">
       <Filter>Shared\Registry</Filter>
     </ClCompile>
-    <ClCompile Include="w32_registry.cpp">
-      <Filter>Shared\Registry</Filter>
-    </ClCompile>
     <ClCompile Include="image_dimensions.cpp">
       <Filter>Imaging</Filter>
     </ClCompile>

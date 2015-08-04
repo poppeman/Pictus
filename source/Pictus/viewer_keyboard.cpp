@@ -8,7 +8,7 @@ namespace App {
 	void ViewerKeyboard::Construct(Viewer* owner) {
 		owner->OnKeyDown.connect([&](Win::KeyEvent e) { return m_keyMap.Execute(e); });
 
-		AddMapping(VK_F2, [=]() { owner->RenameCurrent(); });
+		/*AddMapping(VK_F2, [=]() { owner->RenameCurrent(); });
 		AddMapping(VK_ESCAPE, [=]() { owner->Close(); });
 
 		KeyActionMap::Function_Type ZoomIn = [=]() { owner->ZoomIn(); };
@@ -55,13 +55,13 @@ namespace App {
 
 		KeyActionMap::Function_Type ImageRandom = [=]() { owner->ImageRandom(); };
 		AddMapping('R', ImageRandom);
-		AddMapping('r', ImageRandom);
+		AddMapping('r', ImageRandom);*/
 
 		KeyActionMap::Function_Type ShowSettings = [=]() { owner->ShowSettings(); };
 		AddMapping('O', ShowSettings);
 		AddMapping('o', ShowSettings);
 
-		AddMapping(VK_RETURN, [=]() { owner->ToggleFullscreenMode(); }, Alt);
+		//AddMapping(VK_RETURN, [=]() { owner->ToggleFullscreenMode(); }, Alt);
 	}
 
 	void ViewerKeyboard::AddMapping(WPARAM key, KeyActionMap::Function_Type f, int flags) {

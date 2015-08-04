@@ -22,23 +22,24 @@ int start_app(const std::wstring& params) {
 	cfs.AddBuiltinCodecs();
 
 	try {
-		Reg::Load(App::cg_SettingsLocation);
+		auto cfg = Reg::Load(App::cg_SettingsLocation);
 
 		// TODO: Control logging by some other mechanism, such as an .ini setting
 		//Log.SetOutput(assure_folder(App::cg_RunLogLocation));
 
 		Intl::LanguageTable(c_lang_strings, 0, App::FinalSID-1);
-		Intl::CurrentLanguage(Intl::Language(Reg::Key(Reg::Keys::DWLanguage)));
+		Intl::CurrentLanguage(cfg.View.Language);
 
-		App::Viewer viewer(&cfs, params.c_str());
+		App::Viewer viewer(&cfs, cfg, params.c_str());
 
 		// Attempt to display viewer
-		if(viewer.Create(0))
+		if (viewer.Create(0)) {
 			viewer.Show(true);
+		}
 
 		viewer.StartApplication();
 
-		Reg::Save(App::cg_SettingsLocation);
+		//Reg::Save(App::cg_SettingsLocation);
 	}
 	catch(Err::DuplicateInstance&) {
 		// This is not something out of the ordinary.

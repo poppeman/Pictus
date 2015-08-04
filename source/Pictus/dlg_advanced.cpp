@@ -4,19 +4,18 @@
 #include "res_settings.h"
 
 namespace App {
-	using namespace Reg::Keys;
 	using namespace Intl;
 
-	bool SetAdvanced::PerformOnInitPage() {
+	bool SetAdvanced::PerformOnInitPage(const Reg::Settings& settings) {
 		Caption(SIDAdvanced);
 		ControlText(IDC_MULT_INSTANCE, SIDMultiInstance);
 
-		SetCheckBox(IDC_MULT_INSTANCE, Reg::Key(DWMultipleInstances) != 0);
+		SetCheckBox(IDC_MULT_INSTANCE, settings.View.MultipleInstances);
 		return true;
 	}
 
-	void SetAdvanced::onWriteSettings() {
-		Reg::Key(DWMultipleInstances, GetCheckBox(IDC_MULT_INSTANCE));
+	void SetAdvanced::onWriteSettings(Reg::Settings& settings) {
+		settings.View.MultipleInstances = GetCheckBox(IDC_MULT_INSTANCE);
 	}
 
 	SetAdvanced::SetAdvanced():App::SettingsPage(IDD_SET_ADVANCED) {}

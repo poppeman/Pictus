@@ -7,11 +7,8 @@
 #include "appreg.h"
 
 namespace Reg {
-	uint32_t Key(Reg::Keys::DWORDKey key);
-	void Key(Reg::Keys::DWORDKey key, uint32_t value);
-
-	void Load(const std::wstring& name);
-	void Save(const std::wstring& name);
+	Settings Load(const std::wstring& name);
+	void Save(const std::wstring& name, const Settings& settings);
 }
 
 #endif

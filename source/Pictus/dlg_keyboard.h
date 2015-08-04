@@ -17,8 +17,8 @@ namespace App {
 		void AddShortcut();
 		void SetShortcutFunction();
 
-		bool PerformOnInitPage() override;
-		void onWriteSettings() override;
+		bool PerformOnInitPage(const Reg::Settings& settings) override;
+		void onWriteSettings(Reg::Settings& settings) override;
 
 		Win::ComboBox* m_functions;
 		Win::ListView* m_assigned;

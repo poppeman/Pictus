@@ -5,11 +5,10 @@
 #include "ctrl_button.h"
 
 namespace App {
-	using namespace Reg::Keys;
 	using namespace Intl;
 	using namespace Win;
 
-	bool SetPageCache::PerformOnInitPage() {
+	bool SetPageCache::PerformOnInitPage(const Reg::Settings& settings) {
 		CreateButton(IDC_AUTOMEM)->OnClick.connect([this]() { UpdateControls(); });
 
 		Caption(SIDCache);
@@ -19,27 +18,31 @@ namespace App {
 
 		m_cacheSize = CreateEditBox(IDC_MEMLIMIT);
 		m_cacheSize->Filterchars(EditBox::FilterNotNumerical, SIDNumericalInvalid);
-		m_cacheSize->Text(ToWString(Reg::Key(DWManualMemoryLimit)));
+		m_cacheSize->Text(ToWString(settings.Cache.ManualMemoryLimit));
 
-		SetCheckBox(IDC_AUTOMEM, Reg::Key(DWDoAutoMemoryLimit)!=0);
+		SetCheckBox(IDC_AUTOMEM, settings.Cache.DoAutoMemoryLimit);
 		UpdateControls();
 
 		return true;
 	}
 
-	void SetPageCache::onWriteSettings() {
-		Reg::Key(DWDoAutoMemoryLimit, GetCheckBox(IDC_AUTOMEM));
-		Reg::Key(DWManualMemoryLimit, FromWString<int>(m_cacheSize->Text()));
+	void SetPageCache::onWriteSettings(Reg::Settings& settings) {
+		settings.Cache.DoAutoMemoryLimit = GetCheckBox(IDC_AUTOMEM) != 0;
+		settings.Cache.ManualMemoryLimit = FromWString<int>(m_cacheSize->Text());
 	}
 
 	void SetPageCache::UpdateControls() {
 		EnableWindow(GetDlgItem(Handle(), IDC_AUTOMEM), true);
 
-		if (!IsDlgButtonChecked(Handle(), IDC_AUTOMEM))
+		if (!IsDlgButtonChecked(Handle(), IDC_AUTOMEM)) {
 			EnableWindow(GetDlgItem(Handle(), IDC_MEMLIMIT), true);
-		else
+		}
+		else {
 			EnableWindow(GetDlgItem(Handle(), IDC_MEMLIMIT), false);
+		}
 	}
 
-	SetPageCache::SetPageCache():App::SettingsPage(IDD_SET_MEMORY) {}
+	SetPageCache::SetPageCache():
+		App::SettingsPage(IDD_SET_MEMORY)
+	{}
 }

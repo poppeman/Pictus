@@ -3,14 +3,13 @@
 #include "settings.h"
 
 namespace App {
-	bool SettingsPage::PerformOnInitDialog() {
+	bool SettingsPage::PerformOnInitDialog(const Reg::Settings& settings) {
 		auto* pSet = dynamic_cast<App::Settings*>(Parent());
 		if (pSet == nullptr) {
-			DO_THROW(Err::CriticalError, TX("Settings page had an invalid parent."));
+			DO_THROW(Err::CriticalError, L"Settings page had an invalid parent.");
 		}
 
 		Move(pSet->GetPagePosition());
-		if (!PerformOnInitPage()) return false;
-		return true;
+		return PerformOnInitPage(settings);
 	}
 }

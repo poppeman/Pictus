@@ -3,40 +3,40 @@
 #include "registry.h"
 
 namespace App {
-	using namespace Reg::Keys;
-
-	MouseAction MouseStandardEvent(const Win::MouseEvent& e) {
+	MouseAction MouseStandardEvent(const Win::MouseEvent& e, Reg::MouseSettings cfg) {
 		switch(e.Button) {
 		case Win::Left:
-			return MouseAction(Reg::Key(DWOnMouseLeft));
+			return MouseAction(cfg.OnMouseLeft);
 		case Win::Right:
-			return MouseAction(Reg::Key(DWOnMouseRight));
+			return MouseAction(cfg.OnMouseRight);
 		case Win::Middle:
-			return MouseAction(Reg::Key(DWOnMouseMiddle));
+			return MouseAction(cfg.OnMouseMiddle);
 		case Win::Extra1:
-			return MouseAction(Reg::Key(DWOnMouseWheelUp));
+			return MouseAction(cfg.OnMouseWheelUp);
 		case Win::Extra2:
-			return MouseAction(Reg::Key(DWOnMouseWheelDown));
+			return MouseAction(cfg.OnMouseWheelDown);
 		default:
 			// Might be a scrollwheel action
-			if (e.WheelTicks>0)
-				return MouseAction(Reg::Key(DWOnMouseWheelUp));
-			else if (e.WheelTicks<0)
-				return MouseAction(Reg::Key(DWOnMouseWheelDown));
+			if (e.WheelTicks > 0) {
+				return MouseAction(cfg.OnMouseWheelUp);
+			}
+			else if (e.WheelTicks < 0) {
+				return MouseAction(cfg.OnMouseWheelDown);
+			}
 
 			// Nope, undefined!
 			return MouseUndefined;
 		}
 	}
 
-	MouseAction MouseDblEvent(const Win::MouseEvent& e) {
+	MouseAction MouseDblEvent(const Win::MouseEvent& e, Reg::MouseSettings cfg) {
 		switch(e.Button) {
 			case Win::Left:
-				return MouseAction(Reg::Key(DWOnMouseLeftDbl));
+				return MouseAction(cfg.OnMouseLeftDbl);
 			case Win::Right:
-				return MouseAction(Reg::Key(DWOnMouseRightDbl));
+				return MouseAction(cfg.OnMouseRightDbl);
 			case Win::Middle:
-				return MouseAction(Reg::Key(DWOnMouseMiddleDbl));
+				return MouseAction(cfg.OnMouseMiddleDbl);
 			default:
 				return MouseUndefined;
 		}

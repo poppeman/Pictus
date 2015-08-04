@@ -4,13 +4,11 @@
 #include "registry.h"
 
 namespace App {
-	using namespace Reg::Keys;
-
-	bool SetInterface::PerformOnInitPage() {
+	bool SetInterface::PerformOnInitPage(const Reg::Settings& settings) {
 		Caption(App::SIDInterface);
 
-		SetCheckBox(IDC_CHECK_INTERFACE_SHOWSTATUSBAR, Reg::Key(DWShowStatusBar) != 0);
-		SetCheckBox(IDC_CHECK_INTERFACE_ALWAYSONTOP, Reg::Key(DWAlwaysOnTop) != 0);
+		SetCheckBox(IDC_CHECK_INTERFACE_SHOWSTATUSBAR, settings.View.ShowStatusBar);
+		SetCheckBox(IDC_CHECK_INTERFACE_ALWAYSONTOP, settings.View.AlwaysOnTop);
 
 		ControlText(IDC_GROUP_INTERFACE_STATUSBAR, SIDGroupStatusBar);
 		ControlText(IDC_CHECK_INTERFACE_SHOWSTATUSBAR, SIDShowStatusBar);
@@ -18,12 +16,14 @@ namespace App {
 		return true;
 	}
 
-	void SetInterface::onWriteSettings() {
-		Reg::Key(DWShowStatusBar, GetCheckBox(IDC_CHECK_INTERFACE_SHOWSTATUSBAR));
-		Reg::Key(DWAlwaysOnTop, GetCheckBox(IDC_CHECK_INTERFACE_ALWAYSONTOP));
+	void SetInterface::onWriteSettings(Reg::Settings& settings) {
+		settings.View.ShowStatusBar = GetCheckBox(IDC_CHECK_INTERFACE_SHOWSTATUSBAR);
+		settings.View.AlwaysOnTop = GetCheckBox(IDC_CHECK_INTERFACE_ALWAYSONTOP);
 	}
 
-	SetInterface::SetInterface():App::SettingsPage(IDD_SET_INTERFACE) {}
+	SetInterface::SetInterface()
+		:App::SettingsPage(IDD_SET_INTERFACE)
+	{}
 
 	bool SetInterface::IsRootPage() const {
 		return false;

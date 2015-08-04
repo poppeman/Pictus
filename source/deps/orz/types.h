@@ -20,7 +20,16 @@ std::wstring ToWString(T i) {
 	return ss.str();
 }
 
+std::string ToAString(int i);
 std::string ToAString(const std::wstring& s);
+
+template <typename T>
+T FromAString(const std::string& s) {
+	std::stringstream ss(s);
+	T i;
+	ss >> i;
+	return i;
+}
 
 template <typename T>
 T FromWString(const std::wstring& s) {

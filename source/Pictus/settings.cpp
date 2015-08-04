@@ -105,7 +105,10 @@ namespace App {
 		TreeView_DeleteAllItems(GetDlgItem(Handle(), IDC_TREE_NAV));
 	}
 
-	Settings::Settings():Win::Dialog(IDD_SETTINGS) {
+	Settings::Settings(Reg::Settings& settings):
+		Win::Dialog(IDD_SETTINGS),
+		m_settings(settings)
+	{
 		m_pages.push_back(std::make_shared<SetView>());
 		m_pages.push_back(std::make_shared<SetInterface>());
 		m_pages.push_back(std::make_shared<SetColor>());
@@ -176,8 +179,9 @@ namespace App {
 
 	void Settings::OnApply() {
 		// Store all pages data and update strings
-		for (size_t i = 0; i < m_pages.size(); ++i)
-			m_pages[i]->WriteSettings();
+		for (size_t i = 0; i < m_pages.size(); ++i) {
+			m_pages[i]->WriteSettings(m_settings);
+		}
 
 		UpdateTreeList();
 		OnSettingsChanged();

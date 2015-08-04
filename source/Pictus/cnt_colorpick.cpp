@@ -12,8 +12,8 @@ namespace App {
 		m_colorHLS(0, 0, 1),
 		m_useRGB(false)
 	{
-		OnMouseButtonDown.connect(bind(&ControlColorPicker::HandleMouseClick, this, _1));
-		OnMouseMove.connect(bind(&ControlColorPicker::HandleMouseMove, this, _1));
+		OnMouseButtonDown.connect([this](Win::MouseEvent e) { return HandleMouseClick(e); });
+		OnMouseMove.connect([this](Win::MouseEvent e) { return HandleMouseMove(e); });
 	}
 
 	ControlColorPicker::~ControlColorPicker() {

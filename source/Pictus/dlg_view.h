@@ -12,9 +12,8 @@ namespace App {
 	private:
 		void ToggleResizeWindow();
 
-		bool PerformOnInitPage();
-
-		void onWriteSettings();
+		bool PerformOnInitPage(const Reg::Settings& settings) override;
+		void onWriteSettings(Reg::Settings& settings) override;
 
 		void DoToggleResizeWindow(bool newState);
 		void SetupFilterBox(Win::ComboBox* ctrl);

@@ -10,8 +10,8 @@ namespace App {
 		~SetAbout();
 
 	private:
-		void onWriteSettings() {}
-		bool PerformOnInitPage();
+		bool PerformOnInitPage(const Reg::Settings& settings) override;
+		void onWriteSettings(Reg::Settings& settings) override;
 
 		HFONT m_headerFont;
 	};
