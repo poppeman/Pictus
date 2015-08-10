@@ -12,7 +12,8 @@ namespace App {
 	private:
 		void ToggleResizeWindow();
 
-		bool PerformOnInitPage(const Reg::Settings& settings) override;
+		bool PerformOnInitPage() override;
+		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
 		void onWriteSettings(Reg::Settings& settings) override;
 
 		void DoToggleResizeWindow(bool newState);

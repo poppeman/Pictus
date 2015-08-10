@@ -6,7 +6,7 @@
 namespace App {
 	using namespace Intl;
 
-	bool SetAbout::PerformOnInitPage(const Reg::Settings&) {
+	bool SetAbout::PerformOnInitPage() {
 		Caption(App::SIDAbout);
 
 		ControlText(IDC_TEXT_ABOUT_FREEWARE, SIDAboutFreeware);
@@ -37,6 +37,11 @@ namespace App {
 	}
 
 	void SetAbout::onWriteSettings(Reg::Settings&)
+	{
+
+	}
+
+	void SetAbout::PerformUpdateFromSettings(const Reg::Settings& settings)
 	{
 
 	}

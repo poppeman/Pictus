@@ -6,7 +6,7 @@
 namespace App {
 	using namespace Intl;
 
-	bool SetControls::PerformOnInitPage(const Reg::Settings& settings) {
+	bool SetControls::PerformOnInitPage() {
 		Caption(SIDControls);
 
 		m_cbLeftMouse = CreateComboBox(IDC_COMBO_CTRL_LMOUSE);
@@ -20,19 +20,31 @@ namespace App {
 		m_cbWheelDown = CreateComboBox(IDC_COMBO_CTRL_MWHEELDOWN);
 		m_cbWheelUp = CreateComboBox(IDC_COMBO_CTRL_MWHEELUP);
 
-		initMouseButtonList(m_cbLeftMouse, settings.Mouse.OnMouseLeft);
-		initMouseButtonList(m_cbMiddleMouse, settings.Mouse.OnMouseMiddle);
-		initMouseButtonList(m_cbRightMouse, settings.Mouse.OnMouseRight);
+		initMouseButtonList(m_cbLeftMouse);
+		initMouseButtonList(m_cbMiddleMouse);
+		initMouseButtonList(m_cbRightMouse);
 
-		initMouseDblList(m_cbLeftMouseDoubleClick, settings.Mouse.OnMouseLeftDbl);
-		initMouseDblList(m_cbMiddleMouseDoubleClick, settings.Mouse.OnMouseMiddleDbl);
-		initMouseDblList(m_cbRightMouseDoubleClick, settings.Mouse.OnMouseRightDbl);
+		initMouseDblList(m_cbLeftMouseDoubleClick);
+		initMouseDblList(m_cbMiddleMouseDoubleClick);
+		initMouseDblList(m_cbRightMouseDoubleClick);
 
-		initMouseWheelList(m_cbWheelUp, settings.Mouse.OnMouseWheelUp);
-		initMouseWheelList(m_cbWheelDown, settings.Mouse.OnMouseWheelDown);
+		initMouseWheelList(m_cbWheelUp);
+		initMouseWheelList(m_cbWheelDown);
 
 		return true;
 	}
+
+	void SetControls::PerformUpdateFromSettings(const Reg::Settings& settings) {
+		m_cbLeftMouse->SetSelection(settings.Mouse.OnMouseLeft);
+		m_cbMiddleMouse->SetSelection(settings.Mouse.OnMouseMiddle);
+		m_cbRightMouse->SetSelection(settings.Mouse.OnMouseRight);
+		m_cbLeftMouseDoubleClick->SetSelection(settings.Mouse.OnMouseLeftDbl);
+		m_cbMiddleMouseDoubleClick->SetSelection(settings.Mouse.OnMouseMiddleDbl);
+		m_cbRightMouseDoubleClick->SetSelection(settings.Mouse.OnMouseRightDbl);
+		m_cbWheelUp->SetSelection(settings.Mouse.OnMouseWheelUp);
+		m_cbWheelDown->SetSelection(settings.Mouse.OnMouseWheelDown);
+	}
+
 
 	void SetControls::onWriteSettings(Reg::Settings& settings) {
 		settings.Mouse.OnMouseLeft = App::MouseAction(m_cbLeftMouse->GetSelectionData());
@@ -51,33 +63,28 @@ namespace App {
 		:App::SettingsPage(IDD_SET_CTRL_MOUSE)
 	{}
 
-	void SetControls::initMouseButtonList(Win::ComboBox* ctrl, App::MouseAction action) {
+	void SetControls::initMouseButtonList(Win::ComboBox* ctrl) {
 		ctrl->Reset();
 		ctrl->AddItem(SIDActionDisable, MouseDisable);
 		ctrl->AddItem(SIDActionPan, MousePan);
 		ctrl->AddItem(SIDActionContextMenu, MouseContext);
 		ctrl->AddItem(SIDActionToggleFullSizeDefaultZoom, MouseToggleFullSizeDefaultZoom);
 		ctrl->AddItem(SIDActionFullscreen, MouseFullscreen);
-
-		ctrl->SetSelection(action);
 	}
 
-	void SetControls::initMouseDblList(Win::ComboBox* ctrl, App::MouseAction action) {
+	void SetControls::initMouseDblList(Win::ComboBox* ctrl) {
 		ctrl->Reset();
 		ctrl->AddItem(SIDActionDisable, MouseDisable);
 		ctrl->AddItem(SIDActionToggleFullSizeDefaultZoom, MouseToggleFullSizeDefaultZoom);
 		ctrl->AddItem(SIDActionFullscreen, MouseFullscreen);
-
-		ctrl->SetSelection(action);
 	}
 
-	void SetControls::initMouseWheelList(Win::ComboBox* ctrl, App::MouseAction action) {
+	void SetControls::initMouseWheelList(Win::ComboBox* ctrl) {
 		ctrl->Reset();
 		ctrl->AddItem(SIDActionDisable, MouseDisable);
 		ctrl->AddItem(SIDActionNextImage, MouseNextImage);
 		ctrl->AddItem(SIDActionPrevImage, MousePrevImage);
 		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
 		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
-		ctrl->SetSelection(action);
 	}
 }

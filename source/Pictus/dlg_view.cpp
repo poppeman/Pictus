@@ -12,7 +12,7 @@ namespace App {
 		DoToggleResizeWindow(IsDlgButtonChecked(Handle(), IDC_SIZETOIMAGE)!=0);
 	}
 
-	bool SetView::PerformOnInitPage(const Reg::Settings& settings) {
+	bool SetView::PerformOnInitPage() {
 		CreateButton(IDC_SIZETOIMAGE)->OnClick.connect([this]() { ToggleResizeWindow(); });
 		Caption(App::SIDViewer);
 
@@ -38,24 +38,29 @@ namespace App {
 		m_cbDefaultZoom->Reset();
 		m_cbDefaultZoom->AddItem(SIDZoomFullSize, ZoomFree);
 		m_cbDefaultZoom->AddItem(SIDZoomFitImage, ZoomFitImage);
-		m_cbDefaultZoom->SetSelection(settings.View.DefaultZoomMode);
 
 		ControlText(IDC_GROUP_VIEWER_RESIZEBEHAVIOUR, SIDGroupRM);
 		m_cbResizeBehavior->Reset();
 		m_cbResizeBehavior->AddItem(SIDRMBoth, ResizeEnlargeOrReduce);
 		m_cbResizeBehavior->AddItem(SIDRMEnlargeOnly, ResizeEnlargeOnly);
 		m_cbResizeBehavior->AddItem(SIDRMReduceOnly, ResizeReduceOnly);
-		m_cbResizeBehavior->SetSelection(settings.View.ResizeBehaviour);
 
 		SetupFilterBox(m_cbMagFilter);
-		m_cbMagFilter->SetSelection(static_cast<int>(settings.Render.MagFilter));
 
 		SetupFilterBox(m_cbMinFilter);
+
+		return true;
+	}
+
+	void SetView::PerformUpdateFromSettings(const Reg::Settings& settings) {
+		m_cbDefaultZoom->SetSelection(settings.View.DefaultZoomMode);
+		m_cbResizeBehavior->SetSelection(settings.View.ResizeBehaviour);
+		m_cbMagFilter->SetSelection(static_cast<int>(settings.Render.MagFilter));
 		m_cbMinFilter->SetSelection(static_cast<int>(settings.Render.MinFilter));
 
 		SetCheckBox(IDC_CHECK_VIEWER_WRAPAROUND, settings.View.BrowseWrapAround);
 		SetCheckBox(IDC_RESETZOOM, settings.View.ResetZoom);
-		SetCheckBox(IDC_RESETPAN,  settings.View.ResetPan);
+		SetCheckBox(IDC_RESETPAN, settings.View.ResetPan);
 		DoToggleResizeWindow(settings.View.ResizeWindow);
 
 		// Position method
@@ -72,8 +77,8 @@ namespace App {
 			SetCheckBox(IDC_SIZETO_NOTHING, true);
 		}
 
-		return true;
 	}
+
 
 	void SetView::onWriteSettings(Reg::Settings& settings) {
 		settings.View.BrowseWrapAround = GetCheckBox(IDC_CHECK_VIEWER_WRAPAROUND);

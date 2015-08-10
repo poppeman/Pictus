@@ -48,6 +48,7 @@ namespace App {
 
 		for (size_t i = 0; i < m_pages.size(); ++i) {
 			m_pages[i]->DoModeless(this);
+			m_pages[i]->UpdateFromSettings(m_settings);
 			if (m_pages[i]->IsRootPage()) {
 				if (hRoot != 0)
 					hPrev = hRoot;

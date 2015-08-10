@@ -8,7 +8,7 @@ namespace App {
 	using namespace Intl;
 	using namespace Win;
 
-	bool SetPageCache::PerformOnInitPage(const Reg::Settings& settings) {
+	bool SetPageCache::PerformOnInitPage() {
 		CreateButton(IDC_AUTOMEM)->OnClick.connect([this]() { UpdateControls(); });
 
 		Caption(SIDCache);
@@ -18,9 +18,6 @@ namespace App {
 
 		m_cacheSize = CreateEditBox(IDC_MEMLIMIT);
 		m_cacheSize->Filterchars(EditBox::FilterNotNumerical, SIDNumericalInvalid);
-		m_cacheSize->Text(ToWString(settings.Cache.ManualMemoryLimit));
-
-		SetCheckBox(IDC_AUTOMEM, settings.Cache.DoAutoMemoryLimit);
 		UpdateControls();
 
 		return true;
@@ -41,6 +38,13 @@ namespace App {
 			EnableWindow(GetDlgItem(Handle(), IDC_MEMLIMIT), false);
 		}
 	}
+
+	void SetPageCache::PerformUpdateFromSettings(const Reg::Settings& settings) {
+		m_cacheSize->Text(ToWString(settings.Cache.ManualMemoryLimit));
+		SetCheckBox(IDC_AUTOMEM, settings.Cache.DoAutoMemoryLimit);
+		UpdateControls();
+	}
+
 
 	SetPageCache::SetPageCache():
 		App::SettingsPage(IDD_SET_MEMORY)

@@ -17,7 +17,7 @@ namespace App {
 		m_isUpdating = false;
 	}
 
-	bool SetColor::PerformOnInitPage(const Reg::Settings& settings) {
+	bool SetColor::PerformOnInitPage() {
 		Caption(App::SIDBackgroundColor);
 
 		ControlText(IDC_GROUP_COLOR_PREVIEW, SIDGroupPreview);
@@ -51,11 +51,15 @@ namespace App {
 		SendDlgItemMessage(Handle(), IDC_SPIN_G, UDM_SETRANGE32, 0, 255);
 		SendDlgItemMessage(Handle(), IDC_SPIN_B, UDM_SETRANGE32, 0, 255);
 
-		m_currCol = settings.Render.BackgroundColor.ToDWord();
-		SendDlgItemMessage(Handle(), IDC_COLOR_PICK, ControlColorPicker::MsgSetRGB, m_currCol, 0);
-
 		return true;
 	}
+
+
+	void SetColor::PerformUpdateFromSettings(const Reg::Settings& settings) {
+		m_currCol = settings.Render.BackgroundColor.ToDWord();
+		SendDlgItemMessage(Handle(), IDC_COLOR_PICK, ControlColorPicker::MsgSetRGB, m_currCol, 0);
+	}
+
 
 	void SetColor::onWriteSettings(Reg::Settings& settings) {
 		settings.Render.BackgroundColor = Img::Color::FromDWord(m_currCol);

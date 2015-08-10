@@ -6,7 +6,7 @@
 namespace App {
 	using namespace Intl;
 
-	bool SetLanguage::PerformOnInitPage(const Reg::Settings&) {
+	bool SetLanguage::PerformOnInitPage() {
 		Caption(App::SIDLanguage);
 		ControlText(IDC_GROUP_LANG, SIDLanguage);
 
@@ -18,6 +18,11 @@ namespace App {
 		m_cbLang->SetSelection(static_cast<int>(Intl::CurrentLanguage()));
 		return true;
 	}
+
+	void SetLanguage::PerformUpdateFromSettings(const Reg::Settings& settings) {
+
+	}
+
 
 	void SetLanguage::onWriteSettings(Reg::Settings& settings) {
 		settings.View.Language = Intl::Language(m_cbLang->GetSelectionData());

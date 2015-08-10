@@ -34,7 +34,7 @@ namespace App {
 		m_shortcuts[shortcutIndex].Action = action;
 	}
 
-	bool SetKeyboard::PerformOnInitPage(const Reg::Settings& settings) {
+	bool SetKeyboard::PerformOnInitPage() {
 		Caption(SIDKeyboard);
 		ControlText(IDC_GROUP_KEYBOARD_ACTION, SIDGroupAction);
 		ControlText(IDC_GROUP_KEYBOARD_ASSIGNED, SIDGroupAssignedShortcuts);
@@ -62,6 +62,10 @@ namespace App {
 		SetWindowTheme(m_functions->Handle(), L"Explorer", 0);
 
 		return true;
+	}
+
+	void SetKeyboard::PerformUpdateFromSettings(const Reg::Settings& settings) {
+
 	}
 
 	void SetKeyboard::onWriteSettings(Reg::Settings& settings) {
