@@ -70,6 +70,15 @@ namespace Reg {
 		App::MouseAction OnMouseWheelDown;
 	};
 
+	struct KeyboardBinding {
+		wchar_t Key;
+		App::KeyAction Action;
+	};
+
+	struct KeyboardSettings {
+		std::vector<KeyboardBinding> Bindings;
+	};
+
 	struct CacheSettings {
 		bool DoAutoMemoryLimit;
 		size_t ManualMemoryLimit;
@@ -80,6 +89,7 @@ namespace Reg {
 		ViewSettings View;
 		MouseSettings Mouse;
 		CacheSettings Cache;
+		KeyboardSettings Keyboard;
 	};
 }
 

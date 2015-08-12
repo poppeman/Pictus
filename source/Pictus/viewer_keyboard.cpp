@@ -4,9 +4,25 @@
 #include "registry.h"
 
 namespace App {
+	void ViewerKeyboard::Construct(Viewer* owner, Reg::KeyboardSettings cfg) {
+		m_cfg = cfg;
 
-	void ViewerKeyboard::Construct(Viewer* owner) {
-		owner->OnKeyDown.connect([&](Win::KeyEvent e) { return m_keyMap.Execute(e); });
+		owner->OnKeyDown.connect([=](Win::KeyEvent e) {
+			for (auto x : m_cfg.Bindings) {
+				if (x.Key == e.Key) {
+					switch (x.Action) {
+					case KeyAction::NextImage:
+						owner->ImageNext();
+						break;
+					case KeyAction::PreviousImage:
+						owner->ImagePrev();
+						break;
+					}
+					return true;
+				}
+			}
+			return false;
+		});
 
 		/*AddMapping(VK_F2, [=]() { owner->RenameCurrent(); });
 		AddMapping(VK_ESCAPE, [=]() { owner->Close(); });
@@ -57,19 +73,19 @@ namespace App {
 		AddMapping('R', ImageRandom);
 		AddMapping('r', ImageRandom);*/
 
-		KeyActionMap::Function_Type ShowSettings = [=]() { owner->ShowSettings(); };
-		AddMapping('O', ShowSettings);
-		AddMapping('o', ShowSettings);
+//		KeyActionMap::Function_Type ShowSettings = [=]() { owner->ShowSettings(); };
+//		AddMapping('O', ShowSettings);
+//		AddMapping('o', ShowSettings);
 
 		//AddMapping(VK_RETURN, [=]() { owner->ToggleFullscreenMode(); }, Alt);
 	}
 
-	void ViewerKeyboard::AddMapping(WPARAM key, KeyActionMap::Function_Type f, int flags) {
+/*	void ViewerKeyboard::AddMapping(WPARAM key, KeyActionMap::Function_Type f, int flags) {
 		m_keyMap.AddAction(Win::KeyEvent(
 			key,
 			(flags & Alt) != 0,
 			(flags & Ctrl) != 0,
 			(flags & Shift) != 0),
 			f);
-	}
+	}*/
 }

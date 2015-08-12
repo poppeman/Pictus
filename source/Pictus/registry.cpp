@@ -64,12 +64,41 @@ struct ResizePositionMethodTranslator {
 	}
 };
 
+struct KeyboardBindingTranslator {
+	typedef std::string internal_type;
+	typedef Reg::KeyboardBinding external_type;
+	boost::optional<external_type> get_value(internal_type const sval) {
+		Reg::KeyboardBinding binding;
+		binding.Action = App::KeyAction::Undefined;
+		binding.Key = 0;
+
+		std::vector<std::string> strs;
+		boost::split(strs, sval, boost::is_any_of(","));
+		if (strs.size() == 3) {
+			auto keyVal = FromAString<int>(strs[0]);
+			binding.Key = keyVal;
+			binding.Action = App::IdentifierToKeyAction(strs[2]);
+		}
+
+		return binding;
+	}
+	boost::optional<internal_type> put_value(external_type const& val) {
+		std::vector<std::string> parts;
+		parts.push_back(ToAString(val.Key));
+		parts.push_back("?");
+		parts.push_back(App::KeyActionToIdentifier(val.Action));
+
+		return Implode(parts, ",");
+	}
+};
+
 namespace boost{
 	namespace property_tree{
 		template<> struct translator_between<std::string, Intl::Language> { typedef LanguageTranslator type; };
 		template<> struct translator_between<std::string, App::MouseAction> { typedef MouseActionTranslator type; };
 		template<> struct translator_between<std::string, App::ResizeBehaviour> { typedef ResizeBehaviorTranslator type; };
 		template<> struct translator_between<std::string, App::ResizePositionMethod> { typedef ResizePositionMethodTranslator type; };
+		template<> struct translator_between<std::string, Reg::KeyboardBinding> { typedef KeyboardBindingTranslator type; };
 	}
 }
 
@@ -84,6 +113,7 @@ namespace Reg {
 		std::string data;
 		data.resize(sz);
 		r.ReadFull(&data[0], sz);
+		r.Close();
 		std::stringstream ss(data);
 		boost::property_tree::ptree pt;
 
@@ -128,6 +158,17 @@ namespace Reg {
 		// TODO: Probably wrong constant here
 		cfg.View.ResizePositionMethod = pt.get<App::ResizePositionMethod>("Settings.ResizePositionMethod", App::ResizePositionMethod::PositionNothing);
 
+		// TODO: Set up some defaults if no shortcuts are defined.
+		// cfg.Keyboard.
+		int index = 0;
+		while (true) {
+			std::stringstream ss;
+			ss << "Keyboard." << index++;
+			auto inBinding = pt.get_optional<KeyboardBinding>(ss.str());
+			if (!inBinding) break;
+
+			cfg.Keyboard.Bindings.push_back(inBinding.get());
+		}
 
 		return cfg;
 	}

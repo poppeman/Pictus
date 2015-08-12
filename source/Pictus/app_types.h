@@ -45,10 +45,14 @@ namespace App {
 		LastImage = 17,
 		RecycleFile = 18,  // Send file to recycle bin OR delete, with out without confirmation dialog, depending on OS settings.
 		RemoveImage = 19,  // Removes image from rotation, does NOT touch the actual file.
-		ToggleFullscreen = 20
+		ToggleFullscreen = 20,
+		CloseApplication = 21,
 	};
 
 	StringID KeyActionSid(KeyAction action);
+
+	std::string KeyActionToIdentifier(KeyAction action);
+	KeyAction IdentifierToKeyAction(std::string identifier);
 }
 
 #endif

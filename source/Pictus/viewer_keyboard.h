@@ -3,26 +3,26 @@
 
 #include "actionmap.h"
 #include "wintypes.h"
+#include "appreg.h"
 
 namespace App {
 	class Viewer;
 
 	class ViewerKeyboard {
 	public:
-		void Construct(Viewer* owner);
+		void Construct(Viewer* owner, Reg::KeyboardSettings cfg);
 
 	private:
-		typedef ActionMapNoParam<Win::KeyEvent> KeyActionMap;
-		KeyActionMap m_keyMap;
+		Reg::KeyboardSettings m_cfg;
 
-		enum Flags {
-			Shift = 0x1,
-			Alt = 0x2,
-			Ctrl = 0x4
-		};
+		//enum Flags {
+		//	Shift = 0x1,
+		//	Alt = 0x2,
+		//	Ctrl = 0x4
+		//};
 
 		//void AddMapping(WPARAM key, KeyActionMap::Function_Type f, bool alt = false, bool shift = false, bool ctrl = false);
-		void AddMapping(WPARAM key, KeyActionMap::Function_Type f, int flags = 0);
+		//void AddMapping(WPARAM key, KeyActionMap::Function_Type f, int flags = 0);
 	};
 }
 

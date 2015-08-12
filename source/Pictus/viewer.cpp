@@ -59,7 +59,7 @@ namespace App {
 		m_mouseMap.AddAction(MouseContext, [this](Win::MouseEvent e) { ShowContextMenu(e); });
 
 		m_contextMenu.Construct(this);
-		m_keys.Construct(this);
+		m_keys.Construct(this, m_cfg.Keyboard);
 
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateImageInformation(); });
 
