@@ -12,7 +12,10 @@ namespace App {
 
 	SetKeyboard::SetKeyboard():
 		App::SettingsPage{ IDD_SET_KEYBOARD },
-		m_currentIndex{ 0 }
+		m_currentIndex{ 0 },
+		m_functions{ nullptr },
+		m_assigned{ nullptr },
+		m_keypress{ nullptr }
 	{}
 
 	void SetKeyboard::AddShortcut() {

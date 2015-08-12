@@ -9,12 +9,13 @@ namespace App {
 			DO_THROW(Err::CriticalError, L"Settings page had an invalid parent.");
 		}
 
-		Move(pSet->GetPagePosition());
 		return PerformOnInitPage();
 	}
 
 	void SettingsPage::UpdateFromSettings(const Reg::Settings& settings) {
-		PerformUpdateFromSettings(settings);
+		if (IsModelessVisible()) {
+			PerformUpdateFromSettings(settings);
+		}
 	}
 
 }

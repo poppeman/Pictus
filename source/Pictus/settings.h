@@ -9,11 +9,10 @@ namespace App {
 
 	class Settings:public Win::Dialog {
 	public:
-		boost::signals2::signal<void()> OnSettingsChanged;
+		boost::signals2::signal<void(Reg::Settings)> OnSettingsChanged;
 
-		Geom::PointInt GetPagePosition();
-
-		Settings(Reg::Settings& settings);
+		void SetSettings(Reg::Settings settings);
+		Settings();
 
 		typedef std::shared_ptr<Settings> Ptr;
 
@@ -37,9 +36,9 @@ namespace App {
 
 		typedef std::shared_ptr<App::SettingsPage> PagePtr;
 		typedef std::vector<PagePtr> PageList;
+
 		PageList m_pages;
-		Geom::PointInt m_pagePos;
-		Reg::Settings& m_settings;
+		Reg::Settings m_settings;
 	};
 }
 

@@ -119,5 +119,11 @@ namespace App {
 		ctrl->AddItem(SIDFilterLanczos3, static_cast<int>(Filter::Mode::Lanczos3));
 	}
 
-	SetView::SetView():App::SettingsPage(IDD_SET_VIEWER) {}
+	SetView::SetView():
+		App::SettingsPage(IDD_SET_VIEWER),
+		m_cbDefaultZoom{ nullptr },
+		m_cbMagFilter{ nullptr },
+		m_cbMinFilter{ nullptr },
+		m_cbResizeBehavior{ nullptr }
+	{}
 }

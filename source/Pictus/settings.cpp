@@ -39,15 +39,16 @@ namespace App {
 
 		ScreenToClient(Handle(), &pt);
 
-		m_pagePos = PointInt(pt.x, pt.y);
+		auto m_pagePos = PointInt(pt.x, pt.y);
 
 		// Create treeview
 		HTREEITEM hPrev  = 0;
 		HTREEITEM hRoot  = 0;
 		HTREEITEM hFirst = 0;
 
-		for (size_t i = 0; i < m_pages.size(); ++i) {
+		for (auto i = 0; i < m_pages.size(); ++i) {
 			m_pages[i]->DoModeless(this);
+			m_pages[i]->Move(m_pagePos);
 			m_pages[i]->UpdateFromSettings(m_settings);
 			if (m_pages[i]->IsRootPage()) {
 				if (hRoot != 0)
@@ -98,17 +99,19 @@ namespace App {
 		return true;
 	}
 
-	PointInt Settings::GetPagePosition() {
-		return m_pagePos;
+	void Settings::SetSettings(Reg::Settings settings) {
+		m_settings = settings;
+		for (auto page : m_pages) {
+			page->UpdateFromSettings(m_settings);
+		}
 	}
 
 	void Settings::FreeResources() {
 		TreeView_DeleteAllItems(GetDlgItem(Handle(), IDC_TREE_NAV));
 	}
 
-	Settings::Settings(Reg::Settings& settings):
-		Win::Dialog(IDD_SETTINGS),
-		m_settings(settings)
+	Settings::Settings():
+		Win::Dialog(IDD_SETTINGS)
 	{
 		m_pages.push_back(std::make_shared<SetView>());
 		m_pages.push_back(std::make_shared<SetInterface>());
@@ -148,23 +151,23 @@ namespace App {
 	}
 
 	void Settings::updateTreeItem(HTREEITEM hItem) {
-		TVITEM tvi;
-		HWND hView = GetDlgItem(Handle(), IDC_TREE_NAV);
+		auto hView = GetDlgItem(Handle(), IDC_TREE_NAV);
 
-		if (!hItem) return;
+		if (hItem) {
+			TVITEM tvi;
+			tvi.hItem = hItem;
+			tvi.mask = TVIF_PARAM | TVIF_HANDLE;
+			TreeView_GetItem(hView, &tvi);
 
-		tvi.hItem = hItem;
-		tvi.mask = TVIF_PARAM | TVIF_HANDLE;
-		TreeView_GetItem(hView, &tvi);
+			tvi.mask = TVIF_TEXT | TVIF_HANDLE;
+			// Make a scoped copy of the string, or TreeView_SetItem will end up playing with a deleted string.
+			std::wstring name = m_pages[tvi.lParam]->Caption();
+			SetTextTVITEM(&tvi, name);
+			TreeView_SetItem(hView, &tvi);
 
-		tvi.mask = TVIF_TEXT | TVIF_HANDLE;
-		// Make a scoped copy of the string, or TreeView_SetItem will end up playing with a deleted string.
-		std::wstring name = m_pages[tvi.lParam]->Caption();
-		SetTextTVITEM(&tvi, name);
-		TreeView_SetItem(hView, &tvi);
-
-		updateTreeItem(TreeView_GetChild(hView, hItem));
-		updateTreeItem(TreeView_GetNextSibling(hView, hItem));
+			updateTreeItem(TreeView_GetChild(hView, hItem));
+			updateTreeItem(TreeView_GetNextSibling(hView, hItem));
+		}
 	}
 
 	void Settings::SetTextTVITEM(TVITEM* tvi, const std::wstring &name) {
@@ -185,11 +188,11 @@ namespace App {
 		}
 
 		UpdateTreeList();
-		OnSettingsChanged();
+		OnSettingsChanged(m_settings);
 	}
 
 	void Settings::OnCancel() {
-		OnSettingsChanged();
+		OnSettingsChanged(m_settings);
 		FreeResources();
 		DestroyWindow(Handle());
 	}

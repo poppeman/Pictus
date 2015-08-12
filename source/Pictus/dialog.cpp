@@ -32,11 +32,12 @@ namespace Win {
 		return (Handle() != 0);
 	}
 
-	Dialog::Dialog(int id)
-		:m_iTemplateID(id)
+	Dialog::Dialog(int id):
+		m_iTemplateID(id)
 	{
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateControlStrings(); });
 	}
+
 	Dialog::~Dialog() {}
 
 	bool Dialog::OnInitDialog() { return PerformOnInitDialog(); }

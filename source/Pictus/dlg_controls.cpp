@@ -59,8 +59,16 @@ namespace App {
 		settings.Mouse.OnMouseWheelDown = App::MouseAction(m_cbWheelDown->GetSelectionData());
 	}
 
-	SetControls::SetControls()
-		:App::SettingsPage(IDD_SET_CTRL_MOUSE)
+	SetControls::SetControls():
+		App::SettingsPage(IDD_SET_CTRL_MOUSE),
+		m_cbLeftMouse{ nullptr },
+		m_cbMiddleMouse{ nullptr },
+		m_cbRightMouse{ nullptr },
+		m_cbLeftMouseDoubleClick{ nullptr },
+		m_cbMiddleMouseDoubleClick{ nullptr },
+		m_cbRightMouseDoubleClick{ nullptr },
+		m_cbWheelUp{ nullptr },
+		m_cbWheelDown{ nullptr }
 	{}
 
 	void SetControls::initMouseButtonList(Win::ComboBox* ctrl) {
