@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "registry.h"
 #include "w32_assure_folder.h"
+#include "reg_color_translator.h"
 #include "reg_keyboard_binding_translator.h"
 #include "reg_language_translator.h"
 #include "reg_mouse_action_translator.h"
@@ -45,7 +46,7 @@ namespace Reg {
 
 		cfg.Mouse.OnMouseRight = pt.get<App::MouseAction>("Settings.OnMouseRight", App::MouseAction::MouseContext);
 
-		cfg.Render.BackgroundColor = Img::Color::FromDWord(pt.get<uint32_t>("Settings.BackgroundColor", 0x00ccccff)); // TODO: Handle #ff00ff representation
+		cfg.Render.BackgroundColor = pt.get<Img::Color>("Settings.BackgroundColor", { 0, 0xcc, 0xcc, 0xff });
 		cfg.Render.MagFilter = Filter::Mode(pt.get<uint32_t>("Settings.MagFilter", static_cast<int>(Filter::Mode::Bilinear)));
 		cfg.Render.MinFilter = Filter::Mode(pt.get<uint32_t>("Settings.MinFilter", static_cast<int>(Filter::Mode::Bilinear)));
 

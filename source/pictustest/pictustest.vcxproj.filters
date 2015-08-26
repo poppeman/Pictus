@@ -30,6 +30,9 @@
     <Filter Include="Pictus\WinAPI">
       <UniqueIdentifier>{304a9098-dc54-487c-ac5a-59af8b5c19d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pictus\Registry">
+      <UniqueIdentifier>{960fd6da-beb4-4738-8897-e1249de6f71a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,6 +98,12 @@
     <ClCompile Include="StdAfx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test_reg_color_translator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pictus\reg_color_translator.cpp">
+      <Filter>Pictus\Registry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -147,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="StdAfx.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\reg_color_translator.h">
+      <Filter>Pictus\Registry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

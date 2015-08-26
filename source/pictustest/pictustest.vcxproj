@@ -178,11 +178,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Pictus\reg_color_translator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test_geom.cpp" />
     <ClCompile Include="test_ic_queue.cpp" />
     <ClCompile Include="test_image_dimensions.cpp" />
     <ClCompile Include="test_pan.cpp" />
+    <ClCompile Include="test_reg_color_translator.cpp" />
     <ClCompile Include="test_wintypes.cpp" />
     <ClCompile Include="test_zoomstrategy.cpp" />
     <ClCompile Include="..\Pictus\image_dimensions.cpp" />
@@ -206,6 +208,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Pictus\reg_color_translator.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Pictus\image_dimensions.h" />
     <ClInclude Include="..\Pictus\imagecache.h" />

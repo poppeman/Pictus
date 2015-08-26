@@ -215,6 +215,7 @@
     <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
     <ClCompile Include="gdiwrapper.cpp" />
+    <ClCompile Include="reg_color_translator.cpp" />
     <ClCompile Include="reg_keyboard_binding_translator.cpp" />
     <ClCompile Include="reg_language_translator.cpp" />
     <ClCompile Include="reg_mouse_action_translator.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
     <ClInclude Include="gdiwrapper.h" />
+    <ClInclude Include="reg_color_translator.h" />
     <ClInclude Include="reg_keyboard_binding_translator.h" />
     <ClInclude Include="reg_language_translator.h" />
     <ClInclude Include="reg_mouse_action_translator.h" />
