@@ -79,6 +79,9 @@
     <Filter Include="Settings\Controls">
       <UniqueIdentifier>{e7e3a60f-8168-4a82-a559-c245ed9f26b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shared\Registry\Translators">
+      <UniqueIdentifier>{0ad784a0-de92-4730-819d-a2b7dcfe6865}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license_en.txt">
@@ -299,6 +302,21 @@
     </ClCompile>
     <ClCompile Include="ctrl_keypress.cpp">
       <Filter>Settings\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="reg_language_translator.cpp">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClCompile>
+    <ClCompile Include="reg_keyboard_binding_translator.cpp">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClCompile>
+    <ClCompile Include="reg_mouse_action_translator.cpp">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClCompile>
+    <ClCompile Include="reg_resize_behavior_translator.cpp">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClCompile>
+    <ClCompile Include="reg_resize_position_method_translator.cpp">
+      <Filter>Shared\Registry\Translators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -530,6 +548,21 @@
     </ClInclude>
     <ClInclude Include="ctrl_keypress.h">
       <Filter>Settings\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="reg_language_translator.h">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClInclude>
+    <ClInclude Include="reg_mouse_action_translator.h">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClInclude>
+    <ClInclude Include="reg_resize_position_method_translator.h">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClInclude>
+    <ClInclude Include="reg_resize_behavior_translator.h">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClInclude>
+    <ClInclude Include="reg_keyboard_binding_translator.h">
+      <Filter>Shared\Registry\Translators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

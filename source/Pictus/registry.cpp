@@ -1,106 +1,11 @@
 #include "StdAfx.h"
 #include "registry.h"
 #include "w32_assure_folder.h"
-
-struct LanguageTranslator {
-	typedef std::string internal_type;
-	typedef Intl::Language external_type;
-	boost::optional<external_type> get_value(internal_type const sval) {
-		auto val = FromAString<int>(sval);
-		if (val == 1) return Intl::Language::Swedish;
-		return Intl::Language::English;
-	}
-	boost::optional<internal_type> put_value(external_type const& val) {
-		return ToAString(static_cast<int>(val));
-	}
-};
-
-struct MouseActionTranslator {
-	typedef std::string internal_type;
-	typedef App::MouseAction external_type;
-	boost::optional<external_type> get_value(internal_type const sval) {
-		auto val = FromAString<int>(sval);
-
-		if (val < 0 || val > static_cast<int>(App::MouseAction::MouseUndefined)) {
-			return App::MouseAction::MouseDisable;
-		}
-
-		return static_cast<App::MouseAction>(val);
-	}
-	boost::optional<internal_type> put_value(external_type const& val) {
-		return ToAString(static_cast<int>(val));
-	}
-};
-
-struct ResizeBehaviorTranslator {
-	typedef std::string internal_type;
-	typedef App::ResizeBehaviour external_type;
-	boost::optional<external_type> get_value(internal_type const sval) {
-		auto val = FromAString<int>(sval);
-		if (val < 0 || val > 2) {
-			return App::ResizeBehaviour::ResizeReduceOnly;
-		}
-
-		return static_cast<App::ResizeBehaviour>(val);
-	}
-	boost::optional<internal_type> put_value(external_type const& val) {
-		return ToAString(static_cast<int>(val));
-	}
-};
-
-struct ResizePositionMethodTranslator {
-	typedef std::string internal_type;
-	typedef App::ResizePositionMethod external_type;
-	boost::optional<external_type> get_value(internal_type const sval) {
-		auto val = FromAString<int>(sval);
-		if (val < 0 || val > 2) {
-			return App::ResizePositionMethod::PositionNothing;
-		}
-
-		return static_cast<App::ResizePositionMethod>(val);
-	}
-	boost::optional<internal_type> put_value(external_type const& val) {
-		return ToAString(static_cast<int>(val));
-	}
-};
-
-struct KeyboardBindingTranslator {
-	typedef std::string internal_type;
-	typedef Reg::KeyboardBinding external_type;
-	boost::optional<external_type> get_value(internal_type const sval) {
-		Reg::KeyboardBinding binding;
-		binding.Action = App::KeyAction::Undefined;
-		binding.Key = 0;
-
-		std::vector<std::string> strs;
-		boost::split(strs, sval, boost::is_any_of(","));
-		if (strs.size() == 3) {
-			auto keyVal = FromAString<int>(strs[0]);
-			binding.Key = keyVal;
-			binding.Action = App::IdentifierToKeyAction(strs[2]);
-		}
-
-		return binding;
-	}
-	boost::optional<internal_type> put_value(external_type const& val) {
-		std::vector<std::string> parts;
-		parts.push_back(ToAString(val.Key));
-		parts.push_back("?");
-		parts.push_back(App::KeyActionToIdentifier(val.Action));
-
-		return Implode(parts, ",");
-	}
-};
-
-namespace boost{
-	namespace property_tree{
-		template<> struct translator_between<std::string, Intl::Language> { typedef LanguageTranslator type; };
-		template<> struct translator_between<std::string, App::MouseAction> { typedef MouseActionTranslator type; };
-		template<> struct translator_between<std::string, App::ResizeBehaviour> { typedef ResizeBehaviorTranslator type; };
-		template<> struct translator_between<std::string, App::ResizePositionMethod> { typedef ResizePositionMethodTranslator type; };
-		template<> struct translator_between<std::string, Reg::KeyboardBinding> { typedef KeyboardBindingTranslator type; };
-	}
-}
+#include "reg_keyboard_binding_translator.h"
+#include "reg_language_translator.h"
+#include "reg_mouse_action_translator.h"
+#include "reg_resize_behavior_translator.h"
+#include "reg_resize_position_method_translator.h"
 
 namespace Reg {
 	Reg::Settings Load(const std::wstring& name) {
