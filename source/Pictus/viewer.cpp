@@ -521,15 +521,8 @@ namespace App {
 			ZoomMode(m_cfg.View.DefaultZoomMode);
 		}
 		else {
-			ZoomFullSize();
+			ZoomMode(ZoomMode::ZoomFullSize);
 		}
-	}
-
-	void Viewer::ZoomFullSize() {
-		m_viewPort.ZoomMode(App::ZoomFullSize);
-		m_contextMenu.Zoomed(true);
-		ImageChanged();
-		UpdateImageInformation();
 	}
 
 	void Viewer::ZoomMode(App::ZoomMode mode) {
@@ -539,6 +532,7 @@ namespace App {
 				m_contextMenu.FitImage();
 				break;
 
+			case App::ZoomFullSize:
 			case App::ZoomFree:
 				m_contextMenu.Zoomed(true);
 				break;
@@ -546,6 +540,10 @@ namespace App {
 
 		ImageChanged();
 		UpdateImageInformation();
+	}
+
+	void Viewer::ZoomDefault() {
+		ZoomMode(m_cfg.View.DefaultZoomMode);
 	}
 
 	void Viewer::ToggleFullscreenMode() {

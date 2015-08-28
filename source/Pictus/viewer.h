@@ -116,7 +116,7 @@ namespace App {
 		void ZoomIn();
 		void ZoomOut();
 		void ZoomToggleFullSizeDefaultZoom();
-		void ZoomFullSize();
+		void ZoomDefault();
 
 		void UpdateMemoryLimits();
 

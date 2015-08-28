@@ -22,7 +22,7 @@ namespace App {
 		auto row = m_assigned->AddItem(L"", m_currentIndex);
 		m_assigned->ItemColumn(row, 1, L"");
 		m_assigned->ItemColumn(row, 2, Intl::GetWString(SIDUndefined));
-		m_shortcuts[m_currentIndex] = { L'', KeyAction::Undefined };
+		m_shortcuts[m_currentIndex] = { L'', false, false, false, KeyAction::Undefined };
 
 		m_currentIndex++;
 	}

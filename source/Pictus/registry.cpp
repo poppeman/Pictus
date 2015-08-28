@@ -67,13 +67,62 @@ namespace Reg {
 		// TODO: Set up some defaults if no shortcuts are defined.
 		// cfg.Keyboard.
 		int index = 0;
-		while (true) {
+		for (;;) {
 			std::stringstream ss;
 			ss << "Keyboard." << index++;
 			auto inBinding = pt.get_optional<KeyboardBinding>(ss.str());
 			if (!inBinding) break;
 
 			cfg.Keyboard.Bindings.push_back(inBinding.get());
+		}
+		if (cfg.Keyboard.Bindings.empty()) {
+			using App::KeyAction;
+			cfg.Keyboard.Bindings = {
+				// Alt, shift, control
+				{ VK_F2, false, false, false, KeyAction::RenameFile },
+				{ VK_ESCAPE, false, false, false, KeyAction::CloseApplication },
+				{ VK_OEM_PLUS, false, false, false, KeyAction::ZoomIn },
+				{ VK_ADD, false, false, false, KeyAction::ZoomIn },
+				{ VK_NUMPAD0, false, false, false, KeyAction::ZoomIn },
+
+				{ VK_OEM_MINUS, false, false, false, KeyAction::ZoomOut },
+				{ VK_SUBTRACT, false, false, false, KeyAction::ZoomOut },
+				{ VK_NUMPAD1, false, false, false, KeyAction::ZoomOut },
+
+				{ L'0', false, false, false, KeyAction::ZoomDefault },
+				{ L'1', false, false, false, KeyAction::ZoomFull },
+				{ VK_MULTIPLY, false, false, false, KeyAction::ZoomFree },
+
+				{ VK_UP, false, false, false, KeyAction::PanUp },
+				{ VK_DOWN, false, false, false, KeyAction::PanDown },
+				{ VK_LEFT, false, false, false, KeyAction::PanLeft },
+				{ VK_RIGHT, false, false, false, KeyAction::PanRight },
+
+				{ VK_HOME, false, false, false, KeyAction::FirstImage },
+				{ VK_END, false, false, false, KeyAction::LastImage },
+				
+				{ VK_SPACE, false, false, false, KeyAction::NextImage },
+				{ VK_NEXT, false, false, false, KeyAction::NextImage },
+
+				{ VK_SPACE, false, true, false, KeyAction::NextSkipImage },
+				{ VK_NEXT, false, true, false, KeyAction::NextSkipImage },
+				{ VK_RIGHT, true, false, false, KeyAction::NextSkipImage },
+
+				{ VK_BACK, false, false, false, KeyAction::PreviousImage },
+				{ VK_PRIOR, false, false, false, KeyAction::PreviousImage },
+
+				{ VK_BACK, false, true, false, KeyAction::PreviousSkipImage },
+				{ VK_PRIOR, false, true, false, KeyAction::PreviousSkipImage },
+				{ VK_LEFT, true, false, false, KeyAction::PreviousSkipImage },
+
+				{ VK_DELETE, false, false, false, KeyAction::RecycleFile },
+				{ VK_DELETE, false, true, false, KeyAction::DeleteFile },
+				{ VK_DELETE, false, false, true, KeyAction::RemoveImage },
+				
+				{ L'R', false, false, false, KeyAction::RandomImage },
+				{ L'O', false, false, false, KeyAction::OpenSettings },
+				{ VK_RETURN, true, false, false, KeyAction::ToggleFullscreen }
+			};
 		}
 
 		return cfg;

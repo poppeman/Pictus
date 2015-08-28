@@ -72,6 +72,9 @@ namespace Reg {
 
 	struct KeyboardBinding {
 		wchar_t Key;
+		bool Alt;
+		bool Shift;
+		bool Ctrl;
 		App::KeyAction Action;
 	};
 

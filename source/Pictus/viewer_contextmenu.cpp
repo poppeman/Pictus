@@ -45,7 +45,7 @@ namespace App {
 		m_menuMap.AddAction(ID_ZOOM_ZOOMIN, [=]() { v->ZoomIn(); });
 		m_menuMap.AddAction(ID_ZOOM_ZOOMOUT, [=]() { v->ZoomOut(); });
 		m_menuMap.AddAction(ID_ZOOM_FITIMAGE, [=]() { v->ZoomMode(ZoomFitImage); });
-		m_menuMap.AddAction(ID_ZOOM_FULLSIZE, [=]() { v->ZoomFullSize(); });
+		m_menuMap.AddAction(ID_ZOOM_FULLSIZE, [=]() { v->ZoomMode(ZoomFullSize); });
 		m_menuMap.AddAction(ID_SETTINGS, [=]() { v->ShowSettings(); });
 		m_menuMap.AddAction(ID_OPENDIRECTORY, [=]() { v->OpenDirectoryInExplorer(); });
 		m_menuMap.AddAction(ID_ADJUST, [=]() { v->ShowAdjust(); });

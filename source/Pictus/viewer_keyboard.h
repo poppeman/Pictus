@@ -14,15 +14,6 @@ namespace App {
 
 	private:
 		Reg::KeyboardSettings m_cfg;
-
-		//enum Flags {
-		//	Shift = 0x1,
-		//	Alt = 0x2,
-		//	Ctrl = 0x4
-		//};
-
-		//void AddMapping(WPARAM key, KeyActionMap::Function_Type f, bool alt = false, bool shift = false, bool ctrl = false);
-		//void AddMapping(WPARAM key, KeyActionMap::Function_Type f, int flags = 0);
 	};
 }
 

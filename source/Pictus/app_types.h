@@ -44,9 +44,11 @@ namespace App {
 		FirstImage = 16,
 		LastImage = 17,
 		RecycleFile = 18,  // Send file to recycle bin OR delete, with out without confirmation dialog, depending on OS settings.
+		DeleteFile = 19,   // Immediately deletes the file, bypassing any recycle bin.
 		RemoveImage = 19,  // Removes image from rotation, does NOT touch the actual file.
 		ToggleFullscreen = 20,
 		CloseApplication = 21,
+		OpenSettings = 22
 	};
 
 	StringID KeyActionSid(KeyAction action);

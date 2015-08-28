@@ -76,11 +76,11 @@
     <Filter Include="Imaging\Renderer\GDI">
       <UniqueIdentifier>{20404d52-ea0c-4ec8-af9f-cd2f87bcc8eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Settings\Controls">
-      <UniqueIdentifier>{e7e3a60f-8168-4a82-a559-c245ed9f26b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shared\Registry\Translators">
       <UniqueIdentifier>{0ad784a0-de92-4730-819d-a2b7dcfe6865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings\Controls">
+      <UniqueIdentifier>{e7e3a60f-8168-4a82-a559-c245ed9f26b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

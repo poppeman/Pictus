@@ -5,6 +5,7 @@
 #include "ctrl_combobox.h"
 #include "ctrl_listview.h"
 #include "ctrl_keypress.h"
+#include "appreg.h"
 
 namespace App {
 	class SetKeyboard :public App::SettingsPage {
@@ -25,12 +26,7 @@ namespace App {
 		Win::ListView* m_assigned;
 		App::Keypress* m_keypress;
 
-		struct ShortcutEntry {
-			wchar_t Key;
-			KeyAction Action;
-		};
-
-		std::map<LPARAM, ShortcutEntry> m_shortcuts;
+		std::map<LPARAM, Reg::KeyboardBinding> m_shortcuts;
 		LPARAM m_currentIndex;
 	};
 }
