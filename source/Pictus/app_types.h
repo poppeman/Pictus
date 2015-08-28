@@ -51,6 +51,13 @@ namespace App {
 		OpenSettings = 22
 	};
 
+	struct KeyboardPress {
+		wchar_t Key;
+		bool Alt;
+		bool Shift;
+		bool Ctrl;
+	};
+
 	StringID KeyActionSid(KeyAction action);
 
 	std::string KeyActionToIdentifier(KeyAction action);

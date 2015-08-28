@@ -6,8 +6,30 @@
 namespace App {
 	typedef boost::bimap<boost::bimaps::set_of<std::string>, boost::bimaps::set_of<KeyAction>> ActionIdentifierBimap;
 	const ActionIdentifierBimap cg_actionIdentifiers = boost::assign::list_of<ActionIdentifierBimap::relation>
-		( "NextImage", App::KeyAction::NextImage )
-		( "PrevImage", App::KeyAction::PreviousImage );
+		("CloseApplication", KeyAction::CloseApplication)
+		("NextImage", KeyAction::NextImage)
+		("NextSkipImage", KeyAction::NextSkipImage)
+		("PrevImage", KeyAction::PreviousImage)
+		("PrevSkipImage", KeyAction::PreviousSkipImage)
+		("RandomImage", KeyAction::RandomImage)
+		("RenameFile", KeyAction::RenameFile)
+		("RemoveFile", KeyAction::DeleteFile)
+		("RecycleFile", KeyAction::RecycleFile)
+		("RemoveImage", KeyAction::RemoveImage)
+		("OpenSettings", KeyAction::OpenSettings)
+		("PanUp", KeyAction::PanUp)
+		("PanDown", KeyAction::PanDown)
+		("PanLeft", KeyAction::PanLeft)
+		("PanRight", KeyAction::PanRight)
+		("ToggleFullscreen", KeyAction::ToggleFullscreen)
+		("FirstImage", KeyAction::FirstImage)
+		("LastImage", KeyAction::LastImage)
+		("ZoomIn", KeyAction::ZoomIn)
+		("ZoomOut", KeyAction::ZoomOut)
+		("ZoomDefault", KeyAction::ZoomDefault)
+		("ZoomFree", KeyAction::ZoomFree)
+		("ZoomFull", KeyAction::ZoomFull)
+		;
 
 	App::StringID KeyActionSid(KeyAction action) {
 		switch (action) {

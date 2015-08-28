@@ -9,7 +9,7 @@ namespace App {
 
 		owner->OnKeyDown.connect([=](Win::KeyEvent e) {
 			for (auto x : m_cfg.Bindings) {
-				if (x.Key == e.Key && x.Alt == e.AltPressed && x.Shift == e.ShiftPressed && x.Ctrl == e.CtrlPressed) {
+				if (x.Key.Key == e.Key && x.Key.Alt == e.AltPressed && x.Key.Shift == e.ShiftPressed && x.Key.Ctrl == e.CtrlPressed) {
 					switch (x.Action) {
 					case KeyAction::FirstImage:
 						owner->ToStart();

@@ -2,10 +2,13 @@
 #define PICTUS_APP_CTRL_KEYPRESS_H
 
 #include "control.h"
+#include "app_types.h"
 
 namespace App {
 	class Keypress :public Win::Control {
 	public:
+		std::function<void(App::KeyboardPress)> OnNewCombo;
+
 		static Keypress* CreateKeypress(int id, HWND parent);
 
 	protected:

@@ -2,6 +2,7 @@
 #include "registry.h"
 #include "w32_assure_folder.h"
 #include "reg_color_translator.h"
+#include "reg_filter_mode_translator.h"
 #include "reg_keyboard_binding_translator.h"
 #include "reg_language_translator.h"
 #include "reg_mouse_action_translator.h"
@@ -61,10 +62,9 @@ namespace Reg {
 		cfg.View.ResetZoom = pt.get<bool>("Settings.ResetZoom", true);
 		cfg.View.ResizeBehaviour = pt.get<App::ResizeBehaviour>("Settings.ResizeBehaviour", App::ResizeBehaviour::ResizeReduceOnly);
 
-		// TODO: Probably wrong constant here
+		// TODO: Probably wrong constant here, fix that
 		cfg.View.ResizePositionMethod = pt.get<App::ResizePositionMethod>("Settings.ResizePositionMethod", App::ResizePositionMethod::PositionNothing);
 
-		// TODO: Set up some defaults if no shortcuts are defined.
 		// cfg.Keyboard.
 		int index = 0;
 		for (;;) {
@@ -79,67 +79,101 @@ namespace Reg {
 			using App::KeyAction;
 			cfg.Keyboard.Bindings = {
 				// Alt, shift, control
-				{ VK_F2, false, false, false, KeyAction::RenameFile },
-				{ VK_ESCAPE, false, false, false, KeyAction::CloseApplication },
-				{ VK_OEM_PLUS, false, false, false, KeyAction::ZoomIn },
-				{ VK_ADD, false, false, false, KeyAction::ZoomIn },
-				{ VK_NUMPAD0, false, false, false, KeyAction::ZoomIn },
+				{ { VK_F2, false, false, false }, KeyAction::RenameFile },
+				{ { VK_ESCAPE, false, false, false }, KeyAction::CloseApplication },
+				{ { VK_OEM_PLUS, false, false, false }, KeyAction::ZoomIn },
+				{ { VK_ADD, false, false, false }, KeyAction::ZoomIn },
+				{ { VK_NUMPAD0, false, false, false }, KeyAction::ZoomIn },
 
-				{ VK_OEM_MINUS, false, false, false, KeyAction::ZoomOut },
-				{ VK_SUBTRACT, false, false, false, KeyAction::ZoomOut },
-				{ VK_NUMPAD1, false, false, false, KeyAction::ZoomOut },
+				{ { VK_OEM_MINUS, false, false, false }, KeyAction::ZoomOut },
+				{ { VK_SUBTRACT, false, false, false }, KeyAction::ZoomOut },
+				{ { VK_NUMPAD1, false, false, false }, KeyAction::ZoomOut },
 
-				{ L'0', false, false, false, KeyAction::ZoomDefault },
-				{ L'1', false, false, false, KeyAction::ZoomFull },
-				{ VK_MULTIPLY, false, false, false, KeyAction::ZoomFree },
+				{ { L'0', false, false, false }, KeyAction::ZoomDefault },
+				{ { L'1', false, false, false }, KeyAction::ZoomFull },
+				{ { VK_MULTIPLY, false, false, false }, KeyAction::ZoomFree },
 
-				{ VK_UP, false, false, false, KeyAction::PanUp },
-				{ VK_DOWN, false, false, false, KeyAction::PanDown },
-				{ VK_LEFT, false, false, false, KeyAction::PanLeft },
-				{ VK_RIGHT, false, false, false, KeyAction::PanRight },
+				{ { VK_UP, false, false, false }, KeyAction::PanUp },
+				{ { VK_DOWN, false, false, false }, KeyAction::PanDown },
+				{ { VK_LEFT, false, false, false }, KeyAction::PanLeft },
+				{ { VK_RIGHT, false, false, false }, KeyAction::PanRight },
 
-				{ VK_HOME, false, false, false, KeyAction::FirstImage },
-				{ VK_END, false, false, false, KeyAction::LastImage },
+				{ { VK_HOME, false, false, false }, KeyAction::FirstImage },
+				{ { VK_END, false, false, false }, KeyAction::LastImage },
 				
-				{ VK_SPACE, false, false, false, KeyAction::NextImage },
-				{ VK_NEXT, false, false, false, KeyAction::NextImage },
+				{ { VK_SPACE, false, false, false }, KeyAction::NextImage },
+				{ { VK_NEXT, false, false, false }, KeyAction::NextImage },
 
-				{ VK_SPACE, false, true, false, KeyAction::NextSkipImage },
-				{ VK_NEXT, false, true, false, KeyAction::NextSkipImage },
-				{ VK_RIGHT, true, false, false, KeyAction::NextSkipImage },
+				{ { VK_SPACE, false, true, false }, KeyAction::NextSkipImage },
+				{ { VK_NEXT, false, true, false }, KeyAction::NextSkipImage },
+				{ { VK_RIGHT, true, false, false }, KeyAction::NextSkipImage },
 
-				{ VK_BACK, false, false, false, KeyAction::PreviousImage },
-				{ VK_PRIOR, false, false, false, KeyAction::PreviousImage },
+				{ { VK_BACK, false, false, false }, KeyAction::PreviousImage },
+				{ { VK_PRIOR, false, false, false }, KeyAction::PreviousImage },
 
-				{ VK_BACK, false, true, false, KeyAction::PreviousSkipImage },
-				{ VK_PRIOR, false, true, false, KeyAction::PreviousSkipImage },
-				{ VK_LEFT, true, false, false, KeyAction::PreviousSkipImage },
+				{ { VK_BACK, false, true, false }, KeyAction::PreviousSkipImage },
+				{ { VK_PRIOR, false, true, false }, KeyAction::PreviousSkipImage },
+				{ { VK_LEFT, true, false, false }, KeyAction::PreviousSkipImage },
 
-				{ VK_DELETE, false, false, false, KeyAction::RecycleFile },
-				{ VK_DELETE, false, true, false, KeyAction::DeleteFile },
-				{ VK_DELETE, false, false, true, KeyAction::RemoveImage },
+				{ { VK_DELETE, false, false, false }, KeyAction::RecycleFile },
+				{ { VK_DELETE, false, true, false }, KeyAction::DeleteFile },
+				{ { VK_DELETE, false, false, true }, KeyAction::RemoveImage },
 				
-				{ L'R', false, false, false, KeyAction::RandomImage },
-				{ L'O', false, false, false, KeyAction::OpenSettings },
-				{ VK_RETURN, true, false, false, KeyAction::ToggleFullscreen }
+				{ { L'R', false, false, false }, KeyAction::RandomImage },
+				{ { L'O', false, false, false }, KeyAction::OpenSettings },
+				{ { VK_RETURN, true, false, false }, KeyAction::ToggleFullscreen }
 			};
 		}
 
 		return cfg;
 	}
 
-	void Save(const std::wstring& name, const Reg::Settings& data) {
+	void Save(const std::wstring& name, const Reg::Settings& cfg) {
 		std::wstring full_name = assure_folder(name);
 		std::stringstream ss;
 		ss << (char)0xef << (char)0xbb << (char)(0xbf);
 		boost::property_tree::ptree pt;
 
-		return;
+		pt.put("Settings.AutoMemoryLimit", cfg.Cache.DoAutoMemoryLimit);
+		pt.put("Settings.ManualMemoryLimit", cfg.Cache.ManualMemoryLimit);
 
-		/*for (int i = 0; i < Reg::Keys::FinalDWORD; ++i) {
-			std::string name = std::string("Settings.") + c_DWordSettings[i].Name;
-			pt.put<int>(name.c_str(), c_DWordSettings[i].Value);
-		}*/
+		//cfg.Mouse.
+		pt.put("Settings.OnMouseLeft", cfg.Mouse.OnMouseLeft);
+		pt.put("Settings.OnMouseLeftDbl", cfg.Mouse.OnMouseLeftDbl);
+		pt.put("Settings.OnMouseMioddle", cfg.Mouse.OnMouseMiddle);
+		pt.put("Settings.OnMouseMiddleDbl", cfg.Mouse.OnMouseMiddleDbl);
+		pt.put("Settings.OnMouseRight", cfg.Mouse.OnMouseRight);
+		pt.put("Settings.OnMouseRightDbl", cfg.Mouse.OnMouseRightDbl);
+		pt.put("Settings.OnMouseWheelDown", cfg.Mouse.OnMouseWheelDown);
+		pt.put("Settings.OnMouseWheelUp", cfg.Mouse.OnMouseWheelUp);
+
+
+		pt.put("Settings.OnMouseRight", cfg.Mouse.OnMouseRight);
+
+		pt.put("Settings.BackgroundColor", cfg.Render.BackgroundColor);
+		pt.put("Settings.MagFilter", cfg.Render.MagFilter);
+		pt.put("Settings.MinFilter", cfg.Render.MinFilter);
+
+		// cfg.View.
+		pt.put("Settings.AlwaysOnTop", cfg.View.AlwaysOnTop);
+		pt.put("Settings.BrowseWrapAround", cfg.View.BrowseWrapAround);
+		pt.put("Settings.DefaultZoom", cfg.View.DefaultZoomMode);
+		pt.put("Settings.Language", cfg.View.Language);
+		pt.put("Settings.Maximized", cfg.View.Maximized);
+		pt.put("Settings.MultipleInstances", cfg.View.MultipleInstances);
+		pt.put("Settings.ResetPan", cfg.View.ResetPan);
+		pt.put("Settings.ResetZoom", cfg.View.ResetZoom);
+		pt.put("Settings.ResizeBehaviour", cfg.View.ResizeBehaviour);
+
+		// TODO: Probably wrong constant here, fix that
+		pt.put("Settings.ResizePositionMethod", cfg.View.ResizePositionMethod);
+
+		int index = 0;
+		for (auto binding : cfg.Keyboard.Bindings) {
+			std::stringstream ss;
+			ss << "Keyboard." << index++;
+			pt.put(ss.str(), binding);
+		}
 
 		boost::property_tree::ini_parser::write_ini(ss, pt);
 		IO::FileWriter wrt;

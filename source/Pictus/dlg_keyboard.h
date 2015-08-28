@@ -17,6 +17,7 @@ namespace App {
 	private:
 		void AddShortcut();
 		void SetShortcutFunction();
+		void SetShortcutCombo(KeyboardPress kp);
 
 		bool PerformOnInitPage() override;
 		void PerformUpdateFromSettings(const Reg::Settings& settings) override;

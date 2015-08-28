@@ -40,17 +40,15 @@ namespace App {
 				auto wstr = Implode(items, L" + ");
 
 				SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)wstr.c_str());
+
+				if (c != 0 && pEdit->OnNewCombo != nullptr) {
+					pEdit->OnNewCombo({ c, isAlt, isShift, isCtrl });
+				}
+
 				return 0;
 			}
 			case WM_CHAR:
 			{
-				return 0;
-
-				wchar_t c = (wchar_t)wParam;
-				std::wstring wstr;
-				wstr += c;
-
-				SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)wstr.c_str());
 				return 0;
 			}
 		}
@@ -59,7 +57,8 @@ namespace App {
 
 	Keypress::Keypress(int id, HWND hwnd):
 		Control{ id, hwnd },
-		m_prevEditWndProc{ nullptr } {
+		m_prevEditWndProc{ nullptr },
+		OnNewCombo{ nullptr } {
 
 		m_prevEditWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(Handle(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(FilterEditWndProc)));
 	}

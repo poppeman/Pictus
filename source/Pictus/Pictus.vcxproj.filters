@@ -321,6 +321,9 @@
     <ClCompile Include="reg_color_translator.cpp">
       <Filter>Shared\Registry\Translators</Filter>
     </ClCompile>
+    <ClCompile Include="reg_filter_mode_translator.cpp">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlg_about.h">
@@ -568,6 +571,9 @@
       <Filter>Shared\Registry\Translators</Filter>
     </ClInclude>
     <ClInclude Include="reg_color_translator.h">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClInclude>
+    <ClInclude Include="reg_filter_mode_translator.h">
       <Filter>Shared\Registry\Translators</Filter>
     </ClInclude>
   </ItemGroup>
