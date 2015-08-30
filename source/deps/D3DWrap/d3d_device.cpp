@@ -37,8 +37,6 @@ namespace D3D {
 			m_presentParams.BackBufferHeight	= 128;
 		}
 
-		// TODO: Only attempt flip model for Win7 or greater
-		m_presentParams.SwapEffect = D3DSWAPEFFECT_FLIPEX;
 
 #if 1
 		IDirect3DDevice9Ex* pdev = nullptr;
