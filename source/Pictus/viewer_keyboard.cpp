@@ -44,10 +44,10 @@ namespace App {
 					case KeyAction::RandomImage:
 						owner->ImageRandom();
 						break;
-					case KeyAction::RecycleFile:
+					case KeyAction::RecycleCurrentFile:
 						owner->RemoveImage(Viewer::RemoveRecycle);
 						break;
-					case KeyAction::RemoveImage:
+					case KeyAction::RemoveCurrentImage:
 						owner->RemoveImage(Viewer::RemoveOnly);
 						break;
 					case KeyAction::RenameFile:

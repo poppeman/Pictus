@@ -18,42 +18,49 @@ namespace App {
 		m_keypress{ nullptr }
 	{}
 
-	void SetKeyboard::AddShortcut() {
+	int SetKeyboard::AddShortcut() {
 		auto row = m_assigned->AddItem(L"", m_currentIndex);
 		m_assigned->ItemColumn(row, 1, L"");
 		m_assigned->ItemColumn(row, 2, Intl::GetWString(SIDUndefined));
 		m_shortcuts[m_currentIndex] = { { L'', false, false, false }, KeyAction::Undefined };
 
-		m_currentIndex++;
+		return m_currentIndex++;
 	}
 
-	void SetKeyboard::SetShortcutFunction() {
-		auto newFunction = m_functions->GetSelectionData();
+	void SetKeyboard::SetShortcutFunction(App::KeyAction action, int index) {
+		for (auto row = 0; row < m_assigned->Size(); row++) {
+			if (m_assigned->GetItemParam(row) == index) {
+				m_assigned->ItemColumn(row, 2, Intl::GetWString(App::KeyActionSid(action)));
+				m_shortcuts[index].Action = action;
+			}
+		}
+	}
+
+	void SetKeyboard::OnSetShortcutCombo(KeyboardPress kp) {
 		auto row = m_assigned->GetSelectedRow();
 		auto shortcutIndex = m_assigned->GetItemParam(row);
-		auto action = static_cast<App::KeyAction>(newFunction);
 
-		m_assigned->ItemColumn(row, 2, Intl::GetWString(App::KeyActionSid(action)));
-		m_shortcuts[shortcutIndex].Action = action;
+		SetShortcutCombo(kp, shortcutIndex);
 	}
 
-	void SetKeyboard::SetShortcutCombo(KeyboardPress kp) {
-		auto row = m_assigned->GetSelectedRow();
-		auto shortcutIndex = m_assigned->GetItemParam(row);
-		
-		std::wstring tmp;
-		tmp += kp.Key;
-		m_assigned->ItemColumn(row, 0, tmp);
 
-		std::vector<std::wstring> mods;
-		if (kp.Alt) mods.push_back({ L"Alt" });
-		if (kp.Shift) mods.push_back({ L"Shift" });
-		if (kp.Ctrl) mods.push_back({ L"Ctrl" });
-		m_assigned->ItemColumn(row, 1, Implode(mods, L"+"));
+	void SetKeyboard::SetShortcutCombo(KeyboardPress kp, int index) {
+		for (auto row = 0; row < m_assigned->Size(); row++) {
+			if (m_assigned->GetItemParam(row) == index) {
+				auto tmp = GetKeyString(kp.Key);
 
-		m_shortcuts[shortcutIndex].Key = kp;
+				m_assigned->ItemColumn(row, 0, tmp);
+
+				std::vector<std::wstring> mods;
+				if (kp.Alt) mods.push_back({ L"Alt" });
+				if (kp.Shift) mods.push_back({ L"Shift" });
+				if (kp.Ctrl) mods.push_back({ L"Ctrl" });
+				m_assigned->ItemColumn(row, 1, Implode(mods, L"+"));
+
+				m_shortcuts[index].Key = kp;
+			}
+		}
 	}
-
 
 
 	bool SetKeyboard::PerformOnInitPage() {
@@ -69,7 +76,14 @@ namespace App {
 		m_functions->AddItem(SIDActionNextImage, static_cast<DWORD>(KeyAction::NextImage));
 		m_functions->AddItem(SIDActionPrevImage, static_cast<DWORD>(KeyAction::PreviousImage));
 		m_functions->AddItem(SIDRenameFilename, static_cast<DWORD>(KeyAction::RenameFile));
-		m_functions->OnSelectionChanged.connect([this]() { SetShortcutFunction();  });
+		m_functions->OnSelectionChanged.connect([this]() { 
+			auto row = m_assigned->GetSelectedRow();
+			auto index = m_assigned->GetItemParam(row);
+
+			auto newFunction = m_functions->GetSelectionData();
+			auto action = static_cast<App::KeyAction>(newFunction);
+			SetShortcutFunction(action, index);
+		});
 
 		m_assigned = CreateListView(IDC_LIST_KEYBOARD_ASSIGNED);
 		m_assigned->AddColumn(L"Key", 50, 0);
@@ -81,7 +95,7 @@ namespace App {
 
 		m_keypress = Keypress::CreateKeypress(IDC_EDIT_KEYBOARD_KEY, Handle());
 		m_keypress->OnNewCombo = [=](App::KeyboardPress kp) {
-			SetShortcutCombo(kp);
+			OnSetShortcutCombo(kp);
 		};
 
 		SetWindowTheme(m_functions->Handle(), L"Explorer", 0);
@@ -90,7 +104,11 @@ namespace App {
 	}
 
 	void SetKeyboard::PerformUpdateFromSettings(const Reg::Settings& settings) {
-
+		for (auto binding : settings.Keyboard.Bindings) {
+			auto index = AddShortcut();
+			SetShortcutCombo(binding.Key, index);
+			SetShortcutFunction(binding.Action, index);
+		}
 	}
 
 	void SetKeyboard::onWriteSettings(Reg::Settings& settings) {

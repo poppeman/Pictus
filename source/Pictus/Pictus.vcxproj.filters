@@ -589,12 +589,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="keys_dword.inc">
-      <Filter>Shared</Filter>
-    </None>
-    <None Include="lang_sids.inc">
-      <Filter>Shared</Filter>
-    </None>
     <None Include="lang_table.inc">
       <Filter>Shared</Filter>
     </None>

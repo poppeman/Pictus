@@ -115,9 +115,9 @@ namespace Reg {
 				{ { VK_PRIOR, false, true, false }, KeyAction::PreviousSkipImage },
 				{ { VK_LEFT, true, false, false }, KeyAction::PreviousSkipImage },
 
-				{ { VK_DELETE, false, false, false }, KeyAction::RecycleFile },
-				{ { VK_DELETE, false, true, false }, KeyAction::DeleteFile },
-				{ { VK_DELETE, false, false, true }, KeyAction::RemoveImage },
+				{ { VK_DELETE, false, false, false }, KeyAction::RecycleCurrentFile },
+				{ { VK_DELETE, false, true, false }, KeyAction::DeleteCurrentFile },
+				{ { VK_DELETE, false, false, true }, KeyAction::RemoveCurrentImage },
 				
 				{ { L'R', false, false, false }, KeyAction::RandomImage },
 				{ { L'O', false, false, false }, KeyAction::OpenSettings },

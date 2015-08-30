@@ -380,8 +380,6 @@
     <ResourceCompile Include="res_viewer.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="keys_dword.inc" />
-    <None Include="lang_sids.inc" />
     <None Include="lang_table.inc" />
     <None Include="values_dword.inc" />
     <ResourceCompile Include="version.rc" />

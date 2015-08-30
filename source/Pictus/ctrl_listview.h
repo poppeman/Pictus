@@ -19,6 +19,7 @@ namespace Win {
 
 		int GetSelectedRow() const;
 		LPARAM GetItemParam(int row) const;
+		int Size() const;
 
 		void Check(size_t index, bool doCheck);
 		bool IsChecked(size_t index);

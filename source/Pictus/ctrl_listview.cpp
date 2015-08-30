@@ -65,6 +65,10 @@ namespace Win {
 		return lvi.lParam;
 	}
 
+	int ListView::Size() const {
+		return ListView_GetItemCount(Handle());
+	}
+
 	void ListView::Check(size_t index, bool doCheck) {
 		ListView_SetCheckState(Handle(), index, doCheck);
 	}
