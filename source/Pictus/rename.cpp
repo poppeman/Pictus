@@ -11,12 +11,12 @@ namespace App {
 		CreateButton(IDCANCEL)->OnClick.connect([this]() { OnCancel(); });
 
 		m_filename = CreateEditBox(IDC_EDIT_RENAME_NAME);
-		m_filename->Filterchars(Win::EditBox::FilterInvalidFilename, SIDRenameInvalid);
+		m_filename->Filterchars(Win::EditBox::FilterInvalidFilename, SIDRenameInvalidChars);
 		m_filename->Text(m_name);
 
 		// Apply language
-		Caption(SIDRenameWindow);
-		ControlText(IDC_TEXT_RENAME_FILENAME, SIDRenameFilename);
+		Caption(SIDRename);
+		ControlText(IDC_TEXT_RENAME_FILENAME, SIDRenameNewFilename);
 		SendMessage(Handle(), WM_NEXTDLGCTL, (WPARAM)GetDlgItem(Handle(), IDC_EDIT_RENAME_NAME), true);
 		SendDlgItemMessage(Handle(), IDC_EDIT_RENAME_NAME, EM_SETSEL, 0, -1);
 

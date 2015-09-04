@@ -9,17 +9,11 @@ namespace Intl {
 
 	auto m_currLang = Language::English;
 
-	// Make sure no identifiers are valid by default
-	int m_minID  = 1;
-	int m_maxID  = 0;
-
 	// TODO: Replace this garbage
 	const TableEntry* m_pTable = 0;
 
-	void LanguageTable(_In_ const TableEntry* pTable, _In_ int minID, _In_ int maxID) {
+	void LanguageTable(_In_ const TableEntry* pTable) {
 		m_pTable	= pTable;
-		m_minID		= minID;
-		m_maxID		= maxID;
 	}
 
 	void CurrentLanguage(_In_ const Language& lang) {
@@ -42,9 +36,6 @@ namespace Intl {
 	}
 
 	_Ret_z_ PCWSTR GetWStringLang(_In_ int id, _In_ Language lang) {
-		if ((id < m_minID) || (id > m_maxID)) {
-			DO_THROW(Err::CriticalError, TX("Invalid string identifier requested."));
-		}
 		if (lang >= Language::Undefined) {
 			DO_THROW(Err::CriticalError, TX("Invalid language identifier requested."));
 		}

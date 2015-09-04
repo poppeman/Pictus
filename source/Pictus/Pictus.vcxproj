@@ -215,6 +215,12 @@
     <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
     <ClCompile Include="gdiwrapper.cpp" />
+    <ClCompile Include="lang_val.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="reg_color_translator.cpp" />
     <ClCompile Include="reg_filter_mode_translator.cpp" />
     <ClCompile Include="reg_keyboard_binding_translator.cpp" />
@@ -298,6 +304,8 @@
     <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
     <ClInclude Include="gdiwrapper.h" />
+    <ClInclude Include="lang_enum.h" />
+    <ClInclude Include="lang_val.h" />
     <ClInclude Include="reg_color_translator.h" />
     <ClInclude Include="reg_filter_mode_translator.h" />
     <ClInclude Include="reg_keyboard_binding_translator.h" />
@@ -380,7 +388,22 @@
     <ResourceCompile Include="res_viewer.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lang_table.inc" />
+    <None Include="lang_convert.py" />
+    <CustomBuild Include="Res\lang.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">python lang_convert.py</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lang_val.cpp;lang_val.h;lang_enum.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">python lang_convert.py</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lang_val.cpp;lang_val.h;lang_enum.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">python lang_convert.py</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">lang_val.cpp;lang_val.h;lang_enum.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">python lang_convert.py</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">lang_val.cpp;lang_val.h;lang_enum.h</Outputs>
+    </CustomBuild>
     <None Include="values_dword.inc" />
     <ResourceCompile Include="version.rc" />
     <None Include="Res\cursor_app_pan2.cur" />

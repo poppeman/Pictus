@@ -9,37 +9,37 @@ namespace App {
 	void ViewerContextMenu::Construct(Viewer* v) {
 		m_viewer = v;
 
-		m_menu.AddItem(ID_OPEN, SIDOpen);
-		Menu::Ptr pZoom(m_menu.AddSubMenu(SIDZoom));
-		pZoom->AddItem(ID_ZOOM_FITIMAGE, SIDZoomFitImage);
-		pZoom->AddItem(ID_ZOOM_FULLSIZE, SIDZoomFullSize);
+		m_menu.AddItem(ID_OPEN, SIDMenuOpen);
+		Menu::Ptr pZoom(m_menu.AddSubMenu(SIDMenuZoom));
+		pZoom->AddItem(ID_ZOOM_FITIMAGE, SIDActionZoomFitImage);
+		pZoom->AddItem(ID_ZOOM_FULLSIZE, SIDActionZoomFullSize);
 		pZoom->AddMenuSeparator();
-		pZoom->AddItem(ID_ZOOM_ZOOMIN, SIDMenuZoomIn);
-		pZoom->AddItem(ID_ZOOM_ZOOMOUT, SIDMenuZoomOut);
+		pZoom->AddItem(ID_ZOOM_ZOOMIN, SIDActionZoomIn);
+		pZoom->AddItem(ID_ZOOM_ZOOMOUT, SIDActionZoomOut);
 
-		Menu::Ptr pRot(m_menu.AddSubMenu(SIDOrientation));
-		pRot->AddItem(ID_ROTATE_DEFAULT, SIDOrientationDefault);
-		pRot->AddItem(ID_ROTATE_FLIPX, SIDOrientationFlipX);
-		pRot->AddItem(ID_ROTATE_FLIPY, SIDOrientationFlipY);
-		pRot->AddItem(ID_ROTATE_90, SIDOrientation90);
-		pRot->AddItem(ID_ROTATE_180, SIDOrientation180);
-		pRot->AddItem(ID_ROTATE_270, SIDOrientation270);
+		Menu::Ptr pRot(m_menu.AddSubMenu(SIDMenuOrientation));
+		pRot->AddItem(ID_ROTATE_DEFAULT, SIDMenuOrientationNoRotation);
+		pRot->AddItem(ID_ROTATE_FLIPX, SIDMenuOrientationMirror);
+		pRot->AddItem(ID_ROTATE_FLIPY, SIDMenuOrientationFlip);
+		pRot->AddItem(ID_ROTATE_90, SIDMenuOrientationRotate90);
+		pRot->AddItem(ID_ROTATE_180, SIDMenuOrientationRotate180);
+		pRot->AddItem(ID_ROTATE_270, SIDMenuOrientationRotate270);
 
-		Menu::Ptr pSort(m_menu.AddSubMenu(SIDMenuSort));
-		pSort->AddItem(ID_SORT_FILENAME, SIDMenuSortFilename);
-		pSort->AddItem(ID_SORT_DATEMODIFIED, SIDMenuSortDateModified);
-		pSort->AddItem(ID_SORT_DATEACCESSED, SIDMenuSortDateAccessed);
-		pSort->AddItem(ID_SORT_DATECREATED, SIDMenuSortDateCreated);
+		Menu::Ptr pSort(m_menu.AddSubMenu(SIDMenuSortBy));
+		pSort->AddItem(ID_SORT_FILENAME, SIDMenuSortByFilename);
+		pSort->AddItem(ID_SORT_DATEMODIFIED, SIDMenuSortByDateModified);
+		pSort->AddItem(ID_SORT_DATEACCESSED, SIDMenuSortByDateAccessed);
+		pSort->AddItem(ID_SORT_DATECREATED, SIDMenuSortByDateCreated);
 
-		Menu::Ptr pWall(m_menu.AddSubMenu(SIDSetWallpaper));
-		pWall->AddItem(ID_SETWALLPAPER_STRETCH, SIDWPStretch);
-		pWall->AddItem(ID_SETWALLPAPER_CENTER, SIDWPCenter);
-		pWall->AddItem(ID_SETWALLPAPER_TILE, SIDWPTile);
+		Menu::Ptr pWall(m_menu.AddSubMenu(SIDMenuSetWallpaper));
+		pWall->AddItem(ID_SETWALLPAPER_STRETCH, SIDMenuSetWallpaperStretch);
+		pWall->AddItem(ID_SETWALLPAPER_CENTER, SIDMenuSetWallpaperCenter);
+		pWall->AddItem(ID_SETWALLPAPER_TILE, SIDMenuSetWallpaperTile);
 
-		m_menu.AddItem(ID_OPENDIRECTORY, SIDOpenDirectory);
-		m_menu.AddItem(ID_ADJUST, SIDAdjust);
+		m_menu.AddItem(ID_OPENDIRECTORY, SIDMenuShowExplorer);
+		m_menu.AddItem(ID_ADJUST, SIDMenuAdjust);
 		m_menu.AddItem(ID_RENAME, SIDMenuRename);
-		m_menu.AddItem(ID_SETTINGS, SIDSettings);
+		m_menu.AddItem(ID_SETTINGS, SIDMenuSettings);
 
 		m_menuMap.AddAction(ID_OPEN, [=]() { v->OpenFolder(); });
 		m_menuMap.AddAction(ID_ZOOM_ZOOMIN, [=]() { v->ZoomIn(); });

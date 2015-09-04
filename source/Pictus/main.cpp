@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "main.h"
 #include "viewer.h"
-#include "lang_table.inc"
+#include "lang_val.h"
 #include "registry.h"
 #include "config.h"
 #include "illa/codecmgr.h"
@@ -27,7 +27,7 @@ int start_app(const std::wstring& params) {
 		// TODO: Control logging by some other mechanism, such as an .ini setting
 		//Log.SetOutput(assure_folder(App::cg_RunLogLocation));
 
-		Intl::LanguageTable(c_lang_strings, 0, App::FinalSID-1);
+		Intl::LanguageTable(c_lang_strings);
 		Intl::CurrentLanguage(cfg.View.Language);
 
 		App::Viewer viewer(&cfs, cfg, params.c_str());

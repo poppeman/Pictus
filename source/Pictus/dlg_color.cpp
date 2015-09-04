@@ -18,19 +18,19 @@ namespace App {
 	}
 
 	bool SetColor::PerformOnInitPage() {
-		Caption(App::SIDBackgroundColor);
+		Caption(App::SIDSettingsBackgroundColor);
 
-		ControlText(IDC_GROUP_COLOR_PREVIEW, SIDGroupPreview);
-		ControlText(IDC_GROUP_COLOR_RGB, SIDGroupRGB);
-		ControlText(IDC_GROUP_COLOR_HLS, SIDGroupHLS);
+		ControlText(IDC_GROUP_COLOR_PREVIEW, SIDSettingsBackgroundColorPreview);
+		ControlText(IDC_GROUP_COLOR_RGB, SIDSettingsBackgroundColorRGB);
+		ControlText(IDC_GROUP_COLOR_HLS, SIDSettingsBackgroundColorHLS);
 
-		ControlText(IDC_TEXT_COLOR_SAT_SLIDER, SIDSatSlider);
-		ControlText(IDC_TEXT_COLOR_R, SIDR);
-		ControlText(IDC_TEXT_COLOR_G, SIDG);
-		ControlText(IDC_TEXT_COLOR_B, SIDB);
-		ControlText(IDC_TEXT_COLOR_HUE, SIDH);
-		ControlText(IDC_TEXT_COLOR_LUM, SIDL);
-		ControlText(IDC_TEXT_COLOR_SAT, SIDS);
+		ControlText(IDC_TEXT_COLOR_SAT_SLIDER, SIDSettingsBackgroundColorSaturation);
+		ControlText(IDC_TEXT_COLOR_R, SIDSettingsBackgroundColorRed);
+		ControlText(IDC_TEXT_COLOR_G, SIDSettingsBackgroundColorGreen);
+		ControlText(IDC_TEXT_COLOR_B, SIDSettingsBackgroundColorBlue);
+		ControlText(IDC_TEXT_COLOR_HUE, SIDSettingsBackgroundColorHue);
+		ControlText(IDC_TEXT_COLOR_LUM, SIDSettingsBackgroundColorLuminance);
+		ControlText(IDC_TEXT_COLOR_SAT, SIDSettingsBackgroundColorSaturation);
 
 		// Initialize trackbar for saturation
 		SendDlgItemMessage(Handle(), IDC_SLIDER_LUM, TBM_SETRANGE, 1, MAKELONG(0, Img::SatCap * 100));

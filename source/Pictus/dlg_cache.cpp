@@ -11,13 +11,13 @@ namespace App {
 	bool SetPageCache::PerformOnInitPage() {
 		CreateButton(IDC_AUTOMEM)->OnClick.connect([this]() { UpdateControls(); });
 
-		Caption(SIDCache);
-		ControlText(IDC_GROUP_MEMORY, SIDGroupCache);
-		ControlText(IDC_AUTOMEM, SIDAutoMemLimit);
-		ControlText(IDC_MEM_MB, SIDMBytes);
+		Caption(SIDSettingsCache);
+		ControlText(IDC_GROUP_MEMORY, SIDSettingsCache);
+		ControlText(IDC_AUTOMEM, SIDSettingsCacheAutomaticLimit);
+		ControlText(IDC_MEM_MB, SIDUnitMB);
 
 		m_cacheSize = CreateEditBox(IDC_MEMLIMIT);
-		m_cacheSize->Filterchars(EditBox::FilterNotNumerical, SIDNumericalInvalid);
+		m_cacheSize->Filterchars(EditBox::FilterNotNumerical, SIDErrorOnlyNumeric);
 		UpdateControls();
 
 		return true;
@@ -47,6 +47,6 @@ namespace App {
 
 
 	SetPageCache::SetPageCache():
-		App::SettingsPage(IDD_SET_MEMORY)
+		App::SettingsPage{ IDD_SET_MEMORY }
 	{}
 }

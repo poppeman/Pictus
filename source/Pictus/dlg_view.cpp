@@ -14,36 +14,36 @@ namespace App {
 
 	bool SetView::PerformOnInitPage() {
 		CreateButton(IDC_SIZETOIMAGE)->OnClick.connect([this]() { ToggleResizeWindow(); });
-		Caption(App::SIDViewer);
+		Caption(App::SIDSettingsViewer);
 
 		m_cbDefaultZoom = CreateComboBox(IDC_COMBO_VIEWER_DEFAULTZOOM);
 		m_cbResizeBehavior = CreateComboBox(IDC_COMBO_VIEWER_RESIZEBEHAVIOUR);
 		m_cbMinFilter = CreateComboBox(IDC_COMBO_MIN);
 		m_cbMagFilter = CreateComboBox(IDC_COMBO_MAG);
 
-		ControlText(IDC_GROUP_ZOOMING, SIDZoom);
-		ControlText(IDC_GROUP_MAG, SIDGroupMagnification);
-		ControlText(IDC_GROUP_MIN, SIDGroupMinification);
-		ControlText(IDC_GROUP_VIEWER, SIDGroupViewer);
-		ControlText(IDC_RESETZOOM, SIDResetZoom);
-		ControlText(IDC_RESETPAN, SIDResetPan);
-		ControlText(IDC_SIZETOIMAGE, SIDResizeWindow);
-		ControlText(IDC_SIZETO_SCREEN, SIDWindowCenterScreen);
-		ControlText(IDC_SIZETO_CURRENT, SIDWindowCenterCurrent);
-		ControlText(IDC_SIZETO_NOTHING, SIDWindowNoReposition);
-		ControlText(IDC_CHECK_VIEWER_WRAPAROUND, SIDWrapAround);
+		ControlText(IDC_GROUP_ZOOMING, SIDSettingsViewerZoom);
+		ControlText(IDC_GROUP_MAG, SIDSettingsViewerMagnification);
+		ControlText(IDC_GROUP_MIN, SIDSettingsViewerMinification);
+		ControlText(IDC_GROUP_VIEWER, SIDSettingsViewer);
+		ControlText(IDC_RESETZOOM, SIDSettingsViewerResetZoom);
+		ControlText(IDC_RESETPAN, SIDSettingsViewerResetPan);
+		ControlText(IDC_SIZETOIMAGE, SIDSettingsViewerAdaptWindowSize);
+		ControlText(IDC_SIZETO_SCREEN, SIDSettingsViewerCenterScreen);
+		ControlText(IDC_SIZETO_CURRENT, SIDSettingsViewerCenterPosition);
+		ControlText(IDC_SIZETO_NOTHING, SIDSettingsViewerNoReposition);
+		ControlText(IDC_CHECK_VIEWER_WRAPAROUND, SIDSettingsViewerWrapAround);
 
-		ControlText(IDC_GROUP_VIEWER_DEFAULTZOOM, SIDGroupZM);
+		ControlText(IDC_GROUP_VIEWER_DEFAULTZOOM, SIDSettingsViewerDefaultZoomMode);
 
 		m_cbDefaultZoom->Reset();
-		m_cbDefaultZoom->AddItem(SIDZoomFullSize, ZoomFree);
-		m_cbDefaultZoom->AddItem(SIDZoomFitImage, ZoomFitImage);
+		m_cbDefaultZoom->AddItem(SIDActionZoomFree, ZoomFree);
+		m_cbDefaultZoom->AddItem(SIDActionZoomFitImage, ZoomFitImage);
 
-		ControlText(IDC_GROUP_VIEWER_RESIZEBEHAVIOUR, SIDGroupRM);
+		ControlText(IDC_GROUP_VIEWER_RESIZEBEHAVIOUR, SIDSettingsViewerResizeBehavior);
 		m_cbResizeBehavior->Reset();
-		m_cbResizeBehavior->AddItem(SIDRMBoth, ResizeEnlargeOrReduce);
-		m_cbResizeBehavior->AddItem(SIDRMEnlargeOnly, ResizeEnlargeOnly);
-		m_cbResizeBehavior->AddItem(SIDRMReduceOnly, ResizeReduceOnly);
+		m_cbResizeBehavior->AddItem(SIDSettingsViewerReduceOrEnlarge, ResizeEnlargeOrReduce);
+		m_cbResizeBehavior->AddItem(SIDSettingsViewerEnlargeOnly, ResizeEnlargeOnly);
+		m_cbResizeBehavior->AddItem(SIDSettingsViewerReduceOnly, ResizeReduceOnly);
 
 		SetupFilterBox(m_cbMagFilter);
 
@@ -114,9 +114,9 @@ namespace App {
 
 	void SetView::SetupFilterBox(Win::ComboBox* ctrl) {
 		ctrl->Reset(); //SendDlgItemMessage(Handle(), id, CB_RESETCONTENT, 0, 0); 
-		ctrl->AddItem(SIDFilterNearestNeighbor, static_cast<int>(Filter::Mode::NearestNeighbor));
-		ctrl->AddItem(SIDFilterBilinear, static_cast<int>(Filter::Mode::Bilinear));
-		ctrl->AddItem(SIDFilterLanczos3, static_cast<int>(Filter::Mode::Lanczos3));
+		ctrl->AddItem(SIDResampleModeNearestNeighbor, static_cast<int>(Filter::Mode::NearestNeighbor));
+		ctrl->AddItem(SIDResampleModeBilinear, static_cast<int>(Filter::Mode::Bilinear));
+		ctrl->AddItem(SIDResampleModeLanczos3, static_cast<int>(Filter::Mode::Lanczos3));
 	}
 
 	SetView::SetView():

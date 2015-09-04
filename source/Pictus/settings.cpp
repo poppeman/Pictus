@@ -21,10 +21,10 @@ namespace App {
 	using Geom::PointInt;
 
 	void Settings::PerformOnCreate() {
-		Caption(SIDSettingsWindow);
-		ControlText(IDOK, SIDOK);
-		ControlText(IDCANCEL, SIDCancel);
-		ControlText(IDC_APPLY, SIDApply);
+		Caption(SIDSettings);
+		ControlText(IDOK, SIDDialogOK);
+		ControlText(IDCANCEL, SIDDialogCancel);
+		ControlText(IDC_APPLY, SIDDialogApply);
 
 		CreateButton(IDOK)->OnClick.connect([this]() { OnOk(); });
 		CreateButton(IDC_APPLY)->OnClick.connect([this]() { OnApply(); });

@@ -19,13 +19,13 @@ namespace App {
 		CreateButton(IDC_BUTTON_ADJUST_DEFAULT)->OnClick.connect(defaultFunc);
 
 		Caption(SIDAdjust);
-		ControlText(IDC_GROUP_ADJUST_BRIGHTNESS, SIDGroupBrightness);
-		ControlText(IDC_GROUP_ADJUST_CONTRAST, SIDGroupContrast);
-		ControlText(IDC_GROUP_ADJUST_GAMMA, SIDGroupGamma);
-		ControlText(IDC_CHECK_ADJUST_AUTOPROOF, SIDAutoProof);
-		ControlText(IDC_BUTTON_ADJUST_APPLY, SIDApply);
-		ControlText(IDC_BUTTON_ADJUST_CLOSE, SIDClose);
-		ControlText(IDC_BUTTON_ADJUST_DEFAULT, SIDDefault);
+		ControlText(IDC_GROUP_ADJUST_BRIGHTNESS, SIDAdjustBrightness);
+		ControlText(IDC_GROUP_ADJUST_CONTRAST, SIDAdjustContrast);
+		ControlText(IDC_GROUP_ADJUST_GAMMA, SIDAdjustGamma);
+		ControlText(IDC_CHECK_ADJUST_AUTOPROOF, SIDAdjustAutoApply);
+		ControlText(IDC_BUTTON_ADJUST_APPLY, SIDDialogApply);
+		ControlText(IDC_BUTTON_ADJUST_CLOSE, SIDDialogClose);
+		ControlText(IDC_BUTTON_ADJUST_DEFAULT, SIDAdjustDefault);
 
 		SendDlgItemMessage(Handle(), IDC_SLIDER_ADJUST_BRIGHTNESS, TBM_SETRANGE, 1, MAKELONG(Img::MinBrightness, Img::MaxBrightness));
 		//SendDlgItemMessage(Handle(), IDC_SLIDER_ADJUST_BRIGHTNESS, TBM_SETPAGESIZE, 0, (MaxBrightness-MinBrightness)/100);
@@ -78,7 +78,9 @@ namespace App {
 		return static_cast<int>(SendDlgItemMessage(Handle(), IDC_SLIDER_ADJUST_GAMMA, TBM_GETPOS, 0, 0));
 	}
 
-	Adjust::Adjust():Win::Dialog(IDD_ADJUST) {}
+	Adjust::Adjust():
+		Win::Dialog{ IDD_ADJUST }
+	{}
 
 	bool Adjust::isAutoProof() {
 		return GetCheckBox(IDC_CHECK_ADJUST_AUTOPROOF);

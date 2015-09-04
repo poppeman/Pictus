@@ -127,6 +127,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bitconvert.h" />
+    <ClInclude Include="intl_language.h" />
+    <ClInclude Include="intl_table_entry.h" />
     <ClInclude Include="orz_math.h" />
     <ClInclude Include="stopwatch.h" />
     <ClInclude Include="streamconv.h" />

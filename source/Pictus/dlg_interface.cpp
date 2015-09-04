@@ -5,11 +5,11 @@
 
 namespace App {
 	bool SetInterface::PerformOnInitPage() {
-		Caption(App::SIDInterface);
+		Caption(App::SIDSettingsInterface);
 
-		ControlText(IDC_GROUP_INTERFACE_STATUSBAR, SIDGroupStatusBar);
-		ControlText(IDC_CHECK_INTERFACE_SHOWSTATUSBAR, SIDShowStatusBar);
-		ControlText(IDC_CHECK_INTERFACE_ALWAYSONTOP, SIDAlwaysOnTop);
+		ControlText(IDC_GROUP_INTERFACE_STATUSBAR, SIDSettingsInterfaceStatusBar);
+		ControlText(IDC_CHECK_INTERFACE_SHOWSTATUSBAR, SIDSettingsInterfaceShowStatusBar);
+		ControlText(IDC_CHECK_INTERFACE_ALWAYSONTOP, SIDSettingsInterfaceAlwaysOnTop);
 		return true;
 	}
 
@@ -24,7 +24,7 @@ namespace App {
 	}
 
 	SetInterface::SetInterface():
-		App::SettingsPage(IDD_SET_INTERFACE)
+		App::SettingsPage{ IDD_SET_INTERFACE }
 	{}
 
 	bool SetInterface::IsRootPage() const {

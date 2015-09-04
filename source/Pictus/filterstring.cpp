@@ -8,7 +8,7 @@ namespace App {
 	FilterString::FilterString(Img::CodecFactoryStore* store):m_store(store) {}
 
 	const std::wstring FilterString::GetFilterString() {
-		std::wstring filterString = TX("");
+		std::wstring filterString = L"";
 		std::wstring match_all;
 		std::wstring pretty_filter;
 
@@ -19,25 +19,25 @@ namespace App {
 			const Img::CodecFactoryStore::Info::ExtensionVector& exts=curr.Extensions;
 			bool first = true;
 
-			pretty_filter += curr.Description+TX(" (");
+			pretty_filter += curr.Description+L" (";
 
 			std::wstring filters;
 
 			for (size_t j = 0; j < exts.size(); j++) {
-				if (first == false) filters += TX(";");
-				if (match_all != TX("")) match_all += TX(";");
+				if (first == false) filters += L";";
+				if (match_all != L"") match_all += L";";
 
-				match_all	+= TX("*.") + exts[j];
-				filters		+= TX("*.") + exts[j];
+				match_all += L"*." + exts[j];
+				filters += L"*." + exts[j];
 			}
-			pretty_filter+=filters+TX(")|")+filters+TX("|");
+			pretty_filter += filters + L")|" + filters + L"|";
 		}
-		pretty_filter += std::wstring(Intl::GetWString(App::SIDAllImages)) + TX(" (") + match_all + TX(")|") + match_all + TX("||");
+		pretty_filter += std::wstring(Intl::GetWString(App::SIDOpenAllImages)) + L" (" + match_all + L")|" + match_all + L"||";
 
 		filterString.resize(pretty_filter.size());
 
 		for (size_t i = 0; i < pretty_filter.length(); i++)
-			filterString[i] = ((pretty_filter[i] == TX('|')) ? 0 : pretty_filter[i]);
+			filterString[i] = ((pretty_filter[i] == L'|') ? 0 : pretty_filter[i]);
 
 		return filterString;
 	}

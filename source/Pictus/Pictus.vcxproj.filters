@@ -324,6 +324,9 @@
     <ClCompile Include="reg_filter_mode_translator.cpp">
       <Filter>Shared\Registry\Translators</Filter>
     </ClCompile>
+    <ClCompile Include="lang_val.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlg_about.h">
@@ -576,6 +579,12 @@
     <ClInclude Include="reg_filter_mode_translator.h">
       <Filter>Shared\Registry\Translators</Filter>
     </ClInclude>
+    <ClInclude Include="lang_enum.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="lang_val.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res_settings.rc">
@@ -589,9 +598,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lang_table.inc">
-      <Filter>Shared</Filter>
-    </None>
     <None Include="values_dword.inc">
       <Filter>Shared</Filter>
     </None>
@@ -607,6 +613,7 @@
     <None Include="PictInst64.iss">
       <Filter>Installer</Filter>
     </None>
+    <None Include="lang_convert.py" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="Pictus.exe.manifest">
@@ -623,5 +630,10 @@
     <Image Include="Res\thumbtoolbar96.bmp">
       <Filter>Resources\Bitmaps</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Res\lang.json">
+      <Filter>Resources</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

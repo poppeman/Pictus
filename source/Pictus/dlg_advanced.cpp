@@ -7,8 +7,8 @@ namespace App {
 	using namespace Intl;
 
 	bool SetAdvanced::PerformOnInitPage() {
-		Caption(SIDAdvanced);
-		ControlText(IDC_MULT_INSTANCE, SIDMultiInstance);
+		Caption(SIDSettingsAdvanced);
+		ControlText(IDC_MULT_INSTANCE, SIDSettingsAdvancedAllowMultipleInstances);
 		return true;
 	}
 
@@ -20,5 +20,7 @@ namespace App {
 		settings.View.MultipleInstances = GetCheckBox(IDC_MULT_INSTANCE);
 	}
 
-	SetAdvanced::SetAdvanced():App::SettingsPage(IDD_SET_ADVANCED) {}
+	SetAdvanced::SetAdvanced():
+		App::SettingsPage{ IDD_SET_ADVANCED }
+	{}
 }

@@ -1,0 +1,584 @@
+{
+	"Invalid": {
+		"en": "?",
+		"sv": "?"
+	},
+	"CurrentLanguage": {
+		"en": "English",
+		"sv": "Svenska"
+	},
+	"Open": {
+		"en": "Open",
+		"sv": "Öppna",
+		"AllImages": {
+			"en": "All Images",
+			"sv": "Alla bilder"
+		}
+	},
+	"Menu": {
+		"Open": {
+			"en": "Open...",
+			"sv": "Öppna..."
+		},
+		"Zoom": {
+			"en": "Zoom",
+			"sv": "Zooma"
+		},
+		"Orientation": {
+			"en": "Orientation",
+			"sv": "Orientation",
+			"NoRotation": {
+				"en": "No rotation",
+				"sv": "Ingen rotation"
+			},
+			"Mirror": {
+				"en": "Mirror",
+				"sv": "Spegla"
+			},
+			"Flip": {
+				"en": "Flip",
+				"sv": "Vänd"
+			},
+			"Rotate90": {
+				"en": "Rotate 90 degrees",
+				"sv": "Rotera 90 grader"
+			},
+			"Rotate180": {
+				"en": "Rotate 180 degrees",
+				"sv": "Rotera 180 grader"
+			},
+			"Rotate270": {
+				"en": "Rotate 270 degrees",
+				"sv": "Rotera 270 grader"
+			}
+		},
+		"SortBy": {
+			"en": "Sort by",
+			"sv": "Sortera efter",
+			"Filename": {
+				"en": "Filename",
+				"sv": "Filnamn"
+			},
+			"DateCreated": {
+				"en": "Date created",
+				"sv": "Datum skapad"
+			},
+			"DateAccessed": {
+				"en": "Date accessed",
+				"sv": "Datum öppnad"
+			},
+			"DateModified": {
+				"en": "Date modified",
+				"sv": "Datum modifierad"
+			}
+		},
+		"SetWallpaper": {
+			"en": "Set wallpaper",
+			"sv": "Skrivbordsbakgrund",
+			"Stretch": {
+				"en": "Stretch",
+				"sv": "Utsträckt"
+			},
+			"Center": {
+				"en": "Center",
+				"sv": "Centrerad"
+			},
+			"Tile": {
+				"en": "Tile",
+				"sv": "Sida vid sida"
+			}
+		},
+		"ShowExplorer": {
+			"en": "Show in Explorer",
+			"sv": "Visa i Utforskaren"
+		},
+		"Adjust": {
+			"en": "Adjust image...",
+			"sv": "Justera bild..."
+		},
+		"Settings": {
+			"en": "Settings...",
+			"sv": "Inställningar..."
+		},
+		"Rename": {
+			"en": "Rename...",
+			"sv": "Byt filnamn..."
+		}
+	},
+	"Statusbar" : {
+		"LoadTime": {
+			"en": "Loaded in: %s s",
+			"sv": "Laddad efter: %s s"
+		},
+		"LoadError": {
+			"en": "Error loading image",
+			"sv": "Kunde ej läsa bild"
+		},
+		"Loading": {
+			"en": "Loading...",
+			"sv": "Laddar..."
+		}
+	},
+	"Adjust": {
+		"en": "Adjust image",
+		"sv": "Justera bild",
+		"Brightness": {
+			"en": "Brightness",
+			"sv": "Ljusstyrka"
+		},
+		"Contrast": {
+			"en": "Contrast",
+			"sv": "Kontrast"
+		},
+		"Gamma": {
+			"en": "Gamma",
+			"sv": "Gamma"
+		},
+		"AutoApply": {
+			"en": "Auto apply",
+			"sv": "Uppdatera automatiskt"
+		},
+		"Default": {
+			"en": "Default",
+			"sv": "Standard"
+		}
+	},
+	"Settings": {
+		"en": "Settings",
+		"sv": "Inställningar",
+		"Viewer": {
+			"en": "Viewer",
+			"sv": "Bildvisning",
+			"Magnification": {
+				"en": "Magnification",
+				"sv": "Förstorning"
+			},
+			"Minification": {
+				"en": "Minification",
+				"sv": "Förminskning"
+			},
+			"Viewer": {
+				"en": "Viewer",
+				"sv": "Bildvisare"
+			},
+			"WrapAround": {
+				"en": "Wrap around when browsing",
+				"sv": "Loopa runt vid bläddring"
+			},
+			"ResetZoom": {
+				"en": "Reset zoom between images",
+				"sv": "Återställ zoomnivå vid bildbyte"
+			},
+			"ResetPan": {
+				"en": "Reset pan between images",
+				"sv": "Återställ position vid bildbyte"
+			},
+			"AdaptWindowSize": {
+				"en": "Resize window to fit image",
+				"sv": "Anpassa fönsterstorleken efter bilden"
+			},
+			"CenterScreen": {
+				"en": "Center window on screen",
+				"sv": "Centrera fönstret på skärmen"
+			},
+			"CenterPosition": {
+				"en": "Center window on current position",
+				"sv": "Centrera fönstret på nuvarande position"
+			},
+			"NoReposition": {
+				"en": "Do not reposition",
+				"sv": "Förflytta inte fönstret"
+			},
+			"ResizeBehavior": {
+				"en": "Resize behaviour",
+				"sv": "Bildanpassningsmetod"
+			},
+			"ReduceOrEnlarge": {
+				"en": "Reduce or Enlarge",
+				"sv": "Förminska eller förstora"
+			},
+			"ReduceOnly": {
+				"en": "Reduce only",
+				"sv": "Förminska"
+			},
+			"EnlargeOnly": {
+				"en": "Enlarge only",
+				"sv": "Förstora"
+			},
+			"DefaultZoomMode": {
+				"en": "Default zoom mode",
+				"sv": "Zoomläge vid start"
+			},
+			"Zoom": {
+				"en": "Zoom",
+				"sv": "Zoom"
+			}
+		},
+		"Interface": {
+			"en": "Interface",
+			"sv": "Gränssnitt",
+			"StatusBar": {
+				"en": "Status bar",
+				"sv": "Statusfält"
+			},
+			"ShowStatusBar": {
+				"en": "Show status bar",
+				"sv": "Visa statusfält"
+			},
+			"AlwaysOnTop": {
+				"en": "Always on top",
+				"sv": "Alltid överst"
+			}
+		},
+		"BackgroundColor": {
+			"en": "Background color",
+			"sv": "Bakgrundsfärg",
+			"Preview": {
+				"en": "Preview",
+				"sv": "Färg"
+			},
+			"RGB": {
+				"en": "RGB",
+				"sv": "RGB"
+			},
+			"HLS": {
+				"en": "HLS",
+				"sv": "HLS"
+			},
+			"Saturation": {
+				"en": "Sat",
+				"sv": "Sat"
+			},
+			"Red": {
+				"en": "R:",
+				"sv": "R:"
+			},
+			"Green": {
+				"en": "G:",
+				"sv": "G:"
+			},
+			"Blue": {
+				"en": "B:",
+				"sv": "B:"
+			},
+			"Hue": {
+				"en": "H:",
+				"sv": "H:"
+			},
+			"Luminance": {
+				"en": "L:",
+				"sv": "L:"
+			},
+			"Saturation": {
+				"en": "S:",
+				"sv": "S:"
+			}
+		},
+		"Language": {
+			"en": "Language",
+			"sv": "Språk"
+		},
+		"Controls": {
+			"en": "Controls",
+			"sv": "Kontroller",
+			"Click": {
+				"en": "Click",
+				"sv": "Klick"
+			},
+			"DoubleClick": {
+				"en": "Double-click",
+				"sv": "Dubbelklick"
+			},
+			"ScrollWheel": {
+				"en": "Scroll wheel",
+				"sv": "Scrollhjul"
+			},
+			"LeftMouse": {
+				"en": "Left mouse button",
+				"sv": "Vänster knapp"
+			},
+			"MiddleMouse": {
+				"en": "Middle mouse button",
+				"sv": "Mittenknapp"
+			},
+			"RightMouse": {
+				"en": "Right mouse button",
+				"sv": "Höger knapp"
+			},
+			"WheelUp": {
+				"en": "Mouse wheel up",
+				"sv": "Scrollhjul up"
+			},
+			"WheelDown": {
+				"en": "Mouse wheel down",
+				"sv": "Scrollhjul ner"
+			}
+		},
+		"Keyboard": {
+			"en": "Keyboard",
+			"sv": "Tangentbord",
+			"Action": {
+				"en": "Action",
+				"sv": "Funktion"
+			},
+			"Assigned": {
+				"en": "Assigned shortcuts",
+				"sv": "Tilldelade kortkommandon"
+			},
+			"Keys": {
+				"en": "Key(s)",
+				"sv": "Tangent(er)"
+			},
+			"Add": {
+				"en": "Add",
+				"sv": "Lägg till"
+			}
+		},
+		"Advanced": {
+			"en": "Advanced",
+			"sv": "Avancerat",
+			"AllowMultipleInstances": {
+				"en": "Allow multiple instances",
+				"sv": "Tillåt flera instanser"
+			}
+		},
+		"Cache": {
+			"en": "Cache",
+			"sv": "Cache",
+			"AutomaticLimit": {
+				"en": "Automatically set memory limit",
+				"sv": "Sätt minnesgräns automatiskt"
+			}
+		},
+		"About": {
+			"en": "About",
+			"sv": "Om",
+			"Description": {
+				"en": "This software is free open software, released under the MIT license.",
+				"sv": "Denna mjukvara är fri öppen mjukvara, licensierad under MIT-licensen."
+			},
+			"IJG": {
+				"en": "This software is based in part on the work of the Independent JPEG Group.",
+				"sv": "This software is based in part on the work of the Independent JPEG Group."
+			},
+			"libpng": {
+				"en": "PNG support is provided through libpng and zlib.",
+				"sv": "PNG support is provided through libpng and zlib."
+			}
+		}
+	},
+	"Action": {
+		"Close": {
+			"en": "Close application",
+			"sv": "Avsluta program"
+		},
+		"Open": {
+			"en": "Open file",
+			"sv": "Öppna fil"
+		},
+		"RandomImage": {
+			"en": "Random image",
+			"sv": "Slumpvald bild"
+		},
+		"FirstImage": {
+			"en": "First image",
+			"sv": "Första bilden"
+		},
+		"LastImage": {
+			"en": "Last image",
+			"sv": "Sista bilden"
+		},
+		"DeleteCurrentFile": {
+			"en": "Delete file",
+			"sv": "Ta bort fil"
+		},
+		"RecycleCurrentFile": {
+			"en": "Recycle file",
+			"sv": "Flytta fil till papperskorg"
+		},
+		"NextSkipImage": {
+			"en": "Next few images",
+			"sv": "Hoppa över flera bilder"
+		},
+		"PreviousSkipImage": {
+			"en": "Last few images",
+			"sv": "Backa flera bilder"
+		},
+		"RemoveCurrentImage": {
+			"en": "Hide image",
+			"sv": "Dölj bild"
+		},
+		"PanUp": {
+			"en": "Pan up",
+			"sv": "Panorera upp"
+		},
+		"PanDown": {
+			"en": "Pan down",
+			"sv": "Panorera ner"
+		},
+		"PanLeft": {
+			"en": "Pan left",
+			"sv": "Panorera vänster"
+		},
+		"PanRight": {
+			"en": "Pan right",
+			"sv": "Panorera höger"
+		},
+		"ToggleFullscreen": {
+			"en": "Toggle fullscreen",
+			"sv": "Växla fullskärm"
+		},
+		"ToggleFullSizeDefaultZoom": {
+			"en": "Toggle full size/default zoom",
+			"sv": "Växla ursprunglig storlek/standardzoomläge"
+		},
+		"Fullscreen": {
+			"en": "Fullscreen",
+			"sv": "Fullskärm"
+		},
+		"NextImage": {
+			"en": "Next image",
+			"sv": "Nästa bild"
+		},
+		"PreviousImage": {
+			"en": "Previous image",
+			"sv": "Föregående bild"
+		},
+		"Zoom": {
+			"In": {
+				"en": "Zoom in",
+				"sv": "Zooma in"
+			},
+			"Out": {
+				"en": "Zoom out",
+				"sv": "Zooma ut"
+			},
+			"FullSize": {
+				"en": "Full size",
+				"sv": "Ursprunglig storlek"
+			},
+			"FitImage": {
+				"en": "Fit image",
+				"sv": "Anpassa till fönster"
+			},
+			"Default": {
+				"en": "Default zoom",
+				"sv": "Standard-zoom"
+			},
+			"Free": {
+				"en": "Free zoom",
+				"sv": "Fri zoom"
+			}
+		},
+		"Pan": {
+			"en": "Pan",
+			"sv": "Scrolla"
+		},
+		"ContextMenu": {
+			"en": "Context menu",
+			"sv": "Meny"
+		},
+		"RenameFile": {
+			"en": "Rename current file",
+			"sv": "Byt namn på nuvarande fil"
+		},
+		"Disable": {
+			"en": "Disable",
+			"sv": "Använd ej"
+		}
+	},
+	"Unit": {
+		"GB": {
+			"en": "GB",
+			"sv": "GB"
+		},
+		"MB": {
+			"en": "MB",
+			"sv": "MB"
+		},
+		"KB": {
+			"en": "KB",
+			"sv": "KB"
+		},
+		"B": {
+			"en": "B",
+			"sv": "B"
+		}
+	},
+	"Dialog": {
+		"OK": {
+			"en": "OK",
+			"sv": "OK"
+		},
+		"Cancel": {
+			"en": "Cancel",
+			"sv": "Avbryt"
+		},
+		"Close": {
+			"en": "Close",
+			"sv": "Stäng"
+		},
+		"Apply": {
+			"en": "Apply",
+			"sv": "Tillämpa"
+		}
+	},
+	"ResampleMode": {
+		"NearestNeighbor": {
+			"en": "Nearest neighbor",
+			"sv": "Närmaste granne"
+		},
+		"Bilinear": {
+			"en": "Bilinear",
+			"sv": "Bilinjär"
+		},
+		"Lanczos3": {
+			"en": "Lanczos3",
+			"sv": "Lanczos3"
+		}
+	},
+	"Keys": {
+		"UpArrow": {
+			"en": "Up arrow",
+			"sv": "Pil uppåt"
+		},
+		"DownArrow": {
+			"en": "Down arrow",
+			"sv": "Pil nedåt"
+		},
+		"LeftArrow": {
+			"en": "Left arrow",
+			"sv": "Pil vänster"
+		},
+		"RightArrow": {
+			"en": "Right arrow",
+			"sv": "Pil höger"
+		}
+	},
+	"Rename": {
+		"en": "Rename file",
+		"sv": "Byt filnamn",
+		"NewFilename": {
+			"en": "New file name:",
+			"sv": "Nytt filnamn:"
+		},
+		"InvalidChars": {
+			"en": "A file name cannot contain any of the following characters:\n\\ \/ : * ? \" < > |",
+			"sv": "Ett filnamn kan inte innehålla något av följande tecken:\n\\ / : * ? \" < > |"
+		}
+	},
+	"Error": {
+		"InternalError": {
+			"en": "An internal error occured while loading images. Pictus will terminate. This message might help troubleshooting: ",
+			"sv": "Ett internt fel uppstod vid bildinläsning. Pictus kommer att avslutas. Detta meddelande kan underlätta vid felsökning: "
+		},
+		"DirectX": {
+			"en": "Could not initialize DirectX. Please make sure you have the latest graphics drivers and DirectX runtime installed.",
+			"sv": "Kunde inte initialisera DirectX. Var vänlig och verifiera att dom senaste grafikdrivrutinerna samt DirectX Runtime är installerat."
+		},
+		"OnlyNumeric": {
+			"en": "Only numerical values are valid.",
+			"sv": "Endast siffror är tillåtna."
+		}
+	}
+}

@@ -7,12 +7,12 @@ namespace App {
 	using namespace Intl;
 
 	bool SetLanguage::PerformOnInitPage() {
-		Caption(App::SIDLanguage);
-		ControlText(IDC_GROUP_LANG, SIDLanguage);
+		Caption(App::SIDSettingsLanguage);
+		ControlText(IDC_GROUP_LANG, SIDSettingsLanguage);
 
 		m_cbLang = CreateComboBox(IDC_COMBO_LANG);
 		for (auto i = 0; i < static_cast<int>(Intl::Language::Undefined); ++i) {
-			m_cbLang->AddItem(Intl::GetWStringLang(SIDLanguageName, static_cast<Intl::Language>(i)), i);
+			m_cbLang->AddItem(Intl::GetWStringLang(SIDCurrentLanguage, static_cast<Intl::Language>(i)), i);
 		}
 
 		m_cbLang->SetSelection(static_cast<int>(Intl::CurrentLanguage()));
@@ -29,5 +29,7 @@ namespace App {
 		CurrentLanguage(Language(m_cbLang->GetSelectionData()));
 	}
 
-	SetLanguage::SetLanguage():App::SettingsPage(IDD_SET_LANGUAGE) {}
+	SetLanguage::SetLanguage()
+		:App::SettingsPage{ IDD_SET_LANGUAGE }
+	{}
 }

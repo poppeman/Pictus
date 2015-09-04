@@ -7,7 +7,7 @@ namespace App {
 	using namespace Intl;
 
 	bool SetControls::PerformOnInitPage() {
-		Caption(SIDControls);
+		Caption(SIDSettingsControls);
 
 		m_cbLeftMouse = CreateComboBox(IDC_COMBO_CTRL_LMOUSE);
 		m_cbMiddleMouse = CreateComboBox(IDC_COMBO_CTRL_MMOUSE);
@@ -91,7 +91,7 @@ namespace App {
 		ctrl->Reset();
 		ctrl->AddItem(SIDActionDisable, MouseDisable);
 		ctrl->AddItem(SIDActionNextImage, MouseNextImage);
-		ctrl->AddItem(SIDActionPrevImage, MousePrevImage);
+		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
 		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
 		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
 	}

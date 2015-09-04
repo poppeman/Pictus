@@ -112,6 +112,12 @@
       <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="intl_table_entry.h">
+      <Filter>i18n</Filter>
+    </ClInclude>
+    <ClInclude Include="intl_language.h">
+      <Filter>i18n</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp">

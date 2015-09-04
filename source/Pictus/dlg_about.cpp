@@ -7,11 +7,11 @@ namespace App {
 	using namespace Intl;
 
 	bool SetAbout::PerformOnInitPage() {
-		Caption(App::SIDAbout);
+		Caption(App::SIDSettingsAbout);
 
-		ControlText(IDC_TEXT_ABOUT_FREEWARE, SIDAboutFreeware);
-		ControlText(IDC_TEXT_ABOUT_LIBJPEG, SIDAboutLibJpeg);
-		ControlText(IDC_TEXT_ABOUT_LIBPNG, SIDAboutLibPng);
+		ControlText(IDC_TEXT_ABOUT_FREEWARE, SIDSettingsAboutDescription);
+		ControlText(IDC_TEXT_ABOUT_LIBJPEG, SIDSettingsAboutIJG);
+		ControlText(IDC_TEXT_ABOUT_LIBPNG, SIDSettingsAboutlibpng);
 
 		std::wstring about(TX("Version "));
 

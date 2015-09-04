@@ -1,18 +1,10 @@
 #ifndef INTL_H
 #define INTL_H
 
+#include "intl_table_entry.h"
+
 namespace Intl {
-	enum class Language {
-		English = 0,
-		Swedish,
-		Undefined,
-	};
-
-	struct TableEntry {
-		const wchar_t* langs[static_cast<int>(Language::Undefined)];
-	};
-
-	void LanguageTable(_In_ const TableEntry* pTable, _In_ int minID, _In_ int maxID);
+	void LanguageTable(_In_ const TableEntry* pTable);
 	void CurrentLanguage(_In_ const Language& lang);
 	_Check_return_ const Language CurrentLanguage();
 	_Check_return_ Language SystemLanguage();

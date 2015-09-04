@@ -21,7 +21,7 @@ namespace App {
 	int SetKeyboard::AddShortcut() {
 		auto row = m_assigned->AddItem(L"", m_currentIndex);
 		m_assigned->ItemColumn(row, 1, L"");
-		m_assigned->ItemColumn(row, 2, Intl::GetWString(SIDUndefined));
+		m_assigned->ItemColumn(row, 2, L"");
 		m_shortcuts[m_currentIndex] = { { L'', false, false, false }, KeyAction::Undefined };
 
 		return m_currentIndex++;
@@ -64,18 +64,18 @@ namespace App {
 
 
 	bool SetKeyboard::PerformOnInitPage() {
-		Caption(SIDKeyboard);
-		ControlText(IDC_GROUP_KEYBOARD_ACTION, SIDGroupAction);
-		ControlText(IDC_GROUP_KEYBOARD_ASSIGNED, SIDGroupAssignedShortcuts);
+		Caption(SIDSettingsKeyboard);
+		ControlText(IDC_GROUP_KEYBOARD_ACTION, SIDSettingsKeyboardAction);
+		ControlText(IDC_GROUP_KEYBOARD_ASSIGNED, SIDSettingsKeyboardAssigned);
 
-		ControlText(IDC_TEXT_KEYBOARD_KEY, SIDLabelKey);
-		ControlText(IDC_BUTTON_KEYBOARD_ADD, SIDAdd);
+		ControlText(IDC_TEXT_KEYBOARD_KEY, SIDSettingsKeyboardKeys);
+		ControlText(IDC_BUTTON_KEYBOARD_ADD, SIDSettingsKeyboardAdd);
 
 		m_functions = CreateComboBox(IDC_COMBO_KEYBOARD_FUNCTION);
 		m_functions->Reset();
 		m_functions->AddItem(SIDActionNextImage, static_cast<DWORD>(KeyAction::NextImage));
-		m_functions->AddItem(SIDActionPrevImage, static_cast<DWORD>(KeyAction::PreviousImage));
-		m_functions->AddItem(SIDRenameFilename, static_cast<DWORD>(KeyAction::RenameFile));
+		m_functions->AddItem(SIDActionPreviousImage, static_cast<DWORD>(KeyAction::PreviousImage));
+		m_functions->AddItem(SIDActionRenameFile, static_cast<DWORD>(KeyAction::RenameFile));
 		m_functions->OnSelectionChanged.connect([this]() { 
 			auto row = m_assigned->GetSelectedRow();
 			auto index = m_assigned->GetItemParam(row);

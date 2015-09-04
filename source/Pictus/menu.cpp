@@ -138,7 +138,7 @@ namespace Win {
 
 		m_items.push_back(mi);
 
-		mi->Create(App::SIDUndefined, m_iCurrIndex++);
+		mi->Create(App::SIDInvalid, m_iCurrIndex++);
 		mi->AddTo(m_hMenu);
 	}
 
