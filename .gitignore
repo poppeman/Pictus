@@ -1,3 +1,7 @@
+# Generated source
+lang_val.*
+lang_enum.h
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
