@@ -310,8 +310,8 @@ namespace App {
 						m_viewPort.Brightness(),
 						m_viewPort.Contrast(),
 						m_viewPort.Gamma(), false);
-					int copied = SetDIBitsToDevice(dc, 0, i, size.Width, 1, 0, 0, 0, 1, pBuf.get(), &bmi, 0);
-					copied = copied;
+					// TODO: Consider some sort of error handling here
+					SetDIBitsToDevice(dc, 0, i, size.Width, 1, 0, 0, 0, 1, pBuf.get(), &bmi, 0);
 				}
 
 				HANDLE hClipData = SetClipboardData(CF_BITMAP, hBitmap);
