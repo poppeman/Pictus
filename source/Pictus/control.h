@@ -36,7 +36,8 @@ namespace Win {
 
 		friend class Window;
 
-		void operator =(const Control&);
+		void operator =(const Control&) = delete;
+		Control(const Control&) = delete;
 
 		int m_id;
 		HWND m_dlgHwnd;
