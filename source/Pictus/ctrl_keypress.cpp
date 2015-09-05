@@ -24,25 +24,11 @@ namespace App {
 				auto isCtrl = GetKeyState(VK_CONTROL) & 0x8000;
 				auto isShift = GetKeyState(VK_SHIFT) & 0x8000;
 				auto isAlt = GetKeyState(VK_MENU) & 0x8000;
-
-				std::vector<std::wstring> items;
-
-				if (isCtrl) items.push_back(L"Ctrl");
-				if (isShift) items.push_back(L"Shift");
-				if (isAlt) items.push_back(L"Alt");
-
-				if (c == VK_CONTROL) c = L'';
-				if (c == VK_MENU) c = L'';
-				std::wstring tmp;
-				tmp += c;
-				items.push_back(tmp);
-
-				auto wstr = Implode(items, L" + ");
-
-				SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)wstr.c_str());
+				KeyboardPress kp = { c, isAlt, isShift, isCtrl };
+				pEdit->SetCombo(kp);
 
 				if (c != 0 && pEdit->OnNewCombo != nullptr) {
-					pEdit->OnNewCombo({ c, isAlt, isShift, isCtrl });
+					pEdit->OnNewCombo(kp);
 				}
 
 				return 0;
@@ -70,5 +56,23 @@ namespace App {
 		}
 
 		return new Keypress(id, parent);
+	}
+
+	void Keypress::SetCombo(App::KeyboardPress kp) {
+		std::vector<std::wstring> items;
+
+		if (kp.Ctrl) items.push_back(L"Ctrl");
+		if (kp.Shift) items.push_back(L"Shift");
+		if (kp.Alt) items.push_back(L"Alt");
+
+		if (kp.Key == VK_CONTROL) kp.Key = L'';
+		if (kp.Key == VK_MENU) kp.Key = L'';
+		std::wstring tmp;
+		tmp += App::GetKeyString(kp.Key);
+		items.push_back(tmp);
+
+		auto wstr = Implode(items, L" + ");
+
+		SendMessage(Handle(), WM_SETTEXT, 0, (LPARAM)wstr.c_str());
 	}
 }

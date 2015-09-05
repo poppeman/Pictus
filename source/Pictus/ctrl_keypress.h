@@ -8,6 +8,7 @@ namespace App {
 	class Keypress :public Win::Control {
 	public:
 		std::function<void(App::KeyboardPress)> OnNewCombo;
+		void SetCombo(App::KeyboardPress kp);
 
 		static Keypress* CreateKeypress(int id, HWND parent);
 

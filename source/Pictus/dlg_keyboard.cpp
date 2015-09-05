@@ -96,6 +96,15 @@ namespace App {
 		m_assigned->AddColumn(L"Modifiers", 70, 1);
 		m_assigned->AddColumn(L"Action", 200, 2);
 		m_assigned->Style(LVS_EX_FULLROWSELECT |LVS_EX_DOUBLEBUFFER | LVS_EX_LABELTIP | LVS_EX_ONECLICKACTIVATE | LVS_EX_UNDERLINEHOT);
+		m_assigned->OnSelectionChanged = [&](int row) {
+			if (row != -1) {
+				auto index = m_assigned->GetItemParam(row);
+				if (index != -1) {
+					m_functions->SetSelection(static_cast<DWORD>(m_shortcuts[index].Action));
+					m_keypress->SetCombo(m_shortcuts[index].Key);
+				}
+			}
+		};
 
 		CreateButton(IDC_BUTTON_KEYBOARD_ADD)->OnClick.connect([this]() { AddShortcut(); });
 
