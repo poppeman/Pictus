@@ -38,7 +38,7 @@ namespace Reg {
 		}
 
 		cfg.Cache.DoAutoMemoryLimit = pt.get<bool>("Settings.AutoMemoryLimit", true);
-		cfg.Cache.ManualMemoryLimit = pt.get<bool>("Settings.ManualMemoryLimit", 0);
+		cfg.Cache.ManualMemoryLimit = pt.get<size_t>("Settings.ManualMemoryLimit", 0);
 
 		//cfg.Mouse.
 		cfg.Mouse.OnMouseLeft = pt.get<App::MouseAction>("Settings.OnMouseLeft", App::MouseAction::MousePan);
