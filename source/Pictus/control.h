@@ -21,6 +21,8 @@ namespace Win {
 		Geom::RectInt Position();
 		void Position(const Geom::RectInt& newPosition);
 
+		boost::optional<LRESULT> OnNotify(LPNMHDR lParam);
+
 		Control(int id, HWND hwnd);
 		virtual ~Control()=0;
 
@@ -31,7 +33,8 @@ namespace Win {
 
 	private:
 		void AttachTo(Window* owner);
-
+		
+		virtual boost::optional<LRESULT> PerformOnNotify(LPNMHDR lParam);
 		virtual HWND PerformDynamicCreate();
 
 		friend class Window;

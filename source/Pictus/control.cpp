@@ -63,5 +63,14 @@ namespace Win {
 		GetWindowRect(Handle(), &r);
 		return RECTToRect(r);
 	}
+
+	boost::optional<LRESULT> Control::PerformOnNotify(LPNMHDR lParam) {
+		return nullptr;
+	}
+
+	boost::optional<LRESULT> Control::OnNotify(LPNMHDR lParam) {
+		return PerformOnNotify(lParam);
+	}
+
 	Control::ControlMap Control::m_controls;
 }

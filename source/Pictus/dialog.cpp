@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "dialog.h"
+#include "control.h"
 
 namespace Win {
 	bool Dialog::DoModal(Win::BaseWindow* pParent) {
@@ -81,7 +82,18 @@ namespace Win {
 				return OnInitDialog();
 
 			case WM_NOTIFY:
+			{
+				auto pnmhdr = reinterpret_cast<LPNMHDR>(lParam);
+				auto ctrl = Control::GetControl(pnmhdr->hwndFrom);
+				bool ret = false;
+				if (ctrl != nullptr) {
+					auto ret = ctrl->OnNotify(pnmhdr);
+					if (ret.is_initialized()) {
+						return ret.get();
+					}
+				}
 				return OnNotify((DWORD)wParam, (LPNMHDR)lParam);
+			}
 
 			case WM_DESTROY:
 				{
