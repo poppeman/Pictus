@@ -82,6 +82,9 @@
     <Filter Include="Settings\Controls">
       <UniqueIdentifier>{e7e3a60f-8168-4a82-a559-c245ed9f26b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{740d8ea1-b2d9-4dba-8169-1c54b0618733}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license_en.txt">
@@ -326,6 +329,18 @@
     </ClCompile>
     <ClCompile Include="lang_val.cpp">
       <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="resize_behavior.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="resize_position_method.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="reg_zoom_mode_translator.cpp">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClCompile>
+    <ClCompile Include="zoom_mode.cpp">
+      <Filter>Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -584,6 +599,18 @@
     </ClInclude>
     <ClInclude Include="lang_val.h">
       <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="resize_position_method.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="resize_behavior.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="reg_zoom_mode_translator.h">
+      <Filter>Shared\Registry\Translators</Filter>
+    </ClInclude>
+    <ClInclude Include="zoom_mode.h">
+      <Filter>Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

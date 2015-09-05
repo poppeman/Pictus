@@ -4,16 +4,15 @@
 namespace Reg {
 	namespace Internal {
 		boost::optional<ResizePositionMethodTranslator::external_type> ResizePositionMethodTranslator::get_value(internal_type const sval) {
-			auto val = FromAString<int>(sval);
-			if (val < 0 || val > 2) {
-				return App::ResizePositionMethod::PositionNothing;
-			}
+			if (sval == "0") return App::ResizePositionMethod::PositionToScreen;
+			if (sval == "1") return App::ResizePositionMethod::PositionToCurrent;
+			if (sval == "2") return App::ResizePositionMethod::PositionNothing;
 
-			return static_cast<App::ResizePositionMethod>(val);
+			return App::IdentifierToResizePositionMethod(sval);
 		}
 
 		boost::optional<ResizePositionMethodTranslator::internal_type> ResizePositionMethodTranslator::put_value(external_type const& val) {
-			return ToAString(static_cast<int>(val));
+			return App::ResizePositionMethodToIdentifier(val);
 		}
 	}
 }

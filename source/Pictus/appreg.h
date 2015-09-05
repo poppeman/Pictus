@@ -4,14 +4,10 @@
 #include "orz/intl.h"
 #include "illa/types.h"
 #include "app_types.h"
+#include "resize_position_method.h"
+#include "zoom_mode.h"
 
 namespace App {
-	enum class ResizePositionMethod {
-		PositionToScreen,
-		PositionToCurrent,
-		PositionNothing
-	};
-
 	// TODO: Convert to enum class
 	enum MouseAction {
 		MouseDisable,

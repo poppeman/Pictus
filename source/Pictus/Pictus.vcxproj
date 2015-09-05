@@ -228,6 +228,9 @@
     <ClCompile Include="reg_mouse_action_translator.cpp" />
     <ClCompile Include="reg_resize_behavior_translator.cpp" />
     <ClCompile Include="reg_resize_position_method_translator.cpp" />
+    <ClCompile Include="reg_zoom_mode_translator.cpp" />
+    <ClCompile Include="resize_behavior.cpp" />
+    <ClCompile Include="resize_position_method.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="settings_page.cpp" />
     <ClCompile Include="dlg_color.cpp" />
@@ -294,6 +297,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="zoom_mode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ctrl_keypress.h" />
@@ -313,6 +317,9 @@
     <ClInclude Include="reg_mouse_action_translator.h" />
     <ClInclude Include="reg_resize_behavior_translator.h" />
     <ClInclude Include="reg_resize_position_method_translator.h" />
+    <ClInclude Include="reg_zoom_mode_translator.h" />
+    <ClInclude Include="resize_behavior.h" />
+    <ClInclude Include="resize_position_method.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="settings_page.h" />
     <ClInclude Include="dlg_color.h" />
@@ -382,6 +389,7 @@
     <ClInclude Include="ic_worklist.h" />
     <ClInclude Include="ic_workpackage.h" />
     <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="zoom_mode.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res_settings.rc" />

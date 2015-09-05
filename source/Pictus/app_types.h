@@ -2,22 +2,10 @@
 #define APP_TYPES_H
 
 #include "illa/types.h"
+#include "resize_behavior.h"
 
 namespace App {
 #include "lang_enum.h"
-
-	enum ResizeBehaviour {
-		ResizeEnlargeOrReduce = 0,
-		ResizeEnlargeOnly,
-		ResizeReduceOnly
-	};
-
-	enum ZoomMode {
-		ZoomFree = 0,
-		ZoomFitImage,
-		ZoomFullSize,
-	};
-
 	enum ViewerAppMessage {
 		ViewerImageLoadEvent = 1,
 //		ViewerSettingsChanged,

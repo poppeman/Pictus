@@ -2,7 +2,7 @@
 #define PICTUS_REG_RESIZE_POSITION_METHOD_TRANSLATOR_H
 
 #include <string>
-#include "appreg.h"
+#include "resize_position_method.h"
 
 namespace Reg {
 	namespace Internal {

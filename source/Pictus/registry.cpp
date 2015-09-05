@@ -8,6 +8,7 @@
 #include "reg_mouse_action_translator.h"
 #include "reg_resize_behavior_translator.h"
 #include "reg_resize_position_method_translator.h"
+#include "reg_zoom_mode_translator.h"
 
 namespace Reg {
 	Reg::Settings Load(const std::wstring& name) {

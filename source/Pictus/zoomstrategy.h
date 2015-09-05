@@ -2,6 +2,7 @@
 #define ZOOMSTRATEGY_H
 
 #include "app_types.h"
+#include "zoom_mode.h"
 
 namespace App {
 	class ZoomStrategy {
