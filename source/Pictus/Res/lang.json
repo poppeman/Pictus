@@ -542,21 +542,553 @@
 		}
 	},
 	"Keys": {
-		"UpArrow": {
-			"en": "Up arrow",
-			"sv": "Pil uppåt"
+		"Mouse": {
+			"Left": {
+				"en": "Left mouse",
+				"sv": "Musknapp vänster"
+			},
+			"Middle": {
+				"en": "Middle mouse",
+				"sv": "Musknapp mitten"
+			},
+			"Right": {
+				"en": "Right mouse",
+				"sv": "Musknapp höger"
+			},
+			"X1": {
+				"en": "X1 mouse",
+				"sv": "Musknapp X1"
+			},
+			"X2": {
+				"en": "X2 mouse",
+				"sv": "Musknapp X2"
+			}
 		},
-		"DownArrow": {
-			"en": "Down arrow",
-			"sv": "Pil nedåt"
+		"Arrow": {
+			"Up": {
+				"en": "Up arrow",
+				"sv": "Pil uppåt"
+			},
+			"Down": {
+				"en": "Down arrow",
+				"sv": "Pil nedåt"
+			},
+			"Left": {
+				"en": "Left arrow",
+				"sv": "Pil vänster"
+			},
+			"Right": {
+				"en": "Right arrow",
+				"sv": "Pil höger"
+			}
 		},
-		"LeftArrow": {
-			"en": "Left arrow",
-			"sv": "Pil vänster"
+		"Media": {
+			"VolumeUp": {
+				"en": "Volume up",
+				"sv": "Volym upp"
+			},
+			"VolumeDown": {
+				"en": "Volume down",
+				"sv": "Volym ned"
+			},
+			"Mute": {
+				"en": "Mute",
+				"sv": "Mute"
+			},
+			"Play": {
+				"en": "Media Play",
+				"sv": "Media Play"
+			},
+			"Next": {
+				"en": "Media Next",
+				"sv": "Media Nästa"
+			},
+			"Previous": {
+				"en": "Media Previous",
+				"sv": "Media Föregående"
+			},
+			"Stop": {
+				"en": "Media Stop",
+				"sv": "Media Stopp"
+			},
+			"PlayPause": {
+				"en": "Media Play/Pause",
+				"sv": "Media Play/Pause"
+			}
 		},
-		"RightArrow": {
-			"en": "Right arrow",
-			"sv": "Pil höger"
+		"IME": {
+			"Kana": {
+				"en": "IME Kana/Hangul",
+				"sv": "IME Kana/Hangul"
+			},
+			"Junja": {
+				"en": "IME Junja",
+				"sv": "IME Junja"
+			},
+			"Final": {
+				"en": "IME Final",
+				"sv": "IME Final"
+			},
+			"Kanji": {
+				"en": "IME Kanji",
+				"sv": "IME Kanji"
+			},
+			"Convert": {
+				"en": "IME Convert",
+				"sv": "IME Convert"
+			},
+			"NoConvert": {
+				"en": "IME No convert",
+				"sv": "IME No convert"
+			},
+			"Accept": {
+				"en": "IME Accept",
+				"sv": "IME Accept"
+			},
+			"ModeChange": {
+				"en": "IME Mode change",
+				"sv": "IME Mode change"
+			},
+			"Process": {
+				"en": "IME Process",
+				"sv": "IME Process"
+			}
+		},
+		"Select": {
+			"en": "Select",
+			"sv": "Select"
+		},
+		"Print": {
+			"en": "Print",
+			"sv": "Skriv ut"
+		},
+		"PrintScreen": {
+			"en": "Print screen",
+			"sv": "Print screen"
+		},
+		"Execute": {
+			"en": "Execute",
+			"sv": "Execute"
+		},
+		"Pause": {
+			"en": "Pause Break",
+			"sv": "Pause Break"
+		},
+		"Help": {
+			"en": "Help",
+			"sv": "Hjälp"
+		},
+		"Cancel": {
+			"en": "Cancel",
+			"sv": "Avbryt"
+		},
+		"Shift": {
+			"en": "Shift",
+			"sv": "Shift",
+			"Left": {
+				"en": "Left shift",
+				"sv": "Vänster shift"
+			},
+			"Right": {
+				"en": "Right shift",
+				"sv": "Höger shift"
+			}
+		},
+		"Win": {
+			"en": "Win",
+			"sv": "Win",
+			"Left": {
+				"en": "Left Win",
+				"sv": "Vänster Win"
+			},
+			"Right": {
+				"en": "Right Win",
+				"sv": "Höger Win"
+			}
+		},
+		"Apps": {
+			"en": "Apps",
+			"sv": "Apps"
+		},
+		"Sleep": {
+			"en": "Sleep",
+			"sv": "Viloläge"
+		},
+		"Control": {
+			"en": "Ctrl",
+			"sv": "Ctrl",
+			"Left": {
+				"en": "Left ctrl",
+				"sv": "Vänster ctrl"
+			},
+			"Right": {
+				"en": "Right ctrl",
+				"sv": "Höger ctrl"
+			}
+		},
+		"Alt": {
+			"en": "Alt",
+			"sv": "Alt",
+			"Left": {
+				"en": "Left alt",
+				"sv": "Vänster alt"
+			},
+			"Right": {
+				"en": "Right alt",
+				"sv": "Höger alt"
+			}
+		},
+		"Tab": {
+			"en": "Tab",
+			"sv": "Tabb"
+		},
+		"CapsLock": {
+			"en": "Caps lock",
+			"sv": "Caps lock"
+		},
+		"Clear": {
+			"en": "Clear",
+			"sv": "Clear"
+		},
+		"Plus": {
+			"en": "+",
+			"sv": "+"
+		},
+		"NumLock": {
+			"en": "Num lock",
+			"sv": "Num lock"
+		},
+		"Num": {
+			"Plus": {
+				"en": "Num +",
+				"sv": "Num +"
+			},
+			"0": {
+				"en": "Num 0",
+				"sv": "Num 0"
+			},
+			"1": {
+				"en": "Num 1",
+				"sv": "Num 1"
+			},
+			"2": {
+				"en": "Num 2",
+				"sv": "Num 2"
+			},
+			"3": {
+				"en": "Num 3",
+				"sv": "Num 3"
+			},
+			"4": {
+				"en": "Num 4",
+				"sv": "Num 4"
+			},
+			"5": {
+				"en": "Num 5",
+				"sv": "Num 5"
+			},
+			"6": {
+				"en": "Num 6",
+				"sv": "Num 6"
+			},
+			"7": {
+				"en": "Num 7",
+				"sv": "Num 7"
+			},
+			"8": {
+				"en": "Num 8",
+				"sv": "Num 8"
+			},
+			"9": {
+				"en": "Num 9",
+				"sv": "Num 9"
+			},
+			"Minus": {
+				"en": "Num -",
+				"sv": "Num -"
+			},
+			"Mult": {
+				"en": "Num *",
+				"sv": "Num *"
+			},
+			"Divide": {
+				"en": "Num /",
+				"sv": "Num /"
+			},
+			"Decimal": {
+				"en": "Num Decimal",
+				"sv": "Num Decimal"
+			},
+			"Separator": {
+				"en": "Num Separator",
+				"sv": "Num Separator"
+			}
+		},
+		"Browser": {
+			"Back": {
+				"en": "Browser back",
+				"sv": "Browser föregående"
+			},
+			"Forward": {
+				"en": "Browser forward",
+				"sv": "Browser nästa"
+			},
+			"Refresh": {
+				"en": "Browser refresh",
+				"sv": "Browser ladda om"
+			},
+			"Stop": {
+				"en": "Browser stop",
+				"sv": "Browser stopp"
+			},
+			"Search": {
+				"en": "Browser search",
+				"sv": "Browser sök"
+			},
+			"Favorites": {
+				"en": "Browser favorites",
+				"sv": "Browser favoriter"
+			},
+			"Home": {
+				"en": "Browser home",
+				"sv": "Browser hem"
+			}
+		},
+		"Launch": {
+			"Mail": {
+				"en": "Launch mail",
+				"sv": "Öppna mail"
+			},
+			"Media": {
+				"en": "Launch media",
+				"sv": "Öppna media"
+			},
+			"App1": {
+				"en": "Launch app 1",
+				"sv": "Öppna app 1"
+			},
+			"App2": {
+				"en": "Launch app 2",
+				"sv": "Öppna app 2"
+			}
+		},
+		"Period": {
+			"en": "Period",
+			"sv": "Punkt"
+		},
+		"Comma": {
+			"en": "Comma",
+			"sv": "Komma"
+		},
+		"ScrollLock": {
+			"en": "Scroll lock",
+			"sv": "Scroll lock"
+		},
+		"Insert": {
+			"en": "Insert",
+			"sv": "Insert"
+		},
+		"Home": {
+			"en": "Home",
+			"sv": "Home"
+		},
+		"PgUp": {
+			"en": "PgUp",
+			"sv": "PgUp"
+		},
+		"Delete": {
+			"en": "Del",
+			"sv": "Del"
+		},
+		"End": {
+			"en": "End",
+			"sv": "End"
+		},
+		"PgDown": {
+			"en": "PgDown",
+			"sv": "PgDown"
+		},
+		"Esc": {
+			"en": "ESC",
+			"sv": "ESC"
+		},
+		"F1": {
+			"en": "F1",
+			"sv": "F1"
+		},
+		"F2": {
+			"en": "F2",
+			"sv": "F2"
+		},
+		"F3": {
+			"en": "F3",
+			"sv": "F3"
+		},
+		"F4": {
+			"en": "F4",
+			"sv": "F4"
+		},
+		"F5": {
+			"en": "F5",
+			"sv": "F5"
+		},
+		"F6": {
+			"en": "F6",
+			"sv": "F6"
+		},
+		"F7": {
+			"en": "F7",
+			"sv": "F7"
+		},
+		"F8": {
+			"en": "F8",
+			"sv": "F8"
+		},
+		"F9": {
+			"en": "F9",
+			"sv": "F9"
+		},
+		"F10": {
+			"en": "F10",
+			"sv": "F10"
+		},
+		"F11": {
+			"en": "F11",
+			"sv": "F11"
+		},
+		"F12": {
+			"en": "F12",
+			"sv": "F12"
+		},
+		"F13": {
+			"en": "F13",
+			"sv": "F13"
+		},
+		"F14": {
+			"en": "F14",
+			"sv": "F14"
+		},
+		"F15": {
+			"en": "F15",
+			"sv": "F15"
+		},
+		"F16": {
+			"en": "F16",
+			"sv": "F16"
+		},
+		"F17": {
+			"en": "F17",
+			"sv": "F17"
+		},
+		"F18": {
+			"en": "F18",
+			"sv": "F18"
+		},
+		"F19": {
+			"en": "F19",
+			"sv": "F19"
+		},
+		"F20": {
+			"en": "F20",
+			"sv": "F20"
+		},
+		"F21": {
+			"en": "F21",
+			"sv": "F21"
+		},
+		"F22": {
+			"en": "F22",
+			"sv": "F22"
+		},
+		"F23": {
+			"en": "F23",
+			"sv": "F23"
+		},
+		"F24": {
+			"en": "F24",
+			"sv": "F24"
+		},
+		"Space": {
+			"en": "Space",
+			"sv": "Mellanslag"
+		},
+		"Backspace": {
+			"en": "Backspace",
+			"sv": "Backspace"
+		},
+		"Return": {
+			"en": "Return",
+			"sv": "Return"
+		},
+		"Minus": {
+			"en": "-",
+			"sv": "-"
+		},
+		"OEM": {
+			"1": {
+				"en": "OEM 1",
+				"sv": "OEM 1"
+			},
+			"2": {
+				"en": "OEM 2",
+				"sv": "OEM 2"
+			},
+			"3": {
+				"en": "OEM 3",
+				"sv": "OEM 3"
+			},
+			"4": {
+				"en": "OEM 4",
+				"sv": "OEM 4"
+			},
+			"5": {
+				"en": "OEM 5",
+				"sv": "OEM 5"
+			},
+			"6": {
+				"en": "OEM 6",
+				"sv": "OEM 6"
+			},
+			"7": {
+				"en": "OEM 7",
+				"sv": "OEM 7"
+			},
+			"8": {
+				"en": "OEM 8",
+				"sv": "OEM 8"
+			},
+			"102": {
+				"en": "OEM 102",
+				"sv": "OEM 102"
+			},
+			"Clear": {
+				"en": "OEM Clear",
+				"sv": "OEM Clear"
+			}
+		},
+		"Attn": {
+			"en": "Attn",
+			"sv": "Attn"
+		},
+		"CrSel": {
+			"en": "CrSel",
+			"sv": "CrSel"
+		},
+		"ExSel": {
+			"en": "ExSel",
+			"sv": "ExSel"
+		},
+		"EraseEOF": {
+			"en": "Erase EOF",
+			"sv": "Erase EOF"
+		},
+		"Zoom": {
+			"en": "Zoom",
+			"sv": "Zoom"
+		},
+		"PA1": {
+			"en": "PA1",
+			"sv": "PA1"
 		}
 	},
 	"Rename": {
