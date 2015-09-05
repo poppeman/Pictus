@@ -54,13 +54,13 @@ namespace Reg {
 		cfg.Mouse.OnMouseRight = pt.get<App::MouseAction>("Settings.OnMouseRight", App::MouseAction::MouseContext);
 
 		cfg.Render.BackgroundColor = pt.get<Img::Color>("Settings.BackgroundColor", { 0, 0xcc, 0xcc, 0xff });
-		cfg.Render.MagFilter = Filter::Mode(pt.get<uint32_t>("Settings.MagFilter", static_cast<int>(Filter::Mode::Bilinear)));
-		cfg.Render.MinFilter = Filter::Mode(pt.get<uint32_t>("Settings.MinFilter", static_cast<int>(Filter::Mode::Bilinear)));
+		cfg.Render.MagFilter = pt.get<Filter::Mode>("Settings.MagFilter", Filter::Mode::Bilinear);
+		cfg.Render.MinFilter = pt.get<Filter::Mode>("Settings.MinFilter", Filter::Mode::Bilinear);
 
 		// cfg.View.
 		cfg.View.AlwaysOnTop = pt.get<bool>("Settings.AlwaysOnTop", false);
 		cfg.View.BrowseWrapAround = pt.get<bool>("Settings.BrowseWrapAround", false);
-		cfg.View.DefaultZoomMode = App::ZoomMode(pt.get<uint32_t>("Settings.DefaultZoom", static_cast<int>(App::ZoomFitImage)));
+		cfg.View.DefaultZoomMode = pt.get<App::ZoomMode>("Settings.DefaultZoom", App::ZoomFitImage);
 		cfg.View.Language = pt.get<Intl::Language>("Settings.Language", Intl::Language::English);
 		cfg.View.Maximized = pt.get<bool>("Settings.Maximized", false);
 		cfg.View.MultipleInstances = pt.get<bool>("Settings.MultipleInstances", false);
