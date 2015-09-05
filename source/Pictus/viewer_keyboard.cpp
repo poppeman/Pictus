@@ -4,81 +4,81 @@
 #include "registry.h"
 
 namespace App {
-	void ViewerKeyboard::Construct(Viewer* owner, Reg::KeyboardSettings cfg) {
-		m_cfg = cfg;
+	void ViewerKeyboard::Construct(Viewer* owner) {
+		m_owner = owner;
 
-		owner->OnKeyDown.connect([=](Win::KeyEvent e) {
+		m_owner->OnKeyDown.connect([&](Win::KeyEvent e) {
 			for (auto x : m_cfg.Bindings) {
 				if (x.Key.Key == e.Key && x.Key.Alt == e.AltPressed && x.Key.Shift == e.ShiftPressed && x.Key.Ctrl == e.CtrlPressed) {
 					switch (x.Action) {
 					case KeyAction::FirstImage:
-						owner->ToStart();
+						m_owner->ToStart();
 						break;
 					case KeyAction::LastImage:
-						owner->ToEnd();
+						m_owner->ToEnd();
 						break;;
 					case KeyAction::NextImage:
-						owner->ImageNext();
+						m_owner->ImageNext();
 						break;
 					case KeyAction::NextSkipImage:
-						owner->ImageNext(Viewer::ShiftSkipLength);
+						m_owner->ImageNext(Viewer::ShiftSkipLength);
 						break;
 					case KeyAction::PreviousImage:
-						owner->ImagePrev();
+						m_owner->ImagePrev();
 						break;
 					case KeyAction::PreviousSkipImage:
-						owner->ImagePrev(Viewer::ShiftSkipLength);
+						m_owner->ImagePrev(Viewer::ShiftSkipLength);
 						break;
 					case KeyAction::PanDown:
-						owner->PanDown();
+						m_owner->PanDown();
 						break;
 					case KeyAction::PanUp:
-						owner->PanUp();
+						m_owner->PanUp();
 						break;
 					case KeyAction::PanLeft:
-						owner->PanLeft();
+						m_owner->PanLeft();
 						break;
 					case KeyAction::PanRight:
-						owner->PanRight();
+						m_owner->PanRight();
 						break;
 					case KeyAction::RandomImage:
-						owner->ImageRandom();
+						m_owner->ImageRandom();
 						break;
 					case KeyAction::RecycleCurrentFile:
-						owner->RemoveImage(Viewer::RemoveRecycle);
+						m_owner->RemoveImage(Viewer::RemoveRecycle);
 						break;
 					case KeyAction::RemoveCurrentImage:
-						owner->RemoveImage(Viewer::RemoveOnly);
+						m_owner->RemoveImage(Viewer::RemoveOnly);
 						break;
 					case KeyAction::RenameFile:
-						owner->RenameCurrent();
+						m_owner->RenameCurrent();
 						break;
 					case KeyAction::ToggleFullscreen:
-						owner->ToggleFullscreenMode();
+						m_owner->ToggleFullscreenMode();
 						break;
 					case KeyAction::ZoomDefault:
-						owner->ZoomDefault();
+						m_owner->ZoomDefault();
 						break;
 					case KeyAction::ZoomFree:
-						owner->ZoomMode(ZoomMode::ZoomFree);
+						m_owner->ZoomMode(ZoomMode::ZoomFree);
 						break;
 					case KeyAction::ZoomFull:
-						owner->ZoomMode(ZoomMode::ZoomFullSize);
+						m_owner->ZoomMode(ZoomMode::ZoomFullSize);
 						break;
 					case KeyAction::ZoomIn:
-						owner->ZoomIn();
+						m_owner->ZoomIn();
 						break;
 					case KeyAction::ZoomOut:
-						owner->ZoomOut();
+						m_owner->ZoomOut();
 						break;
 					case KeyAction::CloseApplication:
-						owner->Close();
+						m_owner->Close();
 						break;
 					case KeyAction::OpenSettings:
-						owner->ShowSettings();
+						m_owner->ShowSettings();
 						break;
 					case KeyAction::CopyImage:
-						owner->CopyToClipboard();
+						m_owner->CopyToClipboard();
 						break;
 					}
 					return true;
@@ -86,5 +86,9 @@ namespace App {
 			}
 			return false;
 		});
+	}
+
+	void ViewerKeyboard::SetBindings(Reg::KeyboardSettings cfg) {
+		m_cfg = cfg;
 	}
 }

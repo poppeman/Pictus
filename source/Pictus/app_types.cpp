@@ -32,9 +32,10 @@ namespace App {
 		("ZoomDefault", KeyAction::ZoomDefault)
 		("ZoomFree", KeyAction::ZoomFree)
 		("ZoomFull", KeyAction::ZoomFull)
+		("CopyImage", KeyAction::CopyImage)
 		;
 
-	const std::map<KeyAction, App::StringID> cg_actionSids = {
+	const std::map<KeyAction, App::StringID> ActionSids = {
 		{ App::KeyAction::CloseApplication, SIDActionClose },
 		{ App::KeyAction::NextImage, SIDActionNextImage },
 		{ App::KeyAction::NextSkipImage, SIDActionNextSkipImage },
@@ -213,7 +214,7 @@ namespace App {
 	};
 
 	App::StringID KeyActionSid(KeyAction action) {
-		return cg_actionSids.find(action)->second;
+		return ActionSids.find(action)->second;
 	}
 
 	std::string KeyActionToIdentifier(KeyAction action) {

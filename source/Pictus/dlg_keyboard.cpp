@@ -63,6 +63,11 @@ namespace App {
 	}
 
 
+	void SetKeyboard::AddAction(KeyAction action, StringID actionSid) {
+		m_functions->AddItem(actionSid, static_cast<DWORD>(action));
+	}
+
+
 	bool SetKeyboard::PerformOnInitPage() {
 		Caption(SIDSettingsKeyboard);
 		ControlText(IDC_GROUP_KEYBOARD_ACTION, SIDSettingsKeyboardAction);
@@ -73,9 +78,10 @@ namespace App {
 
 		m_functions = CreateComboBox(IDC_COMBO_KEYBOARD_FUNCTION);
 		m_functions->Reset();
-		m_functions->AddItem(SIDActionNextImage, static_cast<DWORD>(KeyAction::NextImage));
-		m_functions->AddItem(SIDActionPreviousImage, static_cast<DWORD>(KeyAction::PreviousImage));
-		m_functions->AddItem(SIDActionRenameFile, static_cast<DWORD>(KeyAction::RenameFile));
+
+		for (const auto& kas : App::ActionSids) {
+			AddAction(kas.first, kas.second);
+		}
 		m_functions->OnSelectionChanged.connect([this]() { 
 			auto row = m_assigned->GetSelectedRow();
 			auto index = m_assigned->GetItemParam(row);
@@ -112,6 +118,13 @@ namespace App {
 	}
 
 	void SetKeyboard::onWriteSettings(Reg::Settings& settings) {
+		settings.Keyboard.Bindings.clear();
+
+		for (const auto& binding : m_shortcuts) {
+			if (binding.second.Action != KeyAction::Undefined) {
+				settings.Keyboard.Bindings.push_back(binding.second);
+			}
+		}
 		//throw std::logic_error("The method or operation is not implemented.");
 	}
 }

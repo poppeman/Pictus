@@ -132,7 +132,7 @@ namespace Reg {
 	void Save(const std::wstring& name, const Reg::Settings& cfg) {
 		std::wstring full_name = assure_folder(name);
 		std::stringstream ss;
-		ss << (char)0xef << (char)0xbb << (char)(0xbf);
+		//ss << (char)0xef << (char)0xbb << (char)(0xbf);
 		boost::property_tree::ptree pt;
 
 		pt.put("Settings.AutoMemoryLimit", cfg.Cache.DoAutoMemoryLimit);

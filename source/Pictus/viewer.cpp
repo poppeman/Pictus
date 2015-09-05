@@ -61,7 +61,8 @@ namespace App {
 		m_mouseMap.AddAction(MouseContext, [this](Win::MouseEvent e) { ShowContextMenu(e); });
 
 		m_contextMenu.Construct(this);
-		m_keys.Construct(this, m_cfg.Keyboard);
+		m_keys.Construct(this);
+		m_keys.SetBindings(m_cfg.Keyboard);
 
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateImageInformation(); });
 
@@ -1021,6 +1022,7 @@ namespace App {
 	void Viewer::SettingsChanged() {
 		Reg::Save(cg_SettingsLocation, m_cfg);
 		m_cacher.WrapAround(m_cfg.View.BrowseWrapAround);
+		m_keys.SetBindings(m_cfg.Keyboard);
 
 		m_statusBar->Visible(m_cfg.View.ShowStatusBar && ViewportMode() != SM_Fullscreen);
 		RecalculateViewportSize();

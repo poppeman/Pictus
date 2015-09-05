@@ -59,6 +59,8 @@ namespace App {
 		bool Ctrl;
 	};
 
+	extern const std::map<KeyAction, App::StringID> ActionSids;
+
 	StringID KeyActionSid(KeyAction action);
 
 	std::string KeyActionToIdentifier(KeyAction action);

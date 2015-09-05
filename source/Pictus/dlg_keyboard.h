@@ -21,6 +21,9 @@ namespace App {
 		void SetShortcutCombo(KeyboardPress kp, int index);
 
 		bool PerformOnInitPage() override;
+
+		void AddAction(KeyAction action, StringID actionSid);
+
 		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
 		void onWriteSettings(Reg::Settings& settings) override;
 

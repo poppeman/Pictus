@@ -10,10 +10,12 @@ namespace App {
 
 	class ViewerKeyboard {
 	public:
-		void Construct(Viewer* owner, Reg::KeyboardSettings cfg);
+		void Construct(Viewer* owner);
+		void SetBindings(Reg::KeyboardSettings cfg);
 
 	private:
 		Reg::KeyboardSettings m_cfg;
+		Viewer* m_owner;
 	};
 }
 
