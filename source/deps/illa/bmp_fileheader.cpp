@@ -18,10 +18,6 @@ namespace Img {
 			if (type != BITMAP_SIGN) {
 				DO_THROW(Err::InvalidHeader, TX("Magic bytes didn't match."));
 			}
-
-			if (size > file->Size()) {
-				DO_THROW(Err::InvalidHeader, TX("File seems to be truncated."));
-			}
 		}
 
 		BMPFileHeader::BMPFileHeader() {}
