@@ -34,7 +34,7 @@ namespace Win {
 	}
 
 	Dialog::Dialog(int id):
-		m_iTemplateID(id)
+		m_iTemplateID{ id }
 	{
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateControlStrings(); });
 	}

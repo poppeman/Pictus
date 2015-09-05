@@ -92,6 +92,13 @@ namespace Win {
 		return CallWindowProc(pEdit->m_prevEditWndProc, hwnd, msg, wParam, lParam);
 	}
 
+	EditBox::EditBox(int id, HWND hwnd):
+		Control{ id, hwnd },
+		m_balloonText{ -1 },
+		m_criteria{ FilterNone },
+		m_prevEditWndProc{ 0 }
+	{}
+
 	bool EditBox::isValidchar(char c) {
 		bool isValid = true;
 

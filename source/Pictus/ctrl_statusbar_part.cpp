@@ -12,7 +12,11 @@ namespace Win {
 		return m_text;
 	}
 
-	StatusBarPart::StatusBarPart():m_statusBar(0), m_setWidth(0), m_autoSize(AutoSizeNone) {}
+	StatusBarPart::StatusBarPart():
+		m_statusBar{ 0 },
+		m_setWidth{ 0 },
+		m_autoSize{ AutoSizeNone }
+	{}
 
 	void StatusBarPart::AttachTo(StatusBar* target) {
 		m_statusBar = target;

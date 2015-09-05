@@ -153,9 +153,9 @@ namespace Win {
 			::CheckMenuItem(m_hMenu, i.first, (i.second ? MF_CHECKED : MF_UNCHECKED));
 	}
 
-	Menu::Menu()
-		:m_iCurrIndex(0),
-		m_hMenu(0)
+	Menu::Menu():
+		m_iCurrIndex{ 0 },
+		m_hMenu{ 0 }
 	{
 		m_lang = Intl::OnLanguageChanged.connect([&]() { RebuildMenu(); });
 		m_hMenu = CreatePopupMenu();

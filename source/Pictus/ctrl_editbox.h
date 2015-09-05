@@ -20,7 +20,7 @@ namespace Win {
 
 	protected:
 		// Block invalid construction
-		EditBox(int id, HWND hwnd):Control(id, hwnd), m_balloonText(-1), m_criteria(FilterNone), m_prevEditWndProc(0) {}
+		EditBox(int id, HWND hwnd);
 
 		friend class BaseWindow;
 

@@ -69,9 +69,9 @@ namespace Win {
 		return Value;
 	}
 
-	ComboBox::ComboEntry::ComboEntry(int id, DWORD val)
-		:SId(id),
-		Value(val)
+	ComboBox::ComboEntry::ComboEntry(int id, DWORD val):
+		SId{ id },
+		Value{ val }
 	{}
 
 	ComboBox::ComboEntry::ComboEntry(const std::wstring& str, DWORD val):SId(-1), Contents(str), Value(val) {
