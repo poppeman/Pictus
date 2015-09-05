@@ -8,8 +8,12 @@ namespace App {
 		PositionNothing
 	};
 
-	ResizePositionMethod IdentifierToResizePositionMethod(std::string identifier);
-	std::string ResizePositionMethodToIdentifier(ResizePositionMethod method);
+	typedef boost::bimap<boost::bimaps::set_of<std::string>, boost::bimaps::set_of<ResizePositionMethod>> ResizePositionMethodIdentifierBimap;
+	const ResizePositionMethodIdentifierBimap ResizePositionMethodIdentifier = boost::assign::list_of<ResizePositionMethodIdentifierBimap::relation>
+		("PositionToScreen", ResizePositionMethod::PositionToScreen)
+		("PositionToCurrent", ResizePositionMethod::PositionToCurrent)
+		("PositionNothing", ResizePositionMethod::PositionNothing)
+		;
 }
 
 #endif

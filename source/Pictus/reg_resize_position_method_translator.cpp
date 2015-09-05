@@ -8,11 +8,16 @@ namespace Reg {
 			if (sval == "1") return App::ResizePositionMethod::PositionToCurrent;
 			if (sval == "2") return App::ResizePositionMethod::PositionNothing;
 
-			return App::IdentifierToResizePositionMethod(sval);
+			auto it = App::ResizePositionMethodIdentifier.left.find(sval);
+			if (it != App::ResizePositionMethodIdentifier.left.end()) {
+				return it->second;
+			}
+
+			return nullptr;
 		}
 
 		boost::optional<ResizePositionMethodTranslator::internal_type> ResizePositionMethodTranslator::put_value(external_type const& val) {
-			return App::ResizePositionMethodToIdentifier(val);
+			return App::ResizePositionMethodIdentifier.right.find(val)->second;
 		}
 	}
 }

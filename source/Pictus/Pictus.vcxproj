@@ -229,8 +229,6 @@
     <ClCompile Include="reg_resize_behavior_translator.cpp" />
     <ClCompile Include="reg_resize_position_method_translator.cpp" />
     <ClCompile Include="reg_zoom_mode_translator.cpp" />
-    <ClCompile Include="resize_behavior.cpp" />
-    <ClCompile Include="resize_position_method.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="settings_page.cpp" />
     <ClCompile Include="dlg_color.cpp" />
@@ -297,7 +295,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zoom_mode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ctrl_keypress.h" />

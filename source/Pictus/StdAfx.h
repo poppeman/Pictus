@@ -22,6 +22,10 @@
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
+#pragma warning(disable: 4512)
+#pragma warning(disable: 4503)
+#include <boost/assign.hpp>
+#include <boost/bimap.hpp>
 
 #include "orz/logger.h"
 

@@ -8,11 +8,16 @@ namespace Reg {
 			if (sval == "1") return App::ResizeBehaviour::ResizeEnlargeOnly;
 			if (sval == "2") return App::ResizeBehaviour::ResizeReduceOnly;
 
-			return App::IdentifierToResizeBehavior(sval);
+			auto it = App::ResizeBehaviorIdentifier.left.find(sval);
+			if (it != App::ResizeBehaviorIdentifier.left.end()) {
+				return it->second;
+			}
+
+			return nullptr;
 		}
 
 		boost::optional<ResizeBehaviorTranslator::internal_type> ResizeBehaviorTranslator::put_value(external_type const& val) {
-			return App::ResizeBehaviorToIdentifier(val);
+			return App::ResizeBehaviorIdentifier.right.find(val)->second;
 		}
 	}
 }

@@ -8,8 +8,12 @@ namespace App {
 		ResizeReduceOnly
 	};
 
-	std::string ResizeBehaviorToIdentifier(ResizeBehaviour action);
-	ResizeBehaviour IdentifierToResizeBehavior(std::string identifier);
+	typedef boost::bimap<boost::bimaps::set_of<std::string>, boost::bimaps::set_of<ResizeBehaviour>> ResizeBehaviorIdentifierBimap;
+	const ResizeBehaviorIdentifierBimap ResizeBehaviorIdentifier = boost::assign::list_of<ResizeBehaviorIdentifierBimap::relation>
+		("EnlargeOnly", ResizeBehaviour::ResizeEnlargeOnly)
+		("EnlargeOrReduce", ResizeBehaviour::ResizeEnlargeOrReduce)
+		("ReduceOnly", ResizeBehaviour::ResizeReduceOnly)
+		;
 }
 
 #endif

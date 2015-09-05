@@ -8,11 +8,15 @@ namespace Reg {
 			if (sval == "1") return App::ZoomFitImage;
 			if (sval == "2") return App::ZoomFullSize;
 
-			return App::IdentifierToZoomMode(sval);
+			auto it = App::ZoomModeIdentifier.left.find(sval);
+			if (it != App::ZoomModeIdentifier.left.end()) {
+				return it->second;
+			}
+			return nullptr;
 		}
 
 		boost::optional<ZoomModeTranslator::internal_type> ZoomModeTranslator::put_value(external_type const& val) {
-			return App::ZoomModeToIdentifier(val);
+			return App::ZoomModeIdentifier.right.find(val)->second;
 		}
 	}
 }

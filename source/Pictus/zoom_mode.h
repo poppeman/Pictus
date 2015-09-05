@@ -8,8 +8,12 @@ namespace App {
 		ZoomFullSize,
 	};
 
-	ZoomMode IdentifierToZoomMode(std::string identifier);
-	std::string ZoomModeToIdentifier(ZoomMode mode);
+	typedef boost::bimap<boost::bimaps::set_of<std::string>, boost::bimaps::set_of<ZoomMode>> ZoomModeIdentifierBimap;
+	const ZoomModeIdentifierBimap ZoomModeIdentifier = boost::assign::list_of<ZoomModeIdentifierBimap::relation>
+		("ZoomFree", App::ZoomFree)
+		("ZoomFitImage", App::ZoomFitImage)
+		("ZoomFullSize", App::ZoomFullSize)
+		;
 }
 
 

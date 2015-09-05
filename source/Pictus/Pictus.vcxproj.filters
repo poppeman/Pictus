@@ -330,17 +330,8 @@
     <ClCompile Include="lang_val.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
-    <ClCompile Include="resize_behavior.cpp">
-      <Filter>Types</Filter>
-    </ClCompile>
-    <ClCompile Include="resize_position_method.cpp">
-      <Filter>Types</Filter>
-    </ClCompile>
     <ClCompile Include="reg_zoom_mode_translator.cpp">
       <Filter>Shared\Registry\Translators</Filter>
-    </ClCompile>
-    <ClCompile Include="zoom_mode.cpp">
-      <Filter>Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
