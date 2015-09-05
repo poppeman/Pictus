@@ -25,7 +25,7 @@ namespace Reg {
 						binding.Key.Shift = true;
 					}
 					if (mod == "Ctrl") {
-						binding.Key.Shift = true;
+						binding.Key.Ctrl = true;
 					}
 				}
 
