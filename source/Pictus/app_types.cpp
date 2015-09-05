@@ -57,7 +57,8 @@ namespace App {
 		{ App::KeyAction::ZoomOut, SIDActionZoomOut },
 		{ App::KeyAction::ZoomDefault, SIDActionZoomDefault },
 		{ App::KeyAction::ZoomFree, SIDActionZoomFree },
-		{ App::KeyAction::ZoomFull, SIDActionZoomFullSize }
+		{ App::KeyAction::ZoomFull, SIDActionZoomFullSize },
+		{ App::KeyAction::CopyImage, SIDActionCopyToClipboard }
 	};
 
 	App::StringID KeyActionSid(KeyAction action) {

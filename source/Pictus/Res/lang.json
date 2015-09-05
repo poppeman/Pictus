@@ -482,6 +482,10 @@
 			"en": "Rename current file",
 			"sv": "Byt namn på nuvarande fil"
 		},
+		"CopyToClipboard": {
+			"en": "Copy to clipboard",
+			"sv": "Kopiera till urklipp"
+		},
 		"Disable": {
 			"en": "Disable",
 			"sv": "Använd ej"
