@@ -22,6 +22,10 @@ namespace Win {
 			DWORD curr = static_cast<DWORD>(SendMessage(Handle(), CB_GETITEMDATA, i, 0));
 			if (curr == val) {
 				SendMessage(Handle(), CB_SETCURSEL, i, 0);
+				// This SHOULDN'T be necessary, but it is and I can't be arsed to figure out why.
+				// The combo box does not automatically get redrawn without this, even if the redraw flag is explicitly enabled
+				// through WM_SETREDRAW.
+				InvalidateRect(Handle(), nullptr, false);
 				return;
 			}
 		}
@@ -36,7 +40,7 @@ namespace Win {
 	}
 
 	void ComboBox::Reset() {
-		SendMessage(Handle(), CB_RESETCONTENT, 0, 0); 
+		SendMessage(Handle(), CB_RESETCONTENT, 0, 0);
 	}
 
 	void ComboBox::Rebuild() {
