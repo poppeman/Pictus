@@ -192,7 +192,6 @@ namespace App {
 	}
 
 	void Settings::OnCancel() {
-		OnSettingsChanged(m_settings);
 		FreeResources();
 		DestroyWindow(Handle());
 	}
