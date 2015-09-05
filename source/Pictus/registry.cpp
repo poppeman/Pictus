@@ -14,21 +14,26 @@ namespace Reg {
 		Reg::Settings cfg;
 		std::wstring full_name = assure_folder(name);
 
-		IO::FileReader r(full_name);
-		r.Open();
-		auto sz = r.Size();
-		std::string data;
-		data.resize(sz);
-		r.ReadFull(&data[0], sz);
-		r.Close();
-		std::stringstream ss(data);
 		boost::property_tree::ptree pt;
 
-		try {
-			boost::property_tree::ini_parser::read_ini(ss, pt);
-		}
-		catch (std::exception const& ex) {
-			Log << L"(Reg::Load) Failed parsing configuration file: " << ex.what() << L"\n";
+		// Scope ensures that file is closed
+		{
+			IO::FileReader r(full_name);
+			if (r.Open()) {
+				auto sz = r.Size();
+				std::string data;
+				data.resize(sz);
+				r.ReadFull(&data[0], sz);
+
+				std::stringstream ss(data);
+
+				try {
+					boost::property_tree::ini_parser::read_ini(ss, pt);
+				}
+				catch (std::exception const& ex) {
+					Log << L"(Reg::Load) Failed parsing configuration file: " << ex.what() << L"\n";
+				}
+			}
 		}
 
 		cfg.Cache.DoAutoMemoryLimit = pt.get<bool>("Settings.AutoMemoryLimit", true);
