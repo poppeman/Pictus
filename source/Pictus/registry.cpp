@@ -121,7 +121,8 @@ namespace Reg {
 				
 				{ { L'R', false, false, false }, KeyAction::RandomImage },
 				{ { L'O', false, false, false }, KeyAction::OpenSettings },
-				{ { VK_RETURN, true, false, false }, KeyAction::ToggleFullscreen }
+				{ { VK_RETURN, true, false, false }, KeyAction::ToggleFullscreen },
+				{ { L'C', false, false, true}, KeyAction::CopyImage }
 			};
 		}
 

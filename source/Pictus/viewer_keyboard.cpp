@@ -77,6 +77,9 @@ namespace App {
 					case KeyAction::OpenSettings:
 						owner->ShowSettings();
 						break;
+					case KeyAction::CopyImage:
+						owner->CopyToClipboard();
+						break;
 					}
 					return true;
 				}

@@ -266,75 +266,61 @@ namespace App {
 		return true;
 	}
 
-	bool Viewer::PerformOnchar(uint32_t key, int , bool ) {
-		switch (key) {
-			// Copy
-			case 3:
-			{
-				Img::Image::Ptr pImg = m_viewPort.Image();
-				if (!pImg.get()) return false;
-				if (pImg->IsFinished() == false) return false;
+	bool Viewer::CopyToClipboard() {
+		Img::Image::Ptr pImg = m_viewPort.Image();
+		if (!pImg.get()) return false;
+		if (pImg->IsFinished() == false) return false;
 
-				Geom::SizeInt size(pImg->GetSize());
-				Img::Surface::Ptr surface = pImg->CurrentSurface();
-				if (surface == 0)
-					return false;
-
-				// Signal an error here
-				if (!OpenClipboard(Handle()) || !EmptyClipboard())
-					return false;
-
-				HDC hDC = GetDC(Handle());
-
-				HBITMAP hBitmap = CreateCompatibleBitmap(hDC, size.Width, size.Height);
-
-				Win::SharedDC dc;
-				dc.SelectObject(hBitmap);
-
-				boost::scoped_array<uint8_t> pBuf(new uint8_t[size.Width * 4]);
-
-				BITMAPINFO bmi;
-				bmi.bmiHeader.biSize		= sizeof(bmi.bmiHeader);
-				bmi.bmiHeader.biWidth		= size.Width;
-				bmi.bmiHeader.biHeight		= size.Height;
-				bmi.bmiHeader.biBitCount	= 4 * 8;
-				bmi.bmiHeader.biCompression	= BI_RGB;
-				bmi.bmiHeader.biPlanes		= 1;
-
-				for (int i = 0; i < (size.Height); ++i) {
-					surface->CopyRectToBuffer(
-						pBuf.get(),
-						size.Width * 4,
-						RectInt(PointInt(0, i), SizeInt(size.Width, 1)),
-						m_viewPort.BackgroundColor(),
-						m_viewPort.Brightness(),
-						m_viewPort.Contrast(),
-						m_viewPort.Gamma(), false);
-					// TODO: Consider some sort of error handling here
-					SetDIBitsToDevice(dc, 0, i, size.Width, 1, 0, 0, 0, 1, pBuf.get(), &bmi, 0);
-				}
-
-				HANDLE hClipData = SetClipboardData(CF_BITMAP, hBitmap);
-				DeleteObject(hBitmap);
-
-				// Signal an error here
-				if (!CloseClipboard() || !hClipData)
-					return false;
-
-				ReleaseDC(Handle(), hDC);
-
-				break;
-			}
-
-		case 22:
-			// Paste
-			break;
-		default:
+		Geom::SizeInt size(pImg->GetSize());
+		Img::Surface::Ptr surface = pImg->CurrentSurface();
+		if (surface == 0)
 			return false;
+
+		// Signal an error here
+		if (!OpenClipboard(Handle()) || !EmptyClipboard())
+			return false;
+
+		HDC hDC = GetDC(Handle());
+
+		HBITMAP hBitmap = CreateCompatibleBitmap(hDC, size.Width, size.Height);
+
+		Win::SharedDC dc;
+		dc.SelectObject(hBitmap);
+
+		boost::scoped_array<uint8_t> pBuf(new uint8_t[size.Width * 4]);
+
+		BITMAPINFO bmi;
+		bmi.bmiHeader.biSize = sizeof(bmi.bmiHeader);
+		bmi.bmiHeader.biWidth = size.Width;
+		bmi.bmiHeader.biHeight = size.Height;
+		bmi.bmiHeader.biBitCount = 4 * 8;
+		bmi.bmiHeader.biCompression = BI_RGB;
+		bmi.bmiHeader.biPlanes = 1;
+
+		for (int i = 0; i < (size.Height); ++i) {
+			surface->CopyRectToBuffer(
+				pBuf.get(),
+				size.Width * 4,
+				RectInt(PointInt(0, i), SizeInt(size.Width, 1)),
+				m_viewPort.BackgroundColor(),
+				m_viewPort.Brightness(),
+				m_viewPort.Contrast(),
+				m_viewPort.Gamma(), false);
+			// TODO: Consider some sort of error handling here
+			SetDIBitsToDevice(dc, 0, i, size.Width, 1, 0, 0, 0, 1, pBuf.get(), &bmi, 0);
 		}
+
+		HANDLE hClipData = SetClipboardData(CF_BITMAP, hBitmap);
+		DeleteObject(hBitmap);
+
+		// Signal an error here
+		if (!CloseClipboard() || !hClipData)
+			return false;
+
+		ReleaseDC(Handle(), hDC);
+
 		return true;
 	}
-
 
 	bool Viewer::RecalculateViewportSize() {
 		if (ViewportMode() == SM_Fullscreen)

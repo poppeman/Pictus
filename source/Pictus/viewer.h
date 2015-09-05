@@ -90,7 +90,6 @@ namespace App {
 
 		bool PerformOnWindowCreate();
 		bool PerformOnClose();
-		bool PerformOnchar(uint32_t key, int count, bool pressed);
 
 		bool PerformOnSize(const Geom::SizeInt& sz);
 		bool PerformOnMove(const Geom::PointInt& pt, bool byUser);
@@ -157,6 +156,8 @@ namespace App {
 
 		void OnLoadMessage(Img::MessageReceiver::LoadMessage s, Img::Image* pImage, const std::wstring& desc);
 		void FolderEvent(IO::FileEvent e);
+
+		bool CopyToClipboard();
 
 		// Disable copy and assignment
 		Viewer(const Viewer&);

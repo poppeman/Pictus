@@ -48,7 +48,8 @@ namespace App {
 		RemoveCurrentImage = 19,  // Removes image from rotation, does NOT touch the actual file.
 		ToggleFullscreen = 20,
 		CloseApplication = 21,
-		OpenSettings = 22
+		OpenSettings = 22,
+		CopyImage = 23,
 	};
 
 	struct KeyboardPress {
