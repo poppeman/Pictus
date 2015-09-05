@@ -81,7 +81,23 @@ namespace Win {
 		ListView_SetExtendedListViewStyle(Handle(), flags);
 	}
 
-	ListView::ListView(int id, HWND hwnd) :Control(id, hwnd), m_index(0) {
+	boost::optional<LRESULT> ListView::PerformOnNotify(LPNMHDR lParam) {
+		if (lParam->code == LVN_ITEMCHANGED) {
+			auto nmlv = reinterpret_cast<LPNMLISTVIEW>(lParam);
+			if (nmlv->uNewState & LVIS_SELECTED) {
+				if (OnSelectionChanged != nullptr) {
+					OnSelectionChanged(nmlv->iItem);
+					return (LRESULT)1;
+				}
+			}
+		}
+		return (LRESULT)0;
+	}
+
+	ListView::ListView(int id, HWND hwnd):
+		Control{ id, hwnd },
+		m_index{ 0 }
+	{
 		//SetWindowTheme(hwnd, L"Explorer", NULL);
 	}
 

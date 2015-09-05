@@ -25,12 +25,16 @@ namespace Win {
 		bool IsChecked(size_t index);
 		void Style(DWORD flags);
 
+		std::function<void(int)> OnSelectionChanged;
+
 	protected:
 		ListView(int id, HWND hwnd);
 
 		friend class BaseWindow;
 
 	private:
+		boost::optional<LRESULT> PerformOnNotify(LPNMHDR lParam) override;
+
 		// Avoid unintentional creation
 		ListView();
 
