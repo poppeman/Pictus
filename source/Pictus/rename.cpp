@@ -37,5 +37,8 @@ namespace App {
 		EndDialog(Handle(), 0);
 	}
 
-	Rename::Rename(const std::wstring& name):Dialog(IDD_RENAME), m_name(name) {}
+	Rename::Rename(const std::wstring& name):
+		Dialog{ IDD_RENAME },
+		m_name{ name }
+	{}
 }

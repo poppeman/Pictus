@@ -33,7 +33,7 @@ namespace App {
 		bool Show(bool doShow);
 		void ActiveImage(Img::Image::Ptr pImage);
 
-		explicit Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config, const std::wstring params=TX(""));
+		explicit Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config, const std::wstring params = L"");
 		~Viewer();
 
 	private:
