@@ -333,6 +333,18 @@
     <ClCompile Include="reg_zoom_mode_translator.cpp">
       <Filter>Shared\Registry\Translators</Filter>
     </ClCompile>
+    <ClCompile Include="menu_item.cpp">
+      <Filter>WinAPI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="imenu_item.cpp">
+      <Filter>WinAPI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="sub_menu.cpp">
+      <Filter>WinAPI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="separator.cpp">
+      <Filter>WinAPI\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlg_about.h">
@@ -602,6 +614,18 @@
     </ClInclude>
     <ClInclude Include="zoom_mode.h">
       <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="menu_item.h">
+      <Filter>WinAPI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="imenu_item.h">
+      <Filter>WinAPI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="sub_menu.h">
+      <Filter>WinAPI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="separator.h">
+      <Filter>WinAPI\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

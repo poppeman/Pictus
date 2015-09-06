@@ -215,12 +215,14 @@
     <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
     <ClCompile Include="gdiwrapper.cpp" />
+    <ClCompile Include="imenu_item.cpp" />
     <ClCompile Include="lang_val.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="menu_item.cpp" />
     <ClCompile Include="reg_color_translator.cpp" />
     <ClCompile Include="reg_filter_mode_translator.cpp" />
     <ClCompile Include="reg_keyboard_binding_translator.cpp" />
@@ -229,6 +231,7 @@
     <ClCompile Include="reg_resize_behavior_translator.cpp" />
     <ClCompile Include="reg_resize_position_method_translator.cpp" />
     <ClCompile Include="reg_zoom_mode_translator.cpp" />
+    <ClCompile Include="separator.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="settings_page.cpp" />
     <ClCompile Include="dlg_color.cpp" />
@@ -241,6 +244,7 @@
     <ClCompile Include="filterstring.cpp" />
     <ClCompile Include="getevent.cpp" />
     <ClCompile Include="rename.cpp" />
+    <ClCompile Include="sub_menu.cpp" />
     <ClCompile Include="timeconvert.cpp" />
     <ClCompile Include="viewer.cpp" />
     <ClCompile Include="viewer_contextmenu.cpp" />
@@ -305,8 +309,10 @@
     <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
     <ClInclude Include="gdiwrapper.h" />
+    <ClInclude Include="imenu_item.h" />
     <ClInclude Include="lang_enum.h" />
     <ClInclude Include="lang_val.h" />
+    <ClInclude Include="menu_item.h" />
     <ClInclude Include="reg_color_translator.h" />
     <ClInclude Include="reg_filter_mode_translator.h" />
     <ClInclude Include="reg_keyboard_binding_translator.h" />
@@ -317,6 +323,7 @@
     <ClInclude Include="reg_zoom_mode_translator.h" />
     <ClInclude Include="resize_behavior.h" />
     <ClInclude Include="resize_position_method.h" />
+    <ClInclude Include="separator.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="settings_page.h" />
     <ClInclude Include="dlg_color.h" />
@@ -331,6 +338,7 @@
     <ClInclude Include="rename.h" />
     <ClInclude Include="res_settings.h" />
     <ClInclude Include="res_viewer.h" />
+    <ClInclude Include="sub_menu.h" />
     <ClInclude Include="timeconvert.h" />
     <ClInclude Include="viewer.h" />
     <ClInclude Include="viewer_contextmenu.h" />

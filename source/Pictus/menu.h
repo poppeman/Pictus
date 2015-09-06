@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef PICTUS_MENU_H
+#define PICTUS_MENU_H
 
 #include "app_types.h"
 #include "basewin.h"
