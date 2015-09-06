@@ -209,7 +209,7 @@
     <ClCompile Include="filterjob.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="surface.cpp" />
-    <ClCompile Include="surface_lockedarea.cpp" />
+    <ClCompile Include="surface_locked_area.cpp" />
     <ClCompile Include="surfacemgr.cpp" />
     <ClCompile Include="surface_lock.cpp" />
     <ClCompile Include="surface_lock_exclusive.cpp" />
@@ -261,6 +261,7 @@
     <ClInclude Include="f_tga.h" />
     <ClInclude Include="c_tiff.h" />
     <ClInclude Include="f_tiff.h" />
+    <ClInclude Include="surface_locked_area.h" />
     <ClInclude Include="tiff_loader.h" />
     <ClInclude Include="tiff_striploader.h" />
     <ClInclude Include="tiff_tileloader.h" />

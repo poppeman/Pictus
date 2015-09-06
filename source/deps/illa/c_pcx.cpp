@@ -3,6 +3,7 @@
 #include "orz/bitconvert.h"
 #include "c_pcx.h"
 #include "surface.h"
+#include "surface_locked_area.h"
 #include "surfacemgr.h"
 #include "color_io.h"
 
@@ -41,7 +42,7 @@ namespace Img {
 			int nRows	= Util::Min<int>(ChunkRows, GetSize().Height - m_currScan);
 			int startY	= m_currScan;
 
-			Surface::LockedArea::Ptr area = GetSurface()->LockSurface(RectInt(PointInt(0, startY), SizeInt(GetSize().Width, nRows)));
+			std::shared_ptr<Surface::LockedArea> area = GetSurface()->LockSurface(RectInt(PointInt(0, startY), SizeInt(GetSize().Width, nRows)));
 			uint8_t* blinep	= area->Buffer();
 			size_t stride	= area->Stride();
 

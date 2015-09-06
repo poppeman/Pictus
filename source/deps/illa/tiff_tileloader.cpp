@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "tiff_tileloader.h"
+#include "surface_locked_area.h"
 
 namespace Img {
 	TiffTileLoader::TiffTileLoader()
@@ -59,7 +60,7 @@ namespace Img {
 		size_t tileHeight	= Util::Min<size_t>(m_surface->GetSize().Height - m_positionCurrentY, maxTileHeight);
 		size_t tileWidth	= Util::Min<size_t>(m_surface->GetSize().Width - m_positionCurrentX, maxTileWidth);
 
-		Surface::LockedArea::Ptr area = m_surface->LockSurface();
+		std::shared_ptr<Surface::LockedArea> area = m_surface->LockSurface();
 		uint8_t* dest = area->Buffer();
 
 		size_t surfaceWidth = m_surface->GetSize().Width;

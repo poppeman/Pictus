@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 
-#include "surface.h"
+#include "surface_locked_area.h"
 
 namespace Img {
 	uint8_t* Surface::LockedArea::Buffer() {

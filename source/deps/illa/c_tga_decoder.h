@@ -24,7 +24,7 @@ namespace Img {
 			int NumRows;
 			ptrdiff_t SignedScanlineStride;
 			int UnsignedPixelStep;
-			Surface::LockedArea::Ptr Area;
+			std::shared_ptr<Surface::LockedArea> Area;
 			uint8_t* Destination;
 		};
 

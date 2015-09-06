@@ -1,7 +1,7 @@
-
 #include "StdAfx.h"
 #include "gif_stringtable.h"
 #include "geom.h"
+#include "surface_locked_area.h"
 
 namespace Img {
 	using Geom::RectInt;
@@ -137,7 +137,7 @@ namespace Img {
 	bool StringTable::Decompress(uint8_t* pSource, size_t bufferSize) {
 		m_stream.AddBytes(pSource, bufferSize);
 
-		Surface::LockedArea::Ptr area = m_id->Surface->LockSurface(RectInt(PointInt(0, 0), m_id->ImageSize));
+		std::shared_ptr<Surface::LockedArea> area = m_id->Surface->LockSurface(RectInt(PointInt(0, 0), m_id->ImageSize));
 		uint8_t* pDest = area->Buffer();
 		m_stride	= area->Stride();
 		m_width		= m_id->ImageSize.Width;

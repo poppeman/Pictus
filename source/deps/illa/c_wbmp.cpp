@@ -1,7 +1,7 @@
 #include "StdAfx.h"
-
 #include "c_wbmp.h"
 #include "orz/bitconvert.h"
+#include "surface_locked_area.h"
 
 namespace Img {
 	bool CodecWBMP::PerformLoadHeader( IO::FileReader::Ptr file, ImageInfo& info ) {

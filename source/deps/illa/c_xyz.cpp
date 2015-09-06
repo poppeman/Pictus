@@ -1,7 +1,7 @@
 #include "StdAfx.h"
-
 #include "c_xyz.h"
 #include "surface.h"
+#include "surface_locked_area.h"
 #include "surfacemgr.h"
 
 namespace Img {

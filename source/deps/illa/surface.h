@@ -9,26 +9,7 @@ namespace Img {
 	public:
 		typedef std::shared_ptr<Surface> Ptr;
 
-		class LockedArea {
-		public:
-			size_t Stride() const;
-			uint8_t* Buffer();
-
-			void Unlock();
-
-			LockedArea(Surface* surface, uint8_t* buffer, const Geom::RectInt& rect, LockMethod isReadOnly, size_t stride);
-			~LockedArea();
-
-			typedef std::shared_ptr<LockedArea> Ptr;
-
-		private:
-			Geom::RectInt m_rectLocked;
-			uint8_t* m_buffer;
-			size_t m_stride;
-			LockMethod m_method;
-			Surface* m_surface;
-			bool m_isLocked;
-		};
+		class LockedArea;
 
 	public:
 		void CreateSurface(const Geom::SizeInt& size, Format format);
@@ -49,8 +30,8 @@ namespace Img {
 
 		bool IsDirty();
 
-		LockedArea::Ptr LockSurface(LockMethod method = LockReadWrite);
-		LockedArea::Ptr LockSurface(const Geom::RectInt& region, LockMethod method = LockReadWrite);
+		std::shared_ptr<LockedArea> LockSurface(LockMethod method = LockReadWrite);
+		std::shared_ptr<LockedArea> LockSurface(const Geom::RectInt& region, LockMethod method = LockReadWrite);
 
 		Img::Palette GetPalette();
 		void SetPalette(const Img::Palette& pal);
@@ -109,7 +90,7 @@ namespace Img {
 
 	struct FilterBufferAndLock {
 		Filter::FilterBuffer filterBuffer;
-		Surface::LockedArea::Ptr lock;
+		std::shared_ptr<Surface::LockedArea> lock;
 	};
 	
 	FilterBufferAndLock GenerateFilterBuffer(Img::Surface::Ptr src);

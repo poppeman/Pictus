@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "surface.h"
+#include "surface_locked_area.h"
 #include "filter.h"
 #include "config.h"
 

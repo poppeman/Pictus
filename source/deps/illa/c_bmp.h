@@ -27,8 +27,8 @@ namespace Img {
 		ptrdiff_t decompressRawRgb24_32(int nRows, uint8_t* m_pData, ptrdiff_t yofs, ptrdiff_t linestep);
 		ptrdiff_t decompressRawRgb16(int nRows, uint8_t* m_pData, ptrdiff_t yofs, ptrdiff_t linestep);
 
-		bool decompressRle8( Surface::LockedArea::Ptr area );
-		bool decompressRle4( IO::FileReader::Ptr file, Surface::LockedArea::Ptr area );
+		bool decompressRle8(std::shared_ptr<Surface::LockedArea> area);
+		bool decompressRle4(IO::FileReader::Ptr file, std::shared_ptr<Surface::LockedArea> area);
 
 	private:
 		enum {
@@ -41,7 +41,7 @@ namespace Img {
 
 	private:
 		void DecodeRLE();
-		void AddPixelRLE(Surface::LockedArea::Ptr area, uint8_t val);
+		void AddPixelRLE(std::shared_ptr<Surface::LockedArea> area, uint8_t val);
 
 	private:
 		IO::FileReaderByteStreamer m_fileStream;

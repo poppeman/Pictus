@@ -3,6 +3,7 @@
 #include "orz/bitconvert.h"
 #include "c_bmp.h"
 #include "config.h"
+#include "surface_locked_area.h"
 
 namespace Img {
 	using namespace Geom;
@@ -76,7 +77,7 @@ namespace Img {
 				startY	= m_currScan;
 			}
 
-			Surface::LockedArea::Ptr area;
+			std::shared_ptr<Surface::LockedArea> area;
 
 			if ((m_header.Compression == BMPHeader::CompressBitfields) || (m_header.Compression == BMPHeader::CompressRGB)) {
 				area = GetSurface()->LockSurface(RectInt(PointInt(0, startY), SizeInt(GetSize().Width, nRows)));

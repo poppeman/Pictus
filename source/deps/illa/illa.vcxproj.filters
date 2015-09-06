@@ -264,9 +264,6 @@
     <ClCompile Include="surface.cpp">
       <Filter>Surface</Filter>
     </ClCompile>
-    <ClCompile Include="surface_lockedarea.cpp">
-      <Filter>Surface</Filter>
-    </ClCompile>
     <ClCompile Include="surfacemgr.cpp">
       <Filter>Surface</Filter>
     </ClCompile>
@@ -298,6 +295,9 @@
       <Filter>Image\Composer</Filter>
     </ClCompile>
     <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="surface_locked_area.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c_factory.h">
@@ -511,5 +511,8 @@
       <Filter>Image\Composer</Filter>
     </ClInclude>
     <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="surface_locked_area.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

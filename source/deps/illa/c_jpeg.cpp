@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "c_jpeg.h"
+#include "surface_locked_area.h"
 
 namespace Img {
 	using namespace Geom;
@@ -133,7 +134,7 @@ namespace Img {
 					loaded += num;
 
 					Surface::Ptr surface(GetSurface());
-					Surface::LockedArea::Ptr area = surface->LockSurface(RectInt(tlToLock, SizeInt(surface->GetSize().Width, num)));
+					std::shared_ptr<Surface::LockedArea> area = surface->LockSurface(RectInt(tlToLock, SizeInt(surface->GetSize().Width, num)));
 					uint8_t* pDst = area->Buffer();
 
 					for(int row = 0; row < num; row++) {

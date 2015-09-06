@@ -2,6 +2,7 @@
 #include "c_psd.h"
 #include "orz/bitconvert.h"
 #include "psd_shared.h"
+#include "surface_locked_area.h"
 
 namespace Img {
 	using namespace Geom;
@@ -102,7 +103,7 @@ namespace Img {
 
 		while(DoTerminate() == false) {
 			int scansToProcess = Util::Min<int>(GetSurface()->Height() - m_currentScanLine, ScansPerChunk);
-			Surface::LockedArea::Ptr area  = GetSurface()->LockSurface(RectInt(PointInt(0, m_currentScanLine), SizeInt(GetSurface()->Width(), scansToProcess)));
+			std::shared_ptr<Surface::LockedArea> area = GetSurface()->LockSurface(RectInt(PointInt(0, m_currentScanLine), SizeInt(GetSurface()->Width(), scansToProcess)));
 			uint8_t* currChunkStart = area->Buffer();
 
 			size_t bytesPerScanline = (m_header.BitsPerChannel * m_header.Width + 7) >> 3;

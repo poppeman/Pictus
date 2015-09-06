@@ -2,6 +2,7 @@
 
 #include "c_png.h"
 #include "surface.h"
+#include "surface_locked_area.h"
 #include "surfacemgr.h"
 
 namespace Img {
@@ -149,7 +150,7 @@ namespace Img {
 
 				int nRows	= Util::Min<int>(ChunkRows, height - m_currScan);
 
-				Surface::LockedArea::Ptr area = GetSurface()->LockSurface(RectInt(PointInt(0, m_currScan), SizeInt(width, nRows)));
+				std::shared_ptr<Surface::LockedArea> area = GetSurface()->LockSurface(RectInt(PointInt(0, m_currScan), SizeInt(width, nRows)));
 				uint8_t* pDst		= area->Buffer();
 				size_t stride	= area->Stride();
 
