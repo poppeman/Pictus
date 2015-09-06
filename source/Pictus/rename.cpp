@@ -39,6 +39,6 @@ namespace App {
 
 	Rename::Rename(const std::wstring& name):
 		Dialog{ IDD_RENAME },
-		m_name{ name }
+		m_name( name )
 	{}
 }
