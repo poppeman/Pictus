@@ -240,7 +240,6 @@
     <ClCompile Include="dlg_view.cpp" />
     <ClCompile Include="cnt_colorpick.cpp" />
     <ClCompile Include="cnt_colorpreview.cpp" />
-    <ClCompile Include="actionmap.cpp" />
     <ClCompile Include="adjust.cpp" />
     <ClCompile Include="filterstring.cpp" />
     <ClCompile Include="getevent.cpp" />

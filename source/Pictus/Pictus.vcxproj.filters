@@ -128,9 +128,6 @@
     <ClCompile Include="cnt_colorpreview.cpp">
       <Filter>Settings\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="actionmap.cpp">
-      <Filter>Viewer</Filter>
-    </ClCompile>
     <ClCompile Include="adjust.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
