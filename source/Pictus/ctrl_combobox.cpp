@@ -1,25 +1,26 @@
 #include "StdAfx.h"
 #include "ctrl_combobox.h"
+#include "ctrl_combobox_entry.h"
 
 namespace Win {
 	void ComboBox::AddItem(const int sid, DWORD val) {
-		ComboEntry e = ComboEntry(sid, val);
+		Entry e = { sid, val };
 		m_entries.push_back(e);
 		AddToComboBox(e);
 	}
 
 	void ComboBox::AddItem(const std::wstring& str, DWORD val) {
-		ComboEntry e = ComboEntry(str, val);
+		Entry e = { str, val };
 		m_entries.push_back(e);
 		AddToComboBox(e);
 	}
 
 	void ComboBox::SetSelection(DWORD val) {
 		// Look for the correct item
-		DWORD items = static_cast<DWORD>(SendMessage(Handle(), CB_GETCOUNT, 0, 0));
+		auto items = static_cast<DWORD>(SendMessage(Handle(), CB_GETCOUNT, 0, 0));
 
 		for (DWORD i = 0; i < items; i++) {
-			DWORD curr = static_cast<DWORD>(SendMessage(Handle(), CB_GETITEMDATA, i, 0));
+			auto curr = static_cast<DWORD>(SendMessage(Handle(), CB_GETITEMDATA, i, 0));
 			if (curr == val) {
 				SendMessage(Handle(), CB_SETCURSEL, i, 0);
 				// This SHOULDN'T be necessary, but it is and I can't be arsed to figure out why.
@@ -44,14 +45,18 @@ namespace Win {
 	}
 
 	void ComboBox::Rebuild() {
-		DWORD sel = GetSelectionData();
+		auto sel = GetSelectionData();
 		Reset();
-		std::for_each(m_entries.begin(), m_entries.end(), bind(&ComboBox::AddToComboBox, this, _1));
+
+		for (auto e : m_entries) {
+			AddToComboBox(e);
+		}
+
 		SetSelection(sel);
 	}
 
-	void ComboBox::AddToComboBox(const ComboEntry& entry) {
-		DWORD index = static_cast<DWORD>(SendMessage(Handle(), CB_ADDSTRING, 0, (LPARAM)entry.GetWString().c_str()));
+	void ComboBox::AddToComboBox(const Entry& entry) {
+		auto index = static_cast<DWORD>(SendMessage(Handle(), CB_ADDSTRING, 0, (LPARAM)entry.GetWString().c_str()));
 		SendMessage(Handle(), CB_SETITEMDATA, index, entry.GetValue());
 	}
 
@@ -60,25 +65,4 @@ namespace Win {
 	{
 		m_lang = Intl::OnLanguageChanged.connect([&]() { Rebuild(); });
 	}
-	std::wstring ComboBox::ComboEntry::GetWString() const {
-		if (SId == -1) {
-			return Contents;
-		}
-
-		return Intl::GetWString(SId);
-	}
-
-	DWORD ComboBox::ComboEntry::GetValue() const {
-		return Value;
-	}
-
-	ComboBox::ComboEntry::ComboEntry(int id, DWORD val):
-		SId{ id },
-		Value{ val }
-	{}
-
-	ComboBox::ComboEntry::ComboEntry(const std::wstring& str, DWORD val):SId(-1), Contents(str), Value(val) {
-
-	}
-
 }

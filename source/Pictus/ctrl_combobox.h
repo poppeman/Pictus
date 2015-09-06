@@ -26,24 +26,11 @@ namespace Win {
 		boost::signals2::connection m_lang;
 		void Rebuild();
 
-		struct ComboEntry {
-			std::wstring GetWString() const;
-			DWORD GetValue() const;
+		struct Entry;
 
-			ComboEntry(int id, DWORD val);
-			ComboEntry(const std::wstring& str, DWORD val);
+		void AddToComboBox(const Entry& entry);
 
-		private:
-			// Only one of these are used.
-			int SId;
-			std::wstring Contents;
-
-			DWORD Value;
-		};
-
-		void AddToComboBox(const ComboEntry& entry);
-
-		typedef std::vector<ComboEntry> ComboEntryVector;
+		typedef std::vector<Entry> ComboEntryVector;
 		ComboEntryVector m_entries;
 	};
 }

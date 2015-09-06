@@ -345,6 +345,9 @@
     <ClCompile Include="separator.cpp">
       <Filter>WinAPI\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="ctrl_combobox_entry.cpp">
+      <Filter>WinAPI\Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlg_about.h">
@@ -626,6 +629,9 @@
     </ClInclude>
     <ClInclude Include="separator.h">
       <Filter>WinAPI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ctrl_combobox_entry.h">
+      <Filter>WinAPI\Controls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
