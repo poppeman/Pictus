@@ -33,7 +33,11 @@ namespace Win {
 		return (Handle() != 0);
 	}
 
-	Dialog::Dialog(int id):
+	bool Dialog::IsModelessVisible() {
+		return (Handle() != 0);
+	}
+
+	Dialog::Dialog(int id) :
 		m_iTemplateID{ id }
 	{
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateControlStrings(); });

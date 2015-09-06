@@ -9,7 +9,7 @@ namespace Win {
 		boost::signals2::signal<void()> OnClick;
 
 	private:
-		Button();
+		Button() = delete;
 		Button(int id, HWND hwnd);
 		friend class BaseWindow;
 	};

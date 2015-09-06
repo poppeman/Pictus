@@ -7,6 +7,10 @@ namespace Win {
 
 	UINT Window::WM_TaskbarButtonCreated = WM_NULL;
 
+	bool Window::Create(BaseWindow* pParent) {
+		Parent(pParent); return PerformOnCreate();
+	}
+
 	void Window::Add(Control::Ptr control) {
 		COND_STRICT(control, Err::InvalidParam, TX("control was Null."));
 		m_controls.push_back(control);
@@ -74,7 +78,21 @@ namespace Win {
 		return true;
 	}
 
-	Window::Window():m_isAlwaysOnTop(false) {}
+	Window::Window():
+		m_isAlwaysOnTop{ false }
+	{}
+
+	bool Window::PerformOnWindowCreate() {
+		return true;
+	}
+
+	bool Window::PerformOnDropFiles(const StringVector&) {
+		return false;
+	}
+
+	bool Window::PerformOnCreateTaskbar() {
+		return false;
+	}
 
 	Window::~Window() {}
 

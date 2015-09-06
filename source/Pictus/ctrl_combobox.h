@@ -19,7 +19,7 @@ namespace Win {
 	private:
 		DWORD GetSelection();
 
-		ComboBox();
+		ComboBox() = delete;
 		ComboBox(int id, HWND hwnd);
 		friend class BaseWindow;
 

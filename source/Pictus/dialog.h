@@ -13,7 +13,7 @@ namespace Win {
 	public:
 		bool DoModal(Win::BaseWindow* pParent);
 		bool DoModeless(Win::BaseWindow* pParent);
-		bool IsModelessVisible() { return (Handle() != 0); }
+		bool IsModelessVisible();
 
 		bool OnInitDialog();
 

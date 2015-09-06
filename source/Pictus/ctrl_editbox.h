@@ -25,7 +25,7 @@ namespace Win {
 		friend class BaseWindow;
 
 	private:
-		EditBox();
+		EditBox() = delete;
 
 		bool isValidchar(char c);
 		void showBalloon(const std::wstring& str);

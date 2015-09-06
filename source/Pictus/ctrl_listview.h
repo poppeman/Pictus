@@ -36,7 +36,7 @@ namespace Win {
 		boost::optional<LRESULT> PerformOnNotify(LPNMHDR lParam) override;
 
 		// Avoid unintentional creation
-		ListView();
+		ListView()=delete;
 
 		int m_index;
 

@@ -11,7 +11,7 @@ namespace Win {
 		boost::signals2::signal<void(int)> OnTaskbarButton;
 		boost::signals2::signal<bool(Win::KeyEvent)> OnKeyDown;
 
-		bool Create(BaseWindow* pParent) { Parent(pParent); return PerformOnCreate(); }
+		bool Create(BaseWindow* pParent);
 
 		void Add(Control::Ptr control);
 
@@ -39,10 +39,10 @@ namespace Win {
 
 		virtual bool PerformOnCreate()=0;
 
-		virtual bool PerformOnWindowCreate() { return true; }
+		virtual bool PerformOnWindowCreate();
 
-		virtual bool PerformOnDropFiles(const StringVector&) { return false; }
-		virtual bool PerformOnCreateTaskbar() { return false;}
+		virtual bool PerformOnDropFiles(const StringVector&);
+		virtual bool PerformOnCreateTaskbar();
 		
 	protected:
 		LRESULT wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);

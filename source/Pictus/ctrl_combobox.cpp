@@ -55,12 +55,15 @@ namespace Win {
 		SendMessage(Handle(), CB_SETITEMDATA, index, entry.GetValue());
 	}
 
-	ComboBox::ComboBox(int id, HWND hwnd) :Control(id, hwnd) {
+	ComboBox::ComboBox(int id, HWND hwnd):
+		Control{ id, hwnd }
+	{
 		m_lang = Intl::OnLanguageChanged.connect([&]() { Rebuild(); });
 	}
 	std::wstring ComboBox::ComboEntry::GetWString() const {
-		if(SId == -1)
+		if (SId == -1) {
 			return Contents;
+		}
 
 		return Intl::GetWString(SId);
 	}
