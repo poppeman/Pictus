@@ -1,5 +1,4 @@
 #include "StdAfx.h"
-#include "orz/file.h"
 #include "main.h"
 #include "illa/codecmgr.h"
 #include "illa/surface.h"

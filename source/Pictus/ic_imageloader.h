@@ -1,8 +1,6 @@
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
 
-#include "orz/file.h"
-#include "orz/file.h"
 #include "orz/stopwatch.h"
 #include "illa/codec.h"
 #include "illa/codecmgr.h"

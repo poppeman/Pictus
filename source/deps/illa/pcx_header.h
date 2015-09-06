@@ -1,7 +1,7 @@
 #ifndef PCX_HEADER_H
 #define PCX_HEADER_H
 
-#include "orz/file.h"
+#include "orz/file_reader.h"
 #include "geom.h"
 #include "types.h"
 

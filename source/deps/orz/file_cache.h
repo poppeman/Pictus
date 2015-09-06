@@ -1,7 +1,7 @@
 #ifndef FILE_CACHE_H
 #define FILE_CACHE_H
 
-#include "file.h"
+#include "file_reader.h"
 
 namespace IO {
 	class FileReaderByteStreamer {

@@ -1,7 +1,7 @@
 #ifndef PSD_SHARED_H
 #define PSD_SHARED_H
 
-#include "orz/file.h"
+#include "orz/file_reader.h"
 
 namespace Img {
 	namespace Internal {

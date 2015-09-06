@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "orz/file_reader.h"
 #include "registry.h"
 #include "w32_assure_folder.h"
 #include "reg_color_translator.h"

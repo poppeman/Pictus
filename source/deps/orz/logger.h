@@ -1,7 +1,7 @@
 #ifndef LOGGER
 #define LOGGER
 
-#include "file.h"
+#include "file_writer.h"
 
 namespace IO {
 	class Logger {

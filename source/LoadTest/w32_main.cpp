@@ -3,7 +3,6 @@
 #include "illa/codecmgr.h"
 #include "illa/surfacemgr.h"
 #include "illa/swsurface.h"
-#include "orz/file.h"
 #include "orz/fileops.h"
 #include "orz/stopwatch.h"
 

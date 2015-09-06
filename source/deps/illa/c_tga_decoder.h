@@ -1,7 +1,6 @@
 #ifndef C_TGA_DECODER_H
 #define C_TGA_DECODER_H
 
-#include "orz/file.h"
 #include "surface.h"
 #include "c_tga_header.h"
 #include "orz/file_cache.h"

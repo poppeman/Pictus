@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "fileops.h"
+#include "file_reader.h"
 
 namespace IO {
 	using std::mutex;

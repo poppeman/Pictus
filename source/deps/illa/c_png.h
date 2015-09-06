@@ -1,7 +1,6 @@
 #ifndef C_PNG_H
 #define C_PNG_H
 
-#include "orz/file.h"
 #include "codec_static.h"
 
 namespace Img {

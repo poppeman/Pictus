@@ -1,7 +1,7 @@
 #ifndef CODEC_H
 #define CODEC_H
 
-#include "orz/file.h"
+#include "orz/file_reader.h"
 
 #include "types.h"
 #include "surface.h"

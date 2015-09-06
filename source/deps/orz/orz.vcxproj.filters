@@ -48,9 +48,6 @@
     <ClInclude Include="intl.h">
       <Filter>i18n</Filter>
     </ClInclude>
-    <ClInclude Include="file.h">
-      <Filter>IO</Filter>
-    </ClInclude>
     <ClInclude Include="file_cache.h">
       <Filter>IO</Filter>
     </ClInclude>
@@ -118,6 +115,12 @@
     <ClInclude Include="intl_language.h">
       <Filter>i18n</Filter>
     </ClInclude>
+    <ClInclude Include="file_writer.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="file_reader.h">
+      <Filter>IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp">
@@ -134,9 +137,6 @@
     </ClCompile>
     <ClCompile Include="intl.cpp">
       <Filter>i18n</Filter>
-    </ClCompile>
-    <ClCompile Include="file.cpp">
-      <Filter>IO</Filter>
     </ClCompile>
     <ClCompile Include="file_cache.cpp">
       <Filter>IO</Filter>
@@ -196,6 +196,12 @@
       <Filter>Thread</Filter>
     </ClCompile>
     <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="file_reader.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="file_writer.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shared.props" />

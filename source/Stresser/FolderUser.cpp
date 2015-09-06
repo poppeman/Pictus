@@ -1,8 +1,6 @@
 #include "StdAfx.h"
-
 #include "orz/folder.h"
-#include "orz/file.h"
-
+#include "orz/file_reader.h"
 #include "FolderUser.h"
 
 

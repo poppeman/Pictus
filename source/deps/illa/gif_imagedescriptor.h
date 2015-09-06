@@ -1,7 +1,7 @@
 #ifndef GIF_IMAGEDESCRIPTOR_H
 #define GIF_IMAGEDESCRIPTOR_H
 
-#include "orz/file.h"
+#include "orz/file_reader.h"
 #include "surface.h"
 #include "types.h"
 

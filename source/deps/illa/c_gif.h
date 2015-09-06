@@ -1,8 +1,6 @@
 #ifndef C_GIF_H
 #define C_GIF_H
 
-#include "orz/file.h"
-
 #include "codec.h"
 #include "types.h"
 #include "gif_stringtable.h"

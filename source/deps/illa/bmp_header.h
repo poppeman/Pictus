@@ -1,7 +1,7 @@
 #ifndef BMP_HEADER_H
 #define BMP_HEADER_H
 
-#include "orz/file.h"
+#include "orz/file_reader.h"
 #include "types.h"
 
 namespace Img {

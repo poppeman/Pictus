@@ -2,7 +2,6 @@
 #define C_WBMP_H
 
 #include "codec_static.h"
-#include "orz/file.h"
 
 namespace Img {
 	class CodecWBMP:public StaticCodec {

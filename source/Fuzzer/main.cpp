@@ -1,7 +1,6 @@
 #include "StdAfx.h"
 #include "illa/codecmgr.h"
 #include "illa/codec.h"
-#include "orz/file.h"
 #include "orz/stream_mem.h"
 #include "orz/orz_math.h"
 #include "illa/surfacemgr.h"

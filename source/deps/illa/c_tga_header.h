@@ -1,8 +1,8 @@
 #ifndef C_TGA_HEADER_H
 #define C_TGA_HEADER_H
 
-#include "orz/file.h"
 #include "types.h"
+#include "orz/file_reader.h"
 
 namespace Img {
 	class TGAHeader {

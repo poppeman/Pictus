@@ -1,7 +1,6 @@
 #ifndef CTHUMBPROVIDER_H
 #define CTHUMBPROVIDER_H
 
-#include "orz/file.h"
 #include "illa/codec.h"
 #include "illa/codecmgr.h"
 #include "orz/logger.h"

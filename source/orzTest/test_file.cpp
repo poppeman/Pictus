@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "orz/file.h"
+#include "orz/file_reader.h"
 #include "orz/fileops.h"
 #include "main.h"
 

@@ -127,13 +127,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bitconvert.h" />
+    <ClInclude Include="file_writer.h" />
     <ClInclude Include="intl_language.h" />
     <ClInclude Include="intl_table_entry.h" />
     <ClInclude Include="orz_math.h" />
     <ClInclude Include="stopwatch.h" />
     <ClInclude Include="streamconv.h" />
     <ClInclude Include="intl.h" />
-    <ClInclude Include="file.h" />
+    <ClInclude Include="file_reader.h" />
     <ClInclude Include="file_cache.h" />
     <ClInclude Include="fileops.h" />
     <ClInclude Include="logger.h" />
@@ -158,11 +159,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp" />
+    <ClCompile Include="file_writer.cpp" />
     <ClCompile Include="orz_math.cpp" />
     <ClCompile Include="stopwatch.cpp" />
     <ClCompile Include="streamconv.cpp" />
     <ClCompile Include="intl.cpp" />
-    <ClCompile Include="file.cpp" />
+    <ClCompile Include="file_reader.cpp" />
     <ClCompile Include="file_cache.cpp" />
     <ClCompile Include="fileops.cpp" />
     <ClCompile Include="logger.cpp" />

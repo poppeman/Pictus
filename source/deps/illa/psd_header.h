@@ -1,7 +1,7 @@
 #ifndef PSD_HEADER_H
 #define PSD_HEADER_H
 
-#include "orz/file.h"
+#include "orz/file_reader.h"
 
 namespace Img {
 	namespace Internal {

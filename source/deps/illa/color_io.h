@@ -1,7 +1,7 @@
 #ifndef COLOR_IO_H
 #define COLOR_IO_H
 
-#include "orz/file.h"
+#include "orz/file_reader.h"
 #include "types.h"
 
 namespace Img {
