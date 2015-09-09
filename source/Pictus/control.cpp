@@ -72,5 +72,10 @@ namespace Win {
 		return PerformOnNotify(lParam);
 	}
 
+	void Control::Enabled(bool doEnable) {
+		EnableWindow(Handle(), doEnable);
+		InvalidateRect(Handle(), nullptr, true);
+	}
+
 	Control::ControlMap Control::m_controls;
 }

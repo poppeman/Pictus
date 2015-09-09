@@ -15,6 +15,7 @@ namespace Win {
 		void ColumnName(const int index, const std::wstring& name);
 
 		int AddItem(const std::wstring& caption, LPARAM data=0);
+		bool RemoveItem(int row);
 		void ItemColumn(const int row, const int column, const std::wstring& caption);
 
 		int GetSelectedRow() const;

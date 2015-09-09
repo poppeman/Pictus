@@ -44,6 +44,10 @@ namespace Win {
 		return m_index++;
 	}
 
+	bool ListView::RemoveItem(int row) {
+		return ListView_DeleteItem(Handle(), row) == TRUE;
+	}
+
 	void ListView::ItemColumn(const int row, const int column, const std::wstring& caption) {
 		LVITEM lvi;
 		ZeroMemory(&lvi, sizeof(lvi));

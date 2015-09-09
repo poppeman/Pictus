@@ -13,6 +13,8 @@ namespace Win {
 		void Visible(bool isVisible);
 		bool Visible() const;
 
+		void Enabled(bool doEnable);
+
 		HWND Handle();
 		const HWND Handle() const;
 

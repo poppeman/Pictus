@@ -24,6 +24,8 @@ namespace App {
 
 		void AddAction(KeyAction action, StringID actionSid);
 
+		void UpdateControlStyles();
+
 		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
 		void onWriteSettings(Reg::Settings& settings) override;
 

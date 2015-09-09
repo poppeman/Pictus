@@ -104,6 +104,7 @@ namespace App {
 					m_keypress->SetCombo(m_shortcuts[index].Key);
 				}
 			}
+			UpdateControlStyles();
 		};
 
 		CreateButton(IDC_BUTTON_KEYBOARD_ADD)->OnClick.connect([this]() { 
@@ -112,10 +113,21 @@ namespace App {
 
 		});
 
+		CreateButton(IDC_BUTTON_KEYBOARD_REMOVE)->OnClick.connect([this]() {
+			auto row = m_assigned->GetSelectedRow();
+			if (row != -1) {
+				auto index = m_assigned->GetItemParam(row);
+				m_shortcuts.erase(index);
+				m_assigned->RemoveItem(row);
+			}
+		});
+
 		m_keypress = Keypress::CreateKeypress(IDC_EDIT_KEYBOARD_KEY, Handle());
 		m_keypress->OnNewCombo = [=](App::KeyboardPress kp) {
 			OnSetShortcutCombo(kp);
 		};
+
+		UpdateControlStyles();
 
 		SetWindowTheme(m_functions->Handle(), L"Explorer", 0);
 
@@ -140,4 +152,12 @@ namespace App {
 		}
 		//throw std::logic_error("The method or operation is not implemented.");
 	}
+
+	void SetKeyboard::UpdateControlStyles() {
+		bool enable = (m_assigned->GetSelectedRow() != -1);
+		CreateButton(IDC_BUTTON_KEYBOARD_REMOVE)->Enabled(enable);
+		m_functions->Enabled(enable);
+		m_keypress->Enabled(enable);
+	}
+
 }
