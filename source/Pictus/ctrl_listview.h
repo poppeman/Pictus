@@ -18,6 +18,7 @@ namespace Win {
 		void ItemColumn(const int row, const int column, const std::wstring& caption);
 
 		int GetSelectedRow() const;
+		void SetSelectedRow(int index);
 		LPARAM GetItemParam(int row) const;
 		int Size() const;
 

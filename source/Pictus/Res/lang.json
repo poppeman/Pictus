@@ -332,6 +332,10 @@
 			"Add": {
 				"en": "Add",
 				"sv": "Lägg till"
+			},
+			"NotSet": {
+				"en": "<not set>",
+				"sv": "<ej satt>"
 			}
 		},
 		"Advanced": {

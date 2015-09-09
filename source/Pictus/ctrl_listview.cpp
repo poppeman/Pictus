@@ -5,8 +5,10 @@ namespace Win {
 	void ListView::Clear() {
 		ListView_DeleteAllItems(Handle());
 
-		for (const auto& i : m_cols)
+		for (const auto& i : m_cols) {
 			ListView_DeleteColumn(Handle(), i);
+		}
+
 		m_cols.clear();
 
 		m_index = 0;
@@ -54,6 +56,11 @@ namespace Win {
 
 	int ListView::GetSelectedRow() const {
 		return ListView_GetNextItem(Handle(), -1, LVNI_SELECTED);
+	}
+
+	void ListView::SetSelectedRow(int index) {
+		ListView_SetItemState(Handle(), index, LVIS_FOCUSED | LVIS_SELECTED, 0x000f);
+		ListView_EnsureVisible(Handle(), index, false);
 	}
 
 	LPARAM ListView::GetItemParam(int row) const {

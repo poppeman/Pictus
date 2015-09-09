@@ -19,9 +19,9 @@ namespace App {
 	{}
 
 	int SetKeyboard::AddShortcut() {
-		auto row = m_assigned->AddItem(L"", m_currentIndex);
+		auto row = m_assigned->AddItem(Intl::GetWString(SIDSettingsKeyboardNotSet), m_currentIndex);
 		m_assigned->ItemColumn(row, 1, L"");
-		m_assigned->ItemColumn(row, 2, L"");
+		m_assigned->ItemColumn(row, 2, Intl::GetWString(SIDSettingsKeyboardNotSet));
 		m_shortcuts[m_currentIndex] = { { L'', false, false, false }, KeyAction::Undefined };
 
 		return m_currentIndex++;
@@ -106,7 +106,11 @@ namespace App {
 			}
 		};
 
-		CreateButton(IDC_BUTTON_KEYBOARD_ADD)->OnClick.connect([this]() { AddShortcut(); });
+		CreateButton(IDC_BUTTON_KEYBOARD_ADD)->OnClick.connect([this]() { 
+			auto index = AddShortcut();
+			m_assigned->SetSelectedRow(index);
+
+		});
 
 		m_keypress = Keypress::CreateKeypress(IDC_EDIT_KEYBOARD_KEY, Handle());
 		m_keypress->OnNewCombo = [=](App::KeyboardPress kp) {
