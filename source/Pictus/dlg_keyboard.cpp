@@ -136,6 +136,9 @@ namespace App {
 	}
 
 	void SetKeyboard::PerformUpdateFromSettings(const Reg::Settings& settings) {
+		m_assigned->ClearItems();
+		m_shortcuts.clear();
+
 		for (auto binding : settings.Keyboard.Bindings) {
 			int row;
 			LPARAM id;
