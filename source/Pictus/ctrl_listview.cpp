@@ -2,14 +2,15 @@
 #include "ctrl_listview.h"
 
 namespace Win {
-	void ListView::Clear() {
-		ListView_DeleteAllItems(Handle());
-
+	void ListView::ClearColumns() {
 		for (const auto& i : m_cols) {
 			ListView_DeleteColumn(Handle(), i);
 		}
-
 		m_cols.clear();
+	}
+
+	void ListView::ClearItems() {
+		ListView_DeleteAllItems(Handle());
 	}
 
 	int ListView::AddColumn(const std::wstring& name, const int width, int index) {

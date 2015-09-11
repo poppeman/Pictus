@@ -9,7 +9,8 @@ namespace Win {
 	*/
 	class ListView:public Control {
 	public:
-		void Clear();
+		void ClearColumns();
+		void ClearItems();
 
 		int AddColumn(const std::wstring& name, const int width, const int index);
 		void ColumnName(const int index, const std::wstring& name);
