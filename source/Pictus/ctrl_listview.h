@@ -40,8 +40,6 @@ namespace Win {
 		// Avoid unintentional creation
 		ListView()=delete;
 
-		int m_index;
-
 		typedef std::set<int>	Columns;
 		Columns m_cols;
 	};

@@ -10,8 +10,6 @@ namespace Win {
 		}
 
 		m_cols.clear();
-
-		m_index = 0;
 	}
 
 	int ListView::AddColumn(const std::wstring& name, const int width, int index) {
@@ -33,15 +31,17 @@ namespace Win {
 	}
 
 	int ListView::AddItem(const std::wstring& caption, LPARAM data) {
+		auto index = Size();
+
 		LVITEM lvi;
 		ZeroMemory(&lvi, sizeof(lvi));
 		lvi.mask = LVIF_TEXT | LVIF_PARAM;
 		lvi.pszText = (wchar_t*)caption.c_str();
-		lvi.iItem = m_index;
+		lvi.iItem = index;
 		lvi.lParam = data;
 		ListView_InsertItem(Handle(), &lvi);
 
-		return m_index++;
+		return index;
 	}
 
 	bool ListView::RemoveItem(int row) {
@@ -106,10 +106,9 @@ namespace Win {
 	}
 
 	ListView::ListView(int id, HWND hwnd):
-		Control{ id, hwnd },
-		m_index{ 0 }
+		Control{ id, hwnd }
 	{
-		//SetWindowTheme(hwnd, L"Explorer", NULL);
+		SetWindowTheme(Handle(), L"Explorer", NULL);
 	}
 
 }
