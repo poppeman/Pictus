@@ -69,7 +69,7 @@ namespace Reg {
 		cfg.View.ResetZoom = pt.get<bool>("Settings.ResetZoom", true);
 		cfg.View.ResizeBehaviour = pt.get<App::ResizeBehaviour>("Settings.ResizeBehaviour", App::ResizeBehaviour::ResizeReduceOnly);
 		cfg.View.ResizeWindow = pt.get<bool>("Settings.ResizeWindow", true);
-		cfg.View.ShowStatusBar = pt.get<bool>("Settings.ShowStatusbar", true);
+		cfg.View.ShowStatusBar = pt.get<bool>("Settings.ShowStatusBar", true);
 
 		// TODO: Probably wrong constant here, fix that
 		cfg.View.ResizePositionMethod = pt.get<App::ResizePositionMethod>("Settings.ResizePositionMethod", App::ResizePositionMethod::PositionNothing);
@@ -175,7 +175,7 @@ namespace Reg {
 		pt.put("Settings.ResetZoom", cfg.View.ResetZoom);
 		pt.put("Settings.ResizeBehaviour", cfg.View.ResizeBehaviour);
 		pt.put("Settings.ResizeWindow", cfg.View.ResizeWindow);
-		pt.put("Settings.ShowStatusbar", cfg.View.ShowStatusBar);
+		pt.put("Settings.ShowStatusBar", cfg.View.ShowStatusBar);
 
 		// TODO: Probably wrong constant here, fix that
 		pt.put("Settings.ResizePositionMethod", cfg.View.ResizePositionMethod);
