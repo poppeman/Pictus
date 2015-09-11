@@ -4,9 +4,6 @@
     <Filter Include="Settings">
       <UniqueIdentifier>{87fb7af1-7e1e-4dda-abf2-97eca6f7d3c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Settings\View">
-      <UniqueIdentifier>{547687cd-4186-4ca1-be7d-33c6e126d01e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Settings\Widgets">
       <UniqueIdentifier>{ff39bcb7-f48b-4985-b1b8-27e69835a8dc}</UniqueIdentifier>
     </Filter>
@@ -79,11 +76,20 @@
     <Filter Include="Shared\Registry\Translators">
       <UniqueIdentifier>{0ad784a0-de92-4730-819d-a2b7dcfe6865}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Settings\Controls">
-      <UniqueIdentifier>{e7e3a60f-8168-4a82-a559-c245ed9f26b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Types">
       <UniqueIdentifier>{740d8ea1-b2d9-4dba-8169-1c54b0618733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings\Pages">
+      <UniqueIdentifier>{e47c7dbf-72b0-4f59-96b1-ca95b5bbec14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings\Pages\Controls">
+      <UniqueIdentifier>{e7e3a60f-8168-4a82-a559-c245ed9f26b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings\Pages\View">
+      <UniqueIdentifier>{547687cd-4186-4ca1-be7d-33c6e126d01e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings\Pages\Advanced">
+      <UniqueIdentifier>{a407ee55-6be8-43b8-82a5-c4ffcba306b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -95,18 +101,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dlg_about.cpp">
-      <Filter>Settings</Filter>
-    </ClCompile>
-    <ClCompile Include="dlg_advanced.cpp">
-      <Filter>Settings</Filter>
-    </ClCompile>
-    <ClCompile Include="dlg_cache.cpp">
-      <Filter>Settings</Filter>
-    </ClCompile>
-    <ClCompile Include="dlg_language.cpp">
-      <Filter>Settings</Filter>
-    </ClCompile>
     <ClCompile Include="settings.cpp">
       <Filter>Settings</Filter>
     </ClCompile>
@@ -114,13 +108,13 @@
       <Filter>Settings</Filter>
     </ClCompile>
     <ClCompile Include="dlg_color.cpp">
-      <Filter>Settings\View</Filter>
+      <Filter>Settings\Pages\View</Filter>
     </ClCompile>
     <ClCompile Include="dlg_interface.cpp">
-      <Filter>Settings\View</Filter>
+      <Filter>Settings\Pages\View</Filter>
     </ClCompile>
     <ClCompile Include="dlg_view.cpp">
-      <Filter>Settings\View</Filter>
+      <Filter>Settings\Pages\View</Filter>
     </ClCompile>
     <ClCompile Include="cnt_colorpick.cpp">
       <Filter>Settings\Widgets</Filter>
@@ -292,10 +286,10 @@
       <Filter>Shared</Filter>
     </ClCompile>
     <ClCompile Include="dlg_controls.cpp">
-      <Filter>Settings\Controls</Filter>
+      <Filter>Settings\Pages\Controls</Filter>
     </ClCompile>
     <ClCompile Include="dlg_keyboard.cpp">
-      <Filter>Settings\Controls</Filter>
+      <Filter>Settings\Pages\Controls</Filter>
     </ClCompile>
     <ClCompile Include="app_types.cpp">
       <Filter>Shared</Filter>
@@ -345,20 +339,20 @@
     <ClCompile Include="ctrl_combobox_entry.cpp">
       <Filter>WinAPI\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="dlg_about.cpp">
+      <Filter>Settings\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="dlg_language.cpp">
+      <Filter>Settings\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="dlg_advanced.cpp">
+      <Filter>Settings\Pages\Advanced</Filter>
+    </ClCompile>
+    <ClCompile Include="dlg_cache.cpp">
+      <Filter>Settings\Pages\Advanced</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dlg_about.h">
-      <Filter>Settings</Filter>
-    </ClInclude>
-    <ClInclude Include="dlg_advanced.h">
-      <Filter>Settings</Filter>
-    </ClInclude>
-    <ClInclude Include="dlg_cache.h">
-      <Filter>Settings</Filter>
-    </ClInclude>
-    <ClInclude Include="dlg_language.h">
-      <Filter>Settings</Filter>
-    </ClInclude>
     <ClInclude Include="settings.h">
       <Filter>Settings</Filter>
     </ClInclude>
@@ -366,13 +360,13 @@
       <Filter>Settings</Filter>
     </ClInclude>
     <ClInclude Include="dlg_color.h">
-      <Filter>Settings\View</Filter>
+      <Filter>Settings\Pages\View</Filter>
     </ClInclude>
     <ClInclude Include="dlg_interface.h">
-      <Filter>Settings\View</Filter>
+      <Filter>Settings\Pages\View</Filter>
     </ClInclude>
     <ClInclude Include="dlg_view.h">
-      <Filter>Settings\View</Filter>
+      <Filter>Settings\Pages\View</Filter>
     </ClInclude>
     <ClInclude Include="cnt_colorpick.h">
       <Filter>Settings\Widgets</Filter>
@@ -568,10 +562,10 @@
       <Filter>Imaging\Renderer\GDI</Filter>
     </ClInclude>
     <ClInclude Include="dlg_controls.h">
-      <Filter>Settings\Controls</Filter>
+      <Filter>Settings\Pages\Controls</Filter>
     </ClInclude>
     <ClInclude Include="dlg_keyboard.h">
-      <Filter>Settings\Controls</Filter>
+      <Filter>Settings\Pages\Controls</Filter>
     </ClInclude>
     <ClInclude Include="ctrl_keypress.h">
       <Filter>Settings\Widgets</Filter>
@@ -629,6 +623,18 @@
     </ClInclude>
     <ClInclude Include="ctrl_combobox_entry.h">
       <Filter>WinAPI\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="dlg_about.h">
+      <Filter>Settings\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="dlg_language.h">
+      <Filter>Settings\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="dlg_advanced.h">
+      <Filter>Settings\Pages\Advanced</Filter>
+    </ClInclude>
+    <ClInclude Include="dlg_cache.h">
+      <Filter>Settings\Pages\Advanced</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
