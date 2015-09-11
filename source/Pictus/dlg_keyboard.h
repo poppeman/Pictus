@@ -15,10 +15,10 @@ namespace App {
 		SetKeyboard();
 
 	private:
-		int AddShortcut();
-		void SetShortcutFunction(KeyAction action, int index);
+		void AddShortcut(int& row, LPARAM& id);
+		void SetShortcutFunction(KeyAction action, LPARAM id);
 		void OnSetShortcutCombo(KeyboardPress kp);
-		void SetShortcutCombo(KeyboardPress kp, int index);
+		void SetShortcutCombo(KeyboardPress kp, LPARAM id);
 
 		bool PerformOnInitPage() override;
 
@@ -34,7 +34,7 @@ namespace App {
 		App::Keypress* m_keypress;
 
 		std::map<LPARAM, Reg::KeyboardBinding> m_shortcuts;
-		LPARAM m_currentIndex;
+		LPARAM m_currentId;
 	};
 }
 

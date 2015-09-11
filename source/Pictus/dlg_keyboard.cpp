@@ -12,26 +12,25 @@ namespace App {
 
 	SetKeyboard::SetKeyboard():
 		App::SettingsPage{ IDD_SET_KEYBOARD },
-		m_currentIndex{ 0 },
+		m_currentId{ 0 },
 		m_functions{ nullptr },
 		m_assigned{ nullptr },
 		m_keypress{ nullptr }
 	{}
 
-	int SetKeyboard::AddShortcut() {
-		auto row = m_assigned->AddItem(Intl::GetWString(SIDSettingsKeyboardNotSet), m_currentIndex);
+	void SetKeyboard::AddShortcut(int& row, LPARAM& id) {
+		row = m_assigned->AddItem(Intl::GetWString(SIDSettingsKeyboardNotSet), m_currentId);
 		m_assigned->ItemColumn(row, 1, L"");
 		m_assigned->ItemColumn(row, 2, Intl::GetWString(SIDSettingsKeyboardNotSet));
-		m_shortcuts[m_currentIndex] = { { L'', false, false, false }, KeyAction::Undefined };
-
-		return m_currentIndex++;
+		m_shortcuts[m_currentId] = { { L'', false, false, false }, KeyAction::Undefined };
+		id = m_currentId++;
 	}
 
-	void SetKeyboard::SetShortcutFunction(App::KeyAction action, int index) {
+	void SetKeyboard::SetShortcutFunction(App::KeyAction action, LPARAM id) {
 		for (auto row = 0; row < m_assigned->Size(); row++) {
-			if (m_assigned->GetItemParam(row) == index) {
+			if (m_assigned->GetItemParam(row) == id) {
 				m_assigned->ItemColumn(row, 2, Intl::GetWString(App::KeyActionSid(action)));
-				m_shortcuts[index].Action = action;
+				m_shortcuts[id].Action = action;
 			}
 		}
 	}
@@ -44,7 +43,7 @@ namespace App {
 	}
 
 
-	void SetKeyboard::SetShortcutCombo(KeyboardPress kp, int index) {
+	void SetKeyboard::SetShortcutCombo(KeyboardPress kp, LPARAM index) {
 		for (auto row = 0; row < m_assigned->Size(); row++) {
 			if (m_assigned->GetItemParam(row) == index) {
 				auto tmp = GetKeyString(kp.Key);
@@ -92,10 +91,10 @@ namespace App {
 		});
 
 		m_assigned = CreateListView(IDC_LIST_KEYBOARD_ASSIGNED);
-		m_assigned->AddColumn(L"Key", 50, 0);
-		m_assigned->AddColumn(L"Modifiers", 70, 1);
-		m_assigned->AddColumn(L"Action", 200, 2);
-		m_assigned->Style(LVS_EX_FULLROWSELECT |LVS_EX_DOUBLEBUFFER | LVS_EX_LABELTIP | LVS_EX_ONECLICKACTIVATE | LVS_EX_UNDERLINEHOT);
+		m_assigned->AddColumn(L"Key", 75, 0);
+		m_assigned->AddColumn(L"Modifiers", 85, 1);
+		m_assigned->AddColumn(L"Action", 150, 2);
+		m_assigned->Style(LVS_EX_FULLROWSELECT |LVS_EX_DOUBLEBUFFER | LVS_EX_LABELTIP | LVS_EX_ONECLICKACTIVATE);
 		m_assigned->OnSelectionChanged = [&](int row) {
 			if (row != -1) {
 				auto index = m_assigned->GetItemParam(row);
@@ -108,9 +107,10 @@ namespace App {
 		};
 
 		CreateButton(IDC_BUTTON_KEYBOARD_ADD)->OnClick.connect([this]() { 
-			auto index = AddShortcut();
-			m_assigned->SetSelectedRow(index);
-
+			int row;
+			LPARAM id;
+			AddShortcut(row, id);
+			m_assigned->SetSelectedRow(row);
 		});
 
 		CreateButton(IDC_BUTTON_KEYBOARD_REMOVE)->OnClick.connect([this]() {
@@ -120,6 +120,7 @@ namespace App {
 				m_shortcuts.erase(index);
 				m_assigned->RemoveItem(row);
 			}
+			UpdateControlStyles();
 		});
 
 		m_keypress = Keypress::CreateKeypress(IDC_EDIT_KEYBOARD_KEY, Handle());
@@ -136,9 +137,11 @@ namespace App {
 
 	void SetKeyboard::PerformUpdateFromSettings(const Reg::Settings& settings) {
 		for (auto binding : settings.Keyboard.Bindings) {
-			auto index = AddShortcut();
-			SetShortcutCombo(binding.Key, index);
-			SetShortcutFunction(binding.Action, index);
+			int row;
+			LPARAM id;
+			AddShortcut(row, id);
+			SetShortcutCombo(binding.Key, id);
+			SetShortcutFunction(binding.Action, id);
 		}
 	}
 
