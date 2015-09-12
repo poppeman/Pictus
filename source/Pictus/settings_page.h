@@ -7,13 +7,13 @@
 namespace App {
 	class SettingsPage:public Win::Dialog {
 	public:
-		virtual bool IsRootPage() const { return true; }
+		virtual bool IsRootPage() const;
 
 		void UpdateFromSettings(const Reg::Settings& settings);
-		void WriteSettings(Reg::Settings& settings) { onWriteSettings(settings); }
+		void WriteSettings(Reg::Settings& settings);
 
-		SettingsPage(int id) :Win::Dialog(id) {}
-		virtual ~SettingsPage() {}
+		SettingsPage(int id);
+		virtual ~SettingsPage();
 
 	private:
 		bool PerformOnInitDialog() override;
