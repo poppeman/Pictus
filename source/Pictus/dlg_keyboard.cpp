@@ -156,7 +156,6 @@ namespace App {
 				settings.Keyboard.Bindings.push_back(binding.second);
 			}
 		}
-		//throw std::logic_error("The method or operation is not implemented.");
 	}
 
 	void SetKeyboard::UpdateControlStyles() {
