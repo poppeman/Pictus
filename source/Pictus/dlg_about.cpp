@@ -28,7 +28,11 @@ namespace App {
 		return true;
 	}
 
-	SetAbout::SetAbout():App::SettingsPage(IDD_SET_ABOUT), m_headerFont(0) {}
+	SetAbout::SetAbout():
+		App::SettingsPage(IDD_SET_ABOUT),
+		m_headerFont(0)
+	{}
+
 	SetAbout::~SetAbout() {
 		if (m_headerFont != 0) {
 			DeleteObject(m_headerFont);

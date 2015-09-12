@@ -8,6 +8,10 @@ namespace App {
 	using namespace Intl;
 	using namespace Win;
 
+	bool SetPageCache::IsRootPage() {
+		return false;
+	}
+
 	bool SetPageCache::PerformOnInitPage() {
 		CreateButton(IDC_AUTOMEM)->OnClick.connect([this]() { UpdateControls(); });
 

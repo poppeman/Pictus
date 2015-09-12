@@ -6,11 +6,11 @@ const wchar_t* App::ControlColorPicker::ClassName=TX("PICTUS_COLOR_PICKER");
 namespace App {
 	using Img::Color;
 
-	ControlColorPicker::ControlColorPicker()
-		:m_hColors(0),
-		m_hdcMem(CreateCompatibleDC(GetDC(0))),
-		m_colorHLS(0, 0, 1),
-		m_useRGB(false)
+	ControlColorPicker::ControlColorPicker():
+		m_hColors{ 0 },
+		m_hdcMem{ CreateCompatibleDC(GetDC(0)) },
+		m_colorHLS{ 0, 0, 1 },
+		m_useRGB{ false }
 	{
 		OnMouseButtonDown.connect([this](Win::MouseEvent e) { return HandleMouseClick(e); });
 		OnMouseMove.connect([this](Win::MouseEvent e) { return HandleMouseMove(e); });

@@ -40,7 +40,9 @@ namespace App {
 		return baseWndProc(hwnd, msg, wParam, lParam, true);
 	}
 
-	ControlColorPreview::ControlColorPreview():m_col(0xff9275) {}
+	ControlColorPreview::ControlColorPreview():
+		m_col{ 0xff9275 }
+	{}
 
 	LRESULT WINAPI ControlColorPreview::wndProc_delegate(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		if (msg == WM_NCCREATE) {

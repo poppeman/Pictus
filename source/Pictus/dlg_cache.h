@@ -7,7 +7,7 @@
 namespace App {
 	class SetPageCache:public App::SettingsPage {
 	public:
-		bool IsRootPage() { return false; }
+		bool IsRootPage();
 
 		SetPageCache();
 

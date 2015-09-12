@@ -29,7 +29,7 @@ namespace App {
 		CurrentLanguage(Language(m_cbLang->GetSelectionData()));
 	}
 
-	SetLanguage::SetLanguage()
-		:App::SettingsPage{ IDD_SET_LANGUAGE }
+	SetLanguage::SetLanguage():
+		App::SettingsPage{ IDD_SET_LANGUAGE }
 	{}
 }
