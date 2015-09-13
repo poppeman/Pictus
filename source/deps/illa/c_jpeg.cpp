@@ -18,17 +18,42 @@ namespace Img {
 			PrepareLibJpeg(file);
 
 			info.SurfaceFormat = Img::Format::Undefined;
-			if (m_decInfo.num_components == 3 || m_decInfo.num_components == 4) {
-				info.SurfaceFormat = Img::Format::XRGB8888;
-			}
-			else if (m_decInfo.num_components == 1) {
-				info.SurfaceFormat = Img::Format::Index8;
-			}
-			else {
+
+			switch (m_decInfo.out_color_space) {
+			case JCS_RGB:
+				if (m_decInfo.num_components == 3 || m_decInfo.num_components == 4) {
+					info.SurfaceFormat = Img::Format::XRGB8888;
+				}
+				else {
+					Log << L"(CodecJPEG::PerformLoadHeader): RGB output only supports 3 and 4 components. Components=" << m_decInfo.output_components << L"\n";
+					return false;
+				}
+				break;
+			case JCS_CMYK:
+				if (m_decInfo.num_components == 4) {
+					info.SurfaceFormat = Img::Format::XRGB8888;
+				}
+				else {
+					Log << L"(CodecJPEG::PerformLoadHeader): CMYK output only supports 4 components. Components=" << m_decInfo.output_components << L"\n";
+					return false;
+				}
+				break;
+			case JCS_GRAYSCALE:
+				if (m_decInfo.num_components == 1) {
+					info.SurfaceFormat = Img::Format::Index8;
+				}
+				else {
+					Log << L"(CodecJPEG::PerformLoadHeader): Grayscale output only supports 0 component. Components=" << m_decInfo.output_components << L"\n";
+					return false;
+				}
+				break;
+
+			default:
+				Log << L"(CodecJPEG::PerformLoadHeader): Unknown JPEG color space. Out=" << m_decInfo.out_color_space << L" jpeg= " << m_decInfo.jpeg_color_space << L"\n";
 				return false;
 			}
 
-			info.Dimensions = SizeInt(m_decInfo.image_width, m_decInfo.image_height);
+			info.Dimensions = { static_cast<int>(m_decInfo.image_width), static_cast<int>(m_decInfo.image_height) };
 
 			return true;
 		}
@@ -88,7 +113,7 @@ namespace Img {
 		try {
 			jpeg_start_decompress(&m_decInfo);
 		}
-		catch(Err::Exception& e) {
+		catch(Err::Exception&) {
 			return AllocationStatus::Failed;
 		}
 
@@ -133,27 +158,44 @@ namespace Img {
 
 					loaded += num;
 
-					Surface::Ptr surface(GetSurface());
-					std::shared_ptr<Surface::LockedArea> area = surface->LockSurface(RectInt(tlToLock, SizeInt(surface->GetSize().Width, num)));
-					uint8_t* pDst = area->Buffer();
+					auto surface = GetSurface();
+					auto area = surface->LockSurface(RectInt(tlToLock, SizeInt(surface->GetSize().Width, num)));
+					auto pDst = area->Buffer();
 
 					for(int row = 0; row < num; row++) {
 						size_t yofs = row * area->Stride();
 
-						int dstofs = m_decInfo.output_components - 1;
-						if(m_decInfo.output_components == 4)
-							dstofs-=1;
+						int srcOffset = m_decInfo.output_components - 1;
+						if (m_decInfo.output_components == 4) {
+							srcOffset -= 1;
+						}
 
-						// Have to flip RGB<->BGR
 						int width = surface->Width();
 
-						for(int pix = 0; pix < width; pix++) {
-							for (int field = 0; field < m_decInfo.output_components; field++) {
-								pDst[yofs + field] = m_pRow[row][dstofs - field];
-							}
+						if (m_decInfo.out_color_space == JCS_CMYK) {
+							srcOffset = 0;
+							for (int pix = 0; pix < width; pix++) {
+								auto pDstDW = reinterpret_cast<uint32_t*>(pDst + yofs);
 
-							yofs	+= pSize;
-							dstofs	+= m_decInfo.output_components;
+								auto c = m_pRow[row][srcOffset];
+								auto m = m_pRow[row][srcOffset + 1];
+								auto y = m_pRow[row][srcOffset + 2];
+								auto k = m_pRow[row][srcOffset + 3];
+								*pDstDW = Color::FromInvertedCMYK(c, m, y, k).ToDWord();
+
+								yofs += pSize;
+								srcOffset += m_decInfo.output_components;
+							}
+						}
+						else {
+							for (int pix = 0; pix < width; pix++) {
+								for (int field = 0; field < m_decInfo.output_components; field++) {
+									pDst[yofs + field] = m_pRow[row][srcOffset - field];
+								}
+
+								yofs += pSize;
+								srcOffset += m_decInfo.output_components;
+							}
 						}
 					}
 				}

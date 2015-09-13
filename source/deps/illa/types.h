@@ -50,6 +50,15 @@ namespace Img {
 			return Color(static_cast<uint8_t>(dw >> 24), static_cast<uint8_t>((dw & 0xff0000) >> 16), static_cast<uint8_t>((dw & 0xff00) >> 8), static_cast<uint8_t>(dw&0xff));
 		}
 
+		static Color FromInvertedCMYK(uint32_t c, uint32_t m, uint32_t y, uint32_t k) {
+			return {
+				0xff,
+				c * k / 255,
+				m * k / 255,
+				y * k / 255
+			};
+		}
+
 		uint32_t ToDWord() const {
 			return (A << 24) + (R << 16) + (G << 8) + B;
 		}
