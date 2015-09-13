@@ -159,6 +159,7 @@ namespace App {
 		}
 		else {
 			m_renderTarget.Clear(m_props.BackgroundColor);
+			ValidateRect(Handle(), nullptr);
 			return true;
 		}
 	}
