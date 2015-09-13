@@ -47,6 +47,9 @@ namespace App {
 					case KeyAction::RecycleCurrentFile:
 						m_owner->RemoveImage(Viewer::RemoveRecycle);
 						break;
+					case KeyAction::DeleteCurrentFile:
+						m_owner->RemoveImage(Viewer::RemoveDelete);
+						break;
 					case KeyAction::RemoveCurrentImage:
 						m_owner->RemoveImage(Viewer::RemoveOnly);
 						break;
