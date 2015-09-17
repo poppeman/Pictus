@@ -3,6 +3,7 @@
 #include "dlg_keyboard.h"
 
 #include "ctrl_button.h"
+#include "app_types.h"
 
 
 namespace App {
@@ -91,9 +92,9 @@ namespace App {
 		});
 
 		m_assigned = CreateListView(IDC_LIST_KEYBOARD_ASSIGNED);
-		m_assigned->AddColumn(L"Key", 75, 0);
-		m_assigned->AddColumn(L"Modifiers", 85, 1);
-		m_assigned->AddColumn(L"Action", 150, 2);
+		m_assigned->AddColumn(App::SIDSettingsKeyboardKey, 75, 0);
+		m_assigned->AddColumn(App::SIDSettingsKeyboardModifiers, 85, 1);
+		m_assigned->AddColumn(App::SIDSettingsKeyboardAction, 150, 2);
 		m_assigned->Style(LVS_EX_FULLROWSELECT |LVS_EX_DOUBLEBUFFER | LVS_EX_LABELTIP | LVS_EX_ONECLICKACTIVATE);
 		m_assigned->OnSelectionChanged = [&](int row) {
 			if (row != -1) {

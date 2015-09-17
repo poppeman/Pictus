@@ -317,6 +317,14 @@
 		"Keyboard": {
 			"en": "Keyboard",
 			"sv": "Tangentbord",
+			"Modifiers": {
+				"en": "Modifiers",
+				"sv": "Modifierare"
+			},
+			"Key": {
+				"en": "Key",
+				"sv": "Tangent"
+			},
 			"Action": {
 				"en": "Action",
 				"sv": "Funktion"
