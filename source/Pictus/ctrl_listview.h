@@ -2,6 +2,8 @@
 #define CTRL_LISTVIEW_H
 
 #include "control.h"
+#include "orz/intl.h"
+#include "app_types.h"
 
 namespace Win {
 	/**
@@ -12,7 +14,9 @@ namespace Win {
 		void ClearColumns();
 		void ClearItems();
 
-		int AddColumn(const std::wstring& name, const int width, const int index);
+		bool AddColumn(const std::wstring& name, int width, int index);
+		bool AddColumn(App::StringID name, int width, int index);
+
 		void ColumnName(const int index, const std::wstring& name);
 
 		int AddItem(const std::wstring& caption, LPARAM data=0);
@@ -36,12 +40,22 @@ namespace Win {
 		friend class BaseWindow;
 
 	private:
+		void Rebuild();
+		bool AddEmptyColumn(int width, int index);
+
 		boost::optional<LRESULT> PerformOnNotify(LPNMHDR lParam) override;
+		boost::signals2::connection m_lang;
 
 		// Avoid unintentional creation
 		ListView()=delete;
 
-		typedef std::set<int>	Columns;
+		struct Column {
+			std::wstring ExplicitTitle;
+			App::StringID StringIDTitle;
+		};
+
+
+		typedef std::map<int, Column>	Columns;
 		Columns m_cols;
 	};
 }
