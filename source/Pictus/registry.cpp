@@ -68,11 +68,18 @@ namespace Reg {
 		cfg.View.ResetPan = pt.get<bool>("Settings.ResetPan", true);
 		cfg.View.ResetZoom = pt.get<bool>("Settings.ResetZoom", true);
 		cfg.View.ResizeBehaviour = pt.get<App::ResizeBehaviour>("Settings.ResizeBehaviour", App::ResizeBehaviour::ResizeReduceOnly);
+		cfg.View.ResizePositionMethod = pt.get<App::ResizePositionMethod>("Settings.ResizePositionMethod", App::ResizePositionMethod::PositionNothing);
 		cfg.View.ResizeWindow = pt.get<bool>("Settings.ResizeWindow", true);
 		cfg.View.ShowStatusBar = pt.get<bool>("Settings.ShowStatusBar", true);
+		cfg.View.WindowAnchorCenterX = pt.get("Settings.CAnchorX", 100);
+		cfg.View.WindowAnchorCenterY = pt.get("Settings.CAnchorY", 100);
+		cfg.View.WindowAnchorTLX = pt.get("Settings.TLAnchorX", 100);
+		cfg.View.WindowAnchorTLY = pt.get("Settings.TLAnchorY", 100);
+		cfg.View.WindowPosX = pt.get("Settings.PosX", 100);
+		cfg.View.WindowPosY = pt.get("Settings.PosY", 100);
+		cfg.View.WindowSizeWidth = pt.get("Settings.WindowWidth", 640);
+		cfg.View.WindowSizeHeight = pt.get("Settings.WindowHeight", 480);
 
-		// TODO: Probably wrong constant here, fix that
-		cfg.View.ResizePositionMethod = pt.get<App::ResizePositionMethod>("Settings.ResizePositionMethod", App::ResizePositionMethod::PositionNothing);
 
 		// cfg.Keyboard.
 		int index = 0;
@@ -174,11 +181,19 @@ namespace Reg {
 		pt.put("Settings.ResetPan", cfg.View.ResetPan);
 		pt.put("Settings.ResetZoom", cfg.View.ResetZoom);
 		pt.put("Settings.ResizeBehaviour", cfg.View.ResizeBehaviour);
+		pt.put("Settings.ResizePositionMethod", cfg.View.ResizePositionMethod);
 		pt.put("Settings.ResizeWindow", cfg.View.ResizeWindow);
 		pt.put("Settings.ShowStatusBar", cfg.View.ShowStatusBar);
+		pt.put("Settings.CAnchorX", cfg.View.WindowAnchorCenterX);
+		pt.put("Settings.CAnchorY", cfg.View.WindowAnchorCenterY);
+		pt.put("Settings.TLAnchorX", cfg.View.WindowAnchorTLX);
+		pt.put("Settings.TLAnchorY", cfg.View.WindowAnchorTLY);
+		pt.put("Settings.PosX", cfg.View.WindowPosX);
+		pt.put("Settings.PosY", cfg.View.WindowPosY);
+		pt.put("Settings.WindowWidth", cfg.View.WindowSizeWidth);
+		pt.put("Settings.WindowHeight", cfg.View.WindowSizeHeight);
 
-		// TODO: Probably wrong constant here, fix that
-		pt.put("Settings.ResizePositionMethod", cfg.View.ResizePositionMethod);
+
 
 		int index = 0;
 		for (auto binding : cfg.Keyboard.Bindings) {
