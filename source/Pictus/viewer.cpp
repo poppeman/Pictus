@@ -263,6 +263,8 @@ namespace App {
 
 		m_cfg.View.Maximized = IsZoomed(Handle()) != 0;
 
+		Reg::Save(cg_SettingsLocation, m_cfg);
+
 		return true;
 	}
 
