@@ -38,8 +38,6 @@ int start_app(const std::wstring& params) {
 		}
 
 		viewer.StartApplication();
-
-		//Reg::Save(App::cg_SettingsLocation);
 	}
 	catch(Err::DuplicateInstance&) {
 		// This is not something out of the ordinary.
