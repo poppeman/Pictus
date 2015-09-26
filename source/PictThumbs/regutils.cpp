@@ -40,6 +40,13 @@ std::tuple<HRESULT, std::wstring> GetHkcrRegistryKeyAndValue(const std::wstring&
 			reinterpret_cast<LPBYTE>(&tmpData[0]),
 			&dataLength));
 
+		if (SUCCEEDED(hr) && dataLength > 2) {
+			data = std::wstring(tmpData.begin(), tmpData.begin() + dataLength / sizeof(wchar_t) - 1);
+		}
+		else {
+			Log << L"(Thumbs:GetHkcrRegistryKeyAndValue): Failed querying value for " << subKey << L"\n";
+		}
+
 		RegCloseKey(hKey);
 	}
 
