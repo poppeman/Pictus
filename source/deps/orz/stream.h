@@ -1,6 +1,8 @@
 #ifndef STREAM_H
 #define STREAM_H
 
+#include "exception.h"
+
 namespace Err {
 	struct IOException:public Exception {
 		IOException(const std::wstring& msg):Exception(TX("IO: ") + msg) {};
@@ -33,7 +35,7 @@ namespace IO {
 		Succeeded
 	};
 
-	class Stream:boost::noncopyable {
+	class Stream {
 	public:
 		_Check_return_ std::wstring Name() const;
 		_Check_return_ bool Open();
@@ -44,11 +46,15 @@ namespace IO {
 		_Check_return_ FileInt Position() const;
 		_Check_return_ FileInt Size();
 
+		Stream() = default;
 		virtual ~Stream();
 
 		typedef std::shared_ptr<Stream> Ptr;
 
 	private:
+		Stream(const Stream&) = delete;
+		Stream& operator=(const Stream&) = delete;
+
 		virtual _Check_return_ std::wstring performName() const=0;
 		virtual _Check_return_ bool performOpen()=0;
 		virtual _Check_return_ bool performIsOpen() const = 0;

@@ -1,6 +1,8 @@
 #ifndef EXCEPTION_H
 #define EXCEPTION_H
 
+#include "types.h"
+
 namespace Err {
 	struct Exception {
 		Exception(const std::wstring& msg):m_message(msg) {}

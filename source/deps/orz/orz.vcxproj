@@ -100,6 +100,9 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -107,6 +110,9 @@
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -116,6 +122,9 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -124,9 +133,13 @@
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
+    <Lib>
+      <AdditionalDependencies>Ws2_32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bitconvert.h" />
+    <ClInclude Include="ByteOrder.h" />
     <ClInclude Include="file_writer.h" />
     <ClInclude Include="intl_language.h" />
     <ClInclude Include="intl_table_entry.h" />
@@ -159,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp" />
+    <ClCompile Include="ByteOrder.cpp" />
     <ClCompile Include="file_writer.cpp" />
     <ClCompile Include="orz_math.cpp" />
     <ClCompile Include="stopwatch.cpp" />

@@ -121,6 +121,9 @@
     <ClInclude Include="file_reader.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="ByteOrder.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp">
@@ -201,6 +204,9 @@
     </ClCompile>
     <ClCompile Include="file_writer.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteOrder.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
