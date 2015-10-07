@@ -17,7 +17,7 @@ VersionInfoDescription=Pictus Setup
 OutputBaseFilename=PictInst
 OutputDir=../../dist/
 DisableProgramGroupPage=yes
-VersionInfoVersion=1.4.0.0
+VersionInfoVersion=1.5.0.0
 DisableDirPage=auto
 
 [Languages]
