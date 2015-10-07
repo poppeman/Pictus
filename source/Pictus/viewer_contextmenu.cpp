@@ -2,6 +2,7 @@
 #include "viewer_contextmenu.h"
 #include "res_viewer.h"
 #include "viewer.h"
+#include <VersionHelpers.h>
 
 namespace App {
 	using namespace Win;
@@ -32,6 +33,16 @@ namespace App {
 		pSort->AddItem(ID_SORT_DATECREATED, SIDMenuSortByDateCreated);
 
 		Menu::Ptr pWall(m_menu.AddSubMenu(SIDMenuSetWallpaper));
+
+		if (IsWindows7OrGreater()) {
+			pWall->AddItem(ID_SETWALLPAPER_CROPFILL, SIDMenuSetWallpaperCropFill);
+			pWall->AddItem(ID_SETWALLPAPER_PADFILL, SIDMenuSetWallpaperPadFill);
+		}
+
+		if (IsWindows8OrGreater()) {
+			pWall->AddItem(ID_SETWALLPAPER_SPAN, SIDMenuSetWallpaperSpan);
+		}
+
 		pWall->AddItem(ID_SETWALLPAPER_STRETCH, SIDMenuSetWallpaperStretch);
 		pWall->AddItem(ID_SETWALLPAPER_CENTER, SIDMenuSetWallpaperCenter);
 		pWall->AddItem(ID_SETWALLPAPER_TILE, SIDMenuSetWallpaperTile);
@@ -60,10 +71,12 @@ namespace App {
 		m_menuMap.AddAction(ID_SORT_DATEACCESSED, [=]() { v->Sort(Img::Cacher::SortDateAccessed); });
 		m_menuMap.AddAction(ID_SORT_DATECREATED, [=]() { v->Sort(Img::Cacher::SortDateCreated); });
 		m_menuMap.AddAction(ID_SORT_DATEMODIFIED, [=]() { v->Sort(Img::Cacher::SortDateModified); });
-		m_menuMap.AddAction(ID_SETWALLPAPER_CENTER, [=]() { v->ApplyWallpaper(Win::Wallpaper::WPCenter); });
-		m_menuMap.AddAction(ID_SETWALLPAPER_STRETCH, [=]() { v->ApplyWallpaper(Win::Wallpaper::WPStretch); });
-		m_menuMap.AddAction(ID_SETWALLPAPER_TILE, [=]() { v->ApplyWallpaper(Win::Wallpaper::WPTile); });
-
+		m_menuMap.AddAction(ID_SETWALLPAPER_CENTER, [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Center); });
+		m_menuMap.AddAction(ID_SETWALLPAPER_STRETCH, [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Stretch); });
+		m_menuMap.AddAction(ID_SETWALLPAPER_TILE, [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Tile); });
+		m_menuMap.AddAction(ID_SETWALLPAPER_PADFILL, [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::FillPad); });
+		m_menuMap.AddAction(ID_SETWALLPAPER_CROPFILL, [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::FillCrop); });
+		m_menuMap.AddAction(ID_SETWALLPAPER_SPAN, [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::Span); });
 	}
 
 	void ViewerContextMenu::Display(Geom::PointInt pos) {

@@ -20,14 +20,23 @@ namespace Win {
 
 		wpOpt.dwSize = sizeof(WALLPAPEROPT);
 		switch (m) {
-		case WPStretch:
+		case Mode::Stretch:
 			wpOpt.dwStyle = WPSTYLE_STRETCH;
 			break;
-		case WPCenter:
+		case Mode::Center:
 			wpOpt.dwStyle = WPSTYLE_CENTER;
 			break;
-		case WPTile:
+		case Mode::Tile:
 			wpOpt.dwStyle = WPSTYLE_TILE;
+			break;
+		case Mode::FillPad:
+			wpOpt.dwStyle = WPSTYLE_KEEPASPECT;
+			break;
+		case Mode::FillCrop:
+			wpOpt.dwStyle = WPSTYLE_CROPTOFIT;
+			break;
+		case Mode::Span:
+			wpOpt.dwStyle = WPSTYLE_SPAN;  // MSDN claims that WPSTYLE_MAX must also be set, but that seems to be incorrect.
 			break;
 		}
 
