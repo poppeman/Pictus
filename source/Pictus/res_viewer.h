@@ -16,6 +16,9 @@
 #define ID_SORT_DATEMODIFIED            113
 #define ID_SORT_DATEACCESSED            114
 #define ID_SORT_DATECREATED             115
+#define ID_SETWALLPAPER_CROPFILL        116
+#define ID_SETWALLPAPER_PADFILL         117
+#define ID_SETWALLPAPER_SPAN            118
 #define IDD_ADJUST                      119
 #define IDD_RENAME                      120
 #define IDI_DOCUMENT                    123
@@ -68,6 +71,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        134
 #define _APS_NEXT_COMMAND_VALUE         40030
 #define _APS_NEXT_CONTROL_VALUE         1036
-#define _APS_NEXT_SYMED_VALUE           116
+#define _APS_NEXT_SYMED_VALUE           119
 #endif
 #endif
