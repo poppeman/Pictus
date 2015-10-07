@@ -2,6 +2,7 @@
 #define STREAM_MEM_H
 
 #include "stream.h"
+#include <mutex>
 
 namespace IO {
 	class StreamMemory:public Stream {

@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "stream_file.h"
 #include "file_reader.h"
+#include "ByteOrder.h"
 
 namespace IO {
 	using std::mutex;
@@ -115,5 +116,31 @@ namespace IO {
 			return ext;
 		}
 		return std::wstring(TX(""));
+	}
+
+	uint32_t ReadNet32(FileReader::Ptr reader) {
+		uint32_t pre;
+		if (reader->Read(&pre, 4, 1) != 4) throw std::runtime_error("EOF encountered");
+		return Util::NToHl(pre);
+	}
+
+	uint16_t ReadNet16(FileReader::Ptr reader) {
+		uint16_t pre;
+		if (reader->Read(&pre, 2, 1) != 2) throw std::runtime_error("EOF encountered");
+		return Util::NToHs(pre);
+	}
+
+
+	// TODO: Support for non-intel
+	uint16_t ReadLE16(FileReader::Ptr reader) {
+		uint16_t pre;
+		if (reader->Read(&pre, 2, 1) != 2) throw std::runtime_error("EOF encountered");
+		return pre;
+	}
+
+	uint16_t ReadLE32(FileReader::Ptr reader) {
+		uint32_t pre;
+		if (reader->Read(&pre, 4, 1) != 4) throw std::runtime_error("EOF encountered");
+		return pre;
 	}
 }

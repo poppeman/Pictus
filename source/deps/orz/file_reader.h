@@ -32,6 +32,12 @@ namespace IO {
 		FileReader(const FileReader& b)=delete;
 		Stream::Ptr m_stream;
 	};
+
+	uint32_t ReadNet32(FileReader::Ptr reader);
+	uint16_t ReadNet16(FileReader::Ptr reader);
+
+	uint16_t ReadLE32(FileReader::Ptr reader);
+	uint16_t ReadLE16(FileReader::Ptr reader);
 }
 
 #endif
