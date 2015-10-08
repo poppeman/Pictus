@@ -1,6 +1,6 @@
-#include "StdAfx.h"
-
 #include "Logger.h"
+#include <mutex>
+#include <iostream>
 
 std::mutex					g_mutexOutput;
 
@@ -13,5 +13,5 @@ void OutputString( const std::wstring& toOutput, bool important )
 #endif
 
 	std::lock_guard<std::mutex> l(g_mutexOutput);
-	std::wcout << (toOutput + TX("\n")).c_str();
+	std::wcout << (toOutput + L"\n").c_str();
 }

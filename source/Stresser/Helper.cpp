@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "Helper.h"
 #include "orz/fileops.h"
 #include "orz/folder.h"

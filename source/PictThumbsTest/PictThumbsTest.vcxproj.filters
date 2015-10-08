@@ -26,9 +26,6 @@
     <ClCompile Include="..\PictThumbs\cthumbprovider.cpp">
       <Filter>PictThumbs</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -39,9 +36,6 @@
     </ClInclude>
     <ClInclude Include="..\PictThumbs\cthumbprovider.h">
       <Filter>PictThumbs</Filter>
-    </ClInclude>
-    <ClInclude Include="StdAfx.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
