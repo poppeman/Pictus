@@ -33,6 +33,8 @@ namespace IO {
 		Stream::Ptr m_stream;
 	};
 
+	std::vector<uint8_t> ReadAll(FileReader::Ptr file);
+
 	uint32_t ReadNet32(FileReader::Ptr reader);
 	uint16_t ReadNet16(FileReader::Ptr reader);
 

@@ -4,6 +4,7 @@
 #include "../orz/stream_mem.h"
 #include <cstdint>
 #include <iomanip>
+#include <boost/algorithm/string.hpp>
 
 namespace Metadata {
 	namespace Exif {
@@ -43,23 +44,13 @@ namespace Metadata {
 		}
 
 		std::string ReadAscii(IO::FileReader::Ptr ms, size_t offset, size_t components) {
-			std::stringstream ss;
-			if(components <= 4) {
-				for (int i = 0; i < components; ++i) {
-					char c;
-					ms->ReadFull(&c, 1);
-					ss << c;
-				}
-			}
-			else {
-				for(auto i=0;i<components;++i) {
-					ms->Seek(offset + i, IO::SeekMethod::Begin);
-					char C;
-					ms->ReadFull(&C, 1);
-					ss << 1;
-				}
-			}
-			return ss.str();
+			ms->Seek(offset, IO::SeekMethod::Begin);
+			std::vector<char> bytes(components + 1);
+			ms->ReadFull(&bytes[0], components);
+			bytes[components] = 0;
+
+			// Olympus cameras seems to pad various strings with spaces at the end.
+			return boost::trim_right_copy(std::string{ &bytes[0] });
 		}
 
 		Metadata::Rational ReadRational(IO::FileReader::Ptr ms, ByteOrder o, size_t position) {
@@ -239,6 +230,7 @@ namespace Metadata {
 			auto doc = std::shared_ptr<Document>();
 
 			auto ms = std::make_shared<IO::FileReader>(std::make_shared<IO::StreamMemory>(data, length));
+			ms->Open();
 
 			ByteOrder bo = ByteOrder::Undefined;
 			{
@@ -258,7 +250,8 @@ namespace Metadata {
 				return doc;
 
 			auto ifd_offset = ReadUint32(ms, bo);
-			// Todo: Seek to correct position if ifd_offset != 8
+			ms->Seek(ifd_offset, IO::SeekMethod::Begin);
+
 
 			doc.reset(new Document);
 			ExifDocument tc;
