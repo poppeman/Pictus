@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "factory_renderer.h"
 
 #include "w32_rendertarget.h"

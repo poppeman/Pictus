@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ic_workpackage.h"
 #include "ic_imageloader.h"
 #include "illa/image.h"

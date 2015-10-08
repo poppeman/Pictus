@@ -1,6 +1,9 @@
-#ifndef STOPWATCH_H
-#define STOPWATCH_H
+#ifndef ORZ_STOPWATCH_H
+#define ORZ_STOPWATCH_H
 
+#include <windows.h>
+
+// TODO: Replace with boost
 namespace Util {
 	class StopWatch {
 	public:

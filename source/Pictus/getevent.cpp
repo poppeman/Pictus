@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "getevent.h"
 #include "registry.h"
 

@@ -1,9 +1,10 @@
-#include "StdAfx.h"
 #include "w32_assure_folder.h"
 #include "io.h"
+#include "orz/exception.h"
 #include "orz/fileops.h"
-
-
+#include "orz/types.h"
+#include <windows.h>
+#include <ShlObj.h>
 
 std::wstring assure_folder(std::wstring name) {
 	std::wstring path = IO::GetPath(name);

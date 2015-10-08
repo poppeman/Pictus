@@ -1,6 +1,8 @@
 #ifndef FILTERSTRING_H
 #define FILTERSTRING_H
 
+#include <string>
+
 namespace Img {
 	class CodecFactoryStore;
 }
