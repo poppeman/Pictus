@@ -28,6 +28,7 @@ $RECYCLE.BIN/
 
 # IDE gunk
 **/.idea/*
+*.user
 
 
 # =========================
