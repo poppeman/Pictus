@@ -9,25 +9,31 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="EXIF">
+      <UniqueIdentifier>{f9764fdf-c384-4fab-b9ca-1b8fb4adca5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Exif_Parser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Metadata_Document.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Metadata_Value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Exif_Parser.cpp">
+      <Filter>EXIF</Filter>
+    </ClCompile>
+    <ClCompile Include="Exif_Converter.cpp">
+      <Filter>EXIF</Filter>
+    </ClCompile>
+    <ClCompile Include="Exif_ReadIfd.cpp">
+      <Filter>EXIF</Filter>
+    </ClCompile>
+    <ClCompile Include="Exif_IO.cpp">
+      <Filter>EXIF</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Exif_Parser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Exif_Types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Metadata_Document.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,6 +42,24 @@
     </ClInclude>
     <ClInclude Include="Metadata_Value.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exif_Parser.h">
+      <Filter>EXIF</Filter>
+    </ClInclude>
+    <ClInclude Include="Exif_Types.h">
+      <Filter>EXIF</Filter>
+    </ClInclude>
+    <ClInclude Include="Exif.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exif_Converter.h">
+      <Filter>EXIF</Filter>
+    </ClInclude>
+    <ClInclude Include="Exif_ReadIfd.h">
+      <Filter>EXIF</Filter>
+    </ClInclude>
+    <ClInclude Include="Exif_IO.h">
+      <Filter>EXIF</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
