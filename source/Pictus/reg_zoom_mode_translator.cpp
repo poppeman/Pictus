@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "reg_zoom_mode_translator.h"
 
 namespace Reg {

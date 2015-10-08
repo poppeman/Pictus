@@ -3,9 +3,10 @@
 
 #include "surface_lock.h"
 #include "types.h"
+#include <mutex>
 
 namespace Img {
-	class Surface:boost::noncopyable {
+	class Surface {
 	public:
 		typedef std::shared_ptr<Surface> Ptr;
 
@@ -46,6 +47,9 @@ namespace Img {
 
 		Surface();
 		virtual ~Surface();
+
+		Surface(const Surface& rhs) = delete;
+		Surface& operator=(const Surface&) = delete;
 
 	protected:
 		void ForceDirty();

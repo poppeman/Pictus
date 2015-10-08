@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "viewer_contextmenu.h"
 #include "res_viewer.h"
 #include "viewer.h"

@@ -3,6 +3,7 @@
 
 #include "folder_imp.h"
 #include "folder_iterator.h"
+#include <mutex>
 
 namespace IO {
 	class Folder:boost::noncopyable {

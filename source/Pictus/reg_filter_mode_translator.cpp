@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "reg_filter_mode_translator.h"
 
 namespace Reg {

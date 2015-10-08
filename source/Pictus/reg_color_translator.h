@@ -2,6 +2,8 @@
 #define PICTUS_REG_COLOR_TRANSLATOR_H
 
 #include <string>
+#include <boost/optional.hpp>
+#include <boost/property_tree/id_translator.hpp>
 #include "../deps/illa/types.h"
 
 namespace Reg {

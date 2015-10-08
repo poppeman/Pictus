@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include <UnitTest++/UnitTest++.h>
 #include "main.h"
 #include "Pictus/ic_queue.h"
 

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "viewer_keyboard.h"
 #include "viewer.h"
 #include "registry.h"

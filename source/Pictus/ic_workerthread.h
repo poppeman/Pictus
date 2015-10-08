@@ -4,6 +4,8 @@
 #include "ic_queue.h"
 #include "ic_worklist.h"
 #include "imagecache_event.h"
+#include <thread>
+#include <condition_variable>
 
 namespace Img {
 	class DecoderWorkerThread {

@@ -33,4 +33,6 @@ namespace IO {
 	}
 }
 
+extern IO::Logger Log;
+
 #endif

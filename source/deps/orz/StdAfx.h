@@ -73,6 +73,4 @@
 #include "exception.h"
 #include "Logger.h"
 
-extern IO::Logger Log;
-
 #endif

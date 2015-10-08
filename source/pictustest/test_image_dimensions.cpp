@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include <UnitTest++/UnitTest++.h>
 #include "Pictus/image_dimensions.h"
 
 SUITE(ImgDimSuite) {

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "reg_resize_behavior_translator.h"
 
 namespace Reg {

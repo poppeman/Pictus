@@ -1,8 +1,9 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#ifndef PICTUS_SETTINGS_H
+#define PICTUS_SETTINGS_H
 
 #include "dialog.h"
 #include "appreg.h"
+#include <CommCtrl.h>
 
 namespace App {
 	class SettingsPage;

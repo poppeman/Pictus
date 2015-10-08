@@ -66,3 +66,5 @@ namespace IO {
 		return output;
 	}
 }
+
+IO::Logger Log;

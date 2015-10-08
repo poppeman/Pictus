@@ -95,9 +95,6 @@
     <ClCompile Include="..\Pictus\wintypes.cpp">
       <Filter>Pictus\WinAPI</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="test_reg_color_translator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -153,9 +150,6 @@
     </ClInclude>
     <ClInclude Include="..\Pictus\wintypes.h">
       <Filter>Pictus\WinAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="StdAfx.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Pictus\reg_color_translator.h">
       <Filter>Pictus\Registry</Filter>

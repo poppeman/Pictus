@@ -2,9 +2,10 @@
 #define IMAGECOMPOSER_H
 
 #include "surface.h"
+#include <mutex>
 
 namespace Img {
-	class ImageComposer:boost::noncopyable {
+	class ImageComposer {
 	public:
 		Surface::Ptr RequestCurrentSurface();
 		void Advance();
@@ -15,6 +16,9 @@ namespace Img {
 		virtual ~ImageComposer()=0;
 
 		typedef std::shared_ptr<ImageComposer> Ptr;
+
+		ImageComposer(const ImageComposer&) = delete;
+		ImageComposer& operator=(const ImageComposer&) = delete;
 
 	protected:
 		void SurfaceUpdated();

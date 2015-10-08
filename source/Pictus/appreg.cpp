@@ -1,5 +1,5 @@
-#include "StdAfx.h"
 #include "appreg.h"
+#include <ostream>
 
 std::basic_ostream<wchar_t> &operator<<(std::basic_ostream<wchar_t>& in, const App::ResizePositionMethod& fmt) {
 	switch (fmt) {

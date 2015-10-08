@@ -1,5 +1,8 @@
-#ifndef ACTIONMAP_H
-#define ACTIONMAP_H
+#ifndef PICTUS_ACTIONMAP_H
+#define PICTUS_ACTIONMAP_H
+
+#include <boost/function.hpp>
+#include <map>
 
 namespace App {
 	template <typename _key, typename _param>

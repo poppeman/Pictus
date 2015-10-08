@@ -1,10 +1,10 @@
-#include "StdAfx.h"
 #include "app_types.h"
 #include "../deps/orz/intl.h"
 #pragma warning(disable: 4512)
 #pragma warning(disable: 4503)
 #include <boost/bimap.hpp>
 #include <boost/assign.hpp>
+#include <windows.h>
 
 namespace App {
 	typedef boost::bimap<boost::bimaps::set_of<std::string>, boost::bimaps::set_of<KeyAction>> ActionIdentifierBimap;
