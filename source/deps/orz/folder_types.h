@@ -1,6 +1,9 @@
 #ifndef FOLDER_TYPES_H
 #define FOLDER_TYPES_H
 
+#include <boost/signals2.hpp>
+#include <list>
+
 namespace IO {
 	enum FileEventType {
 		FileAdded,

@@ -2,11 +2,6 @@
 #ifndef PICTUS_STDAFX_H
 #define PICTUS_STDAFX_H
 
-#define D3D_DEBUG_INFO
-#define _WIN32_WINNT 0x0602
-#define WINVER 0x0602
-#define _WIN32_IE 0x0900
-
 #include "illa/StdAfx.h"
 #include "D3DWrap/StdAfx.h"
 

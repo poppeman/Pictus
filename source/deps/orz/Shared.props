@@ -16,7 +16,7 @@
     <ClCompile />
     <ClCompile>
       <PreprocessorDefinitions>
-        TIF_PLATFORM_CONSOLE;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;NOIME;NODRAWTEXT;NOKERNEL;NOMEMMGR;NOMETAFILE;NOSERVICE;NOSOUND;NOWH;NOHELP;NOPROFILER;NODEFERWINDOWPOS;NOMCX;NOMINMAX;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)
+        D3D_DEBUG_INFO;_WIN32_WINNT=0x0602;WINVER 0x0602;_WIN32_IE=0x0900;;TIF_PLATFORM_CONSOLE;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;NOIME;NODRAWTEXT;NOKERNEL;NOMEMMGR;NOMETAFILE;NOSERVICE;NOSOUND;NOWH;NOHELP;NOPROFILER;NODEFERWINDOWPOS;NOMCX;NOMINMAX;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)
       </PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -24,8 +24,8 @@
     <ClCompile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-	  <Optimization>Disabled</Optimization>
-	</ClCompile>
+      <Optimization>Disabled</Optimization>
+  </ClCompile>
   </ItemDefinitionGroup>
     <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
         <ClCompile>

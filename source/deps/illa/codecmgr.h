@@ -1,9 +1,10 @@
-#ifndef CODECMGR_H
-#define CODECMGR_H
+#ifndef ILLA_CODECMGR_H
+#define ILLA_CODECMGR_H
 
 #include "types.h"
 #include <deque>
 #include <map>
+#include <memory>
 
 namespace Img {
 	class AbstractCodec;

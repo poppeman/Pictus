@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "filterstring.h"
 #include "illa/codecmgr.h"
 #include "app_types.h"
@@ -8,6 +7,7 @@ namespace App {
 	FilterString::FilterString(Img::CodecFactoryStore* store):m_store(store) {}
 
 	const std::wstring FilterString::GetFilterString() {
+		// Awful
 		std::wstring filterString = L"";
 		std::wstring match_all;
 		std::wstring pretty_filter;

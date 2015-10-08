@@ -1,5 +1,9 @@
-#ifndef FILEOPS_H
-#define FILEOPS_H
+#ifndef ORZ_FILEOPS_H
+#define ORZ_FILEOPS_H
+
+#ifdef WIN32
+#include <windows.h>
+#endif
 
 namespace IO {
 	bool DoFileExist(const std::wstring& files);

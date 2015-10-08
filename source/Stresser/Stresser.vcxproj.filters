@@ -68,9 +68,6 @@
     <ClCompile Include="..\Pictus\ic_workpackage.cpp">
       <Filter>Pictus\Cacher\Background</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicThread.h">

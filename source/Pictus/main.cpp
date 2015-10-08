@@ -1,5 +1,3 @@
-
-#include "StdAfx.h"
 #include "main.h"
 #include "viewer.h"
 #include "lang_val.h"
@@ -9,6 +7,7 @@
 #include "orz/intl.h"
 #include "control.h"
 #include "w32_assure_folder.h"
+#include "orz/logger.h"
 
 int start_app(const std::wstring& params) {
 	if (params == TX("--cleanup")) {

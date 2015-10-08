@@ -1,6 +1,4 @@
-﻿#include "StdAfx.h"
-
-#include "orz/stream_file.h"
+﻿#include "orz/stream_file.h"
 #include "orz/fileops.h"
 #include "orz/intl.h"
 #include "orz/orz_math.h"
