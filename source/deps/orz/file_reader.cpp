@@ -60,7 +60,6 @@ namespace IO {
 		:m_stream(s)
 	{}
 
-
 	// TODO: Replace this with Boost.filesystem or something else that doesn't scream of NIH.
 	void replace_substrings(std::wstring& str, const std::wstring& toFind, const std::wstring& toWrite, size_t offset=0) {
 		std::size_t pos = offset;
@@ -118,15 +117,25 @@ namespace IO {
 		return std::wstring(TX(""));
 	}
 
+	std::vector<uint8_t> ReadAll(FileReader::Ptr file) {
+		if (!file->IsOpen()) {
+			file->Open();
+		}
+		auto sz = file->Size();
+		std::vector<uint8_t> vec(sz);
+		file->ReadFull(&vec[0], sz);
+		return vec;
+	}
+
 	uint32_t ReadNet32(FileReader::Ptr reader) {
 		uint32_t pre;
-		if (reader->Read(&pre, 4, 1) != 4) throw std::runtime_error("EOF encountered");
+		if (reader->Read(&pre, 4, 1) != 1) throw std::runtime_error("EOF encountered");
 		return Util::NToHl(pre);
 	}
 
 	uint16_t ReadNet16(FileReader::Ptr reader) {
 		uint16_t pre;
-		if (reader->Read(&pre, 2, 1) != 2) throw std::runtime_error("EOF encountered");
+		if (reader->Read(&pre, 2, 1) != 1) throw std::runtime_error("EOF encountered");
 		return Util::NToHs(pre);
 	}
 
@@ -134,13 +143,13 @@ namespace IO {
 	// TODO: Support for non-intel
 	uint16_t ReadLE16(FileReader::Ptr reader) {
 		uint16_t pre;
-		if (reader->Read(&pre, 2, 1) != 2) throw std::runtime_error("EOF encountered");
+		if (reader->Read(&pre, 2, 1) != 1) throw std::runtime_error("EOF encountered");
 		return pre;
 	}
 
 	uint16_t ReadLE32(FileReader::Ptr reader) {
 		uint32_t pre;
-		if (reader->Read(&pre, 4, 1) != 4) throw std::runtime_error("EOF encountered");
+		if (reader->Read(&pre, 4, 1) != 1) throw std::runtime_error("EOF encountered");
 		return pre;
 	}
 }

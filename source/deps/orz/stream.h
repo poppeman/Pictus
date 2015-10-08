@@ -1,6 +1,7 @@
 #ifndef STREAM_H
 #define STREAM_H
 
+#include <memory>
 #include "exception.h"
 
 namespace Err {

@@ -1,7 +1,7 @@
 #include "Metadata_Value.h"
 
 namespace Metadata {
-	std::basic_ostream<wchar_t>& operator << (std::basic_ostream<wchar_t>& out, const Rational& r) {
+	std::basic_ostream<char>& operator << (std::basic_ostream<char>& out, const Rational& r) {
 		if(r.Denominator == 1)
 			out << r.Numerator;
 		else if(r.Numerator == 0)
@@ -12,7 +12,7 @@ namespace Metadata {
 		return out;
 	}
 
-	std::basic_ostream<wchar_t>& operator << (std::basic_ostream<wchar_t>& out, const ResolutionUnit r) {
+	std::basic_ostream<char>& operator << (std::basic_ostream<char>& out, const ResolutionUnit r) {
 		if(r == ResolutionUnit::Centimeter)
 			out << L"dpcm";
 		else if(r == ResolutionUnit::Inch)
@@ -20,72 +20,72 @@ namespace Metadata {
 		return out;
 	}
 
-	std::basic_ostream<wchar_t>& operator << (std::basic_ostream<wchar_t>& out, const LightSource ls) {
+	std::basic_ostream<char>& operator << (std::basic_ostream<char>& out, const LightSource ls) {
 		if(ls == LightSource::Auto)
-			out << L"Auto";
+			out << "Auto";
 		else if(ls == LightSource::Daylight)
-			out << L"Daylight";
+			out << "Daylight";
 		else if(ls == LightSource::Fluorescent)
-			out << L"Flourescent";
+			out << "Fluorescent";
 		else if(ls == LightSource::Tungsten)
-			out << L"Tungsten";
+			out << "Tungsten";
 		else if(ls == LightSource::Flash)
-			out << L"Flash";
+			out << "Flash";
 		else if(ls == LightSource::FineWeather)
-			out << L"Fine weather";
+			out << "Fine weather";
 		else if(ls == LightSource::CloudyWeather)
-			out << L"Cloudy weather";
+			out << "Cloudy weather";
 		else if(ls == LightSource::Shade)
-			out << L"Shade";
+			out << "Shade";
 		else if(ls == LightSource::DaylightFluorescent)
-			out << L"Daylight fluorescent (D 5700 - 7100K)";
+			out << "Daylight fluorescent (D 5700 - 7100K)";
 		else if(ls == LightSource::DayWhiteFluorescent)
-			out << L"Day white fluorescent (N 4600 - 5400K)";
+			out << "Day white fluorescent (N 4600 - 5400K)";
 		else if(ls == LightSource::CoolWhiteFluorescent)
-			out << L"Cool white fluorescent (W 3900 - 4500K)";
+			out << "Cool white fluorescent (W 3900 - 4500K)";
 		else if(ls == LightSource::WhiteFluorescent)
-			out << L"White fluorescent (WW 3200 - 3700K)";
+			out << "White fluorescent (WW 3200 - 3700K)";
 		else if(ls == LightSource::StandardLightA)
-			out << L"Standard light A";
+			out << "Standard light A";
 		else if(ls == LightSource::StandardLightB)
-			out << L"Standard light B";
+			out << "Standard light B";
 		else if(ls == LightSource::StandardLightC)
-			out << L"Standard light C";
+			out << "Standard light C";
 		else if(ls == LightSource::D50)
-			out << L"D50";
+			out << "D50";
 		else if(ls == LightSource::D55)
-			out << L"D55";
+			out << "D55";
 		else if(ls == LightSource::D65)
-			out << L"D65";
+			out << "D65";
 		else if(ls == LightSource::D75)
-			out << L"D75";
+			out << "D75";
 		else if(ls == LightSource::IsoStudioTungsten)
-			out << L"ISO studio tungsten";
+			out << "ISO studio tungsten";
 		else if(ls == LightSource::Other)
-			out << L"Other light source";
+			out << "Other light source";
 
 		return out;
 	}
 
-	std::basic_ostream<wchar_t>& operator << (std::basic_ostream<wchar_t>& out, const ExposureProgram ep) {
+	std::basic_ostream<char>& operator << (std::basic_ostream<char>& out, const ExposureProgram ep) {
 		if(ep == ExposureProgram::Action)
-			out << L"Action program";
+			out << "Action program";
 		else if(ep == ExposureProgram::AperturePriority)
-			out << L"Aperture priority";
+			out << "Aperture priority";
 		else if(ep == ExposureProgram::Creative)
-			out << L"Creative program";
+			out << "Creative program";
 		else if(ep == ExposureProgram::Landscape)
-			out << L"Landscape mode";
+			out << "Landscape mode";
 		else if(ep == ExposureProgram::Manual)
-			out << L"Manual";
+			out << "Manual";
 		else if(ep == ExposureProgram::Normal)
-			out << L"Normal program";
+			out << "Normal program";
 		else if(ep == ExposureProgram::Portrait)
-			out << L"Portrait mode";
+			out << "Portrait mode";
 		else if(ep == ExposureProgram::ShutterPriority)
-			out << L"Shutter priority";
+			out << "Shutter priority";
 		else if (ep == ExposureProgram::Undefined)
-			out << L"Undefined";
+			out << "Undefined";
 		return out;
 	}
 
