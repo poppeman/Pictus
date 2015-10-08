@@ -36,7 +36,6 @@ namespace Img {
 
 	void ImageLoader::LoadHeader() {
 		try {
-			//reader.reset(new IO::FileReader(filename));
 			if(!m_reader->Open()) {
 				return FailState();
 			}
@@ -52,6 +51,23 @@ namespace Img {
 		}
 		catch(Err::Exception&) {
 			FailState();
+		}
+	}
+
+	void ImageLoader::LoadMetadata() {
+		// Metadata is a nice-to-have, so don't set failstate if something goes wrong.
+		try {
+			if (!m_reader->IsOpen()) {
+				return;
+			}
+			if (codec == nullptr) {
+				return;
+			}
+
+			image->SetMetadata(codec->LoadMetadata());
+		}
+		catch (Err::Exception& e) {
+			Log << L"(ImageLoader::LoadMetadata) " << e.Desc() << L"\n";
 		}
 	}
 
@@ -214,6 +230,7 @@ fullalloc:
 				LoadHeader();
 				return LoadEventHeaderLoaded;
 			case LoadStateHeader:
+				LoadMetadata();
 				Allocate();
 				return LoadEventAllocated;
 			case LoadStateLoading:

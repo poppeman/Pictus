@@ -53,6 +53,22 @@ namespace Img {
 		return false;
 	}
 
+	std::shared_ptr<Metadata::Document> AbstractCodec::LoadMetadata() {
+		if (m_file == nullptr) {
+			DO_THROW(Err::InvalidCall, L"No file was set");
+		}
+		if (m_file->IsOpen() == false) {
+			DO_THROW(Err::InvalidCall, L"File not open");
+		}
+		try {
+			return PerformLoadMetadata();
+		}
+		catch (Err::Exception& e) {
+			Log << L"(AbstractCodec::LoadMetadata) " << e.Desc() << "\n";
+			return nullptr;
+		}
+	}
+
 	AbstractCodec::AllocationStatus AbstractCodec::Allocate(const Geom::SizeInt& dimHint){
 		if (dimHint == Geom::SizeInt(0, 0)) {
 			return PerformAllocate();
@@ -130,6 +146,10 @@ namespace Img {
 
 	void AbstractCodec::ResetTerminate() {
 		m_doAbort = false;
+	}
+
+	std::shared_ptr<Metadata::Document> AbstractCodec::PerformLoadMetadata() {
+		return nullptr;
 	}
 
 	AbstractCodec::AllocationStatus AbstractCodec::PerformAllocate() {

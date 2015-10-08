@@ -18,7 +18,7 @@ namespace Img {
 
 	private:
 		bool PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) override;
-
+		std::shared_ptr<Metadata::Document> PerformLoadMetadata() override;
 		void PrepareLibJpeg( IO::FileReader::Ptr file );
 		AllocationStatus PerformAllocate(const Geom::SizeInt& dimHint) override;
 		AllocationStatus PerformAllocate() override;

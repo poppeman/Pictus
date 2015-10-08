@@ -19,7 +19,7 @@ namespace Metadata {
 			ImageDescription = 0x010e,
 			Make = 0x010f,
 			Model = 0x0110,
-			Orientation = 0x0112,
+			Orientation = 0x0112,	// Rotation. The only tag we'll use for a while.
 			XResolution = 0x011a,
 			YResolution = 0x011b,
 			ResolutionUnit = 0x0128,
