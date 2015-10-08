@@ -3,6 +3,7 @@
 
 #include "surface.h"
 #include "surfacefactory.h"
+#include <atomic>
 
 namespace Img {
 	class SurfaceSoftware:public Img::Surface {

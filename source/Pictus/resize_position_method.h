@@ -1,6 +1,12 @@
 #ifndef PICTUS_RESIZE_POSITION_METHOD_H
 #define PICTUS_RESIZE_POSITION_METHOD_H
 
+#pragma warning(push)
+#pragma warning(disable: 4512)
+#pragma warning(disable: 4503)
+#include <boost/assign.hpp>
+#include <boost/bimap.hpp>
+
 namespace App {
 	enum class ResizePositionMethod {
 		PositionToScreen,
@@ -15,5 +21,7 @@ namespace App {
 		("PositionNothing", ResizePositionMethod::PositionNothing)
 		;
 }
+
+#pragma warning(pop)
 
 #endif

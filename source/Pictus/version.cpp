@@ -1,8 +1,8 @@
-#include "StdAfx.h"
 #include "version.h"
+#include "orz/types.h"
 
 std::wstring ToWString(const App::Version ver) {
-	return ToWString(ver.Major) + TX(".") + ToWString(ver.Minor) + TX(".") + ToWString(ver.Revision);
+	return ToWString(ver.Major) + L"." + ToWString(ver.Minor) + L"." + ToWString(ver.Revision);
 }
 
 namespace App {

@@ -1,7 +1,8 @@
-#ifndef VERSION_H
-#define VERSION_H
+#ifndef PICTUS_VERSION_H
+#define PICTUS_VERSION_H
 
 #include "res_version.h"
+#include <string>
 
 namespace App {
 	struct Version {
@@ -13,4 +14,5 @@ namespace App {
 }
 
 std::wstring ToWString(const App::Version ver);
+
 #endif

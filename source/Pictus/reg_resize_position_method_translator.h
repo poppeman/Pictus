@@ -2,6 +2,8 @@
 #define PICTUS_REG_RESIZE_POSITION_METHOD_TRANSLATOR_H
 
 #include <string>
+#include <boost/optional.hpp>
+#include <boost/property_tree/id_translator.hpp>
 #include "resize_position_method.h"
 
 namespace Reg {

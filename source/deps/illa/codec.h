@@ -8,6 +8,8 @@
 #include "surface.h"
 #include "imagecomposer.h"
 
+#include <atomic>
+
 namespace Img {
 	class AbstractCodec {
 	public:

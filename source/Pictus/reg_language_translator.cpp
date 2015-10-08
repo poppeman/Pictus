@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "reg_language_translator.h"
 
 namespace Reg {

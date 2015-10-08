@@ -1,6 +1,8 @@
 #ifndef ILLA_TYPES_H
 #define ILLA_TYPES_H
 
+#include "../orz/exception.h"
+
 namespace Err {
 	struct CodecError:public Exception {
 		CodecError(const std::wstring& msg):Exception(TX("Codec error: ") + msg) {}

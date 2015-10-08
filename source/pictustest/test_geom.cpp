@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include <UnitTest++/UnitTest++.h>
 
 SUITE(Geometry) {
 	/*using namespace Geom;

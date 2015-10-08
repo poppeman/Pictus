@@ -1,5 +1,7 @@
-#ifndef SURFACE_LOCK_H
-#define SURFACE_LOCK_H
+#ifndef ILLA_SURFACE_LOCK_H
+#define ILLA_SURFACE_LOCK_H
+
+#include <memory>
 
 namespace Img {
 	enum LockMethod {

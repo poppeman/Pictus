@@ -1,6 +1,12 @@
 #ifndef PICTUS_ZOOM_MODE_H
 #define PICTUS_ZOOM_MODE_H
 
+#pragma warning(push)
+#pragma warning(disable: 4512)
+#pragma warning(disable: 4503)
+#include <boost/assign.hpp>
+#include <boost/bimap.hpp>
+
 namespace App {
 	enum ZoomMode {
 		ZoomFree = 0,
@@ -15,6 +21,6 @@ namespace App {
 		("ZoomFullSize", App::ZoomFullSize)
 		;
 }
-
+#pragma warning(pop)
 
 #endif

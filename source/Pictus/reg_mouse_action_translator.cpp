@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "reg_mouse_action_translator.h"
 
 namespace Reg {

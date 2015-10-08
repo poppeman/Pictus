@@ -2,6 +2,7 @@
 #define D3D_COMMON_H
 
 #include "illa/types.h"
+#include <d3d9.h>
 
 namespace Err {
 	struct Direct3DError:public CriticalError {

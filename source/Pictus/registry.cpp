@@ -1,5 +1,5 @@
-#include "StdAfx.h"
 #include "orz/file_reader.h"
+#include "orz/logger.h"
 #include "registry.h"
 #include "w32_assure_folder.h"
 #include "reg_color_translator.h"
@@ -10,6 +10,10 @@
 #include "reg_resize_behavior_translator.h"
 #include "reg_resize_position_method_translator.h"
 #include "reg_zoom_mode_translator.h"
+#include <boost/algorithm/string.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+#include <windows.h>
 
 namespace Reg {
 	Reg::Settings Load(const std::wstring& name) {

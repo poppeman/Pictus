@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include <UnitTest++/UnitTest++.h>
 #include "Pictus/reg_color_translator.h"
 
 SUITE(ColorTranslatorSuite) {

@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdint>
 #include <vector>
+#include <sstream>
 
 // TODO: Remove these and use uint8_t, etc instead.
 typedef __int64 FileInt;

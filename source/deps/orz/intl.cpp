@@ -31,11 +31,11 @@ namespace Intl {
 		return Sys::Info::SystemLanguage();
 	}
 
-	_Ret_z_ PCWSTR GetWString(_In_ int id) {
+	_Ret_z_ const wchar_t* GetWString(_In_ int id) {
 		return GetWStringLang(id, m_currLang);
 	}
 
-	_Ret_z_ PCWSTR GetWStringLang(_In_ int id, _In_ Language lang) {
+	_Ret_z_ const wchar_t* GetWStringLang(_In_ int id, _In_ Language lang) {
 		if (lang >= Language::Undefined) {
 			DO_THROW(Err::CriticalError, TX("Invalid language identifier requested."));
 		}

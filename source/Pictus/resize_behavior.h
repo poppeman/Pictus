@@ -1,6 +1,12 @@
 #ifndef PICTUS_RESIZE_BEHAVIOR_H
 #define PICTUS_RESIZE_BEHAVIOR_H
 
+#pragma warning(push)
+#pragma warning(disable: 4512)
+#pragma warning(disable: 4503)
+#include <boost/assign.hpp>
+#include <boost/bimap.hpp>
+
 namespace App {
 	enum ResizeBehaviour {
 		ResizeEnlargeOrReduce = 0,
@@ -15,5 +21,7 @@ namespace App {
 		("ReduceOnly", ResizeBehaviour::ResizeReduceOnly)
 		;
 }
+
+#pragma warning(pop)
 
 #endif

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "builder_viewport.h"
 #include "w32_rs_tiled.h"
 #include "registry.h"

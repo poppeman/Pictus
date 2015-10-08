@@ -1,5 +1,5 @@
-#include "StdAfx.h"
 #include "reg_keyboard_binding_translator.h"
+#include <boost/algorithm/string.hpp>
 
 namespace Reg {
 	namespace Internal {

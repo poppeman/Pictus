@@ -2,6 +2,8 @@
 #define CODECMGR_H
 
 #include "types.h"
+#include <deque>
+#include <map>
 
 namespace Img {
 	class AbstractCodec;

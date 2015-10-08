@@ -1,7 +1,8 @@
-#ifndef WINTYPES_H
-#define WINTYPES_H
+#ifndef PICTUS_WINTYPES_H
+#define PICTUS_WINTYPES_H
 
 #include "app_types.h"
+#include <windows.h>
 
 namespace Win {
     enum MouseButton {

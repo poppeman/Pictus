@@ -1,5 +1,5 @@
-#ifndef APP_TYPES_H
-#define APP_TYPES_H
+#ifndef PICTUS_APP_TYPES_H
+#define PICTUS_APP_TYPES_H
 
 #include "illa/types.h"
 #include "resize_behavior.h"

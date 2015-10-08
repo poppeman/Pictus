@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include <UnitTest++/UnitTest++.h>
 #include "Pictus/zoomstrategy.h"
 
 SUITE(SuiteZoomStrategy) {

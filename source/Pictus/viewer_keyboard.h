@@ -1,5 +1,5 @@
-#ifndef VIEWER_KEYBOARD_H
-#define VIEWER_KEYBOARD_H
+#ifndef PICTUS_VIEWER_KEYBOARD_H
+#define PICTUS_VIEWER_KEYBOARD_H
 
 #include "actionmap.h"
 #include "wintypes.h"

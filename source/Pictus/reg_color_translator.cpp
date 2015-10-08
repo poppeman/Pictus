@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "reg_color_translator.h"
+#include <sstream>
+#include <iomanip>
 
 namespace Reg {
 	namespace Internal {
