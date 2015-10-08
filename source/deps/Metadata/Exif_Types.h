@@ -1,6 +1,11 @@
 #ifndef IMAGE_EXIF_TYPES_H
 #define IMAGE_EXIF_TYPES_H
 
+#include <map>
+#include <vector>
+#include <cstdint>
+#include "Metadata_Value.h"
+
 namespace Metadata {
 	namespace Exif {
 		enum class ByteOrder {

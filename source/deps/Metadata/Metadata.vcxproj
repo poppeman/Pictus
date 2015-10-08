@@ -19,12 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Exif_Converter.cpp" />
+    <ClCompile Include="Exif_IO.cpp" />
     <ClCompile Include="Exif_Parser.cpp" />
+    <ClCompile Include="Exif_ReadIfd.cpp" />
     <ClCompile Include="Metadata_Document.cpp" />
     <ClCompile Include="Metadata_Value.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Exif.h" />
+    <ClInclude Include="Exif_Converter.h" />
+    <ClInclude Include="Exif_IO.h" />
     <ClInclude Include="Exif_Parser.h" />
+    <ClInclude Include="Exif_ReadIfd.h" />
     <ClInclude Include="Exif_Types.h" />
     <ClInclude Include="Metadata_Document.h" />
     <ClInclude Include="Metadata_Types.h" />
