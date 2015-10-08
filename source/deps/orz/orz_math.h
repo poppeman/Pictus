@@ -1,13 +1,15 @@
 #ifndef ORZ_MATH_H
 #define ORZ_MATH_H
 
+#include <cstdint>
+
 namespace Math {
 	class Randomizer {
 	public:
-		void Seed(_In_ uint32_t seed);
+		void Seed(uint32_t seed);
 		void SeedTimer();
 
-		_Check_return_ unsigned long Random();
+		unsigned long Random();
 
 		Randomizer();
 		Randomizer(uint32_t seed);
@@ -29,13 +31,10 @@ namespace Math {
 	};
 
 	namespace Bit {
-		_Check_return_ inline int CountSet(_In_ uint32_t u) {
-			uint32_t uCount = u - (((u >> 1) & 033333333333) + ((u >> 2) & 011111111111));
-			return ((uCount + (uCount >> 3)) & 030707070707) % 63;
-		}
+		int CountSet(uint32_t u);
  	}
 
-	_Check_return_ int Lerp(_In_ float t, _In_ int a, _In_ int b);
+	int Lerp(float t, int a, int b);
 }
 
 #endif

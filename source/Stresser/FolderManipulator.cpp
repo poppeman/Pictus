@@ -1,6 +1,3 @@
-
-#include "StdAfx.h"
-
 #include "orz/folder.h"
 #include "orz/fileops.h"
 #include "orz/orz_math.h"
@@ -17,14 +14,14 @@ FolderManipulator::~FolderManipulator() {}
 
 void FolderManipulator::ThreadMain()
 {
-	Output(TX("Initializing FolderManipulator, scanning ") + m_folder + TX(" ..."));
+	Output(L"Initializing FolderManipulator, scanning " + m_folder + L" ...");
 
 	IO::Folder f;
 	f.Path(m_folder);
 
 	IO::FileList files = f.CurrentContents();
 
-	Output(TX("Iterating ..."));
+	Output(L"Iterating ...");
 
 	// Avoid variable hiding ugliness
 	{
@@ -40,12 +37,12 @@ void FolderManipulator::ThreadMain()
 
 		if (found == false)
 		{
-			Output(TX("Refilling folder!"));
+			Output(L"Refilling folder!");
 			copyFiles(m_sourceFolder, m_folder);
 		}
 	}
 
-	Output(TX("Init complete, running ..."));
+	Output(L"Init complete, running ...");
 	auto currentFile = files.begin();
 
 	while(IsTerminating() == false)
@@ -54,7 +51,7 @@ void FolderManipulator::ThreadMain()
 		int action = random.Random() % 10;
 
 		std::wstring nameCurrentFile = m_folder + currentFile->Name;
-		std::wstring nameNewFile = m_folder + TX("z") + currentFile->Name;
+		std::wstring nameNewFile = m_folder + L"z" + currentFile->Name;
 
 		switch (action)
 		{
@@ -93,7 +90,7 @@ void FolderManipulator::ThreadMain()
 						}
 						else
 						{
-							Output(TX("Out of files, bailing!"));
+							Output(L"Out of files, bailing!");
 							return;
 						}
 					}

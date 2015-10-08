@@ -1,18 +1,17 @@
-#include "StdAfx.h"
-
 #include "ThreadRunner.h"
 
 #include "orz/orz_math.h"
 
 #include "Logger.h"
+#include <algorithm>
 
 struct Runner
 {
 	void operator()(BasicThread::Ptr p)
 	{
-		OutputString(TX("Starting thread ..."));
+		OutputString(L"Starting thread ...");
 		p->Run();
-		OutputString(TX("Thread started!"));
+		OutputString(L"Thread started!");
 	}
 };
 
@@ -33,9 +32,9 @@ void ThreadRunner::ThreadMain()
 
 	while (!IsTerminating() && !m_error)
 	{
-		Sleep(rand.Random() % 2000);
+		std::this_thread::sleep_for(std::chrono::milliseconds(rand.Random() % 2000));
 
-		Output(TX("Restarting"));
+		Output(L"Restarting");
 		stopThreads();
 		startThreads();
 	}
@@ -49,12 +48,12 @@ void ThreadRunner::startThreads()
 {
 	std::random_shuffle(m_threads.begin(), m_threads.end());
 	std::for_each(m_threads.begin(), m_threads.end(), Runner());
-	OutputString(TX("All threads have been requested to start."));
+	OutputString(L"All threads have been requested to start.");
 }
 
 void ThreadRunner::stopThreads()
 {
-	OutputString(TX("Asking threads to die ..."));
+	OutputString(L"Asking threads to die ...");
 
 	std::for_each(m_threads.begin(), m_threads.end(), Terminator());
 }

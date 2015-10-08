@@ -1,6 +1,10 @@
 #ifndef STRESSTEST_BASICTHREAD_H
 #define STRESSTEST_BASICTHREAD_H
 
+#include <memory>
+#include <mutex>
+#include <thread>
+
 class BasicThread {
 public:
 	void Run();

@@ -1,4 +1,6 @@
-#include "StdAfx.h"
+#include <UnitTest++/UnitTest++.h>
+#include <thumbcache.h>
+#include <Shlwapi.h>
 #include "PictThumbs/cthumbprovider.h"
 #include "main.h"
 

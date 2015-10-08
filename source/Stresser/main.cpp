@@ -1,6 +1,3 @@
-
-#include "StdAfx.h"
-
 #include <conio.h>
 
 #include "main.h"

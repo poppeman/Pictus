@@ -1,2 +1,0 @@
-
-#include "illa/StdAfx.h"

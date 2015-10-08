@@ -185,7 +185,6 @@
     <ClInclude Include="..\Pictus\ic_workerthread.h" />
     <ClInclude Include="..\Pictus\ic_worklist.h" />
     <ClInclude Include="..\Pictus\ic_workpackage.h" />
-    <ClInclude Include="StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\deps\illa\illa.vcxproj">

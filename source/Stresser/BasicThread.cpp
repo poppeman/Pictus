@@ -1,14 +1,14 @@
-#include "StdAfx.h"
-
 #include "BasicThread.h"
 #include "Logger.h"
 #include "main.h"
+#include "orz/exception.h"
+#include "orz/types.h"
 
 size_t BasicThread::m_idThreadCounter = 0;
 
 void BasicThread::Terminate()
 {
-	Output(TX("Terminating ... "));
+	Output(L"Terminating ... ");
 	std::unique_lock<std::mutex> l(m_mutexTerm);
 	m_isTerminating = true;
 	l.unlock();
@@ -30,23 +30,23 @@ bool BasicThread::IsTerminating()
 
 void BasicThread::Output(const std::wstring& s)
 {
-	OutputString(ToWString(m_id) + TX(" - ") + s);
+	OutputString(ToWString(m_id) + L" - " + s);
 }
 
 void BasicThread::threadWrapper() {
-	Output(TX("Thread started, entering ThreadMain..."));
+	Output(L"Thread started, entering ThreadMain...");
 
 	try {
 		ThreadMain();
 	}
 	catch(Err::Exception& e) {
-		SignalError(TX("Thread: ") + ToWString(m_id) + TX("\n") + e.Desc());
+		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + e.Desc());
 	}
 	catch(std::exception& e) {
-		SignalError(TX("Thread: ") + ToWString(m_id) + TX("\n") + ToWString(e.what()));
+		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + ToWString(e.what()));
 	}
 	catch(...) {
-		SignalError(TX("Thread: ") + ToWString(m_id) + TX("\n") + TX("Unknown exception type"));
+		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + L"Unknown exception type");
 	}
 	Output(TX("Thread is terminating ..."));
 }

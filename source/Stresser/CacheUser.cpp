@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "orz/orz_math.h"
 
 #include "CacheUser.h"
