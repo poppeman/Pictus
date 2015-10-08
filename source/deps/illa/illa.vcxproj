@@ -314,6 +314,9 @@
       <Project>{08bad763-8922-4054-994e-192ab6834dbe}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\Metadata\Metadata.vcxproj">
+      <Project>{f43ec854-1314-4297-837b-f2a7fbca4b26}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\orz\orz.vcxproj">
       <Project>{8aa1cd74-0fc8-4f7a-8299-81b6e5856181}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

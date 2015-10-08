@@ -27,6 +27,11 @@ namespace Img {
 		m_isHeaderDataValid = true;
 	}
 
+	void Image::SetMetadata(std::shared_ptr<Metadata::Document> data) {
+		std::lock_guard<std::mutex> l(m_mxChangeState);
+		m_metadata = data;
+	}
+
 	_Use_decl_annotations_ void Image::FinishImage(int loadTime) {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 
@@ -71,7 +76,11 @@ namespace Img {
 		return m_size;
 	}
 
-	Image::Image(std::wstring filename):
+	std::shared_ptr<Metadata::Document> Image::GetMetadata() const {
+		return m_metadata;
+	}
+
+	Image::Image(std::wstring filename) :
 		m_isHeaderDataValid{ false },
 		isFinished{ false },
 		m_loadTime{ 0 }

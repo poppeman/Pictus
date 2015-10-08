@@ -64,8 +64,11 @@ namespace Metadata {
 			AddResolution<std::vector<Rational>, uint16_t>(FieldIdentifier::YResolution, m_in.Rational.find(TagName::YResolution), m_in.Rational.end(), m_in.U16.find(TagName::ResolutionUnit), m_in.U16.end());
 			AddTagUnit(FieldIdentifier::ExposureTime, TagName::ExposureTime, "s");
 
-			if (m_in.U16[TagName::DigitalZoomRatio] > 0)
+			if (m_in.U16[TagName::DigitalZoomRatio] > 0) {
 				AddTagUnit(FieldIdentifier::DigitalZoom, TagName::DigitalZoomRatio, "x");
+			}
+
+			AddTag(FieldIdentifier::Orientation, TagName::Orientation);
 
 			if (m_in.Rational.find(TagName::FocalLength) != m_in.Rational.end() && m_in.Rational[TagName::FocalLength].size() == 1) {
 				m_out->Field[FieldIdentifier::FocalLength].reset(new SimpleUnitValue<float>(std::floor(0.5 + m_in.Rational[TagName::FocalLength].at(0).ToFloat()), "mm"));

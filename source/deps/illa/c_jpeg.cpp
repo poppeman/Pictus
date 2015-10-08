@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "c_jpeg.h"
 #include "surface_locked_area.h"
+#include "../Metadata/Exif.h"
 
 namespace Img {
 	using namespace Geom;
@@ -61,6 +62,28 @@ namespace Img {
 			destroy();
 			return false;
 		}
+	}
+
+	bool IsExifMarker(unsigned char* data, size_t length) {
+		if (length < 6) {
+			return false;
+		}
+
+		return (data[0] == 'E' && data[1] == 'x' && data[2] == 'i' && data[3] == 'f' && data[4] == 0 && data[5] == 0);
+	}
+
+	std::shared_ptr<Metadata::Document> CodecJPEG::PerformLoadMetadata() {
+		jpeg_saved_marker_ptr currentMarker = m_decInfo.marker_list;
+		auto doc = std::make_shared<Metadata::Document>();
+		
+		while(currentMarker) {
+			if (currentMarker->marker == (JPEG_APP0 + 1) && IsExifMarker(currentMarker->data, currentMarker->data_length)) {
+				Metadata::Merge(doc, Metadata::Exif::Decode(currentMarker->data + 6, currentMarker->data_length - 6));
+			}
+			currentMarker = currentMarker->next;
+		}
+
+		return doc;
 	}
 
 	AbstractCodec::AllocationStatus CodecJPEG::PerformAllocate(const Geom::SizeInt& dimHint) {
@@ -295,6 +318,11 @@ namespace Img {
 		m_isInit = true;
 
 		m_decInfo.src = &m_decompressionSource.pub;
+
+		// Load any encountered marker
+		for (int m = 0; m < 16; m++) {
+			jpeg_save_markers(&m_decInfo, JPEG_APP0 + m, 0xFFFF);
+		}
 
 		jpeg_read_header(&m_decInfo, TRUE);
 

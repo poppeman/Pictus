@@ -60,6 +60,7 @@ namespace Img {
 		void FailState();
 
 		void LoadHeader();
+		void LoadMetadata();
 		void Allocate();
 		AbstractCodec::LoadStatus LoadImageData();
 

@@ -42,6 +42,7 @@ namespace Metadata {
 		// Unsigned shorts
 		ISOSpeedRating,
 		YCbCrPositioning,
+		Orientation,
 
 		// Other
 		LightSource,

@@ -2,6 +2,7 @@
 #define CODEC_H
 
 #include "orz/file_reader.h"
+#include "Metadata/Metadata_Document.h"
 
 #include "types.h"
 #include "surface.h"
@@ -24,6 +25,7 @@ namespace Img {
 
 		virtual ImageComposer::Ptr RequestImageComposer()=0;
 		bool LoadHeader(IO::FileReader::Ptr reader);
+		std::shared_ptr<Metadata::Document> LoadMetadata();
 		AllocationStatus Allocate(const Geom::SizeInt& dimHint = Geom::SizeInt(0, 0));
 		size_t EstimateMemory();
 		LoadStatus LoadImageData(bool mayReset = true);
@@ -52,6 +54,7 @@ namespace Img {
 
 	private:
 		virtual bool PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info)=0;
+		virtual std::shared_ptr<Metadata::Document> PerformLoadMetadata();
 		virtual AllocationStatus PerformAllocate();
 		virtual AllocationStatus PerformAllocate(const Geom::SizeInt& dimHint);
 		virtual LoadStatus PerformLoadImageData(IO::FileReader::Ptr file)=0;
