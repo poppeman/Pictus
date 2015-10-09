@@ -222,7 +222,7 @@ namespace Filter {
 						performFilter<uint8_t, _NS, KernelSize>(source, dest, region, zoom, ConvertIndexed(source.Palette), kernelFunction);
 						break;
 					default:
-						DO_THROW(Err::InvalidParam, L"Format not supported:" + ToWString(format));
+						DO_THROW(Err::InvalidParam, "Format not supported:" + ToAString(format));
 				}
 			}
 		}

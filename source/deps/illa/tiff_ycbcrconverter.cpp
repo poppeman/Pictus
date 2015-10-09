@@ -103,7 +103,7 @@ namespace Img {
 			m_buffer.swap(bufferRGB);
 		}
 		else
-			DO_THROW(Err::Unsupported, L"Subsampling (" + ToWString(subsamplingHoriz) + L", " + ToWString(subsamplingVert) + L") not yet supported");
+			DO_THROW(Err::Unsupported, "Subsampling (" + ToAString(subsamplingHoriz) + ", " + ToAString(subsamplingVert) + ") not yet supported");
 
 		return &m_buffer[0];
 	}

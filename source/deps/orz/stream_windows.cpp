@@ -60,12 +60,12 @@ namespace IO {
 			dwOrigin = STREAM_SEEK_END;
 		}
 		else {
-			DO_THROW(Err::InvalidParam, L"Unsupported seek method: " + ToWString(m));
+			DO_THROW(Err::InvalidParam, "Unsupported seek method: " + ToAString(m));
 		}
 		LARGE_INTEGER pos;
 		pos.QuadPart = position;
 		if (FAILED(m_pStream->Seek(pos, dwOrigin, 0))) {
-			DO_THROW(Err::CriticalError, L"Seek failed");
+			DO_THROW(Err::CriticalError, "Seek failed");
 		}
 	}
 

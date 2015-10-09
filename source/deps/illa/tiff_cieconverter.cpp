@@ -25,7 +25,7 @@ namespace Img {
 		refWhite[0] = whitePoint[0] / whitePoint[1] * refWhite[1];
 		refWhite[2] = (1.0F - whitePoint[0] - whitePoint[1]) / whitePoint[1] * refWhite[1];
 		if (TIFFCIELabToRGBInit(m_cieToRgb, &display_sRGB, refWhite) < 0) {
-			DO_THROW(Err::CodecError, L"Couldn't init CIELab color conversion.");
+			DO_THROW(Err::CodecError, "Couldn't init CIELab color conversion.");
 		}
 	}
 

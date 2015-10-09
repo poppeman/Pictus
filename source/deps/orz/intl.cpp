@@ -36,7 +36,7 @@ namespace Intl {
 
 	const wchar_t* GetWStringLang(int id, Language lang) {
 		if (lang >= Language::Undefined) {
-			DO_THROW(Err::CriticalError, L"Invalid language identifier requested.");
+			DO_THROW(Err::CriticalError, "Invalid language identifier requested.");
 		}
 
 		return m_pTable[id].langs[static_cast<size_t>(lang)];

@@ -19,10 +19,10 @@ namespace Img {
 
 	bool CodecTgaDecoder::Process() {
 		if (m_reader == 0) {
-			DO_THROW(Err::CriticalError, L"reader not set, called Process() before Create()");
+			DO_THROW(Err::CriticalError, "reader not set, called Process() before Create()");
 		}
 		if (m_surface == 0) {
-			DO_THROW(Err::CriticalError, L"surface not set, called Process() before Create()");
+			DO_THROW(Err::CriticalError, "surface not set, called Process() before Create()");
 		}
 
 		Batch batch = PrepareBatch(RowsPerBatch);

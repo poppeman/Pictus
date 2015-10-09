@@ -29,6 +29,14 @@ std::string ToAString(int i);
 std::string ToAString(const std::wstring& s);
 
 template <typename T>
+std::string ToAString(T i) {
+	std::stringstream ss;
+	ss << i;
+	return ss.str();
+}
+
+
+template <typename T>
 T FromAString(const std::string& s) {
 	std::stringstream ss(s);
 	T i;
@@ -45,6 +53,7 @@ T FromWString(const std::wstring& s) {
 }
 
 std::wstring UTF8ToWString(const char* utf8);
+std::string WStringToUTF8(const std::wstring& utf16);
 
 int RoundCast(float rhs);
 

@@ -5,11 +5,11 @@
 namespace IO {
 	using std::mutex;
 
-	_Use_decl_annotations_ const std::wstring FileReader::Name() const {
+	const std::wstring FileReader::Name() const {
 		return m_stream->Name();
 	}
 
-	_Use_decl_annotations_ bool FileReader::Open() {
+	bool FileReader::Open() {
 		return m_stream->Open();
 	}
 
@@ -17,37 +17,37 @@ namespace IO {
 		m_stream->Close();
 	}
 
-	_Use_decl_annotations_  FileInt FileReader::Size() {
+	 FileInt FileReader::Size() {
 		return m_stream->Size();
 	}
 
-	_Use_decl_annotations_ Stream* FileReader::GetStream() {
+	Stream* FileReader::GetStream() {
 		return m_stream.get();
 	}
 
-	_Use_decl_annotations_ size_t FileReader::Read(void* buf, size_t size, size_t items) {
+	size_t FileReader::Read(void* buf, size_t size, size_t items) {
 		return m_stream->Read(buf, size, items);
 	}
 
-	_Use_decl_annotations_ void FileReader::ReadFull(void* buf, size_t size) {
+	void FileReader::ReadFull(void* buf, size_t size) {
 		if (IsOpen() == false) {
-			DO_THROW(Err::FileNotOpen, L"File is not open.");
+			DO_THROW(Err::FileNotOpen, "File is not open.");
 		}
 
 		if (size > 0 && m_stream->Read(buf, size, 1) != 1) {
-			DO_THROW(Err::EndOfFile,L"Reached EOF in a call to ReadFull");
+			DO_THROW(Err::EndOfFile, "Reached EOF in a call to ReadFull");
 		}
 	}
 
-	_Use_decl_annotations_ void FileReader::Seek(FileInt position, SeekMethod m) {
+	void FileReader::Seek(FileInt position, SeekMethod m) {
 		return m_stream->Seek(position, m);
 	}
 
-	_Use_decl_annotations_ FileInt FileReader::Position() const {
+	FileInt FileReader::Position() const {
 		return m_stream->Position();
 	}
 
-	_Use_decl_annotations_ bool FileReader::IsOpen() const {
+	bool FileReader::IsOpen() const {
 		return m_stream->IsOpen();
 	}
 
@@ -146,7 +146,7 @@ namespace IO {
 		return pre;
 	}
 
-	uint16_t ReadLE32(FileReader::Ptr reader) {
+	uint32_t ReadLE32(FileReader::Ptr reader) {
 		uint32_t pre;
 		if (reader->Read(&pre, 4, 1) != 1) throw std::runtime_error("EOF encountered");
 		return pre;

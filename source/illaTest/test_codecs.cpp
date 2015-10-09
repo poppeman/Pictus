@@ -14,7 +14,7 @@ SUITE(CodecTests) {
 		std::vector<std::wstring> strings;
 		IO::FileReader r(filename);
 		if (!r.Open()) {
-			throw Err::CriticalError(L"Could not open file " + filename);
+			throw Err::CriticalError("Could not open file " + WStringToUTF8(filename));
 		}
 		std::wstring curr;
 		
@@ -58,7 +58,7 @@ SUITE(CodecTests) {
 		IO::FileReader::Ptr f(new IO::FileReader(filename));
 		//f->Filename(filename);
 		if (!f->Open()) {
-			DO_THROW(Err::CriticalError, L"Could not open file " + filename);
+			DO_THROW(Err::CriticalError, "Could not open file " + WStringToUTF8(filename));
 		}
 
 		if(f->IsOpen() == false) {
@@ -172,30 +172,29 @@ SUITE(CodecTests) {
 						break;
 					case ErrFileNotFound:
 						{
-							DECORATIVE_FAIL(ToAString(L"File not found: " + a + L" <=> " + b).c_str());
+							DECORATIVE_FAIL(("File not found: " + WStringToUTF8(a) + " <=> " + WStringToUTF8(b)).c_str());
 							break;
 						}
 					case ErrSizeDiffer:
 						{
-							DECORATIVE_FAIL(ToAString(L"Dimensions differ: " + a + L" <=> " + b).c_str());
+							DECORATIVE_FAIL(("Dimensions differ: " + WStringToUTF8(a) + " <=> " + WStringToUTF8(b)).c_str());
 							break;
 						}
 					case ErrLoadFailed:
 						{
-							DECORATIVE_FAIL(ToAString(L"Failed to load: " + a + L" <=> " + b).c_str());
+							DECORATIVE_FAIL(("Failed to load: " + WStringToUTF8(a) + " <=> " + WStringToUTF8(b)).c_str());
 							break;
 						}
 
 					case ErrDataDiffer:
 						{
-							DECORATIVE_FAIL(ToAString(L"Mismatch: " + a + L" <=> " + b).c_str());
+							DECORATIVE_FAIL(("Mismatch: " + WStringToUTF8(a) + " <=> " + WStringToUTF8(b)).c_str());
 							break;
 						}
 				}
 			}
 			catch(Err::Exception& e) {
-				DECORATIVE_FAIL(ToAString(e.Desc()).c_str());
-
+				DECORATIVE_FAIL(e.what());
 			}
 		}
 	}

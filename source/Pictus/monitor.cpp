@@ -18,7 +18,7 @@ namespace Win {
 			}
 
 			if (found == nullptr) {
-				DO_THROW(Err::InvalidParam, L"Couldn't find a monitor for virtual screen coordinate: " + ToWString(coordinate));
+				DO_THROW(Err::InvalidParam, "Couldn't find a monitor for virtual screen coordinate: " + ToAString(coordinate));
 			}
 
 			return found;
@@ -52,12 +52,12 @@ namespace Win {
 		g_store.Probe();
 	}
 
-	_Check_return_ _Ret_ const Monitor* FindMonitorAt( _In_ Geom::PointInt coordinate ) {
+	const Monitor* FindMonitorAt(Geom::PointInt coordinate ) {
 		PollMonitors();
 		return g_store.FindAt(coordinate);
 	}
 
-	Monitor::Monitor(_In_ HMONITOR hMonitor):m_hMonitor(hMonitor) {
+	Monitor::Monitor(HMONITOR hMonitor):m_hMonitor(hMonitor) {
 		refreshMonitorInfo();
 	}
 
@@ -71,11 +71,11 @@ namespace Win {
 		m_workArea	= RECTToRect(mi.rcWork);
 	}
 
-	_Check_return_ Geom::RectInt Monitor::Region() const {
+	Geom::RectInt Monitor::Region() const {
 		return m_region;
 	}
 
-	_Check_return_ Geom::RectInt Monitor::WorkArea() const {
+	Geom::RectInt Monitor::WorkArea() const {
 		return m_workArea;
 	}
 }

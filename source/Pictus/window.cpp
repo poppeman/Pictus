@@ -14,7 +14,7 @@ namespace Win {
 	}
 
 	void Window::Add(Control::Ptr control) {
-		COND_STRICT(control, Err::InvalidParam, L"control was Null.");
+		COND_STRICT(control, Err::InvalidParam, "control was Null.");
 		m_controls.push_back(control);
 		control->AttachTo(this);
 	}

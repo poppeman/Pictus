@@ -58,10 +58,10 @@ namespace Img {
 		Angle{ Filter::RotationAngle::RotateDefault } {}
 }
 
-std::wstring ToWString(const Img::Format& imgFormat) {
+std::string ToAString(const Img::Format& imgFormat) {
 	std::stringstream ss;
 	ss << imgFormat;
-	return ToWString(ss.str().c_str());
+	return ss.str();
 }
 
 std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Filter::RotationAngle& c) {
@@ -94,10 +94,10 @@ std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Filter:
 	return in;
 }
 
-std::wstring ToWString(const Filter::RotationAngle& angle) {
+std::string ToAString(const Filter::RotationAngle& angle) {
 	std::stringstream ss;
 	ss << angle;
-	return ToWString(ss.str().c_str());
+	return ss.str();
 }
 
 std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt) {

@@ -3,11 +3,11 @@
 namespace Filter {
 	void Alpha::IndexedColorKey( const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& sourceRegion, const Geom::PointInt& destPos, Img::Format sourceFormat, uint8_t colorKeyIndex ) {
 		if (source.BufferData == nullptr || dest.BufferData == nullptr) {
-			DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
+			DO_THROW(Err::InvalidParam, "Null buffer not allowed.");
 		}
 
 		if (sourceFormat != Img::Format::Index8) {
-			DO_THROW(Err::InvalidParam, L"Surface format must be indexed.");
+			DO_THROW(Err::InvalidParam, "Surface format must be indexed.");
 		}
 
 		//COND_STRICT(source.Palette, Err::InvalidParam, L"Palette not set.");

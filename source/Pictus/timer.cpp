@@ -9,14 +9,14 @@ namespace Win {
 		if(i != m_timers.end())
 			(*i->second).OnTick();
 		if (KillTimer(0, idEvent) == false) {
-			throw Err::CriticalError(L"Failed killing timer");
+			throw Err::CriticalError("Failed killing timer");
 		}
 	}
 
 	void Timer::Create(_In_ _In_range_(1, 10000000) int delay) {
 		Destroy();
 		m_timerId = SetTimer(0, 0, delay, Timer::TimerCallback);
-		if (!m_timerId) throw Err::CriticalError(L"SetTimer Failed");
+		if (!m_timerId) throw Err::CriticalError("SetTimer Failed");
 
 		m_timers[m_timerId] = this;
 	}

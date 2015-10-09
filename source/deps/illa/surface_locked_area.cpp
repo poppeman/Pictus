@@ -6,7 +6,7 @@ namespace Img {
 	}
 
 	void Surface::LockedArea::Unlock() {
-		if (m_isLocked == false) DO_THROW(Err::CriticalError, L"Attempted to unlock an already unlocked area.");
+		if (m_isLocked == false) DO_THROW(Err::CriticalError, "Attempted to unlock an already unlocked area.");
 		m_surface->UnlockSurface(m_method);
 		m_isLocked = false;
 	}
@@ -19,9 +19,9 @@ namespace Img {
 		m_stride(stride),
 		m_isLocked(true)
 	{
-		if (m_surface == 0) DO_THROW(Err::InvalidParam, L"Surface was null.");
-		if (m_buffer == 0) DO_THROW(Err::InvalidParam, L"Locked buffer was null.");
-		if (m_stride == 0) DO_THROW(Err::InvalidParam, L"Stride not set.");
+		if (m_surface == 0) DO_THROW(Err::InvalidParam, "Surface was null.");
+		if (m_buffer == 0) DO_THROW(Err::InvalidParam, "Locked buffer was null.");
+		if (m_stride == 0) DO_THROW(Err::InvalidParam, "Stride not set.");
 	}
 
 	Surface::LockedArea::~LockedArea() {

@@ -9,7 +9,7 @@ namespace App {
 	bool SettingsPage::PerformOnInitDialog() {
 		auto* pSet = dynamic_cast<App::Settings*>(Parent());
 		if (pSet == nullptr) {
-			DO_THROW(Err::CriticalError, L"Settings page had an invalid parent.");
+			DO_THROW(Err::CriticalError, "Settings page had an invalid parent.");
 		}
 
 		return PerformOnInitPage();

@@ -35,6 +35,15 @@ std::wstring UTF8ToWString(const char* utf8) {
 	return std::wstring(destinationBuffer.get());
 }
 
+std::string WStringToUTF8(const std::wstring& utf16) {
+	auto requiredBufferSize = WideCharToMultiByte(CP_UTF8, 0, &utf16[0], utf16.size(), nullptr, 0, nullptr, nullptr);
+
+	auto destinationBuffer = std::make_unique<char[]>(requiredBufferSize);
+
+	WideCharToMultiByte(CP_UTF8, 0, &utf16[0], utf16.size(), destinationBuffer.get(), requiredBufferSize, nullptr, nullptr);
+	return std::string(destinationBuffer.get());
+}
+
 std::wstring ToWString( uint32_t i ) {
 	std::wstringstream ss;
 	ss << i;

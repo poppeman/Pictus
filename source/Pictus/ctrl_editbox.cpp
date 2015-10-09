@@ -42,10 +42,10 @@ namespace Win {
 
 	LRESULT CALLBACK EditBox::FilterEditWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		Control::Ptr pCtrl = GetControl(hwnd);
-		COND_STRICT(pCtrl, Err::CriticalError, L"Couldn't find control structure.");
+		COND_STRICT(pCtrl, Err::CriticalError, "Couldn't find control structure.");
 
 		EditBox* pEdit = dynamic_cast <EditBox*>(pCtrl.get());
-		COND_STRICT(pEdit, Err::CriticalError, L"Couldn't cast control to edit box.");
+		COND_STRICT(pEdit, Err::CriticalError, "Couldn't cast control to edit box.");
 
 		switch (msg) {
 			case WM_PASTE:

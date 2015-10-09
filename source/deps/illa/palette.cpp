@@ -8,12 +8,12 @@ namespace Img
 	{
 		if (index > 255)
 		{
-			DO_THROW(Err::InvalidParam, L"Color index out of bounds (> 255)");
+			DO_THROW(Err::InvalidParam, "Color index out of bounds (> 255)");
 		}
 
 		if (index < 0)
 		{
-			DO_THROW(Err::InvalidParam, L"Color index out of bounds (< 0)");
+			DO_THROW(Err::InvalidParam, "Color index out of bounds (< 0)");
 		}
 
 		m_colors[index] = col;
@@ -23,12 +23,12 @@ namespace Img
 	{
 		if (index > 255)
 		{
-			DO_THROW(Err::InvalidParam, L"Color index out of bounds (> 255)");
+			DO_THROW(Err::InvalidParam, "Color index out of bounds (> 255)");
 		}
 
 		if (index < 0)
 		{
-			DO_THROW(Err::InvalidParam, L"Color index out of bounds (< 0)");
+			DO_THROW(Err::InvalidParam, "Color index out of bounds (< 0)");
 		}
 
 		return m_colors[index];

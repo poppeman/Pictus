@@ -6,7 +6,7 @@ namespace Img {
 	bool AbstractCodec::LoadHeader(IO::FileReader::Ptr reader) {
 		try {
 			if (reader == nullptr) {
-				DO_THROW(Err::InvalidParam, L"Reader was null.");
+				DO_THROW(Err::InvalidParam, "Reader was null.");
 			}
 			m_file = reader;
 
@@ -23,10 +23,10 @@ namespace Img {
 			if (PerformLoadHeader(reader, ii)) {
 				// Validate info. Invalid values are treated as codec bugs.
 				if (ii.SurfaceFormat == Img::Format::Undefined) {
-					DO_THROW(Err::CodecError, L"Surface format was set to invalid.");
+					DO_THROW(Err::CodecError, "Surface format was set to invalid.");
 				}
 				if ((ii.Dimensions.Width <= 0) || (ii.Dimensions.Height <= 0)) {
-					DO_THROW(Err::CodecError, L"Dimensions were set to an invalid value.");
+					DO_THROW(Err::CodecError, "Dimensions were set to an invalid value.");
 				}
 
 				std::lock_guard<std::mutex> l(m_state);
@@ -38,7 +38,7 @@ namespace Img {
 		catch (Err::Exception& ex) {
 			m_file.reset();
 
-			Log << L"(AbstractCodec::LoadHeader) " << ex.Desc() << "\n";
+			Log << L"(AbstractCodec::LoadHeader) " << ex.what() << "\n";
 			return false;
 		}
 		catch (...) {
@@ -54,16 +54,16 @@ namespace Img {
 
 	std::shared_ptr<Metadata::Document> AbstractCodec::LoadMetadata() {
 		if (m_file == nullptr) {
-			DO_THROW(Err::InvalidCall, L"No file was set");
+			DO_THROW(Err::InvalidCall, "No file was set");
 		}
 		if (m_file->IsOpen() == false) {
-			DO_THROW(Err::InvalidCall, L"File not open");
+			DO_THROW(Err::InvalidCall, "File not open");
 		}
 		try {
 			return PerformLoadMetadata();
 		}
 		catch (Err::Exception& e) {
-			Log << L"(AbstractCodec::LoadMetadata) " << e.Desc() << "\n";
+			Log << L"(AbstractCodec::LoadMetadata) " << e.what() << "\n";
 			return nullptr;
 		}
 	}
@@ -82,10 +82,10 @@ namespace Img {
 
 	AbstractCodec::LoadStatus AbstractCodec::LoadImageData(bool mayReset) {
 		if (m_file == 0) {
-			DO_THROW(Err::InvalidCall, L"No file was set");
+			DO_THROW(Err::InvalidCall, "No file was set");
 		}
 		if (m_file->IsOpen() == false) {
-			DO_THROW(Err::InvalidCall, L"File not open");
+			DO_THROW(Err::InvalidCall, "File not open");
 		}
 
 		LoadStatus l;
@@ -94,7 +94,7 @@ namespace Img {
 			m_isFinished = (l != LoadStatus::Aborted);
 		}
 		catch (Err::Exception& e) {
-			Log << L"(AbstractCodec::LoadImageData) " << e.Desc() << "\n";
+			Log << L"(AbstractCodec::LoadImageData) " << e.what() << "\n";
 			l = LoadStatus::Finished;
 			m_isFinished = true;
 		}

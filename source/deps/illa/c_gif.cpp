@@ -8,7 +8,7 @@ namespace Img {
 	using namespace Geom;
 
 	struct GIFInvalidHeader:public Err::InvalidHeader {
-		GIFInvalidHeader(const std::wstring& msg):Err::InvalidHeader(L"GIF header: " + msg) {}
+		GIFInvalidHeader(const std::string& msg):Err::InvalidHeader("GIF header: " + msg) {}
 	};
 
 	bool CodecGIF::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {
@@ -103,7 +103,7 @@ namespace Img {
 		while (DoTerminate() == false) {
 			auto currentID = (*m_imageDescriptors)[m_currentImage];
 			if (currentID->Surface == nullptr) {
-				DO_THROW(Err::InvalidCall, L"Surface not created.");
+				DO_THROW(Err::InvalidCall, "Surface not created.");
 			}
 
 			// See if a new image should start loading

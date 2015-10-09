@@ -104,7 +104,7 @@ namespace Img {
 	}
 
 	Img::Image::Ptr Cacher::AddImageLast(const std::wstring& filename) {
-		COND_STRICT(m_cfs, Err::InvalidCall, L"SetCodecFactoryStore not yet called.");
+		COND_STRICT(m_cfs, Err::InvalidCall, "SetCodecFactoryStore not yet called.");
 		if (m_cfs->DoCodecExist(IO::GetExtension(filename).c_str())) {
 			m_files.push_back(Internal::FileEntry(filename));
 
@@ -120,7 +120,7 @@ namespace Img {
 	}
 
 	Img::Image::Ptr Cacher::RemoveCurrentImage() {
-		COND_STRICT(ImageCount() != 0, Err::InvalidCall, L"Cacher is already empty.");
+		COND_STRICT(ImageCount() != 0, Err::InvalidCall, "Cacher is already empty.");
 
 		m_decThread->RemoveImage(CurrentImage().get());
 		m_files.erase(m_files.begin() + m_index);
@@ -131,7 +131,7 @@ namespace Img {
 	}
 
 	Img::Image::Ptr Cacher::RemoveImageIndex(size_t index) {
-		COND_STRICT(index < ImageCount(), Err::InvalidParam, L"index out of bounds");
+		COND_STRICT(index < ImageCount(), Err::InvalidParam, "index out of bounds");
 
 		if (index == m_index) return RemoveCurrentImage();
 
@@ -244,8 +244,8 @@ namespace Img {
 	Img::Image::Ptr Cacher::GotoImage(size_t index) {
 		size_t numImages = ImageCount();
 
-		COND_STRICT(numImages > 0, Err::InvalidCall, L"index was out of bounds.");
-		COND_STRICT(index < numImages, Err::InvalidParam, L"index was out of bounds.");
+		COND_STRICT(numImages > 0, Err::InvalidCall, "index was out of bounds.");
+		COND_STRICT(index < numImages, Err::InvalidParam, "index was out of bounds.");
 
 		m_wentForward = true;
 		m_index = index;
@@ -256,7 +256,7 @@ namespace Img {
 	}
 
 	bool Cacher::FindImage(const std::wstring& name, size_t *index) {
-		COND_STRICT(name != L"", Err::InvalidParam, L"name was empty");
+		COND_STRICT(name != L"", Err::InvalidParam, "name was empty");
 
 		for(size_t i = 0; i < ImageCount(); ++i) {
 			if (m_files.at(i).Name() == name) {
@@ -282,7 +282,7 @@ namespace Img {
 	}
 
 	Img::Image::Ptr Cacher::PeekAt(size_t position) {
-		COND_STRICT(position < ImageCount(), Err::InvalidParam, L"position out of bounds.");
+		COND_STRICT(position < ImageCount(), Err::InvalidParam, "position out of bounds.");
 		return m_files[position].Image();
 	}
 

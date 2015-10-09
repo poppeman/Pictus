@@ -16,7 +16,7 @@ namespace App {
 		SYSTEMTIME st;
 		FILETIME ft = ToFILETIME(date);
 		if(FileTimeToSystemTime(&ft, &st) == false) {
-			DO_THROW(Err::InvalidCall, L"Failed converting to system time.");
+			DO_THROW(Err::InvalidCall, "Failed converting to system time.");
 		}
 		return st;
 	}

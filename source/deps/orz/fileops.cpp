@@ -44,7 +44,7 @@ namespace IO {
 
 		// Copy source-file into the struct and apply the extra terminator.
 		errno_t copyRet = wcscpy_s(&pFromWString[0], len, in.c_str());
-		if (copyRet != 0) DO_THROW(Err::CriticalError, L"Couldn't copy string to buffer.");
+		if (copyRet != 0) DO_THROW(Err::CriticalError, "Couldn't copy string to buffer.");
 
 		pFromWString[len - 1] = 0;	
 

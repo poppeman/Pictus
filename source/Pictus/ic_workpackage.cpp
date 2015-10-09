@@ -4,7 +4,7 @@
 
 namespace Img {
 	Img::WorkOperation Img::WorkPackage::Operation() const {
-		if (Loader == 0) DO_THROW(Err::InvalidCall, L"Loader not set.");
+		if (Loader == 0) DO_THROW(Err::InvalidCall, "Loader not set.");
 
 		if(Loader->GetState() < LoadStateDone) return WOLoadImage;
 		return WODone;
@@ -19,8 +19,8 @@ namespace Img {
 	}
 
 	size_t WorkPackage::MemoryUsage() const {
-		if (Loader == 0) DO_THROW(Err::InvalidCall, L"Loader not set");
-		if (Loader->GetState() < LoadStateHeader) DO_THROW(Err::InvalidCall, L"Image not in valid state.");
+		if (Loader == 0) DO_THROW(Err::InvalidCall, "Loader not set");
+		if (Loader->GetState() < LoadStateHeader) DO_THROW(Err::InvalidCall, "Image not in valid state.");
 		return Loader->MemoryRequirements();
 	}
 

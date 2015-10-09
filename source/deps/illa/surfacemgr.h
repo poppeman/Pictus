@@ -7,7 +7,7 @@
 
 namespace Img {
 	struct FactoryNotSet:public Err::Exception {
-		FactoryNotSet(const std::wstring&):Err::Exception(L"Surface Factory class not set. ") {}
+		FactoryNotSet(const std::string&);
 	};
 
 	void SurfaceFactory(ISurfaceFactory* pSurfaceFactory);

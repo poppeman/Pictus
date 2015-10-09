@@ -326,7 +326,7 @@ namespace Win {
                     return pWin->wndProc(hwnd, msg, wParam, lParam);
                 }
                 catch (Err::Exception &e) {
-                    pWin->m_exceptionDescription = e.Desc();
+					pWin->m_exceptionDescription = UTF8ToWString(e.what());
                     pWin->m_exceptionOcurred = true;
                     PostQuitMessage(0);
                 }

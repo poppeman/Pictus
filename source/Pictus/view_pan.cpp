@@ -62,15 +62,15 @@ namespace App {
 			PointFloat(0, 0) + m_constraints - m_viewportSize * 0.5f);
 
 		if (m_center.AtMostInclusive(PointInt{ 0, 0 } +m_constraints) == false) {
-			DO_THROW(Err::CriticalError, L"Calculation error (Center).");
+			DO_THROW(Err::CriticalError, "Calculation error (Center).");
 		}
 
 		if (IsZeroOrPositive(TopLeft()) == false) {
-			DO_THROW(Err::CriticalError, L"Calculation error (TopLeft).");
+			DO_THROW(Err::CriticalError, "Calculation error (TopLeft).");
 		}
 
 		if (BottomRight().AtMostInclusive(PointInt{ 0, 0 } + m_constraints) == false) {
-			DO_THROW(Err::CriticalError, L"Calculation error (BottomRight).");
+			DO_THROW(Err::CriticalError, "Calculation error (BottomRight).");
 		}
 	}
 }

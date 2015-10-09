@@ -7,19 +7,19 @@
 
 namespace Err {
 	struct IOException:public Exception {
-		IOException(const std::wstring& msg) :Exception(L"IO: " + msg) {}
+		IOException(const std::string& msg) :Exception("IO: " + msg) {}
 	};
 
 	struct FileNotOpen:public IOException {
-		FileNotOpen(const std::wstring& msg) :IOException(L"FileNotOpen: " + msg) {}
+		FileNotOpen(const std::string& msg) :IOException("FileNotOpen: " + msg) {}
 	};
 
 	struct FileAlreadyOpen:public IOException {
-		FileAlreadyOpen(const std::wstring& msg) :IOException(L"FileAlreadyOpen: " + msg) {}
+		FileAlreadyOpen(const std::string& msg) :IOException("FileAlreadyOpen: " + msg) {}
 	};
 
 	struct EndOfFile:public IOException {
-		EndOfFile(const std::wstring& msg) :IOException(L"End of file: " + msg) {}
+		EndOfFile(const std::string& msg) :IOException("End of file: " + msg) {}
 	};
 }
 
@@ -68,6 +68,6 @@ namespace IO {
 	};
 }
 
-std::wstring ToWString(IO::SeekMethod m);
+std::string ToAString(IO::SeekMethod m);
 
 #endif

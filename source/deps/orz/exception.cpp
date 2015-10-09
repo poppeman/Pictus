@@ -1,44 +1,39 @@
 #include "exception.h"
 #include "types.h"
 
-std::wstring DoThrowBuildDescription(const wchar_t* filename, int lineNum, const wchar_t* functionName, const std::wstring& description)
+std::string DoThrowBuildDescription(const char* filename, int lineNum, const char* functionName, const std::string& description)
 {
-	return L"\nFile: " + ::std::wstring(filename) + L"\nLine: " + ::ToWString(lineNum) + L"\nFunction: " + ::std::wstring(functionName) + L"\n\nDescription: " + description;
+	return "\nFile: " + ::std::string(filename) + "\nLine: " + ::ToAString(lineNum) + "\nFunction: " + ::std::string(functionName) + "\n\nDescription: " + description;
 }
 
 namespace Err {
-	Exception::Exception(const std::wstring& msg):
-		m_message(msg)
+	Exception::Exception(const std::string& msg):
+		std::runtime_error(msg)
 	{}
 
 	Exception::~Exception() {}
 
-	const std::wstring& Err::Exception::Desc() const
-	{
-		return m_message;
-	}
-
-	Unsupported::Unsupported(const std::wstring& msg):
-		Exception(L"Unsupported operation: " + msg)
+	Unsupported::Unsupported(const std::string& msg):
+		Exception("Unsupported operation: " + msg)
 	{}
 
 	DuplicateInstance::DuplicateInstance():
-		Exception(L"DuplicateInstance")
+		Exception("DuplicateInstance")
 	{}
 
-	CriticalError::CriticalError(const std::wstring& msg):
-		Exception(L"Critical error: " + msg)
+	CriticalError::CriticalError(const std::string& msg):
+		Exception("Critical error: " + msg)
 	{}
 
-	InvalidCall::InvalidCall(const std::wstring& msg):
-		Exception(L"Invalid call: " + msg)
+	InvalidCall::InvalidCall(const std::string& msg):
+		Exception("Invalid call: " + msg)
 	{}
 
-	InvalidParam::InvalidParam(const std::wstring& msg):
-		Exception(L"Invalid param: " + msg)
+	InvalidParam::InvalidParam(const std::string& msg):
+		Exception("Invalid param: " + msg)
 	{}
 
-	NotYetImplemented::NotYetImplemented(const std::wstring& msg):
-		Exception(L"Not yet implemented:" + msg)
+	NotYetImplemented::NotYetImplemented(const std::string& msg):
+		Exception("Not yet implemented:" + msg)
 	{}
 }

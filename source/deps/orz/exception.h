@@ -4,18 +4,13 @@
 #include <string>
 
 namespace Err {
-	struct Exception {
-		Exception(const std::wstring& msg);
+	struct Exception:public std::runtime_error {
+		Exception(const std::string& msg);
 		virtual ~Exception();
-
-		const std::wstring& Desc() const;
-
-	private:
-		std::wstring m_message;
 	};
 
 	struct Unsupported:public Exception {
-		Unsupported(const std::wstring& msg);
+		Unsupported(const std::string& msg);
 	};
 
 	struct DuplicateInstance:public Exception {
@@ -23,19 +18,19 @@ namespace Err {
 	};
 
 	struct CriticalError:public Exception {
-		CriticalError(const std::wstring& msg);
+		CriticalError(const std::string& msg);
 	};
 
 	struct InvalidCall:public Exception {
-		InvalidCall(const std::wstring& msg);
+		InvalidCall(const std::string& msg);
 	};
 
 	struct InvalidParam:public Exception {
-		InvalidParam(const std::wstring& msg);
+		InvalidParam(const std::string& msg);
 	};
 
 	struct NotYetImplemented:public Exception {
-		NotYetImplemented(const std::wstring& msg);;
+		NotYetImplemented(const std::string& msg);;
 	};
 }
 
@@ -43,13 +38,13 @@ namespace Err {
 // I don't want to remove ALL pre/post checks in release build but it can be
 // very nifty to remove the silliest ones
 
-std::wstring DoThrowBuildDescription(const wchar_t* filename, int line, const wchar_t* functionName, const std::wstring& description);
+std::string DoThrowBuildDescription(const char* filename, int line, const char* functionName, const std::string& description);
 
 #ifdef _MSC_VER
-#define MAKE_STRING(x) L#x
+#define MAKE_STRING(x) #x
 #define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(MAKE_STRING(__FILE__), __LINE__, MAKE_STRING(__FUNCTION__), description))
 #else
-#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(L"UNK_FILE", 0, L"UNK_FUNC", std::wstring(description)))
+#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription("UNK_FILE", 0, "UNK_FUNC", std::string(description)))
 #endif
 #define COND_STRICT(condition, exception, description) { if ((condition) == false) DO_THROW(exception, (description)); }
 

@@ -30,7 +30,7 @@ namespace Img {
 			info.SurfaceFormat = Img::Format::XRGB8888;
 		}
 		else {
-			DO_THROW(Err::InvalidHeader, L"CodecBMP: BMP unsupported color depth");
+			DO_THROW(Err::InvalidHeader, "CodecBMP: BMP unsupported color depth");
 		}
 
 		if (m_header.FlipVertical && ((m_header.Compression == BMPHeader::CompressRGB) || (m_header.Compression == BMPHeader::CompressBitfields))) {

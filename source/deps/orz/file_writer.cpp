@@ -2,7 +2,7 @@
 #include "stream.h"
 
 namespace IO {
-	_Use_decl_annotations_ bool FileWriter::Open(const std::wstring& name, bool append) {
+	bool FileWriter::Open(const std::wstring& name, bool append) {
 		Close();   // Might be re-using the object.
 
 		if (name.empty()) {
@@ -19,9 +19,9 @@ namespace IO {
 		m_file = 0;
 	}
 
-	_Use_decl_annotations_ size_t FileWriter::Write(const void* buf, size_t size, size_t items) {
-		if (m_file == 0) {
-			DO_THROW(Err::FileNotOpen, L"File is not open.");
+	size_t FileWriter::Write(const void* buf, size_t size, size_t items) {
+		if (m_file == nullptr) {
+			DO_THROW(Err::FileNotOpen, "File is not open.");
 		}
 
 		return fwrite(buf, size, items, m_file);
