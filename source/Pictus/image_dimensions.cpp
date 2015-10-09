@@ -36,7 +36,7 @@ namespace App {
 			return destArea;
 		}
 
-		DO_THROW(Err::InvalidCall, TX("Invalid angle."));
+		DO_THROW(Err::InvalidCall, L"Invalid angle.");
 	}
 
 	void ImageDimensions::Angle(Filter::RotationAngle angle) {

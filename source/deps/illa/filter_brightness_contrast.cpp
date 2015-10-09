@@ -7,7 +7,7 @@ namespace Filter {
 
 	void Adjust::BrightnessContrast(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& sourceRegion, const Geom::PointInt& destPos, const int newBright, const int newContrast) {
 		if (source.BufferData == nullptr || dest.BufferData == nullptr) {
-			DO_THROW(Err::InvalidParam, TX("Null buffer not allowed."));
+			DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
 		}
 
 		if (newBright == 0 && newContrast == Img::ContrastStep) {

@@ -6,7 +6,7 @@ namespace Img {
 		return new CodecGIF();
 	}
 
-	FactoryGIF::FactoryGIF():ICodecFactory(TX("Compuserve GIF")) {
-		AddExtension(TX("GIF"));
+	FactoryGIF::FactoryGIF():ICodecFactory(L"Compuserve GIF") {
+		AddExtension(L"GIF");
 	}
 }

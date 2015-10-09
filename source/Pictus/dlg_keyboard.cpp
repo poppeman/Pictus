@@ -4,6 +4,8 @@
 #include "ctrl_button.h"
 #include "app_types.h"
 
+#include "orz/types.h"
+
 #include <Uxtheme.h>
 
 namespace App {

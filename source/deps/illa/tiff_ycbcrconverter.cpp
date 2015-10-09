@@ -1,5 +1,5 @@
 #include "tiff_ycbcrconverter.h"
-
+#include "orz/types.h"
 #include "libtiff/tiffiop.h"
 
 namespace Img {
@@ -103,7 +103,7 @@ namespace Img {
 			m_buffer.swap(bufferRGB);
 		}
 		else
-			DO_THROW(Err::Unsupported, TX("Subsampling (") + ToWString(subsamplingHoriz) + TX(", ") + ToWString(subsamplingVert) + TX(") not yet supported"));
+			DO_THROW(Err::Unsupported, L"Subsampling (" + ToWString(subsamplingHoriz) + L", " + ToWString(subsamplingVert) + L") not yet supported");
 
 		return &m_buffer[0];
 	}

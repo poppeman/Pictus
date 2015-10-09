@@ -11,7 +11,7 @@ namespace IO {
 		FileInt prevPos = (wasOpen?performPosition():0);
 		performClose();
 		std::wstring ret = IO::Rename(m_name, newFilename, handle);
-		if(ret != TX(""))
+		if(ret != L"")
 			m_name = ret;
 
 		if(wasOpen) {
@@ -74,7 +74,7 @@ namespace IO {
 	_Check_return_ bool StreamFile::performOpen() {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_size = 0;
-		m_file = _wfsopen(m_name.c_str(), TX("rb"), _SH_DENYWR);
+		m_file = _wfsopen(m_name.c_str(), L"rb", _SH_DENYWR);
 
 		if (m_file == 0) {
 			switch(errno) {
@@ -113,13 +113,13 @@ namespace IO {
 				flag = SEEK_END;
 				break;
 			default:
-				DO_THROW(Err::InvalidParam, TX("Attempted to use an unsupported seek method."));
+				DO_THROW(Err::InvalidParam, L"Attempted to use an unsupported seek method.");
 		}
 
 		int ret = _fseeki64(m_file, position, flag);
 
 		if (ret != 0)
-			DO_THROW(Err::IOException, TX("Couldn't seek as requested."));
+			DO_THROW(Err::IOException, L"Couldn't seek as requested.");
 	}
 
 	_Check_return_ bool StreamFile::performIsOpen() const {

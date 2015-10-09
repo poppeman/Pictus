@@ -3,22 +3,23 @@
 
 #include <memory>
 #include "exception.h"
+#include "types.h"
 
 namespace Err {
 	struct IOException:public Exception {
-		IOException(const std::wstring& msg):Exception(TX("IO: ") + msg) {};
+		IOException(const std::wstring& msg) :Exception(L"IO: " + msg) {}
 	};
 
 	struct FileNotOpen:public IOException {
-		FileNotOpen(const std::wstring& msg):IOException(TX("FileNotOpen: ")+msg) {}
+		FileNotOpen(const std::wstring& msg) :IOException(L"FileNotOpen: " + msg) {}
 	};
 
 	struct FileAlreadyOpen:public IOException {
-		FileAlreadyOpen(const std::wstring& msg):IOException(TX("FileAlreadyOpen: ")+msg) {}
+		FileAlreadyOpen(const std::wstring& msg) :IOException(L"FileAlreadyOpen: " + msg) {}
 	};
 
 	struct EndOfFile:public IOException {
-		EndOfFile(const std::wstring& msg):IOException(TX("End of file: ")+msg) {}
+		EndOfFile(const std::wstring& msg) :IOException(L"End of file: " + msg) {}
 	};
 }
 
@@ -38,14 +39,14 @@ namespace IO {
 
 	class Stream {
 	public:
-		_Check_return_ std::wstring Name() const;
-		_Check_return_ bool Open();
-		_Check_return_ bool IsOpen() const;
+		std::wstring Name() const;
+		bool Open();
+		bool IsOpen() const;
 		void Close();
-		_Check_return_ size_t Read(_Out_writes_bytes_(size * items) void* buf, _In_ size_t size, _In_ size_t items);
-		void Seek(_In_ FileInt position, _In_ SeekMethod m);
-		_Check_return_ FileInt Position() const;
-		_Check_return_ FileInt Size();
+		size_t Read(void* buf, size_t size, size_t items);
+		void Seek(FileInt position, SeekMethod m);
+		FileInt Position() const;
+		FileInt Size();
 
 		Stream() = default;
 		virtual ~Stream();
@@ -56,14 +57,14 @@ namespace IO {
 		Stream(const Stream&) = delete;
 		Stream& operator=(const Stream&) = delete;
 
-		virtual _Check_return_ std::wstring performName() const=0;
-		virtual _Check_return_ bool performOpen()=0;
-		virtual _Check_return_ bool performIsOpen() const = 0;
+		virtual std::wstring performName() const=0;
+		virtual bool performOpen()=0;
+		virtual bool performIsOpen() const = 0;
 		virtual void performClose()=0;
-		virtual _Check_return_ size_t performRead(_Out_writes_bytes_(size * items) void* buf, _In_ size_t size, _In_ size_t items) = 0;
-		virtual void performSeek(_In_ FileInt position, _In_ SeekMethod m) = 0;
-		virtual _Check_return_ FileInt performPosition() const = 0;
-		virtual _Check_return_ FileInt performSize() = 0;
+		virtual size_t performRead(void* buf, size_t size, size_t items) = 0;
+		virtual void performSeek(FileInt position, SeekMethod m) = 0;
+		virtual FileInt performPosition() const = 0;
+		virtual FileInt performSize() = 0;
 	};
 }
 

@@ -12,7 +12,7 @@ namespace Img {
 	Surface::Ptr CreateNewSurface() {
 		// Sanity check
 		if (g_pSurfaceFactory == nullptr) {
-			DO_THROW(FactoryNotSet, TX("Factory not set lul"));
+			DO_THROW(FactoryNotSet, L"Factory not set lul");
 		}
 
 		return g_pSurfaceFactory->CreateSurface();

@@ -5,6 +5,7 @@
 #include <deque>
 #include <map>
 #include <memory>
+#include <vector>
 
 namespace Img {
 	class AbstractCodec;

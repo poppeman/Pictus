@@ -42,7 +42,7 @@ namespace Img {
 			uint16_t planes = 0;
 			file->ReadFull(&planes, sizeof(planes));
 			if (planes != 1) {
-				DO_THROW(Err::InvalidHeader, TX("Invalid number of planes; must equal 1."));
+				DO_THROW(Err::InvalidHeader, L"Invalid number of planes; must equal 1.");
 			}
 
 			file->ReadFull(&ColorDepth, sizeof(ColorDepth));
@@ -59,31 +59,31 @@ namespace Img {
 				// Validate compression modes
 				// Monochrome
 				if ((ColorDepth == 1) && (Compression != CompressRGB)) {
-					DO_THROW(Err::InvalidHeader, TX("Monochrome bitmaps must be uncompressed."));
+					DO_THROW(Err::InvalidHeader, L"Monochrome bitmaps must be uncompressed.");
 				}
 
 				// 4-bit
 				if ((Compression != CompressRGB) && (Compression != CompressRLE4) && (ColorDepth == 4)) {
-					DO_THROW(Err::InvalidHeader, TX("Invalid compression for 4-bit bitmap format"));
+					DO_THROW(Err::InvalidHeader, L"Invalid compression for 4-bit bitmap format");
 				}
 
 				// 8-bit
 				if ((Compression != CompressRGB) && (Compression != CompressRLE8) && (ColorDepth == 8)) {
-					DO_THROW(Err::InvalidHeader, TX("Invalid compression for 8-bit bitmap format"));
+					DO_THROW(Err::InvalidHeader, L"Invalid compression for 8-bit bitmap format");
 				}
 
 				// 16-bit
 				if ((ColorDepth == 16) && (Compression != CompressRGB) && (Compression != CompressBitfields)) {
-					DO_THROW(Err::InvalidHeader, TX("Invalid compression for 16-bit bitmap format"));
+					DO_THROW(Err::InvalidHeader, L"Invalid compression for 16-bit bitmap format");
 				}
 				// 24-bit
 				if ((Compression != CompressRGB) && (ColorDepth == 24)) {
-					DO_THROW(Err::InvalidHeader, TX("Invalid compression for 24-bit bitmap format"));
+					DO_THROW(Err::InvalidHeader, L"Invalid compression for 24-bit bitmap format");
 				}
 
 				// 32-bit
 				if ((ColorDepth == 32) && (Compression != CompressRGB) && (Compression != CompressBitfields)) {
-					DO_THROW(Err::InvalidHeader, TX("Invalid compression for 32-bit bitmap format"));
+					DO_THROW(Err::InvalidHeader, L"Invalid compression for 32-bit bitmap format");
 				}
 
 				// Skip horizontal/vertical resolution
@@ -143,7 +143,7 @@ namespace Img {
 
 		uint32_t BMPHeader::calcShift(uint32_t mask) {
 			if (mask == 0) {
-				DO_THROW(Err::InvalidHeader, TX("BMP header contained invalid color masks."));
+				DO_THROW(Err::InvalidHeader, L"BMP header contained invalid color masks.");
 			}
 
 			int shift = 0;

@@ -11,12 +11,12 @@ FolderUser::~FolderUser() {}
 
 void FolderUser::ThreadMain()
 {
-	Output(TX("Initializing FolderUser, scanning ") + m_folder + TX(" ..."));
+	Output(L"Initializing FolderUser, scanning " + m_folder + L" ...");
 	IO::Folder folder;
 
 	folder.Path(m_folder);
 
-	Output(TX("Init complete, running ..."));
+	Output(L"Init complete, running ...");
 
 	auto files = folder.CurrentContents();
 	auto i = files.begin();

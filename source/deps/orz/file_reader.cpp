@@ -74,28 +74,28 @@ namespace IO {
 
 	std::wstring GetPath(const std::wstring& s) {
 		std::wstring ret(s);
-		replace_substrings(ret, TX("/"), TX("\\"));
-		replace_substrings(ret, TX("\\\\"), TX("\\"), 1);
+		replace_substrings(ret, L"/", L"\\");
+		replace_substrings(ret, L"\\\\", L"\\", 1);
 
-		std::size_t dot = ret.find_last_of(TX("/\\"));
+		std::size_t dot = ret.find_last_of(L"/\\");
 		if (dot != std::wstring::npos) {
-			return ret.substr(0, dot) + TX("\\");
+			return ret.substr(0, dot) + L"\\";
 		}
 
-		return std::wstring(TX(""));
+		return std::wstring(L"");
 	}
 
 	std::wstring GetFile(const std::wstring& s) {
-		std::size_t dot = s.find_last_of(TX("/\\"));
+		std::size_t dot = s.find_last_of(L"/\\");
 		if (dot != std::wstring::npos) {
 			return s.substr(dot + 1, std::wstring::npos);
 		}
 
-		return std::wstring(TX(""));
+		return std::wstring(L"");
 	}
 
 	std::wstring GetTitle(const std::wstring& s) {
-		std::size_t start	= s.find_last_of(TX("/\\"));
+		std::size_t start	= s.find_last_of(L"/\\");
 		std::size_t end		= s.find_last_of(TX('.'));
 
 		if (start != std::wstring::npos) {
@@ -109,11 +109,11 @@ namespace IO {
 		std::size_t dot = s.find_last_of(TX('.'));
 		if (dot != std::wstring::npos) {
 			// Make sure there were no / or \ afterwards
-			if (s.find_first_of(TX("/\\"), dot) != std::wstring::npos) return std::wstring(TX(""));
+			if (s.find_first_of(L"/\\", dot) != std::wstring::npos) return std::wstring(L"");
 			std::wstring ext = s.substr(dot + 1);
 			return ext;
 		}
-		return std::wstring(TX(""));
+		return std::wstring(L"");
 	}
 
 	std::vector<uint8_t> ReadAll(FileReader::Ptr file) {

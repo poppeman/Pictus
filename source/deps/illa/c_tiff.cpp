@@ -6,7 +6,7 @@
 #include "tiff_ycbcrconverter.h"
 
 struct InternalTIFFException:public Err::Exception {
-	InternalTIFFException():Err::Exception(TX("numpty")) {}
+	InternalTIFFException():Err::Exception(L"numpty") {}
 };
 
 void myTIFFErrorHandler(const char *module, const char *fmt, va_list ap) {
@@ -21,15 +21,15 @@ tsize_t myTIFFReadProc(thandle_t handle, tdata_t data, tsize_t size) {
 }
 
 tsize_t myTIFFWriteProc(thandle_t, tdata_t, tsize_t) {
-	DO_THROW(Err::Unsupported, TX("Attempted to write."));
+	DO_THROW(Err::Unsupported, L"Attempted to write.");
 }
 
 int myTIFFMapFileProc(thandle_t, tdata_t*, toff_t*) {
-	DO_THROW(Err::Unsupported, TX("Mapping not supported."));
+	DO_THROW(Err::Unsupported, L"Mapping not supported.");
 }
 
 void myTIFFUnmapFileProc(thandle_t, tdata_t, toff_t) {
-	DO_THROW(Err::Unsupported, TX("Unmapping not supported."));
+	DO_THROW(Err::Unsupported, L"Unmapping not supported.");
 }
 
 static toff_t myTIFFSeekProc(thandle_t handle, toff_t offset, int whence) {
@@ -46,7 +46,7 @@ static toff_t myTIFFSeekProc(thandle_t handle, toff_t offset, int whence) {
 			m = IO::SeekMethod::End;
 			break;
 		default:
-			DO_THROW(Err::InvalidParam, TX("Invalid whence: ") + ToWString(whence));
+			DO_THROW(Err::InvalidParam, L"Invalid whence: " + ToWString(whence));
 	}
 	reader->Seek(offset, m);
 	return static_cast<toff_t>(reader->Position());

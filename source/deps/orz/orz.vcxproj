@@ -168,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp" />
     <ClCompile Include="ByteOrder.cpp" />
+    <ClCompile Include="exception.cpp" />
     <ClCompile Include="file_writer.cpp" />
     <ClCompile Include="orz_math.cpp" />
     <ClCompile Include="stopwatch.cpp" />

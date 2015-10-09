@@ -3,7 +3,7 @@
 namespace Win {
 	void RedrawStrategy::Render( Renderer::Ptr newRenderer, Img::Surface::Ptr surfaceToRender, const Geom::PointInt& pan, const Img::Properties& props ) {
 		if (newRenderer == nullptr) {
-			DO_THROW(Err::InvalidParam, TX("newRenderer was null."));
+			DO_THROW(Err::InvalidParam, L"newRenderer was null.");
 		}
 
 		newRenderer->Angle = props.Angle;

@@ -2,6 +2,8 @@
 #define ILLA_C_FACTORY_H
 
 #include "types.h"
+#include <string>
+#include <vector>
 
 namespace Img {
 	class AbstractCodec;

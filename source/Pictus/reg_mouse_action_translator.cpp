@@ -1,4 +1,5 @@
 #include "reg_mouse_action_translator.h"
+#include "orz/types.h"
 
 namespace Reg {
 	namespace Internal {

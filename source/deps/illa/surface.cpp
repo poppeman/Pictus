@@ -2,6 +2,8 @@
 #include "surface_locked_area.h"
 #include "filter.h"
 #include "config.h"
+#include "orz/exception.h"
+#include "orz/types.h"
 
 namespace Img {
 	using Geom::PointInt;
@@ -10,7 +12,7 @@ namespace Img {
 
 	void Surface::CreateSurface(const SizeInt& size, Format format) {
 		if (m_isCreated) {
-			DO_THROW(Err::CriticalError, TX("Surface already created."));
+			DO_THROW(Err::CriticalError, L"Surface already created.");
 		}
 
 		// Sanity check
@@ -66,7 +68,7 @@ namespace Img {
 
 	void Surface::BlitSurfaceColorKey( Surface::Ptr source, RectInt sourceAreaToCopy, PointInt destinationTopLeft, uint8_t colorKeyIndex ) {
 		if (source->GetFormat() != Format::Index8) {
-			DO_THROW(Err::InvalidParam, TX("Source buffer must be indexed."));
+			DO_THROW(Err::InvalidParam, L"Source buffer must be indexed.");
 		}
 
 		onBlitSurfaceColorKey(source, sourceAreaToCopy, destinationTopLeft, colorKeyIndex);
@@ -84,7 +86,7 @@ namespace Img {
 				return Surface::LockedArea::Ptr();
 			}
 			/*if (!pData) {
-				DO_THROW(Err::CriticalError, TX("Couldn't lock surface."));
+				DO_THROW(Err::CriticalError, L"Couldn't lock surface.");
 			}*/
 
 			if (method == LockReadWrite) {

@@ -2,6 +2,7 @@
 #define IMAGECACHE_FILEENTRY_H
 
 #include "illa/image.h"
+#include "orz/types.h"
 
 namespace Img {
 	namespace Internal {

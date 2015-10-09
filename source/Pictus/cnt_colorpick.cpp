@@ -1,6 +1,6 @@
 #include "cnt_colorpick.h"
 
-const wchar_t* App::ControlColorPicker::ClassName=TX("PICTUS_COLOR_PICKER");
+const wchar_t* App::ControlColorPicker::ClassName=L"PICTUS_COLOR_PICKER";
 
 namespace App {
 	using Img::Color;

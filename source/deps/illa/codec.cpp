@@ -6,7 +6,7 @@ namespace Img {
 	bool AbstractCodec::LoadHeader(IO::FileReader::Ptr reader) {
 		try {
 			if (reader == nullptr) {
-				DO_THROW(Err::InvalidParam, TX("Reader was null."));
+				DO_THROW(Err::InvalidParam, L"Reader was null.");
 			}
 			m_file = reader;
 
@@ -23,10 +23,10 @@ namespace Img {
 			if (PerformLoadHeader(reader, ii)) {
 				// Validate info. Invalid values are treated as codec bugs.
 				if (ii.SurfaceFormat == Img::Format::Undefined) {
-					DO_THROW(Err::CodecError, TX("Surface format was set to invalid."));
+					DO_THROW(Err::CodecError, L"Surface format was set to invalid.");
 				}
 				if ((ii.Dimensions.Width <= 0) || (ii.Dimensions.Height <= 0)) {
-					DO_THROW(Err::CodecError, TX("Dimensions were set to an invalid value."));
+					DO_THROW(Err::CodecError, L"Dimensions were set to an invalid value.");
 				}
 
 				std::lock_guard<std::mutex> l(m_state);
@@ -82,10 +82,10 @@ namespace Img {
 
 	AbstractCodec::LoadStatus AbstractCodec::LoadImageData(bool mayReset) {
 		if (m_file == 0) {
-			DO_THROW(Err::InvalidCall, TX("No file was set"));
+			DO_THROW(Err::InvalidCall, L"No file was set");
 		}
 		if (m_file->IsOpen() == false) {
-			DO_THROW(Err::InvalidCall, TX("File not open"));
+			DO_THROW(Err::InvalidCall, L"File not open");
 		}
 
 		LoadStatus l;

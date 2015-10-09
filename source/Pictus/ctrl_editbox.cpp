@@ -42,10 +42,10 @@ namespace Win {
 
 	LRESULT CALLBACK EditBox::FilterEditWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		Control::Ptr pCtrl = GetControl(hwnd);
-		COND_STRICT(pCtrl, Err::CriticalError, TX("Couldn't find control structure."));
+		COND_STRICT(pCtrl, Err::CriticalError, L"Couldn't find control structure.");
 
 		EditBox* pEdit = dynamic_cast <EditBox*>(pCtrl.get());
-		COND_STRICT(pEdit, Err::CriticalError, TX("Couldn't cast control to edit box."));
+		COND_STRICT(pEdit, Err::CriticalError, L"Couldn't cast control to edit box.");
 
 		switch (msg) {
 			case WM_PASTE:
@@ -109,7 +109,7 @@ namespace Win {
 		switch(m_criteria) {
 			case FilterInvalidFilename:
 				{
-					std::wstring invalid(TX("/\\:*?\"<>|"));
+					std::wstring invalid(L"/\\:*?\"<>|");
 					isValid = invalid.find(c) == std::wstring::npos;
 				}
 				break;
@@ -124,7 +124,7 @@ namespace Win {
 	}
 
 	void EditBox::showBalloon(const std::wstring& str) {
-		if (str != TX("")) {
+		if (str != L"") {
 			EDITBALLOONTIP bt;
 			bt.cbStruct = sizeof(bt);
 			bt.pszText  = str.c_str();

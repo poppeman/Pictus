@@ -6,7 +6,7 @@ namespace Img {
 		return new CodecTGA();
 	}
 
-	FactoryTGA::FactoryTGA():ICodecFactory(TX("Targa TGA")) {
-		AddExtension(TX("TGA"));
+	FactoryTGA::FactoryTGA():ICodecFactory(L"Targa TGA") {
+		AddExtension(L"TGA");
 	}
 }

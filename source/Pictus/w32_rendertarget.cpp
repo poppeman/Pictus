@@ -25,13 +25,13 @@ namespace Win {
 
 	void WinRenderTarget::Render( const Geom::PointInt& sourceZoomedTopLeft, const Img::Properties& props ) {
 		if (m_hwnd == nullptr) {
-			DO_THROW(Err::CriticalError, TX("TargetWindow not set"));
+			DO_THROW(Err::CriticalError, L"TargetWindow not set");
 		}
 		if (m_renderer == nullptr) {
-			DO_THROW(Err::CriticalError, TX("Renderer not set"));
+			DO_THROW(Err::CriticalError, L"Renderer not set");
 		}
 		if (m_redrawStrategy == nullptr) {
-			DO_THROW(Err::CriticalError, TX("Redraw strategy not set"));
+			DO_THROW(Err::CriticalError, L"Redraw strategy not set");
 		}
 
 		m_redrawStrategy->Render(m_renderer, m_surface, sourceZoomedTopLeft, props);
@@ -39,10 +39,10 @@ namespace Win {
 
 	void WinRenderTarget::Clear(Img::Color backgroundColor) {
 		if (m_hwnd == nullptr) {
-			DO_THROW(Err::CriticalError, TX("TargetWindow not set"));
+			DO_THROW(Err::CriticalError, L"TargetWindow not set");
 		}
 		if (m_renderer == nullptr) {
-			DO_THROW(Err::CriticalError, TX("Renderer not set"));
+			DO_THROW(Err::CriticalError, L"Renderer not set");
 		}
 
 		m_renderer->BeginRender(backgroundColor);
@@ -59,7 +59,7 @@ namespace Win {
 
 	Img::Surface::Ptr WinRenderTarget::CreateSurface() {
 		if (m_renderer == nullptr) {
-			DO_THROW(Err::CriticalError, TX("Renderer not yet set."));
+			DO_THROW(Err::CriticalError, L"Renderer not yet set.");
 		}
 		return m_renderer->CreateSurface();
 	}

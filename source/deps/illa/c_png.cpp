@@ -9,7 +9,7 @@ namespace Img {
 	void CodecPNG::libpng_error(png_structp png_ptr, png_const_charp message) {
 		(png_ptr, message);
 		// setjmp/getjmp should be put where the sun doesn't shine.
-		DO_THROW(Err::CodecError, TX("Unknown error."));
+		DO_THROW(Err::CodecError, L"Unknown error.");
 	}
 
 	bool CodecPNG::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {

@@ -1,6 +1,8 @@
 #include "dialog.h"
 #include "control.h"
 
+#include "orz/types.h"
+
 #include <boost/scoped_array.hpp>
 
 namespace Win {
@@ -15,7 +17,7 @@ namespace Win {
 	}
 
 	bool Dialog::DoModeless(Win::BaseWindow* pParent) {
-		COND_STRICT(pParent, Err::InvalidParam, TX("pParent was null"));
+		COND_STRICT(pParent, Err::InvalidParam, L"pParent was null");
 		if (IsModelessVisible()) {
 			// Already active, send it to the foreground instead
 			BringWindowToTop(Handle());

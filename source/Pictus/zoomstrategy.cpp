@@ -57,7 +57,7 @@ namespace App {
 				break;
 
 			default:
-				DO_THROW(Err::InvalidParam, TX("Invalid zooming mode. Nasty stuff."));
+				DO_THROW(Err::InvalidParam, L"Invalid zooming mode. Nasty stuff.");
 		}
 		m_zoomMode = mode;
 	}
@@ -75,7 +75,7 @@ namespace App {
 				return ZoomLevels[m_zoomLevel];
 
 			default:
-				DO_THROW(Err::CriticalError, TX("Invalid zoom mode set."));
+				DO_THROW(Err::CriticalError, L"Invalid zoom mode set.");
 		}
 	}
 

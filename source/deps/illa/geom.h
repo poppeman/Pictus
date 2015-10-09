@@ -1,6 +1,8 @@
 #ifndef ILLA_GEOM_H
 #define ILLA_GEOM_H
 
+#include "orz/types.h"
+
 #include <algorithm>
 #include <string>
 
@@ -470,7 +472,7 @@ namespace Geom {
 
 template <typename T>
 std::wstring ToWString(const Geom::Point<T>& pt) {
-	return TX("(") + ToWString(pt.X) + TX(", ") + ToWString(pt.Y) + TX(")");
+	return L"(" + ToWString(pt.X) + L", " + ToWString(pt.Y) + L")";
 }
 
 template <typename T>

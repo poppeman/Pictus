@@ -44,7 +44,7 @@ int wmain(int argc, wchar_t* argv[])
 		performLoad(filename);
 	int time = sw.Stop();
 
-	OutputDebugString((TX("Time: ") + ToWString(time / NumRuns) + TX("\n")).c_str());
+	OutputDebugString((L"Time: " + ToWString(time / NumRuns) + L"\n").c_str());
 
 	return EXIT_SUCCESS;
 }

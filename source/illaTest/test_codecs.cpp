@@ -29,7 +29,7 @@ SUITE(CodecTests) {
 			else if (c != TX(' '))
 				curr.push_back(c);
 
-			if(curr == TX("//")) {
+			if(curr == L"//") {
 				while(c != 10 && c != 13 && r.Read(&c, sizeof(c), 1));
 				curr.clear();
 			}
@@ -140,14 +140,14 @@ SUITE(CodecTests) {
 	TEST(TestLoadCompare) {
 		g_cfs.AddBuiltinCodecs();
 
-		auto files = ParseCsv(g_datapath + TX("\\loadcompare.txt"));
+		auto files = ParseCsv(g_datapath + L"\\loadcompare.txt");
 		for(auto i = files.begin(); i != files.end(); ++i) {
 			std::wstring a = *i;
 			try {
 				if(a[0] == TX('!')) {
 					a = a.substr(1, std::wstring::npos);
-					if(ShouldFail(g_datapath + TX("\\Codecs\\") + a) == false) {
-						std::wstring wmsg = TX("Didn't report failure as expected: ") + a;
+					if(ShouldFail(g_datapath + L"\\Codecs\\" + a) == false) {
+						std::wstring wmsg = L"Didn't report failure as expected: " + a;
 						std::string msg(wmsg.begin(), wmsg.end());
 						DECORATIVE_FAIL(msg.c_str());
 					}
@@ -155,8 +155,8 @@ SUITE(CodecTests) {
 				}
 				else if(a[0] == TX('?')) {
 					a = a.substr(1, std::wstring::npos);
-					if(ShouldFail(g_datapath + TX("\\Codecs\\") + a)) {
-						std::wstring wmsg = TX("Didn't succeed as expected: ") + a;
+					if(ShouldFail(g_datapath + L"\\Codecs\\" + a)) {
+						std::wstring wmsg = L"Didn't succeed as expected: " + a;
 						std::string msg(wmsg.begin(), wmsg.end());
 						DECORATIVE_FAIL(msg.c_str());
 					}
@@ -167,28 +167,28 @@ SUITE(CodecTests) {
 				if(i == files.end())
 					CHECK(false);
 				std::wstring b = *i;
-				switch(CompareImages(g_datapath + TX("\\Codecs\\") + a, g_datapath + TX("\\Codecs\\") + b)) {
+				switch(CompareImages(g_datapath + L"\\Codecs\\" + a, g_datapath + L"\\Codecs\\" + b)) {
 					case ErrNoError:
 						break;
 					case ErrFileNotFound:
 						{
-							DECORATIVE_FAIL(ToAString(TX("File not found: ") + a + TX(" <=> ") + b).c_str());
+							DECORATIVE_FAIL(ToAString(L"File not found: " + a + L" <=> " + b).c_str());
 							break;
 						}
 					case ErrSizeDiffer:
 						{
-							DECORATIVE_FAIL(ToAString(TX("Dimensions differ: ") + a + TX(" <=> ") + b).c_str());
+							DECORATIVE_FAIL(ToAString(L"Dimensions differ: " + a + L" <=> " + b).c_str());
 							break;
 						}
 					case ErrLoadFailed:
 						{
-							DECORATIVE_FAIL(ToAString(TX("Failed to load: ") + a + TX(" <=> ") + b).c_str());
+							DECORATIVE_FAIL(ToAString(L"Failed to load: " + a + L" <=> " + b).c_str());
 							break;
 						}
 
 					case ErrDataDiffer:
 						{
-							DECORATIVE_FAIL(ToAString(TX("Mismatch: ") + a + TX(" <=> ") + b).c_str());
+							DECORATIVE_FAIL(ToAString(L"Mismatch: " + a + L" <=> " + b).c_str());
 							break;
 						}
 				}

@@ -6,7 +6,7 @@ namespace Img {
 		return new CodecPNG();
 	}
 
-	FactoryPNG::FactoryPNG():ICodecFactory(TX("PNG (Portable Network Graphics)")) {
-		AddExtension(TX("PNG"));
+	FactoryPNG::FactoryPNG():ICodecFactory(L"PNG (Portable Network Graphics)") {
+		AddExtension(L"PNG");
 	}
 }

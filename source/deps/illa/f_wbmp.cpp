@@ -6,8 +6,8 @@ namespace Img {
 		return new CodecWBMP();
 	}
 
-	FactoryWBMP::FactoryWBMP():ICodecFactory(TX("Wireless Bitmap")) {
-		AddExtension(TX("WBMP"));
-		AddExtension(TX("WBM"));
+	FactoryWBMP::FactoryWBMP():ICodecFactory(L"Wireless Bitmap") {
+		AddExtension(L"WBMP");
+		AddExtension(L"WBM");
 	}
 }

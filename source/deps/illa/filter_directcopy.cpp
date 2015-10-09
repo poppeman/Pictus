@@ -81,7 +81,7 @@ namespace Filter {
 				}
 			}
 			else
-				DO_THROW(Err::InvalidParam, TX("Format not supported:") + ToWString(format));
+				DO_THROW(Err::InvalidParam, L"Format not supported:" + ToWString(format));
 		}
 	}
 }

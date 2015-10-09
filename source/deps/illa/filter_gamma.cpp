@@ -14,11 +14,11 @@ namespace Filter {
 		}
 
 		if (source.BufferData == nullptr || dest.BufferData == nullptr) {
-			DO_THROW(Err::InvalidParam, TX("Null buffer not allowed."));
+			DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
 		}
 
 		if (gamma < Img::MinGamma || gamma > Img::MaxGamma) {
-			DO_THROW(Err::InvalidParam, TX("Gamma out of bounds."));
+			DO_THROW(Err::InvalidParam, L"Gamma out of bounds.");
 		}
 
 		int y1 = std::max(0, sourceRegion.Top());

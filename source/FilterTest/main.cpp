@@ -1,6 +1,7 @@
 #include "illa/filter.h"
 #include "illa/types.h"
 #include "orz/stopwatch.h"
+#include "orz/types.h"
 #include <boost/random.hpp>
 
 using Filter::FilterBuffer;
@@ -66,7 +67,7 @@ void TestNoResample(_T T)
 	for (int i = 0; i < NumRunsNoResample; ++i)
 		T.Run(src.fb, dst.fb, region);
 	int time = sw.Stop();
-	OutputDebugString((TX("Time: ") + ToWString(time / NumRunsNoResample) + TX("\n")).c_str());
+	OutputDebugString((L"Time: " + ToWString(time / NumRunsNoResample) + L"\n").c_str());
 };
 
 
@@ -89,7 +90,7 @@ void TestResample(_T T, Img::Format fmt)
 	for (int i = 0; i < NumRunsResample; ++i)
 		T.Run(src.fb, dst.fb, region, fmt, DefaultZoom);
 	int time = sw.Stop();
-	OutputDebugString((TX("Time: ") + ToWString(time / NumRunsResample) + TX("\n")).c_str());
+	OutputDebugString((L"Time: " + ToWString(time / NumRunsResample) + L"\n").c_str());
 };
 
 struct TestNearestNeighbor {
@@ -143,24 +144,24 @@ int wmain(int argc, wchar_t* argv[])
 	std::wstring format(ToLower(argv[2]));
 
 	Img::Format fmt = Img::Format::Undefined;
-	if (format == TX("xrgb8888"))		fmt = Img::Format::XRGB8888;
-	else if (format == TX("argb8888"))	fmt = Img::Format::ARGB8888;
-	else if (format == TX("xrgb1555"))	fmt = Img::Format::XRGB1555;
-	else if (format == TX("argb1555"))	fmt = Img::Format::ARGB1555;
+	if (format == L"xrgb8888")		fmt = Img::Format::XRGB8888;
+	else if (format == L"argb8888")	fmt = Img::Format::ARGB8888;
+	else if (format == L"xrgb1555")	fmt = Img::Format::XRGB1555;
+	else if (format == L"argb1555")	fmt = Img::Format::ARGB1555;
 
-	if (testToRun == TX("blend"))
+	if (testToRun == L"blend")
 		TestNoResample(TestSolidColor());
-	else if (testToRun == TX("gamma"))
+	else if (testToRun == L"gamma")
 		TestNoResample(TestGamma());
-	else if (testToRun == TX("brightness_contrast"))
+	else if (testToRun == L"brightness_contrast")
 		TestNoResample(TestBrightnessConstrast());
-	else if (testToRun == TX("blendsolid"))
+	else if (testToRun == L"blendsolid")
 		TestNoResample(TestBlendSolid());
-	else if (testToRun == TX("lanczos3"))
+	else if (testToRun == L"lanczos3")
 		TestResample(TestLanczos3(), fmt);
-	else if (testToRun == TX("bilinear"))
+	else if (testToRun == L"bilinear")
 		TestResample(TestBilinear(), fmt);
-	else if (testToRun == TX("nearest"))
+	else if (testToRun == L"nearest")
 		TestResample(TestNearestNeighbor(), fmt);
 	else
 		return EXIT_FAILURE;

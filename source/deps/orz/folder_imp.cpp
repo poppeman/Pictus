@@ -29,13 +29,13 @@ namespace IO {
 	FolderImplementation::~FolderImplementation() {}
 
 	void FolderImplementation::StartMonitoring(Folder* const parent) {
-		COND_STRICT(m_isMonitoring == false, Err::CriticalError, TX("Shouldn't be monitoring now."));
+		COND_STRICT(m_isMonitoring == false, Err::CriticalError, L"Shouldn't be monitoring now.");
 		m_parent = parent;
 		m_isMonitoring = true;
 		onStartMonitoring();
 	}
 	void FolderImplementation::StopMonitoring() {
-		COND_STRICT(m_isMonitoring, Err::CriticalError, TX("Should be monitoring now."));
+		COND_STRICT(m_isMonitoring, Err::CriticalError, L"Should be monitoring now.");
 		onStopMonitoring();
 	}
 

@@ -11,7 +11,7 @@ SUITE(ImageCacherQueue) {
 	}
 
 	struct FixtureBwImage {
-		FixtureBwImage():a(bwFile), bwFile(g_datapath + TX("\\bw.tga")) {
+		FixtureBwImage():a(bwFile), bwFile(g_datapath + L"\\bw.tga") {
 			ImageList l;
 			l.push_back(&a);
 			iq.CacheImage(l);
@@ -24,7 +24,7 @@ SUITE(ImageCacherQueue) {
 	};
 
 	struct FixtureTwoImages {
-		FixtureTwoImages():a(g_datapath + TX("\\bw.tga")), b(g_datapath + TX("\\bw2.tga")) {
+		FixtureTwoImages():a(g_datapath + L"\\bw.tga"), b(g_datapath + L"\\bw2.tga") {
 			ImageList l;
 			l.push_back(&a);
 			l.push_back(&b);

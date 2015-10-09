@@ -16,7 +16,7 @@ namespace Win {
     using std::recursive_mutex;
     recursive_mutex g_mut;
     bool BaseWindow::m_isCursorVisible = true;
-    const wchar_t *BaseWindow::ClassPtrProp = TX("ClassPointer");
+    const wchar_t *BaseWindow::ClassPtrProp = L"ClassPointer";
     using namespace Geom;
 
     BaseWindow::BaseWindow()
@@ -126,7 +126,7 @@ namespace Win {
             GetWindowText(Handle(), str.get(), len);
             return std::wstring(str.get());
         }
-        return TX("");
+        return L"";
     }
 
     void BaseWindow::Resize(const SizeInt &newSize) {
@@ -194,7 +194,7 @@ namespace Win {
 
     const std::wstring BaseWindow::OpenFileDialog(const wchar_t *title, const wchar_t *filters, size_t defaultFilterIndex) {
         const int MaxPath = 4096;
-        wchar_t filename[MaxPath] = TX("");
+        wchar_t filename[MaxPath] = L"";
         OPENFILENAME ofn;
 
         ZeroMemory(&ofn, sizeof(OPENFILENAME));
@@ -213,7 +213,7 @@ namespace Win {
         SetCurrentDirectory(IO::GetPath(Sys::Info::ExePath()).c_str());
 
         if (ret) return filename;
-        return TX("");
+        return L"";
     }
 
     bool BaseWindow::OnClose() {
@@ -331,7 +331,7 @@ namespace Win {
                     PostQuitMessage(0);
                 }
                 catch (...) {
-                    pWin->m_exceptionDescription = TX("Unknown Exception");
+                    pWin->m_exceptionDescription = L"Unknown Exception";
                     pWin->m_exceptionOcurred = true;
                     PostQuitMessage(0);
                 }

@@ -7,21 +7,21 @@ SUITE(ImageSuite)
 {
 /*	TEST(RepeatLoadHeader)
 	{
-		Img::Image image(g_datapath + TX("/bw.tga"));
+		Img::Image image(g_datapath + L"/bw.tga");
 		image.LoadHeader();
 		CHECK_THROW(image.LoadHeader(), Err::CriticalError);
 	}
 
 	TEST(NoAllocate)
 	{
-		Img::Image image(g_datapath + TX("/bw.tga"));
+		Img::Image image(g_datapath + L"/bw.tga");
 		image.LoadHeader();
 		CHECK_THROW(image.LoadImageData(), Err::CriticalError);
 	}
 
 	TEST(RepeatHeader)
 	{
-		Img::Image image(g_datapath + TX("/bw.tga"));
+		Img::Image image(g_datapath + L"/bw.tga");
 		image.LoadHeader();
 		image.Deallocate();
 		image.LoadHeader();
@@ -30,7 +30,7 @@ SUITE(ImageSuite)
 
 	TEST(RepeatLoadHeaderAbort)
 	{
-		Img::Image image(g_datapath + TX("/bw.tga"));
+		Img::Image image(g_datapath + L"/bw.tga");
 		image.LoadHeader();
 		image.Abort();
 		CHECK_THROW(image.LoadHeader(), Err::CriticalError);

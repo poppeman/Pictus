@@ -1,4 +1,5 @@
 #include "filter_int.h"
+#include <vector>
 
 namespace Filter {
 	namespace Transformation {
@@ -41,7 +42,7 @@ namespace Filter {
 
 		void mirror(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, const Geom::PointInt& destTopLeft) {
 			if ((source == dest) && (region.TopLeft() != destTopLeft)) {
-				DO_THROW(Err::InvalidParam, TX("Inplace mirroring requires matching regions."));
+				DO_THROW(Err::InvalidParam, L"Inplace mirroring requires matching regions.");
 			}
 
 			size_t srcStride = source.Stride;
@@ -81,7 +82,7 @@ namespace Filter {
 
 		void flip(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, const Geom::PointInt& destTopLeft) {
 			if ((source == dest) && (region.TopLeft() != destTopLeft)) {
-				DO_THROW(Err::InvalidParam, TX("Inplace flipping requires matching regions."));
+				DO_THROW(Err::InvalidParam, L"Inplace flipping requires matching regions.");
 			}
 
 			size_t srcStride = source.Stride;
@@ -121,7 +122,7 @@ namespace Filter {
 
 		void rot90(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, const Geom::PointInt& destTopLeft) {
 			if (source.BufferData == dest.BufferData) {
-				DO_THROW(Err::InvalidParam, TX("Inplace rotation not supported."));
+				DO_THROW(Err::InvalidParam, L"Inplace rotation not supported.");
 			}
 
 			uint8_t* bSrcArray = source.BufferData + (4 * region.Left() + region.Top() * source.Stride);
@@ -139,7 +140,7 @@ namespace Filter {
 
 		void rot270(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, const Geom::PointInt& destTopLeft) {
 			if (source.BufferData == dest.BufferData) {
-				DO_THROW(Err::InvalidParam, TX("Inplace rotation not supported."));
+				DO_THROW(Err::InvalidParam, L"Inplace rotation not supported.");
 			}
 
 			uint8_t* bSrcArray = source.BufferData + (4 * region.Left() + region.Top() * source.Stride);
@@ -157,13 +158,13 @@ namespace Filter {
 
 		void RotateFixed(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, const Geom::PointInt& destTopLeft, RotationAngle angle) {
 			if (source.BufferData == nullptr || dest.BufferData == nullptr) {
-				DO_THROW(Err::InvalidParam, TX("Null buffer not allowed."));
+				DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
 			}
 
 			switch (angle) {
 			case Filter::RotationAngle::RotateDefault:
 				if (source.BufferData != dest.BufferData) {
-					DO_THROW(Err::InvalidParam, TX("Operation not yet supported (inplace non-rotation)"));
+					DO_THROW(Err::InvalidParam, L"Operation not yet supported (inplace non-rotation)");
 				}
 				break;
 			case Filter::RotationAngle::FlipX:
@@ -185,7 +186,7 @@ namespace Filter {
 				break;
 
 			default:
-				DO_THROW(Err::InvalidParam, TX("Rotation angle not supported:") + ToWString(angle));
+				DO_THROW(Err::InvalidParam, L"Rotation angle not supported:" + ToWString(angle));
 			}
 		}
 	}
