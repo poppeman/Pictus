@@ -1,7 +1,7 @@
-#include "StdAfx.h"
-
 #include "orz/orz_math.h"
 #include "mt19937ar.h"
+
+#include <UnitTest++/UnitTest++.h>
 
 SUITE(Random)
 {

@@ -1,7 +1,6 @@
-#include "StdAfx.h"
-
 #include "orz/streamconv.h"
 #include "main.h"
+#include <UnitTest++/UnitTest++.h>
 
 SUITE(StreamConverter)
 {

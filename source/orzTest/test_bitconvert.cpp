@@ -1,5 +1,5 @@
-#include "StdAfx.h"
 #include "orz/bitconvert.h"
+#include <UnitTest++/UnitTest++.h>
 
 SUITE(BitConvert)
 {

@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "d3d_vertexbuffer.h"
 #include "d3d_common.h"
 

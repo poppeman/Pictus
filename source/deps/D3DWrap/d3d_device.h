@@ -1,5 +1,5 @@
-#ifndef D3D_DEVICE_H
-#define D3D_DEVICE_H
+#ifndef D3DWRAP_D3D_DEVICE_H
+#define D3DWRAP_D3D_DEVICE_H
 
 #include "d3d_common.h"
 #include "d3d_texture.h" 

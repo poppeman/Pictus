@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "d3d_device.h"
 #include "d3d_common.h"
 #include "int_d3d_types.h"

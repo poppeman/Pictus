@@ -1,8 +1,7 @@
-#include "StdAfx.h"
-
 #include "orz/folder_monitor.h"
 #include "orz/fileops.h"
 #include "main.h"
+#include <UnitTest++/UnitTest++.h>
 
 SUITE(TestFolderMonitor) {
 	using namespace IO;
@@ -12,8 +11,8 @@ SUITE(TestFolderMonitor) {
 	}
 	TEST(ManyStart) {
 		FolderMonitor mon;
-		mon.Start(g_datapath + TX("\\Folder\\a\\"));
-		mon.Start(g_datapath + TX("\\Folder\\a\\"));
+		mon.Start(g_datapath + L"\\Folder\\a\\");
+		mon.Start(g_datapath + L"\\Folder\\a\\");
 	}
 	/*struct SimpleMonitor {
 		void OnEvent(FileEvent e) {

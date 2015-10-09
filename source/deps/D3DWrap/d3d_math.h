@@ -1,7 +1,9 @@
-#ifndef D3D_MATH_H
-#define D3D_MATH_H
+#ifndef D3DWRAP_D3D_MATH_H
+#define D3DWRAP_D3D_MATH_H
 
 #include "illa/types.h"
+
+#include <d3d9.h>
 
 namespace D3D {
 	// All of this is fairly horrible, but the long-term solution will probably be to migrate to D3D10/11 which
