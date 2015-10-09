@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "d3d_common.h"
 
 namespace D3D {

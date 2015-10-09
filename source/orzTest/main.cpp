@@ -1,4 +1,7 @@
-#include "StdAfx.h"
+#include "main.h"
+#include <iostream>
+
+#include <UnitTest++/UnitTest++.h>
 
 std::wstring g_datapath;
 

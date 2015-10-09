@@ -1,9 +1,11 @@
-#ifndef D3D_VERTEXBUFFER_H
-#define D3D_VERTEXBUFFER_H
+#ifndef D3DWRAP_D3D_VERTEXBUFFER_H
+#define D3DWRAP_D3D_VERTEXBUFFER_H
 
 #include "illa/types.h"
 
 #include <memory>
+
+#include <d3d9.h>
 
 namespace D3D {
 	enum VertexFormat {

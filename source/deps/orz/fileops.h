@@ -5,6 +5,8 @@
 #include <windows.h>
 #endif
 
+#include <string>
+
 namespace IO {
 	bool DoFileExist(const std::wstring& files);
 	bool DoPathExist(const std::wstring& file);

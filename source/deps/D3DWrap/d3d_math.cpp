@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "d3d_math.h"
 
 namespace D3D {

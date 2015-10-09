@@ -2,11 +2,11 @@
 #include "streamconv.h"
 
 namespace Util {
-	_Use_decl_annotations_ void StreamConverter::AddByte(const uint8_t b) {
+	void StreamConverter::AddByte(const uint8_t b) {
 		m_source.push_back(b);
 	}
 
-	_Use_decl_annotations_ bool StreamConverter::AddBytes(const uint8_t* pBuf, size_t bufSize) {
+	bool StreamConverter::AddBytes(const uint8_t* pBuf, size_t bufSize) {
 		if (!pBuf) {
 			return false;
 		}
@@ -18,8 +18,7 @@ namespace Util {
 		return true;
 	}
 
-	_Use_decl_annotations_ int StreamConverter::GetWord()
-{
+	int StreamConverter::GetWord() {
 		unsigned int currchar = 0;
 		unsigned int dstPos = 0;
 		unsigned int copied = 0;
@@ -49,7 +48,7 @@ namespace Util {
 		return static_cast<short>(currchar);
 	}
 
-	_Use_decl_annotations_ int StreamConverter::GetWordMsbToLsb() {
+	int StreamConverter::GetWordMsbToLsb() {
 		unsigned int currchar = 0;
 		unsigned int dstPos = 0;
 		unsigned int copied = 0;
@@ -77,7 +76,7 @@ namespace Util {
 		return static_cast<short>(currchar);
 	}
 
-	_Use_decl_annotations_ bool StreamConverter::GetWordsAsByte(uint8_t* pDest, size_t num) {
+	bool StreamConverter::GetWordsAsByte(uint8_t* pDest, size_t num) {
 		if (!pDest) {
 			return false;
 		}
@@ -89,7 +88,7 @@ namespace Util {
 		return true;
 	}
 
-	_Use_decl_annotations_ bool StreamConverter::GetWordsAsByteMsbToLsb(uint8_t* pDest, size_t num) {
+	bool StreamConverter::GetWordsAsByteMsbToLsb(uint8_t* pDest, size_t num) {
 		if (!pDest) {
 			return false;
 		}
@@ -101,8 +100,7 @@ namespace Util {
 		return true;
 	}
 
-	_Check_return_ unsigned int StreamConverter::CurrentWordSize() const
-{
+	unsigned int StreamConverter::CurrentWordSize() const {
 		return m_wordSize;
 	}
 

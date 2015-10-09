@@ -1,13 +1,14 @@
-#include "StdAfx.h"
-
 #include "orz/fileops.h"
+#include "orz/types.h"
+
+#include <UnitTest++/UnitTest++.h>
 
 SUITE(PathString)
 {
 	TEST(get_path)
 	{
-		CHECK(IO::GetPath(TX("c:\\temp/lol/dsfargeg.txt")) == TX("c:\\temp\\lol\\"));
-		CHECK(IO::GetPath(TX("c:\\temp\\\\\\\\")) == L"c:\\temp\\");
+		CHECK(IO::GetPath(L"c:\\temp/lol/dsfargeg.txt") == L"c:\\temp\\lol\\");
+		CHECK(IO::GetPath(L"c:\\temp\\\\\\\\") == L"c:\\temp\\");
 	}
 
 	TEST(get_file)
