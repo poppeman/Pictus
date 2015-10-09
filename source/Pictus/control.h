@@ -1,12 +1,16 @@
-#ifndef CONTROL_H
-#define CONTROL_H
+#ifndef PICTUS_CONTROL_H
+#define PICTUS_CONTROL_H
 
 #include "illa/geom.h"
+#include <boost/optional.hpp>
+#include <map>
+#include <memory>
+#include <windows.h>
 
 namespace Win {
 	class Window;
 
-	class Control:boost::noncopyable {
+	class Control {
 	public:
 		typedef std::shared_ptr<Control> Ptr;
 
@@ -41,7 +45,7 @@ namespace Win {
 
 		friend class Window;
 
-		void operator =(const Control&) = delete;
+		Control& operator=(const Control&) = delete;
 		Control(const Control&) = delete;
 
 		int m_id;

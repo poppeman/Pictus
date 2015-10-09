@@ -1,7 +1,9 @@
-#ifndef W32_DDSURFACE_H
-#define W32_DDSURFACE_H
+#ifndef PICTUS_W32_DDSURFACE_H
+#define PICTUS_W32_DDSURFACE_H
 
 #include "illa/types.h"
+
+#include <memory>
 
 namespace Win {
 	class DDSurface {

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "w32_rs_tilemanager.h"
 
 namespace Win {

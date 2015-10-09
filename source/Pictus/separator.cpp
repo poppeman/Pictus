@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "separator.h"
 
 namespace Win {

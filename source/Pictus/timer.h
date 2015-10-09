@@ -1,8 +1,14 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+#pragma warning(push)
+#pragma warning(disable: 4512)
+#include <boost/signals2.hpp>
+
+#include <windows.h>
+
 namespace Win {
-	class Timer:boost::noncopyable {
+	class Timer {
 	public:
 		boost::signals2::signal<void()> OnTick;
 
@@ -11,6 +17,9 @@ namespace Win {
 
 		Timer();
 		~Timer();
+
+		Timer(const Timer&) = delete;
+		Timer& operator=(const Timer&) = delete;
 
 	private:
 		static VOID CALLBACK TimerCallback(HWND, UINT uMsg, UINT_PTR idEvent, DWORD dwTime);
@@ -21,5 +30,7 @@ namespace Win {
 		static TimerMap m_timers;
 	};
 }
+
+#pragma warning(pop)
 
 #endif

@@ -1,8 +1,9 @@
 #ifndef GDIWRAPPER_H
 #define GDIWRAPPER_H
 
-#include "StdAfx.h"
 #include "app_types.h"
+
+#include <windows.h>
 
 namespace Win {
 	class SharedDC {

@@ -1,5 +1,8 @@
-#ifndef FILTER_BILINEAR
-#define FILTER_BILINEAR
+#ifndef ILLA_FILTER_BILINEAR
+#define ILLA_FILTER_BILINEAR
+
+#include <cstdint>
+#include <vector>
 
 namespace Filter {
 	namespace Scale {

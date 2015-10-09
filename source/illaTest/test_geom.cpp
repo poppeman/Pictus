@@ -1,6 +1,4 @@
-#include "StdAfx.h"
-
-	
+#include <UnitTest++/UnitTest++.h>
 #include "illa/types.h"
 
 using Geom::RectInt;

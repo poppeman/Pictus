@@ -1,5 +1,4 @@
-﻿#include "StdAfx.h"
-#include "settings.h"
+﻿#include "settings.h"
 #include "res_settings.h"
 
 // Pages
@@ -15,6 +14,8 @@
 #include "dlg_keyboard.h"
 
 #include "ctrl_button.h"
+
+#include <Uxtheme.h>
 
 namespace App {
 	using namespace Intl;

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "w32_rendertarget.h"
 #include "illa/config.h"
 

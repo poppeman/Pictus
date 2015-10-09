@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "imenu_item.h"
 
 namespace Win {

@@ -1,5 +1,4 @@
-#include "StdAfx.h"
-
+#include <UnitTest++/UnitTest++.h>
 #include "illa/image.h"
 
 #include "main.h"

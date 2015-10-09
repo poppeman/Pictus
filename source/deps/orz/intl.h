@@ -2,6 +2,8 @@
 #define ORZ_INTL_H
 
 #include "intl_table_entry.h"
+#pragma warning(push)
+#pragma warning(disable: 4512)
 #include <boost/signals2.hpp>
 
 namespace Intl {
@@ -14,5 +16,7 @@ namespace Intl {
 
 	extern boost::signals2::signal<void()> OnLanguageChanged;
 }
+
+#pragma warning(pop)
 
 #endif

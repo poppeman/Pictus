@@ -1,6 +1,7 @@
-#include "StdAfx.h"
 #include "dialog.h"
 #include "control.h"
+
+#include <boost/scoped_array.hpp>
 
 namespace Win {
 	bool Dialog::DoModal(Win::BaseWindow* pParent) {

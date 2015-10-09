@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "zoomstrategy.h"
 #include "illa/geom.h"
 #include "orz/sysinfo.h"

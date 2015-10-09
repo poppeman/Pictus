@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "w32_rs_tiled.h"
+
+#include <algorithm>
 
 namespace Win {
 	using namespace Geom;

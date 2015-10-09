@@ -3,6 +3,8 @@
 
 #include "illa/types.h"
 
+#include <memory>
+
 namespace D3D {
 	class Texture final {
 	public:

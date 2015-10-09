@@ -1,9 +1,11 @@
-#include "StdAfx.h"
 #include "app_types.h"
 #include "main.h"
 #include "wintypes.h"
 #include "orz/fileops.h"
 #include "orz/sysinfo.h"
+
+#include <Uxtheme.h>
+#include <objbase.h>
 
 int WINAPI wWinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ wchar_t* pCmdLine, _In_ int) {
 	SetThemeAppProperties(STAP_ALLOW_NONCLIENT | STAP_ALLOW_CONTROLS | STAP_ALLOW_WEBCONTENT);

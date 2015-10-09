@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "ic_workerthread.h"
 
 namespace Img {

@@ -1,6 +1,8 @@
-#include "StdAfx.h"
 #include "window.h"
 #include "ctrl_statusbar.h"
+
+#include <shellapi.h>
+#include <ShlObj.h>
 
 namespace Win {
 	using namespace Geom;

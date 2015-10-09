@@ -1,9 +1,10 @@
-#ifndef WALLPAPER_H
-#define WALLPAPER_H
+#ifndef PICTUS_WALLPAPER_H
+#define PICTUS_WALLPAPER_H
+
+#include <string>
 
 namespace Win {
-	class Wallpaper:boost::noncopyable {
-	public:
+	namespace Wallpaper {
 		enum class Mode {
 			Stretch,
 			Tile,
@@ -14,7 +15,7 @@ namespace Win {
 		};
 
 		bool ApplyWallpaper(const std::wstring& file, Mode m);
-	};
+	}
 }
 
 #endif

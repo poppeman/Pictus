@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "settings_page.h"
 #include "settings.h"
 

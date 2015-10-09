@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "imagelist.h"
 
 namespace Win {

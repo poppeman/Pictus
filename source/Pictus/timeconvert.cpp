@@ -1,5 +1,8 @@
-#include "StdAfx.h"
 #include "timeconvert.h"
+#include "orz/exception.h"
+
+#include <boost/scoped_array.hpp>
+#include <windows.h>
 
 namespace App {
 	FILETIME ToFILETIME(FileInt i) {
@@ -18,7 +21,7 @@ namespace App {
 		return st;
 	}
 
-	_Use_decl_annotations_ std::wstring FormattedDate(FileInt date) {
+	std::wstring FormattedDate(FileInt date) {
 		SYSTEMTIME st = ToSYSTEMTIME(date);
 		int len=GetDateFormat(LOCALE_USER_DEFAULT, 0, &st, 0, 0, 0);
 		boost::scoped_array<wchar_t> tmpStr(new wchar_t[len]);
@@ -26,7 +29,7 @@ namespace App {
 		return std::wstring(tmpStr.get());
 	}
 
-	_Use_decl_annotations_ std::wstring FormattedTime(FileInt date) {
+	std::wstring FormattedTime(FileInt date) {
 		SYSTEMTIME st = ToSYSTEMTIME(date);
 		int len=GetTimeFormat(LOCALE_USER_DEFAULT, TIME_NOSECONDS, &st, 0, 0, 0);
 		boost::scoped_array<wchar_t> tmpStr(new wchar_t[len]);

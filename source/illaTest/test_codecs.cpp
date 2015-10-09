@@ -1,10 +1,11 @@
-#include "StdAfx.h"
+#include <UnitTest++/UnitTest++.h>
 #include "main.h"
 #include "illa/codecmgr.h"
 #include "illa/surface.h"
 #include "orz/fileops.h"
 #include "illa/image.h"
 #include "illa/codec.h"
+#include <boost/scoped_array.hpp>
 
 SUITE(CodecTests) {
 	Img::CodecFactoryStore g_cfs;

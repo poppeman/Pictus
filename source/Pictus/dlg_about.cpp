@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "res_settings.h"
 #include "dlg_about.h"
 #include "version.h"

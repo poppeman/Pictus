@@ -24,6 +24,7 @@
 #include "builder_viewport.h"
 #include "timeconvert.h"
 
+#include <boost/scoped_array.hpp>
 #include <boost/format.hpp>
 
 const wchar_t* App::Viewer::ClassName = TX("Pictus Viewer");
@@ -406,8 +407,7 @@ namespace App {
 			return false;
 		}
 
-		Wallpaper p;
-		return p.ApplyWallpaper(m_cacher.CurrentImageFilename(), orientation);
+		return Wallpaper::ApplyWallpaper(m_cacher.CurrentImageFilename(), orientation);
 	}
 
 	void Viewer::UpdateImageInformation() {

@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "ctrl_listview.h"
+#include <CommCtrl.h>
+#include <Uxtheme.h>
 
 namespace Win {
 	void ListView::ClearColumns() {

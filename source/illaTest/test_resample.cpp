@@ -1,5 +1,4 @@
-#include "StdAfx.h"
-
+#include <UnitTest++/UnitTest++.h>
 #include "illa/filter.h"
 
 #include "share_filterbuffer.h"

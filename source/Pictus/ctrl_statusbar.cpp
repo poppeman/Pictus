@@ -1,6 +1,8 @@
-#include "StdAfx.h"
 #include "ctrl_statusbar.h"
 #include <numeric>
+#include <vector>
+
+#include <CommCtrl.h>
 
 namespace Win {
 	void StatusBar::Add(StatusBarPart& newPart) {
@@ -14,7 +16,7 @@ namespace Win {
 		return CreateWindowEx(
 			0,
 			STATUSCLASSNAME,
-			TX(""),
+			L"",
 			WS_CHILD | WS_VISIBLE,
 			50,
 			50,

@@ -1,9 +1,13 @@
-#ifndef W32_RS_TILEMANAGER_H
-#define W32_RS_TILEMANAGER_H
+#ifndef PICTUS_W32_RS_TILEMANAGER_H
+#define PICTUS_W32_RS_TILEMANAGER_H
+
+#include "illa/types.h"
 
 #include "w32_ddsurface.h"
 #include "w32_renderer.h"
-#include "illa/types.h"
+
+#include <deque>
+#include <memory>
 
 namespace Win {
 	struct TileManager {
