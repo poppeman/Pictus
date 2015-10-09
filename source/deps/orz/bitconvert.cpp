@@ -1,8 +1,10 @@
-#include "StdAfx.h"
 #include "bitconvert.h"
+#include "exception.h"
+#include "streamconv.h"
+#include "types.h"
 
 namespace Util {
-	_Use_decl_annotations_ void BitsToBytes(uint8_t* dest, const uint8_t* source, uint32_t numBits) {
+	void BitsToBytes(uint8_t* dest, const uint8_t* source, uint32_t numBits) {
 		int wholeBytes	= numBits >> 3;
 		int extraBits	= numBits & 7;
 
@@ -23,7 +25,7 @@ namespace Util {
 		}
 	}
 
-	_Use_decl_annotations_ void CrumbsToBytes(uint8_t* dest, const uint8_t* source, uint32_t numCrumbs) {
+	void CrumbsToBytes(uint8_t* dest, const uint8_t* source, uint32_t numCrumbs) {
 		int wholeBytes	= numCrumbs >> 2;
 		int extraCrumbs	= numCrumbs & 3;
 
@@ -44,7 +46,7 @@ namespace Util {
 		}
 	}
 
-	_Use_decl_annotations_ void NibblesToBytes(uint8_t* dest, const uint8_t* source, uint32_t numNibbles) {
+	void NibblesToBytes(uint8_t* dest, const uint8_t* source, uint32_t numNibbles) {
 		int wholeBytes	= numNibbles >> 1;
 		int extraNibble	= numNibbles & 1;
 
@@ -59,7 +61,7 @@ namespace Util {
 		}
 	}
 
-	_Use_decl_annotations_ void ConvertToBytes(uint8_t* dest, const uint8_t* source, uint32_t sourceBitDepth, uint32_t numSourceWords) {
+	void ConvertToBytes(uint8_t* dest, const uint8_t* source, uint32_t sourceBitDepth, uint32_t numSourceWords) {
 		switch(sourceBitDepth) {
 		case 1:
 			Util::BitsToBytes(dest, source, numSourceWords);

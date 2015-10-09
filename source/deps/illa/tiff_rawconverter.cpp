@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "tiff_rawconverter.h"
 #include "orz/bitconvert.h"
 

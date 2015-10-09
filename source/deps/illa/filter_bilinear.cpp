@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "filter_bilinear.h"
 #include "filter_int.h"
 

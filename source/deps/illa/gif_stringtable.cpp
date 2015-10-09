@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "gif_stringtable.h"
 #include "geom.h"
 #include "surface_locked_area.h"

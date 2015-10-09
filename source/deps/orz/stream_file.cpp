@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "stream_file.h"
 #include "fileops.h"
 

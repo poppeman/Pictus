@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "stream_file.h"
 #include "file_reader.h"
 #include "ByteOrder.h"

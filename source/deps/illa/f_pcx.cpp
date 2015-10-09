@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "f_pcx.h"
 #include "c_pcx.h"
 

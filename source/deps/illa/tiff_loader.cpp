@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "tiff_loader.h"
 
 namespace Img {

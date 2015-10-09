@@ -1,5 +1,5 @@
-#ifndef C_FACTORY_H
-#define C_FACTORY_H
+#ifndef ILLA_C_FACTORY_H
+#define ILLA_C_FACTORY_H
 
 #include "types.h"
 

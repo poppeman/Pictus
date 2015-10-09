@@ -3,6 +3,9 @@
 
 #include "surface_lock.h"
 
+#include <condition_variable>
+#include <mutex>
+
 namespace Img {
 	class LockStrategySingleWriterMultipleReaders:public LockStrategy {
 	public:

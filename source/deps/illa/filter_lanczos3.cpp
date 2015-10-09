@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "filter_generic.h"
 
 namespace Filter {

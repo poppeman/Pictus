@@ -1,6 +1,6 @@
-#include "StdAfx.h"
 #include "c_psp.h"
 #include "orz/bitconvert.h"
+#include "orz/logger.h"
 #include "psp_chunkskipper.h"
 #include "surface_locked_area.h"
 

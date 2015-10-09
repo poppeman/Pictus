@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "color_io.h"
 
 namespace Img {

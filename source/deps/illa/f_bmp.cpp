@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "f_bmp.h"
 #include "c_bmp.h"
 

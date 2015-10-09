@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "orz/intl.h"
 #include "codecmgr.h"
 #include "c_factory.h"

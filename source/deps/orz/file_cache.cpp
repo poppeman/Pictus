@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "file_cache.h"
 
 namespace IO {

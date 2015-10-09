@@ -1,6 +1,6 @@
-#include "StdAfx.h"
 #include "tiff_tileloader.h"
 #include "surface_locked_area.h"
+#include "orz/logger.h"
 
 namespace Img {
 	TiffTileLoader::TiffTileLoader()

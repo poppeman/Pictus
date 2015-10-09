@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "gif_imagedescriptor.h"
 #include "gif_io.h"
 

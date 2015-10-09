@@ -1,9 +1,9 @@
-#include "StdAfx.h"
-
 #include "filter.h"
 #include "filter_int.h"
 #include "filterjob.h"
 #include "orz/threadpool.h"
+
+#include <thread>
 
 namespace Filter {
 	using namespace Geom;

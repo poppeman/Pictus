@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "c_psd.h"
 #include "orz/bitconvert.h"
 #include "psd_shared.h"

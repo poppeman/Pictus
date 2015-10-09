@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "f_jpeg.h"
 #include "c_jpeg.h"
 

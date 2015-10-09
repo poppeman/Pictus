@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "f_tga.h"
 #include "c_tga.h"
 

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "psp_chunkskipper.h"
 
 namespace Img {

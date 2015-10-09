@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "stopwatch.h"
 
 namespace Util {

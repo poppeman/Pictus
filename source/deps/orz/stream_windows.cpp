@@ -1,11 +1,10 @@
-#include "StdAfx.h"
 #include "stream_windows.h"
+#include "logger.h"
 
 namespace IO {
-	_Use_decl_annotations_ StreamWindows::StreamWindows(IStream* i) :m_pStream(i) {
-	}
+	StreamWindows::StreamWindows(IStream* i) :m_pStream(i) {}
 
-	_Use_decl_annotations_ StreamWindows::StreamWindows(const std::wstring& filename) : m_filename(filename), m_pStream(nullptr) {}
+	StreamWindows::StreamWindows(const std::wstring& filename) : m_filename(filename), m_pStream(nullptr) {}
 
 	StreamWindows::~StreamWindows() {
 		if (m_pStream) {
@@ -14,7 +13,7 @@ namespace IO {
 		m_pStream = nullptr;
 	}
 
-	_Use_decl_annotations_ bool StreamWindows::performOpen() {
+	bool StreamWindows::performOpen() {
 		if (m_filename.empty() == false) {
 			if (FAILED(SHCreateStreamOnFileW(m_filename.c_str(), STGM_READ | STGM_SHARE_DENY_WRITE, &m_pStream))) {
 				//DO_THROW(Err::InvalidParam, TX("Could not create stream for file: ") + filename);
@@ -25,13 +24,13 @@ namespace IO {
 		return true;
 	}
 
-	_Use_decl_annotations_ bool StreamWindows::performIsOpen() const {
+	bool StreamWindows::performIsOpen() const {
 		return m_pStream != nullptr;
 	}
 
 	void StreamWindows::performClose() {}
 
-	_Use_decl_annotations_ size_t StreamWindows::performRead(void* buf, size_t size, size_t items) {
+	size_t StreamWindows::performRead(void* buf, size_t size, size_t items) {
 		ULONG bytesRead;
 		auto bytesToRead = size * items;
 		auto hr = m_pStream->Read(buf, bytesToRead, &bytesRead);
@@ -48,7 +47,7 @@ namespace IO {
 		//m_pStream->Revert()
 	}
 
-	_Use_decl_annotations_ void StreamWindows::performSeek(FileInt position, SeekMethod m) {
+	void StreamWindows::performSeek(FileInt position, SeekMethod m) {
 		DWORD dwOrigin;
 
 		if (m == IO::SeekMethod::Begin) {
@@ -70,7 +69,7 @@ namespace IO {
 		}
 	}
 
-	_Use_decl_annotations_ FileInt StreamWindows::performPosition() const {
+	FileInt StreamWindows::performPosition() const {
 		ULARGE_INTEGER pos;
 		LARGE_INTEGER dummy;
 		dummy.QuadPart = 0;
@@ -78,7 +77,7 @@ namespace IO {
 		return pos.QuadPart;
 	}
 
-	_Use_decl_annotations_ FileInt StreamWindows::performSize() {
+	FileInt StreamWindows::performSize() {
 		STATSTG ssg;
 		if (m_pStream->Stat(&ssg, STATFLAG_NONAME) != S_OK) {
 			return 0;
@@ -87,7 +86,7 @@ namespace IO {
 		return ssg.cbSize.QuadPart;
 	}
 
-	_Use_decl_annotations_ std::wstring StreamWindows::performName() const {
+	std::wstring StreamWindows::performName() const {
 		STATSTG ssg;
 		if (m_pStream->Stat(&ssg, STATFLAG_DEFAULT) != S_OK) {
 			return std::wstring(L"");

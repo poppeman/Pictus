@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "orz/orz_math.h"
 #include "orz/bitconvert.h"
 #include "c_bmp.h"

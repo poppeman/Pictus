@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "f_gif.h"
 #include "c_gif.h"
 

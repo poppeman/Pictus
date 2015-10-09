@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "imagecomposer.h"
 
 namespace Img {

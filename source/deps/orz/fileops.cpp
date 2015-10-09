@@ -1,6 +1,9 @@
-#include "StdAfx.h"
 #include "fileops.h"
 #include "file_reader.h"
+
+#include <mutex>
+
+#include <shellapi.h>
 
 namespace IO {
 	using std::mutex;
@@ -78,12 +81,6 @@ namespace IO {
 
 	bool FileRecycle(const std::wstring& file, HWND hwnd) {
 		return performDeleteRecycle(file, true, hwnd);
-	}
-
-	bool Move(const std::wstring& old_path, const std::wstring& new_path) {
-		// Not updated
-		assert(false);
-		return (::MoveFileW(old_path.c_str(), new_path.c_str()) != 0);
 	}
 
 	std::wstring Rename(const std::wstring& old_name, const std::wstring& new_name, HWND hwnd) {

@@ -1,6 +1,10 @@
-#include "StdAfx.h"
 #include "w32_folder_monitor_rdcw.h"
 #include "folder_monitor.h"
+
+#include "exception.h"
+#include "types.h"
+
+#include <Shlwapi.h>
 
 #pragma comment(lib, "shlwapi.lib")
 
@@ -26,7 +30,7 @@ namespace IO {
 			FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED,
 			0);
 		if (m_directory == 0 || m_directory == INVALID_HANDLE_VALUE) {
-			DO_THROW(Err::InvalidParam, TX("Could not open directory:") + path);
+			DO_THROW(Err::InvalidParam, L"Could not open directory:" + path);
 		}
 
 		m_ioComp = CreateIoCompletionPort(
@@ -35,11 +39,11 @@ namespace IO {
 			reinterpret_cast<ULONG_PTR>(this),
 			0);
 		if (m_ioComp == 0) {
-			DO_THROW(Err::CriticalError, TX("Could not create an IO completion port."));
+			DO_THROW(Err::CriticalError, L"Could not create an IO completion port.");
 		}
 
 		if (m_thread.get()) {
-			DO_THROW(Err::CriticalError, TX("Thread should NOT be running now!"));
+			DO_THROW(Err::CriticalError, L"Thread should NOT be running now!");
 		}
 		m_thread = std::make_shared<std::thread>(&FolderMonitorWin32RDCW::threadWrapper, this);
 	}

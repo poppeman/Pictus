@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "c_tga_header.h"
 
 namespace Img {

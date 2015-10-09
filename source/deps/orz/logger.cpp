@@ -1,5 +1,10 @@
-#include "StdAfx.h"
 #include "logger.h"
+
+#include <boost/algorithm/string.hpp>
+#include <vector>
+
+#include <windows.h>
+#include <debugapi.h>
 
 namespace IO {
 	void Logger::SetOutput(_In_ const std::wstring& filename) {
@@ -59,8 +64,8 @@ namespace IO {
 		std::wstring output(input);
 
 		size_t pos = 0;
-		while((pos = output.find(TX("\n"), pos)) != std::wstring::npos) {
-			output.insert(pos, TX("\r"));
+		while((pos = output.find(L"\n", pos)) != std::wstring::npos) {
+			output.insert(pos, L"\r");
 			pos += 2;
 		}
 		return output;

@@ -1,6 +1,6 @@
-#include "StdAfx.h"
-
 #include "surface_lock_swmr.h"
+#include "orz/exception.h"
+#include "orz/types.h"
 
 namespace Img {
 	LockStrategySingleWriterMultipleReaders::LockStrategySingleWriterMultipleReaders()
@@ -23,7 +23,7 @@ namespace Img {
 
 			if (m_isWriteLocked == false) DO_THROW(Err::CriticalError, TX("Attempted to write-unlock a lock which wasn't write locked."));
 			m_isWriteLocked = false;
-			m_conditionUnlock.notify_all();			
+			m_conditionUnlock.notify_all();
 		}
 	}
 }

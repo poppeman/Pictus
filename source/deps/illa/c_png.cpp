@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 
 #include "c_png.h"
 #include "surface.h"

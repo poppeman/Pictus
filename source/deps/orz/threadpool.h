@@ -1,8 +1,15 @@
 #ifndef ORZ_THREADPOOL_H
 #define ORZ_THREADPOOL_H
 
+#include <boost/function.hpp>
+#include <boost/thread.hpp>
+
+#include <condition_variable>
+#include <list>
+#include <mutex>
+
 namespace Util {
-	class Threadpool:boost::noncopyable {
+	class Threadpool {
 	public:
 		typedef boost::function<void()> Task;
 		void AddTask(Task func);
@@ -10,6 +17,9 @@ namespace Util {
 
 		Threadpool(size_t numThreads);
 		~Threadpool();
+
+		Threadpool(const Threadpool&) = delete;
+		Threadpool& operator=(const Threadpool&) = delete;
 
 	private:
 		void Worker();

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "tiff_cieconverter.h"
 
 namespace Img {

@@ -1,4 +1,8 @@
-#include "StdAfx.h"
+#include "types.h"
+#include <algorithm>
+#include <cwctype>
+#include <memory>
+#include "windows.h"
 
 int RoundCast(float rhs) {
 	return static_cast<int>(rhs + 0.5f);

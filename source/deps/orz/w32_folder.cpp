@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "w32_folder.h"
 #include "w32_folder_iterator.h"
 #include "folder.h"

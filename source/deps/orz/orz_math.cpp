@@ -1,5 +1,7 @@
-#include "StdAfx.h"
 #include "orz_math.h"
+
+#include <sys/types.h>
+#include <sys/timeb.h>
 
 namespace Math {
 	const unsigned long Randomizer::GenSwitch[2] =  {0, 0x9908b0dfUL};

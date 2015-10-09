@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "folder_monitor_imp.h"
 
 namespace IO {

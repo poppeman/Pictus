@@ -1,8 +1,8 @@
-#include "StdAfx.h"
 #include "c_xyz.h"
 #include "surface.h"
 #include "surface_locked_area.h"
 #include "surfacemgr.h"
+#include "orz/logger.h"
 
 namespace Img {
 	using namespace Geom;

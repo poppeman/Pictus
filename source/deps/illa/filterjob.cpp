@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "filterjob.h"
 #include "filter_int.h"
 

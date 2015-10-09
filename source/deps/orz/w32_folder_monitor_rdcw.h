@@ -4,6 +4,10 @@
 #include "folder_monitor_imp.h"
 #include "folder.h"
 
+#include <thread>
+
+#include <windows.h>
+
 namespace IO {
 	class FolderMonitorWin32RDCW:public FolderMonitorImplementation {
 	public:

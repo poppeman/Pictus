@@ -1,8 +1,6 @@
 #ifndef ORZ_BITCONVERT_H
 #define ORZ_BITCONVERT_H
 
-#include "streamconv.h"
-
 #include <cstdint>
 
 namespace Util {

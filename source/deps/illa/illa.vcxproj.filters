@@ -294,7 +294,6 @@
     <ClCompile Include="imagecomposer_static.cpp">
       <Filter>Image\Composer</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp" />
     <ClCompile Include="surface_locked_area.cpp">
       <Filter>Surface</Filter>
     </ClCompile>
@@ -510,7 +509,6 @@
     <ClInclude Include="imagecomposer_static.h">
       <Filter>Image\Composer</Filter>
     </ClInclude>
-    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="surface_locked_area.h">
       <Filter>Surface</Filter>
     </ClInclude>

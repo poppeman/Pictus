@@ -1,7 +1,8 @@
-#ifndef W32_FOLDER_ITERATOR_H
-#define W32_FOLDER_ITERATOR_H
+#ifndef ORZ_W32_FOLDER_ITERATOR_H
+#define ORZ_W32_FOLDER_ITERATOR_H
 
 #include "folder_iterator.h"
+#include <windows.h>
 
 namespace IO {
 	class FolderFileIteratorWin32:public FolderFileIterator {

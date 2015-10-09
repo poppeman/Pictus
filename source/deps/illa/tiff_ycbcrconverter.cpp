@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "tiff_ycbcrconverter.h"
+
+#include "libtiff/tiffiop.h"
 
 namespace Img {
 	void TiffYCbCrConverter::PerformCreate() {

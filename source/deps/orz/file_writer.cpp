@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "file_writer.h"
 #include "stream.h"
 
