@@ -142,6 +142,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="color.cpp" />
     <ClCompile Include="c_factory.cpp" />
     <ClCompile Include="codec.cpp" />
     <ClCompile Include="codec_static.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="bmp_fileheader.cpp" />
     <ClCompile Include="bmp_header.cpp" />
     <ClCompile Include="c_bmp.cpp" />
+    <ClCompile Include="filter_buffer.cpp" />
     <ClCompile Include="f_bmp.cpp" />
     <ClCompile Include="c_gif.cpp" />
     <ClCompile Include="f_gif.cpp" />
@@ -160,6 +162,7 @@
     <ClCompile Include="f_jpeg.cpp" />
     <ClCompile Include="c_pcx.cpp" />
     <ClCompile Include="f_pcx.cpp" />
+    <ClCompile Include="palette.cpp" />
     <ClCompile Include="pcx_header.cpp" />
     <ClCompile Include="c_png.cpp" />
     <ClCompile Include="f_png.cpp" />
@@ -218,6 +221,7 @@
     <ClCompile Include="imagecomposer_static.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="color.h" />
     <ClInclude Include="c_factory.h" />
     <ClInclude Include="codec.h" />
     <ClInclude Include="codec_static.h" />
@@ -225,6 +229,7 @@
     <ClInclude Include="bmp_fileheader.h" />
     <ClInclude Include="bmp_header.h" />
     <ClInclude Include="c_bmp.h" />
+    <ClInclude Include="filter_buffer.h" />
     <ClInclude Include="f_bmp.h" />
     <ClInclude Include="c_gif.h" />
     <ClInclude Include="f_gif.h" />
@@ -236,6 +241,7 @@
     <ClInclude Include="f_jpeg.h" />
     <ClInclude Include="c_pcx.h" />
     <ClInclude Include="f_pcx.h" />
+    <ClInclude Include="palette.h" />
     <ClInclude Include="pcx_header.h" />
     <ClInclude Include="c_png.h" />
     <ClInclude Include="f_png.h" />

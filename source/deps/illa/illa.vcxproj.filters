@@ -297,6 +297,15 @@
     <ClCompile Include="surface_locked_area.cpp">
       <Filter>Surface</Filter>
     </ClCompile>
+    <ClCompile Include="color.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="palette.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_buffer.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c_factory.h">
@@ -511,6 +520,15 @@
     </ClInclude>
     <ClInclude Include="surface_locked_area.h">
       <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="palette.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="filter_buffer.h">
+      <Filter>Shared</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
