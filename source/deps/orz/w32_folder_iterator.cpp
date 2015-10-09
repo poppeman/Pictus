@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "w32_folder_iterator.h"
+#include "exception.h"
+#include "types.h"
 
 namespace IO {
 	bool FolderFileIteratorWin32::OnStep() {
@@ -15,7 +16,7 @@ namespace IO {
 		FolderEntryType type(TypeFile);
 		std::wstring name(m_currentEntry.cFileName);
 
-		if (name == TX(".") || name == TX("..")) {
+		if (name == L"." || name == L"..") {
 			type = TypeDotFolder;
 		}
 		else if (m_currentEntry.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
@@ -27,9 +28,9 @@ namespace IO {
 	}
 
 	FolderFileIteratorWin32::FolderFileIteratorWin32(const std::wstring& path):m_handle(0), m_first(true) {
-		m_handle = FindFirstFileW((path + TX("*.*")).c_str(), &m_currentEntry);
+		m_handle = FindFirstFileW((path + L"*.*").c_str(), &m_currentEntry);
 		if (m_handle == INVALID_HANDLE_VALUE) {
-			DO_THROW(Err::InvalidParam, TX("Call to FindFirstFile failed. Path = ") + path);
+			DO_THROW(Err::InvalidParam, L"Call to FindFirstFile failed. Path = " + path);
 		}
 	}
 

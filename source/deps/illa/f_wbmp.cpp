@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "f_wbmp.h"
 #include "c_wbmp.h"
 

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "render.h"
 #include "surface.h"
 #include "filter.h"

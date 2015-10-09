@@ -2,6 +2,7 @@
 #define C_PNG_H
 
 #include "codec_static.h"
+#include "../libpng/png.h"
 
 namespace Img {
 	class CodecPNG:public StaticCodec {

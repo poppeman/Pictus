@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "c_tga_decoder.h"
 #include "surface_locked_area.h"
 

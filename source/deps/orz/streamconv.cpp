@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "streamconv.h"
+#include "exception.h"
+#include "types.h"
 
 namespace Util {
 	void StreamConverter::AddByte(const uint8_t b) {

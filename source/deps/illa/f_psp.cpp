@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "f_psp.h"
 #include "c_psp.h"
 

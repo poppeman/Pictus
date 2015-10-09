@@ -2,6 +2,9 @@
 #define TIFF_CONVERTER_H
 
 #include "types.h"
+#include "libtiff/tiffio.h"
+
+#include <memory>
 
 namespace Img {
 	class TiffDataConverter {

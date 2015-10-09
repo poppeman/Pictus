@@ -1,6 +1,8 @@
 #ifndef SHARED_BYTEORDER_H
 #define SHARED_BYTEORDER_H
 
+#include <cstdint>
+
 namespace Util {
 	uint16_t HToNs(uint16_t host);
 	uint16_t NToHs(uint16_t networkShort);

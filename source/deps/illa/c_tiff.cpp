@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "c_tiff.h"
 #include "tiff_striploader.h"
 #include "tiff_tileloader.h"

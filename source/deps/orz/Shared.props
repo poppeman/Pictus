@@ -18,7 +18,7 @@
       <PreprocessorDefinitions>
         D3D_DEBUG_INFO;_WIN32_WINNT=0x0602;WINVER=0x0602;_WIN32_IE=0x0900;;TIF_PLATFORM_CONSOLE;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;NOIME;NODRAWTEXT;NOKERNEL;NOMEMMGR;NOMETAFILE;NOSERVICE;NOSOUND;NOWH;NOHELP;NOPROFILER;NODEFERWINDOWPOS;NOMCX;NOMINMAX;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)
       </PreprocessorDefinitions>
-      <DisableSpecificWarnings>4503</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4503;4512</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -28,10 +28,13 @@
       <Optimization>Disabled</Optimization>
   </ClCompile>
   </ItemDefinitionGroup>
-    <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
-        <ClCompile>
-            <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-        </ClCompile>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+        <PreprocessorDefinitions>
+          _SECURE_SCL=0;%(PreprocessorDefinitions)
+        </PreprocessorDefinitions>
+      </ClCompile>
     </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

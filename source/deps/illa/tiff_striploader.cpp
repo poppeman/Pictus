@@ -1,7 +1,7 @@
-#include "StdAfx.h"
 #include "tiff_striploader.h"
 #include "codec.h"
 #include "surface_locked_area.h"
+#include "orz/logger.h"
 
 namespace Img {
 	using namespace Geom;

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "ByteOrder.h"
 #include <WinSock2.h>
 

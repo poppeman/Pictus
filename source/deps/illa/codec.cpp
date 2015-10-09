@@ -1,7 +1,6 @@
-#include "StdAfx.h"
-
 #include "codec.h"
 #include "surface.h"
+#include "../orz/logger.h"
 
 namespace Img {
 	bool AbstractCodec::LoadHeader(IO::FileReader::Ptr reader) {

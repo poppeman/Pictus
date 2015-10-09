@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "surface_lock.h"
 
 namespace Img {

@@ -1,6 +1,7 @@
-#include "StdAfx.h"
 #include "folder.h"
+#include "exception.h"
 #include "fileops.h"
+#include "types.h"
 
 namespace IO {
 	Folder::Folder() {}
@@ -19,7 +20,7 @@ namespace IO {
 	std::wstring Folder::Path() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
 		if (m_imp.get() == 0) {
-			return TX("");
+			return L"";
 		}
 		return m_imp->Path();
 	}
@@ -36,7 +37,7 @@ namespace IO {
 	FolderFileIterator::Ptr Folder::CreateIterator() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
 		if (m_imp.get() == 0) {
-			DO_THROW(Err::InvalidCall, TX("Implementation not set."));
+			DO_THROW(Err::InvalidCall, L"Implementation not set.");
 		}
 		return m_imp->CreateIterator();
 	}

@@ -2,6 +2,9 @@
 #define C_XYZ_H
 
 #include "codec_static.h"
+#include "zlib/zlib.h"
+
+#include <deque>
 
 namespace Img {
 	class CodecXYZ:public StaticCodec {

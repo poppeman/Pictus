@@ -108,7 +108,6 @@
     <ClInclude Include="threadpool.h">
       <Filter>Thread</Filter>
     </ClInclude>
-    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="intl_table_entry.h">
       <Filter>i18n</Filter>
     </ClInclude>
@@ -198,7 +197,6 @@
     <ClCompile Include="threadpool.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp" />
     <ClCompile Include="file_reader.cpp">
       <Filter>IO</Filter>
     </ClCompile>

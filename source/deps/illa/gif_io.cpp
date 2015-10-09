@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "gif_io.h"
 
 namespace Img {

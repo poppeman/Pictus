@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "bmp_fileheader.h"
 #include "types.h"
 

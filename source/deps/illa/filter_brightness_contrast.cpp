@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "filter.h"
 #include "filter_int.h"
 #include "config.h"

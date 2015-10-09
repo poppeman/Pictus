@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "types.h"
 #include "config.h"
 

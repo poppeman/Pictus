@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 
 #include "orz/bitconvert.h"
 #include "c_pcx.h"

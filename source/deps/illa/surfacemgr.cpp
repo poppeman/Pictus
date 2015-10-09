@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "surfacemgr.h"
 #include "surface.h"
 #include "surfacefactory.h"

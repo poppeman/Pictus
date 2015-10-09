@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "f_xyz.h"
 #include "c_xyz.h"
 

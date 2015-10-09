@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "pcx_header.h"
 #include "color_io.h"
 

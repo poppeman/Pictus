@@ -1,8 +1,7 @@
-#include "StdAfx.h"
 #include "intl.h"
+#include "exception.h"
+#include "types.h"
 #include "sysinfo.h"
-
-#pragma warning(disable: 4503)
 
 namespace Intl {
 	boost::signals2::signal<void()> OnLanguageChanged;
@@ -12,30 +11,30 @@ namespace Intl {
 	// TODO: Replace this garbage
 	const TableEntry* m_pTable = 0;
 
-	void LanguageTable(_In_ const TableEntry* pTable) {
+	void LanguageTable(const TableEntry* pTable) {
 		m_pTable	= pTable;
 	}
 
-	void CurrentLanguage(_In_ const Language& lang) {
+	void CurrentLanguage(const Language& lang) {
 		if (m_currLang != lang) {
 			m_currLang = lang;
 			OnLanguageChanged();
 		}
 	}
 
-	_Check_return_ const Language CurrentLanguage() {
+	const Language CurrentLanguage() {
 		return m_currLang;
 	}
 
-	_Check_return_ Language SystemLanguage() {
+	Language SystemLanguage() {
 		return Sys::Info::SystemLanguage();
 	}
 
-	_Ret_z_ const wchar_t* GetWString(_In_ int id) {
+	const wchar_t* GetWString(int id) {
 		return GetWStringLang(id, m_currLang);
 	}
 
-	_Ret_z_ const wchar_t* GetWStringLang(_In_ int id, _In_ Language lang) {
+	const wchar_t* GetWStringLang(int id, Language lang) {
 		if (lang >= Language::Undefined) {
 			DO_THROW(Err::CriticalError, TX("Invalid language identifier requested."));
 		}

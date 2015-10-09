@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "filter_int.h"
 
 namespace Filter {

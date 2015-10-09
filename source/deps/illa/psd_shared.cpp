@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "psd_shared.h"
 
 namespace Img {

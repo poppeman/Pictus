@@ -1,7 +1,7 @@
-#include "StdAfx.h"
 #include "c_jpeg.h"
 #include "surface_locked_area.h"
 #include "../Metadata/Exif.h"
+#include "../orz/logger.h"
 
 namespace Img {
 	using namespace Geom;

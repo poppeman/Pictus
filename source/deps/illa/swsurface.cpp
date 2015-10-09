@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "swsurface.h"
 #include "config.h"
 #include "surface_lock_swmr.h"

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "imagecomposer_gif.h"
 #include "surfacemgr.h"
 
