@@ -119,7 +119,7 @@ namespace Img {
 				return LoadStatus::Finished;
 			}
 
-			int scansToProcess = Util::Min<int>(GetSurface()->Height() - m_currScanline, ScansPerChunk);
+			int scansToProcess = std::min<int>(GetSurface()->Height() - m_currScanline, ScansPerChunk);
 			auto area  = GetSurface()->LockSurface(RectInt(PointInt(0, m_currScanline), SizeInt(GetSurface()->Width(), scansToProcess)));
 			uint8_t* currChunkStart = area->Buffer();
 

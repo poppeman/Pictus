@@ -897,18 +897,18 @@ namespace App {
 		// smaller needlessly so size the window after the image.
 		else if ((mode == ResizeReduceOnly) && (xratio > 1.0) && (yratio > 1.0))
 			return SizeInt(
-				Util::Max<int>(MinWindowWidth, imageSize.Width + windowEdges.Width),
-				Util::Max<int>(MinWindowHeight,imageSize.Height + windowEdges.Height));
+				std::max<int>(MinWindowWidth, imageSize.Width + windowEdges.Width),
+				std::max<int>(MinWindowHeight,imageSize.Height + windowEdges.Height));
 
-		return Maximum(SizeInt(MinWindowWidth, MinWindowHeight), Minimum(RoundCast(imageSize * Util::Min(xratio, yratio)) + windowEdges, rtDesktop.Dimensions()));
+		return Maximum(SizeInt(MinWindowWidth, MinWindowHeight), Minimum(RoundCast(imageSize * std::min(xratio, yratio)) + windowEdges, rtDesktop.Dimensions()));
 	}
 
 	SizeInt Viewer::calculateCappedImageSize( const SizeInt& imageSize, const SizeInt &windowEdges ) {
 		const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
 
 		return SizeInt(
-			Util::Max<int>(MinWindowWidth,  Util::Min<int>(rtDesktop.Width(), imageSize.Width + windowEdges.Width)),
-			Util::Max<int>(MinWindowHeight,	Util::Min<int>(rtDesktop.Height(),imageSize.Height + windowEdges.Height)));
+			std::max<int>(MinWindowWidth,  std::min<int>(rtDesktop.Width(), imageSize.Width + windowEdges.Width)),
+			std::max<int>(MinWindowHeight,	std::min<int>(rtDesktop.Height(),imageSize.Height + windowEdges.Height)));
 	}
 
 	std::wstring Viewer::UII_LastModified(FileInt date) {

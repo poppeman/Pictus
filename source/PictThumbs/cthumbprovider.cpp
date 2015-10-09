@@ -67,7 +67,7 @@ struct DimData {
 DimData DetermineDimensions(UINT cx, Geom::SizeInt surfDims) {
 	DimData d;
 	Geom::SizeFloat factors = (float)cx / surfDims.StaticCast<float>();
-	d.scale = Util::Min(factors.Width, factors.Height, 1.0f);
+	d.scale = std::min(factors.Width, std::min(factors.Height, 1.0f));
 	d.sz = (surfDims * d.scale).StaticCast<int>();
 	return d;
 }

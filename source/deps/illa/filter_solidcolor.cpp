@@ -7,10 +7,10 @@ namespace Filter {
 				DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
 			}
 
-			int y1 = Util::Max(0, sourceRegion.Top());
-			int y2 = Util::Min(source.Dimensions.Height, sourceRegion.Bottom());
-			int x1 = Util::Max(0, sourceRegion.Left());
-			int x2 = Util::Min(source.Dimensions.Width, sourceRegion.Right());
+			int y1 = std::max(0, sourceRegion.Top());
+			int y2 = std::min(source.Dimensions.Height, sourceRegion.Bottom());
+			int x1 = std::max(0, sourceRegion.Left());
+			int x2 = std::min(source.Dimensions.Width, sourceRegion.Right());
 
 			if ((x2 + destPos.X) > dest.Dimensions.Width) {
 				x2 = dest.Dimensions.Width - destPos.X;

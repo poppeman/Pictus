@@ -161,8 +161,6 @@ SUITE(Size)
 		CHECK(p3 == SizeInt(-10, -16));
 	}
 
-	using Util::Min;
-
 	TEST(TripleMin) {
 		CHECK_EQUAL(SizeInt(-5, -6), Minimum(SizeInt(30, -6), SizeInt(-2, 40), SizeInt(-5, 20)));
 	}

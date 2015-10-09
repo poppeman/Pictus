@@ -109,8 +109,8 @@ namespace Filter {
 			CSE determineCSE(int i, int max, float support, float zoom) {
 				CSE c;
 				c.center = (i + 0.5f) / zoom;
-				c.start = Util::Max<int>(0, static_cast<int>(c.center - support + 0.5f));
-				c.end = Util::Min(max, static_cast<int>(c.center + support + 0.5f));
+				c.start = std::max<int>(0, static_cast<int>(c.center - support + 0.5f));
+				c.end = std::min(max, static_cast<int>(c.center + support + 0.5f));
 				if(c.start > c.end) c.start = c.end;
 				c.num = c.end - c.start;
 				return c;
@@ -182,7 +182,7 @@ namespace Filter {
 				int rh = region.Height();
 				int rw = region.Width();
 
-				const float scaleFactor = ((_NS * 0.5f) / (float)KernelSize) * Util::Min(1.0f, zoom);
+				const float scaleFactor = ((_NS * 0.5f) / (float)KernelSize) * std::min(1.0f, zoom);
 
 				// +1, might become one extra sample when hitting the exact center of a pixel.
 				Geom::SizeInt numContribs = Geom::SizeInt(rw, rh) * (KernelSize + 1) * 2;

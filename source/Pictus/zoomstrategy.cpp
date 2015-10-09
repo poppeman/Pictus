@@ -103,15 +103,15 @@ namespace App {
 
 		if (m_zoomMode == ZoomFitImage) {
 			Geom::SizeFloat scales = viewAreaSize.StaticCast<float>() / imageSize.StaticCast<float>();
-			float fScale = Util::Min(scales.Width, scales.Height);
+			float fScale = std::min(scales.Width, scales.Height);
 
 			// Adjust scale to acceptable values
 			switch(m_resizeBehaviour) {
 				case ResizeEnlargeOnly:
-					fScale = Util::Max(fScale, 1.0f);
+					fScale = std::max(fScale, 1.0f);
 					break;
 				case ResizeReduceOnly:
-					fScale = Util::Min(fScale, 1.0f);
+					fScale = std::min(fScale, 1.0f);
 					break;
 			}
 

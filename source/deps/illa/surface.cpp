@@ -179,8 +179,8 @@ namespace Img {
 		LockedArea::Ptr lockedDestination = LockSurface(RectInt(destinationTopLeft, sourceAreaToCopy.Dimensions()));
 		uint8_t* pNewDest = lockedDestination->Buffer();
 
-		int scans	= Util::Min(source->Height(), Height());
-		int width	= Util::Min(source->Width(), Width());
+		int scans	= std::min(source->Height(), Height());
+		int width	= std::min(source->Width(), Width());
 		for (int i = 0; i < scans; ++i) {
 			memcpy(&pNewDest[i * lockedDestination->Stride()], &pOldDest[i * lockedSource->Stride()], width * PixelSize());
 		}

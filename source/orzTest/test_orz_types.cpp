@@ -55,21 +55,3 @@ SUITE(StringOps)
 		CHECK(ToLower(s1)==std::wstring(L"mixed case"));
 	}
 }
-
-SUITE(MaxMin) {
-	using Util::Max;
-	using Util::Min;
-
-	TEST(TripleMax) {
-		CHECK_EQUAL(9, Max(1, 3, 9));
-		CHECK_EQUAL(9, Max(9, 3, 1));
-		CHECK_EQUAL(9, Max(3, 9, 1));
-	}
-
-	TEST(TripleMin) {
-		CHECK_EQUAL(1, Min(1, 3, 9));
-		CHECK_EQUAL(1, Min(9, 3, 1));
-		CHECK_EQUAL(1, Min(3, 9, 1));
-	}
-
-}

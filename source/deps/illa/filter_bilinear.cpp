@@ -16,7 +16,7 @@ namespace Filter {
 				if (i < max_i) {
 					contrib[i].floor = floor;
 					if ((contrib[i].floor + 1) >= max_coord) {
-						contrib[i].floor = Util::Max<uint32_t>(2, max_coord) - 2;
+						contrib[i].floor = std::max<uint32_t>(2, max_coord) - 2;
 						ofs = (contrib[i].floor << BSHIFT) + BMUL - 2;
 					}
 				}

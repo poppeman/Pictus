@@ -1,6 +1,7 @@
 #ifndef ILLA_GEOM_H
 #define ILLA_GEOM_H
 
+#include <algorithm>
 #include <string>
 
 namespace Geom {
@@ -323,18 +324,17 @@ namespace Geom {
 			return Rect<U>(TopLeft().StaticCast<U>(), Dimensions().StaticCast<U>());
 		}
 
-		Rect(Point<T> topLeft, Size<T> rectSize) :
+		Rect(Point<T> topLeft, Size<T> rectSize):
 				m_topLeft{topLeft},
-				m_size{rectSize} {
-		}
+				m_size{rectSize}
+		{}
 
-		Rect(Point<T> p1, Point<T> p2) :
-				m_topLeft{Util::Min(p1.X, p2.X), Util::Min(p1.Y, p2.Y)},
-				m_size{std::abs(p1.X - p2.X), std::abs(p1.Y - p2.Y)} {
-		}
+		Rect(Point<T> p1, Point<T> p2):
+			m_topLeft{std::min(p1.X, p2.X), std::min(p1.Y, p2.Y)},
+			m_size{std::abs(p1.X - p2.X), std::abs(p1.Y - p2.Y)}
+		{}
 
-		Rect() {
-		}
+		Rect() {}
 
 	private:
 		Size<T> m_size;
@@ -418,23 +418,23 @@ namespace Geom {
 namespace Geom {
 	template<typename T>
 	Geom::Point<T> Maximum(const Geom::Point<T>& a, const Geom::Point<T>& b) {
-		return Geom::Point<T>(Util::Max(a.X, b.X), Util::Max(a.Y, b.Y));
+		return Geom::Point<T>(std::max(a.X, b.X), std::max(a.Y, b.Y));
 	}
 
 	template<typename T>
 	Geom::Point<T> Minimum(const Geom::Point<T>& a, const Geom::Point<T>& b) {
-		return Geom::Point<T>(Util::Min(a.X, b.X), Util::Min(a.Y, b.Y));
+		return Geom::Point<T>(std::min(a.X, b.X), std::min(a.Y, b.Y));
 	}
 
 
 	template<typename T>
 	Geom::Size<T> Maximum(const Geom::Size<T>& a, const Geom::Size<T>& b) {
-		return Geom::Size<T>(Util::Max(a.Width, b.Width), Util::Max(a.Height, b.Height));
+		return Geom::Size<T>(std::max(a.Width, b.Width), std::max(a.Height, b.Height));
 	}
 
 	template<typename T>
 	Geom::Size<T> Minimum(const Geom::Size<T>& a, const Geom::Size<T>& b) {
-		return Geom::Size<T>(Util::Min(a.Width, b.Width), Util::Min(a.Height, b.Height));
+		return Geom::Size<T>(std::min(a.Width, b.Width), std::min(a.Height, b.Height));
 	}
 
 	template<typename T>

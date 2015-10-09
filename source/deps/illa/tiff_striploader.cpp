@@ -58,7 +58,7 @@ namespace Img {
 		Surface::LockedArea::Ptr area = m_surface->LockSurface();
 		uint8_t* destinationBuffer = area->Buffer();
 
-		bytes = Util::Min(bytes, Area(m_surface->GetSize()) * m_surface->PixelSize() - m_bufferPosition);
+		bytes = std::min(bytes, Area(m_surface->GetSize()) * m_surface->PixelSize() - m_bufferPosition);
 
 		// Copy by scanline
 		size_t destinationPitch = area->Stride();

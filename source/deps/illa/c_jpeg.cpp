@@ -94,7 +94,7 @@ namespace Img {
 		m_decInfo.scale_denom = 1;
 
 		Geom::SizeFloat scaleDenom = dimHint.StaticCast<float>() / GetSize().StaticCast<float>();
-		float factor = Util::Max(scaleDenom.Width, scaleDenom.Height);
+		float factor = std::max(scaleDenom.Width, scaleDenom.Height);
 		if (factor < 0.5f) {
 			m_decInfo.scale_denom = 2;
 		}

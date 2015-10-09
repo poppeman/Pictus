@@ -1,4 +1,3 @@
-
 #include "c_png.h"
 #include "surface.h"
 #include "surface_locked_area.h"
@@ -147,7 +146,7 @@ namespace Img {
 			while (DoTerminate() == false) {
 				if (m_currPass == m_passes) return LoadStatus::Finished;
 
-				int nRows	= Util::Min<int>(ChunkRows, height - m_currScan);
+				int nRows	= std::min<int>(ChunkRows, height - m_currScan);
 
 				std::shared_ptr<Surface::LockedArea> area = GetSurface()->LockSurface(RectInt(PointInt(0, m_currScan), SizeInt(width, nRows)));
 				uint8_t* pDst		= area->Buffer();
@@ -182,13 +181,13 @@ namespace Img {
 		}
 	}
 
-	CodecPNG::CodecPNG()
-		:m_currScan(0),
-		 m_currPass(0),
-		 m_png_ptr(0),
-		 m_info_ptr(0),
-		 m_bitdepth(0),
-		 m_chans(0)
+	CodecPNG::CodecPNG():
+		m_currScan(0),
+		m_currPass(0),
+		m_png_ptr(0),
+		m_info_ptr(0),
+		m_bitdepth(0),
+		m_chans(0)
 	{}
 
 	CodecPNG::~CodecPNG() {

@@ -2,6 +2,8 @@
 #include "exception.h"
 #include "types.h"
 
+#include <algorithm>
+
 namespace Util {
 	void StreamConverter::AddByte(const uint8_t b) {
 		m_source.push_back(b);
@@ -29,7 +31,7 @@ namespace Util {
 				DO_THROW(Err::CriticalError, TX("Out of data!"));
 			}
 
-			uint8_t toCopy = Util::Min((uint8_t)(8 - m_srcPos), static_cast<uint8_t>(m_wordSize - copied));
+			uint8_t toCopy = std::min((uint8_t)(8 - m_srcPos), static_cast<uint8_t>(m_wordSize - copied));
 			uint16_t mask = static_cast<uint16_t>((1 << toCopy) - 1) << m_srcPos;
 			uint8_t currPart = static_cast<uint8_t>((m_source.front() & mask) >> m_srcPos);
 
@@ -57,7 +59,7 @@ namespace Util {
 		do {
 			if(m_source.empty()) throw Err::CriticalError(L"Out of data!");
 
-			uint8_t toCopy = Util::Min((uint8_t)(8 - m_srcPos), static_cast<uint8_t>(m_wordSize - copied));
+			uint8_t toCopy = std::min((uint8_t)(8 - m_srcPos), static_cast<uint8_t>(m_wordSize - copied));
 			uint16_t mask = static_cast<uint16_t>(((1 << toCopy) - 1) << (8 - (toCopy + m_srcPos)));
 			uint8_t currPart = static_cast<uint8_t>((m_source.front() & mask) >> (8 - (toCopy + m_srcPos)));
 

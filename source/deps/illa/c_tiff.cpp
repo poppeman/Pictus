@@ -121,7 +121,7 @@ namespace Img {
 			TIFFGetField(m_tiff, TIFFTAG_COMPRESSION, &compression);
 
 			if (spp == 1) {
-				uint16_t colorCount = 1 << Util::Min<uint16_t>(bitsPerSample, 8);
+				uint16_t colorCount = 1 << std::min<uint16_t>(bitsPerSample, 8);
 
 				if (m_photometric == PHOTOMETRIC_PALETTE && (bitsPerSample >= 1 && bitsPerSample <= 8)) {
 					info.SurfaceFormat = Img::Format::Index8;

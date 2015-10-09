@@ -57,8 +57,8 @@ namespace Img {
 		uint32_t maxTileWidth = 0;
 		TIFFGetField(m_tiff, TIFFTAG_TILEWIDTH, &maxTileWidth);
 
-		size_t tileHeight	= Util::Min<size_t>(m_surface->GetSize().Height - m_positionCurrentY, maxTileHeight);
-		size_t tileWidth	= Util::Min<size_t>(m_surface->GetSize().Width - m_positionCurrentX, maxTileWidth);
+		size_t tileHeight	= std::min<size_t>(m_surface->GetSize().Height - m_positionCurrentY, maxTileHeight);
+		size_t tileWidth	= std::min<size_t>(m_surface->GetSize().Width - m_positionCurrentX, maxTileWidth);
 
 		std::shared_ptr<Surface::LockedArea> area = m_surface->LockSurface();
 		uint8_t* dest = area->Buffer();

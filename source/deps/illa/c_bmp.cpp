@@ -68,11 +68,11 @@ namespace Img {
 			int startY, nRows;
 
 			if (m_header.FlipVertical) {
-				nRows	= Util::Min<int>(ChunkRows, m_currScan);
+				nRows	= std::min<int>(ChunkRows, m_currScan);
 				startY	= m_currScan - nRows;
 			}
 			else {
-				nRows	= Util::Min<long>(ChunkRows, m_header.Size.Height - m_currScan);
+				nRows	= std::min<long>(ChunkRows, m_header.Size.Height - m_currScan);
 				startY	= m_currScan;
 			}
 

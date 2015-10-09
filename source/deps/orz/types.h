@@ -64,23 +64,8 @@ std::wstring DoThrowBuildDescription(const wchar_t* filename, int line, const wc
 #define COND_STRICT(condition, exception, description) { if ((condition) == false) DO_THROW(exception, (description)); }
 
 namespace Util {
-	template <typename T> const T& Min(const T& a, const T& b) { return a<b?a:b; }
-	template <typename T> const T& Min(const T& a, const T& b, const T& c) {
-		if(a < b) {
-			if(c < a)
-				return c;
-			return a;
-		}
-		else if(c < b)
-			return c;
-		return b;
-	}
-	template <typename T> const T& Max(const T& a, const T& b) { return a>b?a:b; }
-	template <typename T> const T& Max(const T& a, const T& b, const T& c) { return Max(a, Max(b, c)); }
-
-
 	template <typename T> const T& Constrain(const T& lower, const T& val, const T& upper) {
-		return Util::Min<T>(Util::Max<T>(lower, val), upper);
+		return std::min<T>(std::max<T>(lower, val), upper);
 	}
 }
 
