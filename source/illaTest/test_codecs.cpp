@@ -20,13 +20,13 @@ SUITE(CodecTests) {
 		
 		char c;
 		while(r.Read(&c, sizeof(c), 1)) {
-			if(c == TX(',') || c == 10 || c == 13) {
+			if(c == L',' || c == 10 || c == 13) {
 				if(curr.empty() == false)
 					strings.push_back(curr);
 
 				curr.clear();
 			}
-			else if (c != TX(' '))
+			else if (c != L' ')
 				curr.push_back(c);
 
 			if(curr == L"//") {
@@ -144,7 +144,7 @@ SUITE(CodecTests) {
 		for(auto i = files.begin(); i != files.end(); ++i) {
 			std::wstring a = *i;
 			try {
-				if(a[0] == TX('!')) {
+				if(a[0] == L'!') {
 					a = a.substr(1, std::wstring::npos);
 					if(ShouldFail(g_datapath + L"\\Codecs\\" + a) == false) {
 						std::wstring wmsg = L"Didn't report failure as expected: " + a;
@@ -153,7 +153,7 @@ SUITE(CodecTests) {
 					}
 					continue;
 				}
-				else if(a[0] == TX('?')) {
+				else if(a[0] == L'?') {
 					a = a.substr(1, std::wstring::npos);
 					if(ShouldFail(g_datapath + L"\\Codecs\\" + a)) {
 						std::wstring wmsg = L"Didn't succeed as expected: " + a;

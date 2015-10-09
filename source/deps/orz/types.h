@@ -9,10 +9,6 @@
 // TODO: Remove these and use uint8_t, etc instead.
 typedef __int64 FileInt;
 
-// TODO: Remove this bullshit.
-#define TX_(t) L##t
-#define TX(t) TX_(t)
-
 std::wstring ToWString(uint8_t b);
 std::wstring ToWString(int i);
 std::wstring ToWString(uint32_t d);

@@ -116,7 +116,7 @@ namespace Win {
 
 			case FilterNotNumerical:
 				{
-					if ((c != 0x8) && !(c >= TX('0') && c <= TX('9'))) isValid = false;
+					if ((c != 0x8) && !(c >= L'0' && c <= L'9')) isValid = false;
 				}
 				break;
 		}

@@ -28,7 +28,7 @@ namespace Win {
 
 		std::wstring trimmedPath;
 
-		if ((path[0] == TX('\"')) && ((path[path.length() - 1]) == TX('\"')))
+		if ((path[0] == L'\"') && ((path[path.length() - 1]) == L'\"'))
 			trimmedPath = path.substr(1, path.length() - 2);
 		else
 			trimmedPath = path;
