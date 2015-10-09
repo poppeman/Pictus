@@ -24,8 +24,9 @@
 #include "builder_viewport.h"
 #include "timeconvert.h"
 
-#include <boost/scoped_array.hpp>
 #include <boost/format.hpp>
+#include <boost/random.hpp>
+#include <boost/scoped_array.hpp>
 
 const wchar_t* App::Viewer::ClassName = TX("Pictus Viewer");
 const wchar_t* App::Viewer::AppTitle = TX("Pictus");
@@ -618,8 +619,10 @@ namespace App {
 		size_t imageCount = m_cacher.ImageCount();
 		if (imageCount <= 1) return;
 
-		Math::Randomizer random;
-		size_t pos = random.Random() % (imageCount - 1);
+		boost::random::mt19937 random;
+		boost::random::uniform_int_distribution<> posDist(0, imageCount - 2);
+
+		size_t pos = posDist(random);
 
 		if (pos >= m_cacher.CurrentImageIndex()) pos++;
 

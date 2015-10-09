@@ -14,9 +14,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mt19937ar.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="test_bitconvert.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,9 +27,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="test_orz_types.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="test_random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="test_stopwatch.cpp">
