@@ -6,37 +6,6 @@
 #include <sstream>
 
 namespace Filter {
-	void FilterBuffer::Construct( const Geom::SizeInt& sz_, int ps_, uint8_t* data_, size_t stride_) {
-		Dimensions = sz_;
-		PixelSize = ps_;
-		BufferData = data_;
-		Stride = stride_;
-	}
-
-	void FilterBuffer::Construct( const Geom::SizeInt& sz_, int ps_, uint8_t* data_, size_t stride_, const Img::Palette& pal_ ) {
-		Dimensions = sz_;
-		PixelSize = ps_;
-		BufferData = data_;
-		Stride = stride_;
-		Palette = pal_;
-	}
-
-	bool FilterBuffer::operator==( const FilterBuffer& rhs ) const {
-		return (Dimensions == rhs.Dimensions) && (PixelSize == rhs.PixelSize) && (BufferData == rhs.BufferData) && (Stride == rhs.Stride) && (Palette == rhs.Palette);
-	}
-
-	bool FilterBuffer::operator!=( const FilterBuffer& rhs ) const {
-		return !(*this == rhs);
-	}
-
-	FilterBuffer::FilterBuffer( const Geom::SizeInt& sz_, int ps_, uint8_t* data_, size_t stride_) {
-		Construct(sz_, ps_, data_, stride_);
-	}
-
-	FilterBuffer::FilterBuffer( const Geom::SizeInt& sz_, int ps_, uint8_t* data_, size_t stride_, const Img::Palette& pal_  ) {
-		Construct(sz_, ps_, data_, stride_, pal_);
-	}
-
 	Geom::SizeInt CalculateUnzoomedSize(Geom::SizeInt defaultDims, RotationAngle angle) {
 		if (angle == Filter::RotationAngle::Rotate90 || angle == Filter::RotationAngle::Rotate270) {
 			return defaultDims.Flipped();
@@ -74,114 +43,9 @@ namespace Img {
 		return false;
 	}
 
-	Img::Palette Grayscale(int minEntry, int maxEntry) {
-		Img::Palette pal;
 
-		int entryBoundary = abs(maxEntry - minEntry);
 
-		if (minEntry < maxEntry) {
-			for(int i = 0; i <= entryBoundary; i++) {
-				uint8_t intensity = static_cast<uint8_t>(i * 255 / entryBoundary);
-				pal.Color(i + minEntry, Img::Color(0xff, intensity, intensity, intensity));
-			}
-		}
-		else {
-			for(int i = 0; i <= entryBoundary; i++) {
-				uint8_t intensity = static_cast<uint8_t>(255 - i * 255 / entryBoundary);
-				pal.Color(i + maxEntry, Img::Color(0xff, intensity, intensity, intensity));
-			}
-		}
-		return pal;
-	}
 
-	bool operator==(const Palette& lhs, const Palette& rhs) {
-		for (int i = 0; i < 256; ++i) {
-			if (lhs.Color(i) != rhs.Color(i)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	HLSTriplet RGB_HLS(uint8_t r, uint8_t g, uint8_t b) {
-		HLSTriplet t;
-
-		uint8_t min_val = std::min(r, std::min(g, b));
-		uint8_t max_val = std::max(r, std::max(g, b));
-
-		float sum = static_cast<float>(max_val + min_val);
-
-		t.L=sum/512.0f;
-
-		if (min_val==max_val) {
-			t.S = 0.0f;
-			t.H = 0.0f;
-		}
-		else {
-			float diff = static_cast<float>(max_val - min_val);
-
-			// Calculate normalized components
-			float r_norm = (max_val - r) / diff;
-			float g_norm = (max_val - g) / diff;
-			float b_norm = (max_val - b) / diff;
-
-			t.S = (t.L <= 0.5f) ? (diff / sum) : (diff / (512.0f - sum));
-
-			if (r == max_val) {
-				t.H = 60.0f * (6.0f + b_norm - g_norm);
-			}
-			else if (g == max_val) {
-				t.H = 60.0f * (2.0f + r_norm - b_norm);
-			}
-			else if (b == max_val) {
-				t.H = 60.0f * (4.0f + g_norm - r_norm);
-			}
-
-			if (t.H > 360.0f) {
-				t.H -= 360.0f;
-			}
-		}
-		return t;
-	}
-
-	uint8_t HueToRGB(float m1, float m2, float hue) {
-		// Make sure the hue is in the correct range (one full circle)
-		if (hue > 360.0f) {
-			hue -= 360.0f;
-		}
-		else if (hue < 0.0f) {
-			hue += 360.0f;
-		}
-
-		if (hue < 60.0f) {
-			m1 = m1 + (m2 - m1) * hue / 60.0f;
-		}
-		else if (hue < 180.0f) {
-			m1 = m2;
-		}
-		else if (hue < 240.0f) {
-			m1 = m1 + (m2 - m1) * (240.0f - hue) / 60.0f;
-		}
-		return static_cast<uint8_t>(m1 * 255.0f);
-	}
-
-	Img::Color HLS_RGB(float h, float l, float s) {
-		if (s == 0.0f) {
-			// Grey scale
-			uint8_t v = static_cast<uint8_t>(l * 255.0f);
-			return Img::Color(0, v, v, v);
-		}
-		else {
-			// Magic numbers according to Microsoft :)
-			float m2 = (l <= 0.5f)?(l + l * s):(l + s - l * s);
-			float m1 = 2.0f * l - m2;
-
-			return{ 0,
-				HueToRGB(m1, m2, h + 120.0f),
-				HueToRGB(m1, m2, h),
-				HueToRGB(m1, m2, h - 120.0f) };
-		}
-	}
 
 	Properties::Properties() :
 		Brightness{ 0 },

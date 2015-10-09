@@ -1,5 +1,5 @@
-#ifndef COLOR_CONV_H
-#define COLOR_CONV_H
+#ifndef ILLA_COLOR_CONV_H
+#define ILLA_COLOR_CONV_H
 
 #include "types.h"
 
