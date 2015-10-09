@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "illa/filter.h"
 #include "illa/types.h"
 #include "orz/stopwatch.h"

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "illa/codec.h"
 #include "illa/codecmgr.h"
 #include "illa/surfacemgr.h"
