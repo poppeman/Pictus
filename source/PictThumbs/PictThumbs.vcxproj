@@ -191,7 +191,6 @@
     <ClInclude Include="regsetup.h" />
     <ClInclude Include="regutils.h" />
     <ClInclude Include="res_pictthumbs.h" />
-    <ClInclude Include="aStdAfx.h" />
     <ClInclude Include="res_version.h" />
   </ItemGroup>
   <ItemGroup>
