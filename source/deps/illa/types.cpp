@@ -102,8 +102,8 @@ namespace Img {
 	HLSTriplet RGB_HLS(uint8_t r, uint8_t g, uint8_t b) {
 		HLSTriplet t;
 
-		uint8_t min_val = Util::Min(r, Util::Min(g, b));
-		uint8_t max_val = Util::Max(r, Util::Max(g, b));
+		uint8_t min_val = std::min(r, std::min(g, b));
+		uint8_t max_val = std::max(r, std::max(g, b));
 
 		float sum = static_cast<float>(max_val + min_val);
 

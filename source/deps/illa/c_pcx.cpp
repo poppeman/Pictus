@@ -1,4 +1,3 @@
-
 #include "orz/bitconvert.h"
 #include "c_pcx.h"
 #include "surface.h"
@@ -38,7 +37,7 @@ namespace Img {
 
 	AbstractCodec::LoadStatus CodecPCX::PerformLoadImageData( IO::FileReader::Ptr file ) {
 		while (DoTerminate() == false) {
-			int nRows	= Util::Min<int>(ChunkRows, GetSize().Height - m_currScan);
+			int nRows	= std::min<int>(ChunkRows, GetSize().Height - m_currScan);
 			int startY	= m_currScan;
 
 			std::shared_ptr<Surface::LockedArea> area = GetSurface()->LockSurface(RectInt(PointInt(0, startY), SizeInt(GetSize().Width, nRows)));

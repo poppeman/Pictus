@@ -101,7 +101,7 @@ namespace Img {
 		auto currPlaneData = std::make_unique<uint8_t[]>(GetSize().Width);
 
 		while(DoTerminate() == false) {
-			int scansToProcess = Util::Min<int>(GetSurface()->Height() - m_currentScanLine, ScansPerChunk);
+			int scansToProcess = std::min<int>(GetSurface()->Height() - m_currentScanLine, ScansPerChunk);
 			std::shared_ptr<Surface::LockedArea> area = GetSurface()->LockSurface(RectInt(PointInt(0, m_currentScanLine), SizeInt(GetSurface()->Width(), scansToProcess)));
 			uint8_t* currChunkStart = area->Buffer();
 

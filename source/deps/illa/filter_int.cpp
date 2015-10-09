@@ -9,10 +9,10 @@ namespace Filter {
 	}
 
 	Geom::RectInt CropResampleRegions(const Geom::RectInt& region, const Geom::SizeInt& srcDims, const Geom::SizeInt& dstDims, float zoom) {
-		int x1 = Util::Max(0, region.Left());
-		int x2 = Util::Min(dstDims.Width + x1, region.Right());
-		int y1 = Util::Max(0, region.Top());
-		int y2 = Util::Min(dstDims.Height + y1, region.Bottom());
+		int x1 = std::max(0, region.Left());
+		int x2 = std::min(dstDims.Width + x1, region.Right());
+		int y1 = std::max(0, region.Top());
+		int y2 = std::min(dstDims.Height + y1, region.Bottom());
 
 		x1 = crop_value(x1, zoom, srcDims.Width);
 		x2 = crop_value(x2, zoom, srcDims.Width);

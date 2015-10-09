@@ -79,7 +79,7 @@ namespace Img {
 					}
 				}
 
-				int numPixelsToTransfer = Util::Min(m_header->Size.Width - currX, m_numRlePixels);
+				int numPixelsToTransfer = std::min(m_header->Size.Width - currX, m_numRlePixels);
 				m_numRlePixels -= numPixelsToTransfer;
 				currX += numPixelsToTransfer;
 

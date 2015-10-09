@@ -42,11 +42,11 @@ namespace Img {
 		Batch batch;
 
 		if (m_header->FlipVertical) {
-			batch.NumRows	= Util::Min<int>(rowsToProcess, m_currentScanline);
+			batch.NumRows	= std::min<int>(rowsToProcess, m_currentScanline);
 			batch.StartScan	= m_currentScanline - batch.NumRows;
 		}
 		else {
-			batch.NumRows	= Util::Min<int>(rowsToProcess, m_header->Size.Height - m_currentScanline);
+			batch.NumRows	= std::min<int>(rowsToProcess, m_header->Size.Height - m_currentScanline);
 			batch.StartScan	= m_currentScanline;
 		}
 
