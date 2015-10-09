@@ -27,9 +27,6 @@
     <ClCompile Include="regsetup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="regutils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,9 +58,6 @@
     <ClInclude Include="regsetup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StdAfx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="regutils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -77,6 +71,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="res_pictthumbs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="aStdAfx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

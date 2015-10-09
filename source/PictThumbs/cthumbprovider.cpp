@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "cthumbprovider.h"
 #include "illa/codecmgr.h"
 #include "illa/surfacemgr.h"
@@ -8,6 +7,8 @@
 #include "illa/render.h"
 #include "illa/filter.h"
 #include "codecsetup.h"
+
+#include <Shlwapi.h>
 
 using namespace Img;
 using namespace Geom;

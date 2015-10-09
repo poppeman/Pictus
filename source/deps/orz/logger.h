@@ -1,5 +1,7 @@
-#ifndef LOGGER
-#define LOGGER
+#ifndef ORZ_LOGGER_H
+#define ORZ_LOGGER_H
+
+#include <sstream>
 
 #include "file_writer.h"
 

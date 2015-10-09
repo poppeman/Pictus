@@ -1,5 +1,9 @@
-#include "StdAfx.h"
 #include "regutils.h"
+
+#include "orz/logger.h"
+
+#include <tuple>
+#include <vector>
 
 HRESULT SetHkcrRegistryKeyAndValue(const std::wstring& subKey, const wchar_t* valueName, const wchar_t* data) {
 	HKEY hKey = 0;

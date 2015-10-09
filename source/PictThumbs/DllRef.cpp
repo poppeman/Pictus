@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "DllRef.h"
+
+#include <windows.h>
 
 long g_cRefModule = 0;
 

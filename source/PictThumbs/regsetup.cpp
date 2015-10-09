@@ -1,8 +1,8 @@
-#include "StdAfx.h"
 #include "regsetup.h"
 #include "codecsetup.h"
 #include "dllmain.h"
 #include "regutils.h"
+#include "orz/logger.h"
 
 HRESULT RegisterInprocServer(const std::wstring& clsid, const std::wstring& friendlyName) {
 	Log << L"(Thumb): Register InprocServer\n";

@@ -5,6 +5,9 @@
 #include "illa/codecmgr.h"
 #include "orz/logger.h"
 
+#include <propsys.h>
+#include <thumbcache.h>
+
 class CPictusThumbnailProvider:public IInitializeWithStream, public IThumbnailProvider {
 public:
 	CPictusThumbnailProvider();

@@ -1,6 +1,8 @@
-#include "StdAfx.h"
 #include "ClassFactory.h"
 #include "DllRef.h"
+
+#include <new>
+#include <Shlwapi.h>
 
 HRESULT CClassFactory::CreateInstance(REFCLSID clsid, const CLASS_OBJECT_INIT *pClassObjectInits, size_t cClassObjectInits, REFIID riid, void **ppv)
 {

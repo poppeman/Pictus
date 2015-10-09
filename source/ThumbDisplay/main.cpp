@@ -1,5 +1,7 @@
-#include "StdAfx.h"
 #include "../PictThumbs/cthumbprovider.h"
+
+#include <windows.h>
+#include <Shlwapi.h>
 
 LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
