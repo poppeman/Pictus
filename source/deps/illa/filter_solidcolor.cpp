@@ -4,7 +4,7 @@ namespace Filter {
 	namespace Alpha {
 		void SolidColor(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& sourceRegion, const Geom::PointInt& destPos, const Img::Color& bgr) {
 			if (source.BufferData == nullptr || dest.BufferData == nullptr) {
-				DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
+				DO_THROW(Err::InvalidParam, "Null buffer not allowed.");
 			}
 
 			int y1 = std::max(0, sourceRegion.Top());

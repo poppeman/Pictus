@@ -6,11 +6,11 @@
 
 namespace Err {
 	struct CodecError:public Exception {
-		CodecError(const std::wstring& msg):Exception(L"Codec error: " + msg) {}
+		CodecError(const std::string& msg):Exception("Codec error: " + msg) {}
 	};
 
 	struct InvalidHeader:public CodecError {
-		InvalidHeader(const std::wstring& msg):CodecError(L"InvalidHeader: " + msg) {}
+		InvalidHeader(const std::string& msg):CodecError("InvalidHeader: " + msg) {}
 	};
 }
 
@@ -30,7 +30,7 @@ namespace Img {
 	bool HasAlpha(Format sf);
 }
 
-std::wstring ToWString(const Img::Format& imgFormat);
+std::string ToAString(const Img::Format& imgFormat);
 std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt);
 
 #include "color.h"
@@ -64,7 +64,7 @@ namespace Filter {
 }
 
 
-std::wstring ToWString(const Filter::RotationAngle& angle);
+std::string ToAString(const Filter::RotationAngle& angle);
 std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Filter::RotationAngle& c);
 
 namespace Img {

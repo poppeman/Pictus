@@ -30,7 +30,7 @@ namespace IO {
 			FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED,
 			0);
 		if (m_directory == 0 || m_directory == INVALID_HANDLE_VALUE) {
-			DO_THROW(Err::InvalidParam, L"Could not open directory:" + path);
+			DO_THROW(Err::InvalidParam, "Could not open directory:" + WStringToUTF8(path));
 		}
 
 		m_ioComp = CreateIoCompletionPort(
@@ -39,11 +39,11 @@ namespace IO {
 			reinterpret_cast<ULONG_PTR>(this),
 			0);
 		if (m_ioComp == 0) {
-			DO_THROW(Err::CriticalError, L"Could not create an IO completion port.");
+			DO_THROW(Err::CriticalError, "Could not create an IO completion port.");
 		}
 
 		if (m_thread.get()) {
-			DO_THROW(Err::CriticalError, L"Thread should NOT be running now!");
+			DO_THROW(Err::CriticalError, "Thread should NOT be running now!");
 		}
 		m_thread = std::make_shared<std::thread>(&FolderMonitorWin32RDCW::threadWrapper, this);
 	}
@@ -63,7 +63,7 @@ namespace IO {
 			return FileRenamed;
 		}
 
-		DO_THROW(Err::InvalidParam, L"Invalid action:" + ToWString(action));
+		DO_THROW(Err::InvalidParam, "Invalid action:" + ToAString(action));
 	}
 
 	void FolderMonitorWin32RDCW::ThreadMain() {

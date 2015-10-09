@@ -21,7 +21,7 @@ namespace Img {
 		m_initialCodeSize{ minCodeSize }
 	{
 		if (minCodeSize > 11) {
-			DO_THROW(Err::InvalidParam, L"StringTable::ctor: Invalid initial code size.");
+			DO_THROW(Err::InvalidParam, "StringTable::ctor: Invalid initial code size.");
 		}
 
 		m_clearCode = (1 << m_initialCodeSize);
@@ -114,11 +114,11 @@ namespace Img {
 		}
 
 		if (m_numCodes > 4095) {
-			DO_THROW(Err::CodecError, L"Code table size out of bounds.");
+			DO_THROW(Err::CodecError, "Code table size out of bounds.");
 		}
 
 		if (lastCode < 0 || currentCode < 0) {
-			DO_THROW(Err::CodecError, L"LZW stream invalid.");
+			DO_THROW(Err::CodecError, "LZW stream invalid.");
 		}
 
 		// PERF: assigns eat performance, append only slightly so.

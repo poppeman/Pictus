@@ -3,6 +3,13 @@
 #include "surfacefactory.h"
 
 namespace Img {
+
+	FactoryNotSet::FactoryNotSet(const std::string&):
+		Err::Exception("Surface Factory class not set. ")
+	{}
+
+
+
 	ISurfaceFactory* g_pSurfaceFactory = 0;
 
 	void SurfaceFactory(ISurfaceFactory* pSurfaceFactory) {
@@ -12,7 +19,7 @@ namespace Img {
 	Surface::Ptr CreateNewSurface() {
 		// Sanity check
 		if (g_pSurfaceFactory == nullptr) {
-			DO_THROW(FactoryNotSet, L"Factory not set lul");
+			DO_THROW(FactoryNotSet, "Factory not set lul");
 		}
 
 		return g_pSurfaceFactory->CreateSurface();

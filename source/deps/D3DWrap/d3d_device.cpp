@@ -12,7 +12,7 @@ namespace D3D {
 
 	bool Device::Initialize(HWND hwndFocus, bool doWindowed, int device) {
 		// Can occur of Direct3D9 is not installed.
-		if (m_d3d == 0) throw Err::Direct3DError(L"Direct3D 9 could not be found");
+		if (m_d3d == 0) throw Err::Direct3DError("Direct3D 9 could not be found");
 
 		ZeroMemory( &m_presentParams, sizeof(m_presentParams) );
 
@@ -49,13 +49,13 @@ namespace D3D {
 
 		switch (hr) {
 		case D3DERR_DEVICELOST:
-			throw Err::Direct3DError(L"Direct3D Device was lost.");
+			throw Err::Direct3DError("Direct3D Device was lost.");
 		case D3DERR_INVALIDCALL:
-			throw Err::Direct3DError(L"Invalid call during CreateDevice.");
+			throw Err::Direct3DError("Invalid call during CreateDevice.");
 		case D3DERR_NOTAVAILABLE:
-			throw Err::Direct3DError(L"Direct3D device does not support required.");
+			throw Err::Direct3DError("Direct3D device does not support required.");
 		case D3DERR_OUTOFVIDEOMEMORY:
-			throw Err::Direct3DError(L"Not enough video memory to initialize Direct3D.");
+			throw Err::Direct3DError("Not enough video memory to initialize Direct3D.");
 		}
 
 		m_device = WrapRelease(pdev);
@@ -115,12 +115,12 @@ namespace D3D {
 
 	Texture::Ptr Device::CreateTexture(const Geom::SizeInt& dimensions, D3DFORMAT fmt, D3DPOOL pool) {
 		if (m_device == 0) {
-			DO_THROW(Err::CriticalError, L"Device not initialized.");
+			DO_THROW(Err::CriticalError, "Device not initialized.");
 		}
 		LPDIRECT3DTEXTURE9 texture;
 
 		if (m_device->CreateTexture(dimensions.Width, dimensions.Height, 1, 0, fmt, pool, &texture, 0) != D3D_OK) {
-			DO_THROW(Err::Direct3DError, L"Couldn't allocate texture.");
+			DO_THROW(Err::Direct3DError, "Couldn't allocate texture.");
 		}
 
 		return Texture::Ptr(new Texture(texture));
@@ -128,13 +128,13 @@ namespace D3D {
 
 	Texture::Ptr Device::CreateRenderTarget(const Geom::SizeInt& dimensions, D3DFORMAT fmt) {
 		if (m_device == 0) {
-			DO_THROW(Err::CriticalError, L"Device not initialized.");
+			DO_THROW(Err::CriticalError, "Device not initialized.");
 		}
 
 		LPDIRECT3DTEXTURE9 texture;
 
 		if (m_device->CreateTexture(dimensions.Width, dimensions.Height, 0, D3DUSAGE_RENDERTARGET, fmt, D3DPOOL_DEFAULT, &texture, 0) != D3D_OK) {
-			DO_THROW(Err::Direct3DError, L"Couldn't allocate texture.");
+			DO_THROW(Err::Direct3DError, "Couldn't allocate texture.");
 		}
 
 		return Texture::Ptr(new Texture(texture));
@@ -142,12 +142,12 @@ namespace D3D {
 
 	VertexBuffer::Ptr Device::CreateVertexBuffer(size_t sizeInBytes, int fmt) {
 		if (m_device == 0) {
-			DO_THROW(Err::CriticalError, L"Device not initialized.");
+			DO_THROW(Err::CriticalError, "Device not initialized.");
 		}
 
 		LPDIRECT3DVERTEXBUFFER9 vb;
 		if (D3D_OK != m_device->CreateVertexBuffer(sizeInBytes, D3DUSAGE_WRITEONLY, fmt, D3DPOOL_DEFAULT, &vb, 0)) {
-			DO_THROW(Err::CriticalError, L"Couldn't create vertex buffer");
+			DO_THROW(Err::CriticalError, "Couldn't create vertex buffer");
 		}
 
 		return VertexBuffer::Ptr(new VertexBuffer(vb, fmt, sizeInBytes));
@@ -155,10 +155,10 @@ namespace D3D {
 
 	void Device::SetTexture(int stage, Texture::Ptr texture) {
 		if (m_device == 0) {
-			DO_THROW(Err::CriticalError, L"Device not initialized.");
+			DO_THROW(Err::CriticalError, "Device not initialized.");
 		}
 		if (texture == 0) {
-			DO_THROW(Err::InvalidParam, L"texture was null.");
+			DO_THROW(Err::InvalidParam, "texture was null.");
 		}
 
 		m_device->SetTexture(stage, texture->D3DObject());
@@ -167,30 +167,30 @@ namespace D3D {
 	void Device::ResampleFilter(DWORD stage, D3DTEXTUREFILTERTYPE filter) {
 		HRESULT hret = m_device->SetSamplerState(stage, D3DSAMP_MINFILTER, filter);
 		if (hret != D3D_OK) {
-			DO_THROW(Err::Direct3DError, L"SetSamplerState(D3DSAMP_MINFILTER) failed");
+			DO_THROW(Err::Direct3DError, "SetSamplerState(D3DSAMP_MINFILTER) failed");
 		}
 		hret = m_device->SetSamplerState(stage, D3DSAMP_MAGFILTER, filter);
 		if (hret != D3D_OK) {
-			DO_THROW(Err::Direct3DError, L"SetSamplerState(D3DSAMP_MAGFILTER) failed");
+			DO_THROW(Err::Direct3DError, "SetSamplerState(D3DSAMP_MAGFILTER) failed");
 		}
 	}
 
 	void Device::BeginDraw() {
 		if (m_device == 0) {
-			DO_THROW(Err::CriticalError, L"Device not initialized.");
+			DO_THROW(Err::CriticalError, "Device not initialized.");
 		}
 		if (m_isDrawing) {
-			DO_THROW(Err::CriticalError, L"Device was already drawing.");
+			DO_THROW(Err::CriticalError, "Device was already drawing.");
 		}
 		if (m_device->BeginScene() != D3D_OK) {
-			DO_THROW(Err::Direct3DError, L"BeginScene call failed.");
+			DO_THROW(Err::Direct3DError, "BeginScene call failed.");
 		}
 
 		if (D3D_OK != m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE)) {
-			DO_THROW(Err::Direct3DError, L"SetRenderState(D3DRS_CULLMODE) failed");
+			DO_THROW(Err::Direct3DError, "SetRenderState(D3DRS_CULLMODE) failed");
 		}
 		if (D3D_OK != m_device->SetRenderState(D3DRS_LIGHTING, false)) {
-			DO_THROW(Err::Direct3DError, L"SetRenderState(D3DRS_LIGHTING) failed");
+			DO_THROW(Err::Direct3DError, "SetRenderState(D3DRS_LIGHTING) failed");
 		}
 
 		D3DMATRIX mat;
@@ -210,7 +210,7 @@ namespace D3D {
 #define CONVERT_VERTEX2D_VBVERTEX(v) CONVERT_VERTEX2D_POS(v), CONVERT_VERTEX2D_TEX1(v)
 
 	void Device::RenderQuad(const Vertex2D& a, const Vertex2D& b, const Vertex2D& c, const Vertex2D& d) {
-		if (m_isDrawing == false) DO_THROW(Err::CriticalError, L"Device was not drawing.");
+		if (m_isDrawing == false) DO_THROW(Err::CriticalError, "Device was not drawing.");
 
 		const vbVertex c_vertices[] = {
 			{ CONVERT_VERTEX2D_VBVERTEX(a) },
@@ -224,16 +224,16 @@ namespace D3D {
 
 	void Device::RenderQuad( int index ) {
 		if (D3D_OK != m_device->DrawPrimitive(D3DPT_TRIANGLESTRIP, index * 4, 2)) {
-			DO_THROW(Err::Direct3DError, L"Failed to render quad.");
+			DO_THROW(Err::Direct3DError, "Failed to render quad.");
 		}
 	}
 
 	void Device::EndDraw() {
 		if (m_device == nullptr) {
-			DO_THROW(Err::CriticalError, L"Device not initialized.");
+			DO_THROW(Err::CriticalError, "Device not initialized.");
 		}
 		if (m_isDrawing == false) {
-			DO_THROW(Err::CriticalError, L"Device was not drawing.");
+			DO_THROW(Err::CriticalError, "Device was not drawing.");
 		}
 
 		m_device->EndScene();
@@ -244,10 +244,10 @@ namespace D3D {
 
 	void Device::SetMatrix(D3DTRANSFORMSTATETYPE state, CONST D3DMATRIX * matrix) {
 		if (matrix == 0) {
-			DO_THROW(Err::InvalidParam, L"matrix was null.");
+			DO_THROW(Err::InvalidParam, "matrix was null.");
 		}
 		if (m_device == 0) {
-			DO_THROW(Err::CriticalError, L"Device not initialized.");
+			DO_THROW(Err::CriticalError, "Device not initialized.");
 		}
 		m_device->SetTransform(state, matrix);
 	}
@@ -272,7 +272,7 @@ namespace D3D {
 		LPDIRECT3DSURFACE9 surface;
 		renderTarget->D3DObject()->GetSurfaceLevel(0, &surface);
 		if (m_device->SetRenderTarget(0, surface) != D3D_OK) {
-			DO_THROW(Err::Direct3DError, L"Couldn't set render target.");
+			DO_THROW(Err::Direct3DError, "Couldn't set render target.");
 		}
 		surface->Release();
 	}
@@ -337,7 +337,7 @@ namespace D3D {
 			case Img::Format::Index8:
 				return D3DFMT_L8;
 			default:
-				DO_THROW(Err::InvalidParam, L"Unsupported texture format: " + ToWString(format));
+				DO_THROW(Err::InvalidParam, "Unsupported texture format: " + ToAString(format));
 		}
 	}
 }

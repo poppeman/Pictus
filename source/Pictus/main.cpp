@@ -42,8 +42,8 @@ int start_app(const std::wstring& params) {
 		// This is not something out of the ordinary.
 	}
 	catch(Err::Exception& e) {
-		Log << L"Exception caught:\n" << e.Desc() << L"\n";
-		MessageBox(0, (L"An error occurred: " + e.Desc()).c_str(), L"Pictus Error", MB_OK);
+		Log << L"Exception caught:\n" << UTF8ToWString(e.what()) << L"\n";
+		MessageBoxW(nullptr, (L"An error occurred: " + UTF8ToWString(e.what())).c_str(), L"Pictus Error", MB_OK);
 		//throw;	// Good for debugging
 	}
 

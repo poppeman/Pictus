@@ -17,7 +17,7 @@ SUITE(TestCThumbProvider) {
 		void Create(wchar_t* c) {
 			auto hr = SHCreateStreamOnFileW((g_datapath + L"\\" + std::wstring(c)).c_str(), STGM_READ | STGM_SHARE_DENY_WRITE, &is);
 			if (FAILED(hr)) {
-				DO_THROW(Err::CriticalError, L"Failed creating stream. Error code: " + ToWString(hr));
+				DO_THROW(Err::CriticalError, "Failed creating stream. Error code: " + ToAString(hr));
 			}
 		}
 

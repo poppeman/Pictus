@@ -197,10 +197,10 @@ namespace App {
 
 	Filter::Mode ViewPort::ActiveFilterMode() const {
 		if (m_minFilter == Filter::Mode::Undefined) {
-			DO_THROW(Err::InvalidCall, L"Minification filter not set.");
+			DO_THROW(Err::InvalidCall, "Minification filter not set.");
 		}
 		if (m_magFilter == Filter::Mode::Undefined) {
-			DO_THROW(Err::InvalidCall, L"Magnification filter not set.");
+			DO_THROW(Err::InvalidCall, "Magnification filter not set.");
 		}
 
 		if (m_props.Zoom < 1.0) {
@@ -246,7 +246,7 @@ namespace App {
 		}
 
 		if (m_currentPanMonitor == nullptr) {
-			DO_THROW(Err::CriticalError, L"Current panning monitor not set.");
+			DO_THROW(Err::CriticalError, "Current panning monitor not set.");
 		}
 
 		auto globalPosition = MouseCursorPos();
@@ -392,7 +392,7 @@ namespace App {
 	bool ViewPort::PerformOnDropFiles( const StringVector& files ) {
 		auto parentWindow = dynamic_cast<Win::Window*>(Parent());
 		if (parentWindow == nullptr) {
-			DO_THROW(Err::CriticalError, L"Parent window was not a proper window.");
+			DO_THROW(Err::CriticalError, "Parent window was not a proper window.");
 		}
 
 		return parentWindow->OnDropFiles(files);

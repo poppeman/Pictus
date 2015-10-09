@@ -37,7 +37,7 @@ namespace IO {
 	FolderFileIterator::Ptr Folder::CreateIterator() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
 		if (m_imp.get() == 0) {
-			DO_THROW(Err::InvalidCall, L"Implementation not set.");
+			DO_THROW(Err::InvalidCall, "Implementation not set.");
 		}
 		return m_imp->CreateIterator();
 	}

@@ -149,7 +149,7 @@ namespace Img {
 			memcpy(destination, source, GetSize().Width);
 		}
 		else {
-			DO_THROW(Err::CriticalError, L"Non-planar with depth:" + ToWString(m_header.PlaneDepth));
+			DO_THROW(Err::CriticalError, "Non-planar with depth:" + ToAString(m_header.PlaneDepth));
 		}
 	}
 

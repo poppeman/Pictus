@@ -15,19 +15,19 @@ namespace Filter {
 
 	// TODO: Consider moving this into a class instead, containing the threadpool. This would remove the global threadpool and
 	// allow this method to be threadsafe.
-	void Scale::AutoFilter(_In_ const Filter::Mode mode, _In_ const FilterBuffer& source, _Inout_ FilterBuffer& dest, _In_ const Geom::RectInt& uncroppedRegion, _In_ Img::Format format, _In_ _In_range_(0, 1000000000) float zoom) {
+	void Scale::AutoFilter(const Filter::Mode mode, const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& uncroppedRegion, Img::Format format, float zoom) {
 		// TODO: Make this function thread-safe. Function assumes that only one thread calls this function, otherwise the thread pool gets messed up.
 		auto modeNum = static_cast<int>(mode);
 		if (modeNum < 0 || modeNum >= static_cast<int>(Mode::Num)) {
-			DO_THROW(Err::InvalidParam, L"Invalid filter mode.");
+			DO_THROW(Err::InvalidParam, "Invalid filter mode.");
 		}
 
 		if (source.BufferData == nullptr || dest.BufferData == nullptr) {
-			DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
+			DO_THROW(Err::InvalidParam, "Null buffer not allowed.");
 		}
 
 		if ((uncroppedRegion.Top() < 0) || (uncroppedRegion.Left() < 0)) {
-			DO_THROW(Err::InvalidParam, L"Negative coordinates in region.");
+			DO_THROW(Err::InvalidParam, "Negative coordinates in region.");
 		}
 
 		auto region = CropResampleRegions(uncroppedRegion, source.Dimensions, dest.Dimensions, zoom);
@@ -38,7 +38,7 @@ namespace Filter {
 		}
 
 		if (IsPositive(region.Dimensions()) == false) {
-			DO_THROW(Err::InvalidParam, L"Invalid region.");
+			DO_THROW(Err::InvalidParam, "Invalid region.");
 		}
 
 		// We can't let this initialize statically, as that will mess up DLL support.

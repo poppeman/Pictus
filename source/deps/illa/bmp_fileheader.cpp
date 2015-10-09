@@ -15,7 +15,7 @@ namespace Img {
 
 			// Validate
 			if (type != BITMAP_SIGN) {
-				DO_THROW(Err::InvalidHeader, L"Magic bytes didn't match.");
+				DO_THROW(Err::InvalidHeader, "Magic bytes didn't match.");
 			}
 		}
 

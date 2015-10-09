@@ -12,7 +12,7 @@ namespace App {
 
 		RendererFactory rf;
 		if (!port.SetRenderer(rf.CreateRenderer())) {
-			DO_THROW(Err::Unsupported, L"Could not find a working renderer.");
+			DO_THROW(Err::Unsupported, "Could not find a working renderer.");
 		}
 
 		port.SetRedrawStrategy(RedrawStrategy::Ptr(new RedrawStrategyTiled));

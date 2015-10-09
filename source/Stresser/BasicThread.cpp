@@ -40,10 +40,10 @@ void BasicThread::threadWrapper() {
 		ThreadMain();
 	}
 	catch(Err::Exception& e) {
-		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + e.Desc());
+		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + UTF8ToWString(e.what()));
 	}
 	catch(std::exception& e) {
-		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + ToWString(e.what()));
+		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + UTF8ToWString(e.what()));
 	}
 	catch(...) {
 		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + L"Unknown exception type");

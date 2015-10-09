@@ -62,7 +62,7 @@ namespace Win {
 
 	void TileManager::SetViewportSize(const SizeInt& dims) {
 		if (dims.Width < 0 || dims.Height < 0) {
-			DO_THROW(Err::InvalidParam, L"Invalid dimensions: " + ToWString(dims.Width) + L", " + ToWString(dims.Height));
+			DO_THROW(Err::InvalidParam, "Invalid dimensions: " + ToAString(dims.Width) + ", " + ToAString(dims.Height));
 		}
 		const SizeInt texDims{ MaximumTileEdgeLength, MaximumTileEdgeLength };
 		const SizeInt numTiles = SizeInt(2, 2) + dims / MaximumTileEdgeLength;
@@ -80,7 +80,7 @@ namespace Win {
 				if (t.surface == 0) {
 					t.surface = m_device->CreateDDSurface();
 					if (t.surface == nullptr) {
-						DO_THROW(Err::CriticalError, L"Failed to create surface.");
+						DO_THROW(Err::CriticalError, "Failed to create surface.");
 					}
 					t.surface->Create(texDims);
 				}
@@ -90,16 +90,16 @@ namespace Win {
 
 	TileManager::TileManager(Renderer::Ptr device) :m_device(device) {
 		if (device == nullptr) {
-			DO_THROW(Err::InvalidParam, L"Device may not be null.");
+			DO_THROW(Err::InvalidParam, "Device may not be null.");
 		}
 	}
 
 	void TileManager::Render(Geom::SizeInt offset) {
 		if (m_topLeftOffset.Width < 0) {
-			DO_THROW(Err::CriticalError, L"Offset (X) should always be positive");
+			DO_THROW(Err::CriticalError, "Offset (X) should always be positive");
 		}
 		if (m_topLeftOffset.Height < 0) {
-			DO_THROW(Err::CriticalError, L"Offset (Y) should always be positive");
+			DO_THROW(Err::CriticalError, "Offset (Y) should always be positive");
 		}
 
 		if (m_tiles.empty()) {
@@ -145,11 +145,11 @@ namespace Win {
 
 	Geom::RectInt TileManager::determineLockableRect(const RectInt& r) const {
 		if (IsPositive(r.Dimensions()) == false) {
-			DO_THROW(Err::InvalidParam, L"Invalid dimensions");
+			DO_THROW(Err::InvalidParam, "Invalid dimensions");
 		}
 
 		if (m_topLeftOffset.AtLeastInclusive({ 0, 0 }) == false) {
-			DO_THROW(Err::CriticalError, L"Invalid offset");
+			DO_THROW(Err::CriticalError, "Invalid offset");
 		}
 
 		auto pannedTopLeft = r.TopLeft() + m_topLeftOffset;
@@ -168,26 +168,26 @@ namespace Win {
 			r.Dimensions()));
 
 		if (IsPositive(outSize) == false) {
-			DO_THROW(Err::CriticalError, L"Calculation error, rect became empty.");
+			DO_THROW(Err::CriticalError, "Calculation error, rect became empty.");
 		}
 		return{ pannedTopLeft, outSize };
 	}
 
 	Geom::PointInt TileManager::determineTileCoords(const Geom::PointInt& p) const {
 		if (m_topLeftOffset.AtLeastInclusive({ 0, 0 }) == false) {
-			DO_THROW(Err::CriticalError, L"Invalid offset");
+			DO_THROW(Err::CriticalError, "Invalid offset");
 		}
 
 		PointInt toRet = (p + m_topLeftOffset) / MaximumTileEdgeLength;
 		if (toRet.Y >= static_cast<int>(m_tiles.size()) || toRet.X >= static_cast<int>(m_tiles[toRet.Y]->size())) {
-			DO_THROW(Err::InvalidParam, L"Tile coordinates out of bounds: " + ToWString(toRet));
+			DO_THROW(Err::InvalidParam, "Tile coordinates out of bounds: " + ToAString(toRet));
 		}
 		return toRet;
 	}
 
 	TileManager::RequestedArea TileManager::RequestDDSurface(const Geom::RectInt& areaToRequest) const {
 		if (IsPositive(areaToRequest.Dimensions()) == false) {
-			DO_THROW(Err::InvalidParam, L"Zero or negative size.");
+			DO_THROW(Err::InvalidParam, "Zero or negative size.");
 		}
 
 		auto tileCoords = determineTileCoords(areaToRequest.TopLeft());
@@ -196,10 +196,10 @@ namespace Win {
 		ra.WriteableArea = determineLockableRect(areaToRequest);
 
 		if (IsPositive(ra.WriteableArea.Dimensions()) == false) {
-			DO_THROW(Err::CriticalError, L"Invalid writeable area.");
+			DO_THROW(Err::CriticalError, "Invalid writeable area.");
 		}
 		if (ra.WriteableArea.TopLeft().AtLeastInclusive({ 0, 0 }) == false) {
-			DO_THROW(Err::CriticalError, L"Invalid top-left of writable area");
+			DO_THROW(Err::CriticalError, "Invalid top-left of writable area");
 		}
 
 		Tile& t = (*m_tiles[tileCoords.Y])[tileCoords.X];
@@ -211,13 +211,13 @@ namespace Win {
 			t.dirtyRect.BottomRight(Maximum(t.dirtyRect.BottomRight(), ra.WriteableArea.BottomRight()));
 		}
 		if (t.dirtyRect.TopLeft().AtLeastInclusive({ 0, 0 }) == false) {
-			DO_THROW(Err::CriticalError, L"Dirty rect became invalid (TL too small).");
+			DO_THROW(Err::CriticalError, "Dirty rect became invalid (TL too small).");
 		}
 		if (t.dirtyRect.TopLeft().AtMostExclusive({ MaximumTileEdgeLength, MaximumTileEdgeLength }) == false) {
-			DO_THROW(Err::CriticalError, L"Dirty rect became invalid (TL too large).");
+			DO_THROW(Err::CriticalError, "Dirty rect became invalid (TL too large).");
 		}
 		if (t.dirtyRect.Dimensions().AtLeastInclusive({ 0, 0 }) == false) {
-			DO_THROW(Err::CriticalError, L"Dirty rect became invalid (negative size).");
+			DO_THROW(Err::CriticalError, "Dirty rect became invalid (negative size).");
 		}
 		ra.Surface = t.surface;
 		return ra;

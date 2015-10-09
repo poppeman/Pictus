@@ -30,7 +30,7 @@ namespace IO {
 	FolderFileIteratorWin32::FolderFileIteratorWin32(const std::wstring& path):m_handle(0), m_first(true) {
 		m_handle = FindFirstFileW((path + L"*.*").c_str(), &m_currentEntry);
 		if (m_handle == INVALID_HANDLE_VALUE) {
-			DO_THROW(Err::InvalidParam, L"Call to FindFirstFile failed. Path = " + path);
+			DO_THROW(Err::InvalidParam, "Call to FindFirstFile failed. Path = " + WStringToUTF8(path));
 		}
 	}
 

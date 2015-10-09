@@ -12,23 +12,23 @@ namespace Img {
 
 	void Surface::CreateSurface(const SizeInt& size, Format format) {
 		if (m_isCreated) {
-			DO_THROW(Err::CriticalError, L"Surface already created.");
+			DO_THROW(Err::CriticalError, "Surface already created.");
 		}
 
 		// Sanity check
 		if ((size.Width <= 0) || (size.Height <= 0)) {
-			DO_THROW(Err::InvalidParam, L"Invalid dimensions, both axis must be above zero");
+			DO_THROW(Err::InvalidParam, "Invalid dimensions, both axis must be above zero");
 		}
 
 		if (size.Width > MaxSurfaceDim || size.Height > MaxSurfaceDim) {
-			DO_THROW(Err::InvalidParam, L"Too large surface requested, maximum axis size is " + ToWString(MaxSurfaceDim));
+			DO_THROW(Err::InvalidParam, "Too large surface requested, maximum axis size is " + ToAString(MaxSurfaceDim));
 		}
 		if (format >= Format::Num) {
-			DO_THROW(Err::InvalidParam, L"Invalid format");
+			DO_THROW(Err::InvalidParam, "Invalid format");
 		}
 		auto bytesToConsume = static_cast<size_t>(size.Width) * static_cast<size_t>(size.Height) * static_cast<size_t>(EstimatePixelSize(format));
 		if (bytesToConsume > MaxSurfaceBytes) {
-			DO_THROW(Err::InvalidParam, L"Surface would consume " + ToWString(bytesToConsume) + L" which would be greater than the safety limit of " + ToWString(MaxSurfaceBytes) + L" bytes");
+			DO_THROW(Err::InvalidParam, "Surface would consume " + ToAString(bytesToConsume) + " which would be greater than the safety limit of " + ToAString(MaxSurfaceBytes) + " bytes");
 		}
 
 		m_swFormat	= format;
@@ -68,7 +68,7 @@ namespace Img {
 
 	void Surface::BlitSurfaceColorKey( Surface::Ptr source, RectInt sourceAreaToCopy, PointInt destinationTopLeft, uint8_t colorKeyIndex ) {
 		if (source->GetFormat() != Format::Index8) {
-			DO_THROW(Err::InvalidParam, L"Source buffer must be indexed.");
+			DO_THROW(Err::InvalidParam, "Source buffer must be indexed.");
 		}
 
 		onBlitSurfaceColorKey(source, sourceAreaToCopy, destinationTopLeft, colorKeyIndex);
@@ -78,7 +78,7 @@ namespace Img {
 		m_strategyLocking->AquireLock(method);
 		try {
 			if (!RectInt(PointInt(0, 0), GetSize()).Contains(region)) {
-				throw Err::InvalidParam(L"Requested region was outside the bounds of the surface");
+				throw Err::InvalidParam("Requested region was outside the bounds of the surface");
 			}
 
 			uint8_t* pData = onLockSurface(region, method);

@@ -21,7 +21,7 @@ namespace Img {
 		if(method == LockReadWrite) {
 			std::lock_guard<std::mutex> l(m_mutexLocks);
 
-			if (m_isWriteLocked == false) DO_THROW(Err::CriticalError, L"Attempted to write-unlock a lock which wasn't write locked.");
+			if (m_isWriteLocked == false) DO_THROW(Err::CriticalError, "Attempted to write-unlock a lock which wasn't write locked.");
 			m_isWriteLocked = false;
 			m_conditionUnlock.notify_all();
 		}

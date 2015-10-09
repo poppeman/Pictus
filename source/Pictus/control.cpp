@@ -15,7 +15,7 @@ namespace Win {
 	}
 
 	Control::Control(int id, HWND hwnd):m_id(id), m_dlgHwnd(hwnd) {
-		if (hwnd == 0) throw Err::InvalidParam(L"hwnd was null");
+		if (hwnd == 0) throw Err::InvalidParam("hwnd was null");
 
 		m_ctrlHwnd = GetDlgItem(hwnd, id);
 		m_controls[m_ctrlHwnd] =  Ptr(this);
@@ -25,7 +25,7 @@ namespace Win {
 	Control::~Control() {}
 
 	Control::Ptr Control::GetControl(HWND hwnd) {
-		if (hwnd == 0) throw Err::InvalidParam(L"hwnd was null");
+		if (hwnd == 0) throw Err::InvalidParam("hwnd was null");
 
 		auto i = m_controls.find(hwnd);
 
@@ -48,7 +48,7 @@ namespace Win {
 	}
 
 	void Control::AttachTo(Window* owner) {
-		COND_STRICT(owner, Err::InvalidParam, L"owner was Null.");
+		COND_STRICT(owner, Err::InvalidParam, "owner was Null.");
 		m_dlgHwnd = owner->Handle();
 		m_ctrlHwnd = PerformDynamicCreate();
 	}

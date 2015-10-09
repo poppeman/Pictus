@@ -17,7 +17,7 @@ namespace Win {
 	}
 
 	bool Dialog::DoModeless(Win::BaseWindow* pParent) {
-		COND_STRICT(pParent, Err::InvalidParam, L"pParent was null");
+		COND_STRICT(pParent, Err::InvalidParam, "pParent was null");
 		if (IsModelessVisible()) {
 			// Already active, send it to the foreground instead
 			BringWindowToTop(Handle());

@@ -31,7 +31,7 @@ namespace Geom {
 			return RotateRect(RotateRect(RotateRect(rectToRotate, boundaries, Filter::RotationAngle::FlipY), boundaries, Filter::RotationAngle::FlipX), boundaries, Filter::RotationAngle::Rotate90);
 
 		default:
-			DO_THROW(Err::Unsupported, L"Rotation method not yet implemented");
+			DO_THROW(Err::Unsupported, "Rotation method not yet implemented");
 		}
 	}
 }
@@ -46,7 +46,7 @@ namespace Img {
 
 		RectInt dstRect = RotateRect(region, rotatedSize, props.Angle);
 		if ((dstRect.Top() < 0) || (dstRect.Left() < 0)) {
-			DO_THROW(Err::CriticalError, L"Rotated region is invalid (top-left off image).");
+			DO_THROW(Err::CriticalError, "Rotated region is invalid (top-left off image).");
 		}
 
 		bool isInplace;

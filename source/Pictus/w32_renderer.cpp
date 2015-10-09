@@ -69,11 +69,11 @@ namespace Win {
 	Renderer::RenderStatus Renderer::BeginRender(Img::Color backgroundColor) {
 		static float a = 0.0f;
 		if (m_hwnd == nullptr) {
-			DO_THROW(Err::CriticalError, L"Target window not set.");
+			DO_THROW(Err::CriticalError, "Target window not set.");
 		}
 
 		if (m_direct3d == nullptr) {
-			DO_THROW(Err::CriticalError, L"Direct3D not yet initialized.");
+			DO_THROW(Err::CriticalError, "Direct3D not yet initialized.");
 		}
 
 		if (m_direct3d->IsLost()) {
@@ -100,10 +100,10 @@ namespace Win {
 
 	void Renderer::EndRender() {
 		if (m_hwnd == nullptr) {
-			DO_THROW(Err::CriticalError, L"Target window not set.");
+			DO_THROW(Err::CriticalError, "Target window not set.");
 		}
 		if (m_direct3d == nullptr) {
-			DO_THROW(Err::CriticalError, L"Direct3D not yet initialized.");
+			DO_THROW(Err::CriticalError, "Direct3D not yet initialized.");
 		}
 
 		m_direct3d->EndDraw();

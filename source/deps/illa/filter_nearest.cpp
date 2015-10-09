@@ -78,7 +78,7 @@ namespace Filter {
 					performNearestResample<uint8_t>(source, dest, region, zoom, ConvertIndexed(source.Palette));
 					break;
 				default:
-					DO_THROW(Err::InvalidParam, L"Surface format not supported:" + ToWString(format));
+					DO_THROW(Err::InvalidParam, "Surface format not supported:" + ToAString(format));
 			}
 		}
 	}

@@ -15,7 +15,7 @@ namespace IO {
 
 	uint8_t& FileReaderByteStreamer::ReadByte() {
 		if (m_bytesLeft == 0) {
-			DO_THROW(Err::CriticalError, L"No bytes left to fetch.");
+			DO_THROW(Err::CriticalError, "No bytes left to fetch.");
 		}
 
 		if (m_position == m_cacheSize) {

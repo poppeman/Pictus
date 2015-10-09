@@ -32,7 +32,7 @@ namespace IO {
 		performSeek(prevPos, SeekMethod::Begin);
 	}
 
-	_Check_return_ bool StreamFile::Delete(_In_ bool doRecycle, _In_ HWND handle) {
+	bool StreamFile::Delete(bool doRecycle, HWND handle) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 
 		bool wasOpen = IsOpen();
@@ -52,12 +52,12 @@ namespace IO {
 	}
 #endif
 
-	_Check_return_ size_t StreamFile::performRead(_Out_writes_bytes_(size * items) void* buf, _In_ size_t size, _In_ size_t items) {
+	size_t StreamFile::performRead(void* buf, size_t size, size_t items) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		return fread(buf, size, items, m_file);
 	}
 
-	_Check_return_ FileInt StreamFile::performPosition() const {
+	FileInt StreamFile::performPosition() const {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		return _ftelli64(m_file);
 	}
@@ -71,7 +71,7 @@ namespace IO {
 		m_file = nullptr;
 	}
 
-	_Check_return_ bool StreamFile::performOpen() {
+	bool StreamFile::performOpen() {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_size = 0;
 		m_file = _wfsopen(m_name.c_str(), L"rb", _SH_DENYWR);
@@ -113,30 +113,30 @@ namespace IO {
 				flag = SEEK_END;
 				break;
 			default:
-				DO_THROW(Err::InvalidParam, L"Attempted to use an unsupported seek method.");
+				DO_THROW(Err::InvalidParam, "Attempted to use an unsupported seek method.");
 		}
 
 		int ret = _fseeki64(m_file, position, flag);
 
 		if (ret != 0)
-			DO_THROW(Err::IOException, L"Couldn't seek as requested.");
+			DO_THROW(Err::IOException, "Couldn't seek as requested.");
 	}
 
-	_Check_return_ bool StreamFile::performIsOpen() const {
+	bool StreamFile::performIsOpen() const {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		return m_file != 0;
 	}
 
-	_Check_return_ FileInt StreamFile::performSize() {
+	FileInt StreamFile::performSize() {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		return m_size;
 	}
 
-	_Check_return_ std::wstring StreamFile::performName() const {
+	std::wstring StreamFile::performName() const {
 		return m_name;
 	}
 
-	StreamFile::StreamFile(_In_ const std::wstring& filename) :m_name(filename), m_file(0), m_error(OpenErrorCode::Succeeded), m_size(0) {
+	StreamFile::StreamFile(const std::wstring& filename) :m_name(filename), m_file(0), m_error(OpenErrorCode::Succeeded), m_size(0) {
 	}
 
 	StreamFile::~StreamFile() {

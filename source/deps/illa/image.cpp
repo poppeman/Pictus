@@ -3,22 +3,22 @@
 namespace Img {
 	using namespace Geom;
 
-	_Use_decl_annotations_ bool Image::IsFinished() const {
+	bool Image::IsFinished() const {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 
 		return isFinished;
 	}
 
-	_Use_decl_annotations_ bool Image::IsHeaderInformationValid() const {
+	bool Image::IsHeaderInformationValid() const {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 
 		return m_isHeaderDataValid;
 	}
 
-	_Use_decl_annotations_ void Image::SetHeaderData(const Geom::SizeInt& size, ImageComposer::Ptr composer) {
+	void Image::SetHeaderData(const Geom::SizeInt& size, ImageComposer::Ptr composer) {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 		if (composer == nullptr) {
-			DO_THROW(Err::InvalidParam, L"Composer was null.");
+			DO_THROW(Err::InvalidParam, "Composer was null.");
 		}
 
 		m_composer = composer;
@@ -31,7 +31,7 @@ namespace Img {
 		m_metadata = data;
 	}
 
-	_Use_decl_annotations_ void Image::FinishImage(int loadTime) {
+	void Image::FinishImage(int loadTime) {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 
 		m_loadTime = loadTime;
@@ -52,7 +52,7 @@ namespace Img {
 		}
 	}
 
-	_Use_decl_annotations_ int Image::Delay() {
+	int Image::Delay() {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 
 		if (m_isHeaderDataValid && m_composer.get()) {
@@ -70,7 +70,7 @@ namespace Img {
 		}
 	}
 
-	_Use_decl_annotations_ Geom::SizeInt Image::GetSize() const {
+	Geom::SizeInt Image::GetSize() const {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 		return m_size;
 	}
@@ -85,13 +85,13 @@ namespace Img {
 		m_loadTime{ 0 }
 	{}
 
-	_Use_decl_annotations_ int Image::LoadTime() const {
+	int Image::LoadTime() const {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 
 		return m_loadTime;
 	}
 
-	_Use_decl_annotations_ Surface::Ptr Image::CurrentSurface() {
+	Surface::Ptr Image::CurrentSurface() {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 
 		if (m_isHeaderDataValid && m_composer.get()) {
@@ -101,7 +101,7 @@ namespace Img {
 		return Surface::Ptr();
 	}
 
-	_Use_decl_annotations_ Geom::SizeInt CalculateUnzoomedSize(std::shared_ptr<Image> img, Filter::RotationAngle angle) {
+	Geom::SizeInt CalculateUnzoomedSize(std::shared_ptr<Image> img, Filter::RotationAngle angle) {
 		if (img == nullptr) {
 			return SizeInt(0, 0);
 		}

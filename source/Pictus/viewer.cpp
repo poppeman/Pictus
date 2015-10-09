@@ -225,7 +225,7 @@ namespace App {
 			b.BuildViewport(m_viewPort, this, m_cfg);
 		}
 		catch(Err::Exception& e) {
-			MessageBox(0, (GetWString(SIDErrorDirectX) + std::wstring(L"\n\n") + e.Desc()).c_str(), 0, MB_OK);
+			MessageBox(0, (GetWString(SIDErrorDirectX) + std::wstring(L"\n\n") + UTF8ToWString(e.what())).c_str(), 0, MB_OK);
 			return false;
 		}
 
@@ -691,7 +691,7 @@ namespace App {
 	void Viewer::HandleCacheNotification() {
 		std::unique_lock<std::mutex> l(m_mutexNotification);
 		if (m_cacheNotifications.empty()) {
-			DO_THROW(Err::CriticalError, L"Notification queue is empty.");
+			DO_THROW(Err::CriticalError, "Notification queue is empty.");
 		}
 
 		CacheNotification notification = m_cacheNotifications.front();
@@ -731,7 +731,7 @@ namespace App {
 	void Viewer::HandleFolderNotification() {
 		std::unique_lock<std::mutex> l(m_mutexNotification);
 		if (m_folderNotifications.empty()) {
-			DO_THROW(Err::CriticalError, L"Notification queue is empty.");
+			DO_THROW(Err::CriticalError, "Notification queue is empty.");
 		}
 
 		IO::FileEvent notification = m_folderNotifications.front();
@@ -884,7 +884,7 @@ namespace App {
 			}
 
 		default:
-			DO_THROW(Err::InvalidParam, L"Invalid reposition method: " + ToWString(method));
+			DO_THROW(Err::InvalidParam, "Invalid reposition method: " + ToAString(method));
 		}
 	}
 

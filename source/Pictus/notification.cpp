@@ -62,6 +62,6 @@ namespace Win {
 		else if (icon == BSIInfo)
 			m_nid.dwInfoFlags = NIIF_INFO;
 		else
-			DO_THROW(Err::InvalidParam, L"Unknown standard icon param: " + ToWString(icon));
+			DO_THROW(Err::InvalidParam, "Unknown standard icon param: " + ToAString(icon));
 	}
 }
