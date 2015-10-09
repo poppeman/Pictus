@@ -4,6 +4,7 @@
 
 #include "Logger.h"
 #include <algorithm>
+#include <boost/random.hpp>
 
 struct Runner
 {
@@ -28,11 +29,12 @@ void ThreadRunner::ThreadMain()
 {
 	startThreads();
 
-	Math::Randomizer rand;
+	boost::random::mt19937 rand;
+	boost::random::uniform_int_distribution<> slp(0, 2000);
 
 	while (!IsTerminating() && !m_error)
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(rand.Random() % 2000));
+		std::this_thread::sleep_for(std::chrono::milliseconds(slp(rand)));
 
 		Output(L"Restarting");
 		stopThreads();

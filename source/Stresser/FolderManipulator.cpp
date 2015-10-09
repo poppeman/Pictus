@@ -5,6 +5,8 @@
 #include "FolderManipulator.h"
 #include "Helper.h"
 
+#include <boost/random.hpp>
+
 FolderManipulator::FolderManipulator(const std::wstring& folder, const std::wstring& sourceFolder)
 	:m_folder(folder),
 	 m_sourceFolder(sourceFolder)
@@ -45,10 +47,12 @@ void FolderManipulator::ThreadMain()
 	Output(L"Init complete, running ...");
 	auto currentFile = files.begin();
 
-	while(IsTerminating() == false)
+	boost::random::mt19937 r;
+	boost::random::uniform_int_distribution<> act(0, 10);
+
+	while (IsTerminating() == false)
 	{
-		Math::Randomizer random;
-		int action = random.Random() % 10;
+		int action = act(r);
 
 		std::wstring nameCurrentFile = m_folder + currentFile->Name;
 		std::wstring nameNewFile = m_folder + L"z" + currentFile->Name;

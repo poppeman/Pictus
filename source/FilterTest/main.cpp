@@ -1,7 +1,7 @@
 #include "illa/filter.h"
 #include "illa/types.h"
 #include "orz/stopwatch.h"
-
+#include <boost/random.hpp>
 
 using Filter::FilterBuffer;
 using namespace Geom;
@@ -30,11 +30,12 @@ struct FilterDataPair
 
 FilterDataPair ConstructBuffer(int width, int height, int stride, int ps, const Img::Palette& pal)
 {
-	Math::Randomizer r;
+	boost::random::mt19937 r;
+	boost::random::uniform_int_distribution<> dist(0, 255);
 	FilterDataPair fdp;
 	fdp.data = new uint8_t[stride * height];
 	for(int i = 0; i < stride * height; ++i) {
-		uint8_t b = r.Random() & 0xff;
+		uint8_t b = dist(r);
 		if (b < 200) b = 0;
 		fdp.data[i] = b;
 	}
