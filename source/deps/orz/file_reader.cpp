@@ -96,7 +96,7 @@ namespace IO {
 
 	std::wstring GetTitle(const std::wstring& s) {
 		std::size_t start	= s.find_last_of(L"/\\");
-		std::size_t end		= s.find_last_of(TX('.'));
+		std::size_t end		= s.find_last_of(L'.');
 
 		if (start != std::wstring::npos) {
 			return s.substr(start + 1, end - start - 1);
@@ -106,7 +106,7 @@ namespace IO {
 	}
 
 	std::wstring GetExtension(const std::wstring& s) {
-		std::size_t dot = s.find_last_of(TX('.'));
+		std::size_t dot = s.find_last_of(L'.');
 		if (dot != std::wstring::npos) {
 			// Make sure there were no / or \ afterwards
 			if (s.find_first_of(L"/\\", dot) != std::wstring::npos) return std::wstring(L"");

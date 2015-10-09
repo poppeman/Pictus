@@ -79,7 +79,7 @@ namespace App {
 			0,
 			CLR_DEFAULT);
 
-		if ((params.length() > 0) && (params.at(0) != TX('-')) && (IO::DoFileExist(params) || IO::DoPathExist(params))) {
+		if ((params.length() > 0) && (params.at(0) != L'-') && (IO::DoFileExist(params) || IO::DoPathExist(params))) {
 			m_sDirectory = params;
 		}
 		else {
@@ -229,7 +229,7 @@ namespace App {
 			return false;
 		}
 
-		if ((m_sDirectory.length() > 0) && (m_sDirectory.at(0) != TX('-')))
+		if ((m_sDirectory.length() > 0) && (m_sDirectory.at(0) != L'-'))
 			SetImageLocation(m_sDirectory);
 
 		return true;
