@@ -6,7 +6,7 @@ namespace Img {
 		return new CodecBMP();
 	}
 
-	FactoryBMP::FactoryBMP():ICodecFactory(TX("Windows Bitmap")) {
-		AddExtension(TX("BMP"));
+	FactoryBMP::FactoryBMP():ICodecFactory(L"Windows Bitmap") {
+		AddExtension(L"BMP");
 	}
 }

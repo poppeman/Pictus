@@ -1,6 +1,10 @@
 #include "types.h"
 #include "config.h"
 
+#include "orz/types.h"
+
+#include <sstream>
+
 namespace Filter {
 	void FilterBuffer::Construct( const Geom::SizeInt& sz_, int ps_, uint8_t* data_, size_t stride_) {
 		Dimensions = sz_;
@@ -33,7 +37,7 @@ namespace Filter {
 		Construct(sz_, ps_, data_, stride_, pal_);
 	}
 
-	_Use_decl_annotations_ Geom::SizeInt CalculateUnzoomedSize(Geom::SizeInt defaultDims, RotationAngle angle) {
+	Geom::SizeInt CalculateUnzoomedSize(Geom::SizeInt defaultDims, RotationAngle angle) {
 		if (angle == Filter::RotationAngle::Rotate90 || angle == Filter::RotationAngle::Rotate270) {
 			return defaultDims.Flipped();
 		}

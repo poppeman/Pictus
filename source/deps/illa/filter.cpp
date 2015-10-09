@@ -19,15 +19,15 @@ namespace Filter {
 		// TODO: Make this function thread-safe. Function assumes that only one thread calls this function, otherwise the thread pool gets messed up.
 		auto modeNum = static_cast<int>(mode);
 		if (modeNum < 0 || modeNum >= static_cast<int>(Mode::Num)) {
-			DO_THROW(Err::InvalidParam, TX("Invalid filter mode."));
+			DO_THROW(Err::InvalidParam, L"Invalid filter mode.");
 		}
 
 		if (source.BufferData == nullptr || dest.BufferData == nullptr) {
-			DO_THROW(Err::InvalidParam, TX("Null buffer not allowed."));
+			DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
 		}
 
 		if ((uncroppedRegion.Top() < 0) || (uncroppedRegion.Left() < 0)) {
-			DO_THROW(Err::InvalidParam, TX("Negative coordinates in region."));
+			DO_THROW(Err::InvalidParam, L"Negative coordinates in region.");
 		}
 
 		auto region = CropResampleRegions(uncroppedRegion, source.Dimensions, dest.Dimensions, zoom);
@@ -38,7 +38,7 @@ namespace Filter {
 		}
 
 		if (IsPositive(region.Dimensions()) == false) {
-			DO_THROW(Err::InvalidParam, TX("Invalid region."));
+			DO_THROW(Err::InvalidParam, L"Invalid region.");
 		}
 
 		// We can't let this initialize statically, as that will mess up DLL support.

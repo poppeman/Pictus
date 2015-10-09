@@ -1,4 +1,5 @@
 #include "orz/intl.h"
+#include "orz/types.h"
 #include "codecmgr.h"
 #include "c_factory.h"
 #include "config.h"

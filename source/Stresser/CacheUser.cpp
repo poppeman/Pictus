@@ -7,7 +7,7 @@
 #include <boost/random.hpp>
 
 void CacheUser::ThreadMain() {
-	Output(TX("Initializing CacheUser..."));
+	Output(L"Initializing CacheUser...");
 
 	Img::CodecFactoryStore cfs;
 	cfs.AddBuiltinCodecs();
@@ -24,7 +24,7 @@ void CacheUser::ThreadMain() {
 	boost::random::uniform_int_distribution<> slp(0, 6);
 
 
-	Output(TX("Init complete, running ..."));
+	Output(L"Init complete, running ...");
 
 	while(IsTerminating() == false) {
 		std::unique_lock<std::mutex> l(m_mutexNotifications);
@@ -32,19 +32,19 @@ void CacheUser::ThreadMain() {
 			CacheNotification currentNotification = m_notifications.front();
 			m_notifications.pop_front();
 
-			SignalError(TX("Cacher notification: ") + ToWString(currentNotification.message) + TX("\n") + currentNotification.desc + std::wstring(TX("\n")));
+			SignalError(L"Cacher notification: " + ToWString(currentNotification.message) + L"\n" + currentNotification.desc + std::wstring(L"\n"));
 		}
 		l.unlock();
 
 
 		if (m_cacher.ImageCount() == 0) {
-			Output(TX("Ran out of images, switching RAIT NAO!"));
+			Output(L"Ran out of images, switching RAIT NAO!");
 			SwitchFolder();
 		}
 
 		if (m_cacher.ImageCount() == 0)
 		{
-			Output(TX("Still out of images, giving up!"));
+			Output(L"Still out of images, giving up!");
 			m_cacher.Stop();
 			return;
 		}

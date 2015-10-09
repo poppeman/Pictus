@@ -14,13 +14,13 @@ int WINAPI wWinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ wchar_t* pCmdLine, 
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_BAR_CLASSES | ICC_TREEVIEW_CLASSES | ICC_UPDOWN_CLASS | ICC_LISTVIEW_CLASSES;
 	if (InitCommonControlsEx(&icce) == FALSE) {
-		::MessageBox(0, TX("Couldn't initialize common controls."), 0, MB_OK);
+		::MessageBox(0, L"Couldn't initialize common controls.", 0, MB_OK);
 		return EXIT_FAILURE;
 	}
 
 	HRESULT hret = CoInitializeEx(0, COINIT_APARTMENTTHREADED);
 	if (FAILED(hret)) {
-		::MessageBox(0, TX("CoInitializeEx failed.\nThis is bad."), 0, MB_OK);
+		::MessageBox(0, L"CoInitializeEx failed.\nThis is bad.", 0, MB_OK);
 		return EXIT_FAILURE;
 	}
 

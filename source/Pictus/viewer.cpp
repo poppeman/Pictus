@@ -28,8 +28,8 @@
 #include <boost/random.hpp>
 #include <boost/scoped_array.hpp>
 
-const wchar_t* App::Viewer::ClassName = TX("Pictus Viewer");
-const wchar_t* App::Viewer::AppTitle = TX("Pictus");
+const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
+const wchar_t* App::Viewer::AppTitle = L"Pictus";
 
 namespace App {
 	using namespace Win;
@@ -87,7 +87,7 @@ namespace App {
 		}
 
 		// Look for another process (disallow if the setting requires that)
-		m_singleMutex = CreateMutex(0, true, (std::wstring(TX("Local\\")) + ClassName).c_str());
+		m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
 
 		if ((GetLastError() == ERROR_ALREADY_EXISTS) && (m_cfg.View.MultipleInstances == false)) {
 			if (HWND hwnd = ::FindWindow(ClassName, 0)) {
@@ -425,24 +425,24 @@ namespace App {
 		m_statusParts[StatusResolution].Text(UII_ImageResolution(image));
 
 		Caption((image ? 
-			IO::GetFile(m_cacher.CurrentImageFilename()) + TX(" - "):
-			TX("")) + std::wstring(AppTitle));
+			IO::GetFile(m_cacher.CurrentImageFilename()) + L" - ":
+			L"") + std::wstring(AppTitle));
 
 		if (image == 0) {
 			for (int i = 0; i < StatusNumParts; ++i) {
-				m_statusParts[i].Text(TX(""));
+				m_statusParts[i].Text(L"");
 			}
 		}
 		else {
 			m_statusParts[StatusName].Text(IO::GetFile(m_cacher.CurrentImageFilename()));
-			m_statusParts[StatusPosition].Text(ToWString(m_cacher.CurrentImageIndex() + 1) + TX("\\") + ToWString(m_cacher.ImageCount()));
+			m_statusParts[StatusPosition].Text(ToWString(m_cacher.CurrentImageIndex() + 1) + L"\\" + ToWString(m_cacher.ImageCount()));
 			m_statusParts[StatusFileSize].Text(UII_MemoryUsage(m_cacher.CurrentImageFileSize()));
 
 			if (image->IsHeaderInformationValid() == false && image->IsFinished()) {
-				m_statusParts[StatusZoom].Text(TX(""));
+				m_statusParts[StatusZoom].Text(L"");
 			}
 			else {
-				m_statusParts[StatusZoom].Text(ToWString(RoundCast(m_viewPort.ZoomLevel() * 100.0f)) + TX("%"));
+				m_statusParts[StatusZoom].Text(ToWString(RoundCast(m_viewPort.ZoomLevel() * 100.0f)) + L"%");
 				m_statusParts[StatusLastModified].Text(UII_LastModified(m_cacher.CurrentImageLastModifiedDate()));
 			}
 		}
@@ -455,16 +455,16 @@ namespace App {
 		FileInt gbSize = mbSize >> 10;
 
 		if (gbSize > FileSizeDivider) {
-			return ToWString(gbSize / (float)FileSizeDivider) + TX(" ") + GetWString(SIDUnitGB);
+			return ToWString(gbSize / (float)FileSizeDivider) + L" " + GetWString(SIDUnitGB);
 		}
 		else if (mbSize > FileSizeDivider) {
-			return ToWString(mbSize / (float)FileSizeDivider) + TX(" ") + GetWString(SIDUnitMB);
+			return ToWString(mbSize / (float)FileSizeDivider) + L" " + GetWString(SIDUnitMB);
 		}
 		else if (kbSize > FileSizeDivider) {
-			return ToWString(kbSize / (float)FileSizeDivider) + TX(" ") + GetWString(SIDUnitKB);
+			return ToWString(kbSize / (float)FileSizeDivider) + L" " + GetWString(SIDUnitKB);
 		}
 		else {
-			return ToWString(alloc / (float)FileSizeDivider) + TX(" ") + GetWString(SIDUnitB);
+			return ToWString(alloc / (float)FileSizeDivider) + L" " + GetWString(SIDUnitB);
 		}
 	}
 
@@ -482,13 +482,13 @@ namespace App {
 
 	std::wstring Viewer::UII_ImageResolution(Img::Image::Ptr image) {
 		if(!image || (image->IsHeaderInformationValid() == false && image->IsFinished()))
-			return TX("");
+			return L"";
 
 		SizeInt sz = image->GetSize();
 		if(IsPositive(sz))
-			return ToWString(sz.Width) + TX("x") + ToWString(sz.Height);
+			return ToWString(sz.Width) + L"x" + ToWString(sz.Height);
 
-		return TX("");
+		return L"";
 	}
 
 	void Viewer::ZoomIn() {
@@ -643,7 +643,7 @@ namespace App {
 		Rename ren(IO::GetTitle(old_name));
 
 		if (ren.DoModal(this)) {
-			std::wstring new_name = IO::GetPath(old_name) + ren.Name() + TX(".") + extension;
+			std::wstring new_name = IO::GetPath(old_name) + ren.Name() + L"." + extension;
 			IO::FileReader::Ptr reader = m_cacher.CurrentImageFileReader();
 			if(!reader)
 				return;
@@ -680,7 +680,7 @@ namespace App {
 	void Viewer::OpenFolder() {
 		FilterString s(m_codecs);
 		std::wstring file = OpenFileDialog(GetWString(SIDOpen), s.GetFilterString().c_str(), s.FilterCount());
-		if (file != TX(""))
+		if (file != L"")
 			SetImageLocation(file);
 	}
 
@@ -691,7 +691,7 @@ namespace App {
 	void Viewer::HandleCacheNotification() {
 		std::unique_lock<std::mutex> l(m_mutexNotification);
 		if (m_cacheNotifications.empty()) {
-			DO_THROW(Err::CriticalError, TX("Notification queue is empty."));
+			DO_THROW(Err::CriticalError, L"Notification queue is empty.");
 		}
 
 		CacheNotification notification = m_cacheNotifications.front();
@@ -731,7 +731,7 @@ namespace App {
 	void Viewer::HandleFolderNotification() {
 		std::unique_lock<std::mutex> l(m_mutexNotification);
 		if (m_folderNotifications.empty()) {
-			DO_THROW(Err::CriticalError, TX("Notification queue is empty."));
+			DO_THROW(Err::CriticalError, L"Notification queue is empty.");
 		}
 
 		IO::FileEvent notification = m_folderNotifications.front();
@@ -884,7 +884,7 @@ namespace App {
 			}
 
 		default:
-			DO_THROW(Err::InvalidParam, TX("Invalid reposition method: ") + ToWString(method));
+			DO_THROW(Err::InvalidParam, L"Invalid reposition method: " + ToWString(method));
 		}
 	}
 
@@ -915,7 +915,7 @@ namespace App {
 	}
 
 	std::wstring Viewer::UII_LastModified(FileInt date) {
-		return FormattedDate(date) + TX(" ") + FormattedTime(date);
+		return FormattedDate(date) + L" " + FormattedTime(date);
 	}
 
 	bool Viewer::PerformOnCreateTaskbar() {
@@ -958,7 +958,7 @@ namespace App {
 	void Viewer::SetImageLocation(const std::wstring& path) {
 		std::wstring fixedPath = path;
 		if(IO::DoPathExist(path))
-			fixedPath += TX("\\");
+			fixedPath += L"\\";
 		else if(!IO::DoFileExist(fixedPath))
 			return;
 
@@ -996,7 +996,7 @@ namespace App {
 		if (pImage.get() == 0) return;
 
 		// Construct command line string
-		std::wstring cmd(TX("explorer /e,/select,\"") + m_cacher.CurrentImageFilename() + TX("\""));
+		std::wstring cmd(L"explorer /e,/select,\"" + m_cacher.CurrentImageFilename() + L"\"");
 
 		// Start the new process
 		STARTUPINFO si;

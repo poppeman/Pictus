@@ -10,7 +10,7 @@
 #include "orz/logger.h"
 
 int start_app(const std::wstring& params) {
-	if (params == TX("--cleanup")) {
+	if (params == L"--cleanup") {
 		// If the user refused to uninstall the previous version when upgrading, the uninstaller will likely call pictus.exe with --cleanup
 		// as parameter. Let's not throw up a blank Pictus windows in that situation.
 		// This applies when 1.1.4.0 or older was installed.
@@ -42,8 +42,8 @@ int start_app(const std::wstring& params) {
 		// This is not something out of the ordinary.
 	}
 	catch(Err::Exception& e) {
-		Log << TX("Exception caught:\n") << e.Desc() << TX("\n");
-		MessageBox(0, (TX("An error occurred: ") + e.Desc()).c_str(), TX("Pictus Error"), MB_OK);
+		Log << L"Exception caught:\n" << e.Desc() << L"\n";
+		MessageBox(0, (L"An error occurred: " + e.Desc()).c_str(), L"Pictus Error", MB_OK);
 		//throw;	// Good for debugging
 	}
 

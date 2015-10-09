@@ -1,4 +1,6 @@
 #include "reg_color_translator.h"
+#include "orz/types.h"
+
 #include <sstream>
 #include <iomanip>
 

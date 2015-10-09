@@ -12,7 +12,7 @@ namespace App {
 		ControlText(IDC_TEXT_ABOUT_LIBJPEG, SIDSettingsAboutIJG);
 		ControlText(IDC_TEXT_ABOUT_LIBPNG, SIDSettingsAboutlibpng);
 
-		std::wstring about(TX("Version "));
+		std::wstring about(L"Version ");
 
 		about += ToWString(CurrentVersion);
 

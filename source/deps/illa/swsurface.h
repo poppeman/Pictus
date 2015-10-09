@@ -4,6 +4,7 @@
 #include "surface.h"
 #include "surfacefactory.h"
 #include <atomic>
+#include <vector>
 
 namespace Img {
 	class SurfaceSoftware:public Img::Surface {

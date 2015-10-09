@@ -6,7 +6,7 @@
 
 namespace Err {
 	struct Direct3DError:public CriticalError {
-		Direct3DError(const std::wstring& desc):CriticalError(TX("Direct3DError: ") + desc) {}
+		Direct3DError(const std::wstring& desc):CriticalError(L"Direct3DError: " + desc) {}
 	};
 }
 

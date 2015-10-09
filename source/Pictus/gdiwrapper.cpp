@@ -1,8 +1,11 @@
 #include "gdiwrapper.h"
 
+#include "orz/exception.h"
+#include "orz/types.h"
+
 namespace Win {
 	void SharedDC::BlitToDC(HDC destDC, const Geom::RectInt& destinationRect, const Geom::PointInt& sourceTopLeft) {
-		COND_STRICT(BitBlt(destDC, destinationRect.Left(), destinationRect.Top(), destinationRect.Width(), destinationRect.Height(), *this, sourceTopLeft.X, sourceTopLeft.Y, SRCCOPY), Err::CriticalError, TX("SharedDC::BlitToDC, BitBlt failed: ") + ToWString(GetLastError()));
+		COND_STRICT(BitBlt(destDC, destinationRect.Left(), destinationRect.Top(), destinationRect.Width(), destinationRect.Height(), *this, sourceTopLeft.X, sourceTopLeft.Y, SRCCOPY), Err::CriticalError, L"SharedDC::BlitToDC, BitBlt failed: " + ToWString(GetLastError()));
 	}
 
 	 SharedDC::SharedDC():m_hDC(0), m_hOldObj(0) {

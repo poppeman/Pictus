@@ -6,7 +6,7 @@ namespace Img {
 	}
 
 	void DecoderWorkerThread::Start() {
-		COND_STRICT(m_queue, Err::InvalidCall, TX("Queue not set"));
+		COND_STRICT(m_queue, Err::InvalidCall, L"Queue not set");
 
 		std::lock_guard<std::mutex> l(m_mxWorkList);
 		m_thread = std::make_shared<std::thread>(&DecoderWorkerThread::ThreadMain, this);
@@ -53,7 +53,7 @@ wait:
 			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, ToWString(error.what()));
 		}
 		catch (...) {
-			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, TX("Totally, utterly, unknown exception."));
+			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, L"Totally, utterly, unknown exception.");
 		}
 		std::lock_guard<std::mutex> l(m_mxWorkList);
 		m_state = StStopped;
@@ -68,7 +68,7 @@ wait:
 			case LoadEventDone:
 				return MessageReceiver::LoadDone;
 		}
-		DO_THROW(Err::InvalidParam, TX("Unsupported state: ") + ToWString(s));
+		DO_THROW(Err::InvalidParam, L"Unsupported state: " + ToWString(s));
 	}
 
 	void DecoderWorkerThread::processImage( ImageLoader::Ptr image ) {

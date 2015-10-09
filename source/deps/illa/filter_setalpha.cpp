@@ -4,7 +4,7 @@ namespace Filter {
 	namespace Alpha {
 		void SetAlpha(const FilterBuffer& source, int alpha) {
 			if (source.BufferData == nullptr) {
-				DO_THROW(Err::InvalidParam, TX("Null buffer not allowed."));
+				DO_THROW(Err::InvalidParam, L"Null buffer not allowed.");
 			}
 
 			uint8_t* sourceCurrentScanlinePtr = source.BufferData;

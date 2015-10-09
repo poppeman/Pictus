@@ -206,6 +206,9 @@
     <ClCompile Include="ByteOrder.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="exception.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shared.props" />

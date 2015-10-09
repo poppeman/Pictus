@@ -4,6 +4,8 @@
 #include "cnt_colorpick.h"
 #include "cnt_colorpreview.h"
 
+#include "orz/types.h"
+
 #include <boost/scoped_array.hpp>
 
 #include <CommCtrl.h>

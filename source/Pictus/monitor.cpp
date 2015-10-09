@@ -18,7 +18,7 @@ namespace Win {
 			}
 
 			if (found == nullptr) {
-				DO_THROW(Err::InvalidParam, TX("Couldn't find a monitor for virtual screen coordinate: ") + ToWString(coordinate));
+				DO_THROW(Err::InvalidParam, L"Couldn't find a monitor for virtual screen coordinate: " + ToWString(coordinate));
 			}
 
 			return found;

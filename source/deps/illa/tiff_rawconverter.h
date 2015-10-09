@@ -2,6 +2,7 @@
 #define TIFF_RAWCONVERTER_H
 
 #include "tiff_converter.h"
+#include <vector>
 
 namespace Img {
 	class TiffRawConverter:public TiffDataConverter {

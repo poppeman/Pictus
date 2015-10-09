@@ -2,6 +2,7 @@
 #define TIFF_CIECONVERTER_H
 
 #include "tiff_converter.h"
+#include <vector>
 
 namespace Img {
 	class TiffCieConverter:public TiffDataConverter {

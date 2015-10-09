@@ -6,9 +6,9 @@ namespace Img {
 		return new CodecTIFF();
 	}
 
-	FactoryTIFF::FactoryTIFF():ICodecFactory(TX("TIFF")) {
-		AddExtension(TX("TIF"));
-		AddExtension(TX("TIFF"));
-		AddExtension(TX("XIF"));
+	FactoryTIFF::FactoryTIFF():ICodecFactory(L"TIFF") {
+		AddExtension(L"TIF");
+		AddExtension(L"TIFF");
+		AddExtension(L"XIF");
 	}
 }

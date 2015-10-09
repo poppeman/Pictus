@@ -6,8 +6,8 @@ namespace Img {
 		return new CodecPSP();
 	}
 
-	FactoryPSP::FactoryPSP():ICodecFactory(TX("Corel Paint Shop Pro")) {
-		AddExtension(TX("PSP"));
-		AddExtension(TX("PSPIMAGE"));
+	FactoryPSP::FactoryPSP():ICodecFactory(L"Corel Paint Shop Pro") {
+		AddExtension(L"PSP");
+		AddExtension(L"PSPIMAGE");
 	}
 }

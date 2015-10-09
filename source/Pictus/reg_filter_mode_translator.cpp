@@ -1,4 +1,5 @@
 #include "reg_filter_mode_translator.h"
+#include "orz/types.h"
 
 namespace Reg {
 	namespace Internal {

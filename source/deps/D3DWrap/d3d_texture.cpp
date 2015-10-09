@@ -20,7 +20,7 @@ namespace D3D {
 
 	Geom::SizeInt Texture::GetSize() {
 		if (m_texture == nullptr) {
-			DO_THROW(Err::CriticalError, TX("RenderTarget not created."));
+			DO_THROW(Err::CriticalError, L"RenderTarget not created.");
 		}
 		LPDIRECT3DSURFACE9 surface;
 		m_texture->GetSurfaceLevel(0, &surface);
@@ -38,7 +38,7 @@ namespace D3D {
 
 	LPDIRECT3DTEXTURE9 Texture::D3DObject() {
 		if (m_texture == nullptr) {
-			DO_THROW(Err::CriticalError, TX("Object not yet created."));
+			DO_THROW(Err::CriticalError, L"Object not yet created.");
 		}
 		return m_texture.get();
 	}

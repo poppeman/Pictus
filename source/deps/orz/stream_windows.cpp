@@ -16,7 +16,7 @@ namespace IO {
 	bool StreamWindows::performOpen() {
 		if (m_filename.empty() == false) {
 			if (FAILED(SHCreateStreamOnFileW(m_filename.c_str(), STGM_READ | STGM_SHARE_DENY_WRITE, &m_pStream))) {
-				//DO_THROW(Err::InvalidParam, TX("Could not create stream for file: ") + filename);
+				//DO_THROW(Err::InvalidParam, L"Could not create stream for file: " + filename);
 				return false;
 			}
 		}

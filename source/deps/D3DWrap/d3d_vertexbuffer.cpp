@@ -9,13 +9,13 @@ namespace D3D {
 		m_sizeInBytes(bytes)
 	{
 		if (vb == 0) {
-			DO_THROW(Err::CriticalError, TX("Vertex buffer not initialized"));
+			DO_THROW(Err::CriticalError, L"Vertex buffer not initialized");
 		}
 	}
 
 	uint8_t* VertexBuffer::Lock() {
 		if (m_isLocked) {
-			DO_THROW(Err::CriticalError, TX("Vertex buffer is already locked."));
+			DO_THROW(Err::CriticalError, L"Vertex buffer is already locked.");
 		}
 		void* buf;
 		m_vb->Lock(0, 0, &buf, 0);
@@ -25,7 +25,7 @@ namespace D3D {
 
 	void VertexBuffer::Unlock() {
 		if (m_isLocked == false) {
-			DO_THROW(Err::CriticalError, TX("Vertex buffer is not locked."));
+			DO_THROW(Err::CriticalError, L"Vertex buffer is not locked.");
 		}
 		m_vb->Unlock();
 		m_isLocked = false;

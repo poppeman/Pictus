@@ -1,15 +1,16 @@
 #ifndef ILLA_TYPES_H
 #define ILLA_TYPES_H
 
-#include "../orz/exception.h"
+#include "orz/exception.h"
+#include <cstdint>
 
 namespace Err {
 	struct CodecError:public Exception {
-		CodecError(const std::wstring& msg):Exception(TX("Codec error: ") + msg) {}
+		CodecError(const std::wstring& msg):Exception(L"Codec error: " + msg) {}
 	};
 
 	struct InvalidHeader:public CodecError {
-		InvalidHeader(const std::wstring& msg):CodecError(TX("InvalidHeader: ") + msg) {}
+		InvalidHeader(const std::wstring& msg):CodecError(L"InvalidHeader: " + msg) {}
 	};
 }
 
@@ -114,11 +115,11 @@ namespace Img {
 	public:
 		void Color(int index, const Color& col) {
 			if (index > 255) {
-				DO_THROW(Err::InvalidParam, TX("Color index out of bounds (> 255)"));
+				DO_THROW(Err::InvalidParam, L"Color index out of bounds (> 255)");
 			}
 
 			if (index < 0) {
-				DO_THROW(Err::InvalidParam, TX("Color index out of bounds (< 0)"));
+				DO_THROW(Err::InvalidParam, L"Color index out of bounds (< 0)");
 			}
 
 			m_colors[index] = col;
@@ -126,11 +127,11 @@ namespace Img {
 
 		const Img::Color& Color(int index) const {
 			if (index > 255) {
-				DO_THROW(Err::InvalidParam, TX("Color index out of bounds (> 255)"));
+				DO_THROW(Err::InvalidParam, L"Color index out of bounds (> 255)");
 			}
 
 			if (index < 0) {
-				DO_THROW(Err::InvalidParam, TX("Color index out of bounds (< 0)"));
+				DO_THROW(Err::InvalidParam, L"Color index out of bounds (< 0)");
 			}
 
 			return m_colors[index];
@@ -183,7 +184,7 @@ namespace Filter {
 		FilterBuffer(const Geom::SizeInt& sz_, int ps_, uint8_t* data_, size_t stride_, const Img::Palette& pal);
 	};
 
-	Geom::SizeInt CalculateUnzoomedSize(_In_ Geom::SizeInt defaultDims, _In_ Filter::RotationAngle angle);
+	Geom::SizeInt CalculateUnzoomedSize(Geom::SizeInt defaultDims, Filter::RotationAngle angle);
 }
 
 

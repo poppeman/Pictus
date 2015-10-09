@@ -1,6 +1,6 @@
 #include "cnt_colorpreview.h"
 
-const wchar_t* App::ControlColorPreview::ClassName = TX("PICTUS_COLOR_PREVIEW");
+const wchar_t* App::ControlColorPreview::ClassName = L"PICTUS_COLOR_PREVIEW";
 
 namespace App {
 	void ControlColorPreview::RegisterClass(HINSTANCE hInstance) {

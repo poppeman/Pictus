@@ -3,6 +3,8 @@
 #include "registry.h"
 #include "ctrl_button.h"
 
+#include "orz/types.h"
+
 namespace App {
 	using namespace Intl;
 	using namespace Win;

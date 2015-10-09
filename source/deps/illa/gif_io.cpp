@@ -3,14 +3,14 @@
 namespace Img {
 	void ReadPalette(Img::Palette& pal, int colors, IO::FileReader::Ptr file) {
 		if (file == nullptr) {
-			DO_THROW(Err::InvalidParam, TX("file was null"));
+			DO_THROW(Err::InvalidParam, L"file was null");
 		}
 		LoadPalette(pal, *file, 0, colors, Img::LoadRGB);
 	}
 
 	void ReadSizeWord(Geom::SizeInt* pSize, IO::FileReader::Ptr file) {
 		if (file == nullptr) {
-			DO_THROW(Err::InvalidParam, TX("file was null"));
+			DO_THROW(Err::InvalidParam, L"file was null");
 		}
 
 		uint16_t sizes[2];

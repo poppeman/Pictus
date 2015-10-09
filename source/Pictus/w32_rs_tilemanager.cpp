@@ -62,7 +62,7 @@ namespace Win {
 
 	void TileManager::SetViewportSize(const SizeInt& dims) {
 		if (dims.Width < 0 || dims.Height < 0) {
-			DO_THROW(Err::InvalidParam, TX("Invalid dimensions: ") + ToWString(dims.Width) + TX(", ") + ToWString(dims.Height));
+			DO_THROW(Err::InvalidParam, L"Invalid dimensions: " + ToWString(dims.Width) + L", " + ToWString(dims.Height));
 		}
 		const SizeInt texDims{ MaximumTileEdgeLength, MaximumTileEdgeLength };
 		const SizeInt numTiles = SizeInt(2, 2) + dims / MaximumTileEdgeLength;
@@ -80,7 +80,7 @@ namespace Win {
 				if (t.surface == 0) {
 					t.surface = m_device->CreateDDSurface();
 					if (t.surface == nullptr) {
-						DO_THROW(Err::CriticalError, TX("Failed to create surface."));
+						DO_THROW(Err::CriticalError, L"Failed to create surface.");
 					}
 					t.surface->Create(texDims);
 				}
@@ -90,16 +90,16 @@ namespace Win {
 
 	TileManager::TileManager(Renderer::Ptr device) :m_device(device) {
 		if (device == nullptr) {
-			DO_THROW(Err::InvalidParam, TX("Device may not be null."));
+			DO_THROW(Err::InvalidParam, L"Device may not be null.");
 		}
 	}
 
 	void TileManager::Render(Geom::SizeInt offset) {
 		if (m_topLeftOffset.Width < 0) {
-			DO_THROW(Err::CriticalError, TX("Offset (X) should always be positive"));
+			DO_THROW(Err::CriticalError, L"Offset (X) should always be positive");
 		}
 		if (m_topLeftOffset.Height < 0) {
-			DO_THROW(Err::CriticalError, TX("Offset (Y) should always be positive"));
+			DO_THROW(Err::CriticalError, L"Offset (Y) should always be positive");
 		}
 
 		if (m_tiles.empty()) {
@@ -187,7 +187,7 @@ namespace Win {
 
 	TileManager::RequestedArea TileManager::RequestDDSurface(const Geom::RectInt& areaToRequest) const {
 		if (IsPositive(areaToRequest.Dimensions()) == false) {
-			DO_THROW(Err::InvalidParam, TX("Zero or negative size."));
+			DO_THROW(Err::InvalidParam, L"Zero or negative size.");
 		}
 
 		auto tileCoords = determineTileCoords(areaToRequest.TopLeft());
@@ -199,7 +199,7 @@ namespace Win {
 			DO_THROW(Err::CriticalError, L"Invalid writeable area.");
 		}
 		if (ra.WriteableArea.TopLeft().AtLeastInclusive({ 0, 0 }) == false) {
-			DO_THROW(Err::CriticalError, TX("Invalid top-left of writable area"));
+			DO_THROW(Err::CriticalError, L"Invalid top-left of writable area");
 		}
 
 		Tile& t = (*m_tiles[tileCoords.Y])[tileCoords.X];

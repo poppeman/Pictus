@@ -30,7 +30,7 @@ namespace Img {
 		typedef std::shared_ptr<DecoderWorkerThread> Ptr;
 
 	private:
-		void SendNotification(Img::MessageReceiver::LoadMessage msg, Img::Image* image, const std::wstring& desc = TX(""));
+		void SendNotification(Img::MessageReceiver::LoadMessage msg, Img::Image* image, const std::wstring& desc = L"");
 
 		void ThreadMain();
 

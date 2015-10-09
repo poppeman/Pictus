@@ -28,7 +28,7 @@ namespace Util {
 
 		do {
 			if (m_source.empty()) {
-				DO_THROW(Err::CriticalError, TX("Out of data!"));
+				DO_THROW(Err::CriticalError, L"Out of data!");
 			}
 
 			uint8_t toCopy = std::min((uint8_t)(8 - m_srcPos), static_cast<uint8_t>(m_wordSize - copied));

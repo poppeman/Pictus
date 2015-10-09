@@ -6,7 +6,7 @@ namespace Img {
 		return new CodecXYZ();
 	}
 
-	FactoryXYZ::FactoryXYZ():ICodecFactory(TX("RPG Maker")) {
-		AddExtension(TX("XYZ"));
+	FactoryXYZ::FactoryXYZ():ICodecFactory(L"RPG Maker") {
+		AddExtension(L"XYZ");
 	}
 }

@@ -23,7 +23,7 @@ namespace Win {
 
 	void Notification::ToolTip(const std::wstring& text) {
         wcscpy_s(m_nid.szTip, 128, text.c_str());
-		SET_OR_UNSET(text != TX(""), m_nid.uFlags, NIF_TIP);
+		SET_OR_UNSET(text != L"", m_nid.uFlags, NIF_TIP);
 	}
 
 	Notification::Notification() {
@@ -62,6 +62,6 @@ namespace Win {
 		else if (icon == BSIInfo)
 			m_nid.dwInfoFlags = NIIF_INFO;
 		else
-			DO_THROW(Err::InvalidParam, TX("Unknown standard icon param: ") + ToWString(icon));
+			DO_THROW(Err::InvalidParam, L"Unknown standard icon param: " + ToWString(icon));
 	}
 }

@@ -22,22 +22,22 @@ bool g_run = true;
 void prepareCacherTest(const std::wstring& path)
 {
 	Img::SurfaceFactory(new Img::FactorySurfaceSoftware);
-	g_runner->AddThread(BasicThread::Ptr(new CacheUser(path + TX("d\\"), path + TX("e\\"))));
+	g_runner->AddThread(BasicThread::Ptr(new CacheUser(path + L"d\\", path + L"e\\")));
 }
 
 void prepareFolderTest(const std::wstring& path)
 {
-	g_runner->AddThread(BasicThread::Ptr(new FolderUser(path + TX("d\\"))));
-	g_runner->AddThread(BasicThread::Ptr(new FolderManipulator(path + TX("d\\"), path + TX("a\\"))));
-	g_runner->AddThread(BasicThread::Ptr(new FolderUser(path + TX("e\\"))));
-	g_runner->AddThread(BasicThread::Ptr(new FolderManipulator(path + TX("e\\"), path + TX("b\\"))));
+	g_runner->AddThread(BasicThread::Ptr(new FolderUser(path + L"d\\")));
+	g_runner->AddThread(BasicThread::Ptr(new FolderManipulator(path + L"d\\", path + L"a\\")));
+	g_runner->AddThread(BasicThread::Ptr(new FolderUser(path + L"e\\")));
+	g_runner->AddThread(BasicThread::Ptr(new FolderManipulator(path + L"e\\", path + L"b\\")));
 }
 
 int wmain(int argc, wchar_t* argv[])
 {
 	if (argc < 3)
 	{
-		OutputString(TX("Error: Bad params.\nStresser.exe CACHER|FOLDER|FULL PATH"));
+		OutputString(L"Error: Bad params.\nStresser.exe CACHER|FOLDER|FULL PATH");
 		return EXIT_FAILURE;
 	}
 
@@ -53,36 +53,36 @@ int wmain(int argc, wchar_t* argv[])
 		fullPath,
 		0);
 
-	std::wstring path = IO::GetPath(fullPath + std::wstring(TX("\\")));
+	std::wstring path = IO::GetPath(fullPath + std::wstring(L"\\"));
 
-	OutputString(TX("Setting up ..."));
+	OutputString(L"Setting up ...");
 
 	// FIXME: Cacher test didn't like it when these lines were missing
-	copyFiles(path + TX("a\\"), path + TX("d\\"));
-	copyFiles(path + TX("b\\"), path + TX("e\\"));
+	copyFiles(path + L"a\\", path + L"d\\");
+	copyFiles(path + L"b\\", path + L"e\\");
 
 	auto numThreads = std::max<unsigned int>(2, std::thread::hardware_concurrency());
 
-	OutputString(TX("Processor count : ") + ToWString(numThreads));
+	OutputString(L"Processor count : " + ToWString(numThreads));
 
-	if (test == TX("CACHER"))
+	if (test == L"CACHER")
 	{
-		OutputString(TX("Cacher-only test"));
+		OutputString(L"Cacher-only test");
 		prepareCacherTest(path);
 	}
-	else if (test == TX("FOLDER"))
+	else if (test == L"FOLDER")
 	{
-		OutputString(TX("Folder-only test"));
+		OutputString(L"Folder-only test");
 		prepareFolderTest(path);
 	}
-	else if (test == TX("FULL"))
+	else if (test == L"FULL")
 	{
-		OutputString(TX("Full test"));
+		OutputString(L"Full test");
 		prepareCacherTest(path);
 		prepareFolderTest(path);
 	}
 
-	OutputString(TX("Starting threads, press Enter to quit ..."));
+	OutputString(L"Starting threads, press Enter to quit ...");
 	g_runner->Run();
 
 	for (;;) {

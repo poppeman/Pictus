@@ -16,12 +16,12 @@ namespace IO {
 	};
 
 	bool DoFileExist(const std::wstring& file) {
-		if (file==TX("")) return false;
+		if (file==L"") return false;
 		IO::FileReader r(file);
 		return r.Open();
 
 		/*FILE* f = 0;
-		if ((_wfopen_s(&f, file.c_str(), TX("rb")) == 0) && (f != 0)) {
+		if ((_wfopen_s(&f, file.c_str(), L"rb") == 0) && (f != 0)) {
 			fclose(f);
 			return true;
 		}
@@ -52,7 +52,7 @@ namespace IO {
 	}
 
 	bool performDeleteRecycle(const std::wstring& file, bool doRecycle, HWND hwnd) {
-		//COND_STRICT(hwnd != 0, Err::InvalidParam, TX("hwnd was null."));
+		//COND_STRICT(hwnd != 0, Err::InvalidParam, L"hwnd was null.");
 		SHFILEOPSTRUCTW sfop;
 		ZeroMemory(&sfop, sizeof(sfop));
 
@@ -119,7 +119,7 @@ namespace IO {
 			renamed_file(old_name, resulting_name);
 
 		restore_folders(ticket);*/
-		if(!toRet) return TX("");
+		if(!toRet) return L"";
 		return resulting_name;
 	}
 

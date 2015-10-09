@@ -15,7 +15,7 @@ SUITE(TestCThumbProvider) {
 	struct CreateIStreamFixture {
 		CreateIStreamFixture():is(0) {}
 		void Create(wchar_t* c) {
-			auto hr = SHCreateStreamOnFileW((g_datapath + TX("\\") + std::wstring(c)).c_str(), STGM_READ | STGM_SHARE_DENY_WRITE, &is);
+			auto hr = SHCreateStreamOnFileW((g_datapath + L"\\" + std::wstring(c)).c_str(), STGM_READ | STGM_SHARE_DENY_WRITE, &is);
 			if (FAILED(hr)) {
 				DO_THROW(Err::CriticalError, L"Failed creating stream. Error code: " + ToWString(hr));
 			}
@@ -29,7 +29,7 @@ SUITE(TestCThumbProvider) {
 	};
 
 	TEST_FIXTURE(CreateIStreamFixture, GenerateNullParams) {
-		Create(TX("simple.tga"));
+		Create(L"simple.tga");
 		cptp.Initialize(is, 0);
 		CHECK_EQUAL(E_POINTER, cptp.GetThumbnail(32, 0, 0));
 		CHECK_EQUAL(E_INVALIDARG, cptp.GetThumbnail(0, 0, 0));
@@ -38,7 +38,7 @@ SUITE(TestCThumbProvider) {
 
 	/*
 	TEST_FIXTURE(CreateIStreamFixture, SimpleGenerate) {
-		Create(TX("bw.tga"));
+		Create(L"bw.tga");
 		cptp.Initialize(is, 0);
 		CHECK_EQUAL(S_OK, cptp.GetThumbnail(32, &b, &a));
 		CHECK_EQUAL(WTSAT_RGB, a);
@@ -46,7 +46,7 @@ SUITE(TestCThumbProvider) {
 	}*/
 
 /*	TEST_FIXTURE(CreateIStreamFixture, TiffOffL16) {
-		Create(TX("Codecs\\TIFF\\quad-jpeg.tif"));
+		Create(L"Codecs\\TIFF\\quad-jpeg.tif");
 		cptp.Initialize(is, 0);
 		CHECK_EQUAL(S_OK, cptp.GetThumbnail(32, &b, &a));
 		CHECK_EQUAL(WTSAT_RGB, a);
@@ -54,7 +54,7 @@ SUITE(TestCThumbProvider) {
 	}*/
 
 /*	TEST_FIXTURE(CreateIStreamFixture, TgaNoAlpha) {
-		Create(TX("Codecs\\TIFF\\quad-jpeg.tga"));
+		Create(L"Codecs\\TIFF\\quad-jpeg.tga");
 		cptp.Initialize(is, 0);
 		CHECK_EQUAL(S_OK, cptp.GetThumbnail(32, &b, &a));
 		CHECK_EQUAL(WTSAT_RGB, a);

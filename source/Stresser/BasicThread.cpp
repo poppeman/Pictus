@@ -48,7 +48,7 @@ void BasicThread::threadWrapper() {
 	catch(...) {
 		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + L"Unknown exception type");
 	}
-	Output(TX("Thread is terminating ..."));
+	Output(L"Thread is terminating ...");
 }
 
 void BasicThread::ThreadMain()
@@ -59,7 +59,7 @@ void BasicThread::Run()
 	std::lock_guard<std::mutex> l(m_mutexTerm);
 
 	m_isTerminating = false;
-	Output(TX("Starting thread ... "));
+	Output(L"Starting thread ... ");
 	m_thread = std::make_shared<std::thread>(&BasicThread::threadWrapper, this);
-	Output(TX("Thread started!"));
+	Output(L"Thread started!");
 }

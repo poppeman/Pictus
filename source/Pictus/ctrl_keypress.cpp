@@ -1,12 +1,13 @@
 #include "ctrl_keypress.h"
+#include "orz/types.h"
 
 namespace App {
 	LRESULT CALLBACK Keypress::FilterEditWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		auto pCtrl = GetControl(hwnd);
-		if (pCtrl == nullptr) DO_THROW(Err::CriticalError, TX("Couldn't find control structure."));
+		if (pCtrl == nullptr) DO_THROW(Err::CriticalError, L"Couldn't find control structure.");
 
 		auto* pEdit = dynamic_cast <Keypress*>(pCtrl.get());
-		if (pEdit == nullptr) DO_THROW(Err::CriticalError, TX("Couldn't cast control to edit box."));
+		if (pEdit == nullptr) DO_THROW(Err::CriticalError, L"Couldn't cast control to edit box.");
 
 		switch (msg) {
 			case WM_PASTE:

@@ -15,7 +15,7 @@ SUITE(IO)
 	class ReaderTestFixture
 	{
 	public:
-		ReaderTestFixture():file(g_datapath + TX("/data.raw"))
+		ReaderTestFixture():file(g_datapath + L"/data.raw")
 		{
 			file.Open();
 		}
@@ -29,7 +29,7 @@ SUITE(IO)
 	{
 	public:
 		ReaderAsciiFixture()
-			:content("This is a simple text file."), file(g_datapath + TX("/ascii.txt"))
+			:content("This is a simple text file."), file(g_datapath + L"/ascii.txt")
 		{
 			file.Open();
 		}
@@ -42,7 +42,7 @@ SUITE(IO)
 
 	TEST(FileReader_EmptyState)
 	{
-		IO::FileReader f(g_datapath + TX("/ascii.txt"));
+		IO::FileReader f(g_datapath + L"/ascii.txt");
 		CHECK(f.IsOpen() == false);	// Shouldn't be open
 		CHECK_THROW(f.Position(), Err::FileNotOpen);	// Shouldn't be able to check position
 		CHECK_THROW(f.Size(), Err::FileNotOpen); // Shouldn't be able to get file size
@@ -53,7 +53,7 @@ SUITE(IO)
 
 	TEST(FileReader_Open)
 	{
-		IO::FileReader f(g_datapath + TX("/data.raw"));
+		IO::FileReader f(g_datapath + L"/data.raw");
 		CHECK(f.Open());
 	}
 
@@ -101,7 +101,7 @@ SUITE(IO)
 
 	TEST(FileReader_NoFile)
 	{
-		IO::FileReader f(TX("This file does not exist"));
+		IO::FileReader f(L"This file does not exist");
 		CHECK(f.Open() == false);
 		//CHECK(f.Error() == IO::OpenErrorCode::FileNotFound);
 		CHECK(f.IsOpen() == false);	// Shouldn't be open
@@ -114,8 +114,8 @@ SUITE(IO)
 
 	TEST(DoFileExist)
 	{
-		CHECK(IO::DoFileExist(g_datapath + TX("/data.raw")) == true);
-		CHECK(IO::DoFileExist(TX("This file should not exist")) == false);
+		CHECK(IO::DoFileExist(g_datapath + L"/data.raw") == true);
+		CHECK(IO::DoFileExist(L"This file should not exist") == false);
 	}
 
 	TEST_FIXTURE(ReaderAsciiFixture, ReadBytes)
@@ -179,7 +179,7 @@ SUITE(IO)
 
 	/*TEST(FileAccessViolation)
 	{
-		const char* filename = TX("file_access_test.txt");
+		const char* filename = L"file_access_test.txt";
 		IO::FileWriter writer;
 		CHECK(writer.Open(filename) == true);
 

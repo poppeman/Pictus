@@ -22,15 +22,15 @@ std::wstring assure_folder(std::wstring name) {
 
 	// Always use the Application Data folder as a base
 	wchar_t sLoc[MAX_PATH];
-	COND_STRICT(SUCCEEDED(SHGetFolderPath(0, CSIDL_APPDATA, 0, 0, sLoc)), Err::CriticalError, TX("Could not find settings directory."));
+	COND_STRICT(SUCCEEDED(SHGetFolderPath(0, CSIDL_APPDATA, 0, 0, sLoc)), Err::CriticalError, L"Could not find settings directory.");
 
 	std::wstring currentPath(sLoc);
-	currentPath += TX("\\");
+	currentPath += L"\\";
 
 	// Create all sub directories one by one.
 	size_t index	= 1;
 	do {
-		size_t newindex = path.find_first_of(TX("\\/"), index);
+		size_t newindex = path.find_first_of(L"\\/", index);
 		if (newindex == std::wstring::npos) break;
 
 		currentPath += path.substr(index, newindex - index + 1);

@@ -10,7 +10,7 @@ namespace Img {
 		cinfo; // Not used
 		//our_error* err=(our_error*)cinfo->err;
 		// TODO: Try to extract information from cinfo
-		DO_THROW(Err::CodecError, TX("Error loading JPEG."));
+		DO_THROW(Err::CodecError, L"Error loading JPEG.");
 	}
 
 	bool CodecJPEG::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {
