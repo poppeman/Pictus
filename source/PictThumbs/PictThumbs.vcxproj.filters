@@ -73,9 +73,6 @@
     <ClInclude Include="res_pictthumbs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="aStdAfx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res_pictthumbs.rc">
