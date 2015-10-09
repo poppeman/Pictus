@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "codecsetup.h"
 #include "illa/codecmgr.h"
 #include "illa/f_pcx.h"

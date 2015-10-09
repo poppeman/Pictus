@@ -1,1 +1,0 @@
-#include "../PictThumbs/StdAfx.h"

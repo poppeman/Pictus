@@ -1,6 +1,9 @@
 #ifndef PICTTHUMBS_CLASSFACTORY_H
 #define PICTTHUMBS_CLASSFACTORY_H
 
+#include <windows.h>
+#include <objbase.h>
+
 typedef HRESULT(*PFNCREATEINSTANCE)(_In_ REFIID riid, _COM_Outptr_ void **ppvObject);
 
 struct CLASS_OBJECT_INIT {

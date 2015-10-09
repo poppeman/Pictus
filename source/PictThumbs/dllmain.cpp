@@ -1,10 +1,10 @@
-#include "StdAfx.h"
 #include "dllmain.h"
 #include "regsetup.h"
 #include "ClassFactory.h"
 #include "DllRef.h"
 #include "codecsetup.h"
 #include <new>
+#include <ShlObj.h>
 
 extern HRESULT CPictusThumbnailProvider_CreateInstance(REFIID riid, void **ppv);
 
