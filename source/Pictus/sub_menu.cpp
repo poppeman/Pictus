@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "sub_menu.h"
 
 namespace Win {

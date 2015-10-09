@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "imagecache_fileentry.h"
+#include "orz/types.h"
+#include <windows.h>
 
 namespace Img {
 	namespace Internal {

@@ -1,5 +1,5 @@
-#include "StdAfx.h"
 #include "timer.h"
+#include "orz/exception.h"
 
 namespace Win {
 	Timer::TimerMap Timer::m_timers;
@@ -8,8 +8,9 @@ namespace Win {
 		auto i = m_timers.find(idEvent);
 		if(i != m_timers.end())
 			(*i->second).OnTick();
-		if (KillTimer(0, idEvent) == false)
+		if (KillTimer(0, idEvent) == false) {
 			throw Err::CriticalError(L"Failed killing timer");
+		}
 	}
 
 	void Timer::Create(_In_ _In_range_(1, 10000000) int delay) {

@@ -1,6 +1,8 @@
 #ifndef FOLDER_TYPES_H
 #define FOLDER_TYPES_H
 
+#pragma warning(push)
+#pragma warning(disable: 4512)
 #include <boost/signals2.hpp>
 #include <list>
 
@@ -39,5 +41,7 @@ namespace IO {
 
 	typedef boost::signals2::signal<void(IO::FileEvent)> ChangeEventCallback;
 }
+
+#pragma warning(pop)
 
 #endif

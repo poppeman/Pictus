@@ -1,5 +1,6 @@
-#include "StdAfx.h"
 #include "view_pan.h"
+#include "orz/exception.h"
+#include "orz/types.h"
 
 namespace App {
 	using namespace Geom;

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "gdiwrapper.h"
 
 namespace Win {

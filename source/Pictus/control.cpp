@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "control.h"
 #include "window.h"
 

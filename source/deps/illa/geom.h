@@ -1,5 +1,7 @@
-#ifndef GEOM_H
-#define GEOM_H
+#ifndef ILLA_GEOM_H
+#define ILLA_GEOM_H
+
+#include <string>
 
 namespace Geom {
 	template<typename T>

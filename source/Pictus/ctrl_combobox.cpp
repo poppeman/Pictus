@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ctrl_combobox.h"
 #include "ctrl_combobox_entry.h"
 

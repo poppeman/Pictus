@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ic_worklist.h"
 #include "ic_imageloader.h"
 

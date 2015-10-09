@@ -1,5 +1,9 @@
-#include "StdAfx.h"
 #include "ctrl_editbox.h"
+#include "orz/exception.h"
+#include "orz/types.h"
+#include <boost/scoped_array.hpp>
+
+#include <CommCtrl.h>
 
 namespace Win {
 	void EditBox::Filterchars(FilterCriteria criteria, int sidBalloonMessage) {

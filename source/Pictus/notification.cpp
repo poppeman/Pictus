@@ -1,6 +1,4 @@
-#include "StdAfx.h"
 #include "notification.h"
-#include <tchar.h>
 #include "basewin.h"
 
 #define SET_OR_UNSET(c, v, m) if (c) v |= m; else v &= ~m;

@@ -7,6 +7,10 @@
 #include "ctrl_keypress.h"
 #include "appreg.h"
 
+#include <map>
+
+#include <CommCtrl.h>
+
 namespace App {
 	class SetKeyboard :public App::SettingsPage {
 	public:

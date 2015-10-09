@@ -1,6 +1,12 @@
 #ifndef NOTIFICATION_H
 #define NOTIFICATION_H
 
+#include <mutex>
+#include <string>
+
+#include <windows.h>
+#include <shellapi.h>
+
 namespace Win {
 	class Notification {
 	public:

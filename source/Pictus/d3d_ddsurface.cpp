@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "d3d_ddsurface.h"
 
 namespace Win {

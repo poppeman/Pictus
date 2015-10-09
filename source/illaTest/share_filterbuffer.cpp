@@ -1,5 +1,4 @@
-#include "StdAfx.h"
-
+#include <UnitTest++/UnitTest++.h>
 #include "share_filterbuffer.h"
 
 namespace Tst

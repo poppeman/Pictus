@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ctrl_button.h"
 
 namespace Win {

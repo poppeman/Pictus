@@ -1,12 +1,13 @@
-#include "StdAfx.h"
 #include "wintypes.h"
 
+#include <boost/scoped_array.hpp>
+
 namespace Win {
-	Geom::RectInt RECTToRect(_In_ const RECT& rect) {
+	Geom::RectInt RECTToRect(const RECT& rect) {
 		return Geom::RectInt(Geom::PointInt(rect.left, rect.top), Geom::SizeInt(rect.right-rect.left, rect.bottom-rect.top));
 	}
 
-	RECT RectToRECT(_In_ const Geom::RectInt& rect) {
+	RECT RectToRECT(const Geom::RectInt& rect) {
 		RECT out_rect;
 		out_rect.bottom	= rect.Bottom();
 		out_rect.left	= rect.Left();
@@ -15,14 +16,14 @@ namespace Win {
 		return out_rect;
 	}
 
-	POINT PointToPOINT(_In_ const Geom::PointInt& point) {
+	POINT PointToPOINT(const Geom::PointInt& point) {
 		POINT out_point;
 		out_point.x = point.X;
 		out_point.y = point.Y;
 		return out_point;
 	}
 
-	std::wstring LongPath(_In_ const std::wstring& path) {
+	std::wstring LongPath(const std::wstring& path) {
 		if (path.empty()) return path;
 
 		std::wstring trimmedPath;
@@ -48,7 +49,7 @@ namespace Win {
 		return trimmedPath;
 	}
 
-	bool KeyEvent::operator<(_In_ const KeyEvent& rhs) const {
+	bool KeyEvent::operator<(const KeyEvent& rhs) const {
 		if(!AltPressed && rhs.AltPressed) return true;
 		if(AltPressed && !rhs.AltPressed) return false;
 		if(!ShiftPressed && rhs.ShiftPressed) return true;
@@ -58,7 +59,7 @@ namespace Win {
 		return (Key < rhs.Key);
 	}
 
-	KeyEvent::KeyEvent(_In_ WPARAM key, _In_ bool isAltPressed, _In_ bool isCtrlPressed, _In_ bool isShiftPressed)
+	KeyEvent::KeyEvent(WPARAM key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed)
 		:Key(key),
 		AltPressed(isAltPressed),
 		CtrlPressed(isCtrlPressed),

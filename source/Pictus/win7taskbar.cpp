@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "win7taskbar.h"
 #include "wintypes.h"
 

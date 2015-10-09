@@ -1,10 +1,10 @@
-#include "StdAfx.h"
 #include "res_settings.h"
 #include "dlg_keyboard.h"
 
 #include "ctrl_button.h"
 #include "app_types.h"
 
+#include <Uxtheme.h>
 
 namespace App {
 	bool SetKeyboard::IsRootPage() const {

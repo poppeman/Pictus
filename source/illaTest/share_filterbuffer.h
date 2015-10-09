@@ -1,7 +1,8 @@
-#ifndef SHARE_FILTERBUFFER_H
-#define SHARE_FILTERBUFFER_H
+#ifndef ILLATEST_SHARE_FILTERBUFFER_H
+#define ILLATEST_SHARE_FILTERBUFFER_H
 
 #include "illa/filter.h"
+#include <memory>
 
 namespace Tst
 {

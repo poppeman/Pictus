@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ic_queue.h"
 
 namespace Img {

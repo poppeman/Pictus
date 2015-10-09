@@ -3,6 +3,8 @@
 
 #include "illa/types.h"
 
+#include <memory>
+
 namespace D3D {
 	enum VertexFormat {
 		VFPositionXYZ = D3DFVF_XYZ,

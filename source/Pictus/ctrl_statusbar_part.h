@@ -1,5 +1,7 @@
-#ifndef STATUSBAR_PART_H
-#define STATUSBAR_PART_H
+#ifndef PICTUS_STATUSBAR_PART_H
+#define PICTUS_STATUSBAR_PART_H
+
+#include <string>
 
 namespace Win {
 	class StatusBar;

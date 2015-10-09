@@ -1,5 +1,4 @@
-#include "StdAfx.h"
-
+#include <UnitTest++/UnitTest++.h>
 #include "illa/filter_bilinear.h"
 
 using namespace Filter;

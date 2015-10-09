@@ -1,10 +1,9 @@
-#include "StdAfx.h"
-
 #include "imagecache.h"
 #include "ic_backgroundprocessor.h"
 #include "illa/codecmgr.h"
 #include "orz/fileops.h"
 #include "orz/stream_file.h"
+#include <Shlwapi.h>
 
 namespace Img {
 	using namespace Geom;

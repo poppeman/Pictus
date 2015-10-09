@@ -1,6 +1,9 @@
 #ifndef IMAGELIST_H
 #define IMAGELIST_H
 
+#include <windows.h>
+#include <CommCtrl.h>
+
 namespace Win {
 	class ImageList {
 	public:

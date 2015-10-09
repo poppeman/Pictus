@@ -1,9 +1,9 @@
-#include "StdAfx.h"
 #include "adjust.h"
+#include "ctrl_button.h"
 #include "res_viewer.h"
 #include "orz/intl.h"
 #include "illa/config.h"
-#include "ctrl_button.h"
+#include <Commctrl.h>
 
 using namespace Intl;
 

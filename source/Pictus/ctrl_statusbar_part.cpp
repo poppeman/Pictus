@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "ctrl_statusbar_part.h"
 #include "ctrl_statusbar.h"
 

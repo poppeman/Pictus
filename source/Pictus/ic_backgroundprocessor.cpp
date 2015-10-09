@@ -1,5 +1,3 @@
-#include "StdAfx.h"
-
 #include "ic_backgroundprocessor.h"
 
 namespace Img {

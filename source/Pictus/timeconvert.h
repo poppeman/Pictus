@@ -1,9 +1,12 @@
 #ifndef PICTUS_TIMECONVERT_H
 #define PICTUS_TIMECONVERT_H
 
+#include <string>
+#include "orz/types.h"
+
 namespace App {
-	_Check_return_ std::wstring FormattedDate(_In_ FileInt date);
-	_Check_return_ std::wstring FormattedTime(_In_ FileInt date);
+	std::wstring FormattedDate(FileInt date);
+	std::wstring FormattedTime(FileInt date);
 }
 
 #endif

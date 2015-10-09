@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "viewport.h"
 #include "registry.h"
 #include "illa/config.h"

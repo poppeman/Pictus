@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "w32_redrawstrategy.h"
 
 namespace Win {

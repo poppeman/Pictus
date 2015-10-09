@@ -4,6 +4,8 @@
 #include "ctrl_statusbar_part.h"
 #include "control.h"
 
+#include <list>
+
 namespace Win {
 	class StatusBar:public Control {
 	public:

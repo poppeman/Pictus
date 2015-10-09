@@ -127,6 +127,7 @@
       <AdditionalIncludeDirectories>../deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
@@ -177,6 +178,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>C4503</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
@@ -289,7 +291,6 @@
     <ClCompile Include="ic_workerthread.cpp" />
     <ClCompile Include="ic_worklist.cpp" />
     <ClCompile Include="ic_workpackage.cpp" />
-    <ClCompile Include="StdAfx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ctrl_combobox_entry.h" />
@@ -385,7 +386,6 @@
     <ClInclude Include="ic_workerthread.h" />
     <ClInclude Include="ic_worklist.h" />
     <ClInclude Include="ic_workpackage.h" />
-    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="zoom_mode.h" />
   </ItemGroup>
   <ItemGroup>

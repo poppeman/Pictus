@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "basewin.h"
 #include "orz/fileops.h"
 #include "orz/sysinfo.h"
@@ -7,6 +6,11 @@
 #include "ctrl_editbox.h"
 #include "ctrl_listview.h"
 #include "ctrl_combobox.h"
+
+#include <boost/scoped_array.hpp>
+#include <mutex>
+
+#include <commdlg.h>
 
 namespace Win {
     using std::recursive_mutex;

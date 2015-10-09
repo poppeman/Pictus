@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "rename.h"
 #include "res_viewer.h"
 #include "ctrl_button.h"

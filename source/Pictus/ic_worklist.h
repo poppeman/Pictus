@@ -1,8 +1,9 @@
-#ifndef IC_WORKLIST_H
-#define IC_WORKLIST_H
+#ifndef PICTUS_IC_WORKLIST_H
+#define PICTUS_IC_WORKLIST_H
 
 #include "ic_workpackage.h"
 #include "imagecache_shared.h"
+#include <list>
 
 namespace Img {
 	class WorkList {

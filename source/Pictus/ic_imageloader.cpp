@@ -1,9 +1,9 @@
-#include "StdAfx.h"
 #include "ic_imageloader.h"
-#include "illa/image.h"
 #include "illa/codecmgr.h"
-#include "orz/fileops.h"
+#include "illa/image.h"
 #include "orz/exception.h"
+#include "orz/fileops.h"
+#include "orz/logger.h"
 
 namespace Img {
 	Geom::SizeInt ImageLoader::m_maxRes;

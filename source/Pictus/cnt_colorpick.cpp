@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "cnt_colorpick.h"
 
 const wchar_t* App::ControlColorPicker::ClassName=TX("PICTUS_COLOR_PICKER");

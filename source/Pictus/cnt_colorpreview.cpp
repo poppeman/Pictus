@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "cnt_colorpreview.h"
 
 const wchar_t* App::ControlColorPreview::ClassName = TX("PICTUS_COLOR_PREVIEW");

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "dlg_advanced.h"
 #include "registry.h"
 #include "res_settings.h"

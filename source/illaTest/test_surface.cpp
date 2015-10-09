@@ -1,5 +1,4 @@
-#include "StdAfx.h"
-
+#include <UnitTest++/UnitTest++.h>
 #include "illa/surfacemgr.h"
 #include "illa/swsurface.h"
 

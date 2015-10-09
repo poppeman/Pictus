@@ -1,9 +1,12 @@
-#include "StdAfx.h"
-#include "res_settings.h"
 #include "dlg_color.h"
+#include "res_settings.h"
 #include "registry.h"
 #include "cnt_colorpick.h"
 #include "cnt_colorpreview.h"
+
+#include <boost/scoped_array.hpp>
+
+#include <CommCtrl.h>
 
 namespace App {
 	using namespace Intl;

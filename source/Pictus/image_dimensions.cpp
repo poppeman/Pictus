@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "image_dimensions.h"
 
 namespace App {

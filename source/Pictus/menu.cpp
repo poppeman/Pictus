@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "menu.h"
 #include "menu_item.h"
 #include "sub_menu.h"
