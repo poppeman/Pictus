@@ -24,7 +24,7 @@ int start_app(const std::wstring& params) {
 		auto cfg = Reg::Load(App::cg_SettingsLocation);
 
 		// TODO: Control logging by some other mechanism, such as an .ini setting
-		//Log.SetOutput(assure_folder(App::cg_RunLogLocation));
+		Log.SetOutput(WStringToUTF8(assure_folder(App::cg_RunLogLocation)));
 
 		Intl::LanguageTable(c_lang_strings);
 		Intl::CurrentLanguage(cfg.View.Language);
@@ -42,7 +42,7 @@ int start_app(const std::wstring& params) {
 		// This is not something out of the ordinary.
 	}
 	catch(Err::Exception& e) {
-		Log << L"Exception caught:\n" << UTF8ToWString(e.what()) << L"\n";
+		Log << "Exception caught:\n" << e.what() << "\n";
 		MessageBoxW(nullptr, (L"An error occurred: " + UTF8ToWString(e.what())).c_str(), L"Pictus Error", MB_OK);
 		//throw;	// Good for debugging
 	}

@@ -16,7 +16,7 @@ namespace Img {
 	TiffChunkStatus TiffStripLoader::PerformLoadChunk() {
 		tsize_t currentStripSize = TIFFStripSize(m_tiff);
 		if (currentStripSize == -1) {
-			Log << L"(TiffStripLoader::PerformLoadChunk) Invalid strip size.";
+			Log << "(TiffStripLoader::PerformLoadChunk) Invalid strip size.";
 			return TiffChunkStatus::Error;
 		}
 

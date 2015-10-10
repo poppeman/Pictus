@@ -36,7 +36,7 @@ namespace IO {
 		auto hr = m_pStream->Read(buf, bytesToRead, &bytesRead);
 		if (hr != S_OK && hr != S_FALSE) {
 			// IStream::Read returns S_FALSE for incomplete reads, which is totally bonkers but oh well.
-			Log << L"(StreamWindows::performRead) Failed reading data\n";
+			Log << "(StreamWindows::performRead) Failed reading data\n";
 			return 0;
 		}
 

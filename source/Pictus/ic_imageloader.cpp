@@ -67,7 +67,7 @@ namespace Img {
 			image->SetMetadata(codec->LoadMetadata());
 		}
 		catch (Err::Exception& e) {
-			Log << L"(ImageLoader::LoadMetadata) " << UTF8ToWString(e.what()) << L"\n";
+			Log << "(ImageLoader::LoadMetadata) " << e.what() << "\n";
 		}
 	}
 

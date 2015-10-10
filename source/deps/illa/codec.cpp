@@ -38,13 +38,13 @@ namespace Img {
 		catch (Err::Exception& ex) {
 			m_file.reset();
 
-			Log << L"(AbstractCodec::LoadHeader) " << ex.what() << "\n";
+			Log << "(AbstractCodec::LoadHeader) " << ex.what() << "\n";
 			return false;
 		}
 		catch (...) {
 			m_file.reset();
 
-			Log << L"(AbstractCodec::LoadHeader) Unrecognized exception.\n";
+			Log << "(AbstractCodec::LoadHeader) Unrecognized exception.\n";
 			return false;
 		}
 
@@ -63,7 +63,7 @@ namespace Img {
 			return PerformLoadMetadata();
 		}
 		catch (Err::Exception& e) {
-			Log << L"(AbstractCodec::LoadMetadata) " << e.what() << "\n";
+			Log << "(AbstractCodec::LoadMetadata) " << e.what() << "\n";
 			return nullptr;
 		}
 	}
@@ -94,7 +94,7 @@ namespace Img {
 			m_isFinished = (l != LoadStatus::Aborted);
 		}
 		catch (Err::Exception& e) {
-			Log << L"(AbstractCodec::LoadImageData) " << e.what() << "\n";
+			Log << "(AbstractCodec::LoadImageData) " << e.what() << "\n";
 			l = LoadStatus::Finished;
 			m_isFinished = true;
 		}

@@ -68,7 +68,7 @@ void TestNoResample(_T T)
 	for (int i = 0; i < NumRunsNoResample; ++i)
 		T.Run(src.fb, dst.fb, region);
 	int time = sw.Stop();
-	Log << L"Time: " << ToWString(time / NumRunsNoResample) << L"\n";
+	Log << "Time: " << (time / NumRunsNoResample) << "\n";
 };
 
 
@@ -91,7 +91,7 @@ void TestResample(_T T, Img::Format fmt)
 	for (int i = 0; i < NumRunsResample; ++i)
 		T.Run(src.fb, dst.fb, region, fmt, DefaultZoom);
 	int time = sw.Stop();
-	Log << L"Time: " + ToWString(time / NumRunsResample) + L"\n";
+	Log << "Time: " << (time / NumRunsResample) << "\n";
 };
 
 struct TestNearestNeighbor {

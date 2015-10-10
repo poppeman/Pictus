@@ -14,13 +14,13 @@ namespace Img {
 	bool CodecPSP::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {
 		uint8_t header[32];
 		if (file->Read(header, 1, 32) != 32) {
-			Log << L"(CodecPSP::PerformLoadHeader) Failed loading magic bytes\n";
+			Log << "(CodecPSP::PerformLoadHeader) Failed loading magic bytes\n";
 			return false;
 		}
 
 		for (int i = 0; i < 32; ++i) {
 			if (header[i] != FileHeader[i]) {
-				Log << L"(CodecPSP::PerformLoadHeader) Magic bytes mismatch\n";
+				Log << "(CodecPSP::PerformLoadHeader) Magic bytes mismatch\n";
 				return false;
 			}
 		}
@@ -29,7 +29,7 @@ namespace Img {
 		file->ReadFull(&ver, 2);
 
 		if (ver < PSPVersion5) {
-			Log << L"(CodecPSP::PerformLoadHeader) File version too old, file is not supported.\n";
+			Log << "(CodecPSP::PerformLoadHeader) File version too old, file is not supported.\n";
 			return false;
 		}
 
@@ -39,13 +39,13 @@ namespace Img {
 		// Read general image attributes
 		uint8_t headid[4];
 		if (file->Read(headid, 1, 4) != 4) {
-			Log << L"(CodecPSP::PerformLoadHeader) Failed loading general image attributes header.\n";
+			Log << "(CodecPSP::PerformLoadHeader) Failed loading general image attributes header.\n";
 			return false;
 		}
 
 		for (int i = 0; i < 4; ++i) {
 			if (headid[i] != Gen_HeaderID[i]) {
-				Log << L"(CodecPSP::PerformLoadHeader) General image attributes header mismatch.\n";
+				Log << "(CodecPSP::PerformLoadHeader) General image attributes header mismatch.\n";
 				return false;
 			}
 		}
@@ -108,7 +108,7 @@ namespace Img {
 
 	AbstractCodec::LoadStatus CodecPSP::PerformLoadImageData(IO::FileReader::Ptr file) {
 		if (m_compression != PSP_COMP_NONE && m_compression != PSP_COMP_RLE) {
-			Log << L"(CodecPSP::PerformLoadImageData) Compression method " << ToWString(m_compression) << L" is not supported.\n";
+			Log << "(CodecPSP::PerformLoadImageData) Compression method " << ToAString(m_compression) << " is not supported.\n";
 			return LoadStatus::Failed;
 		}
 
@@ -125,7 +125,7 @@ namespace Img {
 
 			if (DecodeScanlines(file, scansToProcess, GetSurface()->Width(), area->Stride(), GetSurface()->PixelSize(), currChunkStart) == false) {
 				area->Unlock();
-				Log << L"(CodecPSP::PerformLoadImageData) Scanline decode failed.\n";
+				Log << "(CodecPSP::PerformLoadImageData) Scanline decode failed.\n";
 				return LoadStatus::Failed;
 			}
 
@@ -178,7 +178,7 @@ namespace Img {
 
 		for (int i = 0; i < 4; ++i) {
 			if (header_id[i] != Gen_HeaderID[i]) {
-				Log << L"(CodecPSP::ReadBlockHeader) Block header signature mismatch.\n";
+				Log << "(CodecPSP::ReadBlockHeader) Block header signature mismatch.\n";
 				return false;
 			}
 		}
@@ -380,7 +380,7 @@ namespace Img {
 			}
 		}
 		else {
-			Log << L"(CodecPSP::DecodeRawScanlines) Pixel format not supported.\n";
+			Log << "(CodecPSP::DecodeRawScanlines) Pixel format not supported.\n";
 			return false;
 		}
 
@@ -413,7 +413,7 @@ namespace Img {
 			m_fileStream.SetFileReader(reader);
 
 			if (DecodeRLEChannel(reader, scansToProcess, width, stride, pixelSize, destination) == false) {
-				Log << L"(CodecPSP::DecodeRLEScanlines) Failed decoding channel.\n";
+				Log << "(CodecPSP::DecodeRLEScanlines) Failed decoding channel.\n";
 				return false;
 			}
 
@@ -426,7 +426,7 @@ namespace Img {
 				m_fileStream.SetFileReader(reader);
 				uint8_t* currScanStart = destination + channel;
 				if (DecodeRLEChannel(reader, scansToProcess, width, stride, pixelSize, currScanStart) == false) {
-					Log << L"(CodecPSP::DecodeRLEScanlines) Failed decoding channel.\n";
+					Log << "(CodecPSP::DecodeRLEScanlines) Failed decoding channel.\n";
 					return false;
 				}
 
@@ -434,7 +434,7 @@ namespace Img {
 			}
 		}
 		else {
-			Log << L"(CodecPSP::DecodeRLEScanlines) Pixel format not supported.\n";
+			Log << "(CodecPSP::DecodeRLEScanlines) Pixel format not supported.\n";
 			return false;
 		}
 
@@ -449,7 +449,7 @@ namespace Img {
 				if (count > 128) {
 					count -= 128;
 					if (count + x > width) {
-						Log << L"(CodecPSP::DecodeRLEChannel) RLE block out of bounds.\n";
+						Log << "(CodecPSP::DecodeRLEChannel) RLE block out of bounds.\n";
 						return false;
 					}
 
@@ -462,7 +462,7 @@ namespace Img {
 				}
 				else {
 					if (count + x > width) {
-						Log << L"(CodecPSP::DecodeRLEChannel) RAW block out of bounds.\n";
+						Log << "(CodecPSP::DecodeRLEChannel) RAW block out of bounds.\n";
 						return false;
 					}
 

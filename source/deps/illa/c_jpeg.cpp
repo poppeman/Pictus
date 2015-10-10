@@ -26,7 +26,7 @@ namespace Img {
 					info.SurfaceFormat = Img::Format::XRGB8888;
 				}
 				else {
-					Log << L"(CodecJPEG::PerformLoadHeader): RGB output only supports 3 and 4 components. Components=" << m_decInfo.output_components << L"\n";
+					Log << "(CodecJPEG::PerformLoadHeader): RGB output only supports 3 and 4 components. Components=" << m_decInfo.output_components << "\n";
 					return false;
 				}
 				break;
@@ -35,7 +35,7 @@ namespace Img {
 					info.SurfaceFormat = Img::Format::XRGB8888;
 				}
 				else {
-					Log << L"(CodecJPEG::PerformLoadHeader): CMYK output only supports 4 components. Components=" << m_decInfo.output_components << L"\n";
+					Log << "(CodecJPEG::PerformLoadHeader): CMYK output only supports 4 components. Components=" << m_decInfo.output_components << "\n";
 					return false;
 				}
 				break;
@@ -44,13 +44,13 @@ namespace Img {
 					info.SurfaceFormat = Img::Format::Index8;
 				}
 				else {
-					Log << L"(CodecJPEG::PerformLoadHeader): Grayscale output only supports 0 component. Components=" << m_decInfo.output_components << L"\n";
+					Log << "(CodecJPEG::PerformLoadHeader): Grayscale output only supports 0 component. Components=" << m_decInfo.output_components << "\n";
 					return false;
 				}
 				break;
 
 			default:
-				Log << L"(CodecJPEG::PerformLoadHeader): Unknown JPEG color space. Out=" << m_decInfo.out_color_space << L" jpeg= " << m_decInfo.jpeg_color_space << L"\n";
+				Log << "(CodecJPEG::PerformLoadHeader): Unknown JPEG color space. Out=" << m_decInfo.out_color_space << L" jpeg= " << m_decInfo.jpeg_color_space << "\n";
 				return false;
 			}
 
