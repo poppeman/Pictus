@@ -53,8 +53,6 @@ std::string WStringToUTF8(const std::wstring& utf16);
 
 int RoundCast(float rhs);
 
-bool IsDecimal(const std::wstring& s);
-
 namespace Util {
 	template <typename T> const T& Constrain(const T& lower, const T& val, const T& upper) {
 		return std::min<T>(std::max<T>(lower, val), upper);

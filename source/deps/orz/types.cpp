@@ -8,12 +8,6 @@ int RoundCast(float rhs) {
 	return static_cast<int>(rhs + 0.5f);
 }
 
-bool IsDecimal(const std::wstring& s) {
-	std::wstringstream iss(s);
-	int i;
-	return !(iss >> std::dec >> i).fail();
-}
-
 std::wstring ToUpper(const std::wstring& s) {
 	std::wstring b(s);
 	std::transform(b.begin(), b.end(), b.begin(), std::towupper);
