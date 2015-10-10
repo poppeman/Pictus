@@ -15,7 +15,7 @@ namespace Reg {
 			auto val = FromAString<int>(sval);
 			if (val == 0) return Intl::Language::English;
 			if (val == 1) return Intl::Language::Swedish;
-			return nullptr;
+			return boost::none;
 		}
 
 		boost::optional<LanguageTranslator::internal_type> LanguageTranslator::put_value(external_type const& val) {
@@ -25,7 +25,7 @@ namespace Reg {
 			if (val == Intl::Language::Swedish) {
 				return "Swedish";
 			}
-			return nullptr;
+			return boost::none;
 		}
 	}
 }

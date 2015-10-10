@@ -64,7 +64,7 @@ namespace Win {
 	}
 
 	boost::optional<LRESULT> Control::PerformOnNotify(LPNMHDR lParam) {
-		return nullptr;
+		return boost::none;
 	}
 
 	boost::optional<LRESULT> Control::OnNotify(LPNMHDR lParam) {

@@ -65,8 +65,8 @@ namespace App {
 		if (kp.Shift) items.push_back(L"Shift");
 		if (kp.Alt) items.push_back(L"Alt");
 
-		if (kp.Key == VK_CONTROL) kp.Key = L'';
-		if (kp.Key == VK_MENU) kp.Key = L'';
+		if (kp.Key == VK_CONTROL) kp.Key = 0;
+		if (kp.Key == VK_MENU) kp.Key = 0;
 		std::wstring tmp;
 		tmp += App::GetKeyString(kp.Key);
 		items.push_back(tmp);

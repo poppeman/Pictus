@@ -24,7 +24,7 @@ namespace Reg {
 				return Filter::Mode::Lanczos3;
 			}
 
-			return nullptr;
+			return boost::none;
 		}
 
 		boost::optional<FilterModeTranslator::internal_type> FilterModeTranslator::put_value(external_type const& val) {
@@ -37,7 +37,7 @@ namespace Reg {
 				return "Lanczos3";
 			}
 
-			return nullptr;
+			return boost::none;
 		}
 	}
 }

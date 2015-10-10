@@ -12,7 +12,7 @@ namespace Reg {
 				return it->second;
 			}
 
-			return nullptr;
+			return boost::none;
 		}
 
 		boost::optional<ResizePositionMethodTranslator::internal_type> ResizePositionMethodTranslator::put_value(external_type const& val) {
