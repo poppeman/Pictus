@@ -1,5 +1,5 @@
-#ifndef STREAM_H
-#define STREAM_H
+#ifndef ORZ_STREAM_H
+#define ORZ_STREAM_H
 
 #include <memory>
 #include "exception.h"

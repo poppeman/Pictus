@@ -1,5 +1,5 @@
-#ifndef FOLDER_MONITOR_H
-#define FOLDER_MONITOR_H
+#ifndef ORZ_FOLDER_MONITOR_H
+#define ORZ_FOLDER_MONITOR_H
 
 #include "folder_types.h"
 #include "folder_monitor_imp.h"

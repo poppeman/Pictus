@@ -1,5 +1,5 @@
-#ifndef FILE_H
-#define FILE_H
+#ifndef ORZ_FILE_H
+#define ORZ_FILE_H
 
 #include "stream.h"
 

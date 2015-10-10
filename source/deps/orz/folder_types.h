@@ -1,5 +1,5 @@
-#ifndef FOLDER_TYPES_H
-#define FOLDER_TYPES_H
+#ifndef ORZ_FOLDER_TYPES_H
+#define ORZ_FOLDER_TYPES_H
 
 #pragma warning(push)
 #pragma warning(disable: 4512)

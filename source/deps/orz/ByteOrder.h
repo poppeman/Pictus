@@ -1,5 +1,5 @@
-#ifndef SHARED_BYTEORDER_H
-#define SHARED_BYTEORDER_H
+#ifndef ORZ_SHARED_BYTEORDER_H
+#define ORZ_SHARED_BYTEORDER_H
 
 #include <cstdint>
 
