@@ -1,5 +1,5 @@
-#ifndef FILE_CACHE_H
-#define FILE_CACHE_H
+#ifndef ORZ_FILE_CACHE_H
+#define ORZ_FILE_CACHE_H
 
 #include "file_reader.h"
 

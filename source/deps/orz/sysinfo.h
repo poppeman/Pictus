@@ -1,5 +1,5 @@
-#ifndef SYSINFO_H
-#define SYSINFO_H
+#ifndef ORZ_SYSINFO_H
+#define ORZ_SYSINFO_H
 
 #include "intl.h"
 

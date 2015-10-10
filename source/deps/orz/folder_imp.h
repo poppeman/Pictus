@@ -1,5 +1,5 @@
-#ifndef FOLDER_IMP_H
-#define FOLDER_IMP_H
+#ifndef ORZ_FOLDER_IMP_H
+#define ORZ_FOLDER_IMP_H
 
 #include "folder_iterator.h"
 

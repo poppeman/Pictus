@@ -1,5 +1,5 @@
-#ifndef STREAMWIN_H
-#define STREAMWIN_H
+#ifndef ORZ_STREAMWIN_H
+#define ORZ_STREAMWIN_H
 
 #include "stream.h"
 

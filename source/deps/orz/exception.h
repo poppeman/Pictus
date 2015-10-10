@@ -1,5 +1,5 @@
-#ifndef EXCEPTION_H
-#define EXCEPTION_H
+#ifndef ORZ_EXCEPTION_H
+#define ORZ_EXCEPTION_H
 
 #include <string>
 

@@ -1,5 +1,5 @@
-#ifndef STREAM_MEM_H
-#define STREAM_MEM_H
+#ifndef ORZ_STREAM_MEM_H
+#define ORZ_STREAM_MEM_H
 
 #include "stream.h"
 #include <mutex>

@@ -1,5 +1,5 @@
-#ifndef ORZ_MATH_H
-#define ORZ_MATH_H
+#ifndef ORZ_ORZ_MATH_H
+#define ORZ_ORZ_MATH_H
 
 #include <cstdint>
 

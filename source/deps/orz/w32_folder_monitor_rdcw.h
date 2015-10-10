@@ -1,5 +1,5 @@
-#ifndef W32_FOLDER_MONITOR_RDCW_H
-#define W32_FOLDER_MONITOR_RDCW_H
+#ifndef ORZ_W32_FOLDER_MONITOR_RDCW_H
+#define ORZ_W32_FOLDER_MONITOR_RDCW_H
 
 #include "folder_monitor_imp.h"
 #include "folder.h"
