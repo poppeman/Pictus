@@ -1,9 +1,8 @@
 #ifndef ORZ_STOPWATCH_H
 #define ORZ_STOPWATCH_H
 
-#include <windows.h>
+#include <chrono>
 
-// TODO: Replace with boost
 namespace Util {
 	class StopWatch {
 	public:
@@ -20,11 +19,8 @@ namespace Util {
 			Running,
 		};
 
-		int CurrentTime();
-
-		int m_start, m_pause;
+		std::chrono::time_point<std::chrono::high_resolution_clock> m_start, m_pause;
 		State m_state;
-		LARGE_INTEGER m_freq;
 	};
 }
 

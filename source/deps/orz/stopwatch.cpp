@@ -8,11 +8,11 @@ namespace Util {
 
 		if (m_state == Stopped) {
 			// Just adjust m_start to skip the paused period
-			int curr = CurrentTime();
+			auto curr = std::chrono::high_resolution_clock::now();
 			m_start += curr - m_pause;
 		}
 		else {
-			m_start = CurrentTime();
+			m_start = std::chrono::high_resolution_clock::now();
 		}
 
 		m_state = Running;
@@ -20,7 +20,7 @@ namespace Util {
 
 	int StopWatch::Stop() {
 		if (m_state != Stopped) {
-			m_pause = CurrentTime();
+			m_pause = std::chrono::high_resolution_clock::now();
 
 			// Temporary fix, prevents times from being negative.
 			if (m_pause < m_start) {
@@ -28,7 +28,7 @@ namespace Util {
 			}
 		}
 		m_state = Stopped;
-		return m_pause - m_start;
+		return std::chrono::duration_cast<std::chrono::milliseconds>(m_pause - m_start).count();
 	}
 
 	int StopWatch::Reset() {
@@ -37,14 +37,7 @@ namespace Util {
 		return time;
 	}
 
-	StopWatch::StopWatch() :m_state(Default) {
-		QueryPerformanceFrequency(&m_freq);
-	}
-
-	int StopWatch::CurrentTime() {
-		LARGE_INTEGER curr;
-		QueryPerformanceCounter(&curr);
-
-		return static_cast<int>((1000 * (curr.QuadPart)) / m_freq.QuadPart);
-	}
+	StopWatch::StopWatch():
+		m_state(Default)
+	{}
 }
