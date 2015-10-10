@@ -23,19 +23,19 @@ std::wstring ToLower(const std::wstring& s) {
 std::wstring UTF8ToWString(const char* utf8) {
 	int requiredBufferSizeInwchar_ts = MultiByteToWideChar(CP_UTF8, 0, utf8, static_cast<int>(strlen(utf8) + 1), 0, 0);
 
-	auto destinationBuffer = std::make_unique<wchar_t[]>(requiredBufferSizeInwchar_ts);
+	std::wstring destinationBuffer(requiredBufferSizeInwchar_ts, 0);
 
-	MultiByteToWideChar(CP_UTF8, 0, utf8, static_cast<int>(strlen(utf8) + 1), destinationBuffer.get(), requiredBufferSizeInwchar_ts);
-	return std::wstring(destinationBuffer.get());
+	MultiByteToWideChar(CP_UTF8, 0, utf8, strlen(utf8), &destinationBuffer[0], requiredBufferSizeInwchar_ts);
+	return destinationBuffer;
 }
 
 std::string WStringToUTF8(const std::wstring& utf16) {
 	auto requiredBufferSize = WideCharToMultiByte(CP_UTF8, 0, &utf16[0], utf16.size(), nullptr, 0, nullptr, nullptr);
 
-	auto destinationBuffer = std::make_unique<char[]>(requiredBufferSize);
+	std::string destinationBuffer(requiredBufferSize, 0);
 
-	WideCharToMultiByte(CP_UTF8, 0, &utf16[0], utf16.size(), destinationBuffer.get(), requiredBufferSize, nullptr, nullptr);
-	return std::string(destinationBuffer.get());
+	WideCharToMultiByte(CP_UTF8, 0, &utf16[0], utf16.size(), &destinationBuffer[0], requiredBufferSize, nullptr, nullptr);
+	return destinationBuffer;
 }
 
 std::wstring ToWString( uint32_t i ) {

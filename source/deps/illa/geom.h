@@ -468,28 +468,31 @@ namespace Geom {
 	bool IsZeroOrPositive(const T& a) {
 		return a.AtLeastInclusive(T(0, 0));
 	}
+
+	template <typename T>
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Geom::Point<T>& v) {
+		in << "(" << (T)v.X << ", " << (T)v.Y << ")";
+		return in;
+	}
+
+	template <typename T>
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Geom::Size<T>& v) {
+		in << "(" << (T)v.Width << "x" << (T)v.Height << ")";
+		return in;
+	}
+
+	template <typename T>
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Geom::Rect<T>& v) {
+		in << "{" << v.TopLeft() << ", " << v.Dimensions() << "}";
+		return in;
+	}
 }
 
-template <typename T>
+/*template <typename T>
 std::wstring ToWString(const Geom::Point<T>& pt) {
 	return L"(" + ToWString(pt.X) + L", " + ToWString(pt.Y) + L")";
 }
+*/
 
-template <typename T>
-inline std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Geom::Point<T>& v) {
-	in << "(" << (T)v.X << ", " << (T)v.Y << ")";
-	return in;
-}
-
-template <typename _c, typename _t>
-inline std::basic_ostream<_c>& operator<<(std::basic_ostream<_c>& in, const Geom::Size<_t>& v) {
-	in << "(" << (_t)v.Width << "x" << (_t)v.Height << ")";
-	return in;
-}
-
-inline std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Geom::RectInt& v) {
-	in << "{" << v.TopLeft() << ", " << v.Dimensions() << "}";
-	return in;
-}
 
 #endif

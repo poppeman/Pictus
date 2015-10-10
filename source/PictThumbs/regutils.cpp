@@ -1,6 +1,7 @@
 #include "regutils.h"
 
 #include "orz/logger.h"
+#include "orz/types.h"
 
 #include <tuple>
 #include <vector>
@@ -48,7 +49,7 @@ std::tuple<HRESULT, std::wstring> GetHkcrRegistryKeyAndValue(const std::wstring&
 			data = std::wstring(tmpData.begin(), tmpData.begin() + dataLength / sizeof(wchar_t) - 1);
 		}
 		else {
-			Log << L"(Thumbs:GetHkcrRegistryKeyAndValue): Failed querying value for " << subKey << L"\n";
+			Log << "(Thumbs:GetHkcrRegistryKeyAndValue): Failed querying value for " << WStringToUTF8(subKey) << "\n";
 		}
 
 		RegCloseKey(hKey);

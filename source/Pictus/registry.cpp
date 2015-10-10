@@ -37,7 +37,7 @@ namespace Reg {
 					boost::property_tree::ini_parser::read_ini(ss, pt);
 				}
 				catch (std::exception const& ex) {
-					Log << L"(Reg::Load) Failed parsing configuration file: " << ex.what() << L"\n";
+					Log << "(Reg::Load) Failed parsing configuration file: " << ex.what() << "\n";
 				}
 			}
 		}

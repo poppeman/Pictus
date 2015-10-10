@@ -35,7 +35,7 @@ IFACEMETHODIMP_(ULONG) CPictusThumbnailProvider::AddRef() {
 IFACEMETHODIMP_(ULONG) CPictusThumbnailProvider::Release() {
 	ULONG cRef = InterlockedDecrement(&m_cRef);
 	if (!cRef) {
-		Log << L"(Thumb) Releasing thumbnail provider.\n";
+		Log << "(Thumb) Releasing thumbnail provider.\n";
 		delete this;
 	}
 
@@ -77,12 +77,12 @@ DimData DetermineDimensions(UINT cx, Geom::SizeInt surfDims) {
 _Use_decl_annotations_ IFACEMETHODIMP CPictusThumbnailProvider::GetThumbnail(UINT cx, HBITMAP *phbmp, WTS_ALPHATYPE *pdwAlpha) {
 	try {
 		if (cx == 0) {
-			Log << L"(Thumb) Argument cx invalid.\n";
+			Log << "(Thumb) Argument cx invalid.\n";
 			return E_INVALIDARG;
 		}
 
 		if (phbmp == 0) {
-			Log << L"(Thumb) Argument phbmp invalid.\n";
+			Log << "(Thumb) Argument phbmp invalid.\n";
 			return E_POINTER;
 		}
 
@@ -91,7 +91,7 @@ _Use_decl_annotations_ IFACEMETHODIMP CPictusThumbnailProvider::GetThumbnail(UIN
 		}
 
 		if (!m_reader) {
-			Log << L"(Thumb) Invalid state, stream not yet initialized.";
+			Log << "(Thumb) Invalid state, stream not yet initialized.";
 			return E_ILLEGAL_METHOD_CALL;
 		}
 
@@ -101,16 +101,16 @@ _Use_decl_annotations_ IFACEMETHODIMP CPictusThumbnailProvider::GetThumbnail(UIN
 
 		Img::Surface::Ptr s = LoadSurface(cx);
 		if(!s) {
-			Log << L"(Thumb) Failed to load image.\n";
+			Log << "(Thumb) Failed to load image.\n";
 			return E_NOTIMPL;
 		}
 
 		DimData outDims = DetermineDimensions(cx, s->GetSize());
 		if(!IsPositive(s->GetSize()) || !IsPositive(outDims.sz)) {
-			Log << L"(Thumb) Image or thumbnail had non-positive image dimensions.\n";
+			Log << "(Thumb) Image or thumbnail had non-positive image dimensions.\n";
 			return E_NOTIMPL;
 		}
-		Log << L"(Thumb) Loaded image, dims:" << ToWString(s->GetSize()) << L"\n";
+		Log << "(Thumb) Loaded image, dims:" << s->GetSize() << "\n";
 
 		BITMAPINFO bmi = {};
 		bmi.bmiHeader.biSize = sizeof(bmi.bmiHeader);
@@ -123,7 +123,7 @@ _Use_decl_annotations_ IFACEMETHODIMP CPictusThumbnailProvider::GetThumbnail(UIN
 		uint8_t* pBits;
 		*phbmp = CreateDIBSection(0, &bmi, DIB_RGB_COLORS, reinterpret_cast<void **>(&pBits), NULL, 0);
 		if(*phbmp == 0) {
-			Log << L"PictThumb: Failed to create DIB section.";
+			Log << "PictThumb: Failed to create DIB section.";
 			return E_OUTOFMEMORY;
 		}
 		if (*phbmp == reinterpret_cast<HBITMAP>(ERROR_INVALID_PARAMETER)) {
@@ -154,10 +154,10 @@ _Use_decl_annotations_ IFACEMETHODIMP CPictusThumbnailProvider::GetThumbnail(UIN
 		return S_OK;
 	}
 	catch(Err::Exception& e) {
-		Log << L"PictThumb: " << UTF8ToWString(e.what()) << "\n";
+		Log << "PictThumb: " << e.what() << "\n";
 	}
 	catch (...) { 
-		Log << L"Unknown exception encountered.\n";
+		Log << "Unknown exception encountered.\n";
 	}
 	return E_UNEXPECTED;
 }
@@ -179,25 +179,25 @@ AbstractCodec* CPictusThumbnailProvider::FindCodec() {
 			return c;
 		}
 	}
-	Log << L"(Thumb) Could not find a valid decoder.\n";
+	Log << "(Thumb) Could not find a valid decoder.\n";
 	return 0;
 }
 
 Img::Surface::Ptr CPictusThumbnailProvider::LoadSurface(UINT cx) {
 	AbstractCodec* c = FindCodec();
 	if (c == 0) {
-		Log << L"(Thumb) No codec is available. Can't load image.\n";
+		Log << "(Thumb) No codec is available. Can't load image.\n";
 		return Img::Surface::Ptr();
 	}
 	if (c->Allocate(SizeInt(cx, cx)) == Img::AbstractCodec::AllocationStatus::NotSupported) {
-		Log << L"(Thumb) Specified image size not supported, will attempt full-size instead.\n";
+		Log << "(Thumb) Specified image size not supported, will attempt full-size instead.\n";
 		if (c->Allocate() != Img::AbstractCodec::AllocationStatus::Ok) {
 			return Img::Surface::Ptr();
 		}
 	}
 
 	if (c->LoadImageData() == AbstractCodec::LoadStatus::Failed) {
-		Log << L"(Thumb) LoadImageData failed.\n";
+		Log << "(Thumb) LoadImageData failed.\n";
 		return Img::Surface::Ptr();
 	}
 

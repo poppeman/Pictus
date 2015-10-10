@@ -23,7 +23,7 @@ namespace Img {
 		}
 		file->ReadFull(header, 4);
 		if (memcmp(header, "XYZ1", 4) != 0) {
-			Log << L"(CodecXYZ::LoadHeader) XYZ1 header missing.\n";
+			Log << "(CodecXYZ::LoadHeader) XYZ1 header missing.\n";
 			return false;
 		}
 		uint16_t width, height;
@@ -39,7 +39,7 @@ namespace Img {
 
 		if (inflateInit(&m_stream) != Z_OK) {
 			// TODO: Log error, zlib failing is not intended behavior
-			Log << L"(CodecXYZ::LoadHeader) Failed initializing zlib.\n";
+			Log << "(CodecXYZ::LoadHeader) Failed initializing zlib.\n";
 			return false;
 		}
 		m_isInit = true;
@@ -57,7 +57,7 @@ namespace Img {
 			FillBuffer(file);
 			if (m_outData.empty()) {
 				Cleanup();
-				Log << L"(CodecXYZ::LoadHeader) Prematurely encountered end of file.\n";
+				Log << "(CodecXYZ::LoadHeader) Prematurely encountered end of file.\n";
 				return LoadStatus::Failed;
 			}
 

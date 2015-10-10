@@ -1,5 +1,7 @@
 #include "logger.h"
 
+#include "types.h"
+
 #include <boost/algorithm/string.hpp>
 #include <vector>
 
@@ -7,32 +9,33 @@
 #include <debugapi.h>
 
 namespace IO {
-	void Logger::SetOutput(_In_ const std::wstring& filename) {
+	void Logger::SetOutput(const std::string& filename) {
 		m_filename = filename;
 		m_wroteBOM = false;
 		AttemptInitialize();
 	}
 
-	void Logger::Write(_In_ const std::wstring& message) {
+	void Logger::Write(const std::string& message) {
 		// TODO: Work better with the << operator. Currently a single message can get split into multiple rows.
 		m_dbgCached += message;
-		boost::replace_all(m_dbgCached, L"\r\n", L"\n");
-		std::vector<std::wstring> lines;
-		boost::split(lines, m_dbgCached, boost::is_any_of(L"\n"));
+		boost::replace_all(m_dbgCached, "\r\n", "\n");
+		std::vector<std::string> lines;
+		boost::split(lines, m_dbgCached, boost::is_any_of("\n"));
 		if (lines.empty() == false) {
 			m_dbgCached = lines.back();
 			lines.pop_back();
-			for (auto l : lines) { 
-				OutputDebugStringW((L"Pictus: " + l + L"\r\n").c_str());
+			for (auto l : lines) {
+				auto u8str = "Pictus: " + l + "\r\n";
+				OutputDebugStringW(UTF8ToWString(u8str.c_str()).c_str());
 			}
 		}
 
 		AttemptInitialize();
 		IO::FileWriter f;
-		if (!f.Open(m_filename, true)) {
+		if (!f.Open(UTF8ToWString(m_filename.c_str()), true)) {
 			return;  // Prefer losing logging messages than raising an error.
 		}
-		f.Write(message.c_str(), 2, message.length());
+		f.Write(message.c_str(), 1, message.length());
 	}
 
 	void Logger::AttemptInitialize() {
@@ -45,27 +48,27 @@ namespace IO {
 		}
 
 		IO::FileWriter f;
-		if (!f.Open(m_filename)) {
+		if (!f.Open(UTF8ToWString(m_filename.c_str()))) {
 			return;
 		}
 
-		const unsigned char bof[2] = {0xff, 0xfe};
-		f.Write(bof, 1, 2);
+		const unsigned char bof[3] = {0xef, 0xbb, 0xbf};
+		f.Write(bof, 1, 3);
 		m_wroteBOM = true;
 	}
 
 	Logger::~Logger() {
 		if (!m_dbgCached.empty()) {
-			OutputDebugStringW((L"Pictus: " + m_dbgCached).c_str());
+			OutputDebugStringW(UTF8ToWString(("Pictus: " + m_dbgCached).c_str()).c_str());
 		}
 	}
 
-	std::wstring Internal::Cleanup(const std::wstring& input) {
-		std::wstring output(input);
+	std::string Internal::Cleanup(const std::string& input) {
+		std::string output(input);
 
 		size_t pos = 0;
-		while((pos = output.find(L"\n", pos)) != std::wstring::npos) {
-			output.insert(pos, L"\r");
+		while((pos = output.find("\n", pos)) != std::string::npos) {
+			output.insert(pos, "\r");
 			pos += 2;
 		}
 		return output;

@@ -8,26 +8,26 @@
 namespace IO {
 	class Logger {
 	public:
-		void SetOutput(_In_ const std::wstring& filename);
+		void SetOutput(const std::string& filename);
 		~Logger();
 
 	private:
-		void Write(_In_ const std::wstring& message);
+		void Write(const std::string& message);
 		void AttemptInitialize();
-		std::wstring m_filename;
+		std::string m_filename;
 		bool m_wroteBOM;
-		std::wstring m_dbgCached;
+		std::string m_dbgCached;
 
 		template <typename T> friend  Logger& operator <<(Logger& log, T const& value);
 	};
 
 	namespace Internal {
-		std::wstring Cleanup(const std::wstring& input);
+		std::string Cleanup(const std::string& input);
 	}
 
 	template <typename T>
 	Logger& operator <<(Logger& log, T const& value) {
-		std::wstringstream ss;
+		std::stringstream ss;
 		ss << value;
 
 		log.Write(Internal::Cleanup(ss.str()));

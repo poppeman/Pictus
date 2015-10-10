@@ -3,6 +3,7 @@
 #include "illa/surfacemgr.h"
 #include "illa/swsurface.h"
 #include "orz/fileops.h"
+#include "orz/logger.h"
 #include "orz/stopwatch.h"
 
 enum
@@ -44,7 +45,7 @@ int wmain(int argc, wchar_t* argv[])
 		performLoad(filename);
 	int time = sw.Stop();
 
-	OutputDebugString((L"Time: " + ToWString(time / NumRuns) + L"\n").c_str());
+	Log << "Time: " << (time / NumRuns) << "\n";
 
 	return EXIT_SUCCESS;
 }

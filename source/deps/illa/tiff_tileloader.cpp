@@ -16,7 +16,7 @@ namespace Img {
 		tsize_t bytesRead = TIFFReadEncodedTile(m_tiff, m_currentTile++, destination, currentTileSize);
 
 		if (bytesRead == -1) {
-			Log << L"(TiffTileLoader::PerformLoadChunk) Failed decoding tile";
+			Log << "(TiffTileLoader::PerformLoadChunk) Failed decoding tile";
 			return TiffChunkStatus::Error;
 		}
 
