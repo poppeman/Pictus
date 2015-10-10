@@ -1,5 +1,6 @@
 #include "illa/filter.h"
 #include "illa/types.h"
+#include "orz/logger.h"
 #include "orz/stopwatch.h"
 #include "orz/types.h"
 #include <boost/random.hpp>
@@ -67,7 +68,7 @@ void TestNoResample(_T T)
 	for (int i = 0; i < NumRunsNoResample; ++i)
 		T.Run(src.fb, dst.fb, region);
 	int time = sw.Stop();
-	OutputDebugString((L"Time: " + ToWString(time / NumRunsNoResample) + L"\n").c_str());
+	Log << L"Time: " << ToWString(time / NumRunsNoResample) << L"\n";
 };
 
 
@@ -90,7 +91,7 @@ void TestResample(_T T, Img::Format fmt)
 	for (int i = 0; i < NumRunsResample; ++i)
 		T.Run(src.fb, dst.fb, region, fmt, DefaultZoom);
 	int time = sw.Stop();
-	OutputDebugString((L"Time: " + ToWString(time / NumRunsResample) + L"\n").c_str());
+	Log << L"Time: " + ToWString(time / NumRunsResample) + L"\n";
 };
 
 struct TestNearestNeighbor {
