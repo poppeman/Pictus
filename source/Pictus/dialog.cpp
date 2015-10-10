@@ -40,7 +40,7 @@ namespace Win {
 		return (Handle() != 0);
 	}
 
-	Dialog::Dialog(int id) :
+	Dialog::Dialog(unsigned short id) :
 		m_iTemplateID{ id }
 	{
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateControlStrings(); });

@@ -12,7 +12,7 @@ namespace Reg {
 				return it->second;
 			}
 
-			return nullptr;
+			return boost::none;
 		}
 
 		boost::optional<ResizeBehaviorTranslator::internal_type> ResizeBehaviorTranslator::put_value(external_type const& val) {

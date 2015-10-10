@@ -11,7 +11,7 @@ namespace D3D {
 			DO_THROW(Err::Direct3DError, "Failed locking texture");
 		}
 
-		return{ static_cast<unsigned char*>(lr.pBits), lr.Pitch };
+		return{ static_cast<unsigned char*>(lr.pBits), static_cast<size_t>(lr.Pitch) };
 	}
 
 	void Texture::UnlockRegion() {

@@ -11,7 +11,7 @@ namespace Reg {
 			if (it != App::ZoomModeIdentifier.left.end()) {
 				return it->second;
 			}
-			return nullptr;
+			return boost::none;
 		}
 
 		boost::optional<ZoomModeTranslator::internal_type> ZoomModeTranslator::put_value(external_type const& val) {

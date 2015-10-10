@@ -25,7 +25,7 @@ namespace App {
 		row = m_assigned->AddItem(Intl::GetWString(SIDSettingsKeyboardNotSet), m_currentId);
 		m_assigned->ItemColumn(row, 1, L"");
 		m_assigned->ItemColumn(row, 2, Intl::GetWString(SIDSettingsKeyboardNotSet));
-		m_shortcuts[m_currentId] = { { L'', false, false, false }, KeyAction::Undefined };
+		m_shortcuts[m_currentId] = { { 0, false, false, false }, KeyAction::Undefined };
 		id = m_currentId++;
 	}
 

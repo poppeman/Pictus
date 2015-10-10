@@ -17,7 +17,7 @@ namespace Win {
 
 		bool OnInitDialog();
 
-		explicit Dialog(int id);
+		explicit Dialog(unsigned short id);
 		virtual ~Dialog()=0;
 
 		bool GetCheckBox(DWORD id);
@@ -48,7 +48,7 @@ namespace Win {
 
 		boost::signals2::connection m_lang;
 
-		unsigned int m_iTemplateID;
+		unsigned short m_iTemplateID;
 	};
 }
 
