@@ -166,4 +166,6 @@ int wmain(int argc, wchar_t* argv[])
 		TestResample(TestNearestNeighbor(), fmt);
 	else
 		return EXIT_FAILURE;
+
+	return EXIT_SUCCESS;
 }
