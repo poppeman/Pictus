@@ -1,7 +1,7 @@
 #ifndef ORZ_STREAMWIN_H
 #define ORZ_STREAMWIN_H
 
-#include "stream.h"
+#include "../stream.h"
 
 #include <windows.h>
 #include <Shlwapi.h>

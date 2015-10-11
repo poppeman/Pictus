@@ -1,5 +1,5 @@
 #include "stream_windows.h"
-#include "logger.h"
+#include "../logger.h"
 
 namespace IO {
 	StreamWindows::StreamWindows(IStream* i) :m_pStream(i) {}

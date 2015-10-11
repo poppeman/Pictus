@@ -1,6 +1,6 @@
 #include "w32_folder.h"
 #include "w32_folder_iterator.h"
-#include "folder.h"
+#include "../folder.h"
 
 namespace IO {
 	FolderImplementation* Folder::doCreateImp(const std::wstring& path) {

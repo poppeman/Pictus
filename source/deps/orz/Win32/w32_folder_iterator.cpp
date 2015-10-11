@@ -1,6 +1,6 @@
 #include "w32_folder_iterator.h"
-#include "exception.h"
-#include "types.h"
+#include "../exception.h"
+#include "../types.h"
 
 namespace IO {
 	bool FolderFileIteratorWin32::OnStep() {

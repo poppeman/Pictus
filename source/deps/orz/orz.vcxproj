@@ -149,20 +149,20 @@
     <ClInclude Include="stream.h" />
     <ClInclude Include="stream_file.h" />
     <ClInclude Include="stream_mem.h" />
-    <ClInclude Include="stream_windows.h" />
     <ClInclude Include="folder.h" />
     <ClInclude Include="folder_iterator.h" />
     <ClInclude Include="folder_monitor.h" />
     <ClInclude Include="folder_types.h" />
-    <ClInclude Include="w32_folder.h" />
-    <ClInclude Include="w32_folder_iterator.h" />
-    <ClInclude Include="w32_folder_monitor_rdcw.h" />
     <ClInclude Include="folder_imp.h" />
     <ClInclude Include="folder_monitor_imp.h" />
     <ClInclude Include="exception.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="sysinfo.h" />
     <ClInclude Include="threadpool.h" />
+    <ClInclude Include="Win32\stream_windows.h" />
+    <ClInclude Include="Win32\w32_folder.h" />
+    <ClInclude Include="Win32\w32_folder_iterator.h" />
+    <ClInclude Include="Win32\w32_folder_monitor_rdcw.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp" />
@@ -180,19 +180,19 @@
     <ClCompile Include="stream.cpp" />
     <ClCompile Include="stream_file.cpp" />
     <ClCompile Include="stream_mem.cpp" />
-    <ClCompile Include="stream_windows.cpp" />
     <ClCompile Include="folder.cpp" />
     <ClCompile Include="folder_iterator.cpp" />
     <ClCompile Include="folder_monitor.cpp" />
     <ClCompile Include="folder_types.cpp" />
-    <ClCompile Include="w32_folder.cpp" />
-    <ClCompile Include="w32_folder_iterator.cpp" />
-    <ClCompile Include="w32_folder_monitor_rdcw.cpp" />
     <ClCompile Include="folder_imp.cpp" />
     <ClCompile Include="folder_monitor_imp.cpp" />
     <ClCompile Include="types.cpp" />
     <ClCompile Include="sysinfo_win.cpp" />
     <ClCompile Include="threadpool.cpp" />
+    <ClCompile Include="Win32\stream_windows.cpp" />
+    <ClCompile Include="Win32\w32_folder.cpp" />
+    <ClCompile Include="Win32\w32_folder_iterator.cpp" />
+    <ClCompile Include="Win32\w32_folder_monitor_rdcw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shared.props" />

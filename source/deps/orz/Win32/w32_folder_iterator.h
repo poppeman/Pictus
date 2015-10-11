@@ -1,7 +1,7 @@
 #ifndef ORZ_W32_FOLDER_ITERATOR_H
 #define ORZ_W32_FOLDER_ITERATOR_H
 
-#include "folder_iterator.h"
+#include "../folder_iterator.h"
 #include <windows.h>
 
 namespace IO {

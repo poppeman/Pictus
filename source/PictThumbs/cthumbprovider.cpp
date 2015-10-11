@@ -1,7 +1,7 @@
 #include "cthumbprovider.h"
 #include "illa/codecmgr.h"
 #include "illa/surfacemgr.h"
-#include "orz/stream_windows.h"
+#include "orz/Win32/stream_windows.h"
 #include "illa/swsurface.h"
 #include "illa/config.h"
 #include "illa/render.h"

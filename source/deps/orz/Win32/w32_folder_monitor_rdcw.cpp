@@ -1,8 +1,8 @@
 #include "w32_folder_monitor_rdcw.h"
-#include "folder_monitor.h"
+#include "../folder_monitor.h"
 
-#include "exception.h"
-#include "types.h"
+#include "../exception.h"
+#include "../types.h"
 
 #include <Shlwapi.h>
 
