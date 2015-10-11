@@ -13,7 +13,7 @@ namespace Win {
 		virtual ~IMenuItem() {}
 
 	protected:
-		const wchar_t* String();
+		std::wstring String();
 		int Index();
 
 	private:

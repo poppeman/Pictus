@@ -27,7 +27,7 @@ namespace Win {
 	private:
 		EditBox() = delete;
 
-		bool isValidchar(char c);
+		bool isValidchar(wchar_t c);
 		void showBalloon(const std::wstring& str);
 
 		// Sub classing

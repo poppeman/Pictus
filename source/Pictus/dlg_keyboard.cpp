@@ -22,9 +22,9 @@ namespace App {
 	{}
 
 	void SetKeyboard::AddShortcut(int& row, LPARAM& id) {
-		row = m_assigned->AddItem(Intl::GetWString(SIDSettingsKeyboardNotSet), m_currentId);
+		row = m_assigned->AddItem(UTF8ToWString(Intl::GetString(SIDSettingsKeyboardNotSet)), m_currentId);
 		m_assigned->ItemColumn(row, 1, L"");
-		m_assigned->ItemColumn(row, 2, Intl::GetWString(SIDSettingsKeyboardNotSet));
+		m_assigned->ItemColumn(row, 2, UTF8ToWString(Intl::GetString(SIDSettingsKeyboardNotSet)));
 		m_shortcuts[m_currentId] = { { 0, false, false, false }, KeyAction::Undefined };
 		id = m_currentId++;
 	}
@@ -32,7 +32,7 @@ namespace App {
 	void SetKeyboard::SetShortcutFunction(App::KeyAction action, LPARAM id) {
 		for (auto row = 0; row < m_assigned->Size(); row++) {
 			if (m_assigned->GetItemParam(row) == id) {
-				m_assigned->ItemColumn(row, 2, Intl::GetWString(App::KeyActionSid(action)));
+				m_assigned->ItemColumn(row, 2, UTF8ToWString(Intl::GetString(App::KeyActionSid(action))));
 				m_shortcuts[id].Action = action;
 			}
 		}

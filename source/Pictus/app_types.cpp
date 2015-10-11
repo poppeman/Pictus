@@ -231,7 +231,7 @@ namespace App {
 		using namespace Intl;
 		auto fancyKeySid = cg_keySids.find(key);
 		if (fancyKeySid != cg_keySids.end()) {
-			return GetWString(fancyKeySid->second);
+			return UTF8ToWString(GetString(fancyKeySid->second));
 		}
 
 

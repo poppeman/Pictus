@@ -1,4 +1,4 @@
-# Python 3 only
+﻿# Python 3 only
 # Quick ugly hack. Reads lang.json and spits out relevant C++ code.
 
 import json
@@ -46,7 +46,7 @@ def parseKey(data, state):
 	return state
 
 def stringEncode(x):
-	return 'L"' + x.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"") + '"'
+	return 'u8"' + x.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"") + '"'
 
 with codecs.open('Res/lang.json', mode = 'r', encoding='utf-8') as phil:
 	data = json.load(phil)
@@ -66,9 +66,9 @@ with open('lang_val.h', mode = 'w') as valf:
 
 # Python doesn't like writing BOMs, so we'll do that manually.
 with open('lang_val.cpp', mode = 'wb') as valf:
-	valf.write(codecs.BOM_UTF16_LE)
+	valf.write(codecs.BOM_UTF8)
 
-with codecs.open('lang_val.cpp', mode = 'a', encoding='utf-16-le') as valf:
+with codecs.open('lang_val.cpp', mode = 'a', encoding='utf-8') as valf:
 	valf.write('#include "../deps/orz/intl_table_entry.h"\n')
 	valf.write("Intl::TableEntry c_lang_strings[] = {\n")
 	for idx, lang in enumerate(flattened["vals"]):
