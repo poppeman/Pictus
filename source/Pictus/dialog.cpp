@@ -63,20 +63,15 @@ namespace Win {
 
 
 	DWORD Dialog::GetEditBoxNum(DWORD id) {
-		// Get string length and create a buffer to hold the string.
 		char len = static_cast<char>(SendDlgItemMessage(Handle(), id, EM_LINELENGTH, 0, 0));
 		boost::scoped_array<wchar_t> pC(new wchar_t[len + 1]);
 
-		// Request the string from the edit box.
 		pC[0] = static_cast<wchar_t>(len);
 		SendDlgItemMessage(Handle(), id, EM_GETLINE, 0, reinterpret_cast<LPARAM>(pC.get()));
-		
-		// Winapi doesn't add the terminator automatically. Dummies :(		
 		pC[len]	= 0;
 
-		// Done!
-		DWORD num = FromWString<DWORD>(pC.get());
-		return num;
+		auto str = WStringToUTF8(pC.get());
+		return FromAString<DWORD>(str);
 	}
 
 	void Dialog::SetEditBoxNum(DWORD id, DWORD val) {

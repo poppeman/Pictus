@@ -30,7 +30,7 @@ namespace App {
 
 	void SetPageCache::onWriteSettings(Reg::Settings& settings) {
 		settings.Cache.DoAutoMemoryLimit = GetCheckBox(IDC_AUTOMEM) != 0;
-		settings.Cache.ManualMemoryLimit = FromWString<int>(m_cacheSize->Text());
+		settings.Cache.ManualMemoryLimit = FromAString<int>(m_cacheSize->Text());
 	}
 
 	void SetPageCache::UpdateControls() {
@@ -45,7 +45,7 @@ namespace App {
 	}
 
 	void SetPageCache::PerformUpdateFromSettings(const Reg::Settings& settings) {
-		m_cacheSize->Text(ToWString(settings.Cache.ManualMemoryLimit));
+		m_cacheSize->Text(ToAString(settings.Cache.ManualMemoryLimit));
 		SetCheckBox(IDC_AUTOMEM, settings.Cache.DoAutoMemoryLimit);
 		UpdateControls();
 	}

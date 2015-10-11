@@ -83,7 +83,10 @@ namespace App {
 				boost::scoped_array<wchar_t> pC(new wchar_t[len + 1]);
 				SendMessage(hwnd, EM_GETLINE, 0, reinterpret_cast<LPARAM>(pC.get()));
 				pC.get()[len] = 0;
-				int val = FromWString<int>(pC.get());
+
+				auto str = WStringToUTF8(pC.get());
+
+				int val = FromAString<int>(str);
 				int nval= val;
 				if (val < 0) nval = 0;
 				if (hwnd == GetDlgItem(Handle(), IDC_EDIT_HUE)) {

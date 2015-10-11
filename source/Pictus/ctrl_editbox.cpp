@@ -23,21 +23,17 @@ namespace Win {
 		m_prevEditWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(Handle(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(FilterEditWndProc)));
 	}
 
-	std::wstring EditBox::Text() {
-		// Prepare a buffer for the string
+	std::string EditBox::Text() {
 		int len = GetWindowTextLength(Handle()) + 1;
 		boost::scoped_array<wchar_t> str(new wchar_t[len]);
 
-		// Fetch string
 		GetWindowText(Handle(), str.get(), len);
 
-		// Wrap it up in a pretty string and return it
-		std::wstring ret(str.get());
-		return ret;
+		return WStringToUTF8(str.get());
 	}
 
-	void EditBox::Text(const std::wstring& s) {
-		SendMessage(Handle(), WM_SETTEXT, 0, (LPARAM)s.c_str());
+	void EditBox::Text(const std::string& s) {
+		SendMessage(Handle(), WM_SETTEXT, 0, (LPARAM)UTF8ToWString(s).c_str());
 	}
 
 	LRESULT CALLBACK EditBox::FilterEditWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -73,7 +69,7 @@ namespace Win {
 								GlobalUnlock(hData); 
 
 								// Show a balloon tip if there were an error.
-								if (someInvalid) pEdit->showBalloon(UTF8ToWString(Intl::GetString(pEdit->m_balloonText)));
+								if (someInvalid) pEdit->showBalloon(Intl::GetString(pEdit->m_balloonText));
 							}
 						}
 					}
@@ -86,7 +82,7 @@ namespace Win {
 					char c = (char)wParam;
 
 					if (!pEdit->isValidchar(c)) {
-						pEdit->showBalloon(UTF8ToWString(Intl::GetString(pEdit->m_balloonText)));
+						pEdit->showBalloon(Intl::GetString(pEdit->m_balloonText));
 						return 0;
 					}
 
@@ -123,11 +119,12 @@ namespace Win {
 		return isValid;
 	}
 
-	void EditBox::showBalloon(const std::wstring& str) {
-		if (str != L"") {
+	void EditBox::showBalloon(const std::string& str) {
+		if (str.empty() == false) {
+			auto wstr = UTF8ToWString(str);
 			EDITBALLOONTIP bt;
 			bt.cbStruct = sizeof(bt);
-			bt.pszText  = str.c_str();
+			bt.pszText  = wstr.c_str();
 			bt.pszTitle = NULL;
 			bt.ttiIcon = TTI_NONE;
 			SendMessage(Handle(), EM_SHOWBALLOONTIP, 0, (LPARAM)&bt);
