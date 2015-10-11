@@ -5,9 +5,9 @@
 
 namespace Sys {
 	namespace Info {
-		size_t TotalPhysicalMemory();
+		uint64_t TotalPhysicalMemory();
 		Intl::Language SystemLanguage();
-		const std::wstring ExePath();
+		const std::string ExePath();
 	}
 }
 

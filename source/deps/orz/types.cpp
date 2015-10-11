@@ -20,13 +20,17 @@ std::wstring ToLower(const std::wstring& s) {
 	return b;
 }
 
-std::wstring UTF8ToWString(const char* utf8) {
-	int requiredBufferSizeInwchar_ts = MultiByteToWideChar(CP_UTF8, 0, utf8, static_cast<int>(strlen(utf8) + 1), 0, 0);
+std::wstring UTF8ToWString(const std::string& utf8) {
+	int requiredBufferSizeInwchar_ts = MultiByteToWideChar(CP_UTF8, 0, &utf8[0], utf8.size(), 0, 0);
 
 	std::wstring destinationBuffer(requiredBufferSizeInwchar_ts, 0);
 
-	MultiByteToWideChar(CP_UTF8, 0, utf8, strlen(utf8), &destinationBuffer[0], requiredBufferSizeInwchar_ts);
+	MultiByteToWideChar(CP_UTF8, 0, &utf8[0], utf8.size(), &destinationBuffer[0], requiredBufferSizeInwchar_ts);
 	return destinationBuffer;
+}
+
+std::wstring UTF8ToWString(const std::wstring& utf8) {
+	return UTF8ToWString(utf8.c_str());
 }
 
 std::string WStringToUTF8(const std::wstring& utf16) {
