@@ -48,7 +48,7 @@ T FromWString(const std::wstring& s) {
 	return i;
 }
 
-std::wstring UTF8ToWString(const char* utf8);
+std::wstring UTF8ToWString(const std::string& utf8);
 std::string WStringToUTF8(const std::wstring& utf16);
 
 int RoundCast(float rhs);

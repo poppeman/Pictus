@@ -210,7 +210,7 @@ namespace Win {
 
         BOOL ret = GetOpenFileName(&ofn);
 
-        SetCurrentDirectory(IO::GetPath(Sys::Info::ExePath()).c_str());
+        SetCurrentDirectory(IO::GetPath(UTF8ToWString(Sys::Info::ExePath())).c_str());
 
         if (ret) return filename;
         return L"";

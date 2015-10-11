@@ -1,9 +1,11 @@
 #include "sysinfo.h"
+#include "types.h"
 #include <windows.h>
 
 namespace Sys {
 	namespace Info {
-		size_t TotalPhysicalMemory() {
+		uint64_t TotalPhysicalMemory()
+{
 			MEMORYSTATUSEX stat;
 			stat.dwLength = sizeof(stat);
 			GlobalMemoryStatusEx(&stat);
@@ -19,10 +21,10 @@ namespace Sys {
 			}
 		}
 
-		const std::wstring ExePath() {
+		const std::string ExePath() {
 			wchar_t strExe[MAX_PATH];
 			::GetModuleFileNameW(0, strExe, (sizeof(strExe) / sizeof(wchar_t)) - 1);
-			return std::wstring(strExe);
+			return WStringToUTF8(strExe);
 		}
 	}
 }
