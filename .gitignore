@@ -20,6 +20,7 @@ $RECYCLE.BIN/
 *.suo
 
 # Compiler gunk
+build/
 *.sdf
 *.opensdf
 **/ipch/*
