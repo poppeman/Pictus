@@ -32,7 +32,7 @@ namespace App {
 			}
 			pretty_filter += filters + L")|" + filters + L"|";
 		}
-		pretty_filter += std::wstring(Intl::GetWString(App::SIDOpenAllImages)) + L" (" + match_all + L")|" + match_all + L"||";
+		pretty_filter += std::wstring(UTF8ToWString(Intl::GetString(App::SIDOpenAllImages))) + L" (" + match_all + L")|" + match_all + L"||";
 
 		filterString.resize(pretty_filter.size());
 

@@ -5,7 +5,7 @@
 
 namespace Intl{
 	struct TableEntry {
-		const wchar_t* langs[static_cast<int>(Language::Undefined)];
+		const char* langs[static_cast<int>(Language::Undefined)];
 	};
 }
 

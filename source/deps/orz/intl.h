@@ -11,8 +11,8 @@ namespace Intl {
 	void CurrentLanguage(const Language& lang);
 	const Language CurrentLanguage();
 	Language SystemLanguage();
-	const wchar_t* GetWString(int id);
-	const wchar_t* GetWStringLang(int id, Language lang);
+	const char* GetString(int id);
+	const char* GetStringLang(int id, Language lang);
 
 	extern boost::signals2::signal<void()> OnLanguageChanged;
 }

@@ -115,7 +115,7 @@ namespace Win {
 
     void BaseWindow::Caption(const int sidCaption) {
         m_sidCaption = sidCaption;
-        Caption(Intl::GetWString(m_sidCaption));
+        Caption(UTF8ToWString(Intl::GetString(m_sidCaption)));
     }
 
     const std::wstring BaseWindow::Caption() const {
@@ -189,7 +189,7 @@ namespace Win {
 
     void BaseWindow::UpdateCaption() {
         if (m_sidCaption != -1)
-            Caption(Intl::GetWString(m_sidCaption));
+            Caption(UTF8ToWString(Intl::GetString(m_sidCaption)));
     }
 
     const std::wstring BaseWindow::OpenFileDialog(const wchar_t *title, const wchar_t *filters, size_t defaultFilterIndex) {

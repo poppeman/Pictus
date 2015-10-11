@@ -137,12 +137,12 @@ namespace Win {
 
 	void Dialog::ControlText(DWORD id, int sid) {
 		m_controlSIds[id] = sid;
-		ControlText(id, Intl::GetWString(sid));
+		ControlText(id, UTF8ToWString(Intl::GetString(sid)));
 	}
 
 	void Dialog::UpdateControlStrings() {
 		for(const ControlTextSIdVector::value_type& v: m_controlSIds)
-			ControlText(v.first, Intl::GetWString(v.second));
+			ControlText(v.first, UTF8ToWString(Intl::GetString(v.second)));
 	}
 
 	bool Dialog::PerformOnNotify(DWORD id, LPNMHDR pnmh) {

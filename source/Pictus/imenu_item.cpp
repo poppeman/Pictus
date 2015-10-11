@@ -11,8 +11,8 @@ namespace Win {
 		m_index{ 0 }
 	{}
 
-	const wchar_t* Menu::IMenuItem::String() {
-		return Intl::GetWString(m_string_id);
+	std::wstring Menu::IMenuItem::String() {
+		return UTF8ToWString(Intl::GetString(m_string_id));
 	}
 
 	int Menu::IMenuItem::Index() {

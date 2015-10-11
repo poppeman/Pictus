@@ -30,11 +30,11 @@ namespace Intl {
 		return Sys::Info::SystemLanguage();
 	}
 
-	const wchar_t* GetWString(int id) {
-		return GetWStringLang(id, m_currLang);
+	const char* GetString(int id) {
+		return GetStringLang(id, m_currLang);
 	}
 
-	const wchar_t* GetWStringLang(int id, Language lang) {
+	const char* GetStringLang(int id, Language lang) {
 		if (lang >= Language::Undefined) {
 			DO_THROW(Err::CriticalError, "Invalid language identifier requested.");
 		}

@@ -11,7 +11,7 @@ namespace App {
 
 		m_cbLang = CreateComboBox(IDC_COMBO_LANG);
 		for (auto i = 0; i < static_cast<int>(Intl::Language::Undefined); ++i) {
-			m_cbLang->AddItem(Intl::GetWStringLang(SIDCurrentLanguage, static_cast<Intl::Language>(i)), i);
+			m_cbLang->AddItem(UTF8ToWString(Intl::GetStringLang(SIDCurrentLanguage, static_cast<Intl::Language>(i))), i);
 		}
 
 		m_cbLang->SetSelection(static_cast<int>(Intl::CurrentLanguage()));

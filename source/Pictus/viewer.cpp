@@ -225,7 +225,7 @@ namespace App {
 			b.BuildViewport(m_viewPort, this, m_cfg);
 		}
 		catch(Err::Exception& e) {
-			MessageBox(0, (GetWString(SIDErrorDirectX) + std::wstring(L"\n\n") + UTF8ToWString(e.what())).c_str(), 0, MB_OK);
+			MessageBox(0, (UTF8ToWString(GetString(SIDErrorDirectX)) + std::wstring(L"\n\n") + UTF8ToWString(e.what())).c_str(), 0, MB_OK);
 			return false;
 		}
 
@@ -455,16 +455,16 @@ namespace App {
 		FileInt gbSize = mbSize >> 10;
 
 		if (gbSize > FileSizeDivider) {
-			return ToWString(gbSize / (float)FileSizeDivider) + L" " + GetWString(SIDUnitGB);
+			return ToWString(gbSize / (float)FileSizeDivider) + L" " + UTF8ToWString(GetString(SIDUnitGB));
 		}
 		else if (mbSize > FileSizeDivider) {
-			return ToWString(mbSize / (float)FileSizeDivider) + L" " + GetWString(SIDUnitMB);
+			return ToWString(mbSize / (float)FileSizeDivider) + L" " + UTF8ToWString(GetString(SIDUnitMB));
 		}
 		else if (kbSize > FileSizeDivider) {
-			return ToWString(kbSize / (float)FileSizeDivider) + L" " + GetWString(SIDUnitKB);
+			return ToWString(kbSize / (float)FileSizeDivider) + L" " + UTF8ToWString(GetString(SIDUnitKB));
 		}
 		else {
-			return ToWString(alloc / (float)FileSizeDivider) + L" " + GetWString(SIDUnitB);
+			return ToWString(alloc / (float)FileSizeDivider) + L" " + UTF8ToWString(GetString(SIDUnitB));
 		}
 	}
 
@@ -474,10 +474,10 @@ namespace App {
 		}
 
 		if (image->IsFinished()) {
-			return (boost::wformat(GetWString(SIDStatusbarLoadTime)) % ToWString(image->LoadTime() / 1000.0f)).str();
+			return (boost::wformat(UTF8ToWString(GetString(SIDStatusbarLoadTime))) % ToWString(image->LoadTime() / 1000.0f)).str();
 		}
 
-		return GetWString(SIDStatusbarLoading);
+		return UTF8ToWString(GetString(SIDStatusbarLoading));
 	}
 
 	std::wstring Viewer::UII_ImageResolution(Img::Image::Ptr image) {
@@ -679,7 +679,7 @@ namespace App {
 
 	void Viewer::OpenFolder() {
 		FilterString s(m_codecs);
-		std::wstring file = OpenFileDialog(GetWString(SIDOpen), s.GetFilterString().c_str(), s.FilterCount());
+		std::wstring file = OpenFileDialog(UTF8ToWString(GetString(SIDOpen)).c_str(), s.GetFilterString().c_str(), s.FilterCount());
 		if (file != L"")
 			SetImageLocation(file);
 	}

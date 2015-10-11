@@ -129,12 +129,16 @@ namespace Win {
 			ZeroMemory(&lvc, sizeof(lvc));
 			lvc.mask = LVCF_TEXT;
 
+			std::wstring txt;
+
 			if (col.second.StringIDTitle != App::SIDInvalid) {
-				lvc.pszText = const_cast<wchar_t*>(Intl::GetWString(col.second.StringIDTitle));
+				txt = UTF8ToWString(Intl::GetString(col.second.StringIDTitle));
 			}
 			else {
-				lvc.pszText = const_cast<wchar_t*>(col.second.ExplicitTitle.c_str());
+				txt = col.second.ExplicitTitle;
 			}
+
+			lvc.pszText = const_cast<wchar_t*>(txt.c_str());
 
 			ListView_SetColumn(Handle(), col.first, &lvc);
 		}

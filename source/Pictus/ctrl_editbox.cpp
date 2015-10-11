@@ -73,7 +73,7 @@ namespace Win {
 								GlobalUnlock(hData); 
 
 								// Show a balloon tip if there were an error.
-								if (someInvalid) pEdit->showBalloon(Intl::GetWString(pEdit->m_balloonText));
+								if (someInvalid) pEdit->showBalloon(UTF8ToWString(Intl::GetString(pEdit->m_balloonText)));
 							}
 						}
 					}
@@ -86,7 +86,7 @@ namespace Win {
 					char c = (char)wParam;
 
 					if (!pEdit->isValidchar(c)) {
-						pEdit->showBalloon(Intl::GetWString(pEdit->m_balloonText));
+						pEdit->showBalloon(UTF8ToWString(Intl::GetString(pEdit->m_balloonText)));
 						return 0;
 					}
 
@@ -103,7 +103,7 @@ namespace Win {
 		m_prevEditWndProc{ 0 }
 	{}
 
-	bool EditBox::isValidchar(char c) {
+	bool EditBox::isValidchar(wchar_t c) {
 		bool isValid = true;
 
 		switch(m_criteria) {

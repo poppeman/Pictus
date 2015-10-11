@@ -6,7 +6,7 @@ namespace Win {
 			return Contents;
 		}
 
-		return Intl::GetWString(SId);
+		return UTF8ToWString(Intl::GetString(SId));
 	}
 
 	DWORD ComboBox::Entry::GetValue() const {
