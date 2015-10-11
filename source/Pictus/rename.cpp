@@ -11,7 +11,7 @@ namespace App {
 
 		m_filename = CreateEditBox(IDC_EDIT_RENAME_NAME);
 		m_filename->Filterchars(Win::EditBox::FilterInvalidFilename, SIDRenameInvalidChars);
-		m_filename->Text(m_name);
+		m_filename->Text(WStringToUTF8(m_name));
 
 		// Apply language
 		Caption(SIDRename);
@@ -25,7 +25,7 @@ namespace App {
 	}
 
 	void Rename::OnOk() {
-		std::wstring newName = m_filename->Text();
+		auto newName = UTF8ToWString(m_filename->Text());
 		bool ret = (newName != m_name);
 
 		m_name = newName;

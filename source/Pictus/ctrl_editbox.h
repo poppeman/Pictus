@@ -15,8 +15,8 @@ namespace Win {
 
 		void Filterchars(FilterCriteria criteria, int sidBalloonMessage=-1);
 
-		std::wstring Text();
-		void Text(const std::wstring& s);
+		std::string Text();
+		void Text(const std::string& s);
 
 	protected:
 		// Block invalid construction
@@ -28,7 +28,7 @@ namespace Win {
 		EditBox() = delete;
 
 		bool isValidchar(wchar_t c);
-		void showBalloon(const std::wstring& str);
+		void showBalloon(const std::string& str);
 
 		// Sub classing
 		FilterCriteria m_criteria;

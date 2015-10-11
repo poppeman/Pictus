@@ -40,14 +40,6 @@ T FromAString(const std::string& s) {
 	return i;
 }
 
-template <typename T>
-T FromWString(const std::wstring& s) {
-	std::wstringstream ss(s);
-	T i;
-	ss >> i;
-	return i;
-}
-
 std::wstring UTF8ToWString(const std::string& utf8);
 std::string WStringToUTF8(const std::wstring& utf16);
 
