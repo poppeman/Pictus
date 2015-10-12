@@ -2,6 +2,7 @@
 #define IMAGE_METADATA_VALUE_H
 
 #include "Metadata_Types.h"
+#include <cmath>
 #include <stdexcept>
 #include <iostream>
 #include <vector>
@@ -136,7 +137,7 @@ namespace Metadata {
 			std::stringstream ss;
 			if(fmt == Format::Default) {
 				double deg, frac;
-				frac = std::modf(fabs(m_val), &deg);
+				frac = std::modf(std::fabs(m_val), &deg);
 				ss << deg << static_cast<unsigned char>(0xc2) << static_cast<unsigned char>(0xb0);
 				double sec, min;
 				sec = std::modf(frac * 60.0, &min);

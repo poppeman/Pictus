@@ -5,6 +5,8 @@
 #include "c_tga_header.h"
 #include "orz/file_cache.h"
 
+#include <cstddef>
+
 namespace Img {
 	class CodecTgaDecoder {
 	public:

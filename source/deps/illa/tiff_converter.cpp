@@ -1,4 +1,5 @@
 #include "tiff_converter.h"
+#include <cstring>
 
 namespace Img {
 	void TiffDataConverter::Create(TIFF* tiff, Format dataFormat) {
