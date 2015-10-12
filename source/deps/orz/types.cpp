@@ -9,10 +9,6 @@
 // This include is to force boost.system to be linked. Boost.locale requires it, but the auto-linking seems to be broken.
 #include <boost/thread.hpp>
 
-#ifdef WIN32
-#include <windows.h>
-#endif
-
 int RoundCast(float rhs) {
 	return static_cast<int>(rhs + 0.5f);
 }
@@ -31,21 +27,11 @@ std::string ToLower(const std::string& s) {
 }
 
 std::wstring UTF8ToWString(const std::string& utf8) {
-	int requiredBufferSizeInwchar_ts = MultiByteToWideChar(CP_UTF8, 0, &utf8[0], utf8.size(), 0, 0);
-
-	std::wstring destinationBuffer(requiredBufferSizeInwchar_ts, 0);
-
-	MultiByteToWideChar(CP_UTF8, 0, &utf8[0], utf8.size(), &destinationBuffer[0], requiredBufferSizeInwchar_ts);
-	return destinationBuffer;
+	return boost::locale::conv::utf_to_utf<wchar_t>(utf8);
 }
 
 std::string WStringToUTF8(const std::wstring& utf16) {
-	auto requiredBufferSize = WideCharToMultiByte(CP_UTF8, 0, &utf16[0], utf16.size(), nullptr, 0, nullptr, nullptr);
-
-	std::string destinationBuffer(requiredBufferSize, 0);
-
-	WideCharToMultiByte(CP_UTF8, 0, &utf16[0], utf16.size(), &destinationBuffer[0], requiredBufferSize, nullptr, nullptr);
-	return destinationBuffer;
+	return boost::locale::conv::utf_to_utf<char>(utf16);
 }
 
 std::wstring ToWString( uint32_t i ) {
