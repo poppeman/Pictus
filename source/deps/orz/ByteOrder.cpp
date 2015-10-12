@@ -1,5 +1,10 @@
 #include "ByteOrder.h"
+
+#ifdef WIN32
 #include <WinSock2.h>
+#else
+#include <arpa/inet.h>
+#endif
 
 namespace Util {
 	uint16_t HToNs(uint16_t host) {

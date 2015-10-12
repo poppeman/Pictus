@@ -2,6 +2,7 @@
 #define ORZ_STREAMCONV_H
 
 #include <cstdint>
+#include <cstring>
 #include <deque>
 
 namespace Util {
