@@ -59,7 +59,12 @@ namespace IO {
 
 	FileInt StreamFile::performPosition() const {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
+		// TODO: Support the same size of files on all platforms
+#ifdef WIN32
 		return _ftelli64(m_file);
+#else
+		return ftell(m_file);
+#endif
 	}
 
 	void StreamFile::performClose() {
@@ -74,8 +79,11 @@ namespace IO {
 	bool StreamFile::performOpen() {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_size = 0;
+#ifdef WIN32
 		m_file = _wfsopen(UTF8ToWString(m_name).c_str(), L"rb", _SH_DENYWR);
-
+#else
+		m_file = fopen(m_name.c_str(), "rb");
+#endif
 		if (m_file == 0) {
 			switch(errno) {
 			case EACCES:
@@ -98,7 +106,7 @@ namespace IO {
 		return (m_file != 0);
 	}
 
-	void StreamFile::performSeek(_In_ FileInt position, _In_ SeekMethod m) {
+	void StreamFile::performSeek(FileInt position, SeekMethod m) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		unsigned long flag = 0;
 
@@ -116,7 +124,12 @@ namespace IO {
 				DO_THROW(Err::InvalidParam, "Attempted to use an unsupported seek method.");
 		}
 
+		// TODO: See ftell-stuff
+#ifdef WIN32
 		int ret = _fseeki64(m_file, position, flag);
+#else
+		int ret = fseek(m_file, position, flag);
+#endif
 
 		if (ret != 0)
 			DO_THROW(Err::IOException, "Couldn't seek as requested.");

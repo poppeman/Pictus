@@ -9,7 +9,9 @@
 // This include is to force boost.system to be linked. Boost.locale requires it, but the auto-linking seems to be broken.
 #include <boost/thread.hpp>
 
+#ifdef WIN32
 #include <windows.h>
+#endif
 
 int RoundCast(float rhs) {
 	return static_cast<int>(rhs + 0.5f);

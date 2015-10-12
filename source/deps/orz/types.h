@@ -7,7 +7,7 @@
 #include <sstream>
 
 // TODO: Remove these and use uint8_t, etc instead.
-typedef __int64 FileInt;
+typedef int64_t FileInt;
 
 std::wstring ToWString(uint8_t b);
 std::wstring ToWString(int i);

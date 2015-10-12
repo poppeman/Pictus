@@ -2,6 +2,7 @@
 #define ORZ_EXCEPTION_H
 
 #include <string>
+#include <stdexcept>
 
 namespace Err {
 	struct Exception:public std::runtime_error {
