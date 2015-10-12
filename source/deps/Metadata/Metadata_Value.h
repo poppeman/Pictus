@@ -61,7 +61,7 @@ namespace Metadata {
 	public:
 		virtual std::string ToString() {
 			std::stringstream ss;
-			ss << m_prefix << m_val << " " << m_unit;
+			ss << this->m_prefix << this->m_val << " " << m_unit;
 			return ss.str();
 		}
 
@@ -78,7 +78,7 @@ namespace Metadata {
 	public:
 		std::string ToString() {
 			std::stringstream ss;
-			ss << m_val << " " << m_unit;
+			ss << this->m_val << " " << m_unit;
 			return ss.str();
 		}
 
