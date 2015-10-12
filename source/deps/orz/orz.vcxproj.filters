@@ -34,6 +34,9 @@
     <Filter Include="IO\Win32">
       <UniqueIdentifier>{a00c5b2b-3c62-4104-82f0-e35876d6421c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sys\Info\Win32">
+      <UniqueIdentifier>{2dd0aa43-c743-468c-89ba-0182a9eb52df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bitconvert.h">
@@ -179,9 +182,6 @@
     <ClCompile Include="types.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
-    <ClCompile Include="sysinfo_win.cpp">
-      <Filter>Sys\Info</Filter>
-    </ClCompile>
     <ClCompile Include="threadpool.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
@@ -211,6 +211,9 @@
     </ClCompile>
     <ClCompile Include="Win32\stream_windows.cpp">
       <Filter>IO\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Win32\sysinfo_win.cpp">
+      <Filter>Sys\Info\Win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

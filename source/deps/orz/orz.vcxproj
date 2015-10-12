@@ -187,9 +187,9 @@
     <ClCompile Include="folder_imp.cpp" />
     <ClCompile Include="folder_monitor_imp.cpp" />
     <ClCompile Include="types.cpp" />
-    <ClCompile Include="sysinfo_win.cpp" />
     <ClCompile Include="threadpool.cpp" />
     <ClCompile Include="Win32\stream_windows.cpp" />
+    <ClCompile Include="Win32\sysinfo_win.cpp" />
     <ClCompile Include="Win32\w32_folder.cpp" />
     <ClCompile Include="Win32\w32_folder_iterator.cpp" />
     <ClCompile Include="Win32\w32_folder_monitor_rdcw.cpp" />
