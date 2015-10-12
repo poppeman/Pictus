@@ -57,8 +57,8 @@ namespace Num {
 	const float Pi_4 = 0.785398163397448309616f;
 }
 
-std::wstring ToUpper(const std::wstring& s);
-std::wstring ToLower(const std::wstring& s);
+std::string ToUpper(const std::string& s);
+std::string ToLower(const std::string& s);
 
 template <typename C>
 std::basic_string<C> Implode(const std::vector<std::basic_string<C>> arr, const C* glue = 0) {

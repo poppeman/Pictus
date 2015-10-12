@@ -4,6 +4,6 @@
 
 #include <string>
 
-void OutputString(const std::wstring& toOutput, bool important = false);
+void OutputString(const std::string& toOutput, bool important = false);
 
 #endif // Logger_h__

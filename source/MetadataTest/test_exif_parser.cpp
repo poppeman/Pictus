@@ -12,7 +12,7 @@ SUITE(ExifTest)
 	*/
 	TEST(SimpleMetadata)
 	{
-		auto file = std::make_shared<IO::FileReader>(g_datapath + L"/Metadata/P8290215.exif");
+		auto file = std::make_shared<IO::FileReader>(g_datapath + "/Metadata/P8290215.exif");
 		auto data = IO::ReadAll(file);
 		auto doc = Exif::Decode(&data[0], data.size());
 		CHECK(doc != nullptr);

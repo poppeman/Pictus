@@ -2,7 +2,7 @@
 #define IMAGECACHE_QUEUE_H
 
 #include "ic_imageloader.h"
-#include "imagecache_shared.h"
+#include "imagecache_workrequest.h"
 
 namespace Img {
 	class ImageQueue {

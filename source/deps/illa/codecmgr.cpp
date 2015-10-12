@@ -18,12 +18,12 @@
 #include "f_xyz.h"
 
 namespace Img {
-	bool CodecFactoryStore::DoCodecExist(const wchar_t* ext) {
+	bool CodecFactoryStore::DoCodecExist(const char* ext) {
 		return (m_ext.find(ToUpper(ext)) != m_ext.end());
 	}
 
 	AbstractCodec* CodecFactoryStore::CreateCodec(const std::string& ext) {
-		auto i = m_ext.find(ToUpper(UTF8ToWString(ext)));
+		auto i = m_ext.find(ToUpper(ext));
 		if (i != m_ext.end()) {
 			return i->second->CreateCodec();
 		}

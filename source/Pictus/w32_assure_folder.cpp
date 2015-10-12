@@ -6,14 +6,15 @@
 #include <windows.h>
 #include <ShlObj.h>
 
-std::wstring assure_folder(std::wstring name) {
-	std::wstring path = IO::GetPath(name);
-	std::wstring filename = IO::GetFile(name);
+std::string assure_folder(std::string name) {
+	auto path = IO::GetPath(name);
+	auto filename = IO::GetFile(name);
 
 	// See if there is an ini next to the .exe-file. If so, use that one (Portable mode).
-	wchar_t exePath[MAX_PATH];
-	if (GetModuleFileName(GetModuleHandle(nullptr), exePath, MAX_PATH) != 0) {
-		std::wstring totalExe = IO::GetPath(exePath);
+	wchar_t wexePath[MAX_PATH];
+	if (GetModuleFileName(GetModuleHandle(nullptr), wexePath, MAX_PATH) != 0) {
+		auto exePath = WStringToUTF8(wexePath);
+		auto totalExe = IO::GetPath(exePath);
 		totalExe += filename;
 		if (IO::DoFileExist(totalExe)) {
 			return totalExe;
@@ -24,22 +25,22 @@ std::wstring assure_folder(std::wstring name) {
 	wchar_t sLoc[MAX_PATH];
 	COND_STRICT(SUCCEEDED(SHGetFolderPath(0, CSIDL_APPDATA, 0, 0, sLoc)), Err::CriticalError, "Could not find settings directory.");
 
-	std::wstring currentPath(sLoc);
-	currentPath += L"\\";
+	auto currentPath(WStringToUTF8(sLoc));
+	currentPath += "\\";
 
 	// Create all sub directories one by one.
 	size_t index	= 1;
 	do {
-		size_t newindex = path.find_first_of(L"\\/", index);
-		if (newindex == std::wstring::npos) break;
+		size_t newindex = path.find_first_of("\\/", index);
+		if (newindex == std::string::npos) break;
 
 		currentPath += path.substr(index, newindex - index + 1);
-		CreateDirectory(currentPath.c_str(), 0);
+		CreateDirectory(UTF8ToWString(currentPath).c_str(), 0);
 		index = newindex;
 
-		if (index != std::wstring::npos) ++index;
+		if (index != std::string::npos) ++index;
 	}
-	while (index != std::wstring::npos);
+	while (index != std::string::npos);
 
 	return currentPath + filename;
 }

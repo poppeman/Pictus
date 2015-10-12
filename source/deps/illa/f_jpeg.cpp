@@ -6,10 +6,10 @@ namespace Img {
 		return new CodecJPEG();
 	}
 
-	FactoryJPEG::FactoryJPEG():ICodecFactory(L"JPEG (lossy)") {
-		AddExtension(L"JPG");
-		AddExtension(L"JPEG");
-		AddExtension(L"JFIF");
-		AddExtension(L"JPE");
+	FactoryJPEG::FactoryJPEG():ICodecFactory(u8"JPEG (lossy)") {
+		AddExtension(u8"JPG");
+		AddExtension(u8"JPEG");
+		AddExtension(u8"JFIF");
+		AddExtension(u8"JPE");
 	}
 }

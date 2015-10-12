@@ -16,9 +16,9 @@
 #include <windows.h>
 
 namespace Reg {
-	Reg::Settings Load(const std::wstring& name) {
+	Settings Load(const std::string& name) {
 		Reg::Settings cfg;
-		std::wstring full_name = assure_folder(name);
+		auto full_name = assure_folder(name);
 
 		boost::property_tree::ptree pt;
 
@@ -149,58 +149,58 @@ namespace Reg {
 		return cfg;
 	}
 
-	void Save(const std::wstring& name, const Reg::Settings& cfg) {
-		std::wstring full_name = assure_folder(name);
+	void Save(const std::string& name, const Settings& settings) {
+		auto full_name = assure_folder(name);
 		std::stringstream ss;
 		//ss << (char)0xef << (char)0xbb << (char)(0xbf);
 		boost::property_tree::ptree pt;
 
-		pt.put("Settings.AutoMemoryLimit", cfg.Cache.DoAutoMemoryLimit);
-		pt.put("Settings.ManualMemoryLimit", cfg.Cache.ManualMemoryLimit);
+		pt.put("Settings.AutoMemoryLimit", settings.Cache.DoAutoMemoryLimit);
+		pt.put("Settings.ManualMemoryLimit", settings.Cache.ManualMemoryLimit);
 
 		//cfg.Mouse.
-		pt.put("Settings.OnMouseLeft", cfg.Mouse.OnMouseLeft);
-		pt.put("Settings.OnMouseLeftDbl", cfg.Mouse.OnMouseLeftDbl);
-		pt.put("Settings.OnMouseMioddle", cfg.Mouse.OnMouseMiddle);
-		pt.put("Settings.OnMouseMiddleDbl", cfg.Mouse.OnMouseMiddleDbl);
-		pt.put("Settings.OnMouseRight", cfg.Mouse.OnMouseRight);
-		pt.put("Settings.OnMouseRightDbl", cfg.Mouse.OnMouseRightDbl);
-		pt.put("Settings.OnMouseWheelDown", cfg.Mouse.OnMouseWheelDown);
-		pt.put("Settings.OnMouseWheelUp", cfg.Mouse.OnMouseWheelUp);
+		pt.put("Settings.OnMouseLeft", settings.Mouse.OnMouseLeft);
+		pt.put("Settings.OnMouseLeftDbl", settings.Mouse.OnMouseLeftDbl);
+		pt.put("Settings.OnMouseMioddle", settings.Mouse.OnMouseMiddle);
+		pt.put("Settings.OnMouseMiddleDbl", settings.Mouse.OnMouseMiddleDbl);
+		pt.put("Settings.OnMouseRight", settings.Mouse.OnMouseRight);
+		pt.put("Settings.OnMouseRightDbl", settings.Mouse.OnMouseRightDbl);
+		pt.put("Settings.OnMouseWheelDown", settings.Mouse.OnMouseWheelDown);
+		pt.put("Settings.OnMouseWheelUp", settings.Mouse.OnMouseWheelUp);
 
 
-		pt.put("Settings.OnMouseRight", cfg.Mouse.OnMouseRight);
+		pt.put("Settings.OnMouseRight", settings.Mouse.OnMouseRight);
 
-		pt.put("Settings.BackgroundColor", cfg.Render.BackgroundColor);
-		pt.put("Settings.MagFilter", cfg.Render.MagFilter);
-		pt.put("Settings.MinFilter", cfg.Render.MinFilter);
+		pt.put("Settings.BackgroundColor", settings.Render.BackgroundColor);
+		pt.put("Settings.MagFilter", settings.Render.MagFilter);
+		pt.put("Settings.MinFilter", settings.Render.MinFilter);
 
 		// cfg.View.
-		pt.put("Settings.AlwaysOnTop", cfg.View.AlwaysOnTop);
-		pt.put("Settings.BrowseWrapAround", cfg.View.BrowseWrapAround);
-		pt.put("Settings.DefaultZoom", cfg.View.DefaultZoomMode);
-		pt.put("Settings.Language", cfg.View.Language);
-		pt.put("Settings.Maximized", cfg.View.Maximized);
-		pt.put("Settings.MultipleInstances", cfg.View.MultipleInstances);
-		pt.put("Settings.ResetPan", cfg.View.ResetPan);
-		pt.put("Settings.ResetZoom", cfg.View.ResetZoom);
-		pt.put("Settings.ResizeBehaviour", cfg.View.ResizeBehaviour);
-		pt.put("Settings.ResizePositionMethod", cfg.View.ResizePositionMethod);
-		pt.put("Settings.ResizeWindow", cfg.View.ResizeWindow);
-		pt.put("Settings.ShowStatusBar", cfg.View.ShowStatusBar);
-		pt.put("Settings.CAnchorX", cfg.View.WindowAnchorCenterX);
-		pt.put("Settings.CAnchorY", cfg.View.WindowAnchorCenterY);
-		pt.put("Settings.TLAnchorX", cfg.View.WindowAnchorTLX);
-		pt.put("Settings.TLAnchorY", cfg.View.WindowAnchorTLY);
-		pt.put("Settings.PosX", cfg.View.WindowPosX);
-		pt.put("Settings.PosY", cfg.View.WindowPosY);
-		pt.put("Settings.WindowWidth", cfg.View.WindowSizeWidth);
-		pt.put("Settings.WindowHeight", cfg.View.WindowSizeHeight);
+		pt.put("Settings.AlwaysOnTop", settings.View.AlwaysOnTop);
+		pt.put("Settings.BrowseWrapAround", settings.View.BrowseWrapAround);
+		pt.put("Settings.DefaultZoom", settings.View.DefaultZoomMode);
+		pt.put("Settings.Language", settings.View.Language);
+		pt.put("Settings.Maximized", settings.View.Maximized);
+		pt.put("Settings.MultipleInstances", settings.View.MultipleInstances);
+		pt.put("Settings.ResetPan", settings.View.ResetPan);
+		pt.put("Settings.ResetZoom", settings.View.ResetZoom);
+		pt.put("Settings.ResizeBehaviour", settings.View.ResizeBehaviour);
+		pt.put("Settings.ResizePositionMethod", settings.View.ResizePositionMethod);
+		pt.put("Settings.ResizeWindow", settings.View.ResizeWindow);
+		pt.put("Settings.ShowStatusBar", settings.View.ShowStatusBar);
+		pt.put("Settings.CAnchorX", settings.View.WindowAnchorCenterX);
+		pt.put("Settings.CAnchorY", settings.View.WindowAnchorCenterY);
+		pt.put("Settings.TLAnchorX", settings.View.WindowAnchorTLX);
+		pt.put("Settings.TLAnchorY", settings.View.WindowAnchorTLY);
+		pt.put("Settings.PosX", settings.View.WindowPosX);
+		pt.put("Settings.PosY", settings.View.WindowPosY);
+		pt.put("Settings.WindowWidth", settings.View.WindowSizeWidth);
+		pt.put("Settings.WindowHeight", settings.View.WindowSizeHeight);
 
 
 
 		int index = 0;
-		for (auto binding : cfg.Keyboard.Bindings) {
+		for (auto binding : settings.Keyboard.Bindings) {
 			std::stringstream ss;
 			ss << "Keyboard." << index++;
 			pt.put(ss.str(), binding);

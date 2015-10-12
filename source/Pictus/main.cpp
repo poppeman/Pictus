@@ -9,8 +9,8 @@
 #include "w32_assure_folder.h"
 #include "orz/logger.h"
 
-int start_app(const std::wstring& params) {
-	if (params == L"--cleanup") {
+int start_app(const std::string& params) {
+	if (params == "--cleanup") {
 		// If the user refused to uninstall the previous version when upgrading, the uninstaller will likely call pictus.exe with --cleanup
 		// as parameter. Let's not throw up a blank Pictus windows in that situation.
 		// This applies when 1.1.4.0 or older was installed.
@@ -24,7 +24,7 @@ int start_app(const std::wstring& params) {
 		auto cfg = Reg::Load(App::cg_SettingsLocation);
 
 		// TODO: Control logging by some other mechanism, such as an .ini setting
-		Log.SetOutput(WStringToUTF8(assure_folder(App::cg_RunLogLocation)));
+		Log.SetOutput(assure_folder(App::cg_RunLogLocation));
 
 		Intl::LanguageTable(c_lang_strings);
 		Intl::CurrentLanguage(cfg.View.Language);

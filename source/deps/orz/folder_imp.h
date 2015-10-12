@@ -6,13 +6,13 @@
 namespace IO {
 	class FolderImplementation:boost::noncopyable {
 	public:
-		const std::wstring& Path() const;
+		const std::string& Path() const;
 		virtual FolderFileIterator::Ptr CreateIterator()=0;
 
-		FolderImplementation(const std::wstring& path);
+		FolderImplementation(const std::string& path);
 
 	private:
-		std::wstring m_path;
+		std::string m_path;
 	};
 }
 

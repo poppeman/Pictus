@@ -1,22 +1,21 @@
 
-
-#ifndef FOLDERMANIPULATOR_H
-#define FOLDERMANIPULATOR_H
+#ifndef STRESSER_FOLDERMANIPULATOR_H
+#define STRESSER_FOLDERMANIPULATOR_H
 
 #include "BasicThread.h"
 
 class FolderManipulator:public BasicThread
 {
 public:
-	FolderManipulator(const std::wstring& folder, const std::wstring& sourceFolder);
+	FolderManipulator(const std::string& folder, const std::string& sourceFolder);
 	~FolderManipulator();
 
 private:
-	void							ThreadMain();
+	void ThreadMain();
 
 private:
-	std::wstring							m_folder;
-	std::wstring							m_sourceFolder;
+	std::string m_folder;
+	std::string m_sourceFolder;
 };
 
 

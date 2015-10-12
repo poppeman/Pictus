@@ -47,13 +47,13 @@ wait:
 			}
 		}
 		catch (Err::Exception& error) {
-			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, UTF8ToWString(error.what()));
+			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, error.what());
 		}
 		catch (std::exception& error) {
-			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, UTF8ToWString(error.what()));
+			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, error.what());
 		}
 		catch (...) {
-			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, L"Totally, utterly, unknown exception.");
+			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, "Totally, utterly, unknown exception.");
 		}
 		std::lock_guard<std::mutex> l(m_mxWorkList);
 		m_state = StStopped;
@@ -81,7 +81,7 @@ wait:
 				SendNotification(Img::MessageReceiver::LoadErrorImage, image->GetImage());
 		}
 		catch(Err::Exception& e) {
-			SendNotification(Img::MessageReceiver::LoadErrorImage, image->GetImage(), UTF8ToWString(e.what()));
+			SendNotification(Img::MessageReceiver::LoadErrorImage, image->GetImage(), e.what());
 		}
 	}
 
@@ -117,14 +117,15 @@ wait:
 	}
 
 
-	IO::FileReader::Ptr DecoderWorkerThread::GetFileReader(const std::wstring& filename) {
+	IO::FileReader::Ptr DecoderWorkerThread::GetFileReader(const std::string& filename) {
 		std::lock_guard<std::mutex> l(m_mxWorkList);
 		return m_wl.GetFileReader(filename);
 	}
 
-	void DecoderWorkerThread::SendNotification( Img::MessageReceiver::LoadMessage msg, Img::Image* image, const std::wstring& desc ) {
-		if(m_receiver)
+	void DecoderWorkerThread::SendNotification(Img::MessageReceiver::LoadMessage msg, Img::Image* image, const std::string& desc) {
+		if (m_receiver) {
 			m_receiver->OnLoadMessage(msg, image, desc);
+		}
 	}
 
 	void DecoderWorkerThread::MemoryLimit( size_t newLimit ) {

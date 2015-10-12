@@ -2,12 +2,12 @@
 #include "ctrl_statusbar.h"
 
 namespace Win {
-	void StatusBarPart::Text(const std::wstring newText) {
+	void StatusBarPart::Text(const std::string newText) {
 		m_text = newText;
 		Update();
 	}
 
-	const std::wstring& StatusBarPart::Text() const {
+	const std::string& StatusBarPart::Text() const {
 		return m_text;
 	}
 
@@ -42,7 +42,8 @@ namespace Win {
 	int StatusBarPart::CalculateAutoSize() const {
 		HDC dcStatusBar = GetDC(m_statusBar->Handle());
 		SIZE sz;
-		GetTextExtentPoint32(dcStatusBar, m_text.c_str(), m_text.length(), &sz);
+		auto ws = UTF8ToWString(m_text);
+		GetTextExtentPoint32W(dcStatusBar, ws.c_str(), ws.length(), &sz);
 		ReleaseDC(m_statusBar->Handle(), dcStatusBar);
 		return sz.cx;
 	}

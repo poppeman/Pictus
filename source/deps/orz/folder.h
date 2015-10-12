@@ -8,8 +8,8 @@
 namespace IO {
 	class Folder:boost::noncopyable {
 	public:
-		bool Path(const std::wstring& filename);
-		std::wstring Path() const;
+		bool Path(const std::string& filename);
+		std::string Path() const;
 
 		FolderFileIterator::Ptr CreateIterator() const;
 		IO::FileList CurrentContents() const;
@@ -17,7 +17,7 @@ namespace IO {
 		Folder();
 
 	private:
-		FolderImplementation* doCreateImp(const std::wstring& path);
+		FolderImplementation* doCreateImp(const std::string& path);
 
 	private:
 		mutable std::mutex m_mxCall;

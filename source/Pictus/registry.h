@@ -7,8 +7,8 @@
 #include "appreg.h"
 
 namespace Reg {
-	Settings Load(const std::wstring& name);
-	void Save(const std::wstring& name, const Settings& settings);
+	Settings Load(const std::string& name);
+	void Save(const std::string& name, const Settings& settings);
 }
 
 #endif

@@ -14,13 +14,13 @@ namespace Img {
 	class CodecFactoryStore {
 	public:
 		struct Info {
-			typedef std::vector<std::wstring>	ExtensionVector;
+			typedef std::vector<std::string>	ExtensionVector;
 
-			std::wstring Description;
+			std::string Description;
 			ExtensionVector Extensions;
 		};
 		typedef std::vector<Info> InfoVector;
-		bool DoCodecExist(const wchar_t* ext);
+		bool DoCodecExist(const char* ext);
 		AbstractCodec* CreateCodec(const std::string& ext);
 		AbstractCodec* CreateCodec(size_t index);
 		const InfoVector& CodecInfo();
@@ -34,8 +34,8 @@ namespace Img {
 	private:
 		typedef std::shared_ptr<ICodecFactory> FactoryPtr;
 		typedef std::deque<FactoryPtr> FactoryList;
-		typedef std::map<std::wstring, FactoryPtr> ExtMap;
-		typedef std::pair<std::wstring, FactoryPtr> ExtPair;
+		typedef std::map<std::string, FactoryPtr> ExtMap;
+		typedef std::pair<std::string, FactoryPtr> ExtPair;
 		FactoryList m_factories;
 		ExtMap m_ext;
 		InfoVector m_info;

@@ -3,20 +3,20 @@
 #include "FolderUser.h"
 
 
-FolderUser::FolderUser(const std::wstring& folder)
-	:m_folder(folder)
+FolderUser::FolderUser(const std::string& folder) :
+	m_folder(folder)
 {}
 
 FolderUser::~FolderUser() {}
 
 void FolderUser::ThreadMain()
 {
-	Output(L"Initializing FolderUser, scanning " + m_folder + L" ...");
+	Output("Initializing FolderUser, scanning " + m_folder + " ...");
 	IO::Folder folder;
 
 	folder.Path(m_folder);
 
-	Output(L"Init complete, running ...");
+	Output("Init complete, running ...");
 
 	auto files = folder.CurrentContents();
 	auto i = files.begin();
@@ -28,7 +28,7 @@ void FolderUser::ThreadMain()
 		{
 			if (i->Type == IO::TypeFile)
 			{
-				std::wstring name = m_folder + i->Name;
+				auto name = m_folder + i->Name;
 
 				IO::FileReader file(name);
 				if (file.Open())

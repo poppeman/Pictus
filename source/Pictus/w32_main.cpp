@@ -24,9 +24,9 @@ int WINAPI wWinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ wchar_t* pCmdLine, 
 		return EXIT_FAILURE;
 	}
 
-	SetCurrentDirectory(IO::GetPath(UTF8ToWString(Sys::Info::ExePath())).c_str());
+	SetCurrentDirectory(UTF8ToWString(IO::GetPath(Sys::Info::ExePath())).c_str());
 
-	int ret = start_app(Win::LongPath(pCmdLine));
+	int ret = start_app(Win::LongPath(WStringToUTF8(pCmdLine)));
 
 	return ret;
 }

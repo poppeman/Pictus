@@ -15,21 +15,17 @@ namespace IO {
 		LPSHNAMEMAPPINGW  lpSHNameMapping;    // Pointer to the array of mappings.
 	};
 
-	bool DoFileExist(const std::wstring& file) {
-		if (file==L"") return false;
+	bool DoFileExist(const std::string& file) {
+		if (file.empty()) {
+			return false;
+		}
+
 		IO::FileReader r(file);
 		return r.Open();
-
-		/*FILE* f = 0;
-		if ((_wfopen_s(&f, file.c_str(), L"rb") == 0) && (f != 0)) {
-			fclose(f);
-			return true;
-		}
-		return false;*/
 	}
 
-	bool DoPathExist(const std::wstring& file) {
-		auto dwAttr = GetFileAttributesW(file.c_str());
+	bool DoPathExist(const std::string& file) {
+		auto dwAttr = GetFileAttributesW(UTF8ToWString(file).c_str());
 
 		if (dwAttr == INVALID_FILE_ATTRIBUTES) {
 			return false;
@@ -38,7 +34,8 @@ namespace IO {
 		return !!(dwAttr & FILE_ATTRIBUTE_DIRECTORY);
 	}
 
-	static std::vector<wchar_t> ToTerminatedcharArray(const std::wstring& in) {
+	static std::vector<wchar_t> ToTerminatedWcharArray(const std::string& utf8) {
+		auto in = UTF8ToWString(utf8);
 		size_t len = in.length() + 2; // Two extra due to _two_ terminating chars.
 		std::vector<wchar_t> pFromWString(len);
 
@@ -51,12 +48,12 @@ namespace IO {
 		return pFromWString;
 	}
 
-	bool performDeleteRecycle(const std::wstring& file, bool doRecycle, HWND hwnd) {
+	bool performDeleteRecycle(const std::string& file, bool doRecycle, HWND hwnd) {
 		//COND_STRICT(hwnd != 0, Err::InvalidParam, L"hwnd was null.");
 		SHFILEOPSTRUCTW sfop;
 		ZeroMemory(&sfop, sizeof(sfop));
 
-		auto pFromWString = ToTerminatedcharArray(file);
+		auto pFromWString = ToTerminatedWcharArray(file);
 		sfop.pFrom = &pFromWString[0];
 		sfop.wFunc = FO_DELETE;
 		sfop.fFlags = FOF_SILENT;
@@ -75,20 +72,20 @@ namespace IO {
 		return (SHFileOperationW(&sfop) == 0) && (sfop.fAnyOperationsAborted == false);
 	}
 
-	bool FileDelete(const std::wstring& file, HWND hwnd) {
+	bool FileDelete(const std::string& file, HWND hwnd) {
 		return performDeleteRecycle(file, false, hwnd);
 	}
 
-	bool FileRecycle(const std::wstring& file, HWND hwnd) {
+	bool FileRecycle(const std::string& file, HWND hwnd) {
 		return performDeleteRecycle(file, true, hwnd);
 	}
 
-	std::wstring Rename(const std::wstring& old_name, const std::wstring& new_name, HWND hwnd) {
+	std::string Rename(const std::string& old_name, const std::string& new_name, HWND hwnd) {
 		SHFILEOPSTRUCTW sfop;
 		ZeroMemory(&sfop, sizeof(sfop));
 
-		auto pOldName = ToTerminatedcharArray(old_name);
-		auto pNewName = ToTerminatedcharArray(new_name);
+		auto pOldName = ToTerminatedWcharArray(old_name);
+		auto pNewName = ToTerminatedWcharArray(new_name);
 		sfop.pFrom = &pOldName[0];
 		sfop.pTo = &pNewName[0];
 		sfop.wFunc = FO_RENAME;
@@ -106,20 +103,19 @@ namespace IO {
 			toRet = (SHFileOperationW(&sfop) == 0) && (sfop.fAnyOperationsAborted == false);
 		}
 
-		std::wstring resulting_name = new_name;
+		auto resulting_name = new_name;
 
 		HANDLETOMAPPINGS* s = reinterpret_cast<HANDLETOMAPPINGS*>(sfop.hNameMappings);
 		if(s && s->uNumberOfMappings == 1) {
-			resulting_name = s->lpSHNameMapping[0].pszNewPath;
+			resulting_name = WStringToUTF8(s->lpSHNameMapping[0].pszNewPath);
 		}
 
 		SHFreeNameMappings(sfop.hNameMappings);
 
-		/*if (toRet)
-			renamed_file(old_name, resulting_name);
+		if (!toRet) {
+			return "";
+		}
 
-		restore_folders(ticket);*/
-		if(!toRet) return L"";
 		return resulting_name;
 	}
 

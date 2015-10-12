@@ -10,11 +10,11 @@
 SUITE(CodecTests) {
 	Img::CodecFactoryStore g_cfs;
 
-	std::vector<std::wstring> ParseCsv(std::wstring filename) {
-		std::vector<std::wstring> strings;
+	std::vector<std::string> ParseCsv(std::string filename) {
+		std::vector<std::string> strings;
 		IO::FileReader r(filename);
 		if (!r.Open()) {
-			throw Err::CriticalError("Could not open file " + WStringToUTF8(filename));
+			throw Err::CriticalError("Could not open file " + filename);
 		}
 		std::wstring curr;
 		
@@ -22,7 +22,7 @@ SUITE(CodecTests) {
 		while(r.Read(&c, sizeof(c), 1)) {
 			if(c == L',' || c == 10 || c == 13) {
 				if(curr.empty() == false)
-					strings.push_back(curr);
+					strings.push_back(WStringToUTF8(curr));
 
 				curr.clear();
 			}
@@ -35,7 +35,7 @@ SUITE(CodecTests) {
 			}
 		}
 		if(curr.empty() == false)
-			strings.push_back(curr);
+			strings.push_back(WStringToUTF8(curr));
 		return strings;
 	}
 
@@ -52,13 +52,13 @@ SUITE(CodecTests) {
 		Error err;
 	};
 
-	Loaded load(Img::AbstractCodec* pCodec, const std::wstring filename) {
+	Loaded load(Img::AbstractCodec* pCodec, const std::string filename) {
 		Loaded l = {Img::Surface::Ptr(), ErrNoError };
 
 		IO::FileReader::Ptr f(new IO::FileReader(filename));
 		//f->Filename(filename);
 		if (!f->Open()) {
-			DO_THROW(Err::CriticalError, "Could not open file " + WStringToUTF8(filename));
+			DO_THROW(Err::CriticalError, "Could not open file " + filename);
 		}
 
 		if(f->IsOpen() == false) {
@@ -91,10 +91,10 @@ SUITE(CodecTests) {
 	}
 
 
-	Error CompareImages(std::wstring f1, std::wstring f2) {
-		Loaded l1 = load(g_cfs.CreateCodec(IO::GetExtension(WStringToUTF8(f1))), f1);
+	Error CompareImages(std::string f1, std::string f2) {
+		Loaded l1 = load(g_cfs.CreateCodec(IO::GetExtension(f1)), f1);
 		if(l1.err != ErrNoError) return l1.err;
-		Loaded l2 = load(g_cfs.CreateCodec(IO::GetExtension(WStringToUTF8(f2))), f2);
+		Loaded l2 = load(g_cfs.CreateCodec(IO::GetExtension(f2)), f2);
 		if(l2.err != ErrNoError) return l2.err;
 
 		if(l1.ptr->GetSize() != l2.ptr->GetSize()) return ErrSizeDiffer;
@@ -126,9 +126,9 @@ SUITE(CodecTests) {
 		return ErrNoError;
 	}
 
-	bool ShouldFail(const std::wstring& file) {
+	bool ShouldFail(const std::string& file) {
 		try {
-			Loaded l1 = load(g_cfs.CreateCodec(IO::GetExtension(WStringToUTF8(file))), file);
+			Loaded l1 = load(g_cfs.CreateCodec(IO::GetExtension(file)), file);
 			if(l1.err == ErrFileNotFound) return false;
 			if(l1.err == ErrNoError) return false;
 		}
@@ -140,23 +140,23 @@ SUITE(CodecTests) {
 	TEST(TestLoadCompare) {
 		g_cfs.AddBuiltinCodecs();
 
-		auto files = ParseCsv(g_datapath + L"\\loadcompare.txt");
+		auto files = ParseCsv(g_datapath + "\\loadcompare.txt");
 		for(auto i = files.begin(); i != files.end(); ++i) {
-			std::wstring a = *i;
+			auto a = *i;
 			try {
 				if(a[0] == L'!') {
-					a = a.substr(1, std::wstring::npos);
-					if(ShouldFail(g_datapath + L"\\Codecs\\" + a) == false) {
-						std::wstring wmsg = L"Didn't report failure as expected: " + a;
+					a = a.substr(1, std::string::npos);
+					if(ShouldFail(g_datapath + "\\Codecs\\" + a) == false) {
+						std::string wmsg = "Didn't report failure as expected: " + a;
 						std::string msg(wmsg.begin(), wmsg.end());
 						DECORATIVE_FAIL(msg.c_str());
 					}
 					continue;
 				}
 				else if(a[0] == L'?') {
-					a = a.substr(1, std::wstring::npos);
-					if(ShouldFail(g_datapath + L"\\Codecs\\" + a)) {
-						std::wstring wmsg = L"Didn't succeed as expected: " + a;
+					a = a.substr(1, std::string::npos);
+					if(ShouldFail(g_datapath + "\\Codecs\\" + a)) {
+						std::string wmsg = "Didn't succeed as expected: " + a;
 						std::string msg(wmsg.begin(), wmsg.end());
 						DECORATIVE_FAIL(msg.c_str());
 					}
@@ -166,29 +166,29 @@ SUITE(CodecTests) {
 
 				if(i == files.end())
 					CHECK(false);
-				std::wstring b = *i;
-				switch(CompareImages(g_datapath + L"\\Codecs\\" + a, g_datapath + L"\\Codecs\\" + b)) {
+				auto b = *i;
+				switch(CompareImages(g_datapath + "\\Codecs\\" + a, g_datapath + "\\Codecs\\" + b)) {
 					case ErrNoError:
 						break;
 					case ErrFileNotFound:
 						{
-							DECORATIVE_FAIL(("File not found: " + WStringToUTF8(a) + " <=> " + WStringToUTF8(b)).c_str());
+							DECORATIVE_FAIL(("File not found: " + a + " <=> " + b).c_str());
 							break;
 						}
 					case ErrSizeDiffer:
 						{
-							DECORATIVE_FAIL(("Dimensions differ: " + WStringToUTF8(a) + " <=> " + WStringToUTF8(b)).c_str());
+							DECORATIVE_FAIL(("Dimensions differ: " + a + " <=> " + b).c_str());
 							break;
 						}
 					case ErrLoadFailed:
 						{
-							DECORATIVE_FAIL(("Failed to load: " + WStringToUTF8(a) + " <=> " + WStringToUTF8(b)).c_str());
+							DECORATIVE_FAIL(("Failed to load: " + a + " <=> " + b).c_str());
 							break;
 						}
 
 					case ErrDataDiffer:
 						{
-							DECORATIVE_FAIL(("Mismatch: " + WStringToUTF8(a) + " <=> " + WStringToUTF8(b)).c_str());
+							DECORATIVE_FAIL(("Mismatch: " + a + " <=> " + b).c_str());
 							break;
 						}
 				}

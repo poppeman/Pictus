@@ -47,7 +47,7 @@ namespace Img {
 		std::string Filename() const;
 		IO::FileReader::Ptr GetFileReader();
 
-		ImageLoader(CodecFactoryStore* cfs, Image* img, const std::wstring& fname);
+		ImageLoader(CodecFactoryStore* cfs, Image* img, const std::string& fname);
 		~ImageLoader();
 
 		static void SetMaximumResolutionHint(const Geom::SizeInt& maxRes);

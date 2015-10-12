@@ -5,11 +5,11 @@ namespace Img {
 		return m_extensions;
 	}
 
-	const std::wstring& ICodecFactory::GetFormatName() const {
+	const std::string& ICodecFactory::GetFormatName() const {
 		return m_name;
 	}
 
-	void ICodecFactory::AddExtension(const std::wstring& extension) {
+	void ICodecFactory::AddExtension(const std::string& extension) {
 		m_extensions.push_back(extension);
 	}
 }

@@ -32,7 +32,7 @@ namespace IO {
 
 		AttemptInitialize();
 		IO::FileWriter f;
-		if (!f.Open(UTF8ToWString(m_filename.c_str()), true)) {
+		if (!f.Open(m_filename.c_str(), true)) {
 			return;  // Prefer losing logging messages than raising an error.
 		}
 		f.Write(message.c_str(), 1, message.length());
@@ -48,7 +48,7 @@ namespace IO {
 		}
 
 		IO::FileWriter f;
-		if (!f.Open(UTF8ToWString(m_filename.c_str()))) {
+		if (f.Open(m_filename.c_str()) == false) {
 			return;
 		}
 
@@ -58,7 +58,8 @@ namespace IO {
 	}
 
 	Logger::~Logger() {
-		if (!m_dbgCached.empty()) {
+		if (!m_dbgCached.empty())
+		{
 			OutputDebugStringW(UTF8ToWString(("Pictus: " + m_dbgCached).c_str()).c_str());
 		}
 	}

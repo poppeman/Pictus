@@ -9,7 +9,7 @@ namespace IO {
 		m_imp.reset();
 	}
 
-	void FolderMonitor::Start(const std::wstring& path) {
+	void FolderMonitor::Start(const std::string& path) {
 		m_imp.reset(doCreateImp(path, OnEvent));
 	}
 }

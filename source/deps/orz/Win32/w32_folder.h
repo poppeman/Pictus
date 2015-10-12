@@ -8,10 +8,10 @@ namespace IO {
 	public:
 		FolderFileIterator::Ptr CreateIterator();
 
-		explicit FolderWin32(const std::wstring& path);
+		explicit FolderWin32(const std::string& path);
 
 	private:
-		std::wstring SetFolderSlashes(const std::wstring& inPath);
+		std::string SetFolderSlashes(const std::string& inPath);
 	};
 }
 

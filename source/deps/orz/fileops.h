@@ -8,21 +8,21 @@
 #include <string>
 
 namespace IO {
-	bool DoFileExist(const std::wstring& files);
-	bool DoPathExist(const std::wstring& file);
+	bool DoFileExist(const std::string& files);
+	bool DoPathExist(const std::string& file);
 
 #ifdef WIN32
-	bool FileDelete(const std::wstring& file, HWND hwnd);
-	bool FileRecycle(const std::wstring& file, HWND hwnd);
-	std::wstring Rename(const std::wstring& old_name, const std::wstring& new_name, HWND hwnd);
+	bool FileDelete(const std::string& file, HWND hwnd);
+	bool FileRecycle(const std::string& file, HWND hwnd);
+	std::string Rename(const std::string& old_name, const std::string& new_name, HWND hwnd);
 #endif
 
 	bool SupportRecycle();
 
-	std::wstring GetPath(const std::wstring& s);
-	std::wstring GetParentPath(const std::wstring& s);
-	std::wstring GetFile(const std::wstring& s);
-	std::wstring GetTitle(const std::wstring& s);
+	std::string GetPath(const std::string& s);
+	std::string GetParentPath(const std::string& s);
+	std::string GetFile(const std::string& s);
+	std::string GetTitle(const std::string& s);
 	std::string GetExtension(const std::string& s);
 }
 

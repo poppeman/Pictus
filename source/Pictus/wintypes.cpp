@@ -23,28 +23,38 @@ namespace Win {
 		return out_point;
 	}
 
-	std::wstring LongPath(const std::wstring& path) {
-		if (path.empty()) return path;
+	std::string LongPath(const std::string& path) {
+		if (path.empty())
+		{
+			return path;
+		}
 
-		std::wstring trimmedPath;
+		std::string trimmedPath;
 
-		if ((path[0] == L'\"') && ((path[path.length() - 1]) == L'\"'))
+		if ((path[0] == '\"') && ((path[path.length() - 1]) == '\"'))
+		{
 			trimmedPath = path.substr(1, path.length() - 2);
+		}
 		else
+		{
 			trimmedPath = path;
+		}
 
 		// Convert the (potentially) short path to a long one.
 		wchar_t single_char;
-		uint32_t len			= GetLongPathName(trimmedPath.c_str(), &single_char, 1);
+		uint32_t len			= GetLongPathName(UTF8ToWString(trimmedPath).c_str(), &single_char, 1);
 		boost::scoped_array<wchar_t> converted(0);
 
 		// Function APPARENTLY can't handle long pathnames (surrounded by quotes)
 		// Here's a crazy idea. HOW ABOUT OUTPUTTING THE ORIGINAL PATH IF THE
 		// INPUT STRING ACTUALLY IS A LONG PATH!? ALSO, CAPS-LOCK IS CRUISE CONTROL FOR COOL!
-		if (len != 0) {
+		
+		// A few years later, I still do not regret the previous comment
+		if (len != 0)
+		{
 			converted.reset(new wchar_t[len]);
-			GetLongPathName(trimmedPath.c_str(), converted.get(), len);
-			return converted.get();
+			GetLongPathName(UTF8ToWString(trimmedPath).c_str(), converted.get(), len);
+			return WStringToUTF8(converted.get());
 		}
 		return trimmedPath;
 	}
@@ -59,11 +69,22 @@ namespace Win {
 		return (Key < rhs.Key);
 	}
 
-	KeyEvent::KeyEvent(WPARAM key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed)
-		:Key(key),
+	KeyEvent::KeyEvent(WPARAM key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed):
+		Key(key),
 		AltPressed(isAltPressed),
 		CtrlPressed(isCtrlPressed),
 		ShiftPressed(isShiftPressed)
 	{
 	}
+
+	MouseEvent::MouseEvent() : Button(Left), Position(0, 0), WheelTicks(0)
+	{
+
+	}
+
+	MouseEvent::MouseEvent(LPARAM lParam) : Position(static_cast<SHORT>(LOWORD(lParam)), static_cast<SHORT>(HIWORD(lParam))), WheelTicks(0)
+	{
+
+	}
+
 }

@@ -125,14 +125,16 @@ namespace App {
 		m_pages.push_back(std::make_shared<SetAbout>());
 	}
 
-	HTREEITEM Settings::AddSettingsPageRoot(const std::wstring& name, int index, HTREEITEM hPrev) {
+	HTREEITEM Settings::AddSettingsPageRoot(const std::string& name, int index, HTREEITEM hPrev) {
 		return AddSettingsPageChild(name, index, TVI_ROOT, hPrev);
 	}
 
-	HTREEITEM Settings::AddSettingsPageChild(const std::wstring& name, int index, HTREEITEM hRoot, HTREEITEM hPrev) {
+	HTREEITEM Settings::AddSettingsPageChild(const std::string& name, int index, HTREEITEM hRoot, HTREEITEM hPrev) {
 		TVINSERTSTRUCT	tvins;
 
-		SetTextTVITEM(&tvins.item, name);
+		auto wName = UTF8ToWString(name);
+		tvins.item.pszText = const_cast<LPWSTR>(wName.c_str());
+		tvins.item.cchTextMax = static_cast<int>(wName.length());
 		tvins.item.mask = TVIF_TEXT | TVIF_PARAM;
 		tvins.item.lParam = index;
 		tvins.hInsertAfter = hPrev;
@@ -162,18 +164,14 @@ namespace App {
 
 			tvi.mask = TVIF_TEXT | TVIF_HANDLE;
 			// Make a scoped copy of the string, or TreeView_SetItem will end up playing with a deleted string.
-			std::wstring name = m_pages[tvi.lParam]->Caption();
-			SetTextTVITEM(&tvi, name);
+			auto wName = UTF8ToWString(m_pages[tvi.lParam]->Caption());
+			tvi.pszText = const_cast<LPWSTR>(wName.c_str());
+			tvi.cchTextMax = static_cast<int>(wName.length());
 			TreeView_SetItem(hView, &tvi);
 
 			updateTreeItem(TreeView_GetChild(hView, hItem));
 			updateTreeItem(TreeView_GetNextSibling(hView, hItem));
 		}
-	}
-
-	void Settings::SetTextTVITEM(TVITEM* tvi, const std::wstring &name) {
-		tvi->pszText = const_cast<LPWSTR>(name.c_str());
-		tvi->cchTextMax	= static_cast<int>(name.length());
 	}
 
 	void Settings::OnOk() {

@@ -16,7 +16,7 @@ namespace Img {
 
 		void SetCodecFactoryStore(Img::CodecFactoryStore* cfs);
 
-		IO::FileReader::Ptr GetFileReader(const std::wstring& filename);
+		IO::FileReader::Ptr GetFileReader(const std::string& filename);
 
 		void Terminate();
 
@@ -30,7 +30,7 @@ namespace Img {
 		typedef std::shared_ptr<DecoderWorkerThread> Ptr;
 
 	private:
-		void SendNotification(Img::MessageReceiver::LoadMessage msg, Img::Image* image, const std::wstring& desc = L"");
+		void SendNotification(Img::MessageReceiver::LoadMessage msg, Img::Image* image, const std::string& desc = "");
 
 		void ThreadMain();
 

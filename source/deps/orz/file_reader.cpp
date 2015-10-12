@@ -51,20 +51,20 @@ namespace IO {
 		return m_stream->IsOpen();
 	}
 
-	FileReader::FileReader( _In_ const std::wstring& name )
-		:m_stream(std::make_shared<StreamFile>(name))
+	FileReader::FileReader(const std::string& name ):
+		m_stream(std::make_shared<StreamFile>(name))
 	{}
 
-	FileReader::FileReader(_In_ Stream::Ptr s)
-		:m_stream(s)
+	FileReader::FileReader(Stream::Ptr s):
+		m_stream(s)
 	{}
 
 	// TODO: Replace this with Boost.filesystem or something else that doesn't scream of NIH.
-	void replace_substrings(std::wstring& str, const std::wstring& toFind, const std::wstring& toWrite, size_t offset=0) {
+	void replace_substrings(std::string& str, const std::string& toFind, const std::string& toWrite, size_t offset=0) {
 		std::size_t pos = offset;
-		while(pos != std::wstring::npos) {
+		while(pos != std::string::npos) {
 			pos = str.find(toFind, pos);
-			if (pos != std::wstring::npos) {
+			if (pos != std::string::npos) {
 				str.replace(
 					str.begin() + pos, str.begin() + pos + toFind.length(),
 					toWrite.begin(), toWrite.end());
@@ -72,33 +72,33 @@ namespace IO {
 		}
 	}
 
-	std::wstring GetPath(const std::wstring& s) {
-		std::wstring ret(s);
-		replace_substrings(ret, L"/", L"\\");
-		replace_substrings(ret, L"\\\\", L"\\", 1);
+	std::string GetPath(const std::string& s) {
+		std::string ret(s);
+		replace_substrings(ret, "/", "\\");
+		replace_substrings(ret, "\\\\", "\\", 1);
 
-		std::size_t dot = ret.find_last_of(L"/\\");
-		if (dot != std::wstring::npos) {
-			return ret.substr(0, dot) + L"\\";
+		std::size_t dot = ret.find_last_of("/\\");
+		if (dot != std::string::npos) {
+			return ret.substr(0, dot) + "\\";
 		}
 
-		return std::wstring(L"");
+		return "";
 	}
 
-	std::wstring GetFile(const std::wstring& s) {
-		std::size_t dot = s.find_last_of(L"/\\");
-		if (dot != std::wstring::npos) {
-			return s.substr(dot + 1, std::wstring::npos);
+	std::string GetFile(const std::string& s) {
+		std::size_t dot = s.find_last_of("/\\");
+		if (dot != std::string::npos) {
+			return s.substr(dot + 1, std::string::npos);
 		}
 
-		return std::wstring(L"");
+		return "";
 	}
 
-	std::wstring GetTitle(const std::wstring& s) {
-		std::size_t start	= s.find_last_of(L"/\\");
-		std::size_t end		= s.find_last_of(L'.');
+	std::string GetTitle(const std::string& s) {
+		std::size_t start	= s.find_last_of("/\\");
+		std::size_t end		= s.find_last_of('.');
 
-		if (start != std::wstring::npos) {
+		if (start != std::string::npos) {
 			return s.substr(start + 1, end - start - 1);
 		}
 

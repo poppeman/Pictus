@@ -350,6 +350,9 @@
     <ClCompile Include="dlg_cache.cpp">
       <Filter>Settings\Pages\Advanced</Filter>
     </ClCompile>
+    <ClCompile Include="imagecache_workrequest.cpp">
+      <Filter>Imaging\Cacher</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -532,9 +535,6 @@
     <ClInclude Include="imagecache_fileentry.h">
       <Filter>Imaging\Cacher</Filter>
     </ClInclude>
-    <ClInclude Include="imagecache_shared.h">
-      <Filter>Imaging\Cacher</Filter>
-    </ClInclude>
     <ClInclude Include="ic_backgroundprocessor.h">
       <Filter>Imaging\Cacher\Background</Filter>
     </ClInclude>
@@ -633,6 +633,9 @@
     </ClInclude>
     <ClInclude Include="dlg_cache.h">
       <Filter>Settings\Pages\Advanced</Filter>
+    </ClInclude>
+    <ClInclude Include="imagecache_workrequest.h">
+      <Filter>Imaging\Cacher</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

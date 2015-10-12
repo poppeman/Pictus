@@ -23,14 +23,17 @@ namespace IO {
 			type = TypeFolder;
 		}
 
-		FolderEntry currentEntry = {m_currentEntry.cFileName, type};
+		FolderEntry currentEntry = {WStringToUTF8(m_currentEntry.cFileName), type};
 		return currentEntry;
 	}
 
-	FolderFileIteratorWin32::FolderFileIteratorWin32(const std::wstring& path):m_handle(0), m_first(true) {
-		m_handle = FindFirstFileW((path + L"*.*").c_str(), &m_currentEntry);
+	FolderFileIteratorWin32::FolderFileIteratorWin32(const std::string& path):
+		m_handle(0),
+		m_first(true)
+	{
+		m_handle = FindFirstFileW((UTF8ToWString(path) + L"*.*").c_str(), &m_currentEntry);
 		if (m_handle == INVALID_HANDLE_VALUE) {
-			DO_THROW(Err::InvalidParam, "Call to FindFirstFile failed. Path = " + WStringToUTF8(path));
+			DO_THROW(Err::InvalidParam, "Call to FindFirstFile failed. Path = " + path);
 		}
 	}
 

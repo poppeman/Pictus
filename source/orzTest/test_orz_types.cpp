@@ -7,37 +7,37 @@ SUITE(PathString)
 {
 	TEST(get_path)
 	{
-		CHECK(IO::GetPath(L"c:\\temp/lol/dsfargeg.txt") == L"c:\\temp\\lol\\");
-		CHECK(IO::GetPath(L"c:\\temp\\\\\\\\") == L"c:\\temp\\");
+		CHECK_EQUAL("c:\\temp\\lol\\", IO::GetPath("c:\\temp/lol/dsfargeg.txt"));
+		CHECK_EQUAL("c:\\temp\\", IO::GetPath("c:\\temp\\\\\\\\"));
 	}
 
 	TEST(get_file)
 	{
-		std::wstring s1(L"c:\\temp/lol/dsfargeg.txt.lol");
-		CHECK(IO::GetFile(s1) == L"dsfargeg.txt.lol");
+		std::string s1("c:\\temp/lol/dsfargeg.txt.lol");
+		CHECK_EQUAL("dsfargeg.txt.lol", IO::GetFile(s1));
 
-		std::wstring s2(L"c:\\temp/some_periods.in_here\\dsfargeg.txt.lol");
-		CHECK(IO::GetFile(s2) == L"dsfargeg.txt.lol");
+		std::string s2("c:\\temp/some_periods.in_here\\dsfargeg.txt.lol");
+		CHECK_EQUAL("dsfargeg.txt.lol", IO::GetFile(s2));
 	}
 
 	TEST(get_title)
 	{
-		std::wstring s1(L"c:\\temp/lol/dsfargeg.txt.lol");
-		CHECK(IO::GetTitle(s1) == L"dsfargeg.txt");
-		std::wstring s2(L"c:\\temp/some_periods.in_here/dsfargeg.txt.lol");
-		CHECK(IO::GetTitle(s2) == L"dsfargeg.txt");
+		std::string s1("c:\\temp/lol/dsfargeg.txt.lol");
+		CHECK_EQUAL("dsfargeg.txt", IO::GetTitle(s1));
+		std::string s2("c:\\temp/some_periods.in_here/dsfargeg.txt.lol");
+		CHECK_EQUAL("dsfargeg.txt", IO::GetTitle(s2));
 	}
 
 	TEST(get_ext)
 	{
 		std::string s1(u8"c:\\temp/lol/dsfargeg.txt.lol");
-		CHECK(IO::GetExtension(s1) == "lol");
+		CHECK_EQUAL("lol", IO::GetExtension(s1));
 
 		std::string s2(u8"c:\\temp/some_periods.in_here/dsfargeg.txt.lol");
-		CHECK(IO::GetExtension(s2) == "lol");
+		CHECK_EQUAL("lol", IO::GetExtension(s2));
 
 		std::string s3(u8"c:\\temp/some_periods.in_here/nofileextension");
-		CHECK(IO::GetExtension(s3) == "");
+		CHECK_EQUAL("", IO::GetExtension(s3));
 	}
 
 	TEST(get_ext_utf8)
@@ -52,13 +52,13 @@ SUITE(StringOps)
 {
 	TEST(to_upper)
 	{
-		std::wstring s1(L"MiXEd caSe");
-		CHECK(ToUpper(s1)==std::wstring(L"MIXED CASE"));
+		std::string s1("MiXEd caSe");
+		CHECK_EQUAL("MIXED CASE", ToUpper(s1));
 	}
 
 	TEST(to_lower)
 	{
-		std::wstring s1(L"MiXEd caSe");
-		CHECK(ToLower(s1)==std::wstring(L"mixed case"));
+		std::string s1("MiXEd caSe");
+		CHECK_EQUAL("mixed case", ToLower(s1));
 	}
 }

@@ -15,7 +15,7 @@ namespace Img {
 		};
 
 	public:
-		virtual void OnLoadMessage(LoadMessage s, Img::Image* image, const std::wstring& desc)=0;
+		virtual void OnLoadMessage(LoadMessage s, Img::Image* image, const std::string& desc)=0;
 	};
 }
 

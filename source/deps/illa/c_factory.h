@@ -10,24 +10,24 @@ namespace Img {
 
 	class ICodecFactory {
 	public:
-		typedef std::vector<std::wstring>	ExtensionList;
+		typedef std::vector<std::string>	ExtensionList;
 
 	public:
 		const ExtensionList& SupportedExtensions() const;
 
-		const std::wstring& GetFormatName() const;
+		const std::string& GetFormatName() const;
 
 		virtual AbstractCodec* CreateCodec()=0;
 
-		ICodecFactory(const std::wstring& name):m_name(name) {}
+		ICodecFactory(const std::string& name):m_name(name) {}
 		virtual ~ICodecFactory() {}
 
 	protected:
-		void AddExtension(const std::wstring& extension);
+		void AddExtension(const std::string& extension);
 
 	private:
 		ExtensionList m_extensions;
-		std::wstring m_name;
+		std::string m_name;
 	};
 }
 

@@ -37,7 +37,7 @@ namespace App {
 
 	using namespace Geom;
 
-	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg, const std::wstring params):
+	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg, const std::string params):
 		m_singleMutex{ 0 },
 		m_doMaximize{ false },
 		m_screenMode{ SM_Normal },
@@ -79,11 +79,11 @@ namespace App {
 			0,
 			CLR_DEFAULT);
 
-		if ((params.length() > 0) && (params.at(0) != L'-') && (IO::DoFileExist(params) || IO::DoPathExist(params))) {
+		if ((params.length() > 0) && (params.at(0) != '-') && (IO::DoFileExist(params) || IO::DoPathExist(params))) {
 			m_sDirectory = params;
 		}
 		else {
-			m_sDirectory = L"";
+			m_sDirectory = "";
 		}
 
 		// Look for another process (disallow if the setting requires that)
@@ -98,9 +98,11 @@ namespace App {
 
 				// Tell the instance to open the new location/file (if applicable)
 				if (params.empty() == false) {
+					auto wide = UTF8ToWString(params);
+
 					// Dodge const-incorrectness
-					boost::scoped_array<wchar_t> pStrData(new wchar_t[params.length() + 1]);
-					wcscpy_s(pStrData.get(), (params.length() + 1), params.c_str());
+					boost::scoped_array<wchar_t> pStrData(new wchar_t[wide.length() + 1]);
+					wcscpy_s(pStrData.get(), (wide.length() + 1), wide.c_str());
 					COPYDATASTRUCT cds;
 					cds.dwData = 0;
 					cds.cbData = static_cast<DWORD>((params.length() + 1) * sizeof(wchar_t));
@@ -125,7 +127,7 @@ namespace App {
 		CloseHandle(m_singleMutex);
 
 		if (UnhandledExceptionOcurred()) {
-			MessageBox(nullptr, UnhandledExceptionDescription().c_str(), L"Pictus error", MB_OK);
+			MessageBox(nullptr, UTF8ToWString(UnhandledExceptionDescription()).c_str(), L"Pictus error", MB_OK);
 		}
 	}
 
@@ -398,7 +400,7 @@ namespace App {
 	bool Viewer::PerformOnCopyData(const COPYDATASTRUCT* pcds) {
 		if (pcds->dwData != 0) return false;
 
-		SetImageLocation(std::wstring(reinterpret_cast<wchar_t*>(pcds->lpData)));
+		SetImageLocation(WStringToUTF8(reinterpret_cast<wchar_t*>(pcds->lpData)));
 		return true;
 	}
 
@@ -424,71 +426,69 @@ namespace App {
 		m_statusParts[StatusProgress].Text(UII_LoadProgress(image));
 		m_statusParts[StatusResolution].Text(UII_ImageResolution(image));
 
-		Caption((image ? 
-			IO::GetFile(m_cacher.CurrentImageFilename()) + L" - ":
-			L"") + std::wstring(AppTitle));
+		Caption((image ? IO::GetFile(m_cacher.CurrentImageFilename()) + " - ":"") + WStringToUTF8(AppTitle));
 
 		if (image == 0) {
 			for (int i = 0; i < StatusNumParts; ++i) {
-				m_statusParts[i].Text(L"");
+				m_statusParts[i].Text("");
 			}
 		}
 		else {
 			m_statusParts[StatusName].Text(IO::GetFile(m_cacher.CurrentImageFilename()));
-			m_statusParts[StatusPosition].Text(ToWString(m_cacher.CurrentImageIndex() + 1) + L"\\" + ToWString(m_cacher.ImageCount()));
+			m_statusParts[StatusPosition].Text(ToAString(m_cacher.CurrentImageIndex() + 1) + "\\" + ToAString(m_cacher.ImageCount()));
 			m_statusParts[StatusFileSize].Text(UII_MemoryUsage(m_cacher.CurrentImageFileSize()));
 
 			if (image->IsHeaderInformationValid() == false && image->IsFinished()) {
-				m_statusParts[StatusZoom].Text(L"");
+				m_statusParts[StatusZoom].Text("");
 			}
 			else {
-				m_statusParts[StatusZoom].Text(ToWString(RoundCast(m_viewPort.ZoomLevel() * 100.0f)) + L"%");
+				m_statusParts[StatusZoom].Text(ToAString(RoundCast(m_viewPort.ZoomLevel() * 100.0f)) + "%");
 				m_statusParts[StatusLastModified].Text(UII_LastModified(m_cacher.CurrentImageLastModifiedDate()));
 			}
 		}
 	}
 
-	std::wstring Viewer::UII_MemoryUsage(FileInt size) {
+	std::string Viewer::UII_MemoryUsage(FileInt size) {
 		FileInt alloc = size * FileSizeDivider;
 		FileInt kbSize = alloc >> 10;
 		FileInt mbSize = kbSize >> 10;
 		FileInt gbSize = mbSize >> 10;
 
 		if (gbSize > FileSizeDivider) {
-			return ToWString(gbSize / (float)FileSizeDivider) + L" " + UTF8ToWString(GetString(SIDUnitGB));
+			return ToAString(gbSize / (float)FileSizeDivider) + " " + GetString(SIDUnitGB);
 		}
 		else if (mbSize > FileSizeDivider) {
-			return ToWString(mbSize / (float)FileSizeDivider) + L" " + UTF8ToWString(GetString(SIDUnitMB));
+			return ToAString(mbSize / (float)FileSizeDivider) + " " + GetString(SIDUnitMB);
 		}
 		else if (kbSize > FileSizeDivider) {
-			return ToWString(kbSize / (float)FileSizeDivider) + L" " + UTF8ToWString(GetString(SIDUnitKB));
+			return ToAString(kbSize / (float)FileSizeDivider) + " " + GetString(SIDUnitKB);
 		}
 		else {
-			return ToWString(alloc / (float)FileSizeDivider) + L" " + UTF8ToWString(GetString(SIDUnitB));
+			return ToAString(alloc / (float)FileSizeDivider) + " " + GetString(SIDUnitB);
 		}
 	}
 
-	std::wstring Viewer::UII_LoadProgress(Img::Image::Ptr image) {
+	std::string Viewer::UII_LoadProgress(Img::Image::Ptr image) {
 		if (image == nullptr || (image->IsHeaderInformationValid() == false && image->IsFinished())) {
-			return L"";
+			return "";
 		}
 
 		if (image->IsFinished()) {
-			return (boost::wformat(UTF8ToWString(GetString(SIDStatusbarLoadTime))) % ToWString(image->LoadTime() / 1000.0f)).str();
+			return (boost::format(GetString(SIDStatusbarLoadTime)) % ToAString(image->LoadTime() / 1000.0f)).str();
 		}
 
-		return UTF8ToWString(GetString(SIDStatusbarLoading));
+		return GetString(SIDStatusbarLoading);
 	}
 
-	std::wstring Viewer::UII_ImageResolution(Img::Image::Ptr image) {
+	std::string Viewer::UII_ImageResolution(Img::Image::Ptr image) {
 		if(!image || (image->IsHeaderInformationValid() == false && image->IsFinished()))
-			return L"";
+			return "";
 
 		SizeInt sz = image->GetSize();
 		if(IsPositive(sz))
-			return ToWString(sz.Width) + L"x" + ToWString(sz.Height);
+			return ToAString(sz.Width) + "x" + ToAString(sz.Height);
 
-		return L"";
+		return "";
 	}
 
 	void Viewer::ZoomIn() {
@@ -634,20 +634,21 @@ namespace App {
 	}
 
 	void Viewer::RenameCurrent() {
-		Img::Image::Ptr image(m_viewPort.Image());
-		if (image == 0) return;
+		auto image(m_viewPort.Image());
+		if (image == nullptr) return;
 
-		std::wstring old_name(m_cacher.CurrentImageFilename());
-		std::wstring extension = UTF8ToWString(IO::GetExtension(WStringToUTF8(old_name)));
+		auto old_name(m_cacher.CurrentImageFilename());
+		auto extension = IO::GetExtension(old_name);
 
 		Rename ren(IO::GetTitle(old_name));
 
 		if (ren.DoModal(this)) {
-			std::wstring new_name = IO::GetPath(old_name) + ren.Name() + L"." + extension;
-			IO::FileReader::Ptr reader = m_cacher.CurrentImageFileReader();
-			if(!reader)
+			auto new_name = IO::GetPath(old_name) + ren.Name() + "." + extension;
+			auto reader = m_cacher.CurrentImageFileReader();
+			if (reader == nullptr) {
 				return;
-			std::wstring resulting_name = dynamic_cast<IO::StreamFile*>(reader->GetStream())->Rename(new_name, Handle());
+			}
+			auto resulting_name = dynamic_cast<IO::StreamFile*>(reader->GetStream())->Rename(new_name, Handle());
 			m_cacher.RenamedImage(old_name, resulting_name);
 
 			UpdateImageInformation();
@@ -656,35 +657,44 @@ namespace App {
 
 
 	void Viewer::RemoveImage(RemoveOp op) {
-		Img::Image::Ptr image(m_viewPort.Image());
-		if (image == 0) return;
+		auto image(m_viewPort.Image());
+		if (image == nullptr)
+		{
+			return;
+		}
 
-		if (op == RemoveOnly) {
+		if (op == RemoveOnly)
+		{
 			ActiveImage(m_cacher.RemoveCurrentImage());
 			return;
 		}
 
-		std::wstring old_name(m_cacher.CurrentImageFilename());
+		auto old_name(m_cacher.CurrentImageFilename());
 
-		IO::FileReader::Ptr reader = m_cacher.CurrentImageFileReader();
-		if(!reader)
+		auto reader = m_cacher.CurrentImageFileReader();
+		if (reader == nullptr)
+		{
 			return;
+		}
 
-		IO::StreamFile* f = dynamic_cast<IO::StreamFile*>(reader->GetStream());
-		if(f->Delete((op == RemoveRecycle), Handle()))
+		auto f = dynamic_cast<IO::StreamFile*>(reader->GetStream());
+		if (f->Delete((op == RemoveRecycle), Handle()))
+		{
 			ActiveImage(m_cacher.RemoveCurrentImage());
+		}
 
 		UpdateImageInformation();
 	}
 
 	void Viewer::OpenFolder() {
 		FilterString s(m_codecs);
-		std::wstring file = OpenFileDialog(UTF8ToWString(GetString(SIDOpen)).c_str(), s.GetFilterString().c_str(), s.FilterCount());
-		if (file != L"")
+		auto file = OpenFileDialog(GetString(SIDOpen), s.GetFilterString(), s.FilterCount());
+		if (file.empty() == false) {
 			SetImageLocation(file);
+		}
 	}
 
-	void Viewer::OnLoadMessage(Img::MessageReceiver::LoadMessage msg, Img::Image* pImage, const std::wstring& desc) {
+	void Viewer::OnLoadMessage(Img::MessageReceiver::LoadMessage msg, Img::Image* pImage, const std::string& desc) {
 		AddNotification({pImage, msg, desc});
 	}
 
@@ -738,7 +748,7 @@ namespace App {
 		m_folderNotifications.pop_front();
 		l.unlock();
 
-		std::wstring full_path = notification.Path + notification.Entry.Name;
+		auto full_path = notification.Path + notification.Entry.Name;
 
 		switch (notification.Type) {
 			case IO::MonitoredFolderDeleted:
@@ -914,8 +924,8 @@ namespace App {
 			std::max<int>(MinWindowHeight,	std::min<int>(rtDesktop.Height(),imageSize.Height + windowEdges.Height)));
 	}
 
-	std::wstring Viewer::UII_LastModified(FileInt date) {
-		return FormattedDate(date) + L" " + FormattedTime(date);
+	std::string Viewer::UII_LastModified(FileInt date) {
+		return FormattedDate(date) + " " + FormattedTime(date);
 	}
 
 	bool Viewer::PerformOnCreateTaskbar() {
@@ -955,16 +965,22 @@ namespace App {
 		m_adjust.Gamma(m_viewPort.Gamma());
 	}
 
-	void Viewer::SetImageLocation(const std::wstring& path) {
-		std::wstring fixedPath = path;
-		if(IO::DoPathExist(path))
-			fixedPath += L"\\";
-		else if(!IO::DoFileExist(fixedPath))
+	void Viewer::SetImageLocation(const std::string& path) {
+		auto fixedPath = path;
+		if (IO::DoPathExist(path))
+		{
+			fixedPath += "\\";
+		}
+		else if (IO::DoFileExist(fixedPath) == false)
+		{
 			return;
+		}
 
 		m_folderMonitor.Close();
-		if(!m_folder.Path(IO::GetPath(fixedPath)))
+		if (m_folder.Path(IO::GetPath(fixedPath)) == false)
+		{
 			return;
+		}
 
 		m_folderMonitor.Start(m_folder.Path());
 
@@ -972,9 +988,13 @@ namespace App {
 
 		size_t imageIndex = 0;
 		if (m_cacher.FindImage(path, &imageIndex))
+		{
 			ActiveImage(m_cacher.GotoImage(imageIndex));
+		}
 		else
+		{
 			ActiveImage(m_cacher.FirstImage());
+		}
 	}
 
 	void Viewer::ShowContextMenu(Win::MouseEvent e) {
@@ -992,11 +1012,14 @@ namespace App {
 	}
 
 	void Viewer::OpenDirectoryInExplorer() {
-		Img::Image::Ptr pImage = m_viewPort.Image();
-		if (pImage.get() == 0) return;
+		auto pImage = m_viewPort.Image();
+		if (pImage == nullptr)
+		{
+			return;
+		}
 
 		// Construct command line string
-		std::wstring cmd(L"explorer /e,/select,\"" + m_cacher.CurrentImageFilename() + L"\"");
+		std::wstring cmd(L"explorer /e,/select,\"" + UTF8ToWString(m_cacher.CurrentImageFilename()) + L"\"");
 
 		// Start the new process
 		STARTUPINFO si;

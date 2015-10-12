@@ -45,7 +45,7 @@ namespace Img {
 		ImageLoader::SetMaximumResolutionHint(maxRes);
 	}
 
-	IO::FileReader::Ptr BackgroundProcessor::GetFileReader(const std::wstring& filename) {
+	IO::FileReader::Ptr BackgroundProcessor::GetFileReader(const std::string& filename) {
 		return m_workerThread->GetFileReader(filename);
 	}
 

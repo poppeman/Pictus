@@ -10,7 +10,7 @@ namespace Img {
 
 	struct fnSortWinapiFile {
 		bool operator () (Internal::FileEntry& a, Internal::FileEntry& b) {
-			return (StrCmpLogicalW(IO::GetFile(a.Name()).c_str(), IO::GetFile(b.Name()).c_str())==-1);
+			return (StrCmpLogicalW(UTF8ToWString(IO::GetFile(a.Name())).c_str(), UTF8ToWString(IO::GetFile(b.Name())).c_str())==-1);
 		}
 	};
 
@@ -66,9 +66,10 @@ namespace Img {
 	}
 
 	Img::Image::Ptr Cacher::Sort(SortMethod method) {
-		std::wstring currentImageFile;
-		if(m_index > 0 && m_index < m_files.size())
+		std::string currentImageFile;
+		if (m_index > 0 && m_index < m_files.size()) {
 			currentImageFile = m_files[m_index].Name();
+		}
 
 		//Image::Ptr currentImage = CurrentImage();
 
@@ -87,11 +88,11 @@ namespace Img {
 			break;
 		}
 
-		if (currentImageFile != L"") {
-			//std::wstring filename = IO::GetFile(currentImageFile);
+		if (currentImageFile.empty() == false) {
 			size_t index = 0;
-			if (FindImage(currentImageFile, &index))
+			if (FindImage(currentImageFile, &index)) {
 				GotoImage(index);
+			}
 		}
 
 		return apply_priorities();
@@ -103,9 +104,9 @@ namespace Img {
 		m_decThread->MessageTarget(pWatcher);
 	}
 
-	Img::Image::Ptr Cacher::AddImageLast(const std::wstring& filename) {
+	Img::Image::Ptr Cacher::AddImageLast(const std::string& filename) {
 		COND_STRICT(m_cfs, Err::InvalidCall, "SetCodecFactoryStore not yet called.");
-		if (m_cfs->DoCodecExist(UTF8ToWString(IO::GetExtension(WStringToUTF8(filename))).c_str())) {
+		if (m_cfs->DoCodecExist(IO::GetExtension(filename).c_str())) {
 			m_files.push_back(Internal::FileEntry(filename));
 
 			if (ImageCount() == 1) {
@@ -145,7 +146,7 @@ namespace Img {
 		return apply_priorities();
 	}
 
-	Img::Image::Ptr Cacher::RemoveImageFilename(const std::wstring& filename) {
+	Img::Image::Ptr Cacher::RemoveImageFilename(const std::string& filename) {
 		size_t index;
 		if (FindImage(filename, &index))
 			return RemoveImageIndex(index);
@@ -153,7 +154,7 @@ namespace Img {
 			return CurrentImage();
 	}
 
-	bool Cacher::RenamedImage(const std::wstring& oldFilename, const std::wstring& newFilename) {
+	bool Cacher::RenamedImage(const std::string& oldFilename, const std::string& newFilename) {
 		size_t index;
 		if(!FindImage(oldFilename, &index))
 			return false;
@@ -255,8 +256,8 @@ namespace Img {
 		return CurrentImage();
 	}
 
-	bool Cacher::FindImage(const std::wstring& name, size_t *index) {
-		COND_STRICT(name != L"", Err::InvalidParam, "name was empty");
+	bool Cacher::FindImage(const std::string& name, size_t *index) {
+		COND_STRICT(name != "", Err::InvalidParam, "name was empty");
 
 		for(size_t i = 0; i < ImageCount(); ++i) {
 			if (m_files.at(i).Name() == name) {
@@ -333,14 +334,15 @@ namespace Img {
 		return m_files[m_index].FileSize();
 	}
 
-	std::wstring Cacher::CurrentImageFilename() const {
-		if (m_index >= m_files.size()) return L"";
+	std::string Cacher::CurrentImageFilename() const
+	{
+		if (m_index >= m_files.size()) return "";
 		return m_files[m_index].Name();
 	}
 
 	Img::WorkRequest Cacher::PeekRelativeRequest(int delta) {
 		size_t index;
-		if(!PeekRelativeIndex(delta, &index)) return Img::WorkRequest(0, L"");
+		if(!PeekRelativeIndex(delta, &index)) return Img::WorkRequest(0, "");
 		return WorkRequest(m_files[index].Image().get(), m_files[index].Name());
 	}
 

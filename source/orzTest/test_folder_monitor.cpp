@@ -11,8 +11,8 @@ SUITE(TestFolderMonitor) {
 	}
 	TEST(ManyStart) {
 		FolderMonitor mon;
-		mon.Start(g_datapath + L"\\Folder\\a\\");
-		mon.Start(g_datapath + L"\\Folder\\a\\");
+		mon.Start(g_datapath + "\\Folder\\a\\");
+		mon.Start(g_datapath + "\\Folder\\a\\");
 	}
 	/*struct SimpleMonitor {
 		void OnEvent(FileEvent e) {

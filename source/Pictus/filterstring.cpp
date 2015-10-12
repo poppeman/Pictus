@@ -6,11 +6,12 @@
 namespace App {
 	FilterString::FilterString(Img::CodecFactoryStore* store):m_store(store) {}
 
-	const std::wstring FilterString::GetFilterString() {
+	const std::string FilterString::GetFilterString()
+{
 		// Awful
-		std::wstring filterString = L"";
-		std::wstring match_all;
-		std::wstring pretty_filter;
+		std::string filterString = "";
+		std::string match_all;
+		std::stringstream pretty_filter;
 
 		const Img::CodecFactoryStore::InfoVector& codecs = m_store->CodecInfo();
 
@@ -19,27 +20,22 @@ namespace App {
 			const Img::CodecFactoryStore::Info::ExtensionVector& exts=curr.Extensions;
 			bool first = true;
 
-			pretty_filter += curr.Description+L" (";
+			pretty_filter << curr.Description << " (";
 
-			std::wstring filters;
+			std::string filters;
 
 			for (size_t j = 0; j < exts.size(); j++) {
-				if (first == false) filters += L";";
-				if (match_all != L"") match_all += L";";
+				if (first == false) filters += ";";
+				if (match_all.empty() == false) match_all += ";";
 
-				match_all += L"*." + exts[j];
-				filters += L"*." + exts[j];
+				match_all += "*." + exts[j];
+				filters += "*." + exts[j];
 			}
-			pretty_filter += filters + L")|" + filters + L"|";
+			pretty_filter << filters << ")" << 0 << filters << 0;
 		}
-		pretty_filter += std::wstring(UTF8ToWString(Intl::GetString(App::SIDOpenAllImages))) + L" (" + match_all + L")|" + match_all + L"||";
+		pretty_filter << Intl::GetString(App::SIDOpenAllImages) << " (" << match_all << ")" << 0 << match_all << 0 << 0;
 
-		filterString.resize(pretty_filter.size());
-
-		for (size_t i = 0; i < pretty_filter.length(); i++)
-			filterString[i] = ((pretty_filter[i] == L'|') ? 0 : pretty_filter[i]);
-
-		return filterString;
+		return pretty_filter.str();
 	}
 
 	size_t FilterString::FilterCount() {

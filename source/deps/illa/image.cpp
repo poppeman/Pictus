@@ -79,7 +79,7 @@ namespace Img {
 		return m_metadata;
 	}
 
-	Image::Image(std::wstring filename) :
+	Image::Image() :
 		m_isHeaderDataValid{ false },
 		isFinished{ false },
 		m_loadTime{ 0 }

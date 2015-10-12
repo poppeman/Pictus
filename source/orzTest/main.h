@@ -1,2 +1,2 @@
 #include <string>
-extern std::wstring g_datapath;
+extern std::string g_datapath;

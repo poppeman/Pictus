@@ -2,6 +2,6 @@
 #define PICTUS_MAIN_H
 
 #include <string>
-int start_app(const std::wstring& params);
+int start_app(const std::string& params);
 
 #endif

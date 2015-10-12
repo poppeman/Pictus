@@ -6,7 +6,7 @@ namespace Img {
 		return new CodecPCX();
 	}
 
-	FactoryPCX::FactoryPCX():ICodecFactory(L"Z-soft PCX"){
-		AddExtension(L"PCX");
+	FactoryPCX::FactoryPCX():ICodecFactory(u8"Z-soft PCX"){
+		AddExtension(u8"PCX");
 	}
 }

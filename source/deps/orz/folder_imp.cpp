@@ -44,10 +44,11 @@ namespace IO {
 	}
 	*/
 
-	const std::wstring& FolderImplementation::Path() const {
+	const std::string& FolderImplementation::Path() const {
 		return m_path;
 	}
 
-	FolderImplementation::FolderImplementation(const std::wstring& path):m_path(path) {
-	}
+	FolderImplementation::FolderImplementation(const std::string& path):
+		m_path(path)
+	{}
 }

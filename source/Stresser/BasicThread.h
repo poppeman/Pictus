@@ -17,7 +17,7 @@ public:
 
 protected:
 	bool IsTerminating();
-	void Output(const std::wstring& s);
+	void Output(const std::string& s);
 
 private:
 	void threadWrapper();

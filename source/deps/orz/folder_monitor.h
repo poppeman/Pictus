@@ -10,13 +10,13 @@ namespace IO {
 	public:
 		ChangeEventCallback OnEvent;
 
-		void Start(const std::wstring& path);
+		void Start(const std::string& path);
 		void Close();
 
 		~FolderMonitor();
 
 	private:
-		FolderMonitorImplementation* doCreateImp(const std::wstring& path, ChangeEventCallback& c);
+		FolderMonitorImplementation* doCreateImp(const std::string& path, ChangeEventCallback& c);
 
 		std::auto_ptr<FolderMonitorImplementation> m_imp;
 	};

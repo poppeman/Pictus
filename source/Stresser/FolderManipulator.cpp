@@ -1,29 +1,30 @@
 #include "orz/folder.h"
 #include "orz/fileops.h"
 #include "orz/orz_math.h"
+#include "orz/types.h"
 
 #include "FolderManipulator.h"
 #include "Helper.h"
 
 #include <boost/random.hpp>
 
-FolderManipulator::FolderManipulator(const std::wstring& folder, const std::wstring& sourceFolder)
-	:m_folder(folder),
-	 m_sourceFolder(sourceFolder)
+FolderManipulator::FolderManipulator(const std::string& folder, const std::string& sourceFolder):
+	m_folder(folder),
+	m_sourceFolder(sourceFolder)
 {}
 
 FolderManipulator::~FolderManipulator() {}
 
 void FolderManipulator::ThreadMain()
 {
-	Output(L"Initializing FolderManipulator, scanning " + m_folder + L" ...");
+	Output("Initializing FolderManipulator, scanning " + m_folder + " ...");
 
 	IO::Folder f;
 	f.Path(m_folder);
 
 	IO::FileList files = f.CurrentContents();
 
-	Output(L"Iterating ...");
+	Output("Iterating ...");
 
 	// Avoid variable hiding ugliness
 	{
@@ -39,12 +40,12 @@ void FolderManipulator::ThreadMain()
 
 		if (found == false)
 		{
-			Output(L"Refilling folder!");
+			Output("Refilling folder!");
 			copyFiles(m_sourceFolder, m_folder);
 		}
 	}
 
-	Output(L"Init complete, running ...");
+	Output("Init complete, running ...");
 	auto currentFile = files.begin();
 
 	boost::random::mt19937 r;
@@ -54,8 +55,8 @@ void FolderManipulator::ThreadMain()
 	{
 		int action = act(r);
 
-		std::wstring nameCurrentFile = m_folder + currentFile->Name;
-		std::wstring nameNewFile = m_folder + L"z" + currentFile->Name;
+		auto nameCurrentFile = m_folder + currentFile->Name;
+		auto nameNewFile = m_folder + "z" + currentFile->Name;
 
 		switch (action)
 		{
@@ -68,7 +69,7 @@ void FolderManipulator::ThreadMain()
 		case 1:
 			if (currentFile->Type == IO::TypeFile)
 			{
-				MoveFileW(nameCurrentFile.c_str(), nameNewFile.c_str());
+				MoveFileW(UTF8ToWString(nameCurrentFile).c_str(), UTF8ToWString(nameNewFile).c_str());
 			}
 			break;
 		case 2:
@@ -94,7 +95,7 @@ void FolderManipulator::ThreadMain()
 						}
 						else
 						{
-							Output(L"Out of files, bailing!");
+							Output("Out of files, bailing!");
 							return;
 						}
 					}

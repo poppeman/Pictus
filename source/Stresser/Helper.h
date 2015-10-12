@@ -1,3 +1,7 @@
+#ifndef STRESSER_HELPER_H
+#define STRESSER_HELPER_H
 
 #include <string>
-void copyFiles(const std::wstring& source, const std::wstring dest);
+void copyFiles(const std::string& source, const std::string dest);
+
+#endif

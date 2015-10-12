@@ -11,7 +11,7 @@
 namespace IO {
 	class FolderMonitorWin32RDCW:public FolderMonitorImplementation {
 	public:
-		FolderMonitorWin32RDCW(const std::wstring& path, ChangeEventCallback& ev);
+		FolderMonitorWin32RDCW(const std::string& path, ChangeEventCallback& ev);
 		~FolderMonitorWin32RDCW();
 
 	private:
@@ -20,7 +20,7 @@ namespace IO {
 
 		void ProcessNotification(PFILE_NOTIFY_INFORMATION currChange);
 
-		std::wstring ExtractFilename(PFILE_NOTIFY_INFORMATION currChange);
+		std::string ExtractFilename(PFILE_NOTIFY_INFORMATION currChange);
 
 		void FolderDeleted();
 
@@ -34,7 +34,7 @@ namespace IO {
 		HANDLE m_directory;
 		std::shared_ptr<std::thread> m_thread;
 		HANDLE m_ioComp;
-		std::wstring m_oldName;
+		std::string m_oldName;
 	};
 }
 

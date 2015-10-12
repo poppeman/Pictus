@@ -7,10 +7,10 @@
 
 #include <windows.h>
 
-HRESULT RegisterInprocServer(const std::wstring& clsid, const std::wstring& friendlyName);
-HRESULT RegisterThumbnailProvider(const std::wstring& clsId, const std::wstring& extension);
+HRESULT RegisterInprocServer(const std::string& clsid, const std::string& friendlyName);
+HRESULT RegisterThumbnailProvider(const std::string& clsId, const std::string& extension);
 
-HRESULT UnregisterInprocServer(const std::wstring& clsid);
-HRESULT UnRegisterThumbnailProvider(const std::wstring& clsid, const std::wstring& extension);
+HRESULT UnregisterInprocServer(const std::string& clsid);
+HRESULT UnRegisterThumbnailProvider(const std::string& clsid, const std::string& extension);
 
 #endif

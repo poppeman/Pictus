@@ -3,6 +3,6 @@
 
 #include "ThreadRunner.h"
 
-void SignalError(const std::wstring& err);
+void SignalError(const std::string& err);
 
 #endif

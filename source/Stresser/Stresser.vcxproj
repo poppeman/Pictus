@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Pictus\imagecache_workrequest.cpp" />
     <ClCompile Include="BasicThread.cpp" />
     <ClCompile Include="CacheUser.cpp" />
     <ClCompile Include="FolderManipulator.cpp" />
@@ -178,7 +179,7 @@
     <ClInclude Include="..\Pictus\imagecache.h" />
     <ClInclude Include="..\Pictus\imagecache_event.h" />
     <ClInclude Include="..\Pictus\imagecache_fileentry.h" />
-    <ClInclude Include="..\Pictus\imagecache_shared.h" />
+    <ClInclude Include="..\Pictus\imagecache_workrequest.h" />
     <ClInclude Include="..\Pictus\ic_backgroundprocessor.h" />
     <ClInclude Include="..\Pictus\ic_imageloader.h" />
     <ClInclude Include="..\Pictus\ic_queue.h" />

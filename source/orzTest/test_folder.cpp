@@ -21,26 +21,26 @@ SUITE(FolderTest)
 	TEST(MonitorScanNoEndSlash)
 	{
 		IO::Folder folder;
-		folder.Path(g_datapath + L"\\Folder\\a");
+		folder.Path(g_datapath + "\\Folder\\a");
 		IO::FileList l = folder.CurrentContents();
 		l.remove_if(NonFiles());
 		CHECK_EQUAL(2, l.size());
 		if(l.size() == 2) {
-			CHECK(l.front().Name == L"file1.txt");
-			CHECK(l.back().Name == L"file2.txt");
+			CHECK(l.front().Name == "file1.txt");
+			CHECK(l.back().Name == "file2.txt");
 		}
 	}
 
 	TEST(MonitorScanEndSlash)
 	{
 		IO::Folder folder;
-		folder.Path(g_datapath + L"\\Folder\\a\\");
+		folder.Path(g_datapath + "\\Folder\\a\\");
 		IO::FileList l = folder.CurrentContents();
 		l.remove_if(NonFiles());
 		CHECK_EQUAL(2, l.size());
 		if(l.size() == 2) {
-			CHECK(l.front().Name == L"file1.txt");
-			CHECK(l.back().Name == L"file2.txt");
+			CHECK(l.front().Name == "file1.txt");
+			CHECK(l.back().Name =="file2.txt");
 		}
 	}
 
@@ -48,7 +48,7 @@ SUITE(FolderTest)
 	TEST(InvalidPaths)
 	{
 		IO::Folder folder;
-		CHECK(!folder.Path(L"C:\\folder_that_does_not_exist"));
-		CHECK(!folder.Path(L"C:\\folder_that_does_not_exist\\file.jpg"));
+		CHECK(!folder.Path("C:\\folder_that_does_not_exist"));
+		CHECK(!folder.Path("C:\\folder_that_does_not_exist\\file.jpg"));
 	}
 }

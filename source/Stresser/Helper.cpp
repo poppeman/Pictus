@@ -1,8 +1,9 @@
 #include "Helper.h"
 #include "orz/fileops.h"
 #include "orz/folder.h"
+#include "orz/types.h"
 
-void copyFiles( const std::wstring& source, const std::wstring dest ) {
+void copyFiles( const std::string& source, const std::string dest ) {
 	IO::Folder f;
 	f.Path(source.c_str());
 	auto files = f.CurrentContents();
@@ -10,8 +11,8 @@ void copyFiles( const std::wstring& source, const std::wstring dest ) {
 	for (const auto& i : files) {
 		if (i.Type == IO::TypeFile) {
 			CopyFileW(
-				(source + i.Name).c_str(),
-				(dest + i.Name).c_str(),
+				UTF8ToWString(source + i.Name).c_str(),
+				UTF8ToWString(dest + i.Name).c_str(),
 				false);
 		}
 	}

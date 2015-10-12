@@ -21,19 +21,19 @@ namespace App {
 		return st;
 	}
 
-	std::wstring FormattedDate(FileInt date) {
+	std::string FormattedDate(FileInt date) {
 		SYSTEMTIME st = ToSYSTEMTIME(date);
 		int len=GetDateFormat(LOCALE_USER_DEFAULT, 0, &st, 0, 0, 0);
 		boost::scoped_array<wchar_t> tmpStr(new wchar_t[len]);
 		GetDateFormat(LOCALE_USER_DEFAULT, 0, &st, 0, tmpStr.get(), len);
-		return std::wstring(tmpStr.get());
+		return WStringToUTF8(tmpStr.get());
 	}
 
-	std::wstring FormattedTime(FileInt date) {
+	std::string FormattedTime(FileInt date) {
 		SYSTEMTIME st = ToSYSTEMTIME(date);
 		int len=GetTimeFormat(LOCALE_USER_DEFAULT, TIME_NOSECONDS, &st, 0, 0, 0);
 		boost::scoped_array<wchar_t> tmpStr(new wchar_t[len]);
 		GetTimeFormat(LOCALE_USER_DEFAULT, TIME_NOSECONDS, &st, 0, tmpStr.get(), len);
-		return std::wstring(tmpStr.get());
+		return WStringToUTF8(tmpStr.get());
 	}
 }

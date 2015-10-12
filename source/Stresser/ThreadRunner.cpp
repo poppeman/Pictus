@@ -10,9 +10,9 @@ struct Runner
 {
 	void operator()(BasicThread::Ptr p)
 	{
-		OutputString(L"Starting thread ...");
+		OutputString("Starting thread ...");
 		p->Run();
-		OutputString(L"Thread started!");
+		OutputString("Thread started!");
 	}
 };
 
@@ -36,7 +36,7 @@ void ThreadRunner::ThreadMain()
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(slp(rand)));
 
-		Output(L"Restarting");
+		Output("Restarting");
 		stopThreads();
 		startThreads();
 	}
@@ -50,12 +50,12 @@ void ThreadRunner::startThreads()
 {
 	std::random_shuffle(m_threads.begin(), m_threads.end());
 	std::for_each(m_threads.begin(), m_threads.end(), Runner());
-	OutputString(L"All threads have been requested to start.");
+	OutputString("All threads have been requested to start.");
 }
 
 void ThreadRunner::stopThreads()
 {
-	OutputString(L"Asking threads to die ...");
+	OutputString("Asking threads to die ...");
 
 	std::for_each(m_threads.begin(), m_threads.end(), Terminator());
 }

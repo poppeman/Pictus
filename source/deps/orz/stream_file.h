@@ -11,12 +11,12 @@
 namespace IO {
 	class StreamFile:public Stream {
 	public:
-		StreamFile(const std::wstring& filename);
+		StreamFile(const std::string& filename);
 		~StreamFile();
 
 #ifdef WIN32
-		std::wstring Rename(const std::wstring& newFilename, HWND handle);
-		void Renamed(const std::wstring& newFilename);
+		std::string Rename(const std::string& newFilename, HWND handle);
+		void Renamed(const std::string& newFilename);
 		bool Delete(bool doRecycle, HWND handle);
 #endif
 
@@ -33,7 +33,7 @@ namespace IO {
 		mutable std::recursive_mutex m_mutexAccess;
 
 		std::FILE* m_file;
-		std::wstring m_name;
+		std::string m_name;
 		FileInt m_size;
 		OpenErrorCode m_error;
 	};

@@ -28,10 +28,9 @@ namespace App {
 
 		void FreeResources();
 
-		HTREEITEM AddSettingsPageRoot(const std::wstring& name, int index, HTREEITEM hPrev);
-		HTREEITEM AddSettingsPageChild(const std::wstring& name, int index, HTREEITEM hRoot, HTREEITEM hPrev);
+		HTREEITEM AddSettingsPageRoot(const std::string& name, int index, HTREEITEM hPrev);
+		HTREEITEM AddSettingsPageChild(const std::string& name, int index, HTREEITEM hRoot, HTREEITEM hPrev);
 
-		void SetTextTVITEM(TVITEM* tvi, const std::wstring &name);
 		bool UpdateTreeList();
 		void updateTreeItem(HTREEITEM);
 

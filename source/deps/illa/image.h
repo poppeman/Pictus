@@ -35,7 +35,7 @@ namespace Img {
 
 		int LoadTime() const;
 
-		Image(std::wstring filename);
+		Image();
 
 	private:
 		ImageComposer::Ptr m_composer;

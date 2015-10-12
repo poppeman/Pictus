@@ -12,7 +12,7 @@ namespace App {
 	public:
 		FilterString(Img::CodecFactoryStore* store);
 
-		const std::wstring GetFilterString();
+		const std::string GetFilterString();
 		size_t FilterCount();
 
 	private:

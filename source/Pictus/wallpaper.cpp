@@ -1,12 +1,14 @@
 #include "wallpaper.h"
 
+#include "orz/types.h"
+
 #include <windows.h>
 #include <WinInet.h>
 #include <ShlObj.h>
 
 namespace Win {
 	namespace Wallpaper {
-		bool ApplyWallpaper(const std::wstring& file, Mode m) {
+		bool ApplyWallpaper(const std::string& file, Mode m) {
 			IActiveDesktop *pActiveDesktop;
 			if (CoCreateInstance(CLSID_ActiveDesktop, NULL, CLSCTX_INPROC_SERVER, IID_IActiveDesktop, (void**)&pActiveDesktop) != S_OK)
 				return false;
@@ -45,7 +47,7 @@ namespace Win {
 			}
 
 			pActiveDesktop->SetWallpaperOptions(&wpOpt, 0);
-			pActiveDesktop->SetWallpaper(file.c_str(), 0);
+			pActiveDesktop->SetWallpaper(UTF8ToWString(file).c_str(), 0);
 			pActiveDesktop->ApplyChanges(AD_APPLY_ALL);
 
 			pActiveDesktop->Release();

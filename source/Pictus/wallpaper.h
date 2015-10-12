@@ -14,7 +14,7 @@ namespace Win {
 			Span        // Windows 8+ only
 		};
 
-		bool ApplyWallpaper(const std::wstring& file, Mode m);
+		bool ApplyWallpaper(const std::string& file, Mode m);
 	}
 }
 

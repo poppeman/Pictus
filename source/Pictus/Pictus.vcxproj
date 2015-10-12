@@ -214,6 +214,7 @@
     <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
     <ClCompile Include="gdiwrapper.cpp" />
+    <ClCompile Include="imagecache_workrequest.cpp" />
     <ClCompile Include="imenu_item.cpp" />
     <ClCompile Include="lang_val.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -302,6 +303,7 @@
     <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
     <ClInclude Include="gdiwrapper.h" />
+    <ClInclude Include="imagecache_workrequest.h" />
     <ClInclude Include="imenu_item.h" />
     <ClInclude Include="lang_enum.h" />
     <ClInclude Include="lang_val.h" />
@@ -379,7 +381,6 @@
     <ClInclude Include="imagecache.h" />
     <ClInclude Include="imagecache_event.h" />
     <ClInclude Include="imagecache_fileentry.h" />
-    <ClInclude Include="imagecache_shared.h" />
     <ClInclude Include="ic_backgroundprocessor.h" />
     <ClInclude Include="ic_imageloader.h" />
     <ClInclude Include="ic_queue.h" />

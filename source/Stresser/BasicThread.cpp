@@ -8,7 +8,7 @@ size_t BasicThread::m_idThreadCounter = 0;
 
 void BasicThread::Terminate()
 {
-	Output(L"Terminating ... ");
+	Output("Terminating ... ");
 	std::unique_lock<std::mutex> l(m_mutexTerm);
 	m_isTerminating = true;
 	l.unlock();
@@ -28,27 +28,27 @@ bool BasicThread::IsTerminating()
 	return m_isTerminating;
 }
 
-void BasicThread::Output(const std::wstring& s)
+void BasicThread::Output(const std::string& s)
 {
-	OutputString(ToWString(m_id) + L" - " + s);
+	OutputString(ToAString(m_id) + " - " + s);
 }
 
 void BasicThread::threadWrapper() {
-	Output(L"Thread started, entering ThreadMain...");
+	Output("Thread started, entering ThreadMain...");
 
 	try {
 		ThreadMain();
 	}
 	catch(Err::Exception& e) {
-		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + UTF8ToWString(e.what()));
+		SignalError("Thread: " + ToAString(m_id) + "\n" + e.what());
 	}
 	catch(std::exception& e) {
-		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + UTF8ToWString(e.what()));
+		SignalError("Thread: " + ToAString(m_id) + "\n" + e.what());
 	}
 	catch(...) {
-		SignalError(L"Thread: " + ToWString(m_id) + L"\n" + L"Unknown exception type");
+		SignalError("Thread: " + ToAString(m_id) + "\n" + "Unknown exception type");
 	}
-	Output(L"Thread is terminating ...");
+	Output("Thread is terminating ...");
 }
 
 void BasicThread::ThreadMain()
@@ -59,7 +59,7 @@ void BasicThread::Run()
 	std::lock_guard<std::mutex> l(m_mutexTerm);
 
 	m_isTerminating = false;
-	Output(L"Starting thread ... ");
+	Output("Starting thread ... ");
 	m_thread = std::make_shared<std::thread>(&BasicThread::threadWrapper, this);
-	Output(L"Thread started!");
+	Output("Thread started!");
 }

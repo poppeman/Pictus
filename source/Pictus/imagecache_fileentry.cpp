@@ -13,7 +13,7 @@ namespace Img {
 		void FileEntry::QueryFile() {
 			if (m_hasQueriedFile) return;
 			WIN32_FILE_ATTRIBUTE_DATA ad;
-			if(GetFileAttributesEx(m_fullname.c_str(), GetFileExInfoStandard, &ad) == 0)
+			if(GetFileAttributesEx(UTF8ToWString(m_fullname).c_str(), GetFileExInfoStandard, &ad) == 0)
 				return;
 
 			m_dateCreate = ToFileInt(ad.ftCreationTime);
@@ -45,23 +45,24 @@ namespace Img {
 		}
 
 		Img::Image::Ptr FileEntry::Image() {
-			if (m_image.get() == 0)
-				m_image.reset(new Img::Image(m_fullname));
+			if (m_image.get() == 0) {
+				m_image = std::make_shared<Img::Image>();
+			}
 
 			return m_image;
 		}
 
-		const std::wstring& FileEntry::Name() const {
+		const std::string& FileEntry::Name() const {
 			return m_fullname;
 		}
 
-		FileEntry::FileEntry(std::wstring fullname)
-			:m_fullname(fullname),
+		FileEntry::FileEntry(std::string fullname):
+			m_fullname(fullname),
 			m_dateModified(0),
 			m_hasQueriedFile(false)
 		{}
 
-		void FileEntry::Rename(const std::wstring& newName) {
+		void FileEntry::Rename(const std::string& newName) {
 			m_fullname = newName;
 		}
 	}

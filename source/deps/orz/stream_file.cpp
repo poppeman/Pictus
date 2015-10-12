@@ -5,13 +5,13 @@ namespace IO {
 	using std::recursive_mutex;
 
 #ifdef WIN32
-	std::wstring StreamFile::Rename(_In_ const std::wstring& newFilename, _In_ HWND handle) {
+	std::string StreamFile::Rename(const std::string& newFilename, HWND handle) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		bool wasOpen = IsOpen();
 		FileInt prevPos = (wasOpen?performPosition():0);
 		performClose();
-		std::wstring ret = IO::Rename(m_name, newFilename, handle);
-		if(ret != L"")
+		auto ret = IO::Rename(m_name, newFilename, handle);
+		if(ret.empty())
 			m_name = ret;
 
 		if(wasOpen) {
@@ -21,7 +21,7 @@ namespace IO {
 		return ret;
 	}
 
-	void StreamFile::Renamed(_In_ const std::wstring& newFilename) {
+	void StreamFile::Renamed(_In_ const std::string& newFilename) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_name = newFilename;
 
@@ -74,7 +74,7 @@ namespace IO {
 	bool StreamFile::performOpen() {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_size = 0;
-		m_file = _wfsopen(m_name.c_str(), L"rb", _SH_DENYWR);
+		m_file = _wfsopen(UTF8ToWString(m_name).c_str(), L"rb", _SH_DENYWR);
 
 		if (m_file == 0) {
 			switch(errno) {
@@ -133,10 +133,15 @@ namespace IO {
 	}
 
 	std::string StreamFile::performName() const {
-		return WStringToUTF8(m_name);
+		return m_name;
 	}
 
-	StreamFile::StreamFile(const std::wstring& filename) :m_name(filename), m_file(0), m_error(OpenErrorCode::Succeeded), m_size(0) {}
+	StreamFile::StreamFile(const std::string& filename):
+		m_name(filename),
+		m_file(0),
+		m_error(OpenErrorCode::Succeeded),
+		m_size(0)
+	{}
 
 	StreamFile::~StreamFile() {
 		performClose();

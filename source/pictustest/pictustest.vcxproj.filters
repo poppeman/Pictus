@@ -101,6 +101,9 @@
     <ClCompile Include="..\Pictus\reg_color_translator.cpp">
       <Filter>Pictus\Registry</Filter>
     </ClCompile>
+    <ClCompile Include="..\Pictus\imagecache_workrequest.cpp">
+      <Filter>Pictus\Cacher</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -116,9 +119,6 @@
       <Filter>Pictus\Cacher</Filter>
     </ClInclude>
     <ClInclude Include="..\Pictus\imagecache_fileentry.h">
-      <Filter>Pictus\Cacher</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Pictus\imagecache_shared.h">
       <Filter>Pictus\Cacher</Filter>
     </ClInclude>
     <ClInclude Include="..\Pictus\ic_backgroundprocessor.h">
@@ -153,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="..\Pictus\reg_color_translator.h">
       <Filter>Pictus\Registry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pictus\imagecache_workrequest.h">
+      <Filter>Pictus\Cacher</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

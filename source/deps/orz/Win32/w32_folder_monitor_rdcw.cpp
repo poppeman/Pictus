@@ -9,16 +9,16 @@
 #pragma comment(lib, "shlwapi.lib")
 
 namespace IO {
-	FolderMonitorImplementation* FolderMonitor::doCreateImp(const std::wstring& path, ChangeEventCallback& ev) {
+	FolderMonitorImplementation* FolderMonitor::doCreateImp(const std::string& path, ChangeEventCallback& ev) {
 		return new FolderMonitorWin32RDCW(path, ev);
 	}
 
-	FolderMonitorWin32RDCW::FolderMonitorWin32RDCW(const std::wstring& path, ChangeEventCallback& ev):
+	FolderMonitorWin32RDCW::FolderMonitorWin32RDCW(const std::string& path, ChangeEventCallback& ev):
 		FolderMonitorImplementation{ path, ev },
 		m_directory{ 0 },
 		m_ioComp{ 0 }
 	{
-		std::wstring cropped = path.substr(0, path.length()-1);
+		std::wstring cropped = UTF8ToWString(path.substr(0, path.length()-1));
 		ZeroMemory(&m_ol, sizeof(m_ol));
 
 		m_directory = CreateFileW(
@@ -30,7 +30,7 @@ namespace IO {
 			FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED,
 			0);
 		if (m_directory == 0 || m_directory == INVALID_HANDLE_VALUE) {
-			DO_THROW(Err::InvalidParam, "Could not open directory:" + WStringToUTF8(path));
+			DO_THROW(Err::InvalidParam, "Could not open directory:" + path);
 		}
 
 		m_ioComp = CreateIoCompletionPort(
@@ -90,7 +90,7 @@ namespace IO {
 				&lpOverlapped,
 				100);
 
-			if(!PathIsDirectoryW(Path().c_str())) {
+			if(!PathIsDirectoryW(UTF8ToWString(Path()).c_str())) {
 				FolderDeleted();
 				break;
 			}
@@ -148,10 +148,10 @@ namespace IO {
 		OnEvent(e);
 	}
 
-	std::wstring FolderMonitorWin32RDCW::ExtractFilename(PFILE_NOTIFY_INFORMATION currChange) {
+	std::string FolderMonitorWin32RDCW::ExtractFilename(PFILE_NOTIFY_INFORMATION currChange) {
 		wchar_t tmpstr[MAX_PATH];
 		wmemcpy_s(tmpstr, MAX_PATH, currChange->FileName, currChange->FileNameLength);
 		tmpstr[currChange->FileNameLength / 2] = 0;
-		return std::wstring(tmpstr);
+		return WStringToUTF8(tmpstr);
 	}
 }

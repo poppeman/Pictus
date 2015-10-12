@@ -8,14 +8,14 @@ namespace IO {
 	public:
 		ChangeEventCallback& OnEvent;
 
-		FolderMonitorImplementation(const std::wstring& path, ChangeEventCallback& ev);
+		FolderMonitorImplementation(const std::string& path, ChangeEventCallback& ev);
 		virtual ~FolderMonitorImplementation();
 
 	protected:
-		const std::wstring& Path();
+		const std::string& Path();
 
 	private:
-		std::wstring m_path;
+		std::string m_path;
 	};
 }
 

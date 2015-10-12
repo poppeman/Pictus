@@ -6,7 +6,7 @@
 namespace IO {
 	Folder::Folder() {}
 
-	bool Folder::Path(const std::wstring& path) {
+	bool Folder::Path(const std::string& path) {
 		std::lock_guard<std::mutex> l(m_mxCall);
 
 		if (!IO::DoPathExist(path)) {
@@ -17,10 +17,10 @@ namespace IO {
 		return true;
 	}
 
-	std::wstring Folder::Path() const {
+	std::string Folder::Path() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
 		if (m_imp.get() == 0) {
-			return L"";
+			return "";
 		}
 		return m_imp->Path();
 	}

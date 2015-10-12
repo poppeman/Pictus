@@ -21,13 +21,13 @@ namespace IO {
 	};
 
 	struct FolderEntry {
-		std::wstring Name;
+		std::string Name;
 		FolderEntryType Type;
-		std::wstring PreviousName;
+		std::string PreviousName;
 	};
 
 	struct FileEvent {
-		std::wstring Path;
+		std::string Path;
 		FolderEntry Entry;
 		FileEventType Type;
 	};

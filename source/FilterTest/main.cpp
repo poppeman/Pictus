@@ -141,28 +141,28 @@ int wmain(int argc, wchar_t* argv[])
 {
 	if (argc < 3) return EXIT_FAILURE;
 
-	std::wstring testToRun(ToLower(argv[1]));
-	std::wstring format(ToLower(argv[2]));
+	auto testToRun(ToLower(WStringToUTF8(argv[1])));
+	auto format(ToLower(WStringToUTF8(argv[2])));
 
 	Img::Format fmt = Img::Format::Undefined;
-	if (format == L"xrgb8888")		fmt = Img::Format::XRGB8888;
-	else if (format == L"argb8888")	fmt = Img::Format::ARGB8888;
-	else if (format == L"xrgb1555")	fmt = Img::Format::XRGB1555;
-	else if (format == L"argb1555")	fmt = Img::Format::ARGB1555;
+	if (format == "xrgb8888")		fmt = Img::Format::XRGB8888;
+	else if (format == "argb8888")	fmt = Img::Format::ARGB8888;
+	else if (format == "xrgb1555")	fmt = Img::Format::XRGB1555;
+	else if (format == "argb1555")	fmt = Img::Format::ARGB1555;
 
-	if (testToRun == L"blend")
+	if (testToRun == "blend")
 		TestNoResample(TestSolidColor());
-	else if (testToRun == L"gamma")
+	else if (testToRun == "gamma")
 		TestNoResample(TestGamma());
-	else if (testToRun == L"brightness_contrast")
+	else if (testToRun == "brightness_contrast")
 		TestNoResample(TestBrightnessConstrast());
-	else if (testToRun == L"blendsolid")
+	else if (testToRun == "blendsolid")
 		TestNoResample(TestBlendSolid());
-	else if (testToRun == L"lanczos3")
+	else if (testToRun == "lanczos3")
 		TestResample(TestLanczos3(), fmt);
-	else if (testToRun == L"bilinear")
+	else if (testToRun == "bilinear")
 		TestResample(TestBilinear(), fmt);
-	else if (testToRun == L"nearest")
+	else if (testToRun == "nearest")
 		TestResample(TestNearestNeighbor(), fmt);
 	else
 		return EXIT_FAILURE;

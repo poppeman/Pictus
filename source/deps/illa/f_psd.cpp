@@ -6,7 +6,7 @@ namespace Img {
 		return new CodecPSD();
 	}
 
-	FactoryPSD::FactoryPSD():ICodecFactory(L"Adobe Photoshop") {
-		AddExtension(L"PSD");
+	FactoryPSD::FactoryPSD():ICodecFactory(u8"Adobe Photoshop") {
+		AddExtension(u8"PSD");
 	}
 }

@@ -5,13 +5,19 @@
 namespace App {
 	using namespace Intl;
 
+	const std::string& Rename::Name()
+	{
+		return m_name;
+	}
+
+
 	bool Rename::PerformOnInitDialog() {
 		CreateButton(IDOK)->OnClick.connect([this]() { OnOk(); });
 		CreateButton(IDCANCEL)->OnClick.connect([this]() { OnCancel(); });
 
 		m_filename = CreateEditBox(IDC_EDIT_RENAME_NAME);
 		m_filename->Filterchars(Win::EditBox::FilterInvalidFilename, SIDRenameInvalidChars);
-		m_filename->Text(WStringToUTF8(m_name));
+		m_filename->Text(m_name);
 
 		// Apply language
 		Caption(SIDRename);
@@ -25,7 +31,7 @@ namespace App {
 	}
 
 	void Rename::OnOk() {
-		auto newName = UTF8ToWString(m_filename->Text());
+		auto newName = m_filename->Text();
 		bool ret = (newName != m_name);
 
 		m_name = newName;
@@ -36,7 +42,7 @@ namespace App {
 		EndDialog(Handle(), 0);
 	}
 
-	Rename::Rename(const std::wstring& name):
+	Rename::Rename(const std::string& name):
 		Dialog{ IDD_RENAME },
 		m_name( name )
 	{}

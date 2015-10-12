@@ -7,9 +7,9 @@
 namespace App {
 	class Rename:public Win::Dialog {
 	public:
-		const std::wstring& Name() { return m_name; }
+		const std::string& Name();
 
-		Rename(const std::wstring& currname);
+		Rename(const std::string& currname);
 
 	private:
 		Win::EditBox* m_filename;
@@ -19,7 +19,7 @@ namespace App {
 		void OnOk();
 		void OnCancel();
 
-		std::wstring m_name;
+		std::string m_name;
 	};
 }
 

@@ -2,6 +2,6 @@
 #define PICTUS_W32_ASSURE_FOLDER_H
 
 #include <string>
-std::wstring assure_folder(std::wstring name);
+std::string assure_folder(std::string name);
 
 #endif

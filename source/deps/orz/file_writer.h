@@ -6,7 +6,7 @@
 namespace IO {
 	class FileWriter {
 	public:
-		bool Open(const std::wstring& name, bool append = false);
+		bool Open(const std::string& name, bool append = false);
 		void Close();
 
 		size_t Write(const void* buf, size_t size, size_t items);

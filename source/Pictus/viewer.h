@@ -33,7 +33,7 @@ namespace App {
 		bool Show(bool doShow);
 		void ActiveImage(Img::Image::Ptr pImage);
 
-		explicit Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config, const std::wstring params = L"");
+		Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config, const std::string params = "");
 		~Viewer();
 
 	private:
@@ -97,7 +97,7 @@ namespace App {
 
 		bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
 
-		void SetImageLocation(const std::wstring& path);
+		void SetImageLocation(const std::string& path);
 
 		bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
 		bool PerformOnCreateTaskbar();
@@ -105,10 +105,10 @@ namespace App {
 
 		void UpdateImageInformation();
 
-		std::wstring UII_MemoryUsage(FileInt size);
-		std::wstring UII_LoadProgress(Img::Image::Ptr image);
-		std::wstring UII_ImageResolution(Img::Image::Ptr image);
-		std::wstring UII_LastModified(FileInt date);
+		std::string UII_MemoryUsage(FileInt size);
+		std::string UII_LoadProgress(Img::Image::Ptr image);
+		std::string UII_ImageResolution(Img::Image::Ptr image);
+		std::string UII_LastModified(FileInt date);
 
 		bool RecalculateViewportSize();
 
@@ -154,7 +154,7 @@ namespace App {
 		void RenameCurrent();
 		void OpenFolder();
 
-		void OnLoadMessage(Img::MessageReceiver::LoadMessage s, Img::Image* pImage, const std::wstring& desc);
+		void OnLoadMessage(Img::MessageReceiver::LoadMessage s, Img::Image* pImage, const std::string& desc);
 		void FolderEvent(IO::FileEvent e);
 
 		bool CopyToClipboard();
@@ -163,12 +163,12 @@ namespace App {
 		Viewer(const Viewer&);
 
 		void ShowContextMenu(Win::MouseEvent e);
-		Viewer& operator=(const Viewer& rhs);
+		Viewer& operator=(const Viewer& rhs)=delete;
 
 		struct CacheNotification {
-			Img::Image*				image;
+			Img::Image* image;
 			Img::MessageReceiver::LoadMessage message;
-			std::wstring					desc;
+			std::string desc;
 		};
 
 		void AnchorTL(const Geom::PointInt& pt);
@@ -187,7 +187,7 @@ namespace App {
 
 		void ToggleFullscreenMode();
 
-		std::wstring m_sDirectory;
+		std::string m_sDirectory;
 
 		boost::signals2::connection m_lang;
 

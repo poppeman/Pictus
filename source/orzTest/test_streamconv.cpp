@@ -1,5 +1,6 @@
 #include "orz/streamconv.h"
 #include "main.h"
+#include "orz/types.h"
 #include <UnitTest++/UnitTest++.h>
 
 SUITE(StreamConverter)
@@ -27,7 +28,7 @@ SUITE(StreamConverter)
 		Util::StreamConverter sc;
 		// Store an entire file in the stream converter
 		FILE* f = 0;
-		CHECK(_wfopen_s(&f, (g_datapath+L"/data.raw").c_str(), L"rb") == 0);
+		CHECK_EQUAL(0, _wfopen_s(&f, UTF8ToWString(g_datapath+"/data.raw").c_str(), L"rb"));
 		CHECK(f != 0);
 		size_t read;
 		do

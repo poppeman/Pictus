@@ -173,9 +173,9 @@ namespace Win {
 					// Store filenames in a vector
 					StringVector v(numStrings);
 					for (DWORD i = 0; i < numStrings; ++i) {
-						TCHAR tmpstr[1024];
+						wchar_t tmpstr[1024];
 						DragQueryFile(hDrop, i, tmpstr, 1024);
-						v.at(i) = tmpstr;
+						v.at(i) = WStringToUTF8(tmpstr);
 					}
 					DragFinish(hDrop);
 					// Handle message

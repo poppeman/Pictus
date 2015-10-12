@@ -7,7 +7,7 @@
 namespace IO {
 	class FolderFileIteratorWin32:public FolderFileIterator {
 	public:
-		FolderFileIteratorWin32(const std::wstring& path);
+		FolderFileIteratorWin32(const std::string& path);
 		~FolderFileIteratorWin32();
 
 	private:

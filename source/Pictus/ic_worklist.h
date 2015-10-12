@@ -2,7 +2,7 @@
 #define PICTUS_IC_WORKLIST_H
 
 #include "ic_workpackage.h"
-#include "imagecache_shared.h"
+#include "imagecache_workrequest.h"
 #include <list>
 
 namespace Img {
@@ -14,7 +14,7 @@ namespace Img {
 		void ReturnPackage();
 		void MemoryLimit(size_t newLimit);
 
-		IO::FileReader::Ptr GetFileReader(const std::wstring& filename);
+		IO::FileReader::Ptr GetFileReader(const std::string& filename);
 
 		void SetCodecFactoryStore(Img::CodecFactoryStore* cfs);
 

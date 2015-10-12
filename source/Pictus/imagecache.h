@@ -26,12 +26,12 @@ namespace Img {
 
 		Img::Image::Ptr Sort(SortMethod method);
 		void MessageTarget(MessageReceiver* pWatcher);
-		Img::Image::Ptr AddImageLast(const std::wstring& filename);
+		Img::Image::Ptr AddImageLast(const std::string& filename);
 		Img::Image::Ptr RemoveCurrentImage();
 		Img::Image::Ptr RemoveImageIndex(size_t index);
-		Img::Image::Ptr RemoveImageFilename(const std::wstring& filename);
+		Img::Image::Ptr RemoveImageFilename(const std::string& filename);
 
-		bool RenamedImage(const std::wstring& oldFilename, const std::wstring& newFilename);
+		bool RenamedImage(const std::string& oldFilename, const std::string& newFilename);
 
 		IO::FileReader::Ptr CurrentImageFileReader();
 
@@ -48,13 +48,13 @@ namespace Img {
 		Img::Image::Ptr CurrentImage();
 		FileInt CurrentImageLastModifiedDate();
 		FileInt CurrentImageFileSize();
-		std::wstring CurrentImageFilename() const;
+		std::string CurrentImageFilename() const;
 
 		Img::Image::Ptr PeekRelative(int delta);
 		Img::Image::Ptr PeekAt(size_t position);
 
 		Img::Image::Ptr GotoImage(size_t index);
-		bool FindImage(const std::wstring& name, size_t* index);
+		bool FindImage(const std::string& name, size_t* index);
 
 		void MemoryLimit(size_t limit);
 

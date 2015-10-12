@@ -7,7 +7,7 @@
 #include <boost/random.hpp>
 
 void CacheUser::ThreadMain() {
-	Output(L"Initializing CacheUser...");
+	Output("Initializing CacheUser...");
 
 	Img::CodecFactoryStore cfs;
 	cfs.AddBuiltinCodecs();
@@ -24,7 +24,7 @@ void CacheUser::ThreadMain() {
 	boost::random::uniform_int_distribution<> slp(0, 6);
 
 
-	Output(L"Init complete, running ...");
+	Output("Init complete, running ...");
 
 	while(IsTerminating() == false) {
 		std::unique_lock<std::mutex> l(m_mutexNotifications);
@@ -32,19 +32,19 @@ void CacheUser::ThreadMain() {
 			CacheNotification currentNotification = m_notifications.front();
 			m_notifications.pop_front();
 
-			SignalError(L"Cacher notification: " + ToWString(currentNotification.message) + L"\n" + currentNotification.desc + std::wstring(L"\n"));
+			SignalError("Cacher notification: " + currentNotification.message + std::string("\n") + currentNotification.desc + std::string("\n"));
 		}
 		l.unlock();
 
 
 		if (m_cacher.ImageCount() == 0) {
-			Output(L"Ran out of images, switching RAIT NAO!");
+			Output("Ran out of images, switching RAIT NAO!");
 			SwitchFolder();
 		}
 
 		if (m_cacher.ImageCount() == 0)
 		{
-			Output(L"Still out of images, giving up!");
+			Output("Still out of images, giving up!");
 			m_cacher.Stop();
 			return;
 		}
@@ -111,10 +111,16 @@ void CacheUser::SwitchFolder() {
 	Img::FillCacher(m_cacher, f);
 }
 
-void CacheUser::OnLoadMessage( Img::MessageReceiver::LoadMessage s, Img::Image*, const std::wstring& desc ) {
+void CacheUser::OnLoadMessage( Img::MessageReceiver::LoadMessage s, Img::Image*, const std::string& desc ) {
 	if (s == Img::MessageReceiver::LoadErrorCritical) {
 		std::lock_guard<std::mutex> l(m_mutexNotifications);
 		CacheNotification newNotification = {s, desc};
 		m_notifications.push_back(newNotification);
 	}
 }
+
+CacheUser::CacheUser(const std::string& folderA, const std::string& folderB):
+	m_pathA(folderA),
+	m_pathB(folderB),
+	m_isOnFirst(false)
+{}

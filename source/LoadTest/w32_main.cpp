@@ -14,10 +14,10 @@ enum
 
 Img::CodecFactoryStore g_cfs;
 
-int performLoad(const std::wstring& filename)
+int performLoad(const std::string& filename)
 {
-	Img::AbstractCodec::Ptr pCodec(g_cfs.CreateCodec(IO::GetExtension(WStringToUTF8(filename))));
-	IO::FileReader::Ptr f(new IO::FileReader(filename));
+	Img::AbstractCodec::Ptr pCodec(g_cfs.CreateCodec(IO::GetExtension(filename)));
+	auto f = std::make_shared<IO::FileReader>(filename);
 	//f->Filename(filename);
 	f->Open();
 	if(pCodec->LoadHeader(f) == false) return EXIT_FAILURE;
@@ -33,7 +33,7 @@ int wmain(int argc, wchar_t* argv[])
 
 	Img::SurfaceFactory(new Img::FactorySurfaceSoftware);
 
-	std::wstring filename(argv[1]);
+	std::string filename(WStringToUTF8(argv[1]));
 
 	Util::StopWatch sw;
 

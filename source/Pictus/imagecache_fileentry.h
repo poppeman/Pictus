@@ -1,5 +1,5 @@
-#ifndef IMAGECACHE_FILEENTRY_H
-#define IMAGECACHE_FILEENTRY_H
+#ifndef PICTUS_IMAGECACHE_FILEENTRY_H
+#define PICTUS_IMAGECACHE_FILEENTRY_H
 
 #include "illa/image.h"
 #include "orz/types.h"
@@ -10,21 +10,21 @@ namespace Img {
 		public:
 			Img::Image::Ptr Image();
 
-			const std::wstring& Name() const;
-			void Rename(const std::wstring& newName);
+			const std::string& Name() const;
+			void Rename(const std::string& newName);
 
 			FileInt DateModified();
 			FileInt DateAccessed();
 			FileInt DateCreated();
 			FileInt FileSize();
 
-			FileEntry(std::wstring fullname);
+			FileEntry(std::string fullname);
 
 		private:
 			void QueryFile();
 
 			Img::Image::Ptr m_image;
-			std::wstring m_fullname;
+			std::string m_fullname;
 			bool m_hasQueriedFile;
 			FileInt m_dateCreate;
 			FileInt m_dateAccess;

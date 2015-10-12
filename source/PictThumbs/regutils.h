@@ -5,7 +5,7 @@
 
 #include <windows.h>
 
-HRESULT SetHkcrRegistryKeyAndValue(const std::wstring& subKey, const wchar_t* valueName, const wchar_t* data);
-std::tuple<HRESULT, std::wstring> GetHkcrRegistryKeyAndValue(const std::wstring& subKey, const wchar_t* valueName);
+HRESULT SetHkcrRegistryKeyAndValue(const std::string& subKey, const char* valueName, const char* data);
+std::tuple<HRESULT, std::string> GetHkcrRegistryKeyAndValue(const std::string& subKey, const char* valueName);
 
 #endif

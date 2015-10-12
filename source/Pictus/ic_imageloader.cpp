@@ -144,10 +144,17 @@ fullalloc:
 		return codec->EstimateMemory();
 	}
 
-	ImageLoader::ImageLoader(CodecFactoryStore* cfs, Image* img, const std::wstring& fname)
-		:m_cfs(cfs), image(img), codec(0), m_maySkipFast(false), m_state(ILUnprocessed),
-		m_reader(new IO::FileReader(fname)) {
-		COND_STRICT(m_cfs, Err::InvalidParam, "CodecFactoryStore may not be null.");
+	ImageLoader::ImageLoader(CodecFactoryStore* cfs, Image* img, const std::string& fname):
+		m_cfs(cfs),
+		image(img),
+		codec(0),
+		m_maySkipFast(false),
+		m_state(ILUnprocessed),
+		m_reader(new IO::FileReader(fname))
+	{
+		if (m_cfs == nullptr) {
+			DO_THROW(Err::InvalidParam, "CodecFactoryStore may not be null.");
+		}
 	}
 	ImageLoader::~ImageLoader() {
 		Purge();

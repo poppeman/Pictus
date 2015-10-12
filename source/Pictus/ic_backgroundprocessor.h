@@ -3,7 +3,7 @@
 
 #include "imagecache_event.h"
 #include "ic_queue.h"
-#include "imagecache_shared.h"
+#include "imagecache_workrequest.h"
 #include "ic_workerthread.h"
 
 namespace Img {
@@ -18,7 +18,7 @@ namespace Img {
 		void CacheImage(const ImageList& newImageList);
 		void RemoveImage(Img::Image* image);
 
-		IO::FileReader::Ptr GetFileReader(const std::wstring& filename);
+		IO::FileReader::Ptr GetFileReader(const std::string& filename);
 
 		const size_t AllocatedMemory() const;
 		void MemoryLimit(size_t limit);
