@@ -323,7 +323,7 @@ namespace Geom {
 
 		template<typename U>
 		Rect<U> StaticCast() const {
-			return Rect<U>(TopLeft().StaticCast<U>(), Dimensions().StaticCast<U>());
+			return Rect<U>(TopLeft().template StaticCast<U>(), Dimensions().template StaticCast<U>());
 		}
 
 		Rect(Point<T> topLeft, Size<T> rectSize):
