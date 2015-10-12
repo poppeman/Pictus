@@ -488,11 +488,4 @@ namespace Geom {
 	}
 }
 
-/*template <typename T>
-std::wstring ToWString(const Geom::Point<T>& pt) {
-	return L"(" + ToWString(pt.X) + L", " + ToWString(pt.Y) + L")";
-}
-*/
-
-
 #endif
