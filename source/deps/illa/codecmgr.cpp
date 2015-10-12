@@ -22,8 +22,8 @@ namespace Img {
 		return (m_ext.find(ToUpper(ext)) != m_ext.end());
 	}
 
-	AbstractCodec* CodecFactoryStore::CreateCodec(const std::wstring& ext) {
-		auto i = m_ext.find(ToUpper(ext));
+	AbstractCodec* CodecFactoryStore::CreateCodec(const std::string& ext) {
+		auto i = m_ext.find(ToUpper(UTF8ToWString(ext)));
 		if (i != m_ext.end()) {
 			return i->second->CreateCodec();
 		}

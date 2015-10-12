@@ -51,8 +51,8 @@ namespace IO {
 		return m_size;
 	}
 
-	std::wstring StreamMemory::performName() const {
-		return L"Memory buffer";
+	std::string StreamMemory::performName() const {
+		return "Memory buffer";
 	}
 
 	StreamMemory::StreamMemory(uint8_t* data, size_t size) :m_data(data), m_size(size), m_pos(0), m_isOpen(false) {}

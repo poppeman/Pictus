@@ -86,14 +86,14 @@ namespace IO {
 		return ssg.cbSize.QuadPart;
 	}
 
-	std::wstring StreamWindows::performName() const {
+	std::string StreamWindows::performName() const {
 		STATSTG ssg;
 		if (m_pStream->Stat(&ssg, STATFLAG_DEFAULT) != S_OK) {
-			return std::wstring(L"");
+			return "";
 		}
 
 		std::wstring toReturn(ssg.pwcsName);
 		CoTaskMemFree(ssg.pwcsName);
-		return toReturn;
+		return WStringToUTF8(toReturn);
 	}
 }

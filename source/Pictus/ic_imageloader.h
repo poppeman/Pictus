@@ -44,7 +44,7 @@ namespace Img {
 
 		size_t MemoryRequirements();
 
-		std::wstring Filename() const;
+		std::string Filename() const;
 		IO::FileReader::Ptr GetFileReader();
 
 		ImageLoader(CodecFactoryStore* cfs, Image* img, const std::wstring& fname);

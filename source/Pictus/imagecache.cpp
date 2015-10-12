@@ -105,7 +105,7 @@ namespace Img {
 
 	Img::Image::Ptr Cacher::AddImageLast(const std::wstring& filename) {
 		COND_STRICT(m_cfs, Err::InvalidCall, "SetCodecFactoryStore not yet called.");
-		if (m_cfs->DoCodecExist(IO::GetExtension(filename).c_str())) {
+		if (m_cfs->DoCodecExist(UTF8ToWString(IO::GetExtension(WStringToUTF8(filename))).c_str())) {
 			m_files.push_back(Internal::FileEntry(filename));
 
 			if (ImageCount() == 1) {

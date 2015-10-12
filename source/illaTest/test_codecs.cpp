@@ -92,9 +92,9 @@ SUITE(CodecTests) {
 
 
 	Error CompareImages(std::wstring f1, std::wstring f2) {
-		Loaded l1 = load(g_cfs.CreateCodec(IO::GetExtension(f1)), f1);
+		Loaded l1 = load(g_cfs.CreateCodec(IO::GetExtension(WStringToUTF8(f1))), f1);
 		if(l1.err != ErrNoError) return l1.err;
-		Loaded l2 = load(g_cfs.CreateCodec(IO::GetExtension(f2)), f2);
+		Loaded l2 = load(g_cfs.CreateCodec(IO::GetExtension(WStringToUTF8(f2))), f2);
 		if(l2.err != ErrNoError) return l2.err;
 
 		if(l1.ptr->GetSize() != l2.ptr->GetSize()) return ErrSizeDiffer;
@@ -128,7 +128,7 @@ SUITE(CodecTests) {
 
 	bool ShouldFail(const std::wstring& file) {
 		try {
-			Loaded l1 = load(g_cfs.CreateCodec(IO::GetExtension(file)), file);
+			Loaded l1 = load(g_cfs.CreateCodec(IO::GetExtension(WStringToUTF8(file))), file);
 			if(l1.err == ErrFileNotFound) return false;
 			if(l1.err == ErrNoError) return false;
 		}

@@ -1,7 +1,8 @@
 #include "stream.h"
 
 namespace IO {
-	std::wstring Stream::Name() const {
+	std::string Stream::Name() const
+{
 		return performName();
 	}
 

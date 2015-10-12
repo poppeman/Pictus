@@ -39,7 +39,7 @@ namespace IO {
 
 	class Stream {
 	public:
-		std::wstring Name() const;
+		std::string Name() const;
 		bool Open();
 		bool IsOpen() const;
 		void Close();
@@ -57,7 +57,7 @@ namespace IO {
 		Stream(const Stream&) = delete;
 		Stream& operator=(const Stream&) = delete;
 
-		virtual std::wstring performName() const=0;
+		virtual std::string performName() const=0;
 		virtual bool performOpen()=0;
 		virtual bool performIsOpen() const = 0;
 		virtual void performClose()=0;

@@ -5,7 +5,7 @@
 namespace IO {
 	using std::mutex;
 
-	const std::wstring FileReader::Name() const {
+	const std::string FileReader::Name() const {
 		return m_stream->Name();
 	}
 
@@ -105,15 +105,17 @@ namespace IO {
 		return s.substr(0, end);
 	}
 
-	std::wstring GetExtension(const std::wstring& s) {
-		std::size_t dot = s.find_last_of(L'.');
-		if (dot != std::wstring::npos) {
+	std::string GetExtension(const std::string& s) {
+		auto dot = s.find_last_of('.');
+		if (dot != std::string::npos) {
 			// Make sure there were no / or \ afterwards
-			if (s.find_first_of(L"/\\", dot) != std::wstring::npos) return std::wstring(L"");
-			std::wstring ext = s.substr(dot + 1);
+			if (s.find_first_of("/\\", dot) != std::string::npos) {
+				return "";
+			}
+			auto ext = s.substr(dot + 1);
 			return ext;
 		}
-		return std::wstring(L"");
+		return "";
 	}
 
 	std::vector<uint8_t> ReadAll(FileReader::Ptr file) {

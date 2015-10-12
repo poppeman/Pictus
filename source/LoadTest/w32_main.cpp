@@ -16,7 +16,7 @@ Img::CodecFactoryStore g_cfs;
 
 int performLoad(const std::wstring& filename)
 {
-	Img::AbstractCodec::Ptr pCodec(g_cfs.CreateCodec(IO::GetExtension(filename)));
+	Img::AbstractCodec::Ptr pCodec(g_cfs.CreateCodec(IO::GetExtension(WStringToUTF8(filename))));
 	IO::FileReader::Ptr f(new IO::FileReader(filename));
 	//f->Filename(filename);
 	f->Open();

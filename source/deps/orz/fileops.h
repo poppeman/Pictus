@@ -23,7 +23,7 @@ namespace IO {
 	std::wstring GetParentPath(const std::wstring& s);
 	std::wstring GetFile(const std::wstring& s);
 	std::wstring GetTitle(const std::wstring& s);
-	std::wstring GetExtension(const std::wstring& s);
+	std::string GetExtension(const std::string& s);
 }
 
 #endif

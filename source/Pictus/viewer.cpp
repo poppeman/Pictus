@@ -638,7 +638,7 @@ namespace App {
 		if (image == 0) return;
 
 		std::wstring old_name(m_cacher.CurrentImageFilename());
-		std::wstring extension = IO::GetExtension(old_name);
+		std::wstring extension = UTF8ToWString(IO::GetExtension(WStringToUTF8(old_name)));
 
 		Rename ren(IO::GetTitle(old_name));
 

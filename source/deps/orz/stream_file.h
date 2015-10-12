@@ -21,7 +21,7 @@ namespace IO {
 #endif
 
 	private:
-		std::wstring performName() const;
+		std::string performName() const;
 		bool performOpen();
 		bool performIsOpen() const;
 		void performClose();

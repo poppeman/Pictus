@@ -21,7 +21,7 @@ namespace Img {
 		};
 		typedef std::vector<Info> InfoVector;
 		bool DoCodecExist(const wchar_t* ext);
-		AbstractCodec* CreateCodec(const std::wstring& ext);
+		AbstractCodec* CreateCodec(const std::string& ext);
 		AbstractCodec* CreateCodec(size_t index);
 		const InfoVector& CodecInfo();
 

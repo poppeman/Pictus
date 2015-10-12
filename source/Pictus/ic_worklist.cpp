@@ -95,7 +95,7 @@ namespace Img {
 	IO::FileReader::Ptr WorkList::GetFileReader(const std::wstring& filename) {
 		for(auto& p: m_workPackages) {
 			if(!p.Loader) continue;
-			if(p.Loader->Filename() == filename)
+			if(p.Loader->Filename() == WStringToUTF8(filename))
 				return p.Loader->GetFileReader();
 		}
 		return IO::FileReader::Ptr();

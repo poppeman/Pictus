@@ -132,12 +132,11 @@ namespace IO {
 		return m_size;
 	}
 
-	std::wstring StreamFile::performName() const {
-		return m_name;
+	std::string StreamFile::performName() const {
+		return WStringToUTF8(m_name);
 	}
 
-	StreamFile::StreamFile(const std::wstring& filename) :m_name(filename), m_file(0), m_error(OpenErrorCode::Succeeded), m_size(0) {
-	}
+	StreamFile::StreamFile(const std::wstring& filename) :m_name(filename), m_file(0), m_error(OpenErrorCode::Succeeded), m_size(0) {}
 
 	StreamFile::~StreamFile() {
 		performClose();

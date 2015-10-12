@@ -181,8 +181,8 @@ fullalloc:
 		return m_maxRes;
 	}
 
-	std::wstring ImageLoader::Filename() const {
-		if(!m_reader) return L"";
+	std::string ImageLoader::Filename() const {
+		if(!m_reader) return "";
 		return m_reader->Name();
 	}
 

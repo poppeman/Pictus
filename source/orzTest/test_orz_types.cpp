@@ -1,4 +1,4 @@
-#include "orz/fileops.h"
+﻿#include "orz/fileops.h"
 #include "orz/types.h"
 
 #include <UnitTest++/UnitTest++.h>
@@ -30,14 +30,21 @@ SUITE(PathString)
 
 	TEST(get_ext)
 	{
-		std::wstring s1(L"c:\\temp/lol/dsfargeg.txt.lol");
-		CHECK(IO::GetExtension(s1) == L"lol");
+		std::string s1(u8"c:\\temp/lol/dsfargeg.txt.lol");
+		CHECK(IO::GetExtension(s1) == "lol");
 
-		std::wstring s2(L"c:\\temp/some_periods.in_here/dsfargeg.txt.lol");
-		CHECK(IO::GetExtension(s2) == L"lol");
+		std::string s2(u8"c:\\temp/some_periods.in_here/dsfargeg.txt.lol");
+		CHECK(IO::GetExtension(s2) == "lol");
 
-		std::wstring s3(L"c:\\temp/some_periods.in_here/nofileextension");
-		CHECK(IO::GetExtension(s3) == L"");
+		std::string s3(u8"c:\\temp/some_periods.in_here/nofileextension");
+		CHECK(IO::GetExtension(s3) == "");
+	}
+
+	TEST(get_ext_utf8)
+	{
+		CHECK_EQUAL("tga", IO::GetExtension(u8"c:\\temp/日本語のインターフェース.tga"));
+		CHECK_EQUAL("", IO::GetExtension(u8"c:\\temp/日本語のインターフェース.tga/nof"));
+		CHECK_EQUAL("", IO::GetExtension(u8"c:\\temp/日本語のインターフェース.tga\\nof"));
 	}
 }
 

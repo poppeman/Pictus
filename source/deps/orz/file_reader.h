@@ -6,7 +6,7 @@
 namespace IO {
 	class FileReader {
 	public:
-		const std::wstring Name() const;
+		const std::string Name() const;
 
 		bool Open();
 		void Close();

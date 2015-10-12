@@ -10,7 +10,7 @@ namespace IO {
 		StreamMemory(_In_reads_bytes_(size) uint8_t* buffer, _In_ size_t size);
 
 	private:
-		_Check_return_ std::wstring performName() const;
+		_Check_return_ std::string performName() const;
 		_Check_return_ bool performOpen();
 		_Check_return_ bool performIsOpen() const;
 		void performClose();

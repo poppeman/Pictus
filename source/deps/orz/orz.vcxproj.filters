@@ -31,6 +31,9 @@
     <Filter Include="Thread">
       <UniqueIdentifier>{6255cace-fdd8-4fca-8bb5-d06513756ff8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO\Win32">
+      <UniqueIdentifier>{a00c5b2b-3c62-4104-82f0-e35876d6421c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bitconvert.h">
@@ -121,7 +124,7 @@
       <Filter>IO\Folder\Win32</Filter>
     </ClInclude>
     <ClInclude Include="Win32\stream_windows.h">
-      <Filter>IO</Filter>
+      <Filter>IO\Win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -207,7 +210,7 @@
       <Filter>IO\Folder\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Win32\stream_windows.cpp">
-      <Filter>IO</Filter>
+      <Filter>IO\Win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
