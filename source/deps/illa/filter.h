@@ -19,11 +19,11 @@ namespace Filter {
 		* @param zoom				Zoom factor.
 		* @return					true if the operation was successful, otherwise false.
 		*/
-		void AutoFilter(_In_ const Filter::Mode mode, _In_ const FilterBuffer& source, _Inout_ FilterBuffer& dest, _In_ const Geom::RectInt& region, _In_ Img::Format format, _In_ _In_range_(0, 1000000000) float zoom);
+		void AutoFilter(const Filter::Mode mode, const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, Img::Format format, float zoom);
 	}
 
 	namespace Transformation {
-		_Check_return_ bool IsInplace(_In_ RotationAngle angle);
+		bool IsInplace(RotationAngle angle);
 		void QuerySizeRotateFixed(const FilterBuffer& source, RotationAngle angle, Geom::SizeInt* requiredSize, bool* supportInPlace);
 		void RotateFixed(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& region, const Geom::PointInt& destTopLeft, RotationAngle angle);
 	}
