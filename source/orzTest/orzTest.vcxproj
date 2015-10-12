@@ -188,7 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="mt19937ar.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\deps\orz\orz.vcxproj">
