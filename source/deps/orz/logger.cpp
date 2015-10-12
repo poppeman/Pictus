@@ -5,8 +5,10 @@
 #include <boost/algorithm/string.hpp>
 #include <vector>
 
+#ifdef WIN32
 #include <windows.h>
 #include <debugapi.h>
+#endif
 
 namespace IO {
 	void Logger::SetOutput(const std::string& filename) {
@@ -26,7 +28,9 @@ namespace IO {
 			lines.pop_back();
 			for (auto l : lines) {
 				auto u8str = "Pictus: " + l + "\r\n";
+#ifdef WIN32
 				OutputDebugStringW(UTF8ToWString(u8str.c_str()).c_str());
+#endif
 			}
 		}
 
@@ -58,10 +62,12 @@ namespace IO {
 	}
 
 	Logger::~Logger() {
+#ifdef WIN32
 		if (!m_dbgCached.empty())
 		{
 			OutputDebugStringW(UTF8ToWString(("Pictus: " + m_dbgCached).c_str()).c_str());
 		}
+#endif
 	}
 
 	std::string Internal::Cleanup(const std::string& input) {

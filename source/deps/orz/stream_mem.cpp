@@ -1,12 +1,13 @@
 #include "stream_mem.h"
 #include <algorithm>
+#include <cstring>
 
 namespace IO {
 	size_t StreamMemory::performRead(void* buf, size_t size, size_t items) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		if(m_pos >= m_size) throw Err::CriticalError("Position was out of bounds, invalid object state.");
 		auto numItems = std::min<size_t>(items, (m_size - m_pos) / size);
-		memcpy(buf, m_data + m_pos, size * numItems);
+		std::memcpy(buf, m_data + m_pos, size * numItems);
 		m_pos += size * numItems;
 		return numItems;
 	}
