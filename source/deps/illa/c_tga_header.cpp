@@ -1,4 +1,5 @@
 #include "c_tga_header.h"
+#include <cstring>
 
 namespace Img {
 	bool TGAHeader::LoadHeader(IO::FileReader::Ptr file) {

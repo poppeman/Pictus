@@ -32,7 +32,7 @@ namespace Filter {
 			struct ConvertARGB8888 {
 				ARGBFloat operator()(const uint32_t& v) const {
 					Img::Color c = Img::Color::FromDWord(v);
-					ARGBFloat f={c.A, c.R, c.G, c.B};
+					ARGBFloat f={static_cast<float>(c.A), static_cast<float>(c.R), static_cast<float>(c.G), static_cast<float>(c.B)};
 					return f;
 				}
 				void Normalize(ARGBFloat& f, float mul) {
@@ -43,7 +43,7 @@ namespace Filter {
 			struct ConvertXRGB8888 {
 				ARGBFloat operator()(const uint32_t& v) const {
 					Img::Color c = Img::Color::FromDWord(v);
-					ARGBFloat f={255.0f, c.R, c.G, c.B};
+					ARGBFloat f={static_cast<float>(255.0f), static_cast<float>(c.R), static_cast<float>(c.G), static_cast<float>(c.B)};
 					return f;
 				}
 				void Normalize(ARGBFloat& f, float mul) {
@@ -54,7 +54,7 @@ namespace Filter {
 			struct ConvertARGB1555 {
 				ARGBFloat operator()(const uint16_t& v) const {
 					Img::Color c = Img::Color::FromDWord(Img::ConvertARGB1555ToARGB8888(v));
-					ARGBFloat f={c.A, c.R, c.G, c.B};
+					ARGBFloat f={static_cast<float>(c.A), static_cast<float>(c.R), static_cast<float>(c.G), static_cast<float>(c.B)};
 					return f;
 				}
 				void Normalize(ARGBFloat& f, float mul) {
@@ -65,7 +65,7 @@ namespace Filter {
 			struct ConvertXRGB1555 {
 				ARGBFloat operator()(const uint16_t& v) const {
 					Img::Color c = Img::Color::FromDWord(Img::ConvertXRGB1555ToARGB8888(v));
-					ARGBFloat f={255.0f, c.R, c.G, c.B};
+					ARGBFloat f={static_cast<float>(255.0f), static_cast<float>(c.R), static_cast<float>(c.G), static_cast<float>(c.B)};
 					return f;
 				}
 				void Normalize(ARGBFloat& f, float mul) {
@@ -76,7 +76,7 @@ namespace Filter {
 			struct ConvertRGB565 {
 				ARGBFloat operator()(const uint16_t& v) const {
 					Img::Color c = Img::Color::FromDWord(Img::ConvertRGB565ToARGB8888(v));
-					ARGBFloat f={255.0f, c.R, c.G, c.B};
+					ARGBFloat f={static_cast<float>(255.0f), static_cast<float>(c.R), static_cast<float>(c.G), static_cast<float>(c.B)};
 					return f;
 				}
 				void Normalize(ARGBFloat& f, float mul) {
@@ -88,7 +88,7 @@ namespace Filter {
 				ConvertIndexed(const Img::Palette& p):m_p(p) {}
 				ARGBFloat operator()(const uint8_t& v) const {
 					const Img::Color& c = m_p.Color(v);
-					ARGBFloat f={c.A, c.R, c.G, c.B};
+					ARGBFloat f={static_cast<float>(c.A), static_cast<float>(c.R), static_cast<float>(c.G), static_cast<float>(c.B)};
 					return f;
 				}
 				void Normalize(ARGBFloat& f, float mul) {

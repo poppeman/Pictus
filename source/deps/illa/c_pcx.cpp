@@ -4,6 +4,7 @@
 #include "surface_locked_area.h"
 #include "surfacemgr.h"
 #include "color_io.h"
+#include <cstring>
 
 namespace Img {
 	using namespace Geom;
