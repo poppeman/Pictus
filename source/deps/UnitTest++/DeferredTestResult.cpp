@@ -1,16 +1,13 @@
 #include "DeferredTestResult.h"
-
-#include <cstdlib>
+#include "Config.h"
 
 namespace UnitTest
 {
 
 DeferredTestResult::DeferredTestResult()
-	: suiteName(NULL)
-	, testName(NULL)
-	, failureFile(NULL)
-	, failureMessage(NULL)
-	, failureLine(0)
+	: suiteName("")
+	, testName("")
+	, failureFile("")
 	, timeElapsed(0.0f)
 	, failed(false)
 {
@@ -19,9 +16,7 @@ DeferredTestResult::DeferredTestResult()
 DeferredTestResult::DeferredTestResult(char const* suite, char const* test)
 	: suiteName(suite)
 	, testName(test)
-	, failureFile(NULL)
-	, failureMessage(NULL)
-	, failureLine(0)
+	, failureFile("")
 	, timeElapsed(0.0f)
 	, failed(false)
 {

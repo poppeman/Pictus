@@ -14,10 +14,9 @@ bool Check(Value const value)
     return !!value; // doing double negative to avoid silly VS warnings
 }
 
-#pragma warning(disable:4389)
 
 template< typename Expected, typename Actual >
-void CheckEqual(TestResults& results, Expected const expected, Actual const actual, TestDetails const& details)
+void CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details)
 {
     if (!(expected == actual))
     {
@@ -37,13 +36,13 @@ void CheckEqual(TestResults& results, char* expected, char const* actual, TestDe
 void CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
 
 template< typename Expected, typename Actual, typename Tolerance >
-bool AreClose(Expected const expected, Actual const actual, Tolerance const tolerance)
+bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& tolerance)
 {
     return (actual >= (expected - tolerance)) && (actual <= (expected + tolerance));
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckClose(TestResults& results, Expected const expected, Actual const actual, Tolerance const tolerance,
+void CheckClose(TestResults& results, Expected const& expected, Actual const& actual, Tolerance const& tolerance,
                 TestDetails const& details)
 {
     if (!AreClose(expected, actual, tolerance))
@@ -57,7 +56,7 @@ void CheckClose(TestResults& results, Expected const expected, Actual const actu
 
 
 template< typename Expected, typename Actual >
-void CheckArrayEqual(TestResults& results, Expected const expected, Actual const actual,
+void CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
                 int const count, TestDetails const& details)
 {
     bool equal = true;
@@ -67,20 +66,25 @@ void CheckArrayEqual(TestResults& results, Expected const expected, Actual const
     if (!equal)
     {
         UnitTest::MemoryOutStream stream;
-        stream << "Expected [ ";
-        for (int i = 0; i < count; ++i)
-            stream << expected[i] << " ";
-        stream << "] but was [ ";
-        for (int i = 0; i < count; ++i)
-            stream << actual[i] << " ";
-        stream << "]";
+
+		stream << "Expected [ ";
+
+		for (int expectedIndex = 0; expectedIndex < count; ++expectedIndex)
+            stream << expected[expectedIndex] << " ";
+
+		stream << "] but was [ ";
+
+		for (int actualIndex = 0; actualIndex < count; ++actualIndex)
+            stream << actual[actualIndex] << " ";
+
+		stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
     }
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-bool ArrayAreClose(Expected const expected, Actual const actual, int const count, Tolerance const tolerance)
+bool ArrayAreClose(Expected const& expected, Actual const& actual, int const count, Tolerance const& tolerance)
 {
     bool equal = true;
     for (int i = 0; i < count; ++i)
@@ -89,20 +93,22 @@ bool ArrayAreClose(Expected const expected, Actual const actual, int const count
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckArrayClose(TestResults& results, Expected const expected, Actual const actual,
-                   int const count, Tolerance const tolerance, TestDetails const& details)
+void CheckArrayClose(TestResults& results, Expected const& expected, Actual const& actual,
+                   int const count, Tolerance const& tolerance, TestDetails const& details)
 {
     bool equal = ArrayAreClose(expected, actual, count, tolerance);
 
     if (!equal)
     {
         UnitTest::MemoryOutStream stream;
+
         stream << "Expected [ ";
-        for (int i = 0; i < count; ++i)
-            stream << expected[i] << " ";
+        for (int expectedIndex = 0; expectedIndex < count; ++expectedIndex)
+            stream << expected[expectedIndex] << " ";
         stream << "] +/- " << tolerance << " but was [ ";
-        for (int i = 0; i < count; ++i)
-            stream << actual[i] << " ";
+
+		for (int actualIndex = 0; actualIndex < count; ++actualIndex)
+            stream << actual[actualIndex] << " ";
         stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
@@ -110,8 +116,8 @@ void CheckArrayClose(TestResults& results, Expected const expected, Actual const
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckArray2DClose(TestResults& results, Expected const expected, Actual const actual,
-                   int const rows, int const columns, Tolerance const tolerance, TestDetails const& details)
+void CheckArray2DClose(TestResults& results, Expected const& expected, Actual const& actual,
+                   int const rows, int const columns, Tolerance const& tolerance, TestDetails const& details)
 {
     bool equal = true;
     for (int i = 0; i < rows; ++i)
@@ -120,23 +126,28 @@ void CheckArray2DClose(TestResults& results, Expected const expected, Actual con
     if (!equal)
     {
         UnitTest::MemoryOutStream stream;
+
         stream << "Expected [ ";    
-        for (int i = 0; i < rows; ++i)
+
+		for (int expectedRow = 0; expectedRow < rows; ++expectedRow)
         {
             stream << "[ ";
-            for (int j = 0; j < columns; ++j)
-                stream << expected[i][j] << " ";
+            for (int expectedColumn = 0; expectedColumn < columns; ++expectedColumn)
+                stream << expected[expectedRow][expectedColumn] << " ";
             stream << "] ";
         }
-        stream << "] +/- " << tolerance << " but was [ ";
-        for (int i = 0; i < rows; ++i)
+
+		stream << "] +/- " << tolerance << " but was [ ";
+
+		for (int actualRow = 0; actualRow < rows; ++actualRow)
         {
             stream << "[ ";
-            for (int j = 0; j < columns; ++j)
-                stream << actual[i][j] << " ";
+            for (int actualColumn = 0; actualColumn < columns; ++actualColumn)
+                stream << actual[actualRow][actualColumn] << " ";
             stream << "] ";
         }
-        stream << "]";
+
+		stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
     }

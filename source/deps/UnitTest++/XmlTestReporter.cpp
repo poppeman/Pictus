@@ -1,4 +1,5 @@
 #include "XmlTestReporter.h"
+#include "Config.h"
 
 #include <iostream>
 #include <sstream>
@@ -10,26 +11,26 @@ using std::ostream;
 
 namespace {
 
-void Replacechar(string& str, char const c, string const& replacement)
+void ReplaceChar(string& str, char c, string const& replacement)
 {
     for (size_t pos = str.find(c); pos != string::npos; pos = str.find(c, pos + 1))
         str.replace(pos, 1, replacement);
 }
 
-string XmlEscape(char const* value)
+string XmlEscape(string const& value)
 {
     string escaped = value;
 
-    Replacechar(escaped, '&', "&amp;");
-    Replacechar(escaped, '<', "&lt;");
-    Replacechar(escaped, '>', "&gt;");
-    Replacechar(escaped, '\'', "&apos;");
-    Replacechar(escaped, '\"', "&quot;");
+    ReplaceChar(escaped, '&', "&amp;");
+    ReplaceChar(escaped, '<', "&lt;");
+    ReplaceChar(escaped, '>', "&gt;");
+    ReplaceChar(escaped, '\'', "&apos;");
+    ReplaceChar(escaped, '\"', "&quot;");
  
     return escaped;
 }
 
-string BuildFailureMessage(string const& file, int const line, string const& message)
+string BuildFailureMessage(string const& file, int line, string const& message)
 {
     ostringstream failureMessage;
     failureMessage << file << "(" << line << ") : " << message;
@@ -45,8 +46,8 @@ XmlTestReporter::XmlTestReporter(ostream& ostream)
 {
 }
 
-void XmlTestReporter::ReportSummary(int const totalTestCount, int const failedTestCount,
-                                    int const failureCount, float const secondsElapsed)
+void XmlTestReporter::ReportSummary(int totalTestCount, int failedTestCount,
+                                    int failureCount, float secondsElapsed)
 {
     AddXmlElement(m_ostream, NULL);
 
@@ -76,8 +77,8 @@ void XmlTestReporter::AddXmlElement(ostream& os, char const* encoding)
     os << "?>";
 }
 
-void XmlTestReporter::BeginResults(std::ostream& os, int const totalTestCount, int const failedTestCount, 
-                                   int const failureCount, float const secondsElapsed)
+void XmlTestReporter::BeginResults(std::ostream& os, int totalTestCount, int failedTestCount, 
+                                   int failureCount, float secondsElapsed)
 {
    os << "<unittest-results"
        << " tests=\"" << totalTestCount << "\"" 
@@ -112,12 +113,15 @@ void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& res
 {
     os << ">"; // close <test> element
 
-    string const escapedMessage = XmlEscape(result.failureMessage);
-    string const message = BuildFailureMessage(result.failureFile, result.failureLine, escapedMessage);
+    for (DeferredTestResult::FailureVec::const_iterator it = result.failures.begin(); 
+         it != result.failures.end(); 
+         ++it)
+    {
+        string const escapedMessage = XmlEscape(it->second);
+        string const message = BuildFailureMessage(result.failureFile, it->first, escapedMessage);
 
-    os << "<failure"
-        << " message=\"" << message << "\""
-        << "/>";
+        os << "<failure" << " message=\"" << message << "\"" << "/>";
+    }
 }
 
 }

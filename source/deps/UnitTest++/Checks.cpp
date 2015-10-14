@@ -5,10 +5,12 @@ namespace UnitTest {
 
 namespace {
 
-void CheckStringsEqual(TestResults& results, char const* const expected, char const* const actual, 
+void CheckStringsEqual(TestResults& results, char const* expected, char const* actual, 
                        TestDetails const& details)
 {
-    if (std::strcmp(expected, actual))
+	using namespace std;
+
+    if (strcmp(expected, actual))
     {
         UnitTest::MemoryOutStream stream;
         stream << "Expected " << expected << " but was " << actual;
@@ -20,25 +22,25 @@ void CheckStringsEqual(TestResults& results, char const* const expected, char co
 }
 
 
-void CheckEqual(TestResults& results, char const* const expected, char const* const actual,
+void CheckEqual(TestResults& results, char const* expected, char const* actual,
                 TestDetails const& details)
 {
     CheckStringsEqual(results, expected, actual, details);
 }
 
-void CheckEqual(TestResults& results, char* const expected, char* const actual,
+void CheckEqual(TestResults& results, char* expected, char* actual,
                 TestDetails const& details)
 {
     CheckStringsEqual(results, expected, actual, details);
 }
 
-void CheckEqual(TestResults& results, char* const expected, char const* const actual,
+void CheckEqual(TestResults& results, char* expected, char const* actual,
                 TestDetails const& details)
 {
     CheckStringsEqual(results, expected, actual, details);
 }
 
-void CheckEqual(TestResults& results, char const* const expected, char* const actual,
+void CheckEqual(TestResults& results, char const* expected, char* actual,
                 TestDetails const& details)
 {
     CheckStringsEqual(results, expected, actual, details);
