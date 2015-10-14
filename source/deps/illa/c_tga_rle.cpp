@@ -1,4 +1,5 @@
 #include "c_tga_rle.h"
+#include <cstring>
 
 namespace Img {
 	struct TgaReadARGB {

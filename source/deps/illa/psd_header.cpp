@@ -1,5 +1,6 @@
 #include "psd_header.h"
 #include "psd_shared.h"
+#include <cstring>
 
 namespace Img {
 	namespace Internal {

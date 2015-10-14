@@ -1,6 +1,7 @@
 #include "tiff_ycbcrconverter.h"
 #include "orz/types.h"
 #include "libtiff/tiffiop.h"
+#include <cstddef>
 
 namespace Img {
 	void TiffYCbCrConverter::PerformCreate() {

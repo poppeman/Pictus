@@ -3,6 +3,8 @@
 #include "psd_shared.h"
 #include "surface_locked_area.h"
 
+#include <cstring>
+
 namespace Img {
 	using namespace Geom;
 	using namespace Internal;

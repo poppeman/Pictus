@@ -1,4 +1,6 @@
 #include "filter_int.h"
+#include <cstddef>
+#include <cstring>
 
 namespace Filter {
 	namespace Scale {

@@ -7,6 +7,8 @@
 #include "bmp_fileheader.h"
 #include "bmp_header.h"
 
+#include <cstddef>
+
 namespace Img {
 	class Surface;
 

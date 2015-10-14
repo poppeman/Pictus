@@ -1,9 +1,10 @@
 #include "filter_int.h"
+#include <cstring>
 #include <vector>
 
 namespace Filter {
 	namespace Transformation {
-		_Check_return_ bool IsInplace( _In_ RotationAngle angle ) {
+		bool IsInplace(RotationAngle angle) {
 			switch (angle) {
 			case RotationAngle::RotateDefault:
 			case RotationAngle::FlipX:

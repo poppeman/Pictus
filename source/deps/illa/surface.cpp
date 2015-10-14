@@ -4,6 +4,7 @@
 #include "config.h"
 #include "orz/exception.h"
 #include "orz/types.h"
+#include <cstring>
 
 namespace Img {
 	using Geom::PointInt;
@@ -324,7 +325,7 @@ namespace Img {
 		return fbl;
 	}
 
-	_Check_return_ Geom::SizeInt CalculateUnzoomedSize(_In_opt_ std::shared_ptr<Surface> surf, _In_ Filter::RotationAngle angle) {
+	Geom::SizeInt CalculateUnzoomedSize(std::shared_ptr<Surface> surf, Filter::RotationAngle angle) {
 		if (surf == nullptr) {
 			return Geom::SizeInt{ 0, 0 };
 		}

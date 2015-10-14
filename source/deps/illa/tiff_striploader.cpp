@@ -2,6 +2,7 @@
 #include "codec.h"
 #include "surface_locked_area.h"
 #include "orz/logger.h"
+#include <cstring>
 
 namespace Img {
 	using namespace Geom;

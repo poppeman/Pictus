@@ -3,6 +3,7 @@
 #include "surface_locked_area.h"
 #include "surfacemgr.h"
 #include "orz/logger.h"
+#include <cstring>
 
 namespace Img {
 	using namespace Geom;
