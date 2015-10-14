@@ -4,7 +4,7 @@
 #include "stream.h"
 
 #include <mutex>
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
 #endif
 
@@ -14,7 +14,7 @@ namespace IO {
 		StreamFile(const std::string& filename);
 		~StreamFile();
 
-#ifdef WIN32
+#ifdef _WIN32
 		std::string Rename(const std::string& newFilename, HWND handle);
 		void Renamed(const std::string& newFilename);
 		bool Delete(bool doRecycle, HWND handle);

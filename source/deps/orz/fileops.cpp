@@ -3,7 +3,7 @@
 
 #include <mutex>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <shellapi.h>
 #endif
 
@@ -12,7 +12,7 @@ namespace IO {
 
 	mutex g_mutexSHFileOperation;
 
-#ifdef WIN32
+#ifdef _WIN32
 	struct HANDLETOMAPPINGS {
 		UINT              uNumberOfMappings;  // Number of mappings in the array.
 		LPSHNAMEMAPPINGW  lpSHNameMapping;    // Pointer to the array of mappings.
@@ -28,7 +28,7 @@ namespace IO {
 		return r.Open();
 	}
 
-#ifdef WIN32
+#ifdef _WIN32
 	bool DoPathExist(const std::string& file) {
 		auto dwAttr = GetFileAttributesW(UTF8ToWString(file).c_str());
 

@@ -9,7 +9,7 @@ namespace IO {
 			return false;
 		}
 
-#ifdef WIN32
+#ifdef _WIN32
 		return _wfopen_s(&m_file, UTF8ToWString(name).c_str(), append ? L"ab" : L"wb") == 0;
 #else
 		m_file = fopen(name.c_str(), append ? "ab" : "wb");

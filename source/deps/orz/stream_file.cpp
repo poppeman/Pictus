@@ -4,7 +4,7 @@
 namespace IO {
 	using std::recursive_mutex;
 
-#ifdef WIN32
+#ifdef _WIN32
 	std::string StreamFile::Rename(const std::string& newFilename, HWND handle) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		bool wasOpen = IsOpen();
@@ -60,7 +60,7 @@ namespace IO {
 	FileInt StreamFile::performPosition() const {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		// TODO: Support the same size of files on all platforms
-#ifdef WIN32
+#ifdef _WIN32
 		return _ftelli64(m_file);
 #else
 		return ftell(m_file);
@@ -79,7 +79,7 @@ namespace IO {
 	bool StreamFile::performOpen() {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_size = 0;
-#ifdef WIN32
+#ifdef _WIN32
 		m_file = _wfsopen(UTF8ToWString(m_name).c_str(), L"rb", _SH_DENYWR);
 #else
 		m_file = fopen(m_name.c_str(), "rb");
@@ -125,7 +125,7 @@ namespace IO {
 		}
 
 		// TODO: See ftell-stuff
-#ifdef WIN32
+#ifdef _WIN32
 		int ret = _fseeki64(m_file, position, flag);
 #else
 		int ret = fseek(m_file, position, flag);
