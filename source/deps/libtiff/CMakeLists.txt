@@ -1,6 +1,49 @@
 cmake_minimum_required (VERSION 2.8)
 
-FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
-FILE(GLOB ALL_CPP_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
+set(tiff_SOURCES
+  tif_aux.c
+  tif_close.c
+  tif_codec.c
+  tif_color.c
+  tif_compress.c
+  tif_dir.c
+  tif_dirinfo.c
+  tif_dirread.c
+  tif_dirwrite.c
+  tif_dumpmode.c
+  tif_error.c
+  tif_extension.c
+  tif_fax3.c
+  tif_fax3sm.c
+  tif_flush.c
+  tif_getimage.c
+  tif_jbig.c
+  tif_jpeg.c
+  tif_jpeg_12.c
+  tif_luv.c
+  tif_lzma.c
+  tif_lzw.c
+  tif_next.c
+  tif_ojpeg.c
+  tif_open.c
+  tif_packbits.c
+  tif_pixarlog.c
+  tif_predict.c
+  tif_print.c
+  tif_read.c
+  tif_strip.c
+  tif_swab.c
+  tif_thunder.c
+  tif_tile.c
+  tif_version.c
+  tif_warning.c
+  tif_write.c
+  tif_zip.c)
 
-add_library(tiff STATIC ${ALL_CPP_SRCS} ${ALL_HEADER_SRCS})
+if(WIN32)
+	list(APPEND tiff_SOURCES tif_win32.c)
+else()
+	list(APPEND tiff_SOURCES tif_unix.c)
+endif()
+
+add_library(tiff STATIC ${tiff_SOURCES})
