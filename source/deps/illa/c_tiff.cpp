@@ -15,6 +15,10 @@ void myTIFFErrorHandler(const char *module, const char *fmt, va_list ap) {
 	//throw InternalTIFFException();
 }
 
+void myTIFFWarningHandler(const char *module, const char *fmt, va_list ap) {
+
+}
+
 tsize_t myTIFFReadProc(thandle_t handle, tdata_t data, tsize_t size) {
 	IO::FileReader* reader = reinterpret_cast<IO::FileReader*>(handle);
 	return static_cast<tsize_t>(reader->Read(data, 1, size));
@@ -66,8 +70,9 @@ namespace Img {
 	bool CodecTIFF::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {
 		try {
 			TIFFSetErrorHandler(myTIFFErrorHandler);
+			TIFFSetWarningHandler(myTIFFWarningHandler);
 
-			m_tiff = TIFFClientOpen("garbage lib", "rm", reinterpret_cast<thandle_t>(file.get()), myTIFFReadProc, myTIFFWriteProc, myTIFFSeekProc, myTIFFCloseProc, myTIFFSizeProc, myTIFFMapFileProc, myTIFFUnmapFileProc);
+			m_tiff = TIFFClientOpen(file->Name().c_str(), "rm", reinterpret_cast<thandle_t>(file.get()), myTIFFReadProc, myTIFFWriteProc, myTIFFSeekProc, myTIFFCloseProc, myTIFFSizeProc, myTIFFMapFileProc, myTIFFUnmapFileProc);
 
 			if (!m_tiff) {
 				return false;
