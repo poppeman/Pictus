@@ -12,6 +12,10 @@ namespace Err {
 	struct InvalidHeader:public CodecError {
 		InvalidHeader(const std::string& msg):CodecError("InvalidHeader: " + msg) {}
 	};
+
+	struct AllocationError :public Exception {
+		AllocationError(const std::string& msg) :Exception("Allocation failed: " + msg) {}
+	};
 }
 
 namespace Img {

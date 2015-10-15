@@ -68,12 +68,19 @@ namespace Img {
 		}
 	}
 
-	AbstractCodec::AllocationStatus AbstractCodec::Allocate(const Geom::SizeInt& dimHint){
-		if (dimHint == Geom::SizeInt(0, 0)) {
-			return PerformAllocate();
-		}
+	AbstractCodec::AllocationStatus AbstractCodec::Allocate(const Geom::SizeInt& dimHint) {
+		try {
+			if (dimHint == Geom::SizeInt(0, 0)) {
+				return PerformAllocate();
+			}
 
-		return PerformAllocate(dimHint);
+			return PerformAllocate(dimHint);
+		}
+		catch(Err::AllocationError& e) {
+			// We can't handle infinitely huge images, which is not really a fatal error.
+			Log << "(AbstractCodec::Allocate) " << e.what() << "\n";
+			return AllocationStatus::Failed;
+		}
 	}
 
 	size_t AbstractCodec::EstimateMemory() {

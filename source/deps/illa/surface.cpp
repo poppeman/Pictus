@@ -22,14 +22,14 @@ namespace Img {
 		}
 
 		if (size.Width > MaxSurfaceDim || size.Height > MaxSurfaceDim) {
-			DO_THROW(Err::InvalidParam, "Too large surface requested, maximum axis size is " + ToAString(MaxSurfaceDim));
+			DO_THROW(Err::AllocationError, "Too large surface requested, maximum axis size is " + ToAString(MaxSurfaceDim));
 		}
 		if (format >= Format::Num) {
 			DO_THROW(Err::InvalidParam, "Invalid format");
 		}
 		auto bytesToConsume = static_cast<size_t>(size.Width) * static_cast<size_t>(size.Height) * static_cast<size_t>(EstimatePixelSize(format));
 		if (bytesToConsume > MaxSurfaceBytes) {
-			DO_THROW(Err::InvalidParam, "Surface would consume " + ToAString(bytesToConsume) + " which would be greater than the safety limit of " + ToAString(MaxSurfaceBytes) + " bytes");
+			DO_THROW(Err::AllocationError, "Surface would consume " + ToAString(bytesToConsume) + " which would be greater than the safety limit of " + ToAString(MaxSurfaceBytes) + " bytes");
 		}
 
 		m_swFormat	= format;
