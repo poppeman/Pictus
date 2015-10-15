@@ -2,6 +2,7 @@
 #include "exception.h"
 #include "fileops.h"
 #include "types.h"
+#include <iterator>
 
 namespace IO {
 	Folder::Folder() {}
@@ -26,16 +27,16 @@ namespace IO {
 		auto iter = CreateIterator();
 		FileList files;
 
-		for (auto x : iter) {
+		for (auto x = iter; x != boost::filesystem::directory_iterator(); x++) {
 			FolderEntry toRet;
-			if (boost::filesystem::is_directory(x)) {
+			if (boost::filesystem::is_directory(*x)) {
 				toRet.Type = TypeFolder;
 			}
-			if (boost::filesystem::is_regular_file(x)) {
+			if (boost::filesystem::is_regular_file(*x)) {
 				toRet.Type = TypeFile;
 			}
 
-			toRet.Name = x.path().filename().string();
+			toRet.Name = x->path().filename().string();
 			files.push_back(toRet);
 		}
 		return files;
