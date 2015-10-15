@@ -1,9 +1,9 @@
 #ifndef ORZ_FOLDER_H
 #define ORZ_FOLDER_H
 
-#include "folder_imp.h"
-#include "folder_iterator.h"
+#include "folder_types.h"
 #include <mutex>
+#include <boost/filesystem.hpp>
 
 namespace IO {
 	class Folder:boost::noncopyable {
@@ -11,7 +11,7 @@ namespace IO {
 		bool Path(const std::string& filename);
 		std::string Path() const;
 
-		FolderFileIterator::Ptr CreateIterator() const;
+		boost::filesystem::directory_iterator CreateIterator() const;
 		IO::FileList CurrentContents() const;
 
 		Folder();

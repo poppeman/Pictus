@@ -25,15 +25,24 @@ namespace IO {
 	FileList Folder::CurrentContents() const {
 		auto iter = CreateIterator();
 		FileList files;
-		files.push_back(iter->CurrentEntry());
-		while (iter->Step()) {
-			files.push_back(iter->CurrentEntry());
+
+		for (auto x : iter) {
+			FolderEntry toRet;
+			if (boost::filesystem::is_directory(x)) {
+				toRet.Type = TypeFolder;
+			}
+			if (boost::filesystem::is_regular_file(x)) {
+				toRet.Type = TypeFile;
+			}
+
+			toRet.Name = x.path().filename().string();
+			files.push_back(toRet);
 		}
 		return files;
 	}
 
-	FolderFileIterator::Ptr Folder::CreateIterator() const {
+	boost::filesystem::directory_iterator  Folder::CreateIterator() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
-		return std::make_shared<FolderFileIterator>(m_path);
+		return boost::filesystem::directory_iterator(m_path);
 	}
 }

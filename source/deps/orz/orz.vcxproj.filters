@@ -72,17 +72,11 @@
     <ClInclude Include="folder.h">
       <Filter>IO\Folder</Filter>
     </ClInclude>
-    <ClInclude Include="folder_iterator.h">
-      <Filter>IO\Folder</Filter>
-    </ClInclude>
     <ClInclude Include="folder_monitor.h">
       <Filter>IO\Folder</Filter>
     </ClInclude>
     <ClInclude Include="folder_types.h">
       <Filter>IO\Folder</Filter>
-    </ClInclude>
-    <ClInclude Include="folder_imp.h">
-      <Filter>IO\Folder\Strategy</Filter>
     </ClInclude>
     <ClInclude Include="folder_monitor_imp.h">
       <Filter>IO\Folder\Strategy</Filter>
@@ -158,17 +152,11 @@
     <ClCompile Include="folder.cpp">
       <Filter>IO\Folder</Filter>
     </ClCompile>
-    <ClCompile Include="folder_iterator.cpp">
-      <Filter>IO\Folder</Filter>
-    </ClCompile>
     <ClCompile Include="folder_monitor.cpp">
       <Filter>IO\Folder</Filter>
     </ClCompile>
     <ClCompile Include="folder_types.cpp">
       <Filter>IO\Folder</Filter>
-    </ClCompile>
-    <ClCompile Include="folder_imp.cpp">
-      <Filter>IO\Folder\Strategy</Filter>
     </ClCompile>
     <ClCompile Include="folder_monitor_imp.cpp">
       <Filter>IO\Folder\Strategy</Filter>

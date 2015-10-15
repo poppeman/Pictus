@@ -150,10 +150,8 @@
     <ClInclude Include="stream_file.h" />
     <ClInclude Include="stream_mem.h" />
     <ClInclude Include="folder.h" />
-    <ClInclude Include="folder_iterator.h" />
     <ClInclude Include="folder_monitor.h" />
     <ClInclude Include="folder_types.h" />
-    <ClInclude Include="folder_imp.h" />
     <ClInclude Include="folder_monitor_imp.h" />
     <ClInclude Include="exception.h" />
     <ClInclude Include="types.h" />
@@ -179,10 +177,8 @@
     <ClCompile Include="stream_file.cpp" />
     <ClCompile Include="stream_mem.cpp" />
     <ClCompile Include="folder.cpp" />
-    <ClCompile Include="folder_iterator.cpp" />
     <ClCompile Include="folder_monitor.cpp" />
     <ClCompile Include="folder_types.cpp" />
-    <ClCompile Include="folder_imp.cpp" />
     <ClCompile Include="folder_monitor_imp.cpp" />
     <ClCompile Include="types.cpp" />
     <ClCompile Include="threadpool.cpp" />
