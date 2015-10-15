@@ -20,7 +20,6 @@ namespace IO {
 	bool SupportRecycle();
 
 	std::string GetPath(const std::string& s);
-	std::string GetParentPath(const std::string& s);
 	std::string GetFile(const std::string& s);
 	std::string GetTitle(const std::string& s);
 	std::string GetExtension(const std::string& s);
