@@ -178,7 +178,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>C4503</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4503;4512</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
