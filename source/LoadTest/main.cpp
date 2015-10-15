@@ -14,12 +14,43 @@ enum
 
 Img::CodecFactoryStore g_cfs;
 
+Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader) {
+	auto c = g_cfs.CreateCodec(IO::GetExtension(reader->Name()));
+	if (c != nullptr && c->LoadHeader(reader)) {
+		return c;
+	}
+
+	const Img::CodecFactoryStore::InfoVector& iv = g_cfs.CodecInfo();
+	for (size_t i = 0; i < iv.size(); ++i) {
+		c = g_cfs.CreateCodec(i);
+		if (c == nullptr) {
+			continue;
+		}
+
+		reader->Seek(0, IO::SeekMethod::Begin);
+		if (!c->CanDetectFormat() || !c->LoadHeader(reader)) {
+			delete c;
+		}
+		else {
+			return c;
+		}
+	}
+	return 0;
+}
+
 int performLoad(const std::string& filename)
 {
-	Img::AbstractCodec::Ptr pCodec(g_cfs.CreateCodec(IO::GetExtension(filename)));
 	auto f = std::make_shared<IO::FileReader>(filename);
-	//f->Filename(filename);
-	f->Open();
+	if(!f->Open()) {
+		std::cout << "Failed opening file" << std::endl;
+		return EXIT_FAILURE;
+	}
+	auto pCodec = DetectAndLoadHeader(f);
+	if(pCodec == nullptr) {
+		std::cout << "No codec!" << std::endl;
+		return EXIT_FAILURE;
+	}
+
 	if(pCodec->LoadHeader(f) == false) return EXIT_FAILURE;
 	if(pCodec->Allocate() != Img::AbstractCodec::AllocationStatus::Ok) return EXIT_FAILURE;
 	pCodec->LoadImageData();
@@ -62,6 +93,7 @@ int main(int argc, char* argv[])
 		std::cout << "Missing parameter" << std::endl;
 		return EXIT_FAILURE;
 	}
-	return realMain(argv[1]);
+	realMain(argv[1]);
+	return EXIT_SUCCESS;
 }
 #endif
