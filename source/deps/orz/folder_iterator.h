@@ -2,6 +2,7 @@
 #define ORZ_FOLDER_ITERATOR_H
 
 #include "folder_types.h"
+#include <boost/filesystem.hpp>
 
 namespace IO {
 	class FolderFileIterator {
@@ -11,11 +12,10 @@ namespace IO {
 
 		typedef std::shared_ptr<FolderFileIterator> Ptr;
 
-		virtual ~FolderFileIterator();
+		FolderFileIterator(std::string path);
 	
 	private:
-		virtual bool OnStep()=0;
-		virtual FolderEntry OnCurrentEntry()=0;
+		boost::filesystem::directory_iterator m_it;
 	};
 }
 

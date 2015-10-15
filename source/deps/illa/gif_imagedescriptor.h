@@ -44,7 +44,7 @@ namespace Img {
 		Img::Palette LCTEntries;
 
 		// Surface for this frame.
-		Surface::Ptr Surface;
+		Img::Surface::Ptr Surface;
 
 		// Location of image data.
 		FileInt FileOffset;

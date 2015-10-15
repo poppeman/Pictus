@@ -7,7 +7,7 @@ else()
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y")
 endif()
 
-find_package(Boost 1.50.0 COMPONENTS system thread locale REQUIRED)
+find_package(Boost 1.50.0 COMPONENTS system thread locale filesystem REQUIRED)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 link_libraries(${Boost_LIBRARIES})
 

@@ -2,6 +2,10 @@
 #include "main.h"
 #include <UnitTest++/UnitTest++.h>
 
+void SortFiles(IO::FileList& l) {
+	std::sort(l.begin(), l.end(), [](const IO::FolderEntry& lhs, const IO::FolderEntry& rhs) { return lhs.Name < rhs.Name; });
+}
+
 SUITE(FolderTest)
 {
 	TEST(UnusedFolder)
@@ -10,21 +14,15 @@ SUITE(FolderTest)
 		CHECK(true);
 	}
 
-	struct NonFiles {
-		bool operator()(const IO::FolderEntry& e) {
-			if(e.Type != IO::TypeFile)
-				return true;
-			return false;
-		}
-	};
-
 	TEST(MonitorScanNoEndSlash)
 	{
 		IO::Folder folder;
-		folder.Path(g_datapath + "\\Folder\\a");
+		folder.Path(g_datapath + "/Folder/a");
 		IO::FileList l = folder.CurrentContents();
-		l.remove_if(NonFiles());
+
 		CHECK_EQUAL(2, l.size());
+		SortFiles(l);
+
 		if(l.size() == 2) {
 			CHECK(l.front().Name == "file1.txt");
 			CHECK(l.back().Name == "file2.txt");
@@ -34,10 +32,11 @@ SUITE(FolderTest)
 	TEST(MonitorScanEndSlash)
 	{
 		IO::Folder folder;
-		folder.Path(g_datapath + "\\Folder\\a\\");
+		folder.Path(g_datapath + "/Folder/a/");
 		IO::FileList l = folder.CurrentContents();
-		l.remove_if(NonFiles());
 		CHECK_EQUAL(2, l.size());
+		SortFiles(l);
+
 		if(l.size() == 2) {
 			CHECK(l.front().Name == "file1.txt");
 			CHECK(l.back().Name =="file2.txt");

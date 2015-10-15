@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #include "orz/folder_monitor.h"
 #include "orz/fileops.h"
 #include "main.h"
@@ -46,3 +47,5 @@ SUITE(TestFolderMonitor) {
 		CHECK_EQUAL(FileRemoved, events[1].Type);
 	}*/
 } 
+
+#endif

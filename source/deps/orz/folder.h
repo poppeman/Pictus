@@ -17,13 +17,9 @@ namespace IO {
 		Folder();
 
 	private:
-		FolderImplementation* doCreateImp(const std::string& path);
-
-	private:
 		mutable std::mutex m_mxCall;
 		FileList m_content;
-
-		std::auto_ptr<FolderImplementation>	m_imp;
+		std::string m_path;
 	};
 }
 

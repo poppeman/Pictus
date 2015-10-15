@@ -96,7 +96,7 @@ namespace Metadata {
 
 		struct ExifDocument {
 			std::map<TagName, uint16_t> U16;
-			std::map<TagName, std::vector<Rational>> Rational;
+			std::map<TagName, std::vector<Metadata::Rational>> Rational;
 			std::map<TagName, std::string> Ascii;
 		};
 	}

@@ -1,6 +1,7 @@
 #include "fileops.h"
 #include "file_reader.h"
 
+#include <boost/filesystem.hpp>
 #include <mutex>
 
 #ifdef _WIN32
@@ -28,17 +29,11 @@ namespace IO {
 		return r.Open();
 	}
 
-#ifdef _WIN32
 	bool DoPathExist(const std::string& file) {
-		auto dwAttr = GetFileAttributesW(UTF8ToWString(file).c_str());
-
-		if (dwAttr == INVALID_FILE_ATTRIBUTES) {
-			return false;
-		}
-
-		return !!(dwAttr & FILE_ATTRIBUTE_DIRECTORY);
+		return boost::filesystem::is_directory(file);
 	}
 
+#ifdef _WIN32
 	static std::vector<wchar_t> ToTerminatedWcharArray(const std::string& utf8) {
 		auto in = UTF8ToWString(utf8);
 		size_t len = in.length() + 2; // Two extra due to _two_ terminating chars.

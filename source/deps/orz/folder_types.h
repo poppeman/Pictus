@@ -37,7 +37,7 @@ namespace IO {
 	bool operator==(const FileEvent& lhs, const FileEvent& rhs);
 	bool operator ==(const FolderEntry& a, const FolderEntry& b);
 
-	typedef std::list<FolderEntry>	FileList;
+	typedef std::vector<FolderEntry>	FileList;
 
 	typedef boost::signals2::signal<void(IO::FileEvent)> ChangeEventCallback;
 }

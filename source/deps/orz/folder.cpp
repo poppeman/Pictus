@@ -12,22 +12,20 @@ namespace IO {
 		if (!IO::DoPathExist(path)) {
 			return false;
 		}
+		m_path = path;
 
-		m_imp.reset(doCreateImp(path));
 		return true;
 	}
 
 	std::string Folder::Path() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
-		if (m_imp.get() == 0) {
-			return "";
-		}
-		return m_imp->Path();
+		return m_path;
 	}
 
 	FileList Folder::CurrentContents() const {
-		FolderFileIterator::Ptr iter(CreateIterator());
+		auto iter = CreateIterator();
 		FileList files;
+		files.push_back(iter->CurrentEntry());
 		while (iter->Step()) {
 			files.push_back(iter->CurrentEntry());
 		}
@@ -36,9 +34,6 @@ namespace IO {
 
 	FolderFileIterator::Ptr Folder::CreateIterator() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
-		if (m_imp.get() == 0) {
-			DO_THROW(Err::InvalidCall, "Implementation not set.");
-		}
-		return m_imp->CreateIterator();
+		return std::make_shared<FolderFileIterator>(m_path);
 	}
 }
