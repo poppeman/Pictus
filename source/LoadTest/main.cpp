@@ -6,6 +6,9 @@
 #include "orz/logger.h"
 #include "orz/stopwatch.h"
 
+#include <boost/filesystem.hpp>
+#include <boost/locale.hpp>
+
 enum
 {
 	Warmups = 1,
@@ -58,6 +61,9 @@ int performLoad(const std::string& filename)
 }
 
 int realMain(std::string filename) {
+	std::locale::global(boost::locale::generator().generate(""));
+	boost::filesystem::path::imbue(std::locale());
+
 	g_cfs.AddBuiltinCodecs();
 
 	Img::SurfaceFactory(new Img::FactorySurfaceSoftware);
