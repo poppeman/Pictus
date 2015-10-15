@@ -26,14 +26,10 @@ int performLoad(const std::string& filename)
 	return EXIT_SUCCESS;
 }
 
-int wmain(int argc, wchar_t* argv[])
-{
+int realMain(std::string filename) {
 	g_cfs.AddBuiltinCodecs();
-	if (argc < 2) return EXIT_FAILURE;
 
 	Img::SurfaceFactory(new Img::FactorySurfaceSoftware);
-
-	std::string filename(WStringToUTF8(argv[1]));
 
 	Util::StopWatch sw;
 
@@ -47,5 +43,25 @@ int wmain(int argc, wchar_t* argv[])
 
 	Log << "Time: " << (time / NumRuns) << "\n";
 
-	return EXIT_SUCCESS;
+	return EXIT_SUCCESS;	
 }
+
+#ifdef _WIN32
+int wmain(int argc, wchar_t* argv[])
+{
+	if (argc < 2) {
+		std::cout << "Missing parameter" << std::endl;
+		return EXIT_FAILURE;
+	}
+	return realMain(WStringToUTF8(argv[1]));
+}
+#else
+int main(int argc, char* argv[])
+{
+	if (argc < 2) {
+		std::cout << "Missing parameter" << std::endl;
+		return EXIT_FAILURE;
+	}
+	return realMain(argv[1]);
+}
+#endif

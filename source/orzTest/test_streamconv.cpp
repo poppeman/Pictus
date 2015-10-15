@@ -1,5 +1,6 @@
 #include "orz/streamconv.h"
 #include "main.h"
+#include "orz/file_reader.h"
 #include "orz/types.h"
 #include <UnitTest++/UnitTest++.h>
 
@@ -27,14 +28,13 @@ SUITE(StreamConverter)
 
 		Util::StreamConverter sc;
 		// Store an entire file in the stream converter
-		FILE* f = 0;
-		CHECK_EQUAL(0, _wfopen_s(&f, UTF8ToWString(g_datapath+"/data.raw").c_str(), L"rb"));
-		CHECK(f != 0);
+		auto f = std::make_shared<IO::FileReader>(g_datapath+"/data.raw");
+		CHECK(f->Open());
 		size_t read;
 		do
 		{
 			uint8_t buf[ReadBuffer];
-			read=fread(buf, 1, ReadBuffer, f);
+			read=f->Read(buf, 1, ReadBuffer);
 			sc.AddBytes(buf, read);
 		}
 		while(read!=0);
@@ -42,12 +42,12 @@ SUITE(StreamConverter)
 		// Increase size to 16 bits and verify with the file contents
 		sc.ChangeWordSize(16);
 
-		CHECK(fseek(f, 0, SEEK_SET) == 0);
+		f->Seek(0, IO::SeekMethod::Begin);
 
 		do
 		{
 			uint16_t buf[ReadBuffer];
-			read = fread(buf, 2, ReadBuffer, f);
+			read = f->Read(buf, 2, ReadBuffer);
 
 			for(size_t i = 0; i < read; i++)
 			{
@@ -55,7 +55,5 @@ SUITE(StreamConverter)
 			}
 		}
 		while(read != 0);
-
-		if(f) fclose(f);
 	}
 }

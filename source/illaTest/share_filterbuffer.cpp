@@ -1,5 +1,6 @@
-#include <UnitTest++/UnitTest++.h>
 #include "share_filterbuffer.h"
+#include <UnitTest++/UnitTest++.h>
+#include <cstring>
 
 namespace Tst
 {

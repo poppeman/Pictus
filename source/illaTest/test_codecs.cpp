@@ -7,6 +7,8 @@
 #include "illa/codec.h"
 #include <boost/scoped_array.hpp>
 
+#define DECORATIVE_FAIL(value) UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), value); \
+
 SUITE(CodecTests) {
 	Img::CodecFactoryStore g_cfs;
 
@@ -140,13 +142,13 @@ SUITE(CodecTests) {
 	TEST(TestLoadCompare) {
 		g_cfs.AddBuiltinCodecs();
 
-		auto files = ParseCsv(g_datapath + "\\loadcompare.txt");
+		auto files = ParseCsv(g_datapath + "/loadcompare.txt");
 		for(auto i = files.begin(); i != files.end(); ++i) {
 			auto a = *i;
 			try {
 				if(a[0] == L'!') {
 					a = a.substr(1, std::string::npos);
-					if(ShouldFail(g_datapath + "\\Codecs\\" + a) == false) {
+					if(ShouldFail(g_datapath + "/Codecs/" + a) == false) {
 						std::string wmsg = "Didn't report failure as expected: " + a;
 						std::string msg(wmsg.begin(), wmsg.end());
 						DECORATIVE_FAIL(msg.c_str());
@@ -155,7 +157,7 @@ SUITE(CodecTests) {
 				}
 				else if(a[0] == L'?') {
 					a = a.substr(1, std::string::npos);
-					if(ShouldFail(g_datapath + "\\Codecs\\" + a)) {
+					if(ShouldFail(g_datapath + "/Codecs/" + a)) {
 						std::string wmsg = "Didn't succeed as expected: " + a;
 						std::string msg(wmsg.begin(), wmsg.end());
 						DECORATIVE_FAIL(msg.c_str());
@@ -167,7 +169,7 @@ SUITE(CodecTests) {
 				if(i == files.end())
 					CHECK(false);
 				auto b = *i;
-				switch(CompareImages(g_datapath + "\\Codecs\\" + a, g_datapath + "\\Codecs\\" + b)) {
+				switch(CompareImages(g_datapath + "/Codecs/" + a, g_datapath + "/Codecs/" + b)) {
 					case ErrNoError:
 						break;
 					case ErrFileNotFound:
