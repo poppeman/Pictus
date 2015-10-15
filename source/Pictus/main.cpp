@@ -19,6 +19,7 @@ int start_app(const std::string& params) {
 		return EXIT_SUCCESS;
 	}
 
+	// Make sure that boost (and boost.filesystem) uses UTF-8 on Windows whenever possible.
 	std::locale::global(boost::locale::generator().generate(""));
 	boost::filesystem::path::imbue(std::locale());
 

@@ -15,15 +15,11 @@ int RoundCast(float rhs) {
 
 // TODO: Don't regenerate locale on every call.
 std::string ToUpper(const std::string& s) {
-	boost::locale::generator gen;
-	auto loc = gen("en_US.UTF-8");
-	return boost::locale::to_upper(s, loc);
+	return boost::locale::to_upper(s);
 }
 
 std::string ToLower(const std::string& s) {
-	boost::locale::generator gen;
-	auto loc = gen("en_US.UTF-8");
-	return boost::locale::to_lower(s, loc);
+	return boost::locale::to_lower(s);
 }
 
 std::wstring UTF8ToWString(const std::string& utf8) {
