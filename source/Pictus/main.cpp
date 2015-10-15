@@ -8,6 +8,8 @@
 #include "control.h"
 #include "w32_assure_folder.h"
 #include "orz/logger.h"
+#include <boost/locale.hpp>
+#include <boost/filesystem.hpp>
 
 int start_app(const std::string& params) {
 	if (params == "--cleanup") {
@@ -16,6 +18,9 @@ int start_app(const std::string& params) {
 		// This applies when 1.1.4.0 or older was installed.
 		return EXIT_SUCCESS;
 	}
+
+	std::locale::global(boost::locale::generator().generate(""));
+	boost::filesystem::path::imbue(std::locale());
 
 	Img::CodecFactoryStore cfs;
 	cfs.AddBuiltinCodecs();
