@@ -165,13 +165,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="w32_main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\deps\illa\illa.vcxproj">
       <Project>{f4fb9d4b-8041-4c4e-8ea3-7ea57b7cb1ba}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

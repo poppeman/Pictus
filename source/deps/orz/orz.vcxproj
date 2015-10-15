@@ -160,8 +160,6 @@
     <ClInclude Include="sysinfo.h" />
     <ClInclude Include="threadpool.h" />
     <ClInclude Include="Win32\stream_windows.h" />
-    <ClInclude Include="Win32\w32_folder.h" />
-    <ClInclude Include="Win32\w32_folder_iterator.h" />
     <ClInclude Include="Win32\w32_folder_monitor_rdcw.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,8 +188,6 @@
     <ClCompile Include="threadpool.cpp" />
     <ClCompile Include="Win32\stream_windows.cpp" />
     <ClCompile Include="Win32\sysinfo_win.cpp" />
-    <ClCompile Include="Win32\w32_folder.cpp" />
-    <ClCompile Include="Win32\w32_folder_iterator.cpp" />
     <ClCompile Include="Win32\w32_folder_monitor_rdcw.cpp" />
   </ItemGroup>
   <ItemGroup>

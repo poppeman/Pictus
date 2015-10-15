@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClCompile Include="AssertException.cpp" />
     <ClCompile Include="Checks.cpp" />
+    <ClCompile Include="CurrentTest.cpp" />
     <ClCompile Include="DeferredTestReporter.cpp" />
     <ClCompile Include="DeferredTestResult.cpp" />
     <ClCompile Include="MemoryOutStream.cpp" />
@@ -144,8 +145,10 @@
     <ClInclude Include="CheckMacros.h" />
     <ClInclude Include="Checks.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="CurrentTest.h" />
     <ClInclude Include="DeferredTestReporter.h" />
     <ClInclude Include="DeferredTestResult.h" />
+    <ClInclude Include="ExecuteTest.h" />
     <ClInclude Include="MemoryOutStream.h" />
     <ClInclude Include="ReportAssert.h" />
     <ClInclude Include="Test.h" />

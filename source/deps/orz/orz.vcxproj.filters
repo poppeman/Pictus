@@ -117,12 +117,6 @@
     <ClInclude Include="stopwatch.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Win32\w32_folder.h">
-      <Filter>IO\Folder\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="Win32\w32_folder_iterator.h">
-      <Filter>IO\Folder\Win32</Filter>
-    </ClInclude>
     <ClInclude Include="Win32\w32_folder_monitor_rdcw.h">
       <Filter>IO\Folder\Win32</Filter>
     </ClInclude>
@@ -199,12 +193,6 @@
     </ClCompile>
     <ClCompile Include="stopwatch.cpp">
       <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Win32\w32_folder.cpp">
-      <Filter>IO\Folder\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="Win32\w32_folder_iterator.cpp">
-      <Filter>IO\Folder\Win32</Filter>
     </ClCompile>
     <ClCompile Include="Win32\w32_folder_monitor_rdcw.cpp">
       <Filter>IO\Folder\Win32</Filter>
