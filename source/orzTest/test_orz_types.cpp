@@ -47,18 +47,3 @@ SUITE(PathString)
 		CHECK_EQUAL("", IO::GetExtension(u8"c:\\temp/日本語のインターフェース.tga\\nof"));
 	}
 }
-
-SUITE(StringOps)
-{
-	TEST(to_upper)
-	{
-		std::string s1("MiXEd caSe");
-		CHECK_EQUAL("MIXED CASE", ToUpper(s1));
-	}
-
-	TEST(to_lower)
-	{
-		std::string s1("MiXEd caSe");
-		CHECK_EQUAL("mixed case", ToLower(s1));
-	}
-}

@@ -3,6 +3,7 @@
 #include "orz/logger.h"
 #include "orz/stopwatch.h"
 #include "orz/types.h"
+#include <boost/locale.hpp>
 #include <boost/random.hpp>
 
 using Filter::FilterBuffer;
@@ -141,8 +142,8 @@ int wmain(int argc, wchar_t* argv[])
 {
 	if (argc < 3) return EXIT_FAILURE;
 
-	auto testToRun(ToLower(WStringToUTF8(argv[1])));
-	auto format(ToLower(WStringToUTF8(argv[2])));
+	auto testToRun(boost::locale::to_lower(WStringToUTF8(argv[1])));
+	auto format(boost::locale::to_lower(WStringToUTF8(argv[2])));
 
 	Img::Format fmt = Img::Format::Undefined;
 	if (format == "xrgb8888")		fmt = Img::Format::XRGB8888;

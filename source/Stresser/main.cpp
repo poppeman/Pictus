@@ -16,6 +16,8 @@
 #include "Logger.h"
 #include "ThreadRunner.h"
 
+#include <boost/locale.hpp>
+
 ThreadRunner::Ptr g_runner;
 bool g_run = true;
 
@@ -43,7 +45,7 @@ int wmain(int argc, wchar_t* argv[])
 
 	g_runner.reset(new ThreadRunner);
 
-	auto test = ToUpper(WStringToUTF8(argv[1]));
+	auto test = boost::locale::to_upper(WStringToUTF8(argv[1]));
 
 	wchar_t wfullPath[MAX_PATH];
 

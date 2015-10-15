@@ -13,15 +13,6 @@ int RoundCast(float rhs) {
 	return static_cast<int>(rhs + 0.5f);
 }
 
-// TODO: Don't regenerate locale on every call.
-std::string ToUpper(const std::string& s) {
-	return boost::locale::to_upper(s);
-}
-
-std::string ToLower(const std::string& s) {
-	return boost::locale::to_lower(s);
-}
-
 std::wstring UTF8ToWString(const std::string& utf8) {
 	return boost::locale::conv::utf_to_utf<wchar_t>(utf8);
 }

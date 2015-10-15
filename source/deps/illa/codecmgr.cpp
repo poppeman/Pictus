@@ -17,13 +17,15 @@
 #include "f_psd.h"
 #include "f_xyz.h"
 
+#include <boost/locale.hpp>
+
 namespace Img {
 	bool CodecFactoryStore::DoCodecExist(const char* ext) {
-		return (m_ext.find(ToUpper(ext)) != m_ext.end());
+		return (m_ext.find(boost::locale::to_upper(ext)) != m_ext.end());
 	}
 
 	AbstractCodec* CodecFactoryStore::CreateCodec(const std::string& ext) {
-		auto i = m_ext.find(ToUpper(ext));
+		auto i = m_ext.find(boost::locale::to_upper(ext));
 		if (i != m_ext.end()) {
 			return i->second->CreateCodec();
 		}
