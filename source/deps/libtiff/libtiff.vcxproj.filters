@@ -131,9 +131,6 @@
     <ClCompile Include="tif_stream.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tif_unix.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="t4.h">
