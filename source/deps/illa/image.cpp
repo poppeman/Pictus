@@ -15,7 +15,7 @@ namespace Img {
 		return m_isHeaderDataValid;
 	}
 
-	void Image::SetHeaderData(const Geom::SizeInt& size, ImageComposer::Ptr composer) {
+	void Image::SetHeaderData(const Geom::SizeInt& size, ImageComposer::Ptr composer, std::shared_ptr<Metadata::Document> data) {
 		std::lock_guard<std::mutex> l(m_mxChangeState);
 		if (composer == nullptr) {
 			DO_THROW(Err::InvalidParam, "Composer was null.");
@@ -24,10 +24,6 @@ namespace Img {
 		m_composer = composer;
 		m_size = size;
 		m_isHeaderDataValid = true;
-	}
-
-	void Image::SetMetadata(std::shared_ptr<Metadata::Document> data) {
-		std::lock_guard<std::mutex> l(m_mxChangeState);
 		m_metadata = data;
 	}
 

@@ -16,8 +16,7 @@ namespace Img {
 		bool IsFinished() const; // Finished = nothing more to do, is true also for corrupt images.
 		bool IsHeaderInformationValid() const;
 
-		void SetHeaderData(const Geom::SizeInt& size, ImageComposer::Ptr composer);
-		void SetMetadata(std::shared_ptr<Metadata::Document> data);
+		void SetHeaderData(const Geom::SizeInt& size, ImageComposer::Ptr composer, std::shared_ptr<Metadata::Document> metadata);
 		void FinishImage(int loadTime);
 
 		void Deallocate();
@@ -25,7 +24,6 @@ namespace Img {
 
 		// Valid when header has been successfully loaded at some point
 		Geom::SizeInt GetSize() const;
-		// Valid after the header and metadata has been successfully loaded at some point
 		Geom::SizeInt GetTransformedSize() const;
 
 		std::shared_ptr<Metadata::Document> GetMetadata() const;

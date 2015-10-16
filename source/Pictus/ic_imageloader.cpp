@@ -45,29 +45,12 @@ namespace Img {
 			if(codec == 0)
 				return FailState();
 
-			image->SetHeaderData(codec->GetSize(), codec->RequestImageComposer());
+			image->SetHeaderData(codec->GetSize(), codec->RequestImageComposer(), codec->LoadMetadata());
 			m_state = ILLoadedHeader;
 			m_sw.Stop();
 		}
 		catch(Err::Exception&) {
 			FailState();
-		}
-	}
-
-	void ImageLoader::LoadMetadata() {
-		// Metadata is a nice-to-have, so don't set failstate if something goes wrong.
-		try {
-			if (!m_reader->IsOpen()) {
-				return;
-			}
-			if (codec == nullptr) {
-				return;
-			}
-
-			image->SetMetadata(codec->LoadMetadata());
-		}
-		catch (Err::Exception& e) {
-			Log << "(ImageLoader::LoadMetadata) " << e.what() << "\n";
 		}
 	}
 
@@ -237,7 +220,6 @@ fullalloc:
 				LoadHeader();
 				return LoadEventHeaderLoaded;
 			case LoadStateHeader:
-				LoadMetadata();
 				Allocate();
 				return LoadEventAllocated;
 			case LoadStateLoading:
