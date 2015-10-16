@@ -22,7 +22,7 @@ namespace Img {
 			uint16_t ColorDepth;
 			bool FlipVertical;
 			uint32_t Compression;
-			int NumColors;
+			uint32_t NumColors;
 
 			uint32_t RedMask;
 			uint32_t GreenMask;

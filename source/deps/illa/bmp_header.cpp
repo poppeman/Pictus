@@ -87,7 +87,7 @@ namespace Img {
 				}
 
 				// Skip horizontal/vertical resolution
-				file->Seek(sizeof(uint32_t) + sizeof(long) * 2, IO::SeekMethod::Current);
+				file->Seek(sizeof(uint32_t) + sizeof(uint32_t) * 2, IO::SeekMethod::Current);
 
 				// Read palette size.
 				file->ReadFull(&NumColors, sizeof(NumColors));
