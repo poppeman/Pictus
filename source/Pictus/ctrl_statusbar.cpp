@@ -54,6 +54,6 @@ namespace Win {
 		
 		int i=0;
 		for(auto* p: m_parts)
-			SendMessage(Handle(), SB_SETTEXT, i++, reinterpret_cast<LPARAM>(p->Text().c_str()));
+			SendMessage(Handle(), SB_SETTEXT, i++, reinterpret_cast<LPARAM>(UTF8ToWString(p->Text()).c_str()));
 	}
 }
