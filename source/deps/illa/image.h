@@ -23,8 +23,11 @@ namespace Img {
 		void Deallocate();
 		Surface::Ptr CurrentSurface();
 
-		// Valid when header has been successfully loaded at some point.
+		// Valid when header has been successfully loaded at some point
 		Geom::SizeInt GetSize() const;
+		// Valid after the header and metadata has been successfully loaded at some point
+		Geom::SizeInt GetTransformedSize() const;
+
 		std::shared_ptr<Metadata::Document> GetMetadata() const;
 
 		// Valid when State >= StateHeader

@@ -75,7 +75,25 @@ namespace Img {
 		return m_size;
 	}
 
+	Geom::SizeInt Image::GetTransformedSize() const
+	{
+		std::lock_guard<std::mutex> l(m_mxChangeState);
+		if (m_metadata != nullptr) {
+			if (m_metadata->Field[Metadata::FieldIdentifier::Orientation] != nullptr) {
+				switch (m_metadata->Field[Metadata::FieldIdentifier::Orientation]->ToInteger()) {
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+					return{ m_size.Height, m_size.Width };
+				}
+			}
+		}
+		return m_size;
+	}
+
 	std::shared_ptr<Metadata::Document> Image::GetMetadata() const {
+		std::lock_guard<std::mutex> l(m_mxChangeState);
 		return m_metadata;
 	}
 
