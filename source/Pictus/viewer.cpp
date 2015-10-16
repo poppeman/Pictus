@@ -484,7 +484,7 @@ namespace App {
 		if(!image || (image->IsHeaderInformationValid() == false && image->IsFinished()))
 			return "";
 
-		SizeInt sz = image->GetSize();
+		SizeInt sz = image->GetTransformedSize();
 		if(IsPositive(sz))
 			return ToAString(sz.Width) + "x" + ToAString(sz.Height);
 

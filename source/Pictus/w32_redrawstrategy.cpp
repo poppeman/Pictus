@@ -6,7 +6,7 @@ namespace Win {
 			DO_THROW(Err::InvalidParam, "newRenderer was null.");
 		}
 
-		newRenderer->Angle = props.Angle;
+		newRenderer->Angle = props.FinalAngle();
 
 		if (newRenderer->BeginRender(props.BackgroundColor) == Renderer::RenderStatus::CurrentViewLost) {
 			Reset();

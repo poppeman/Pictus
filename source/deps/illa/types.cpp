@@ -32,8 +32,8 @@ namespace Img {
 		}
 	}
 
-	bool HasAlpha( Format sf ) {
-		switch(sf) {
+	bool HasAlpha(Format sf) {
+		switch (sf) {
 		case Format::ARGB1555:
 		case Format::ARGB8888:
 			return true;
@@ -43,9 +43,45 @@ namespace Img {
 		return false;
 	}
 
+	Filter::RotationAngle RotateRight(Filter::RotationAngle in)
+	{
+		switch (in)
+		{
+		case Filter::RotationAngle::RotateDefault:
+			return Filter::RotationAngle::Rotate90;
+		case Filter::RotationAngle::FlipX:
+			return in; // TODO: Implement
+		case Filter::RotationAngle::FlipY:
+			return in;
+		case Filter::RotationAngle::Rotate90:
+			return Filter::RotationAngle::Rotate180;
+		case Filter::RotationAngle::Rotate180:
+			return Filter::RotationAngle::Rotate270;
+		case Filter::RotationAngle::Rotate270:
+			return Filter::RotationAngle::RotateDefault;
+		case Filter::RotationAngle::RotateUndefined:
+		default:
+			DO_THROW(Err::InvalidParam, "(Img::RotateRight) Input angle not valid");
+			break;
+		}
+	}
 
+	Filter::RotationAngle Properties::FinalAngle() const
+	{
+		using Filter::RotationAngle;
 
-
+		if (MetaAngle == RotationAngle::RotateDefault) return RequestedAngle;
+		if (MetaAngle == RotationAngle::Rotate90) {
+			return RotateRight(RequestedAngle);
+		}
+		if (MetaAngle == RotationAngle::Rotate180) {
+			return RotateRight(RotateRight(RequestedAngle));
+		}
+		if(MetaAngle == RotationAngle::Rotate270) {
+			return RotateRight(RotateRight(RotateRight(RequestedAngle)));
+		}
+		DO_THROW(Err::InvalidCall, "(Properties::FinalAngle) Unhandled angle state.");
+	}
 
 	Properties::Properties() :
 		Brightness{ 0 },
@@ -55,7 +91,9 @@ namespace Img {
 		RetainAlpha{ false },
 		BackgroundColor{ 0xff, 0xff, 0xff, 0xff },
 		Zoom{ 1.0f },
-		Angle{ Filter::RotationAngle::RotateDefault } {}
+		RequestedAngle{ Filter::RotationAngle::RotateDefault },
+		MetaAngle{ Filter::RotationAngle::RotateDefault }
+	{}
 }
 
 std::string ToAString(const Img::Format& imgFormat) {

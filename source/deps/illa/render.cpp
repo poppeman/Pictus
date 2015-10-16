@@ -41,17 +41,17 @@ namespace Img {
 		using namespace Geom;
 
 		// Apply rotation to coordinates
-		auto rotatedSize = Filter::CalculateUnzoomedSize(source.Dimensions, props.Angle);
+		auto rotatedSize = Filter::CalculateUnzoomedSize(source.Dimensions, props.FinalAngle());
 		rotatedSize = RoundCast(rotatedSize * props.Zoom);
 
-		RectInt dstRect = RotateRect(region, rotatedSize, props.Angle);
+		RectInt dstRect = RotateRect(region, rotatedSize, props.FinalAngle());
 		if ((dstRect.Top() < 0) || (dstRect.Left() < 0)) {
 			DO_THROW(Err::CriticalError, "Rotated region is invalid (top-left off image).");
 		}
 
 		bool isInplace;
 		Geom::SizeInt queriedDestinationSize;
-		Filter::Transformation::QuerySizeRotateFixed(dest, props.Angle, &queriedDestinationSize, &isInplace);
+		Filter::Transformation::QuerySizeRotateFixed(dest, props.FinalAngle(), &queriedDestinationSize, &isInplace);
 
 		std::unique_ptr<uint8_t[]> tempBuf;
 
@@ -80,12 +80,12 @@ namespace Img {
 
 		if (isInplace) {
 			intermediate.Dimensions = dstRect.Dimensions();
-			Filter::Transformation::RotateFixed(intermediate, intermediate, RectInt(PointInt(0, 0), intermediate.Dimensions), PointInt(0, 0), props.Angle);
+			Filter::Transformation::RotateFixed(intermediate, intermediate, RectInt(PointInt(0, 0), intermediate.Dimensions), PointInt(0, 0), props.FinalAngle());
 		}
 		else {
 			//std::swap(source, intermediate);
 			//intermediate.Construct(dstRect.Dimensions(), 4, dest, dest.Stride, 0);
-			Filter::Transformation::RotateFixed(intermediate, dest, RectInt(PointInt(0, 0), intermediate.Dimensions), PointInt(0, 0), props.Angle);
+			Filter::Transformation::RotateFixed(intermediate, dest, RectInt(PointInt(0, 0), intermediate.Dimensions), PointInt(0, 0), props.FinalAngle());
 		}
 	}
 }

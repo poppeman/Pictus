@@ -99,7 +99,8 @@ namespace Win {
 
 	void RedrawStrategyTiled::RenderArea(Renderer::Ptr renderer, Img::Surface::Ptr surface, Geom::PointInt zoomedImagePosition, Geom::RectInt destinationArea, Img::Properties props) {
 		// We intentionally remove any rotation set here. The rotation will instead be handled by the GPU when the tiles are rendered to screen.
-		props.Angle = Filter::RotationAngle::RotateDefault;
+		props.MetaAngle = Filter::RotationAngle::RotateDefault;
+		props.RequestedAngle = Filter::RotationAngle::RotateDefault;
 
 		SizeInt wa;
 		int y = destinationArea.Top();

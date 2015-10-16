@@ -76,11 +76,14 @@ namespace Img {
 		int						Brightness;
 		int						Contrast;
 		int						Gamma;
-		Filter::Mode		ResampleFilter;
+		Filter::Mode			ResampleFilter;
 		bool					RetainAlpha;
 		Img::Color				BackgroundColor;
 		float					Zoom;
-		Filter::RotationAngle	Angle;
+		Filter::RotationAngle	RequestedAngle;
+		Filter::RotationAngle	MetaAngle;
+
+		Filter::RotationAngle FinalAngle() const;
 
 		Properties();
 	};

@@ -96,7 +96,7 @@ namespace App {
 	}
 
 	void ViewPort::Rotate(Filter::RotationAngle r) {
-		m_props.Angle = r;
+		m_props.RequestedAngle = r;
 
 		OnSize(GetSize());
 	}
@@ -145,41 +145,41 @@ namespace App {
 			bool status = m_image->IsFinished();
 
 			m_props.ResampleFilter = ActiveFilterMode();
+			m_props.MetaAngle = Filter::RotationAngle::RotateDefault;
 
-			auto propsCopy = m_props;
 			auto meta = m_image->GetMetadata();
 			if (meta != nullptr) {
-				// TODO: Apply rotation on top of whatever is already set.
 				if (meta->Field[Metadata::FieldIdentifier::Orientation] != nullptr) {
 					switch (meta->Field[Metadata::FieldIdentifier::Orientation]->ToInteger()) {
 					case 1:
+						m_props.MetaAngle = Filter::RotationAngle::RotateDefault;
 						break;
 					case 2:
-						propsCopy.Angle = Filter::RotationAngle::FlipX;
+						m_props.MetaAngle = Filter::RotationAngle::FlipX;
 						break;
 					case 3:
-						propsCopy.Angle = Filter::RotationAngle::Rotate180;
+						m_props.MetaAngle = Filter::RotationAngle::Rotate180;
 						break;
 					case 4:
-						propsCopy.Angle = Filter::RotationAngle::FlipY;
+						m_props.MetaAngle = Filter::RotationAngle::FlipY;
 						break;
 					case 5:
 						//propsCopy.Angle = 90 degrees + flip horizontally
 						break;
 					case 6:
-						propsCopy.Angle = Filter::RotationAngle::Rotate90;
+						m_props.MetaAngle = Filter::RotationAngle::Rotate90;
 						break;
 					case 7:
 						//propsCopy.Angle = 270 degrees + flip horizontally
 						break;
 					case 8:
-						propsCopy.Angle = Filter::RotationAngle::Rotate270;
+						m_props.MetaAngle = Filter::RotationAngle::Rotate270;
 						break;
 					}
 				}
 			}
 
-			m_renderTarget.Render(m_pan.TopLeft(), propsCopy);
+			m_renderTarget.Render(m_pan.TopLeft(), m_props);
 
 			if ((m_image->Delay() == -1) && status)
 				m_animationTimer.Destroy();
@@ -299,19 +299,19 @@ namespace App {
 	}
 
 	SizeInt ViewPort::OptimalViewportSize() {
-		return Img::CalculateUnzoomedSize(m_image, m_props.Angle);
+		return Img::CalculateUnzoomedSize(m_image, m_props.FinalAngle());
 	}
 
 	SizeInt ViewPort::ZoomedImageSize() {
-		return RoundCast(Img::CalculateUnzoomedSize(m_image, m_props.Angle) * m_imageZoom);
+		return RoundCast(Img::CalculateUnzoomedSize(m_image, m_props.FinalAngle()) * m_imageZoom);
 	}
 
 	bool ViewPort::PerformOnSize(const SizeInt& sz) {
 		// Make sure that the image is in a useful state
 		auto r = m_zoom.CalculateViewAreaSize(
 			GetSize(),
-			Img::CalculateUnzoomedSize(m_renderTarget.CurrentSurface(), m_props.Angle),
-			Img::CalculateUnzoomedSize(m_image, m_props.Angle));
+			Img::CalculateUnzoomedSize(m_renderTarget.CurrentSurface(), m_props.FinalAngle()),
+			Img::CalculateUnzoomedSize(m_image, m_props.FinalAngle()));
 		m_displayZoom = r.ZoomImage;
 
 		Geom::RectInt newRect(Geom::PointInt(0, 0), r.ZoomedSize);
