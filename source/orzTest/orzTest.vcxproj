@@ -181,9 +181,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test_bitconvert.cpp" />
     <ClCompile Include="test_file.cpp" />
+    <ClCompile Include="test_fileops.cpp" />
     <ClCompile Include="test_folder.cpp" />
     <ClCompile Include="test_folder_monitor.cpp" />
-    <ClCompile Include="test_orz_types.cpp" />
     <ClCompile Include="test_stopwatch.cpp" />
     <ClCompile Include="test_streamconv.cpp" />
   </ItemGroup>

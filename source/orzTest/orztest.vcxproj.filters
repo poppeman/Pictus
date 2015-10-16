@@ -26,13 +26,13 @@
     <ClCompile Include="test_folder_monitor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test_orz_types.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="test_stopwatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="test_streamconv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_fileops.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
