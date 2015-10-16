@@ -158,10 +158,11 @@ namespace App {
 
 		if (m_cfg.View.ResetZoom) {
 			ZoomMode(m_cfg.View.DefaultZoomMode);
+			UpdateImageInformation();
 		}
-
-		UpdateImageInformation();
-		ImageChanged();
+		else {
+			ImageChanged();
+		}
 	}
 
 	bool Viewer::PerformOnCreate() {
