@@ -59,6 +59,40 @@ namespace App {
 		setSurface();
 
 		if (m_image != nullptr) {
+			m_props.MetaAngle = Filter::RotationAngle::RotateDefault;
+
+			auto meta = m_image->GetMetadata();
+			if (meta != nullptr) {
+				if (meta->Field[Metadata::FieldIdentifier::Orientation] != nullptr) {
+					switch (meta->Field[Metadata::FieldIdentifier::Orientation]->ToInteger()) {
+					case 1:
+						m_props.MetaAngle = Filter::RotationAngle::RotateDefault;
+						break;
+					case 2:
+						m_props.MetaAngle = Filter::RotationAngle::FlipX;
+						break;
+					case 3:
+						m_props.MetaAngle = Filter::RotationAngle::Rotate180;
+						break;
+					case 4:
+						m_props.MetaAngle = Filter::RotationAngle::FlipY;
+						break;
+					case 5:
+						//propsCopy.Angle = 90 degrees + flip horizontally
+						break;
+					case 6:
+						m_props.MetaAngle = Filter::RotationAngle::Rotate90;
+						break;
+					case 7:
+						//propsCopy.Angle = 270 degrees + flip horizontally
+						break;
+					case 8:
+						m_props.MetaAngle = Filter::RotationAngle::Rotate270;
+						break;
+					}
+				}
+			}
+
 			m_pan.ResizeConstraints(image->GetSize());
 			m_pan.ResizeViewport(m_renderTarget.TransformedSize());
 
@@ -145,40 +179,6 @@ namespace App {
 			bool status = m_image->IsFinished();
 
 			m_props.ResampleFilter = ActiveFilterMode();
-			m_props.MetaAngle = Filter::RotationAngle::RotateDefault;
-
-			auto meta = m_image->GetMetadata();
-			if (meta != nullptr) {
-				if (meta->Field[Metadata::FieldIdentifier::Orientation] != nullptr) {
-					switch (meta->Field[Metadata::FieldIdentifier::Orientation]->ToInteger()) {
-					case 1:
-						m_props.MetaAngle = Filter::RotationAngle::RotateDefault;
-						break;
-					case 2:
-						m_props.MetaAngle = Filter::RotationAngle::FlipX;
-						break;
-					case 3:
-						m_props.MetaAngle = Filter::RotationAngle::Rotate180;
-						break;
-					case 4:
-						m_props.MetaAngle = Filter::RotationAngle::FlipY;
-						break;
-					case 5:
-						//propsCopy.Angle = 90 degrees + flip horizontally
-						break;
-					case 6:
-						m_props.MetaAngle = Filter::RotationAngle::Rotate90;
-						break;
-					case 7:
-						//propsCopy.Angle = 270 degrees + flip horizontally
-						break;
-					case 8:
-						m_props.MetaAngle = Filter::RotationAngle::Rotate270;
-						break;
-					}
-				}
-			}
-
 			m_renderTarget.Render(m_pan.TopLeft(), m_props);
 
 			if ((m_image->Delay() == -1) && status)
