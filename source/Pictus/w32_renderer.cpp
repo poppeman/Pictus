@@ -37,25 +37,30 @@ namespace Win {
 	Geom::PointInt Renderer::TransformPan(Geom::PointInt pan, Geom::SizeInt imageSize) {
 		auto ras = RenderAreaSize();
 		switch (Angle) {
-			case Filter::RotationAngle::FlipX:
-				return{ std::max(0, (imageSize.Width - ras.Width) - pan.X), pan.Y };
+		case Filter::RotationAngle::RotateDefault:
+			return pan;
+		case Filter::RotationAngle::FlipX:
+			return{ std::max(0, (imageSize.Width - ras.Width) - pan.X), pan.Y };
 
-			case Filter::RotationAngle::FlipY:
-				return{ pan.X, std::max(0, (imageSize.Height - ras.Height) - pan.Y) };
+		case Filter::RotationAngle::FlipY:
+			return{ pan.X, std::max(0, (imageSize.Height - ras.Height) - pan.Y) };
 
-			case Filter::RotationAngle::Rotate90:
-				return{ pan.Y, std::max(0, (imageSize.Height - ras.Width) - pan.X) };
+		case Filter::RotationAngle::Rotate90:
+			return{ pan.Y, std::max(0, (imageSize.Height - ras.Width) - pan.X) };
 
-			case Filter::RotationAngle::Rotate90FlipY:
-				return{ pan.Y, pan.X };
+		case Filter::RotationAngle::Rotate90FlipY:
+			return{ std::max(0, (imageSize.Width - ras.Height) - pan.Y), std::max(0, (imageSize.Height - ras.Width) - pan.X) };
 
-			case Filter::RotationAngle::Rotate180:
-				return{ std::max(0, (imageSize.Width - ras.Width) - pan.X), std::max(0, (imageSize.Height - ras.Height) - pan.Y) };
+		case Filter::RotationAngle::Rotate180:
+			return{ std::max(0, (imageSize.Width - ras.Width) - pan.X), std::max(0, (imageSize.Height - ras.Height) - pan.Y) };
 
-			case Filter::RotationAngle::Rotate270:
-				return{ std::max(0, (imageSize.Width - ras.Height) - pan.Y), pan.X };
+		case Filter::RotationAngle::Rotate270:
+			return{ std::max(0, (imageSize.Width - ras.Height) - pan.Y), pan.X };
+
+		case Filter::RotationAngle::Rotate270FlipY:
+			return{ pan.Y, pan.X };
 		}
-		return pan;
+		DO_THROW(Err::InvalidCall, "Unsupported angle");
 	}
 
 	bool Renderer::TargetWindow( HWND hwnd ) {

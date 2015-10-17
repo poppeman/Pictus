@@ -78,13 +78,13 @@ namespace App {
 						m_props.MetaAngle = Filter::RotationAngle::FlipY;
 						break;
 					case 5:
-						//propsCopy.Angle = 90 degrees + flip horizontally
+						m_props.MetaAngle = Filter::RotationAngle::Rotate270FlipY;
 						break;
 					case 6:
 						m_props.MetaAngle = Filter::RotationAngle::Rotate90;
 						break;
 					case 7:
-						//propsCopy.Angle = 270 degrees + flip horizontally
+						m_props.MetaAngle = Filter::RotationAngle::Rotate90FlipY;
 						break;
 					case 8:
 						m_props.MetaAngle = Filter::RotationAngle::Rotate270;

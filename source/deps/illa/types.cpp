@@ -124,24 +124,24 @@ namespace Img {
 	{
 		using Filter::RotationAngle;
 
-		switch (MetaAngle)
+		switch (RequestedAngle)
 		{
 		case Filter::RotationAngle::RotateDefault:
-			return RequestedAngle;
+			return MetaAngle;
 		case Filter::RotationAngle::FlipX:
-			return Mirror(RequestedAngle);
+			return Mirror(MetaAngle);
 		case Filter::RotationAngle::FlipY:
-			return Flip(RequestedAngle);
+			return Flip(MetaAngle);
 		case Filter::RotationAngle::Rotate90:
-			return RotateRight(RequestedAngle);
+			return RotateRight(MetaAngle);
 		case Filter::RotationAngle::Rotate90FlipY:
-			return Flip(RotateRight(RequestedAngle));
+			return Flip(RotateRight(MetaAngle));
 		case Filter::RotationAngle::Rotate180:
-			return RotateRight(RotateRight(RequestedAngle));
+			return RotateRight(RotateRight(MetaAngle));
 		case Filter::RotationAngle::Rotate270:
-			return RotateRight(RotateRight(RotateRight(RequestedAngle)));
+			return RotateRight(RotateRight(RotateRight(MetaAngle)));
 		case Filter::RotationAngle::Rotate270FlipY:
-			return RotateRight(Mirror(RequestedAngle));
+			return Flip(RotateRight(RotateRight(RotateRight(MetaAngle))));
 		}
 		DO_THROW(Err::InvalidCall, "(Properties::FinalAngle) Unhandled angle state.");
 	}

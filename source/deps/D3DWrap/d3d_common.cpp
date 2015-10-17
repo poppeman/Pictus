@@ -45,14 +45,17 @@ namespace D3D {
 				d.TexCoord = texCoords.TopRight();
 				break;
 			case Filter::RotationAngle::Rotate90FlipY:
-				a.Position = { position.Bottom(), position.Left() };
-				a.TexCoord = texCoords.BottomLeft();
-				b.Position = { position.Top(), position.Left() };
-				b.TexCoord = texCoords.TopLeft();
-				c.Position = { position.Bottom(), position.Right() };
-				c.TexCoord = texCoords.BottomRight();
-				d.Position = { position.Top(), position.Right() };
-				d.TexCoord = texCoords.TopRight();
+				// SCREENSPACE:
+				// TopLeft vert (x, y)
+				a.Position = { targetSize.Width - position.Top() - position.Height(), targetSize.Height - position.Left() - position.Width() };
+				a.TexCoord = texCoords.BottomRight();
+				// TopRight vert (x, y)
+				b.Position = { targetSize.Width - position.Top(), targetSize.Height - position.Left() - position.Width() };
+				b.TexCoord = texCoords.TopRight();
+				c.Position = { targetSize.Width - position.Top() - position.Height(), targetSize.Height - position.Left() };
+				c.TexCoord = texCoords.BottomLeft();
+				d.Position = { targetSize.Width - position.Top(), targetSize.Height - position.Left() };
+				d.TexCoord = texCoords.TopLeft();
 				break;
 			case Filter::RotationAngle::Rotate180:
 				a.Position = { targetSize.Width - position.Left() - position.Width(), targetSize.Height - position.Top() - position.Height() };
@@ -73,6 +76,21 @@ namespace D3D {
 				c.TexCoord = texCoords.TopLeft();
 				d.Position = { position.Bottom(), targetSize.Height - position.Left() };
 				d.TexCoord = texCoords.BottomLeft();
+				break;
+			case Filter::RotationAngle::Rotate270FlipY:
+				// SCREENSPACE:
+				// TopLeft vert  (x, y)
+				a.Position = { position.Top(), position.Left() };
+				a.TexCoord = texCoords.TopLeft();
+				// TopRight vert  (x, y)
+				b.Position = { position.Bottom(), position.Left() };
+				b.TexCoord = texCoords.BottomLeft();
+				// Bottom Left (x, y)
+				c.Position = { position.Top(), position.Right() };
+				c.TexCoord = texCoords.TopRight();
+				// Bottom Right (x, y)
+				d.Position = { position.Bottom(), position.Right() };
+				d.TexCoord = texCoords.BottomRight();
 				break;
 			default:
 				DO_THROW(Err::InvalidParam, "Angle not supported");
