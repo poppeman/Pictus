@@ -49,7 +49,6 @@ namespace IO {
 	}
 
 	bool performDeleteRecycle(const std::string& file, bool doRecycle, HWND hwnd) {
-		//COND_STRICT(hwnd != 0, Err::InvalidParam, L"hwnd was null.");
 		SHFILEOPSTRUCTW sfop;
 		ZeroMemory(&sfop, sizeof(sfop));
 

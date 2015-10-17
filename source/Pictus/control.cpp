@@ -48,7 +48,10 @@ namespace Win {
 	}
 
 	void Control::AttachTo(Window* owner) {
-		COND_STRICT(owner, Err::InvalidParam, "owner was Null.");
+		if (owner == nullptr)
+		{
+			DO_THROW(Err::InvalidParam, "owner was Null.");
+		}
 		m_dlgHwnd = owner->Handle();
 		m_ctrlHwnd = PerformDynamicCreate();
 	}

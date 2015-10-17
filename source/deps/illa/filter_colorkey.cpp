@@ -10,8 +10,6 @@ namespace Filter {
 			DO_THROW(Err::InvalidParam, "Surface format must be indexed.");
 		}
 
-		//COND_STRICT(source.Palette, Err::InvalidParam, L"Palette not set.");
-
 		int y1 = std::max(0, sourceRegion.Top());
 		int y2 = std::min(source.Dimensions.Height, sourceRegion.Bottom());
 		int x1 = std::max(0, sourceRegion.Left());

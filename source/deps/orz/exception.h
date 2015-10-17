@@ -35,10 +35,6 @@ namespace Err {
 	};
 }
 
-// Modified design by contract macros.
-// I don't want to remove ALL pre/post checks in release build but it can be
-// very nifty to remove the silliest ones
-
 std::string DoThrowBuildDescription(const char* filename, int line, const char* functionName, const std::string& description);
 
 #ifdef _MSC_VER
@@ -46,7 +42,5 @@ std::string DoThrowBuildDescription(const char* filename, int line, const char* 
 #else
 #define DO_THROW(exception, description) throw exception(DoThrowBuildDescription("UNK_FILE", 0, "UNK_FUNC", std::string(description)))
 #endif
-#define COND_STRICT(condition, exception, description) { if ((condition) == false) DO_THROW(exception, (description)); }
-
 
 #endif

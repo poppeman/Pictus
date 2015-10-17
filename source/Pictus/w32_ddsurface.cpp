@@ -2,7 +2,10 @@
 
 namespace Win {
 	void DDSurface::Create(const Geom::SizeInt& dims) {
-		COND_STRICT(dims.Width > 0 && dims.Height > 0, Err::InvalidParam, "Dimensions must be non-zero.");
+		if (dims.Width <= 0 || dims.Height <= 0)
+		{
+			DO_THROW(Err::InvalidParam, "Dimensions must be non-zero.");
+		}
 		OnCreate(dims);
 		m_dims = dims;
 	}

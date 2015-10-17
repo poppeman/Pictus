@@ -6,7 +6,10 @@ namespace Img {
 	}
 
 	void DecoderWorkerThread::Start() {
-		COND_STRICT(m_queue, Err::InvalidCall, "Queue not set");
+		if (m_queue == nullptr)
+		{
+			DO_THROW(Err::InvalidCall, "Queue not set");
+		}
 
 		std::lock_guard<std::mutex> l(m_mxWorkList);
 		m_thread = std::make_shared<std::thread>(&DecoderWorkerThread::ThreadMain, this);

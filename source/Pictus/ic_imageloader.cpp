@@ -39,7 +39,10 @@ namespace Img {
 			if(!m_reader->Open()) {
 				return FailState();
 			}
-			COND_STRICT(m_reader->IsOpen(), Err::FileNotOpen, "File should be open now.");
+			if (m_reader->IsOpen() == false)
+			{
+				DO_THROW(Err::FileNotOpen, "File should be open now.");
+			}
 
 			codec = DetectAndLoadHeader(m_reader);
 			if(codec == 0)
@@ -55,9 +58,15 @@ namespace Img {
 	}
 
 	void ImageLoader::Allocate() {
-		COND_STRICT(codec, Err::InvalidCall, "Codec not created.");
-		COND_STRICT(m_state == ILLoadedHeader || m_state == ILDoneFast, Err::InvalidCall, "Loader not in a valid state for this operation."
-			"Current state: " + ToAString(m_state));
+		if (codec == nullptr)
+		{
+			DO_THROW(Err::InvalidCall, "Codec not created.");
+		}
+
+		if (m_state != ILLoadedHeader && m_state != ILDoneFast)
+		{
+			DO_THROW(Err::InvalidCall, "Loader not in a valid state for this operation. Current state: " + ToAString(m_state));
+		}
 
 		m_sw.Reset();
 		m_sw.Start();
@@ -189,7 +198,10 @@ fullalloc:
 	}
 
 	Img::AbstractCodec* ImageLoader::DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader) {
-		COND_STRICT(m_cfs, Err::InvalidCall, "CodecFactoryStore was null.");
+		if (m_cfs == nullptr)
+		{
+			DO_THROW(Err::InvalidCall, "CodecFactoryStore was null.");
+		}
 		Img::AbstractCodec* c = m_cfs->CreateCodec(IO::GetExtension(reader->Name()));
 		if (c->LoadHeader(reader)) {
 			return c;

@@ -23,7 +23,10 @@ std::string assure_folder(std::string name) {
 
 	// Always use the Application Data folder as a base
 	wchar_t sLoc[MAX_PATH];
-	COND_STRICT(SUCCEEDED(SHGetFolderPath(0, CSIDL_APPDATA, 0, 0, sLoc)), Err::CriticalError, "Could not find settings directory.");
+	if (FAILED(SHGetFolderPath(0, CSIDL_APPDATA, 0, 0, sLoc)))
+	{
+		DO_THROW(Err::CriticalError, "Could not find settings directory.");
+	}
 
 	auto currentPath(WStringToUTF8(sLoc));
 	currentPath += "\\";
