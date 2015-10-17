@@ -620,6 +620,7 @@ namespace App {
 		size_t imageCount = m_cacher.ImageCount();
 		if (imageCount <= 1) return;
 
+		// TODO: Random isn't very random, so I guess I'm using these wrong.
 		boost::random::mt19937 random;
 		boost::random::uniform_int_distribution<> posDist(0, imageCount - 2);
 
