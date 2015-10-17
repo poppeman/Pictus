@@ -44,9 +44,6 @@
     <ClCompile Include="test_ic_queue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test_image_dimensions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="test_pan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,9 +52,6 @@
     </ClCompile>
     <ClCompile Include="test_zoomstrategy.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Pictus\image_dimensions.cpp">
-      <Filter>Pictus</Filter>
     </ClCompile>
     <ClCompile Include="..\Pictus\imagecache.cpp">
       <Filter>Pictus\Cacher</Filter>
@@ -108,9 +102,6 @@
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Pictus\image_dimensions.h">
-      <Filter>Pictus</Filter>
     </ClInclude>
     <ClInclude Include="..\Pictus\imagecache.h">
       <Filter>Pictus\Cacher</Filter>

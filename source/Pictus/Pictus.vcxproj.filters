@@ -227,9 +227,6 @@
     <ClCompile Include="registry.cpp">
       <Filter>Shared\Registry</Filter>
     </ClCompile>
-    <ClCompile Include="image_dimensions.cpp">
-      <Filter>Imaging</Filter>
-    </ClCompile>
     <ClCompile Include="w32_rendertarget.cpp">
       <Filter>Imaging</Filter>
     </ClCompile>
@@ -501,9 +498,6 @@
     </ClInclude>
     <ClInclude Include="registry.h">
       <Filter>Shared\Registry</Filter>
-    </ClInclude>
-    <ClInclude Include="image_dimensions.h">
-      <Filter>Imaging</Filter>
     </ClInclude>
     <ClInclude Include="w32_rendertarget.h">
       <Filter>Imaging</Filter>
