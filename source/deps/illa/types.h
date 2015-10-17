@@ -59,8 +59,10 @@ namespace Filter {
 		FlipX,
 		FlipY,
 		Rotate90,
+		Rotate90FlipY,
 		Rotate180,
 		Rotate270,
+		Rotate270FlipY,
 		RotateUndefined
 	};
 	

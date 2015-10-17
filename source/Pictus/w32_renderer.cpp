@@ -24,31 +24,38 @@ namespace Win {
 	Geom::SizeInt Renderer::Transform(Geom::SizeInt sz) {
 		switch (Angle) {
 			case Filter::RotationAngle::Rotate90:
+			case Filter::RotationAngle::Rotate90FlipY:
 			case Filter::RotationAngle::Rotate270:
+			case Filter::RotationAngle::Rotate270FlipY:
 				return{ sz.Height, sz.Width };
 		}
 		return sz;
 	}
 
-	Geom::PointInt Renderer::TransformPan(Geom::PointInt sz, Geom::SizeInt imageSize) {
+	// Transform pan coordinates from screen-space to image-space. Since flipping and rotation is done
+	// during presentation (and thus hardware-based), we need convert the panning coordinates.
+	Geom::PointInt Renderer::TransformPan(Geom::PointInt pan, Geom::SizeInt imageSize) {
 		auto ras = RenderAreaSize();
 		switch (Angle) {
 			case Filter::RotationAngle::FlipX:
-				return{ std::max(0, (imageSize.Width - ras.Width) - sz.X), sz.Y };
+				return{ std::max(0, (imageSize.Width - ras.Width) - pan.X), pan.Y };
 
 			case Filter::RotationAngle::FlipY:
-				return{ sz.X, std::max(0, (imageSize.Height - ras.Height) - sz.Y) };
+				return{ pan.X, std::max(0, (imageSize.Height - ras.Height) - pan.Y) };
 
 			case Filter::RotationAngle::Rotate90:
-				return{ sz.Y, std::max(0, (imageSize.Height - ras.Width) - sz.X) };
+				return{ pan.Y, std::max(0, (imageSize.Height - ras.Width) - pan.X) };
+
+			case Filter::RotationAngle::Rotate90FlipY:
+				return{ pan.Y, pan.X };
 
 			case Filter::RotationAngle::Rotate180:
-				return{ std::max(0, (imageSize.Width - ras.Width) - sz.X), std::max(0, (imageSize.Height - ras.Height) - sz.Y) };
+				return{ std::max(0, (imageSize.Width - ras.Width) - pan.X), std::max(0, (imageSize.Height - ras.Height) - pan.Y) };
 
 			case Filter::RotationAngle::Rotate270:
-				return{ std::max(0, (imageSize.Width - ras.Height) - sz.Y), sz.X };
+				return{ std::max(0, (imageSize.Width - ras.Height) - pan.Y), pan.X };
 		}
-		return sz;
+		return pan;
 	}
 
 	bool Renderer::TargetWindow( HWND hwnd ) {

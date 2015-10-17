@@ -7,10 +7,16 @@
 
 namespace Filter {
 	Geom::SizeInt CalculateUnzoomedSize(Geom::SizeInt defaultDims, RotationAngle angle) {
-		if (angle == Filter::RotationAngle::Rotate90 || angle == Filter::RotationAngle::Rotate270) {
+		switch (angle)
+		{
+		case Filter::RotationAngle::Rotate90:
+		case Filter::RotationAngle::Rotate90FlipY:
+		case Filter::RotationAngle::Rotate270:
+		case Filter::RotationAngle::Rotate270FlipY:
 			return defaultDims.Flipped();
+		default:
+			return defaultDims;
 		}
-		return defaultDims;
 	}
 }
 
@@ -50,35 +56,92 @@ namespace Img {
 		case Filter::RotationAngle::RotateDefault:
 			return Filter::RotationAngle::Rotate90;
 		case Filter::RotationAngle::FlipX:
-			return in; // TODO: Implement
+			return Filter::RotationAngle::Rotate90FlipY;
 		case Filter::RotationAngle::FlipY:
-			return in;
+			return Filter::RotationAngle::Rotate270FlipY;
 		case Filter::RotationAngle::Rotate90:
 			return Filter::RotationAngle::Rotate180;
+		case Filter::RotationAngle::Rotate90FlipY:
+			return Filter::RotationAngle::FlipY;
 		case Filter::RotationAngle::Rotate180:
 			return Filter::RotationAngle::Rotate270;
 		case Filter::RotationAngle::Rotate270:
 			return Filter::RotationAngle::RotateDefault;
-		case Filter::RotationAngle::RotateUndefined:
-		default:
-			DO_THROW(Err::InvalidParam, "(Img::RotateRight) Input angle not valid");
-			break;
+		case Filter::RotationAngle::Rotate270FlipY:
+			return Filter::RotationAngle::FlipX;
 		}
+		DO_THROW(Err::InvalidParam, "(Img::RotateRight) Input angle not valid");
+	}
+
+	Filter::RotationAngle Mirror(Filter::RotationAngle in) {
+		switch (in)
+		{
+		case Filter::RotationAngle::RotateDefault:
+			return Filter::RotationAngle::FlipX;
+		case Filter::RotationAngle::FlipX:
+			return Filter::RotationAngle::RotateDefault;
+		case Filter::RotationAngle::FlipY:
+			return Filter::RotationAngle::Rotate180;
+		case Filter::RotationAngle::Rotate90:
+			return Filter::RotationAngle::Rotate270FlipY;
+		case Filter::RotationAngle::Rotate90FlipY:
+			return Filter::RotationAngle::Rotate270;
+		case Filter::RotationAngle::Rotate180:
+			return Filter::RotationAngle::FlipY;
+		case Filter::RotationAngle::Rotate270:
+			return Filter::RotationAngle::Rotate90FlipY;
+		case Filter::RotationAngle::Rotate270FlipY:
+			return Filter::RotationAngle::Rotate90;
+		}
+		DO_THROW(Err::InvalidParam, "Unrecognized angle");
+	}
+
+	Filter::RotationAngle Flip(Filter::RotationAngle in) {
+		using Filter::RotationAngle;
+		switch (in)
+		{
+		case RotationAngle::RotateDefault:
+			return RotationAngle::FlipY;
+		case RotationAngle::FlipX:
+			return RotationAngle::Rotate180;
+		case Filter::RotationAngle::FlipY:
+			return RotationAngle::RotateDefault;
+		case Filter::RotationAngle::Rotate90:
+			return RotationAngle::Rotate90FlipY;
+		case Filter::RotationAngle::Rotate90FlipY:
+			return RotationAngle::Rotate90;
+		case Filter::RotationAngle::Rotate180:
+			return RotationAngle::FlipX;
+		case Filter::RotationAngle::Rotate270:
+			return RotationAngle::Rotate270FlipY;
+		case Filter::RotationAngle::Rotate270FlipY:
+			return RotationAngle::Rotate270;
+		}
+		DO_THROW(Err::InvalidParam, "Unrecognized angle");
 	}
 
 	Filter::RotationAngle Properties::FinalAngle() const
 	{
 		using Filter::RotationAngle;
 
-		if (MetaAngle == RotationAngle::RotateDefault) return RequestedAngle;
-		if (MetaAngle == RotationAngle::Rotate90) {
+		switch (MetaAngle)
+		{
+		case Filter::RotationAngle::RotateDefault:
+			return RequestedAngle;
+		case Filter::RotationAngle::FlipX:
+			return Mirror(RequestedAngle);
+		case Filter::RotationAngle::FlipY:
+			return Flip(RequestedAngle);
+		case Filter::RotationAngle::Rotate90:
 			return RotateRight(RequestedAngle);
-		}
-		if (MetaAngle == RotationAngle::Rotate180) {
+		case Filter::RotationAngle::Rotate90FlipY:
+			return Flip(RotateRight(RequestedAngle));
+		case Filter::RotationAngle::Rotate180:
 			return RotateRight(RotateRight(RequestedAngle));
-		}
-		if(MetaAngle == RotationAngle::Rotate270) {
+		case Filter::RotationAngle::Rotate270:
 			return RotateRight(RotateRight(RotateRight(RequestedAngle)));
+		case Filter::RotationAngle::Rotate270FlipY:
+			return RotateRight(Mirror(RequestedAngle));
 		}
 		DO_THROW(Err::InvalidCall, "(Properties::FinalAngle) Unhandled angle state.");
 	}

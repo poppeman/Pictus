@@ -44,6 +44,16 @@ namespace D3D {
 				d.Position = { targetSize.Width - position.Top(), position.Right() };
 				d.TexCoord = texCoords.TopRight();
 				break;
+			case Filter::RotationAngle::Rotate90FlipY:
+				a.Position = { position.Bottom(), position.Left() };
+				a.TexCoord = texCoords.BottomLeft();
+				b.Position = { position.Top(), position.Left() };
+				b.TexCoord = texCoords.TopLeft();
+				c.Position = { position.Bottom(), position.Right() };
+				c.TexCoord = texCoords.BottomRight();
+				d.Position = { position.Top(), position.Right() };
+				d.TexCoord = texCoords.TopRight();
+				break;
 			case Filter::RotationAngle::Rotate180:
 				a.Position = { targetSize.Width - position.Left() - position.Width(), targetSize.Height - position.Top() - position.Height() };
 				a.TexCoord = texCoords.BottomRight();
@@ -64,9 +74,8 @@ namespace D3D {
 				d.Position = { position.Bottom(), targetSize.Height - position.Left() };
 				d.TexCoord = texCoords.BottomLeft();
 				break;
-			case Filter::RotationAngle::RotateUndefined:
-				break;
 			default:
+				DO_THROW(Err::InvalidParam, "Angle not supported");
 				break;
 		}
 		a.Position += adjustment;
