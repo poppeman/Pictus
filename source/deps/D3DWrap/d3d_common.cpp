@@ -15,6 +15,7 @@ namespace D3D {
 				d.TexCoord = texCoords.BottomRight();
 				break;
 			case Filter::RotationAngle::FlipX:
+				adjustment += Geom::SizeFloat{ static_cast<float>(targetSize.Width & 1), 0 };
 				a.Position = { targetSize.Width - position.Left() - position.Width(), position.Top() };
 				a.TexCoord = texCoords.TopRight();
 				b.Position = { targetSize.Width - position.Left(), position.Top() };
@@ -25,6 +26,7 @@ namespace D3D {
 				d.TexCoord = texCoords.BottomLeft();
 				break;
 			case Filter::RotationAngle::FlipY:
+				adjustment += Geom::SizeFloat{ 0, static_cast<float>(targetSize.Height & 1) };
 				a.Position = { position.Left(), targetSize.Height - position.Top() - position.Height() };
 				a.TexCoord = texCoords.BottomLeft();
 				b.Position = { position.Right(), targetSize.Height - position.Top() - position.Height() };
@@ -35,6 +37,7 @@ namespace D3D {
 				d.TexCoord = texCoords.TopRight();
 				break;
 			case Filter::RotationAngle::Rotate90:
+				adjustment += Geom::SizeFloat{ static_cast<float>(targetSize.Width & 1), 0 };
 				a.Position = { targetSize.Width - position.Top() - position.Height(), position.Left() };
 				a.TexCoord = texCoords.BottomLeft();
 				b.Position = { targetSize.Width - position.Top(), position.Left() };
@@ -45,6 +48,7 @@ namespace D3D {
 				d.TexCoord = texCoords.TopRight();
 				break;
 			case Filter::RotationAngle::Rotate90FlipY:
+				adjustment += Geom::SizeFloat{ static_cast<float>(targetSize.Width & 1), static_cast<float>(targetSize.Height & 1) };
 				// SCREENSPACE:
 				// TopLeft vert (x, y)
 				a.Position = { targetSize.Width - position.Top() - position.Height(), targetSize.Height - position.Left() - position.Width() };
@@ -58,6 +62,7 @@ namespace D3D {
 				d.TexCoord = texCoords.TopLeft();
 				break;
 			case Filter::RotationAngle::Rotate180:
+				adjustment += Geom::SizeFloat{ static_cast<float>(targetSize.Width & 1), static_cast<float>(targetSize.Height & 1) };
 				a.Position = { targetSize.Width - position.Left() - position.Width(), targetSize.Height - position.Top() - position.Height() };
 				a.TexCoord = texCoords.BottomRight();
 				b.Position = { targetSize.Width - position.Left(), targetSize.Height - position.Top() - position.Height() };
@@ -68,6 +73,7 @@ namespace D3D {
 				d.TexCoord = texCoords.TopLeft();
 				break;
 			case Filter::RotationAngle::Rotate270:
+				adjustment += Geom::SizeFloat{ 0, static_cast<float>(targetSize.Height & 1) };
 				a.Position = { position.Top(), targetSize.Height - position.Left() - position.Width() };
 				a.TexCoord = texCoords.TopRight();
 				b.Position = { position.Bottom(), targetSize.Height - position.Left() - position.Width() };
