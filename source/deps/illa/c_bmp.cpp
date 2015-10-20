@@ -39,7 +39,6 @@ namespace Img {
 		}
 
 		file->Seek(m_bfh.offset, IO::SeekMethod::Begin);
-		m_fileStream.SetFileReader(file);
 
 		info.Dimensions = m_header.Size;
 

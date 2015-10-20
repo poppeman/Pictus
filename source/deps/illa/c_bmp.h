@@ -1,7 +1,6 @@
 #ifndef C_BMP_H
 #define C_BMP_H
 
-#include "orz/file_cache.h"
 #include "codec_static.h"
 #include "types.h"
 #include "bmp_fileheader.h"
@@ -23,9 +22,6 @@ namespace Img {
 		LoadStatus PerformLoadImageData(IO::FileReader::Ptr file) override;
 
 	private:
-		IO::FileReaderByteStreamer m_fileStream;
-
-		// Bitmap data
 		Internal::BMPFileHeader m_bfh;
 		Internal::BMPHeader m_header;
 

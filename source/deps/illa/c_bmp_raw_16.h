@@ -1,7 +1,6 @@
 #ifndef ILLA_C_BMP_RAW_16_H
 #define ILLA_C_BMP_RAW_16_H
 
-#include "orz/file_cache.h"
 #include "c_bmp_decoder.h"
 
 namespace Img
