@@ -306,6 +306,30 @@
     <ClCompile Include="filter_buffer.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
+    <ClCompile Include="c_bmp_decoder.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_bmp_raw_24.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_bmp_raw_16.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_bmp_raw_8.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_bmp_raw_4.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_bmp_rle_8.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_bmp_rle_4.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="c_bmp_rle.cpp">
+      <Filter>Codecs\BMP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c_factory.h">
@@ -529,6 +553,30 @@
     </ClInclude>
     <ClInclude Include="filter_buffer.h">
       <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp_decoder.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp_raw_24.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp_raw_16.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp_raw_8.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp_raw_4.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp_rle_8.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp_rle_4.h">
+      <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_bmp_rle.h">
+      <Filter>Codecs\BMP</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

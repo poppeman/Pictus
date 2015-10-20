@@ -6,6 +6,7 @@
 #include "types.h"
 #include "bmp_fileheader.h"
 #include "bmp_header.h"
+#include "c_bmp_decoder.h"
 
 #include <cstddef>
 
@@ -21,30 +22,6 @@ namespace Img {
 		AllocationStatus PerformAllocate() override;
 		LoadStatus PerformLoadImageData(IO::FileReader::Ptr file) override;
 
-		bool decompressRawRgb(int nRows, IO::FileReader::Ptr file, uint8_t* m_pData, ptrdiff_t &yofs, ptrdiff_t linestep);
-
-		ptrdiff_t decompressRawIndex4_1(int nRows, IO::FileReader::Ptr file, uint8_t* m_pData, ptrdiff_t yofs, ptrdiff_t linestep);
-		ptrdiff_t decompressRawIndex8(int nRows, IO::FileReader::Ptr file, uint8_t* m_pData, ptrdiff_t yofs, ptrdiff_t linestep);
-
-		ptrdiff_t decompressRawRgb24_32(int nRows, uint8_t* m_pData, ptrdiff_t yofs, ptrdiff_t linestep);
-		ptrdiff_t decompressRawRgb16(int nRows, uint8_t* m_pData, ptrdiff_t yofs, ptrdiff_t linestep);
-
-		bool decompressRle8(std::shared_ptr<Surface::LockedArea> area);
-		bool decompressRle4(IO::FileReader::Ptr file, std::shared_ptr<Surface::LockedArea> area);
-
-	private:
-		enum {
-			ChunkRows = 64,
-			RLEChunks = 64,
-			RLE_EOL = 0,	// End Of Line
-			RLE_EOB = 1,	// End Of Bitmap
-			RLE_DELTA = 2,	// Apply delta to position
-		};
-
-	private:
-		void DecodeRLE();
-		void AddPixelRLE(std::shared_ptr<Surface::LockedArea> area, uint8_t val);
-
 	private:
 		IO::FileReaderByteStreamer m_fileStream;
 
@@ -52,10 +29,7 @@ namespace Img {
 		Internal::BMPFileHeader m_bfh;
 		Internal::BMPHeader m_header;
 
-		// Loading state
-		int m_currScan;	// For RGB and RLE
-		int m_currPix;	// For RLE
-		bool m_isValid;
+		std::shared_ptr<Internal::BmpDataDecoder> m_dec;
 	};
 }
 

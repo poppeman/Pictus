@@ -144,6 +144,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="color.cpp" />
+    <ClCompile Include="c_bmp_decoder.cpp" />
+    <ClCompile Include="c_bmp_raw_16.cpp" />
+    <ClCompile Include="c_bmp_raw_24.cpp" />
+    <ClCompile Include="c_bmp_raw_4.cpp" />
+    <ClCompile Include="c_bmp_raw_8.cpp" />
+    <ClCompile Include="c_bmp_rle.cpp" />
+    <ClCompile Include="c_bmp_rle_4.cpp" />
+    <ClCompile Include="c_bmp_rle_8.cpp" />
     <ClCompile Include="c_factory.cpp" />
     <ClCompile Include="codec.cpp" />
     <ClCompile Include="codec_static.cpp" />
@@ -223,6 +231,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="color.h" />
+    <ClInclude Include="c_bmp_decoder.h" />
+    <ClInclude Include="c_bmp_raw_16.h" />
+    <ClInclude Include="c_bmp_raw_24.h" />
+    <ClInclude Include="c_bmp_raw_4.h" />
+    <ClInclude Include="c_bmp_raw_8.h" />
+    <ClInclude Include="c_bmp_rle.h" />
+    <ClInclude Include="c_bmp_rle_4.h" />
+    <ClInclude Include="c_bmp_rle_8.h" />
     <ClInclude Include="c_factory.h" />
     <ClInclude Include="codec.h" />
     <ClInclude Include="codec_static.h" />
