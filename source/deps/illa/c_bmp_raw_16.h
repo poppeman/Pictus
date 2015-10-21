@@ -15,7 +15,15 @@ namespace Img
 		private:
 			bool OnProcess() override;
 
+			enum class Layout {
+				Undefined,
+				Pix565,
+				Pix555,
+				Pix444
+			};
+
 			int m_row;
+			Layout m_layout;
 			std::shared_ptr<IO::FileReader> m_reader;
 		};
 	}
