@@ -194,7 +194,11 @@ namespace Img {
 	{}
 
 	CodecPNG::~CodecPNG() {
-		destroy_png();
+		try
+		{
+			destroy_png();
+		}
+		catch (...) {}
 	}
 
 	void CodecPNG::destroy_png() {
@@ -205,8 +209,9 @@ namespace Img {
 				m_info_ptr	= 0;
 			}
 		}
-		catch(Err::CodecError&) {
-			// Errors here should (and must) be ignored.
+		catch(Err::CodecError& ex) {
+			Log << "(CodecPNG::destroy_png) " << ex.what() << "\n";
+			throw;
 		}
 	}
 
