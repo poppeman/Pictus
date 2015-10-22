@@ -104,24 +104,24 @@ namespace Img {
 	}
 
 	bool CodecXYZ::FillBuffer(IO::FileReader::Ptr file) {
-		uint8_t in_buffer[InBufferSize];
-		uint8_t out_buffer[OutBufferSize];
-
-		auto inRemaining = file->Read(in_buffer, 1, InBufferSize);
-		m_stream.next_in = in_buffer;
+		auto inRemaining = file->Read(m_in_buffer, 1, InBufferSize);
+		m_stream.next_in = m_in_buffer;
 		m_stream.avail_in = inRemaining;
 
-		do {
-			m_stream.next_out = out_buffer;
+		do
+		{
+			m_stream.next_out = m_out_buffer;
 			m_stream.avail_out = OutBufferSize;
 			auto ret = inflate(&m_stream, 0);
-			if (ret != Z_OK && ret != Z_STREAM_END) {
+			if (ret != Z_OK && ret != Z_STREAM_END)
+			{
 				Cleanup();
 				return false;
 			}
 			int num_decompressed = OutBufferSize - m_stream.avail_out;
-			for (int i = 0; i < num_decompressed; ++i) {
-				m_outData.push_back(out_buffer[i]);
+			for (int i = 0; i < num_decompressed; ++i)
+			{
+				m_outData.push_back(m_out_buffer[i]);
 			}
 		} while (m_stream.avail_in);
 

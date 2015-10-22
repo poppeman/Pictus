@@ -37,6 +37,9 @@ namespace Img {
 		ByteStream m_outData;
 		int m_x, m_y;
 		bool m_isInit;
+
+		uint8_t m_in_buffer[InBufferSize];
+		uint8_t m_out_buffer[OutBufferSize];
 	};
 }
 
