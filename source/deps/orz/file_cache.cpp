@@ -1,15 +1,21 @@
 #include "file_cache.h"
 
 namespace IO {
-	FileReaderByteStreamer::FileReaderByteStreamer()
-		:m_position(0),
-		 m_cacheSize(0),
-		 m_bytesLeft(0)
+	FileReaderByteStreamer::FileReaderByteStreamer():
+		m_position{0},
+		m_cacheSize{0},
+		m_bytesLeft{0}
 	{}
 
 	void FileReaderByteStreamer::SetFileReader( IO::FileReader::Ptr file ) throw() {
 		m_reader = file;
-		m_bytesLeft = file->Size() - file->Position();
+		auto pos = file->Position();
+		auto size = file->Size();
+		if(pos > size)
+		{
+			DO_THROW(Err::CriticalError, u8"File position was beyond EOF, can not deal with that");
+		}
+		m_bytesLeft = size - pos;
 		m_position = m_cacheSize = 0;
 	}
 
