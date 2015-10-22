@@ -24,6 +24,8 @@
 #include "ctrl_statusbar.h"
 #include "imagelist.h"
 
+#include <random>
+
 namespace App {
 	class Viewer:public Win::Window, public Img::MessageReceiver {
 	public:
@@ -229,6 +231,8 @@ namespace App {
 
 		typedef ActionMapParam<MouseAction, Win::MouseEvent> MouseActionMap;
 		MouseActionMap m_mouseMap;
+
+		std::default_random_engine m_random;
 
 		Reg::Settings m_cfg;
 	};

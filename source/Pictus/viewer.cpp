@@ -25,8 +25,8 @@
 #include "timeconvert.h"
 
 #include <boost/format.hpp>
-#include <boost/random.hpp>
 #include <boost/scoped_array.hpp>
+#include <random>
 
 const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
 const wchar_t* App::Viewer::AppTitle = L"Pictus";
@@ -617,14 +617,13 @@ namespace App {
 	}
 
 	void Viewer::ImageRandom() {
+
 		size_t imageCount = m_cacher.ImageCount();
 		if (imageCount <= 1) return;
 
-		// TODO: Random isn't very random, so I guess I'm using these wrong.
-		boost::random::mt19937 random;
-		boost::random::uniform_int_distribution<> posDist(0, imageCount - 2);
+		std::uniform_int_distribution<size_t> posDist(0, imageCount - 2);
 
-		size_t pos = posDist(random);
+		size_t pos = posDist(m_random);
 
 		if (pos >= m_cacher.CurrentImageIndex()) pos++;
 
