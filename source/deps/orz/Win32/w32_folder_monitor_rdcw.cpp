@@ -150,8 +150,9 @@ namespace IO {
 
 	std::string FolderMonitorWin32RDCW::ExtractFilename(PFILE_NOTIFY_INFORMATION currChange) {
 		wchar_t tmpstr[MAX_PATH];
-		wmemcpy_s(tmpstr, MAX_PATH, currChange->FileName, currChange->FileNameLength);
-		tmpstr[currChange->FileNameLength / 2] = 0;
+		auto numWChars = currChange->FileNameLength / 2;
+		wmemcpy_s(tmpstr, MAX_PATH, currChange->FileName, numWChars);
+		tmpstr[numWChars] = 0;
 		return WStringToUTF8(tmpstr);
 	}
 }
