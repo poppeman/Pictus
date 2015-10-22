@@ -40,6 +40,29 @@ namespace IO {
 	}
 
 	void FileReader::Seek(FileInt position, SeekMethod m) {
+		switch (m)
+		{
+			case SeekMethod::Begin:
+				if(position > Size())
+				{
+					DO_THROW(Err::InvalidParam, u8"Argument position (" + ToAString(position) +") outside of file (" + ToAString(Size()) + ") for SeekMethod::Begin");
+				}
+				break;
+			case SeekMethod::End:
+				if(position != 0)
+				{
+					DO_THROW(Err::InvalidParam, u8"Argument position must be zero for SeekMethod::End");
+				}
+				break;
+			case SeekMethod::Current:
+				if(position + Position() > Size())
+				{
+					DO_THROW(Err::InvalidParam, u8"Attempted to seek past end of file for SeekMethod::Current");
+				}
+				break;
+			default:
+				DO_THROW(Err::InvalidParam, u8"Unrecognized seek method");
+		}
 		return m_stream->Seek(position, m);
 	}
 
