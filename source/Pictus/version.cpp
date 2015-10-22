@@ -1,8 +1,8 @@
 #include "version.h"
 #include "orz/types.h"
 
-std::wstring ToWString(const App::Version ver) {
-	return ToWString(ver.Major) + L"." + ToWString(ver.Minor) + L"." + ToWString(ver.Revision);
+std::string ToAString(const App::Version ver) {
+	return ToAString(ver.Major) + "." + ToAString(ver.Minor) + "." + ToAString(ver.Revision);
 }
 
 namespace App {

@@ -26,7 +26,7 @@ namespace Win {
 		DWORD GetEditBoxNum(DWORD id);
 		void SetEditBoxNum(DWORD id, DWORD val);
 
-		void ControlText(DWORD id, const std::wstring& text);
+		void ControlText(DWORD id, const std::string& text);
 		void ControlText(DWORD id, int sid);
 
 		void ShowControl(DWORD id, bool doShow);

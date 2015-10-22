@@ -90,7 +90,7 @@ namespace Win {
 			{
 				auto pnmhdr = reinterpret_cast<LPNMHDR>(lParam);
 				auto ctrl = Control::GetControl(pnmhdr->hwndFrom);
-				bool ret = false;
+
 				if (ctrl != nullptr) {
 					auto ret = ctrl->OnNotify(pnmhdr);
 					if (ret.is_initialized()) {
@@ -129,18 +129,20 @@ namespace Win {
 		ShowWindow(GetDlgItem(Handle(), id), (doShow?SW_SHOW:SW_HIDE));
 	}
 
-	void Dialog::ControlText(DWORD id, const std::wstring& text) {
-		SetDlgItemText(Handle(), id, text.c_str());
+	void Dialog::ControlText(DWORD id, const std::string& text) {
+		SetDlgItemText(Handle(), id, UTF8ToWString(text).c_str());
 	}
 
 	void Dialog::ControlText(DWORD id, int sid) {
 		m_controlSIds[id] = sid;
-		ControlText(id, UTF8ToWString(Intl::GetString(sid)));
+		ControlText(id, Intl::GetString(sid));
 	}
 
 	void Dialog::UpdateControlStrings() {
-		for(const ControlTextSIdVector::value_type& v: m_controlSIds)
-			ControlText(v.first, UTF8ToWString(Intl::GetString(v.second)));
+		for (const ControlTextSIdVector::value_type& v : m_controlSIds)
+		{
+			ControlText(v.first, Intl::GetString(v.second));
+		}
 	}
 
 	bool Dialog::PerformOnNotify(DWORD id, LPNMHDR pnmh) {

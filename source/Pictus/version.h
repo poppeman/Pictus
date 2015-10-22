@@ -13,6 +13,6 @@ namespace App {
 	const Version CurrentVersion = {PICTUS_VER_MAJOR, PICTUS_VER_MINOR, PICTUS_VER_REVISION};
 }
 
-std::wstring ToWString(const App::Version ver);
+std::string ToAString(const App::Version ver);
 
 #endif
