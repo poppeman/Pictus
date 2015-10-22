@@ -49,9 +49,13 @@ namespace IO {
 				}
 				break;
 			case SeekMethod::End:
-				if(position != 0)
+				if(position > 0)
 				{
-					DO_THROW(Err::InvalidParam, u8"Argument position must be zero for SeekMethod::End");
+					DO_THROW(Err::InvalidParam, u8"Argument position must be zero or negative for SeekMethod::End");
+				}
+				if (-position > Size())
+				{
+					DO_THROW(Err::InvalidParam, u8"Attempted to seek to point before start of file");
 				}
 				break;
 			case SeekMethod::Current:
