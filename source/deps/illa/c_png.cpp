@@ -2,6 +2,7 @@
 #include "surface.h"
 #include "surface_locked_area.h"
 #include "surfacemgr.h"
+#include "orz/logger.h"
 
 namespace Img {
 	using namespace Geom;
@@ -16,10 +17,12 @@ namespace Img {
 		try {
 			uint8_t sign[SignBytes];
 			if (file->Read(sign, 1, SignBytes) != SignBytes) {
+				Log << "(CodecPNG::PerformLoadHeader) Signature bytes missing\n";
 				return false;
 			}
 
 			if (png_sig_cmp(sign, 0, SignBytes) != 0) {
+				Log << "(CodecPNG::PerformLoadHeader) Sign bytes mismatch\n";
 				return false;
 			}
 
