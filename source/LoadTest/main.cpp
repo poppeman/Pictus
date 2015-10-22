@@ -17,68 +17,138 @@ enum
 
 Img::CodecFactoryStore g_cfs;
 
-Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader) {
+Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader, bool autoDetect) {
 	auto c = g_cfs.CreateCodec(IO::GetExtension(reader->Name()));
-	if (c != nullptr && c->LoadHeader(reader)) {
+	if (c != nullptr && c->LoadHeader(reader))
+	{
 		return c;
 	}
 
+	if(autoDetect == false)
+	{
+		return nullptr;
+	}
+
 	const Img::CodecFactoryStore::InfoVector& iv = g_cfs.CodecInfo();
-	for (size_t i = 0; i < iv.size(); ++i) {
+	for (size_t i = 0; i < iv.size(); ++i)
+	{
 		c = g_cfs.CreateCodec(i);
-		if (c == nullptr) {
+		if (c == nullptr)
+		{
 			continue;
 		}
 
 		reader->Seek(0, IO::SeekMethod::Begin);
-		if (!c->CanDetectFormat() || !c->LoadHeader(reader)) {
+		if (!c->CanDetectFormat() || !c->LoadHeader(reader))
+		{
 			delete c;
 		}
-		else {
+		else
+		{
 			return c;
 		}
 	}
 	return 0;
 }
 
-int performLoad(const std::string& filename)
+int performLoad(const std::string& filename, bool autoDetect)
 {
 	auto f = std::make_shared<IO::FileReader>(filename);
-	if(!f->Open()) {
+	if(!f->Open())
+	{
 		std::cout << "Failed opening file" << std::endl;
 		return EXIT_FAILURE;
 	}
-	auto pCodec = DetectAndLoadHeader(f);
-	if(pCodec == nullptr) {
+	auto pCodec = DetectAndLoadHeader(f, autoDetect);
+	if(pCodec == nullptr)
+	{
 		std::cout << "No codec!" << std::endl;
 		return EXIT_FAILURE;
 	}
+	f->Seek(0, IO::SeekMethod::Begin);
 
-	if(pCodec->LoadHeader(f) == false) return EXIT_FAILURE;
-	if(pCodec->Allocate() != Img::AbstractCodec::AllocationStatus::Ok) return EXIT_FAILURE;
+	if(pCodec->LoadHeader(f) == false)
+	{
+		std::cout << "Failed loading header!" << std::endl;
+		return EXIT_FAILURE;
+	}
+
+	if(pCodec->Allocate() != Img::AbstractCodec::AllocationStatus::Ok)
+	{
+		std::cout << "Failed allocating surface!" << std::endl;
+		return EXIT_FAILURE;
+	}
 	pCodec->LoadImageData();
 	return EXIT_SUCCESS;
 }
 
-int realMain(std::string filename) {
+int realMain(std::vector<std::string> args) {
+	if(args.empty())
+	{
+		std::cout << "Missing parameter" << std::endl;
+		return EXIT_FAILURE;
+	}
+
 	std::locale::global(boost::locale::generator().generate(""));
 	boost::filesystem::path::imbue(std::locale());
 
 	g_cfs.AddBuiltinCodecs();
 
+	bool autoDetect = true;
+	bool bench = false;
+	std::string filename = "";
+
+	for(auto p:args)
+	{
+		if(p == "--noauto")
+		{
+			autoDetect = false;
+		}
+		else if(p == "--bench")
+		{
+			bench = true;
+		}
+		else
+		{
+			filename = p;
+		}
+	}
+
+	if(filename.empty())
+	{
+		std::cout << "Missing filename param" << std::endl;
+		return EXIT_FAILURE;
+	}
+
 	Img::SurfaceFactory(new Img::FactorySurfaceSoftware);
 
-	Util::StopWatch sw;
+	if(bench)
+	{
+		std::cout << "Benchmarking..." << std::endl;
+		Util::StopWatch sw;
 
-	for (int i = 0; i < Warmups; ++i)
-		if (performLoad(filename) == EXIT_FAILURE) return EXIT_FAILURE;
+		for (int i = 0; i < Warmups; ++i)
+		{
+			if (performLoad(filename, autoDetect) == EXIT_FAILURE)
+			{
+				std::cout << "Failed during warmup, exiting ..." << std::endl;
+				return EXIT_FAILURE;
+			}
+		}
 
-	sw.Start();
-	for (int i = 0; i < NumRuns; ++i)
-		performLoad(filename);
-	int time = sw.Stop();
+		sw.Start();
+		for (int i = 0; i < NumRuns; ++i)
+		{
+			performLoad(filename, autoDetect);
+		}
+		int time = sw.Stop();
 
-	Log << "Time: " << (time / NumRuns) << "\n";
+		std::cout << "Time: " << (time / NumRuns) << std::endl;
+	}
+	else
+	{
+		return performLoad(filename, autoDetect);
+	}
 
 	return EXIT_SUCCESS;	
 }
@@ -86,20 +156,23 @@ int realMain(std::string filename) {
 #ifdef _WIN32
 int wmain(int argc, wchar_t* argv[])
 {
-	if (argc < 2) {
-		std::cout << "Missing parameter" << std::endl;
-		return EXIT_FAILURE;
+	std::vector<std::string> args;
+	for(auto i = 1; i < argc; i++)
+	{
+		args.push_back(WStringToUTF8(argv[i]));
 	}
-	return realMain(WStringToUTF8(argv[1]));
+
+	return realMain(args);
 }
 #else
 int main(int argc, char* argv[])
 {
-	if (argc < 2) {
-		std::cout << "Missing parameter" << std::endl;
-		return EXIT_FAILURE;
+	std::vector<std::string> args;
+	for(auto i = 1; i < argc; i++)
+	{
+		args.push_back(argv[i]);
 	}
-	realMain(argv[1]);
-	return EXIT_SUCCESS;
+
+	return realMain(args);
 }
 #endif
