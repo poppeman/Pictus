@@ -4,7 +4,7 @@
 
 #include "Logger.h"
 #include <algorithm>
-#include <boost/random.hpp>
+#include <random>
 
 struct Runner
 {
@@ -29,8 +29,9 @@ void ThreadRunner::ThreadMain()
 {
 	startThreads();
 
-	boost::random::mt19937 rand;
-	boost::random::uniform_int_distribution<> slp(0, 2000);
+	std::random_device rd;
+	std::default_random_engine rand(rd());
+	std::uniform_int_distribution<> slp(0, 2000);
 
 	while (!IsTerminating() && !m_error)
 	{

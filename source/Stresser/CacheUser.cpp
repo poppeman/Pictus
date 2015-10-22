@@ -4,7 +4,7 @@
 #include "main.h"
 #include "orz/fileops.h"
 
-#include <boost/random.hpp>
+#include <random>
 
 void CacheUser::ThreadMain() {
 	Output("Initializing CacheUser...");
@@ -19,9 +19,10 @@ void CacheUser::ThreadMain() {
 
 	SwitchFolder();
 
-	boost::random::mt19937 r;
-	boost::random::uniform_int_distribution<> act(0, 13);
-	boost::random::uniform_int_distribution<> slp(0, 6);
+	std::random_device rd;
+	std::default_random_engine r(rd());
+	std::uniform_int_distribution<> act(0, 13);
+	std::uniform_int_distribution<> slp(0, 6);
 
 
 	Output("Init complete, running ...");
@@ -56,7 +57,7 @@ void CacheUser::ThreadMain() {
 		Sleep(30 * sleepChunks);
 
 		if (action == 0) {
-			boost::random::uniform_int_distribution<> img(0, m_cacher.ImageCount() - 1);
+			std::uniform_int_distribution<size_t> img(0, m_cacher.ImageCount() - 1);
 			m_cacher.GotoImage(img(r));
 		}
 		else if (action == 1)

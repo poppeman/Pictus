@@ -4,7 +4,7 @@
 #include "orz/stopwatch.h"
 #include "orz/types.h"
 #include <boost/locale.hpp>
-#include <boost/random.hpp>
+#include <random>
 
 using Filter::FilterBuffer;
 using namespace Geom;
@@ -31,10 +31,13 @@ struct FilterDataPair
 
 #include "orz/orz_math.h"
 
+std::random_device rd;
+std::default_random_engine r(rd());
+std::uniform_int_distribution<> dist(0, 255);
+
 FilterDataPair ConstructBuffer(int width, int height, int stride, int ps, const Img::Palette& pal)
 {
-	boost::random::mt19937 r;
-	boost::random::uniform_int_distribution<> dist(0, 255);
+
 	FilterDataPair fdp;
 	fdp.data = new uint8_t[stride * height];
 	for(int i = 0; i < stride * height; ++i) {

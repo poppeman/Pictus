@@ -6,7 +6,7 @@
 #include "FolderManipulator.h"
 #include "Helper.h"
 
-#include <boost/random.hpp>
+#include <random>
 
 FolderManipulator::FolderManipulator(const std::string& folder, const std::string& sourceFolder):
 	m_folder(folder),
@@ -48,8 +48,9 @@ void FolderManipulator::ThreadMain()
 	Output("Init complete, running ...");
 	auto currentFile = files.begin();
 
-	boost::random::mt19937 r;
-	boost::random::uniform_int_distribution<> act(0, 10);
+	std::random_device rd;
+	std::default_random_engine r(rd());
+	std::uniform_int_distribution<> act(0, 10);
 
 	while (IsTerminating() == false)
 	{
