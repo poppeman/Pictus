@@ -1,5 +1,6 @@
 #include "c_psd.h"
 #include "orz/bitconvert.h"
+#include "orz/logger.h"
 #include "psd_shared.h"
 #include "surface_locked_area.h"
 
@@ -16,6 +17,12 @@ namespace Img {
 		m_palette = Img::Grayscale();
 
 		if (m_header.ReadHeader(file) == false) {
+			return false;
+		}
+
+		if (m_header.BitsPerChannel > 8)
+		{
+			Log << "(CodecPSD::PerformLoadHeader) BitsPerChannel not supported, was " << m_header.BitsPerChannel << "\n";
 			return false;
 		}
 
