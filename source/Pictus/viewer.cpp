@@ -507,7 +507,7 @@ namespace App {
 	}
 
 	void Viewer::ZoomToggleFullSizeDefaultZoom() {
-		if (m_viewPort.ZoomMode() == App::ZoomFullSize) {
+		if (m_viewPort.ZoomMode() != m_cfg.View.DefaultZoomMode) {
 			ZoomMode(m_cfg.View.DefaultZoomMode);
 		}
 		else {
