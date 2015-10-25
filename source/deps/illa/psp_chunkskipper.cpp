@@ -1,4 +1,5 @@
 #include "psp_chunkskipper.h"
+#include "orz/logger.h"
 
 namespace Img {
 	namespace Internal {
@@ -11,7 +12,14 @@ namespace Img {
 		}
 
 		ChunkSkipper::~ChunkSkipper() {
-			m_reader->Seek(m_end, IO::SeekMethod::Begin);
+			try
+			{
+				m_reader->Seek(m_end, IO::SeekMethod::Begin);
+			}
+			catch (std::runtime_error& e)
+			{
+				Log << "(ChunkSkipper::~ChunkSkipper) " << e.what() << "\n";
+			}
 		}
 	}
 }
