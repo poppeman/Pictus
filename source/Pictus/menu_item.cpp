@@ -1,7 +1,8 @@
 #include "menu_item.h"
 
 namespace Win {
-	Menu::Ptr MenuItem::AddTo(HMENU hMenu) {
+	Menu::Ptr MenuItem::AddTo(HMENU hMenu)
+	{
 		MENUITEMINFO mii;
 
 		ZeroMemory(&mii, sizeof(mii));
@@ -15,6 +16,11 @@ namespace Win {
 
 		InsertMenuItem(hMenu, Index(), true, &mii);
 		return Menu::Ptr();
+	}
+
+	uint32_t MenuItem::Id() const
+	{
+		return m_id;
 	}
 
 	MenuItem::MenuItem(DWORD id):

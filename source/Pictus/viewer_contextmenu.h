@@ -27,6 +27,8 @@ namespace App {
 
 		Viewer* m_viewer;
 
+		uint32_t m_idZoomFitImage, m_idZoomFullSize;
+
 		typedef ActionMapNoParam<DWORD> MenuActionMap;
 		MenuActionMap m_menuMap;
 	};

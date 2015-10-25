@@ -4,14 +4,16 @@
 #include "app_types.h"
 #include "basewin.h"
 
-namespace Win {
-	class Menu {
+namespace Win
+{
+	class Menu
+	{
 	public:
 		typedef std::shared_ptr<Menu> Ptr;
 		DWORD Display(const Win::BaseWindow* pParent, const Geom::PointInt& position, bool absoluteCoords=false);
 		void CheckMenuItem(uint32_t id, bool status);
-		void AddItem(uint32_t id, App::StringID str_id);
-		Ptr AddSubMenu(App::StringID id);
+		uint32_t AddItem(App::StringID str_id);
+		Ptr AddSubMenu(App::StringID str_id);
 		void AddMenuSeparator();
 
 		Menu();
@@ -33,6 +35,7 @@ namespace Win {
 		MIQueue m_items;
 		typedef std::map<DWORD, bool> CheckMap;
 		CheckMap m_checked;
+		static uint32_t m_currId;
 	};
 }
 

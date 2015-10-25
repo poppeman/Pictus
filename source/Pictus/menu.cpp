@@ -4,9 +4,14 @@
 #include "separator.h"
 
 namespace Win {
-	DWORD Menu::Display(const Win::BaseWindow* parent, const Geom::PointInt& pos, bool absoluteCoords) {
+	uint32_t Menu::m_currId = 1;
+
+	DWORD Menu::Display(const Win::BaseWindow* parent, const Geom::PointInt& pos, bool absoluteCoords)
+	{
 		if (!absoluteCoords)
-			ClientToScreen(parent->Handle(), (LPPOINT)&pos); 
+		{
+			ClientToScreen(parent->Handle(), (LPPOINT)&pos);
+		}
 
 		return TrackPopupMenu(
 			m_hMenu,
@@ -18,24 +23,29 @@ namespace Win {
 			0); 
 	}
 
-	void Menu::CheckMenuItem(uint32_t id, bool status) {
+	void Menu::CheckMenuItem(uint32_t id, bool status)
+	{
 		m_checked.erase(id);
 		m_checked.insert(std::pair<int, bool>(id, status));
 
 		::CheckMenuItem(m_hMenu, id, (status?MF_CHECKED:MF_UNCHECKED));
 	}
 
-	void Menu::AddItem(uint32_t id, App::StringID str_id) {
-		MenuPtr mi(new MenuItem(id));
+	uint32_t Menu::AddItem(App::StringID str_id)
+	{
+		auto mi = std::make_shared<MenuItem>(m_currId++);
 
 		m_items.push_back(mi);
 
 		mi->Create(str_id, m_iCurrIndex++);
 		mi->AddTo(m_hMenu);
+
+		return mi->Id();
 	}
 
-	Menu::Ptr Menu::AddSubMenu(App::StringID str_id) {
-		MenuPtr mi(new SubMenu());
+	Menu::Ptr Menu::AddSubMenu(App::StringID str_id)
+	{
+		auto mi = std::make_shared<SubMenu>();
 
 		m_items.push_back(mi);
 
@@ -43,8 +53,9 @@ namespace Win {
 		return mi->AddTo(m_hMenu);
 	}
 
-	void Menu::AddMenuSeparator() {
-		MenuPtr mi(new Separator());
+	void Menu::AddMenuSeparator()
+	{
+		auto mi = std::make_shared<Separator>();
 
 		m_items.push_back(mi);
 
@@ -52,7 +63,8 @@ namespace Win {
 		mi->AddTo(m_hMenu);
 	}
 
-	void Menu::RebuildMenu() {
+	void Menu::RebuildMenu()
+	{
 		DestroyMenu(m_hMenu);
 		m_hMenu = CreatePopupMenu();
 
@@ -67,19 +79,22 @@ namespace Win {
 
 	Menu::Menu():
 		m_iCurrIndex{ 0 },
-		m_hMenu{ 0 }
+		m_hMenu{ nullptr }
 	{
 		m_lang = Intl::OnLanguageChanged.connect([&]() { RebuildMenu(); });
 		m_hMenu = CreatePopupMenu();
 	}
 
-	Menu::~Menu() {
-		if (m_hMenu) {
+	Menu::~Menu()
+	{
+		if (m_hMenu)
+		{
 			DestroyMenu(m_hMenu);
 		}
 	}
 
-	HMENU Menu::Handle() {
+	HMENU Menu::Handle()
+	{
 		return m_hMenu;
 	}
 }

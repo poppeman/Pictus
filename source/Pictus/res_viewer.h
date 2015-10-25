@@ -3,22 +3,6 @@
 // Used by res_viewer.rc
 //
 #define IDI_APP_MAIN                    5
-#define ID_ADJUST                       101
-#define ID_ROTATE_DEFAULT               102
-#define ID_ROTATE_90                    103
-#define ID_ROTATE_180                   104
-#define ID_ROTATE_270                   105
-#define ID_RENAME                       107
-#define ID_ROTATE_FLIPX                 108
-#define ID_ROTATE_FLIPY                 109
-#define ID_OPENDIRECTORY                110
-#define ID_SORT_FILENAME                112
-#define ID_SORT_DATEMODIFIED            113
-#define ID_SORT_DATEACCESSED            114
-#define ID_SORT_DATECREATED             115
-#define ID_SETWALLPAPER_CROPFILL        116
-#define ID_SETWALLPAPER_PADFILL         117
-#define ID_SETWALLPAPER_SPAN            118
 #define IDD_ADJUST                      119
 #define IDD_RENAME                      120
 #define IDI_DOCUMENT                    123
@@ -27,7 +11,6 @@
 #define IDD_INSTALL_LANGUAGE            126
 #define IDD_INSTALL_FORMATS             127
 #define IDD_INSTALL_CUSTOMFORMATS       128
-#define IDB_BITMAP1                     133
 #define IDB_THUMBTOOLBAR                133
 #define IDC_SLIDER_ADJUST_BRIGHTNESS    1002
 #define IDC_GROUP_ADJUST_BRIGHTNESS     1003
@@ -51,17 +34,6 @@
 #define IDC_RADIO_INSTALL_FORMATS_CUSTOM 1024
 #define IDC_STATIC_INSTALL_CUSTOMFORMATS_DESC 1025
 #define IDC_LIST_INSTALL_CUSTOMFORMATS_FILEFORMATS 1026
-#define ID_SETTINGS                     40001
-#define ID_VIEWERCONTEXT_ZOOM           40013
-#define ID_ZOOM_ZOOMOUT                 40016
-#define ID_ZOOM_FULLSIZE                40017
-#define ID_ZOOM_FITIMAGE                40018
-#define ID_ZOOM_ZOOMIN                  40019
-#define ID_VIEWERCONTEXT_OPEN           40020
-#define ID_OPEN                         40021
-#define ID_SETWALLPAPER_STRETCH         40026
-#define ID_SETWALLPAPER_CENTER          40027
-#define ID_SETWALLPAPER_TILE            40028
 
 // Next default values for new objects
 // 

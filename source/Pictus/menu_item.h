@@ -7,6 +7,7 @@ namespace Win {
 	class MenuItem :public Menu::IMenuItem {
 	public:
 		Menu::Ptr AddTo(HMENU hMenu) override;
+		uint32_t Id() const;
 
 		MenuItem(DWORD id);
 
