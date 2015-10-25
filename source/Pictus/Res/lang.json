@@ -43,6 +43,10 @@
 				"en": "Rotate 90 degrees",
 				"sv": "Rotera 90 grader"
 			},
+			"Rotate90Flip": {
+				"en": "Rotate 90 degrees and flip",
+				"sv": "Rotera 90 grader och vänd"
+			},
 			"Rotate180": {
 				"en": "Rotate 180 degrees",
 				"sv": "Rotera 180 grader"
@@ -50,6 +54,10 @@
 			"Rotate270": {
 				"en": "Rotate 270 degrees",
 				"sv": "Rotera 270 grader"
+			},
+			"Rotate270Flip": {
+				"en": "Rotate 270 degrees and flip",
+				"sv": "Rotera 270 grader och vänd"
 			}
 		},
 		"SortBy": {

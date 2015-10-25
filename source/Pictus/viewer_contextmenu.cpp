@@ -27,8 +27,10 @@ namespace App {
 		m_menuMap.AddAction(pRot->AddItem(SIDMenuOrientationMirror), [=]() { v->Rotate(Filter::RotationAngle::FlipX); });
 		m_menuMap.AddAction(pRot->AddItem(SIDMenuOrientationFlip), [=]() { v->Rotate(Filter::RotationAngle::FlipY); });
 		m_menuMap.AddAction(pRot->AddItem(SIDMenuOrientationRotate90), [=]() { v->Rotate(Filter::RotationAngle::Rotate90); });
+		m_menuMap.AddAction(pRot->AddItem(SIDMenuOrientationRotate90Flip), [=]() { v->Rotate(Filter::RotationAngle::Rotate90FlipY); });
 		m_menuMap.AddAction(pRot->AddItem(SIDMenuOrientationRotate180), [=]() { v->Rotate(Filter::RotationAngle::Rotate180); });
 		m_menuMap.AddAction(pRot->AddItem(SIDMenuOrientationRotate270), [=]() { v->Rotate(Filter::RotationAngle::Rotate270); });
+		m_menuMap.AddAction(pRot->AddItem(SIDMenuOrientationRotate270Flip), [=]() { v->Rotate(Filter::RotationAngle::Rotate270FlipY); });
 
 		auto pSort(m_menu.AddSubMenu(SIDMenuSortBy));
 		m_menuMap.AddAction(pSort->AddItem(SIDMenuSortByFilename), [=]() { v->Sort(Img::Cacher::SortFilename); });
