@@ -3,6 +3,7 @@
 #include "filter.h"
 #include "config.h"
 #include "orz/exception.h"
+#include "orz/logger.h"
 #include "orz/types.h"
 #include <cstring>
 
@@ -21,15 +22,18 @@ namespace Img {
 			DO_THROW(Err::InvalidParam, "Invalid dimensions, both axis must be above zero");
 		}
 
-		if (size.Width > MaxSurfaceDim || size.Height > MaxSurfaceDim) {
-			DO_THROW(Err::AllocationError, "Too large surface requested, maximum axis size is " + ToAString(MaxSurfaceDim));
+		if (size.Width > MaxSurfaceDim || size.Height > MaxSurfaceDim)
+		{
+			Log << "(Surface::CreateSurface) Too large surface requested, maximum axis size is " << ToAString(MaxSurfaceDim) << "\n";
+			throw std::bad_alloc();
 		}
 		if (format >= Format::Num) {
 			DO_THROW(Err::InvalidParam, "Invalid format");
 		}
 		auto bytesToConsume = static_cast<size_t>(size.Width) * static_cast<size_t>(size.Height) * static_cast<size_t>(EstimatePixelSize(format));
 		if (bytesToConsume > MaxSurfaceBytes) {
-			DO_THROW(Err::AllocationError, "Surface would consume " + ToAString(bytesToConsume) + " which would be greater than the safety limit of " + ToAString(MaxSurfaceBytes) + " bytes");
+			Log << "Surface would consume " << ToAString(bytesToConsume) << " which would be greater than the safety limit of " << ToAString(MaxSurfaceBytes) << " bytes\n";
+			throw std::bad_alloc();
 		}
 
 		m_swFormat	= format;

@@ -76,7 +76,7 @@ namespace Img {
 
 			return PerformAllocate(dimHint);
 		}
-		catch(Err::AllocationError& e) {
+		catch(std::bad_alloc& e) {
 			// We can't handle infinitely huge images, which is not really a fatal error.
 			Log << "(AbstractCodec::Allocate) " << e.what() << "\n";
 			return AllocationStatus::Failed;
