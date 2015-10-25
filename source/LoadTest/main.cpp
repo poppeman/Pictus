@@ -147,7 +147,15 @@ int realMain(std::vector<std::string> args) {
 	}
 	else
 	{
-		return performLoad(filename, autoDetect);
+		try
+		{
+			return performLoad(filename, autoDetect);
+		}
+		catch (std::bad_alloc& e)
+		{
+			std::cout << "Ran out of memory, that's no good!\n";
+			return EXIT_FAILURE;
+		}
 	}
 
 	return EXIT_SUCCESS;	
