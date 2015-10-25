@@ -81,6 +81,10 @@ namespace Img {
 			Log << "(AbstractCodec::Allocate) " << e.what() << "\n";
 			return AllocationStatus::Failed;
 		}
+		catch (Err::Exception& e) {
+			Log << "(AbstractCodec::Allocate) " << e.what() << "\n";
+			return AllocationStatus::Failed;
+		}
 	}
 
 	size_t AbstractCodec::EstimateMemory() {
