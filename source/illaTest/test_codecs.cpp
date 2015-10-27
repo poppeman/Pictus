@@ -121,9 +121,16 @@ SUITE(CodecTests) {
 		int bytesToCompare = Geom::Area(l1.ptr->GetSize()) * 4;
 		uint8_t* bufRaw1 = d1.get();
 		uint8_t* bufRaw2 = d2.get();
-		for(int i = 0; i < bytesToCompare; ++i)
-			if(bufRaw1[i] != bufRaw2[i])
+		for (int i = 0; i < bytesToCompare; ++i)
+		{
+			if (bufRaw1[i] != bufRaw2[i])
+			{
+				std::stringstream ss;
+				ss << "Mismatch: " << f1 << " <=> " << f2 << " at i=" << i << ", " << (int)bufRaw1[i] << "!=" << (int)bufRaw2[i];
+				DECORATIVE_FAIL(ss.str().c_str());
 				return ErrDataDiffer;
+			}
+		}
 
 		return ErrNoError;
 	}
