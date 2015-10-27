@@ -46,4 +46,6 @@ else()
 	list(APPEND tiff_SOURCES tif_unix.c)
 endif()
 
+include_directories(../libjpeg/ ../zlib/ ${DEPS_DIRECTORY})
+
 add_library(tiff STATIC ${tiff_SOURCES})
