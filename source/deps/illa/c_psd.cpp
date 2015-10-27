@@ -16,7 +16,13 @@ namespace Img {
 		m_currentRleStreamIndex = 0;
 		m_palette = Img::Grayscale();
 
-		if (m_header.ReadHeader(file) == false) {
+		if (m_header.ReadHeader(file) == false)
+		{
+			return false;
+		}
+
+		if (m_header.Width == 0 || m_header.Height == 0)
+		{
 			return false;
 		}
 
@@ -60,6 +66,10 @@ namespace Img {
 		m_colorPlaneSize = (m_header.BitsPerChannel >> 3) * Geom::Area(info.Dimensions);
 
 		if (m_compression == CompressionRle) {
+			if (m_header.Channels == 0)
+			{
+				return false;
+			}
 			m_numRleEntries = m_header.Height * m_header.Channels;
 			m_rleScanlineLength.resize(m_numRleEntries);
 			file->ReadFull(&m_rleScanlineLength.front(), 2 * m_numRleEntries);
