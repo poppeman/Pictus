@@ -291,8 +291,9 @@ TGA/rgbnoise.tga, TGA/rgbnoise.png
 TIFF/bw.tiff, TIFF/bw.png
 TIFF/g3.tiff, TIFF/mono.png
 TIFF/g4.tiff, TIFF/mono.png
-// JPEG currently broken
-//TIFF/jpeg.tiff, TIFF/jpeg.png
+TIFF/jpegrgb.tiff, TIFF/jpegrgb.png
+// JPEG YCbCR not yet supported
+//TIFF/jpegycbcr.tiff, TIFF/jpegycbcr.png
 // LZMA not yet supported
 //TIFF/lzma.tiff, TIFF/simple.png
 TIFF/lzw.tiff, TIFF/simple.png
