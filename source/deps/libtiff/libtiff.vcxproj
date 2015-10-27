@@ -166,7 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="t4.h" />
+    <ClInclude Include="tiffconf_linux.h" />
+    <ClInclude Include="tiffconf_win32.h" />
     <ClInclude Include="tif_config.h" />
+    <ClInclude Include="tif_config_linux.h" />
+    <ClInclude Include="tif_config_win32.h" />
     <ClInclude Include="tif_dir.h" />
     <ClInclude Include="tif_fax3.h" />
     <ClInclude Include="tif_predict.h" />

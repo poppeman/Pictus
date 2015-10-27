@@ -1,3 +1,6 @@
+#define ZIP_SUPPORT
+#define JPEG_SUPPORT
+
 #ifdef _WIN32
 #include "tif_config_win32.h"
 #else

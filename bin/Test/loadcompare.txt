@@ -298,8 +298,7 @@ TIFF/g4.tiff, TIFF/mono.png
 TIFF/lzw.tiff, TIFF/simple.png
 TIFF/packbits.tiff, TIFF/simple.png
 TIFF/simple.tiff, TIFF/simple.png
-// ZIP currently broken
-//TIFF/zip.tiff, TIFF/simple.png
+TIFF/zip.tiff, TIFF/simple.png
 
 
 ///////////////////////////////////////////////

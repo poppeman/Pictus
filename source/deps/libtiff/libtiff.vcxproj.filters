@@ -169,5 +169,17 @@
     <ClInclude Include="uvcode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tif_config_linux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tif_config_win32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tiffconf_linux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tiffconf_win32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
