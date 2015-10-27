@@ -5,18 +5,33 @@
 #include "tiff_rawconverter.h"
 #include "tiff_ycbcrconverter.h"
 
+#include "orz/logger.h"
+
 struct InternalTIFFException:public Err::Exception {
-	InternalTIFFException():Err::Exception("numpty") {}
+	InternalTIFFException():
+		Err::Exception("numpty")
+	{}
 };
 
+std::string UnTIFFifyParams(const char *module, const char *fmt, va_list ap)
+{
+	auto len = snprintf(nullptr, 0, fmt, ap);
+	std::string str(len + 1, 0);
+	snprintf(&str[0], len + 1, fmt, ap);
+	str.resize(str.length() - 1);
+
+	std::stringstream ss;
+	ss << module << " " << str;
+	return ss.str();
+}
+
 void myTIFFErrorHandler(const char *module, const char *fmt, va_list ap) {
-	(module, fmt, ap);
-	// Assume it's disastrous as it's not practically possible to determine what the hell just happened.
-	//throw InternalTIFFException();
+	Log << "(CodecTIFF:myTIFFErrorHandler) " << UnTIFFifyParams(module, fmt, ap) << "\n";
+	// TODO: Not sure if libtiff likes exceptions here (probably not) so should signal an error in a safer way
 }
 
 void myTIFFWarningHandler(const char *module, const char *fmt, va_list ap) {
-
+	Log << "(CodecTIFF:myTIFFWarningHandler) " << UnTIFFifyParams(module, fmt, ap) << "\n";
 }
 
 tsize_t myTIFFReadProc(thandle_t handle, tdata_t data, tsize_t size) {
