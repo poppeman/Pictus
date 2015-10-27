@@ -800,49 +800,42 @@ namespace App {
 
 		auto imageSize = m_viewPort.OptimalViewportSize();
 
-		if (!IsPositive(imageSize)) {
-			return;
-		}
+		if (IsPositive(imageSize) && ViewportMode() == SM_Normal) {
+			if (m_cfg.View.ResizeWindow) {
+				// The window should be resized some way.
+				SizeInt newSize;
+				SizeInt windowEdges = GetSize() - ClientRect().Dimensions();
 
-		if (ViewportMode() != SM_Normal) {
-			return;
-		}
+				if (m_cfg.View.ShowStatusBar) {
+					windowEdges.Height += m_statusBar->Position().Height();
+				}
 
-		if (m_cfg.View.ResizeWindow) {
-			// The window should be resized some way.
-			SizeInt newSize;
-			SizeInt windowEdges = GetSize() - ClientRect().Dimensions();
+				if (m_viewPort.ZoomMode() == App::ZoomFitImage) {
+					// The image should _also_ be resized to fit some way.
+					// Make the viewer as large as possible (and needed).
+					const RectInt& rtDesktop = Win::FindMonitorAt(PositionScreen())->WorkArea();
 
-			if (m_cfg.View.ShowStatusBar) {
-				windowEdges.Height += m_statusBar->Position().Height();
-			}
+					float xratio = static_cast<float>(rtDesktop.Width() - windowEdges.Width) / imageSize.Width;
+					float yratio = static_cast<float>(rtDesktop.Height() - windowEdges.Height) / imageSize.Height;
 
-			if (m_viewPort.ZoomMode() == App::ZoomFitImage) {
-				// The image should _also_ be resized to fit some way.
-				// Make the viewer as large as possible (and needed).
-				const RectInt& rtDesktop = Win::FindMonitorAt(PositionScreen())->WorkArea();
+					ResizeBehaviour mode = m_cfg.View.ResizeBehaviour;
+					newSize = calculateImageSize(mode, xratio, yratio, imageSize, windowEdges);
+				}
+				else {
+					newSize = calculateCappedImageSize(m_viewPort.ZoomedImageSize(), windowEdges);
+				}
 
-				float xratio = static_cast<float>(rtDesktop.Width() - windowEdges.Width) / imageSize.Width;
-				float yratio = static_cast<float>(rtDesktop.Height() - windowEdges.Height) / imageSize.Height;
+				PointInt newTopLeft = calculateWindowTopLeft(m_cfg.View.ResizePositionMethod, newSize);
 
-				ResizeBehaviour mode = m_cfg.View.ResizeBehaviour;
-				newSize = calculateImageSize(mode, xratio, yratio, imageSize, windowEdges);
+				MoveResize(newTopLeft, newSize);
+
 			}
 			else {
-				newSize = calculateCappedImageSize(m_viewPort.ZoomedImageSize(), windowEdges);
+				OnSize(GetSize());	// Adjust to the current window
 			}
-
-			PointInt newTopLeft = calculateWindowTopLeft(m_cfg.View.ResizePositionMethod, newSize);
-
-			MoveResize(newTopLeft, newSize);
-
-		}
-		else {
-			OnSize(GetSize());	// Adjust to the current window
 		}
 
 		UpdateImageInformation();
-		//if(m_attemptToShow) Show(m_attemptToShow);
 	}
 
 	App::PointInt Viewer::calculateWindowTopLeft(ResizePositionMethod method, const SizeInt &newSize ) {
