@@ -17,8 +17,13 @@ enum
 
 Img::CodecFactoryStore g_cfs;
 
-Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader, bool autoDetect) {
-	auto c = g_cfs.CreateCodec(IO::GetExtension(reader->Name()));
+Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader, std::string ext, bool autoDetect) {
+	if (ext.empty())
+	{
+		ext = IO::GetExtension(reader->Name());
+	}
+
+	auto c = g_cfs.CreateCodec(ext);
 	if (c != nullptr && c->LoadHeader(reader))
 	{
 		return c;
@@ -51,7 +56,7 @@ Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> re
 	return 0;
 }
 
-int performLoad(const std::string& filename, bool autoDetect)
+int performLoad(const std::string& filename, const std::string& ext, bool autoDetect)
 {
 	auto f = std::make_shared<IO::FileReader>(filename);
 	if(!f->Open())
@@ -59,7 +64,7 @@ int performLoad(const std::string& filename, bool autoDetect)
 		std::cout << "Failed opening file" << std::endl;
 		return EXIT_FAILURE;
 	}
-	auto pCodec = DetectAndLoadHeader(f, autoDetect);
+	auto pCodec = DetectAndLoadHeader(f, ext, autoDetect);
 	if(pCodec == nullptr)
 	{
 		std::cout << "No codec!" << std::endl;
@@ -98,11 +103,18 @@ int realMain(std::vector<std::string> args) {
 	bool bench = false;
 	std::string filename = "";
 
+	std::string ext = "";
+
 	for(auto p:args)
 	{
 		if(p == "--noauto")
 		{
 			autoDetect = false;
+		}
+		else if (p.find("--ext=") == 0 && p.length() > 6)
+		{
+			autoDetect = false;
+			ext = p.substr(6);
 		}
 		else if(p == "--bench")
 		{
@@ -129,7 +141,7 @@ int realMain(std::vector<std::string> args) {
 
 		for (int i = 0; i < Warmups; ++i)
 		{
-			if (performLoad(filename, autoDetect) == EXIT_FAILURE)
+			if (performLoad(filename, ext, autoDetect) == EXIT_FAILURE)
 			{
 				std::cout << "Failed during warmup, exiting ..." << std::endl;
 				return EXIT_FAILURE;
@@ -139,7 +151,7 @@ int realMain(std::vector<std::string> args) {
 		sw.Start();
 		for (int i = 0; i < NumRuns; ++i)
 		{
-			performLoad(filename, autoDetect);
+			performLoad(filename, ext, autoDetect);
 		}
 		int time = sw.Stop();
 
@@ -149,7 +161,7 @@ int realMain(std::vector<std::string> args) {
 	{
 		try
 		{
-			return performLoad(filename, autoDetect);
+			return performLoad(filename, ext, autoDetect);
 		}
 		catch (std::bad_alloc& e)
 		{
