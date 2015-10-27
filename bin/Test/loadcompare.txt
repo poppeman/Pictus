@@ -288,31 +288,19 @@ TGA/rgbnoise.tga, TGA/rgbnoise.png
 ///////////////////////////////////////////////
 //	TIFF
 ///////////////////////////////////////////////
-//TIFF/cramps.tif, TIFF/cramps.tga
-//TIFF/quad-lzw.tif, TIFF/quad-lzw.tga
-//TIFF/quad-tile.tif, TIFF/quad-tile.tga
-//TIFF/strike.tif, TIFF/strike.tga
-//TIFF/text.tif, TIFF/text.tga
-//TIFF/ycbcr-cat.tif, TIFF/ycbcr-cat.tga
-//TIFF/depth/flower-minisblack-02.tif, TIFF/depth/flower-minisblack-02.tga
-//TIFF/depth/flower-minisblack-04.tif, TIFF/depth/flower-minisblack-04.tga
-//TIFF/depth/flower-minisblack-06.tif, TIFF/depth/flower-minisblack-06.tga
-//TIFF/depth/flower-minisblack-08.tif, TIFF/depth/flower-minisblack-08.tga
-//TIFF/depth/flower-palette-02.tif, TIFF/depth/flower-palette-02.tga
-//TIFF/depth/flower-palette-04.tif, TIFF/depth/flower-palette-04.tga
-//TIFF/depth/flower-palette-08.tif, TIFF/depth/flower-palette-08.tga
-//TIFF/depth/flower-rgb-contig-08.tif, TIFF/depth/flower-rgb-contig-08.tga
-////////////////////////////////
+TIFF/bw.tiff, TIFF/bw.png
+TIFF/g3.tiff, TIFF/mono.png
+TIFF/g4.tiff, TIFF/mono.png
+// JPEG currently broken
+//TIFF/jpeg.tiff, TIFF/jpeg.png
+// LZMA not yet supported
+//TIFF/lzma.tiff, TIFF/simple.png
+TIFF/lzw.tiff, TIFF/simple.png
+TIFF/packbits.tiff, TIFF/simple.png
+TIFF/simple.tiff, TIFF/simple.png
+// ZIP currently broken
+//TIFF/zip.tiff, TIFF/simple.png
 
-//TIFF/cramps-tile.tif, TIFF/cramps.tga
-//TIFF/dscf0013.tif, TIFF/dscf0013.tga
-//TIFF/fax2d.tif, TIFF/fax2d.tga
-//TIFF/g3test.tif, TIFF/g3test.tga
-//TIFF/jello.tif, TIFF/jello.tga
-//TIFF/ladoga.tif, TIFF/ladoga.tga
-////	TIFF/off_l16.tif, TIFF/off_l16.tga
-//TIFF/pc260001.tif, TIFF/pc260001.tga
-//TIFF/quad-jpeg.tif, TIFF/quad-jpeg.tga
 
 ///////////////////////////////////////////////
 //	WBMP
