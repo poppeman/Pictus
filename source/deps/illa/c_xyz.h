@@ -13,7 +13,7 @@ namespace Img {
 		~CodecXYZ();
 
 	private:
-		bool PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info);
+		bool PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) override;
 		AllocationStatus PerformAllocate() override;
 		LoadStatus PerformLoadImageData(IO::FileReader::Ptr file) override;
 

@@ -31,7 +31,10 @@ namespace Img {
 }
 
 std::string ToAString(const Img::Format& imgFormat);
-std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt);
+namespace Img
+{
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt);
+}
 
 #include "color.h"
 #include "color_conv.h"

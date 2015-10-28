@@ -2,41 +2,44 @@
 #include "illa/filter_int.h"
 
 
-Img::Color operator+(const Img::Color& lhs, const Img::Color& rhs)
+namespace Img
 {
-	return Img::Color(
-		lhs.A+rhs.A,
-		lhs.R+rhs.R,
-		lhs.G+rhs.G,
-		lhs.B+rhs.B);
-}
+	Img::Color operator+(const Img::Color& lhs, const Img::Color& rhs)
+	{
+		return Img::Color(
+			lhs.A+rhs.A,
+			lhs.R+rhs.R,
+			lhs.G+rhs.G,
+			lhs.B+rhs.B);
+	}
 
-Img::Color operator-(const Img::Color& lhs, const Img::Color& rhs)
-{
-	return Img::Color(
-		lhs.A-rhs.A,
-		lhs.R-rhs.R,
-		lhs.G-rhs.G,
-		lhs.B-rhs.B);
-}
+	Img::Color operator-(const Img::Color& lhs, const Img::Color& rhs)
+	{
+		return Img::Color(
+			lhs.A-rhs.A,
+			lhs.R-rhs.R,
+			lhs.G-rhs.G,
+			lhs.B-rhs.B);
+	}
 
-bool operator >=(const Img::Color& lhs, const Img::Color& rhs)
-{
-	return 
-		(lhs.A >= rhs.A) &&
-		(lhs.R >= rhs.R) &&
-		(lhs.G >= rhs.G) &&
-		(lhs.B >= rhs.B);
-}
+	bool operator >=(const Img::Color& lhs, const Img::Color& rhs)
+	{
+		return 
+			(lhs.A >= rhs.A) &&
+			(lhs.R >= rhs.R) &&
+			(lhs.G >= rhs.G) &&
+			(lhs.B >= rhs.B);
+	}
 
 
-bool operator <=(const Img::Color& lhs, const Img::Color& rhs)
-{
-	return 
-		(lhs.A <= rhs.A) &&
-		(lhs.R <= rhs.R) &&
-		(lhs.G <= rhs.G) &&
-		(lhs.B <= rhs.B);
+	bool operator <=(const Img::Color& lhs, const Img::Color& rhs)
+	{
+		return 
+			(lhs.A <= rhs.A) &&
+			(lhs.R <= rhs.R) &&
+			(lhs.G <= rhs.G) &&
+			(lhs.B <= rhs.B);
+	}
 }
 
 SUITE(ToRgb8888)

@@ -9,7 +9,7 @@
 namespace Img {
 	class CodecGIF:public AbstractCodec {
 	public:
-		ImageComposer::Ptr RequestImageComposer();
+		ImageComposer::Ptr RequestImageComposer() override;
 		size_t FrameLoading();
 		Palette GlobalPalette();
 		bool HasGlobalPalette();
