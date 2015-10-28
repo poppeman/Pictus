@@ -76,7 +76,8 @@ namespace Img {
 					m_isRleBlock = (m_repField & 0x80) != 0;
 
 					if (m_isRleBlock) {
-						*reinterpret_cast<T_Pixel*>(&m_pix) = reader(m_fileStream);
+						auto* pixPtr = reinterpret_cast<T_Pixel*>(&m_pix);
+						*pixPtr = reader(m_fileStream);
 					}
 				}
 
