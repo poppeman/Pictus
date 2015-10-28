@@ -8,7 +8,7 @@ namespace Img {
 		m_reader = reader;
 		m_header = header;
 
-		m_currentScanline = m_header->FlipVertical?m_currentScanline = m_header->Size.Height:0;
+		m_currentScanline = m_header->FlipVertical?m_header->Size.Height:0;
 
 		OnSource();
 	}

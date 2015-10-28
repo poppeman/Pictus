@@ -31,7 +31,7 @@ namespace Err {
 	};
 
 	struct NotYetImplemented:public Exception {
-		NotYetImplemented(const std::string& msg);;
+		NotYetImplemented(const std::string& msg);
 	};
 }
 

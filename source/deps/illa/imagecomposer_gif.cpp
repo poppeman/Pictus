@@ -106,8 +106,8 @@ namespace Img {
 	}
 
 	ImageComposerGif::ImageComposerGif():
-		m_frameLoading{ 0 },
 		m_currentFrame{ 0 },
+		m_frameLoading{ 0 },
 		m_isRendered{ false }
 	{}
 

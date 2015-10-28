@@ -14,8 +14,10 @@ namespace Filter {
 				lhs.B += rhs.B;
 				return lhs;
 			}
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable:4244)
+#endif
 			inline void NormalizeARGB(ARGBFloat& f, float mul) {
 				f.A = Util::Constrain(0.0f, f.A*mul, 255.0f);
 				f.G = Util::Constrain(0.0f, f.G*mul, 255.0f);
@@ -97,7 +99,9 @@ namespace Filter {
 				void operator=(const ConvertIndexed&) = delete;
 				const Img::Palette& m_p;
 			};
+#ifdef _MSC_VER
 #pragma warning(pop)
+#endif
 			using namespace Geom;
 
 			struct CSE {

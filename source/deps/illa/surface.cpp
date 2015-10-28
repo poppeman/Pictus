@@ -125,11 +125,13 @@ namespace Img {
 	}
 
 	Surface::Surface():
-		m_isDirty{ true },
-		m_isCreated{ false },
 		m_pixelSize{ 0 },
-		m_swFormat{ Format::Undefined }
-	{}
+		m_isDirty{ true },
+		m_swFormat{ Format::Undefined },
+		m_isCreated{ false }
+	{
+		
+	}
 
 	Surface::~Surface() {}
 

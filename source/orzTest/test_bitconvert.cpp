@@ -64,8 +64,10 @@ SUITE(BitConvert)
 
 	TEST(CrumbNotMatch)
 	{
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 6385)
+#endif
 		uint8_t dest[4] = { 0, 0, 0, 0xff};
 		uint8_t source = 0x98;
 		Util::CrumbsToBytes(dest, &source, 3);
@@ -73,7 +75,9 @@ SUITE(BitConvert)
 		CHECK(dest[1] == 0x01);
 		CHECK(dest[2] == 0x02);
 		CHECK(dest[3] == 0xff);
+#ifdef _MSC_VER
 #pragma warning(pop)
+#endif
 	}
 
 	TEST(CrumbSingle)
@@ -117,8 +121,10 @@ SUITE(BitConvert)
 
 	TEST(BitNotMatch)
 	{
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 6385)
+#endif
 		uint8_t dest[5] = { 0, 0, 0, 0xff};
 		uint8_t source = 0x98;
 		Util::BitsToBytes(dest, &source, 3);
@@ -126,7 +132,9 @@ SUITE(BitConvert)
 		CHECK(dest[1] == 0x00);
 		CHECK(dest[2] == 0x00);
 		CHECK(dest[3] == 0xff);
+#ifdef _MSC_VER
 #pragma warning(pop)
+#endif
 	}
 
 	TEST(BitSingle)

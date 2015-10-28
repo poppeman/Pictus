@@ -42,7 +42,7 @@ namespace Metadata {
 
 			void AddGeographicalAxis(FieldIdentifier docTag, TagName coordTag, TagName referenceTag, GeographicalAxis axis);
 
-			void Flatten();;
+			void Flatten();
 
 			Converter(ExifDocument& in, std::shared_ptr<Document> out) :m_in(in), m_out(out) {}
 

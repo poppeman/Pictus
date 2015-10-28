@@ -8,7 +8,9 @@ enum
 	SeekDelta = 100
 };
 
+#ifdef _MSC_VER
 #pragma warning(disable: 6031)
+#endif
 
 SUITE(IO)
 {
@@ -29,7 +31,8 @@ SUITE(IO)
 	{
 	public:
 		ReaderAsciiFixture():
-			content("This is a simple text file."), file(g_datapath + "/ascii.txt")
+			file(g_datapath + "/ascii.txt"),
+			content("This is a simple text file.")
 		{
 			file.Open();
 		}

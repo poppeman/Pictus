@@ -7,18 +7,18 @@ namespace Img {
 	using Geom::PointInt;
 
 	StringTable::StringTable(ImageDescriptor::Ptr id, uint8_t minCodeSize, bool Interlace):
-		m_pass{ 0 },
+		m_id{ id },
+		m_stride{ 0 },
 		m_x{ 0 },
 		m_y{ 0 },
 		m_width{ 0 },
 		m_height{ 0 },
-		m_stride{ 0 },
+		m_pass{ 0 },
 		m_pos{ 0 },
 		m_lastCode{ -1 },
-		m_startWithClear{ false },
 		m_interlace{ Interlace },
-		m_id{ id },
-		m_initialCodeSize{ minCodeSize }
+		m_initialCodeSize{ minCodeSize },
+		m_startWithClear{ false }
 	{
 		if (minCodeSize > 11) {
 			DO_THROW(Err::InvalidParam, "StringTable::ctor: Invalid initial code size.");

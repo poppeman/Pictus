@@ -37,7 +37,7 @@ namespace Metadata {
 				return;
 			}
 
-			if (m_in.Rational.find(coordTag) != m_in.Rational.end() & !m_in.Rational[coordTag].empty()) {
+			if (m_in.Rational.find(coordTag) != m_in.Rational.end() && !m_in.Rational[coordTag].empty()) {
 				auto& tag = m_in.Rational[coordTag];
 				auto ref = m_in.Ascii[referenceTag];
 

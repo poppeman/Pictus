@@ -339,8 +339,8 @@ namespace Geom {
 		Rect() {}
 
 	private:
-		Size<T> m_size;
 		Point<T> m_topLeft;
+		Size<T> m_size;
 	};
 
 

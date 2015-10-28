@@ -20,7 +20,7 @@ SUITE(FolderTest)
 		folder.Path(g_datapath + "/Folder/a");
 		IO::FileList l = folder.CurrentContents();
 
-		CHECK_EQUAL(2, l.size());
+		CHECK_EQUAL(2u, l.size());
 		SortFiles(l);
 
 		if(l.size() == 2) {
@@ -34,7 +34,7 @@ SUITE(FolderTest)
 		IO::Folder folder;
 		folder.Path(g_datapath + "/Folder/a/");
 		IO::FileList l = folder.CurrentContents();
-		CHECK_EQUAL(2, l.size());
+		CHECK_EQUAL(2u, l.size());
 		SortFiles(l);
 
 		if(l.size() == 2) {

@@ -2,8 +2,8 @@
 
 namespace IO {
 	FolderMonitorImplementation::FolderMonitorImplementation(const std::string& path, ChangeEventCallback& c):
-		m_path(path),
-		OnEvent(c)
+		OnEvent(c),
+		m_path(path)
 	{}
 
 	const std::string& FolderMonitorImplementation::Path() {

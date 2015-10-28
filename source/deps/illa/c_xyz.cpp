@@ -9,10 +9,10 @@ namespace Img {
 	using namespace Geom;
 
 	CodecXYZ::CodecXYZ():
-		m_isInit{ false },
+		m_paletteSet{ false },
 		m_x{ 0 },
 		m_y{ 0 },
-		m_paletteSet{ false }
+		m_isInit{ false }
 	{
 		memset(&m_stream, 0, sizeof(m_stream));
 	}

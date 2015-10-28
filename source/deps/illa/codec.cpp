@@ -131,9 +131,9 @@ namespace Img {
 	}
 
 	AbstractCodec::AbstractCodec():
-		m_doAbort{ false },
 		m_fs{ 0 },
-		m_isFinished{ false }
+		m_isFinished{ false },
+		m_doAbort{ false }
 	{
 		m_info.Dimensions = Geom::SizeInt(0, 0);
 		m_info.SurfaceFormat = Img::Format::Undefined;

@@ -11,12 +11,12 @@ namespace Img {
 		m_isLocked = false;
 	}
 
-	Surface::LockedArea::LockedArea( Surface* surface, uint8_t* buffer, const Geom::RectInt& rect, LockMethod method, size_t stride )
-		:m_surface(surface),
-		m_buffer(buffer),
+	Surface::LockedArea::LockedArea( Surface* surface, uint8_t* buffer, const Geom::RectInt& rect, LockMethod method, size_t stride ):
 		m_rectLocked(rect),
-		m_method(method),
+		m_buffer(buffer),
 		m_stride(stride),
+		m_method(method),
+		m_surface(surface),
 		m_isLocked(true)
 	{
 		if (m_surface == 0) DO_THROW(Err::InvalidParam, "Surface was null.");

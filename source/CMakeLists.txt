@@ -9,7 +9,7 @@ endif()
 
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic -Wno-switch -Werror")
 endif()
 
 find_package(Boost 1.55.0 COMPONENTS system thread locale filesystem REQUIRED)

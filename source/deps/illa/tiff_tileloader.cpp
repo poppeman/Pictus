@@ -3,10 +3,10 @@
 #include "orz/logger.h"
 
 namespace Img {
-	TiffTileLoader::TiffTileLoader()
-		:m_positionCurrentX(0),
-		 m_positionCurrentY(0),
-		 m_currentTile(0)
+	TiffTileLoader::TiffTileLoader():
+		m_currentTile(0),
+		m_positionCurrentX(0),
+		m_positionCurrentY(0)
 	{}
 
 	TiffChunkStatus TiffTileLoader::PerformLoadChunk() {
