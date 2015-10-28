@@ -150,10 +150,10 @@ namespace IO {
 	}
 
 	StreamFile::StreamFile(const std::string& filename):
-		m_name(filename),
 		m_file(0),
-		m_error(OpenErrorCode::Succeeded),
-		m_size(0)
+		m_name(filename),
+		m_size(0),
+		m_error(OpenErrorCode::Succeeded)
 	{}
 
 	StreamFile::~StreamFile() {

@@ -19,7 +19,6 @@ namespace IO {
 			CacheSize = 4096
 		};
 
-		FileInt m_fileStart;
 		uint8_t m_cache[CacheSize];
 		size_t m_position;
 		size_t m_cacheSize;

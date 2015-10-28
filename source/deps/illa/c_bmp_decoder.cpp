@@ -12,8 +12,8 @@ namespace Img
 		}
 
 		BmpDataDecoder::BmpDataDecoder(std::shared_ptr<Img::Surface> destination, BMPHeader header):
-			m_destination{ destination },
-			m_header{ header }
+			m_header{ header },
+			m_destination{ destination }
 		{
 
 		}

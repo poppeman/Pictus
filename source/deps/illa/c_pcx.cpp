@@ -86,9 +86,9 @@ namespace Img {
 	}
 
 	void CodecPCX::DecodeScanline(IO::FileReader::Ptr file, uint8_t* dest, size_t maxBytes) {
-		int currByte = 0;
-		int numBytes = m_header.ColorPlanes * m_header.BytesPerLine;
-		int bytesWritten = 0;
+		size_t currByte = 0;
+		size_t numBytes = m_header.ColorPlanes * m_header.BytesPerLine;
+		size_t bytesWritten = 0;
 
 		while(currByte < numBytes) {
 			uint8_t count, data;

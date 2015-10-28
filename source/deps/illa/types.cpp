@@ -201,32 +201,35 @@ std::string ToAString(const Filter::RotationAngle& angle) {
 	return ss.str();
 }
 
-std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt) {
-	switch (fmt) {
-	case Img::Format::Undefined:
-		in << "Undefined";
-		break;
-	case Img::Format::ARGB8888:
-		in << "ARGB8888";
-		break;
-	case Img::Format::XRGB8888:
-		in << "XRGB8888";
-		break;
-	case Img::Format::ARGB1555:
-		in << "ARGB1555";
-		break;
-	case Img::Format::XRGB1555:
-		in << "XRGB1555";
-		break;
-	case Img::Format::RGB565:
-		in << "RGB565";
-		break;
-	case Img::Format::Index8:
-		in << "Indexed8";
-		break;
-	default:
-		in << "Unknown(" << static_cast<int>(fmt) << ")";
-		break;
+namespace Img
+{
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Img::Format& fmt) {
+		switch (fmt) {
+		case Img::Format::Undefined:
+			in << "Undefined";
+			break;
+		case Img::Format::ARGB8888:
+			in << "ARGB8888";
+			break;
+		case Img::Format::XRGB8888:
+			in << "XRGB8888";
+			break;
+		case Img::Format::ARGB1555:
+			in << "ARGB1555";
+			break;
+		case Img::Format::XRGB1555:
+			in << "XRGB1555";
+			break;
+		case Img::Format::RGB565:
+			in << "RGB565";
+			break;
+		case Img::Format::Index8:
+			in << "Indexed8";
+			break;
+		default:
+			in << "Unknown(" << static_cast<int>(fmt) << ")";
+			break;
+		}
+		return in;
 	}
-	return in;
 }

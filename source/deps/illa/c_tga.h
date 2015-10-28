@@ -16,8 +16,6 @@ namespace Img {
 		// Image data
 		TGAHeader m_header;
 		Palette m_palette;
-
-		bool m_isFinished;
 	};
 }
 

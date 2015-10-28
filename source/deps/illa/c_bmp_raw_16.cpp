@@ -8,9 +8,9 @@ namespace Img
 	{
 		BmpRawDecoder16::BmpRawDecoder16(std::shared_ptr<Img::Surface> destination, BMPHeader header, std::shared_ptr<IO::FileReader> fileStream):
 			BmpDataDecoder{ destination, header },
-			m_reader{ fileStream },
 			m_row{ 0 },
-			m_layout{ Layout::Undefined }
+			m_layout{ Layout::Undefined },
+			m_reader{ fileStream }
 		{
 			const int blueBits = Math::Bit::CountSet(m_header.BlueMask);
 			const int greenBits = Math::Bit::CountSet(m_header.GreenMask);
@@ -40,7 +40,6 @@ namespace Img
 		{
 			auto area = GetScanlinePtr(m_row++);
 			auto pData8 = area->Buffer();
-			auto pData16 = reinterpret_cast<uint16_t*>(area->Buffer());
 
 			switch (m_layout)
 			{

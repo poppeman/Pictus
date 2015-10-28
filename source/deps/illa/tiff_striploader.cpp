@@ -8,10 +8,10 @@ namespace Img {
 	using namespace Geom;
 
 	TiffStripLoader::TiffStripLoader():
-		m_currentStrip{ 0 },
 		m_numerOfStrips{ 0 },
-		m_readScanlines{ 0 },
-		m_bufferPosition{ 0 }
+		m_currentStrip{ 0 },
+		m_bufferPosition{ 0 },
+		m_readScanlines{ 0 }
 	{}
 
 	TiffChunkStatus TiffStripLoader::PerformLoadChunk() {

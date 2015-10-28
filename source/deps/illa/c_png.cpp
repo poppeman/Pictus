@@ -8,7 +8,6 @@ namespace Img {
 	using namespace Geom;
 
 	void CodecPNG::libpng_error(png_structp png_ptr, png_const_charp message) {
-		(png_ptr, message);
 		// setjmp/getjmp should be put where the sun doesn't shine.
 		DO_THROW(Err::CodecError, "Unknown error.");
 	}
@@ -185,12 +184,12 @@ namespace Img {
 	}
 
 	CodecPNG::CodecPNG():
-		m_currScan(0),
-		m_currPass(0),
+		m_bitdepth(0),
+		m_chans(0),
 		m_png_ptr(0),
 		m_info_ptr(0),
-		m_bitdepth(0),
-		m_chans(0)
+		m_currScan(0),
+		m_currPass(0)
 	{}
 
 	CodecPNG::~CodecPNG() {

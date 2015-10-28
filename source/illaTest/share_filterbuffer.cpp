@@ -6,6 +6,14 @@ namespace Tst
 {
 	using namespace Geom;
 
+	static uint32_t c_SourceBuffer[] =
+	{
+		ClearDWord, ClearDWord, ClearDWord, ClearDWord,
+		ClearDWord, 1, 2, ClearDWord,
+		ClearDWord, 3, 4, ClearDWord,
+		ClearDWord, ClearDWord, ClearDWord, ClearDWord
+	};
+
 	bool BuffersEqual( const uint32_t* buf1, const uint32_t* buf2, int size )
 	{
 		for (int i = 0; i < size; ++i)

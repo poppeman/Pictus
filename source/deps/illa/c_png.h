@@ -32,7 +32,6 @@ namespace Img {
 
 		png_structp m_png_ptr;
 		png_infop m_info_ptr;
-		png_infop m_info_end_ptr;
 		int m_passes;
 
 		int m_currScan;

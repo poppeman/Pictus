@@ -21,14 +21,6 @@ namespace Tst
 
 	typedef std::shared_ptr<uint8_t> ByteArray;
 
-	static uint32_t c_SourceBuffer[] =
-	{
-		ClearDWord, ClearDWord, ClearDWord, ClearDWord,
-		ClearDWord, 1, 2, ClearDWord,
-		ClearDWord, 3, 4, ClearDWord,
-		ClearDWord, ClearDWord, ClearDWord, ClearDWord
-	};
-
 	ByteArray						CreateArray(size_t stride, int rows);
 	void							FillArray(ByteArray arrayToFill, size_t bytesPerRowToSet, size_t rows, uint8_t value);
 

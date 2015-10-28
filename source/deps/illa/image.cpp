@@ -94,10 +94,12 @@ namespace Img {
 	}
 
 	Image::Image() :
-		m_isHeaderDataValid{ false },
+		m_loadTime{ 0 },
 		isFinished{ false },
-		m_loadTime{ 0 }
-	{}
+		m_isHeaderDataValid{ false }
+	{
+
+	}
 
 	int Image::LoadTime() const {
 		std::lock_guard<std::mutex> l(m_mxChangeState);

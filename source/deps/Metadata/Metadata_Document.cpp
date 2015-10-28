@@ -7,4 +7,4 @@ namespace Metadata {
 
 		lhs->Field.insert(rhs->Field.begin(), rhs->Field.end());
 	}
-};
+}

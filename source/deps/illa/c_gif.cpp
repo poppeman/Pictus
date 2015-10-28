@@ -152,10 +152,12 @@ namespace Img {
 	}
 
 	CodecGIF::CodecGIF():
-		m_currentImage{ 0 },
 		m_composer{ std::make_shared<ImageComposerGif>() },
-		m_imageDescriptors{ std::make_shared<DescriptorVector>() }
-	{}
+		m_imageDescriptors{ std::make_shared<DescriptorVector>() },
+		m_currentImage{ 0 }
+	{
+
+	}
 
 	ImageComposer::Ptr CodecGIF::RequestImageComposer() {
 		return m_composer;

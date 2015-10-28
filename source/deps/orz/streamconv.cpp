@@ -14,7 +14,7 @@ namespace Util {
 			return false;
 		}
 
-		for (auto i = 0; i < bufSize; i++) {
+		for (size_t i = 0; i < bufSize; i++) {
 			m_source.push_back(pBuf[i]);
 		}
 
@@ -115,5 +115,8 @@ namespace Util {
 		return (static_cast<unsigned int>(m_source.size() * 8 - m_srcPos) >= m_wordSize);
 	}
 
-	StreamConverter::StreamConverter(uint8_t destBitCount) :m_srcPos(0), m_wordSize(destBitCount) {}
+	StreamConverter::StreamConverter(uint8_t destBitCount):
+		m_wordSize(destBitCount),
+		m_srcPos(0)
+	{}
 }

@@ -8,6 +8,6 @@ SUITE(Bilinear) {
 	TEST(CalcContribsSmallRect) {
 		std::vector<Contrib> cs(2);
 		set_contrib(cs, 0, 2, 1, 0);
-		CHECK_EQUAL(0, cs[0].floor);
+		CHECK_EQUAL(0u, cs[0].floor);
 	}
 }

@@ -7,7 +7,6 @@ namespace Img {
 	using namespace Geom;
 
 	void CodecJPEG::jpeg_error_exit(j_common_ptr cinfo) {
-		cinfo; // Not used
 		//our_error* err=(our_error*)cinfo->err;
 		// TODO: Try to extract information from cinfo
 		DO_THROW(Err::CodecError, "Error loading JPEG.");
@@ -232,7 +231,10 @@ namespace Img {
 		}
 	}
 
-	CodecJPEG::CodecJPEG():m_isInit(false), m_isError(false) {
+	CodecJPEG::CodecJPEG():
+		m_isInit(false),
+		m_isError(false)
+	{
 		for (int i = 0; i < ChunkRows; i++) {
 			m_pRow[i] = 0;
 		}

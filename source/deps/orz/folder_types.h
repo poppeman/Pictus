@@ -1,8 +1,10 @@
 #ifndef ORZ_FOLDER_TYPES_H
 #define ORZ_FOLDER_TYPES_H
 
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4512)
+#endif
 #include <boost/signals2.hpp>
 #include <list>
 
@@ -42,6 +44,8 @@ namespace IO {
 	typedef boost::signals2::signal<void(IO::FileEvent)> ChangeEventCallback;
 }
 
+#ifdef _MSC_VER
 #pragma warning(pop)
+#endif
 
 #endif

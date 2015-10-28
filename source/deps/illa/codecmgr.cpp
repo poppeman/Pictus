@@ -48,7 +48,7 @@ namespace Img {
 	bool CodecFactoryStore::AddCodecFactory(ICodecFactory* pCodecFactory) {
 		FactoryPtr pFactory(pCodecFactory);
 
-		for (auto i = 0; i < m_factories.size(); i++) {
+		for (auto i = 0u; i < m_factories.size(); i++) {
 			if (m_factories[i].get() == pCodecFactory) {
 				return true;
 			}
@@ -61,7 +61,7 @@ namespace Img {
 
 		auto& exts = pCodecFactory->SupportedExtensions();
 
-		for(auto i = 0; i < exts.size(); i++) {
+		for(auto i = 0u; i < exts.size(); i++) {
 			m_ext.insert(ExtPair(exts[i], pFactory));
 			info.Extensions.push_back(exts[i]);
 		}
