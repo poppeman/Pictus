@@ -16,9 +16,14 @@ struct InternalTIFFException:public Err::Exception {
 std::string UnTIFFifyParams(const char *module, const char *fmt, va_list ap)
 {
 	char tmp[2];
+
 	// We don't actually think that the string will fit in 2 chars, but Microsoft likes to pretend that passing null to
 	// vsnprintf is an error so we dodge that to prevent hilarity.
-	auto len = vsnprintf(tmp, 2, fmt, ap);
+	va_list args;
+	va_copy(args, ap);
+	auto len = vsnprintf(tmp, 2, fmt, args);
+	va_end(args);
+
 	std::string str(len + 1, 0);
 	vsnprintf(&str[0], len + 1, fmt, ap);
 	str.resize(str.length() - 1);
