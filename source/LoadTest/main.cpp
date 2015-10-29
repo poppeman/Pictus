@@ -70,13 +70,6 @@ int performLoad(const std::string& filename, const std::string& ext, bool autoDe
 		std::cout << "No codec!" << std::endl;
 		return EXIT_FAILURE;
 	}
-	f->Seek(0, IO::SeekMethod::Begin);
-
-	if(pCodec->LoadHeader(f) == false)
-	{
-		std::cout << "Failed loading header!" << std::endl;
-		return EXIT_FAILURE;
-	}
 
 	if(pCodec->Allocate() != Img::AbstractCodec::AllocationStatus::Ok)
 	{
@@ -87,7 +80,7 @@ int performLoad(const std::string& filename, const std::string& ext, bool autoDe
 	return EXIT_SUCCESS;
 }
 
-int realMain(std::vector<std::string> args) {
+int realMain(const std::vector<std::string>& args) {
 	if(args.empty())
 	{
 		std::cout << "Missing parameter" << std::endl;
@@ -105,7 +98,7 @@ int realMain(std::vector<std::string> args) {
 
 	std::string ext = "";
 
-	for(auto p:args)
+	for(auto& p:args)
 	{
 		if(p == "--noauto")
 		{
@@ -159,12 +152,13 @@ int realMain(std::vector<std::string> args) {
 	}
 	else
 	{
-		try
-		{
+		try {
+#ifdef __AFL_HAVE_MANUAL_CONTROL
+			__AFL_INIT();
+#endif
 			return performLoad(filename, ext, autoDetect);
 		}
-		catch (std::bad_alloc& e)
-		{
+		catch (std::bad_alloc &e) {
 			std::cout << "Ran out of memory, that's no good!\n";
 			return EXIT_FAILURE;
 		}
