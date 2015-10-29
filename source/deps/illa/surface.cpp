@@ -87,18 +87,15 @@ namespace Img {
 			}
 
 			uint8_t* pData = onLockSurface(region, method);
-			if (pData == nullptr) {
-				return Surface::LockedArea::Ptr();
+			if (!pData) {
+				DO_THROW(Err::CriticalError, "Couldn't lock surface.");
 			}
-			/*if (!pData) {
-				DO_THROW(Err::CriticalError, L"Couldn't lock surface.");
-			}*/
 
 			if (method == LockReadWrite) {
 				ForceDirty();
 			}
 
-			return LockedArea::Ptr(new LockedArea(this, pData, region, method, onStride()));
+			return std::make_shared<LockedArea>(this, pData, region, method, onStride());
 		}
 		catch (...) {
 			m_strategyLocking->ReleaseLock(method);
