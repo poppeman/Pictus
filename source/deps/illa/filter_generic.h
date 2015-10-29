@@ -123,7 +123,7 @@ namespace Filter {
 
 			template <typename T, int contribOrigo, class U>
 			inline uint32_t processPixel(const FilterBuffer& source, const CSE& cseX, const CSE& cseY, const std::vector<float>& xcontribs, int& xindex, const std::vector<float>& ycontribs, const int yindex, U& pixelConverter) {
-				ARGBFloat cDest = {0};
+				ARGBFloat cDest = {0.0f, 0.0f, 0.0f, 0.0f};
 
 				float density = 0.0f;
 

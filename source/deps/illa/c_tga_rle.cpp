@@ -3,40 +3,40 @@
 
 namespace Img {
 	struct TgaReadARGB {
-		const uint32_t operator()(IO::FileReaderByteStreamer& fs) const {
+		uint32_t operator()(IO::FileReaderByteStreamer& fs) const {
 			uint8_t b = fs.ReadByte();
 			uint8_t g = fs.ReadByte();
 			uint8_t r = fs.ReadByte();
 			uint8_t a = fs.ReadByte();
 			return Img::ToARGBDWORD(a, r, g, b);
 		}
-		const int PixelSize() const { return 4; }
+		int PixelSize() const { return 4; }
 	};
 
 	struct TgaReadRGB {
-		const uint32_t operator()(IO::FileReaderByteStreamer& fs) const {
+		uint32_t operator()(IO::FileReaderByteStreamer& fs) const {
 			uint8_t b = fs.ReadByte();
 			uint8_t g = fs.ReadByte();
 			uint8_t r = fs.ReadByte();
 			return Img::ToARGBDWORD(0xff, r, g, b);
 		}
-		const int PixelSize() const { return 3; }
+		int PixelSize() const { return 3; }
 	};
 
 	struct TgaRead16 {
-		const uint16_t operator()(IO::FileReaderByteStreamer& fs) const {
+		uint16_t operator()(IO::FileReaderByteStreamer& fs) const {
 			uint8_t x = fs.ReadByte();
 			uint8_t y = fs.ReadByte();
 			return (y << 8) + x;
 		}
-		const int PixelSize() const { return 2; }
+		int PixelSize() const { return 2; }
 	};
 
 	struct TgaRead8 {
-		const uint8_t operator()(IO::FileReaderByteStreamer& fs) const {
+		uint8_t operator()(IO::FileReaderByteStreamer& fs) const {
 			return fs.ReadByte();
 		}
-		const int PixelSize() const { return 1; }
+		int PixelSize() const { return 1; }
 	};
 
 	using namespace Geom;

@@ -387,6 +387,7 @@ namespace Img {
 		return true;
 	}
 
+	// Enabling unused parameter warnings in GCC (5.2.1) causes it to complain about "reader" below, so don't enable unused parameter warnings in GCC!
 	bool CodecPSP::DecodeRLEScanlines( IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination ) {
 		if (m_channels.size() == 1 && (m_bitDepth == 4 || m_bitDepth == 1)) {
 			Channel& currChannel = m_channels.at(0);

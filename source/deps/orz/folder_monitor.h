@@ -18,7 +18,7 @@ namespace IO {
 	private:
 		FolderMonitorImplementation* doCreateImp(const std::string& path, ChangeEventCallback& c);
 
-		std::auto_ptr<FolderMonitorImplementation> m_imp;
+		std::unique_ptr<FolderMonitorImplementation> m_imp;
 	};
 }
 

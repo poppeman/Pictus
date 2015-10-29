@@ -11,7 +11,7 @@
 namespace Intl {
 	void LanguageTable(const TableEntry* pTable);
 	void CurrentLanguage(const Language& lang);
-	const Language CurrentLanguage();
+	Language CurrentLanguage();
 	Language SystemLanguage();
 	const char* GetString(int id);
 	const char* GetStringLang(int id, Language lang);

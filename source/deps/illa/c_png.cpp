@@ -7,9 +7,12 @@
 namespace Img {
 	using namespace Geom;
 
-	void CodecPNG::libpng_error(png_structp png_ptr, png_const_charp message) {
+	void CodecPNG::libpng_error(png_structp, png_const_charp message) {
 		// setjmp/getjmp should be put where the sun doesn't shine.
-		DO_THROW(Err::CodecError, "Unknown error.");
+		std::stringstream ss;
+		ss << "(CodecPNG::libpng_error) " << message << "\n";
+		// Not sure if this is safe but oh well.
+		DO_THROW(Err::CodecError, ss.str());
 	}
 
 	bool CodecPNG::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {

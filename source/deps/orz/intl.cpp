@@ -22,7 +22,7 @@ namespace Intl {
 		}
 	}
 
-	const Language CurrentLanguage() {
+	Language CurrentLanguage() {
 		return m_currLang;
 	}
 
