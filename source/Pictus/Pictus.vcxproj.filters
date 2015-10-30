@@ -134,9 +134,6 @@
     <ClCompile Include="rename.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
-    <ClCompile Include="timeconvert.cpp">
-      <Filter>Viewer</Filter>
-    </ClCompile>
     <ClCompile Include="viewer.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
@@ -392,9 +389,6 @@
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="res_viewer.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="timeconvert.h">
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="viewer.h">

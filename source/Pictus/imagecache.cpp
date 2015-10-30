@@ -348,8 +348,8 @@ namespace Img {
 	}
 
 
-	FileInt Cacher::CurrentImageLastModifiedDate() {
-		if (m_index >= m_files.size()) return 0;
+	boost::posix_time::ptime Cacher::CurrentImageLastModifiedDate() {
+		if (m_index >= m_files.size()) return boost::posix_time::not_a_date_time;
 		return m_files[m_index].DateModified();
 	}
 

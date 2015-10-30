@@ -6,6 +6,8 @@
 #include "ic_backgroundprocessor.h"
 #include "imagecache_fileentry.h"
 
+#include <boost/date_time.hpp>
+
 namespace Img {
 	class Image;
 	class CodecFactoryStore;
@@ -46,7 +48,7 @@ namespace Img {
 		Img::Image::Ptr LastImage();
 
 		Img::Image::Ptr CurrentImage();
-		FileInt CurrentImageLastModifiedDate();
+		boost::posix_time::ptime CurrentImageLastModifiedDate();
 		FileInt CurrentImageFileSize();
 		std::string CurrentImageFilename() const;
 

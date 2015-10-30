@@ -26,6 +26,8 @@
 
 #include <random>
 
+#include <boost/date_time.hpp>
+
 namespace App {
 	class Viewer:public Win::Window, public Img::MessageReceiver {
 	public:
@@ -110,7 +112,7 @@ namespace App {
 		std::string UII_MemoryUsage(FileInt size);
 		std::string UII_LoadProgress(Img::Image::Ptr image);
 		std::string UII_ImageResolution(Img::Image::Ptr image);
-		std::string UII_LastModified(FileInt date);
+		std::string UII_LastModified(boost::posix_time::ptime date);
 
 		bool RecalculateViewportSize();
 

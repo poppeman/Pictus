@@ -22,10 +22,10 @@
 
 #include "filterstring.h"
 #include "builder_viewport.h"
-#include "timeconvert.h"
 
 #include <boost/format.hpp>
 #include <boost/scoped_array.hpp>
+#include <boost/date_time.hpp>
 #include <random>
 
 const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
@@ -918,8 +918,15 @@ namespace App {
 			std::max<int>(MinWindowHeight,	std::min<int>(rtDesktop.Height(),imageSize.Height + windowEdges.Height)));
 	}
 
-	std::string Viewer::UII_LastModified(FileInt date) {
-		return FormattedDate(date) + " " + FormattedTime(date);
+	std::string Viewer::UII_LastModified(boost::posix_time::ptime date) {
+		std::stringstream ss;
+		if (date != boost::posix_time::not_a_date_time)
+		{
+			auto* f = new boost::posix_time::time_facet("%Y-%m-%d %H:%M");
+			ss.imbue(std::locale(std::locale(), f));
+			ss << date;
+		}
+		return ss.str();
 	}
 
 	bool Viewer::PerformOnCreateTaskbar() {

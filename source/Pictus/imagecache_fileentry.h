@@ -4,6 +4,8 @@
 #include "illa/image.h"
 #include "orz/types.h"
 
+#include <boost/date_time.hpp>
+
 namespace Img {
 	namespace Internal {
 		class FileEntry {
@@ -13,7 +15,7 @@ namespace Img {
 			const std::string& Name() const;
 			void Rename(const std::string& newName);
 
-			FileInt DateModified();
+			boost::posix_time::ptime DateModified();
 			FileInt DateAccessed();
 			FileInt DateCreated();
 			FileInt FileSize();
@@ -28,7 +30,7 @@ namespace Img {
 			bool m_hasQueriedFile;
 			FileInt m_dateCreate;
 			FileInt m_dateAccess;
-			FileInt m_dateModified;
+			boost::posix_time::ptime m_dateModified;
 			FileInt m_fileSize;
 
 		};

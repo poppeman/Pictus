@@ -245,7 +245,6 @@
     <ClCompile Include="getevent.cpp" />
     <ClCompile Include="rename.cpp" />
     <ClCompile Include="sub_menu.cpp" />
-    <ClCompile Include="timeconvert.cpp" />
     <ClCompile Include="viewer.cpp" />
     <ClCompile Include="viewer_contextmenu.cpp" />
     <ClCompile Include="viewer_keyboard.cpp" />
@@ -334,7 +333,6 @@
     <ClInclude Include="res_settings.h" />
     <ClInclude Include="res_viewer.h" />
     <ClInclude Include="sub_menu.h" />
-    <ClInclude Include="timeconvert.h" />
     <ClInclude Include="viewer.h" />
     <ClInclude Include="viewer_contextmenu.h" />
     <ClInclude Include="viewer_keyboard.h" />
