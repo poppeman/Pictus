@@ -35,7 +35,6 @@ IFACEMETHODIMP_(ULONG) CPictusThumbnailProvider::AddRef() {
 IFACEMETHODIMP_(ULONG) CPictusThumbnailProvider::Release() {
 	ULONG cRef = InterlockedDecrement(&m_cRef);
 	if (!cRef) {
-		Log << "(Thumb) Releasing thumbnail provider.\n";
 		delete this;
 	}
 
