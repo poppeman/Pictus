@@ -18,10 +18,6 @@ namespace Img {
 		bool operator () (Internal::FileEntry& a, Internal::FileEntry& b) {	return (a.DateModified() < b.DateModified()); }
 	};
 
-	struct fnSortDateAccessed {
-		bool operator () (Internal::FileEntry& a, Internal::FileEntry& b) {	return (a.DateAccessed() < b.DateAccessed()); }
-	};
-
 	struct fnSortDateCreated {
 		bool operator () (Internal::FileEntry& a, Internal::FileEntry& b) {	return (a.DateCreated() < b.DateCreated()); }
 	};
@@ -71,19 +67,14 @@ namespace Img {
 			currentImageFile = m_files[m_index].Name();
 		}
 
-		//Image::Ptr currentImage = CurrentImage();
-
-		switch(method) {
-		case SortFilename:
+		switch (method) {
+		case SortMethod::SortFilename:
 			std::sort(m_files.begin(), m_files.end(), fnSortWinapiFile());
 			break;
-		case SortDateModified:
+		case SortMethod::SortDateModified:
 			std::sort(m_files.begin(), m_files.end(), fnSortDateModified());
 			break;
-		case SortDateAccessed:
-			std::sort(m_files.begin(), m_files.end(), fnSortDateAccessed());
-			break;
-		case SortDateCreated:
+		case SortMethod::SortDateCreated:
 			std::sort(m_files.begin(), m_files.end(), fnSortDateCreated());
 			break;
 		}
@@ -348,12 +339,16 @@ namespace Img {
 	}
 
 
-	boost::posix_time::ptime Cacher::CurrentImageLastModifiedDate() {
-		if (m_index >= m_files.size()) return boost::posix_time::not_a_date_time;
+	std::time_t Cacher::CurrentImageLastModifiedDate() {
+		if (m_index >= m_files.size())
+		{
+			return 0;
+		}
+
 		return m_files[m_index].DateModified();
 	}
 
-	FileInt Cacher::CurrentImageFileSize() {
+	uintmax_t Cacher::CurrentImageFileSize() {
 		if (m_index >= m_files.size()) return 0;
 		return m_files[m_index].FileSize();
 	}
@@ -398,7 +393,7 @@ namespace Img {
 		for (const auto& i : contents)
 			cache.AddImageLast(folder.Path() + i.Name);
 
-		cache.Sort(Cacher::SortFilename);
+		cache.Sort(Cacher::SortMethod::SortFilename);
 
 		return true;
 	}

@@ -15,10 +15,9 @@ namespace Img {
 			const std::string& Name() const;
 			void Rename(const std::string& newName);
 
-			boost::posix_time::ptime DateModified();
-			FileInt DateAccessed();
-			FileInt DateCreated();
-			FileInt FileSize();
+			std::time_t DateModified();
+			std::time_t DateCreated();
+			std::time_t FileSize();
 
 			FileEntry(std::string fullname);
 
@@ -28,10 +27,9 @@ namespace Img {
 			Img::Image::Ptr m_image;
 			std::string m_fullname;
 			bool m_hasQueriedFile;
-			FileInt m_dateCreate;
-			FileInt m_dateAccess;
-			boost::posix_time::ptime m_dateModified;
-			FileInt m_fileSize;
+			std::time_t m_dateCreate;
+			std::time_t m_dateModified;
+			uintmax_t m_fileSize;
 
 		};
 	}

@@ -14,11 +14,11 @@ namespace Img {
 
 	class Cacher {
 	public:
-		enum SortMethod {
+		enum class SortMethod
+		{
 			SortNothing,
 			SortFilename,
 			SortDateModified,
-			SortDateAccessed,
 			SortDateCreated
 		};
 
@@ -48,8 +48,8 @@ namespace Img {
 		Img::Image::Ptr LastImage();
 
 		Img::Image::Ptr CurrentImage();
-		boost::posix_time::ptime CurrentImageLastModifiedDate();
-		FileInt CurrentImageFileSize();
+		std::time_t CurrentImageLastModifiedDate();
+		uintmax_t CurrentImageFileSize();
 		std::string CurrentImageFilename() const;
 
 		Img::Image::Ptr PeekRelative(int delta);

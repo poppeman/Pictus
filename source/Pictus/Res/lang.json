@@ -71,10 +71,6 @@
 				"en": "Date created",
 				"sv": "Datum skapad"
 			},
-			"DateAccessed": {
-				"en": "Date accessed",
-				"sv": "Datum öppnad"
-			},
 			"DateModified": {
 				"en": "Date modified",
 				"sv": "Datum modifierad"

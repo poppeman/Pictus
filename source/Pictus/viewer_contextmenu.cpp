@@ -33,10 +33,9 @@ namespace App {
 		m_menuMap.AddAction(pRot->AddItem(SIDMenuOrientationRotate270Flip), [=]() { v->Rotate(Filter::RotationAngle::Rotate270FlipY); });
 
 		auto pSort(m_menu.AddSubMenu(SIDMenuSortBy));
-		m_menuMap.AddAction(pSort->AddItem(SIDMenuSortByFilename), [=]() { v->Sort(Img::Cacher::SortFilename); });
-		m_menuMap.AddAction(pSort->AddItem(SIDMenuSortByDateModified), [=]() { v->Sort(Img::Cacher::SortDateModified); });
-		m_menuMap.AddAction(pSort->AddItem(SIDMenuSortByDateAccessed), [=]() { v->Sort(Img::Cacher::SortDateAccessed); });
-		m_menuMap.AddAction(pSort->AddItem(SIDMenuSortByDateCreated), [=]() { v->Sort(Img::Cacher::SortDateCreated); });
+		m_menuMap.AddAction(pSort->AddItem(SIDMenuSortByFilename), [=]() { v->Sort(Img::Cacher::SortMethod::SortFilename); });
+		m_menuMap.AddAction(pSort->AddItem(SIDMenuSortByDateModified), [=]() { v->Sort(Img::Cacher::SortMethod::SortDateModified); });
+		m_menuMap.AddAction(pSort->AddItem(SIDMenuSortByDateCreated), [=]() { v->Sort(Img::Cacher::SortMethod::SortDateCreated); });
 
 		auto pWall(m_menu.AddSubMenu(SIDMenuSetWallpaper));
 

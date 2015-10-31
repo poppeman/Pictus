@@ -1,52 +1,45 @@
 #include "imagecache_fileentry.h"
 #include "orz/types.h"
 #include <windows.h>
-#include <boost/date_time.hpp>
-#include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/filesystem.hpp>
 
 namespace Img {
 	namespace Internal {
-		FileInt ToFileInt(const FILETIME& ft) {
+		FileInt ToFileInt(const FILETIME& ft)
+		{
 			FileInt result = ft.dwHighDateTime;
 			result <<= 32;
 			return result + ft.dwLowDateTime;
 		}
 
+		void FileEntry::QueryFile()
+		{
+			if (m_hasQueriedFile == false)
+			{
+				WIN32_FILE_ATTRIBUTE_DATA ad;
+				if (GetFileAttributesEx(UTF8ToWString(m_fullname).c_str(), GetFileExInfoStandard, &ad) == 0)
+				{
+					return;
+				}
 
-		boost::posix_time::ptime ToLocal(std::time_t in) {
-			typedef boost::date_time::c_local_adjustor<boost::posix_time::ptime> local_adj;
-			auto pt = boost::posix_time::from_time_t(in);
-			return local_adj::utc_to_local(pt);
+				auto path = boost::filesystem::path(m_fullname);
+
+				// Boost doesn't seem to supply a way to query creation time of files, so we need WinAPI for that
+				m_dateCreate = ToFileInt(ad.ftCreationTime);
+
+				m_dateModified = boost::filesystem::last_write_time(path);
+				m_fileSize = boost::filesystem::file_size(path);
+
+				m_hasQueriedFile = true;
+			}
 		}
 
-		// TODO: Stop using WinAPI timestamps entirely
-		void FileEntry::QueryFile() {
-			if (m_hasQueriedFile) return;
-			WIN32_FILE_ATTRIBUTE_DATA ad;
-			if(GetFileAttributesEx(UTF8ToWString(m_fullname).c_str(), GetFileExInfoStandard, &ad) == 0)
-				return;
-
-			m_dateCreate = ToFileInt(ad.ftCreationTime);
-			m_dateAccess = ToFileInt(ad.ftLastAccessTime);
-			m_dateModified = ToLocal(boost::filesystem::last_write_time(boost::filesystem::path(m_fullname)));
-			m_fileSize = (static_cast<INT64>(ad.nFileSizeHigh) << 32) + ad.nFileSizeLow;
-
-
-			m_hasQueriedFile = true;
-		}
-
-		boost::posix_time::ptime FileEntry::DateModified() {
+		std::time_t FileEntry::DateModified() {
 			QueryFile();
 			return m_dateModified;
 		}
 
-		FileInt FileEntry::DateAccessed() {
-			QueryFile();
-			return m_dateAccess;
-		}
-
-		FileInt FileEntry::DateCreated() {
+		std::time_t FileEntry::DateCreated() {
 			QueryFile();
 			return m_dateCreate;
 		}

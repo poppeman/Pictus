@@ -23,9 +23,10 @@
 #include "filterstring.h"
 #include "builder_viewport.h"
 
+#include <boost/date_time.hpp>
+#include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/format.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/date_time.hpp>
 #include <random>
 
 const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
@@ -918,13 +919,17 @@ namespace App {
 			std::max<int>(MinWindowHeight,	std::min<int>(rtDesktop.Height(),imageSize.Height + windowEdges.Height)));
 	}
 
-	std::string Viewer::UII_LastModified(boost::posix_time::ptime date) {
+	std::string Viewer::UII_LastModified(std::time_t date) {
 		std::stringstream ss;
-		if (date != boost::posix_time::not_a_date_time)
+		if (date != 0)
 		{
+			typedef boost::date_time::c_local_adjustor<boost::posix_time::ptime> local_adj;
+			auto pt = boost::posix_time::from_time_t(date);
+			auto localdate = local_adj::utc_to_local(pt);
+
 			auto* f = new boost::posix_time::time_facet("%Y-%m-%d %H:%M");
 			ss.imbue(std::locale(std::locale(), f));
-			ss << date;
+			ss << localdate;
 		}
 		return ss.str();
 	}
