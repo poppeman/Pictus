@@ -164,11 +164,14 @@ namespace Img {
 	}
 
 	void CodecPCX::transferPlanar4( uint8_t* destination, uint8_t* source) {
+		auto numBytes = std::min<size_t>(m_header.BytesPerLine, (GetSize().Width + 7) / 8);
+		auto rowSkip = m_header.BytesPerLine - numBytes;
+
 		for(uint8_t plane = 0; plane < 4; plane++) {
 			uint8_t pixbit	= static_cast<uint8_t>(1 << plane);
 			int ofs			= 0;
 
-			for(int currX = 0; currX < m_header.BytesPerLine; currX++)  {
+			for(size_t currX = 0; currX < numBytes; currX++)  {
 				uint8_t w = *source++;
 
 				for(uint8_t mask = 0x80; mask != 0; mask >>= 1) {
@@ -179,6 +182,7 @@ namespace Img {
 					ofs++;
 				}
 			}
+			source += rowSkip;
 		}
 	}
 
