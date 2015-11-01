@@ -24,11 +24,16 @@ namespace Img {
 
 			// Validate PCX version
 			file->ReadFull(&Version, 1);
-			if ((Version != Version_2_5) && (Version != Version_2_8_PAL) && (Version != Version_2_8_NOPAL) && (Version != Version_3_0_PAL)) {
+			if ((Version != Version_2_5) && (Version != Version_2_8_PAL) && (Version != Version_2_8_NOPAL) && (Version != Version_3_0_PAL))
+			{
 				return false;
 			}
 
-			file->ReadFull(&IsCompressed, 1);
+			file->ReadFull(&Compression, 1);
+			if (Compression != 0 && Compression != 1)
+			{
+				return false;
+			}
 			file->ReadFull(&PlaneDepth, 1);
 
 			signed short minx, miny, maxx, maxy;

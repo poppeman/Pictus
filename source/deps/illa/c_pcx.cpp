@@ -55,7 +55,7 @@ namespace Img {
 				// Load the scan line
 				uint8_t* p = currData.get();
 
-				if (m_header.IsCompressed == true) {
+				if (m_header.Compression == 1) {
 					DecodeScanline(file, p, scanBytes);
 				}
 				else {

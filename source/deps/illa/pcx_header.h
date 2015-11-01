@@ -12,7 +12,7 @@ namespace Img {
 			bool Load(IO::FileReader::Ptr file);
 
 			uint8_t Version;
-			bool IsCompressed;
+			uint8_t Compression;
 			uint8_t PlaneDepth;
 			Geom::SizeInt Size;
 			uint8_t ColorPlanes;
