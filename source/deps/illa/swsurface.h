@@ -16,21 +16,22 @@ namespace Img {
 		typedef std::shared_ptr<SurfaceSoftware> Ptr;
 
 	private:
-		void onDeallocate();
-		bool onCreateSurface();
+		void onDeallocate() override;
+		void onCreateSurface() override;
 
-		unsigned char* onLockSurface(const Geom::RectInt& region, Img::LockMethod method = Img::LockReadWrite);
-		void onUnlockSurface();
-		void onPaletteUpdate();
-		size_t onStride() const;
+		unsigned char* onLockSurface(const Geom::RectInt& region, Img::LockMethod method = Img::LockReadWrite) override;
+		void onUnlockSurface() override;
+		void onPaletteUpdate() override;
+		size_t onStride() const override;
 
 		std::vector<uint8_t> m_pDIData;
 		std::atomic<uint8_t*> m_activeBufferPtr;
 	};
 
-	class FactorySurfaceSoftware:public Img::ISurfaceFactory {
+	class FactorySurfaceSoftware:public Img::ISurfaceFactory
+	{
 	public:
-		Img::Surface::Ptr CreateSurface() { return Surface::Ptr(new SurfaceSoftware); }
+		Img::Surface::Ptr CreateSurface() override;
 	};
 }
 

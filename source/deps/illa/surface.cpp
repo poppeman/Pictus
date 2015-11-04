@@ -87,8 +87,10 @@ namespace Img {
 			}
 
 			uint8_t* pData = onLockSurface(region, method);
-			if (!pData) {
-				DO_THROW(Err::CriticalError, "Couldn't lock surface.");
+			if (pData == nullptr)
+			{
+				// This can happen if ->CreateSurface have not yet been called or is not finished calling
+				return nullptr;
 			}
 
 			if (method == LockReadWrite) {
@@ -261,7 +263,11 @@ namespace Img {
 	}
 
 	void Surface::onFillRect(const RectInt& areaToFill, const Color& colorToSet) {
-		LockedArea::Ptr lockedDestination = LockSurface(areaToFill);
+		auto lockedDestination = LockSurface(areaToFill);
+		if (lockedDestination == nullptr)
+		{
+			DO_THROW(Err::CriticalError, "Surface is not yet allocated");
+		}
 		uint8_t* pNewDest	= lockedDestination->Buffer();
 
 		size_t scans	= areaToFill.Height();

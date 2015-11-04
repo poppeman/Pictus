@@ -60,7 +60,7 @@ namespace Img {
 
 	private:
 		virtual void onDeallocate()=0;
-		virtual bool onCreateSurface()=0;
+		virtual void onCreateSurface()=0;
 		virtual void onClearSurface(const Img::Color& col);
 		virtual void onCopySurface(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft);
 		virtual void onFillRect(const Geom::RectInt& areaToFill, const Color& colorToSet);
