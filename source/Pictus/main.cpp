@@ -30,7 +30,7 @@ int start_app(const std::string& params) {
 		auto cfg = Reg::Load(App::cg_SettingsLocation);
 
 		// TODO: Control logging by some other mechanism, such as an .ini setting
-		Log.SetOutput(assure_folder(App::cg_RunLogLocation));
+		//Log.SetOutput(assure_folder(App::cg_RunLogLocation));
 
 		Intl::LanguageTable(c_lang_strings);
 		Intl::CurrentLanguage(cfg.View.Language);
