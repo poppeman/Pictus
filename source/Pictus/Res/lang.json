@@ -1,1148 +1,1148 @@
 {
 	"Invalid": {
-		"en": "?",
-		"sv": "?"
+		"English": "?",
+		"Swedish": "?"
 	},
 	"CurrentLanguage": {
-		"en": "English",
-		"sv": "Svenska"
+		"English": "English",
+		"Swedish": "Svenska"
 	},
 	"Open": {
-		"en": "Open",
-		"sv": "Öppna",
+		"English": "Open",
+		"Swedish": "Öppna",
 		"AllImages": {
-			"en": "All Images",
-			"sv": "Alla bilder"
+			"English": "All Images",
+			"Swedish": "Alla bilder"
 		}
 	},
 	"Menu": {
 		"Open": {
-			"en": "Open...",
-			"sv": "Öppna..."
+			"English": "Open...",
+			"Swedish": "Öppna..."
 		},
 		"Zoom": {
-			"en": "Zoom",
-			"sv": "Zooma"
+			"English": "Zoom",
+			"Swedish": "Zooma"
 		},
 		"Orientation": {
-			"en": "Orientation",
-			"sv": "Orientation",
+			"English": "Orientation",
+			"Swedish": "Orientation",
 			"NoRotation": {
-				"en": "No rotation",
-				"sv": "Ingen rotation"
+				"English": "No rotation",
+				"Swedish": "Ingen rotation"
 			},
 			"Mirror": {
-				"en": "Mirror",
-				"sv": "Spegla"
+				"English": "Mirror",
+				"Swedish": "Spegla"
 			},
 			"Flip": {
-				"en": "Flip",
-				"sv": "Vänd"
+				"English": "Flip",
+				"Swedish": "Vänd"
 			},
 			"Rotate90": {
-				"en": "Rotate 90 degrees",
-				"sv": "Rotera 90 grader"
+				"English": "Rotate 90 degrees",
+				"Swedish": "Rotera 90 grader"
 			},
 			"Rotate90Flip": {
-				"en": "Rotate 90 degrees and flip",
-				"sv": "Rotera 90 grader och vänd"
+				"English": "Rotate 90 degrees and flip",
+				"Swedish": "Rotera 90 grader och vänd"
 			},
 			"Rotate180": {
-				"en": "Rotate 180 degrees",
-				"sv": "Rotera 180 grader"
+				"English": "Rotate 180 degrees",
+				"Swedish": "Rotera 180 grader"
 			},
 			"Rotate270": {
-				"en": "Rotate 270 degrees",
-				"sv": "Rotera 270 grader"
+				"English": "Rotate 270 degrees",
+				"Swedish": "Rotera 270 grader"
 			},
 			"Rotate270Flip": {
-				"en": "Rotate 270 degrees and flip",
-				"sv": "Rotera 270 grader och vänd"
+				"English": "Rotate 270 degrees and flip",
+				"Swedish": "Rotera 270 grader och vänd"
 			}
 		},
 		"SortBy": {
-			"en": "Sort by",
-			"sv": "Sortera efter",
+			"English": "Sort by",
+			"Swedish": "Sortera efter",
 			"Filename": {
-				"en": "Filename",
-				"sv": "Filnamn"
+				"English": "Filename",
+				"Swedish": "Filnamn"
 			},
 			"DateCreated": {
-				"en": "Date created",
-				"sv": "Datum skapad"
+				"English": "Date created",
+				"Swedish": "Datum skapad"
 			},
 			"DateModified": {
-				"en": "Date modified",
-				"sv": "Datum modifierad"
+				"English": "Date modified",
+				"Swedish": "Datum modifierad"
 			}
 		},
 		"SetWallpaper": {
-			"en": "Set wallpaper",
-			"sv": "Skrivbordsbakgrund",
+			"English": "Set wallpaper",
+			"Swedish": "Skrivbordsbakgrund",
 			"Stretch": {
-				"en": "Stretch",
-				"sv": "Utsträckt"
+				"English": "Stretch",
+				"Swedish": "Utsträckt"
 			},
 			"Center": {
-				"en": "Center",
-				"sv": "Centrerad"
+				"English": "Center",
+				"Swedish": "Centrerad"
 			},
 			"Tile": {
-				"en": "Tile",
-				"sv": "Sida vid sida"
+				"English": "Tile",
+				"Swedish": "Sida vid sida"
 			},
 			"CropFill": {
-				"en": "Fill",
-				"sv": "Fyll"
+				"English": "Fill",
+				"Swedish": "Fyll"
 			},
 			"PadFill": {
-				"en": "Fit",
-				"sv": "Anpassa"
+				"English": "Fit",
+				"Swedish": "Anpassa"
 			},
 			"Span": {
-				"en": "Span all monitors",
-				"sv": "Sträck över alla skärmar"
+				"English": "Span all monitors",
+				"Swedish": "Sträck över alla skärmar"
 			}
 		},
 		"ShowExplorer": {
-			"en": "Show in Explorer",
-			"sv": "Visa i Utforskaren"
+			"English": "Show in Explorer",
+			"Swedish": "Visa i Utforskaren"
 		},
 		"Adjust": {
-			"en": "Adjust image...",
-			"sv": "Justera bild..."
+			"English": "Adjust image...",
+			"Swedish": "Justera bild..."
 		},
 		"Settings": {
-			"en": "Settings...",
-			"sv": "Inställningar..."
+			"English": "Settings...",
+			"Swedish": "Inställningar..."
 		},
 		"Rename": {
-			"en": "Rename...",
-			"sv": "Byt filnamn..."
+			"English": "Rename...",
+			"Swedish": "Byt filnamn..."
 		}
 	},
 	"Statusbar" : {
 		"LoadTime": {
-			"en": "Loaded in: %s s",
-			"sv": "Laddad efter: %s s"
+			"English": "Loaded in: %s s",
+			"Swedish": "Laddad efter: %s s"
 		},
 		"LoadError": {
-			"en": "Error loading image",
-			"sv": "Kunde ej läsa bild"
+			"English": "Error loading image",
+			"Swedish": "Kunde ej läsa bild"
 		},
 		"Loading": {
-			"en": "Loading...",
-			"sv": "Laddar..."
+			"English": "Loading...",
+			"Swedish": "Laddar..."
 		}
 	},
 	"Adjust": {
-		"en": "Adjust image",
-		"sv": "Justera bild",
+		"English": "Adjust image",
+		"Swedish": "Justera bild",
 		"Brightness": {
-			"en": "Brightness",
-			"sv": "Ljusstyrka"
+			"English": "Brightness",
+			"Swedish": "Ljusstyrka"
 		},
 		"Contrast": {
-			"en": "Contrast",
-			"sv": "Kontrast"
+			"English": "Contrast",
+			"Swedish": "Kontrast"
 		},
 		"Gamma": {
-			"en": "Gamma",
-			"sv": "Gamma"
+			"English": "Gamma",
+			"Swedish": "Gamma"
 		},
 		"AutoApply": {
-			"en": "Auto apply",
-			"sv": "Uppdatera automatiskt"
+			"English": "Auto apply",
+			"Swedish": "Uppdatera automatiskt"
 		},
 		"Default": {
-			"en": "Default",
-			"sv": "Standard"
+			"English": "Default",
+			"Swedish": "Standard"
 		}
 	},
 	"Settings": {
-		"en": "Settings",
-		"sv": "Inställningar",
+		"English": "Settings",
+		"Swedish": "Inställningar",
 		"Viewer": {
-			"en": "Viewer",
-			"sv": "Bildvisning",
+			"English": "Viewer",
+			"Swedish": "Bildvisning",
 			"Magnification": {
-				"en": "Magnification",
-				"sv": "Förstorning"
+				"English": "Magnification",
+				"Swedish": "Förstorning"
 			},
 			"Minification": {
-				"en": "Minification",
-				"sv": "Förminskning"
+				"English": "Minification",
+				"Swedish": "Förminskning"
 			},
 			"Viewer": {
-				"en": "Viewer",
-				"sv": "Bildvisare"
+				"English": "Viewer",
+				"Swedish": "Bildvisare"
 			},
 			"WrapAround": {
-				"en": "Wrap around when browsing",
-				"sv": "Loopa runt vid bläddring"
+				"English": "Wrap around when browsing",
+				"Swedish": "Loopa runt vid bläddring"
 			},
 			"ResetZoom": {
-				"en": "Reset zoom between images",
-				"sv": "Återställ zoomnivå vid bildbyte"
+				"English": "Reset zoom between images",
+				"Swedish": "Återställ zoomnivå vid bildbyte"
 			},
 			"ResetPan": {
-				"en": "Reset pan between images",
-				"sv": "Återställ position vid bildbyte"
+				"English": "Reset pan between images",
+				"Swedish": "Återställ position vid bildbyte"
 			},
 			"AdaptWindowSize": {
-				"en": "Resize window to fit image",
-				"sv": "Anpassa fönsterstorleken efter bilden"
+				"English": "Resize window to fit image",
+				"Swedish": "Anpassa fönsterstorleken efter bilden"
 			},
 			"CenterScreen": {
-				"en": "Center window on screen",
-				"sv": "Centrera fönstret på skärmen"
+				"English": "Center window on screen",
+				"Swedish": "Centrera fönstret på skärmen"
 			},
 			"CenterPosition": {
-				"en": "Center window on current position",
-				"sv": "Centrera fönstret på nuvarande position"
+				"English": "Center window on current position",
+				"Swedish": "Centrera fönstret på nuvarande position"
 			},
 			"NoReposition": {
-				"en": "Do not reposition",
-				"sv": "Förflytta inte fönstret"
+				"English": "Do not reposition",
+				"Swedish": "Förflytta inte fönstret"
 			},
 			"ResizeBehavior": {
-				"en": "Resize behaviour",
-				"sv": "Bildanpassningsmetod"
+				"English": "Resize behaviour",
+				"Swedish": "Bildanpassningsmetod"
 			},
 			"ReduceOrEnlarge": {
-				"en": "Reduce or Enlarge",
-				"sv": "Förminska eller förstora"
+				"English": "Reduce or Enlarge",
+				"Swedish": "Förminska eller förstora"
 			},
 			"ReduceOnly": {
-				"en": "Reduce only",
-				"sv": "Förminska"
+				"English": "Reduce only",
+				"Swedish": "Förminska"
 			},
 			"EnlargeOnly": {
-				"en": "Enlarge only",
-				"sv": "Förstora"
+				"English": "Enlarge only",
+				"Swedish": "Förstora"
 			},
 			"DefaultZoomMode": {
-				"en": "Default zoom mode",
-				"sv": "Zoomläge vid start"
+				"English": "Default zoom mode",
+				"Swedish": "Zoomläge vid start"
 			},
 			"Zoom": {
-				"en": "Zoom",
-				"sv": "Zoom"
+				"English": "Zoom",
+				"Swedish": "Zoom"
 			}
 		},
 		"Interface": {
-			"en": "Interface",
-			"sv": "Gränssnitt",
+			"English": "Interface",
+			"Swedish": "Gränssnitt",
 			"StatusBar": {
-				"en": "Status bar",
-				"sv": "Statusfält"
+				"English": "Status bar",
+				"Swedish": "Statusfält"
 			},
 			"ShowStatusBar": {
-				"en": "Show status bar",
-				"sv": "Visa statusfält"
+				"English": "Show status bar",
+				"Swedish": "Visa statusfält"
 			},
 			"AlwaysOnTop": {
-				"en": "Always on top",
-				"sv": "Alltid överst"
+				"English": "Always on top",
+				"Swedish": "Alltid överst"
 			}
 		},
 		"BackgroundColor": {
-			"en": "Background color",
-			"sv": "Bakgrundsfärg",
+			"English": "Background color",
+			"Swedish": "Bakgrundsfärg",
 			"Preview": {
-				"en": "Preview",
-				"sv": "Färg"
+				"English": "Preview",
+				"Swedish": "Färg"
 			},
 			"RGB": {
-				"en": "RGB",
-				"sv": "RGB"
+				"English": "RGB",
+				"Swedish": "RGB"
 			},
 			"HLS": {
-				"en": "HLS",
-				"sv": "HLS"
+				"English": "HLS",
+				"Swedish": "HLS"
 			},
 			"Saturation": {
-				"en": "Sat",
-				"sv": "Sat"
+				"English": "Sat",
+				"Swedish": "Sat"
 			},
 			"Red": {
-				"en": "R:",
-				"sv": "R:"
+				"English": "R:",
+				"Swedish": "R:"
 			},
 			"Green": {
-				"en": "G:",
-				"sv": "G:"
+				"English": "G:",
+				"Swedish": "G:"
 			},
 			"Blue": {
-				"en": "B:",
-				"sv": "B:"
+				"English": "B:",
+				"Swedish": "B:"
 			},
 			"Hue": {
-				"en": "H:",
-				"sv": "H:"
+				"English": "H:",
+				"Swedish": "H:"
 			},
 			"Luminance": {
-				"en": "L:",
-				"sv": "L:"
+				"English": "L:",
+				"Swedish": "L:"
 			},
 			"Saturation": {
-				"en": "S:",
-				"sv": "S:"
+				"English": "S:",
+				"Swedish": "S:"
 			}
 		},
 		"Language": {
-			"en": "Language",
-			"sv": "Språk"
+			"English": "Language",
+			"Swedish": "Språk"
 		},
 		"Controls": {
-			"en": "Controls",
-			"sv": "Kontroller",
+			"English": "Controls",
+			"Swedish": "Kontroller",
 			"Click": {
-				"en": "Click",
-				"sv": "Klick"
+				"English": "Click",
+				"Swedish": "Klick"
 			},
 			"DoubleClick": {
-				"en": "Double-click",
-				"sv": "Dubbelklick"
+				"English": "Double-click",
+				"Swedish": "Dubbelklick"
 			},
 			"ScrollWheel": {
-				"en": "Scroll wheel",
-				"sv": "Scrollhjul"
+				"English": "Scroll wheel",
+				"Swedish": "Scrollhjul"
 			},
 			"LeftMouse": {
-				"en": "Left mouse button",
-				"sv": "Vänster knapp"
+				"English": "Left mouse button",
+				"Swedish": "Vänster knapp"
 			},
 			"MiddleMouse": {
-				"en": "Middle mouse button",
-				"sv": "Mittenknapp"
+				"English": "Middle mouse button",
+				"Swedish": "Mittenknapp"
 			},
 			"RightMouse": {
-				"en": "Right mouse button",
-				"sv": "Höger knapp"
+				"English": "Right mouse button",
+				"Swedish": "Höger knapp"
 			},
 			"WheelUp": {
-				"en": "Mouse wheel up",
-				"sv": "Scrollhjul up"
+				"English": "Mouse wheel up",
+				"Swedish": "Scrollhjul up"
 			},
 			"WheelDown": {
-				"en": "Mouse wheel down",
-				"sv": "Scrollhjul ner"
+				"English": "Mouse wheel down",
+				"Swedish": "Scrollhjul ner"
 			}
 		},
 		"Keyboard": {
-			"en": "Keyboard",
-			"sv": "Tangentbord",
+			"English": "Keyboard",
+			"Swedish": "Tangentbord",
 			"Modifiers": {
-				"en": "Modifiers",
-				"sv": "Modifierare"
+				"English": "Modifiers",
+				"Swedish": "Modifierare"
 			},
 			"Key": {
-				"en": "Key",
-				"sv": "Tangent"
+				"English": "Key",
+				"Swedish": "Tangent"
 			},
 			"Action": {
-				"en": "Action",
-				"sv": "Funktion"
+				"English": "Action",
+				"Swedish": "Funktion"
 			},
 			"Assigned": {
-				"en": "Assigned shortcuts",
-				"sv": "Tilldelade kortkommandon"
+				"English": "Assigned shortcuts",
+				"Swedish": "Tilldelade kortkommandon"
 			},
 			"Keys": {
-				"en": "Key(s)",
-				"sv": "Tangent(er)"
+				"English": "Key(s)",
+				"Swedish": "Tangent(er)"
 			},
 			"Add": {
-				"en": "Add",
-				"sv": "Lägg till"
+				"English": "Add",
+				"Swedish": "Lägg till"
 			},
 			"NotSet": {
-				"en": "<not set>",
-				"sv": "<ej satt>"
+				"English": "<not set>",
+				"Swedish": "<ej satt>"
 			}
 		},
 		"Advanced": {
-			"en": "Advanced",
-			"sv": "Avancerat",
+			"English": "Advanced",
+			"Swedish": "Avancerat",
 			"AllowMultipleInstances": {
-				"en": "Allow multiple instances",
-				"sv": "Tillåt flera instanser"
+				"English": "Allow multiple instances",
+				"Swedish": "Tillåt flera instanser"
 			}
 		},
 		"Cache": {
-			"en": "Cache",
-			"sv": "Cache",
+			"English": "Cache",
+			"Swedish": "Cache",
 			"AutomaticLimit": {
-				"en": "Automatically set memory limit",
-				"sv": "Sätt minnesgräns automatiskt"
+				"English": "Automatically set memory limit",
+				"Swedish": "Sätt minnesgräns automatiskt"
 			}
 		},
 		"About": {
-			"en": "About",
-			"sv": "Om",
+			"English": "About",
+			"Swedish": "Om",
 			"Description": {
-				"en": "This software is free open software, released under the MIT license.",
-				"sv": "Denna mjukvara är fri öppen mjukvara, licensierad under MIT-licensen."
+				"English": "This software is free open software, released under the MIT license.",
+				"Swedish": "Denna mjukvara är fri öppen mjukvara, licensierad under MIT-licensen."
 			},
 			"IJG": {
-				"en": "This software is based in part on the work of the Independent JPEG Group.",
-				"sv": "This software is based in part on the work of the Independent JPEG Group."
+				"English": "This software is based in part on the work of the Independent JPEG Group.",
+				"Swedish": "This software is based in part on the work of the Independent JPEG Group."
 			},
 			"libpng": {
-				"en": "PNG support is provided through libpng and zlib.",
-				"sv": "PNG support is provided through libpng and zlib."
+				"English": "PNG support is provided through libpng and zlib.",
+				"Swedish": "PNG support is provided through libpng and zlib."
 			}
 		}
 	},
 	"Action": {
 		"Close": {
-			"en": "Close application",
-			"sv": "Avsluta program"
+			"English": "Close application",
+			"Swedish": "Avsluta program"
 		},
 		"Open": {
-			"en": "Open file",
-			"sv": "Öppna fil"
+			"English": "Open file",
+			"Swedish": "Öppna fil"
 		},
 		"RandomImage": {
-			"en": "Random image",
-			"sv": "Slumpvald bild"
+			"English": "Random image",
+			"Swedish": "Slumpvald bild"
 		},
 		"FirstImage": {
-			"en": "First image",
-			"sv": "Första bilden"
+			"English": "First image",
+			"Swedish": "Första bilden"
 		},
 		"LastImage": {
-			"en": "Last image",
-			"sv": "Sista bilden"
+			"English": "Last image",
+			"Swedish": "Sista bilden"
 		},
 		"DeleteCurrentFile": {
-			"en": "Delete file",
-			"sv": "Ta bort fil"
+			"English": "Delete file",
+			"Swedish": "Ta bort fil"
 		},
 		"RecycleCurrentFile": {
-			"en": "Recycle file",
-			"sv": "Flytta fil till papperskorg"
+			"English": "Recycle file",
+			"Swedish": "Flytta fil till papperskorg"
 		},
 		"NextSkipImage": {
-			"en": "Next few images",
-			"sv": "Hoppa över flera bilder"
+			"English": "Next few images",
+			"Swedish": "Hoppa över flera bilder"
 		},
 		"PreviousSkipImage": {
-			"en": "Last few images",
-			"sv": "Backa flera bilder"
+			"English": "Last few images",
+			"Swedish": "Backa flera bilder"
 		},
 		"RemoveCurrentImage": {
-			"en": "Hide image",
-			"sv": "Dölj bild"
+			"English": "Hide image",
+			"Swedish": "Dölj bild"
 		},
 		"PanUp": {
-			"en": "Pan up",
-			"sv": "Panorera upp"
+			"English": "Pan up",
+			"Swedish": "Panorera upp"
 		},
 		"PanDown": {
-			"en": "Pan down",
-			"sv": "Panorera ner"
+			"English": "Pan down",
+			"Swedish": "Panorera ner"
 		},
 		"PanLeft": {
-			"en": "Pan left",
-			"sv": "Panorera vänster"
+			"English": "Pan left",
+			"Swedish": "Panorera vänster"
 		},
 		"PanRight": {
-			"en": "Pan right",
-			"sv": "Panorera höger"
+			"English": "Pan right",
+			"Swedish": "Panorera höger"
 		},
 		"ToggleFullscreen": {
-			"en": "Toggle fullscreen",
-			"sv": "Växla fullskärm"
+			"English": "Toggle fullscreen",
+			"Swedish": "Växla fullskärm"
 		},
 		"ToggleFullSizeDefaultZoom": {
-			"en": "Toggle full size/default zoom",
-			"sv": "Växla ursprunglig storlek/standardzoomläge"
+			"English": "Toggle full size/default zoom",
+			"Swedish": "Växla ursprunglig storlek/standardzoomläge"
 		},
 		"Fullscreen": {
-			"en": "Fullscreen",
-			"sv": "Fullskärm"
+			"English": "Fullscreen",
+			"Swedish": "Fullskärm"
 		},
 		"NextImage": {
-			"en": "Next image",
-			"sv": "Nästa bild"
+			"English": "Next image",
+			"Swedish": "Nästa bild"
 		},
 		"PreviousImage": {
-			"en": "Previous image",
-			"sv": "Föregående bild"
+			"English": "Previous image",
+			"Swedish": "Föregående bild"
 		},
 		"Zoom": {
 			"In": {
-				"en": "Zoom in",
-				"sv": "Zooma in"
+				"English": "Zoom in",
+				"Swedish": "Zooma in"
 			},
 			"Out": {
-				"en": "Zoom out",
-				"sv": "Zooma ut"
+				"English": "Zoom out",
+				"Swedish": "Zooma ut"
 			},
 			"FullSize": {
-				"en": "Full size",
-				"sv": "Ursprunglig storlek"
+				"English": "Full size",
+				"Swedish": "Ursprunglig storlek"
 			},
 			"FitImage": {
-				"en": "Fit image",
-				"sv": "Anpassa till fönster"
+				"English": "Fit image",
+				"Swedish": "Anpassa till fönster"
 			},
 			"Default": {
-				"en": "Default zoom",
-				"sv": "Standard-zoom"
+				"English": "Default zoom",
+				"Swedish": "Standard-zoom"
 			},
 			"Free": {
-				"en": "Free zoom",
-				"sv": "Fri zoom"
+				"English": "Free zoom",
+				"Swedish": "Fri zoom"
 			}
 		},
 		"Pan": {
-			"en": "Pan",
-			"sv": "Scrolla"
+			"English": "Pan",
+			"Swedish": "Scrolla"
 		},
 		"ContextMenu": {
-			"en": "Context menu",
-			"sv": "Meny"
+			"English": "Context menu",
+			"Swedish": "Meny"
 		},
 		"RenameFile": {
-			"en": "Rename current file",
-			"sv": "Byt namn på nuvarande fil"
+			"English": "Rename current file",
+			"Swedish": "Byt namn på nuvarande fil"
 		},
 		"CopyToClipboard": {
-			"en": "Copy to clipboard",
-			"sv": "Kopiera till urklipp"
+			"English": "Copy to clipboard",
+			"Swedish": "Kopiera till urklipp"
 		},
 		"Disable": {
-			"en": "Disable",
-			"sv": "Använd ej"
+			"English": "Disable",
+			"Swedish": "Använd ej"
 		}
 	},
 	"Unit": {
 		"GB": {
-			"en": "GB",
-			"sv": "GB"
+			"English": "GB",
+			"Swedish": "GB"
 		},
 		"MB": {
-			"en": "MB",
-			"sv": "MB"
+			"English": "MB",
+			"Swedish": "MB"
 		},
 		"KB": {
-			"en": "KB",
-			"sv": "KB"
+			"English": "KB",
+			"Swedish": "KB"
 		},
 		"B": {
-			"en": "B",
-			"sv": "B"
+			"English": "B",
+			"Swedish": "B"
 		}
 	},
 	"Dialog": {
 		"OK": {
-			"en": "OK",
-			"sv": "OK"
+			"English": "OK",
+			"Swedish": "OK"
 		},
 		"Cancel": {
-			"en": "Cancel",
-			"sv": "Avbryt"
+			"English": "Cancel",
+			"Swedish": "Avbryt"
 		},
 		"Close": {
-			"en": "Close",
-			"sv": "Stäng"
+			"English": "Close",
+			"Swedish": "Stäng"
 		},
 		"Apply": {
-			"en": "Apply",
-			"sv": "Tillämpa"
+			"English": "Apply",
+			"Swedish": "Tillämpa"
 		}
 	},
 	"ResampleMode": {
 		"NearestNeighbor": {
-			"en": "Nearest neighbor",
-			"sv": "Närmaste granne"
+			"English": "Nearest neighbor",
+			"Swedish": "Närmaste granne"
 		},
 		"Bilinear": {
-			"en": "Bilinear",
-			"sv": "Bilinjär"
+			"English": "Bilinear",
+			"Swedish": "Bilinjär"
 		},
 		"Lanczos3": {
-			"en": "Lanczos3",
-			"sv": "Lanczos3"
+			"English": "Lanczos3",
+			"Swedish": "Lanczos3"
 		}
 	},
 	"Keys": {
 		"Mouse": {
 			"Left": {
-				"en": "Left mouse",
-				"sv": "Musknapp vänster"
+				"English": "Left mouse",
+				"Swedish": "Musknapp vänster"
 			},
 			"Middle": {
-				"en": "Middle mouse",
-				"sv": "Musknapp mitten"
+				"English": "Middle mouse",
+				"Swedish": "Musknapp mitten"
 			},
 			"Right": {
-				"en": "Right mouse",
-				"sv": "Musknapp höger"
+				"English": "Right mouse",
+				"Swedish": "Musknapp höger"
 			},
 			"X1": {
-				"en": "X1 mouse",
-				"sv": "Musknapp X1"
+				"English": "X1 mouse",
+				"Swedish": "Musknapp X1"
 			},
 			"X2": {
-				"en": "X2 mouse",
-				"sv": "Musknapp X2"
+				"English": "X2 mouse",
+				"Swedish": "Musknapp X2"
 			}
 		},
 		"Arrow": {
 			"Up": {
-				"en": "Up arrow",
-				"sv": "Pil uppåt"
+				"English": "Up arrow",
+				"Swedish": "Pil uppåt"
 			},
 			"Down": {
-				"en": "Down arrow",
-				"sv": "Pil nedåt"
+				"English": "Down arrow",
+				"Swedish": "Pil nedåt"
 			},
 			"Left": {
-				"en": "Left arrow",
-				"sv": "Pil vänster"
+				"English": "Left arrow",
+				"Swedish": "Pil vänster"
 			},
 			"Right": {
-				"en": "Right arrow",
-				"sv": "Pil höger"
+				"English": "Right arrow",
+				"Swedish": "Pil höger"
 			}
 		},
 		"Media": {
 			"VolumeUp": {
-				"en": "Volume up",
-				"sv": "Volym upp"
+				"English": "Volume up",
+				"Swedish": "Volym upp"
 			},
 			"VolumeDown": {
-				"en": "Volume down",
-				"sv": "Volym ned"
+				"English": "Volume down",
+				"Swedish": "Volym ned"
 			},
 			"Mute": {
-				"en": "Mute",
-				"sv": "Mute"
+				"English": "Mute",
+				"Swedish": "Mute"
 			},
 			"Play": {
-				"en": "Media Play",
-				"sv": "Media Play"
+				"English": "Media Play",
+				"Swedish": "Media Play"
 			},
 			"Next": {
-				"en": "Media Next",
-				"sv": "Media Nästa"
+				"English": "Media Next",
+				"Swedish": "Media Nästa"
 			},
 			"Previous": {
-				"en": "Media Previous",
-				"sv": "Media Föregående"
+				"English": "Media Previous",
+				"Swedish": "Media Föregående"
 			},
 			"Stop": {
-				"en": "Media Stop",
-				"sv": "Media Stopp"
+				"English": "Media Stop",
+				"Swedish": "Media Stopp"
 			},
 			"PlayPause": {
-				"en": "Media Play/Pause",
-				"sv": "Media Play/Pause"
+				"English": "Media Play/Pause",
+				"Swedish": "Media Play/Pause"
 			}
 		},
 		"IME": {
 			"Kana": {
-				"en": "IME Kana/Hangul",
-				"sv": "IME Kana/Hangul"
+				"English": "IME Kana/Hangul",
+				"Swedish": "IME Kana/Hangul"
 			},
 			"Junja": {
-				"en": "IME Junja",
-				"sv": "IME Junja"
+				"English": "IME Junja",
+				"Swedish": "IME Junja"
 			},
 			"Final": {
-				"en": "IME Final",
-				"sv": "IME Final"
+				"English": "IME Final",
+				"Swedish": "IME Final"
 			},
 			"Kanji": {
-				"en": "IME Kanji",
-				"sv": "IME Kanji"
+				"English": "IME Kanji",
+				"Swedish": "IME Kanji"
 			},
 			"Convert": {
-				"en": "IME Convert",
-				"sv": "IME Convert"
+				"English": "IME Convert",
+				"Swedish": "IME Convert"
 			},
 			"NoConvert": {
-				"en": "IME No convert",
-				"sv": "IME No convert"
+				"English": "IME No convert",
+				"Swedish": "IME No convert"
 			},
 			"Accept": {
-				"en": "IME Accept",
-				"sv": "IME Accept"
+				"English": "IME Accept",
+				"Swedish": "IME Accept"
 			},
 			"ModeChange": {
-				"en": "IME Mode change",
-				"sv": "IME Mode change"
+				"English": "IME Mode change",
+				"Swedish": "IME Mode change"
 			},
 			"Process": {
-				"en": "IME Process",
-				"sv": "IME Process"
+				"English": "IME Process",
+				"Swedish": "IME Process"
 			}
 		},
 		"Select": {
-			"en": "Select",
-			"sv": "Select"
+			"English": "Select",
+			"Swedish": "Select"
 		},
 		"Print": {
-			"en": "Print",
-			"sv": "Skriv ut"
+			"English": "Print",
+			"Swedish": "Skriv ut"
 		},
 		"PrintScreen": {
-			"en": "Print screen",
-			"sv": "Print screen"
+			"English": "Print screen",
+			"Swedish": "Print screen"
 		},
 		"Execute": {
-			"en": "Execute",
-			"sv": "Execute"
+			"English": "Execute",
+			"Swedish": "Execute"
 		},
 		"Pause": {
-			"en": "Pause Break",
-			"sv": "Pause Break"
+			"English": "Pause Break",
+			"Swedish": "Pause Break"
 		},
 		"Help": {
-			"en": "Help",
-			"sv": "Hjälp"
+			"English": "Help",
+			"Swedish": "Hjälp"
 		},
 		"Cancel": {
-			"en": "Cancel",
-			"sv": "Avbryt"
+			"English": "Cancel",
+			"Swedish": "Avbryt"
 		},
 		"Shift": {
-			"en": "Shift",
-			"sv": "Shift",
+			"English": "Shift",
+			"Swedish": "Shift",
 			"Left": {
-				"en": "Left shift",
-				"sv": "Vänster shift"
+				"English": "Left shift",
+				"Swedish": "Vänster shift"
 			},
 			"Right": {
-				"en": "Right shift",
-				"sv": "Höger shift"
+				"English": "Right shift",
+				"Swedish": "Höger shift"
 			}
 		},
 		"Win": {
-			"en": "Win",
-			"sv": "Win",
+			"English": "Win",
+			"Swedish": "Win",
 			"Left": {
-				"en": "Left Win",
-				"sv": "Vänster Win"
+				"English": "Left Win",
+				"Swedish": "Vänster Win"
 			},
 			"Right": {
-				"en": "Right Win",
-				"sv": "Höger Win"
+				"English": "Right Win",
+				"Swedish": "Höger Win"
 			}
 		},
 		"Apps": {
-			"en": "Apps",
-			"sv": "Apps"
+			"English": "Apps",
+			"Swedish": "Apps"
 		},
 		"Sleep": {
-			"en": "Sleep",
-			"sv": "Viloläge"
+			"English": "Sleep",
+			"Swedish": "Viloläge"
 		},
 		"Control": {
-			"en": "Ctrl",
-			"sv": "Ctrl",
+			"English": "Ctrl",
+			"Swedish": "Ctrl",
 			"Left": {
-				"en": "Left ctrl",
-				"sv": "Vänster ctrl"
+				"English": "Left ctrl",
+				"Swedish": "Vänster ctrl"
 			},
 			"Right": {
-				"en": "Right ctrl",
-				"sv": "Höger ctrl"
+				"English": "Right ctrl",
+				"Swedish": "Höger ctrl"
 			}
 		},
 		"Alt": {
-			"en": "Alt",
-			"sv": "Alt",
+			"English": "Alt",
+			"Swedish": "Alt",
 			"Left": {
-				"en": "Left alt",
-				"sv": "Vänster alt"
+				"English": "Left alt",
+				"Swedish": "Vänster alt"
 			},
 			"Right": {
-				"en": "Right alt",
-				"sv": "Höger alt"
+				"English": "Right alt",
+				"Swedish": "Höger alt"
 			}
 		},
 		"Tab": {
-			"en": "Tab",
-			"sv": "Tabb"
+			"English": "Tab",
+			"Swedish": "Tabb"
 		},
 		"CapsLock": {
-			"en": "Caps lock",
-			"sv": "Caps lock"
+			"English": "Caps lock",
+			"Swedish": "Caps lock"
 		},
 		"Clear": {
-			"en": "Clear",
-			"sv": "Clear"
+			"English": "Clear",
+			"Swedish": "Clear"
 		},
 		"Plus": {
-			"en": "+",
-			"sv": "+"
+			"English": "+",
+			"Swedish": "+"
 		},
 		"NumLock": {
-			"en": "Num lock",
-			"sv": "Num lock"
+			"English": "Num lock",
+			"Swedish": "Num lock"
 		},
 		"Num": {
 			"Plus": {
-				"en": "Num +",
-				"sv": "Num +"
+				"English": "Num +",
+				"Swedish": "Num +"
 			},
 			"0": {
-				"en": "Num 0",
-				"sv": "Num 0"
+				"English": "Num 0",
+				"Swedish": "Num 0"
 			},
 			"1": {
-				"en": "Num 1",
-				"sv": "Num 1"
+				"English": "Num 1",
+				"Swedish": "Num 1"
 			},
 			"2": {
-				"en": "Num 2",
-				"sv": "Num 2"
+				"English": "Num 2",
+				"Swedish": "Num 2"
 			},
 			"3": {
-				"en": "Num 3",
-				"sv": "Num 3"
+				"English": "Num 3",
+				"Swedish": "Num 3"
 			},
 			"4": {
-				"en": "Num 4",
-				"sv": "Num 4"
+				"English": "Num 4",
+				"Swedish": "Num 4"
 			},
 			"5": {
-				"en": "Num 5",
-				"sv": "Num 5"
+				"English": "Num 5",
+				"Swedish": "Num 5"
 			},
 			"6": {
-				"en": "Num 6",
-				"sv": "Num 6"
+				"English": "Num 6",
+				"Swedish": "Num 6"
 			},
 			"7": {
-				"en": "Num 7",
-				"sv": "Num 7"
+				"English": "Num 7",
+				"Swedish": "Num 7"
 			},
 			"8": {
-				"en": "Num 8",
-				"sv": "Num 8"
+				"English": "Num 8",
+				"Swedish": "Num 8"
 			},
 			"9": {
-				"en": "Num 9",
-				"sv": "Num 9"
+				"English": "Num 9",
+				"Swedish": "Num 9"
 			},
 			"Minus": {
-				"en": "Num -",
-				"sv": "Num -"
+				"English": "Num -",
+				"Swedish": "Num -"
 			},
 			"Mult": {
-				"en": "Num *",
-				"sv": "Num *"
+				"English": "Num *",
+				"Swedish": "Num *"
 			},
 			"Divide": {
-				"en": "Num /",
-				"sv": "Num /"
+				"English": "Num /",
+				"Swedish": "Num /"
 			},
 			"Decimal": {
-				"en": "Num Decimal",
-				"sv": "Num Decimal"
+				"English": "Num Decimal",
+				"Swedish": "Num Decimal"
 			},
 			"Separator": {
-				"en": "Num Separator",
-				"sv": "Num Separator"
+				"English": "Num Separator",
+				"Swedish": "Num Separator"
 			}
 		},
 		"Browser": {
 			"Back": {
-				"en": "Browser back",
-				"sv": "Browser föregående"
+				"English": "Browser back",
+				"Swedish": "Browser föregående"
 			},
 			"Forward": {
-				"en": "Browser forward",
-				"sv": "Browser nästa"
+				"English": "Browser forward",
+				"Swedish": "Browser nästa"
 			},
 			"Refresh": {
-				"en": "Browser refresh",
-				"sv": "Browser ladda om"
+				"English": "Browser refresh",
+				"Swedish": "Browser ladda om"
 			},
 			"Stop": {
-				"en": "Browser stop",
-				"sv": "Browser stopp"
+				"English": "Browser stop",
+				"Swedish": "Browser stopp"
 			},
 			"Search": {
-				"en": "Browser search",
-				"sv": "Browser sök"
+				"English": "Browser search",
+				"Swedish": "Browser sök"
 			},
 			"Favorites": {
-				"en": "Browser favorites",
-				"sv": "Browser favoriter"
+				"English": "Browser favorites",
+				"Swedish": "Browser favoriter"
 			},
 			"Home": {
-				"en": "Browser home",
-				"sv": "Browser hem"
+				"English": "Browser home",
+				"Swedish": "Browser hem"
 			}
 		},
 		"Launch": {
 			"Mail": {
-				"en": "Launch mail",
-				"sv": "Öppna mail"
+				"English": "Launch mail",
+				"Swedish": "Öppna mail"
 			},
 			"Media": {
-				"en": "Launch media",
-				"sv": "Öppna media"
+				"English": "Launch media",
+				"Swedish": "Öppna media"
 			},
 			"App1": {
-				"en": "Launch app 1",
-				"sv": "Öppna app 1"
+				"English": "Launch app 1",
+				"Swedish": "Öppna app 1"
 			},
 			"App2": {
-				"en": "Launch app 2",
-				"sv": "Öppna app 2"
+				"English": "Launch app 2",
+				"Swedish": "Öppna app 2"
 			}
 		},
 		"Period": {
-			"en": "Period",
-			"sv": "Punkt"
+			"English": "Period",
+			"Swedish": "Punkt"
 		},
 		"Comma": {
-			"en": "Comma",
-			"sv": "Komma"
+			"English": "Comma",
+			"Swedish": "Komma"
 		},
 		"ScrollLock": {
-			"en": "Scroll lock",
-			"sv": "Scroll lock"
+			"English": "Scroll lock",
+			"Swedish": "Scroll lock"
 		},
 		"Insert": {
-			"en": "Insert",
-			"sv": "Insert"
+			"English": "Insert",
+			"Swedish": "Insert"
 		},
 		"Home": {
-			"en": "Home",
-			"sv": "Home"
+			"English": "Home",
+			"Swedish": "Home"
 		},
 		"PgUp": {
-			"en": "PgUp",
-			"sv": "PgUp"
+			"English": "PgUp",
+			"Swedish": "PgUp"
 		},
 		"Delete": {
-			"en": "Del",
-			"sv": "Del"
+			"English": "Del",
+			"Swedish": "Del"
 		},
 		"End": {
-			"en": "End",
-			"sv": "End"
+			"English": "End",
+			"Swedish": "End"
 		},
 		"PgDown": {
-			"en": "PgDown",
-			"sv": "PgDown"
+			"English": "PgDown",
+			"Swedish": "PgDown"
 		},
 		"Esc": {
-			"en": "ESC",
-			"sv": "ESC"
+			"English": "ESC",
+			"Swedish": "ESC"
 		},
 		"F1": {
-			"en": "F1",
-			"sv": "F1"
+			"English": "F1",
+			"Swedish": "F1"
 		},
 		"F2": {
-			"en": "F2",
-			"sv": "F2"
+			"English": "F2",
+			"Swedish": "F2"
 		},
 		"F3": {
-			"en": "F3",
-			"sv": "F3"
+			"English": "F3",
+			"Swedish": "F3"
 		},
 		"F4": {
-			"en": "F4",
-			"sv": "F4"
+			"English": "F4",
+			"Swedish": "F4"
 		},
 		"F5": {
-			"en": "F5",
-			"sv": "F5"
+			"English": "F5",
+			"Swedish": "F5"
 		},
 		"F6": {
-			"en": "F6",
-			"sv": "F6"
+			"English": "F6",
+			"Swedish": "F6"
 		},
 		"F7": {
-			"en": "F7",
-			"sv": "F7"
+			"English": "F7",
+			"Swedish": "F7"
 		},
 		"F8": {
-			"en": "F8",
-			"sv": "F8"
+			"English": "F8",
+			"Swedish": "F8"
 		},
 		"F9": {
-			"en": "F9",
-			"sv": "F9"
+			"English": "F9",
+			"Swedish": "F9"
 		},
 		"F10": {
-			"en": "F10",
-			"sv": "F10"
+			"English": "F10",
+			"Swedish": "F10"
 		},
 		"F11": {
-			"en": "F11",
-			"sv": "F11"
+			"English": "F11",
+			"Swedish": "F11"
 		},
 		"F12": {
-			"en": "F12",
-			"sv": "F12"
+			"English": "F12",
+			"Swedish": "F12"
 		},
 		"F13": {
-			"en": "F13",
-			"sv": "F13"
+			"English": "F13",
+			"Swedish": "F13"
 		},
 		"F14": {
-			"en": "F14",
-			"sv": "F14"
+			"English": "F14",
+			"Swedish": "F14"
 		},
 		"F15": {
-			"en": "F15",
-			"sv": "F15"
+			"English": "F15",
+			"Swedish": "F15"
 		},
 		"F16": {
-			"en": "F16",
-			"sv": "F16"
+			"English": "F16",
+			"Swedish": "F16"
 		},
 		"F17": {
-			"en": "F17",
-			"sv": "F17"
+			"English": "F17",
+			"Swedish": "F17"
 		},
 		"F18": {
-			"en": "F18",
-			"sv": "F18"
+			"English": "F18",
+			"Swedish": "F18"
 		},
 		"F19": {
-			"en": "F19",
-			"sv": "F19"
+			"English": "F19",
+			"Swedish": "F19"
 		},
 		"F20": {
-			"en": "F20",
-			"sv": "F20"
+			"English": "F20",
+			"Swedish": "F20"
 		},
 		"F21": {
-			"en": "F21",
-			"sv": "F21"
+			"English": "F21",
+			"Swedish": "F21"
 		},
 		"F22": {
-			"en": "F22",
-			"sv": "F22"
+			"English": "F22",
+			"Swedish": "F22"
 		},
 		"F23": {
-			"en": "F23",
-			"sv": "F23"
+			"English": "F23",
+			"Swedish": "F23"
 		},
 		"F24": {
-			"en": "F24",
-			"sv": "F24"
+			"English": "F24",
+			"Swedish": "F24"
 		},
 		"Space": {
-			"en": "Space",
-			"sv": "Mellanslag"
+			"English": "Space",
+			"Swedish": "Mellanslag"
 		},
 		"Backspace": {
-			"en": "Backspace",
-			"sv": "Backspace"
+			"English": "Backspace",
+			"Swedish": "Backspace"
 		},
 		"Return": {
-			"en": "Return",
-			"sv": "Return"
+			"English": "Return",
+			"Swedish": "Return"
 		},
 		"Minus": {
-			"en": "-",
-			"sv": "-"
+			"English": "-",
+			"Swedish": "-"
 		},
 		"OEM": {
 			"1": {
-				"en": "OEM 1",
-				"sv": "OEM 1"
+				"English": "OEM 1",
+				"Swedish": "OEM 1"
 			},
 			"2": {
-				"en": "OEM 2",
-				"sv": "OEM 2"
+				"English": "OEM 2",
+				"Swedish": "OEM 2"
 			},
 			"3": {
-				"en": "OEM 3",
-				"sv": "OEM 3"
+				"English": "OEM 3",
+				"Swedish": "OEM 3"
 			},
 			"4": {
-				"en": "OEM 4",
-				"sv": "OEM 4"
+				"English": "OEM 4",
+				"Swedish": "OEM 4"
 			},
 			"5": {
-				"en": "OEM 5",
-				"sv": "OEM 5"
+				"English": "OEM 5",
+				"Swedish": "OEM 5"
 			},
 			"6": {
-				"en": "OEM 6",
-				"sv": "OEM 6"
+				"English": "OEM 6",
+				"Swedish": "OEM 6"
 			},
 			"7": {
-				"en": "OEM 7",
-				"sv": "OEM 7"
+				"English": "OEM 7",
+				"Swedish": "OEM 7"
 			},
 			"8": {
-				"en": "OEM 8",
-				"sv": "OEM 8"
+				"English": "OEM 8",
+				"Swedish": "OEM 8"
 			},
 			"102": {
-				"en": "OEM 102",
-				"sv": "OEM 102"
+				"English": "OEM 102",
+				"Swedish": "OEM 102"
 			},
 			"Clear": {
-				"en": "OEM Clear",
-				"sv": "OEM Clear"
+				"English": "OEM Clear",
+				"Swedish": "OEM Clear"
 			}
 		},
 		"Attn": {
-			"en": "Attn",
-			"sv": "Attn"
+			"English": "Attn",
+			"Swedish": "Attn"
 		},
 		"CrSel": {
-			"en": "CrSel",
-			"sv": "CrSel"
+			"English": "CrSel",
+			"Swedish": "CrSel"
 		},
 		"ExSel": {
-			"en": "ExSel",
-			"sv": "ExSel"
+			"English": "ExSel",
+			"Swedish": "ExSel"
 		},
 		"EraseEOF": {
-			"en": "Erase EOF",
-			"sv": "Erase EOF"
+			"English": "Erase EOF",
+			"Swedish": "Erase EOF"
 		},
 		"Zoom": {
-			"en": "Zoom",
-			"sv": "Zoom"
+			"English": "Zoom",
+			"Swedish": "Zoom"
 		},
 		"PA1": {
-			"en": "PA1",
-			"sv": "PA1"
+			"English": "PA1",
+			"Swedish": "PA1"
 		}
 	},
 	"Rename": {
-		"en": "Rename file",
-		"sv": "Byt filnamn",
+		"English": "Rename file",
+		"Swedish": "Byt filnamn",
 		"NewFilename": {
-			"en": "New file name:",
-			"sv": "Nytt filnamn:"
+			"English": "New file name:",
+			"Swedish": "Nytt filnamn:"
 		},
 		"InvalidChars": {
-			"en": "A file name cannot contain any of the following characters:\n\\ \/ : * ? \" < > |",
-			"sv": "Ett filnamn kan inte innehålla något av följande tecken:\n\\ / : * ? \" < > |"
+			"English": "A file name cannot contain any of the following characters:\n\\ \/ : * ? \" < > |",
+			"Swedish": "Ett filnamn kan inte innehålla något av följande tecken:\n\\ / : * ? \" < > |"
 		}
 	},
 	"Error": {
 		"InternalError": {
-			"en": "An internal error occured while loading images. Pictus will terminate. This message might help troubleshooting: ",
-			"sv": "Ett internt fel uppstod vid bildinläsning. Pictus kommer att avslutas. Detta meddelande kan underlätta vid felsökning: "
+			"English": "An internal error occured while loading images. Pictus will terminate. This message might help troubleshooting: ",
+			"Swedish": "Ett internt fel uppstod vid bildinläsning. Pictus kommer att avslutas. Detta meddelande kan underlätta vid felsökning: "
 		},
 		"DirectX": {
-			"en": "Could not initialize DirectX. Please make sure you have the latest graphics drivers and DirectX runtime installed.",
-			"sv": "Kunde inte initialisera DirectX. Var vänlig och verifiera att dom senaste grafikdrivrutinerna samt DirectX Runtime är installerat."
+			"English": "Could not initialize DirectX. Please make sure you have the latest graphics drivers and DirectX runtime installed.",
+			"Swedish": "Kunde inte initialisera DirectX. Var vänlig och verifiera att dom senaste grafikdrivrutinerna samt DirectX Runtime är installerat."
 		},
 		"OnlyNumeric": {
-			"en": "Only numerical values are valid.",
-			"sv": "Endast siffror är tillåtna."
+			"English": "Only numerical values are valid.",
+			"Swedish": "Endast siffror är tillåtna."
 		}
 	}
 }
