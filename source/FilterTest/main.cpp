@@ -72,7 +72,7 @@ void TestNoResample(_T T)
 	for (int i = 0; i < NumRunsNoResample; ++i)
 		T.Run(src.fb, dst.fb, region);
 	int time = sw.Stop();
-	Log << "Time: " << (time / NumRunsNoResample) << "\n";
+	std::cout << "Time: " << (time / NumRunsNoResample) << "\n";
 };
 
 
@@ -95,7 +95,7 @@ void TestResample(_T T, Img::Format fmt)
 	for (int i = 0; i < NumRunsResample; ++i)
 		T.Run(src.fb, dst.fb, region, fmt, DefaultZoom);
 	int time = sw.Stop();
-	Log << "Time: " << (time / NumRunsResample) << "\n";
+	std::cout << "Time: " << (time / NumRunsResample) << "\n";
 };
 
 struct TestNearestNeighbor {
@@ -144,6 +144,8 @@ struct TestBlendSolid {
 int wmain(int argc, wchar_t* argv[])
 {
 	if (argc < 3) return EXIT_FAILURE;
+
+	std::locale::global(boost::locale::generator().generate(""));
 
 	auto testToRun(boost::locale::to_lower(WStringToUTF8(argv[1])));
 	auto format(boost::locale::to_lower(WStringToUTF8(argv[2])));
