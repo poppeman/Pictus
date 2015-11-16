@@ -134,8 +134,10 @@ namespace Filter {
 					for(int nx = 0; nx < cseX.num; ++nx) {
 						float contrib = xcontribs[xindex + nx] * ycontrib;
 						density += contrib;
-						cDest += pixelConverter(*(currSourceScan++)) * contrib;
+						cDest += pixelConverter(*currSourceScan) * contrib;
+						currSourceScan++;
 					}
+
 					currSourceScanByte += source.Stride;
 				}
 				if (density != 0.0f && density != 1.0f)
