@@ -6,9 +6,9 @@ ArchitecturesAllowed=x86 x64
 ArchitecturesInstallIn64BitMode=x64
 AppName=Pictus
 AppMutex=Local\Pictus Viewer
-AppPublisherURL=http://www.poppeman.se/
-AppSupportURL=http://www.poppeman.se/pictus
-AppUpdatesURL=http://www.poppeman.se/pictus
+AppPublisherURL=https://www.poppeman.se/
+AppSupportURL=https://www.poppeman.se/pictus
+AppUpdatesURL=https://www.poppeman.se/pictus
 AppVerName=Pictus
 DefaultDirName={pf}\Pictus
 MinVersion=0.0,5.01
@@ -17,7 +17,7 @@ VersionInfoDescription=Pictus Setup
 OutputBaseFilename=PictInst
 OutputDir=../../dist/
 DisableProgramGroupPage=yes
-VersionInfoVersion=1.5.1.0
+VersionInfoVersion=1.5.2.0
 DisableDirPage=auto
 
 [Languages]
