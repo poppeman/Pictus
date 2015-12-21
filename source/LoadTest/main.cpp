@@ -59,7 +59,7 @@ Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> re
 	return nullptr;
 }
 
-int performLoad(const std::string& filename, const std::string& ext, bool autoDetect, Img::CodecFactoryStore& g_cfs)
+int performLoad(const std::string& filename, const std::string& ext, bool autoDetect, Img::CodecFactoryStore& g_cfs, size_t max_size)
 {
 	auto f = std::make_shared<IO::FileReader>(filename);
 	if(!f->Open())
@@ -73,10 +73,21 @@ int performLoad(const std::string& filename, const std::string& ext, bool autoDe
 		std::cout << "No codec!" << std::endl;
 		return EXIT_FAILURE;
 	}
+	if(max_size > 0)
+	{
+		auto sz = pCodec->GetSize();
+		auto ps = Img::EstimatePixelSize(pCodec->GetFormat());
+		if(static_cast<size_t>(sz.Width * sz.Height) * ps > max_size) {
+			std::cout << "Image would become too large!" << std::endl;
+			delete pCodec;
+			return EXIT_FAILURE;
+		}
+	}
 
 	if(pCodec->Allocate() != Img::AbstractCodec::AllocationStatus::Ok)
 	{
 		std::cout << "Failed allocating surface!" << std::endl;
+		delete pCodec;
 		return EXIT_FAILURE;
 	}
 	pCodec->LoadImageData();
@@ -103,6 +114,7 @@ int realMain(const std::vector<std::string>& args) {
 	std::string filename = "";
 
 	std::string ext = "";
+	size_t max_size = 0;
 
 	for(auto& p:args)
 	{
@@ -118,6 +130,12 @@ int realMain(const std::vector<std::string>& args) {
 		else if(p == "--bench")
 		{
 			bench = true;
+		}
+		else if(p.find("--max-size=") == 0 && p.length() > 11)
+		{
+			std::stringstream ss;
+			ss << p.substr(11, std::string::npos);
+			ss >> max_size;
 		}
 		else
 		{
@@ -140,7 +158,7 @@ int realMain(const std::vector<std::string>& args) {
 
 		for (int i = 0; i < Warmups; ++i)
 		{
-			if (performLoad(filename, ext, autoDetect, g_cfs) == EXIT_FAILURE)
+			if (performLoad(filename, ext, autoDetect, g_cfs, max_size) == EXIT_FAILURE)
 			{
 				std::cout << "Failed during warmup, exiting ..." << std::endl;
 				return EXIT_FAILURE;
@@ -150,7 +168,7 @@ int realMain(const std::vector<std::string>& args) {
 		sw.Start();
 		for (int i = 0; i < NumRuns; ++i)
 		{
-			performLoad(filename, ext, autoDetect, g_cfs);
+			performLoad(filename, ext, autoDetect, g_cfs, max_size);
 		}
 		int time = sw.Stop();
 
@@ -162,7 +180,7 @@ int realMain(const std::vector<std::string>& args) {
 #ifdef __AFL_HAVE_MANUAL_CONTROL
 			__AFL_INIT();
 #endif
-			return performLoad(filename, ext, autoDetect, g_cfs);
+			return performLoad(filename, ext, autoDetect, g_cfs, max_size);
 		}
 		catch (std::bad_alloc &e) {
 			std::cout << "Ran out of memory, that's no good!\n";
