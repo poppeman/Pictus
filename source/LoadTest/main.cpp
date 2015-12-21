@@ -15,9 +15,8 @@ enum
 	NumRuns = 3
 };
 
-Img::CodecFactoryStore g_cfs;
 
-Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader, std::string ext, bool autoDetect) {
+Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader, std::string ext, bool autoDetect, Img::CodecFactoryStore& g_cfs) {
 	if (ext.empty())
 	{
 		ext = IO::GetExtension(reader->Name());
@@ -27,6 +26,10 @@ Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> re
 	if (c != nullptr && c->LoadHeader(reader))
 	{
 		return c;
+	}
+	else
+	{
+		delete c;
 	}
 
 	if(autoDetect == false)
@@ -53,10 +56,10 @@ Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> re
 			return c;
 		}
 	}
-	return 0;
+	return nullptr;
 }
 
-int performLoad(const std::string& filename, const std::string& ext, bool autoDetect)
+int performLoad(const std::string& filename, const std::string& ext, bool autoDetect, Img::CodecFactoryStore& g_cfs)
 {
 	auto f = std::make_shared<IO::FileReader>(filename);
 	if(!f->Open())
@@ -64,7 +67,7 @@ int performLoad(const std::string& filename, const std::string& ext, bool autoDe
 		std::cout << "Failed opening file" << std::endl;
 		return EXIT_FAILURE;
 	}
-	auto pCodec = DetectAndLoadHeader(f, ext, autoDetect);
+	auto pCodec = DetectAndLoadHeader(f, ext, autoDetect, g_cfs);
 	if(pCodec == nullptr)
 	{
 		std::cout << "No codec!" << std::endl;
@@ -77,10 +80,13 @@ int performLoad(const std::string& filename, const std::string& ext, bool autoDe
 		return EXIT_FAILURE;
 	}
 	pCodec->LoadImageData();
+	delete pCodec;
 	return EXIT_SUCCESS;
 }
 
 int realMain(const std::vector<std::string>& args) {
+	Img::CodecFactoryStore g_cfs;
+
 	if(args.empty())
 	{
 		std::cout << "Missing parameter" << std::endl;
@@ -134,7 +140,7 @@ int realMain(const std::vector<std::string>& args) {
 
 		for (int i = 0; i < Warmups; ++i)
 		{
-			if (performLoad(filename, ext, autoDetect) == EXIT_FAILURE)
+			if (performLoad(filename, ext, autoDetect, g_cfs) == EXIT_FAILURE)
 			{
 				std::cout << "Failed during warmup, exiting ..." << std::endl;
 				return EXIT_FAILURE;
@@ -144,7 +150,7 @@ int realMain(const std::vector<std::string>& args) {
 		sw.Start();
 		for (int i = 0; i < NumRuns; ++i)
 		{
-			performLoad(filename, ext, autoDetect);
+			performLoad(filename, ext, autoDetect, g_cfs);
 		}
 		int time = sw.Stop();
 
@@ -156,7 +162,7 @@ int realMain(const std::vector<std::string>& args) {
 #ifdef __AFL_HAVE_MANUAL_CONTROL
 			__AFL_INIT();
 #endif
-			return performLoad(filename, ext, autoDetect);
+			return performLoad(filename, ext, autoDetect, g_cfs);
 		}
 		catch (std::bad_alloc &e) {
 			std::cout << "Ran out of memory, that's no good!\n";
@@ -164,7 +170,7 @@ int realMain(const std::vector<std::string>& args) {
 		}
 	}
 
-	return EXIT_SUCCESS;	
+	return EXIT_SUCCESS;
 }
 
 #ifdef _WIN32
