@@ -29,7 +29,7 @@ namespace Img {
 		void ReleaseFactories();
 		void AddBuiltinCodecs();
 
-		CodecFactoryStore();
+		~CodecFactoryStore();
 
 	private:
 		typedef std::shared_ptr<ICodecFactory> FactoryPtr;

@@ -91,7 +91,7 @@ namespace Img {
 		AddCodecFactory(new Img::FactoryXYZ());
 	}
 
-	CodecFactoryStore::CodecFactoryStore() {
+	CodecFactoryStore::~CodecFactoryStore() {
 		m_info.clear();
 		m_factories.clear();
 		m_ext.clear();
