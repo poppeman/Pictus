@@ -5,6 +5,10 @@ namespace Img {
 		return m_buffer;
 	}
 
+	size_t Surface::LockedArea::Size() const {
+		return m_rectLocked.Height() * m_stride;
+	}
+
 	void Surface::LockedArea::Unlock() {
 		if (m_isLocked == false) DO_THROW(Err::CriticalError, "Attempted to unlock an already unlocked area.");
 		m_surface->UnlockSurface(m_method);

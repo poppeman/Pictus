@@ -17,6 +17,7 @@ namespace Img {
 		LoadStatus PerformLoadImageData(IO::FileReader::Ptr file) override;
 
 		WebPDecoderConfig m_config;
+		WebPIDecoder* m_decoder;
 		std::vector<uint8_t> m_data;
 	};
 }

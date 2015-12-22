@@ -8,6 +8,7 @@ namespace Img {
 	public:
 		size_t Stride() const;
 		uint8_t* Buffer();
+		size_t Size() const;
 
 		void Unlock();
 

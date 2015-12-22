@@ -33,6 +33,7 @@ namespace IO {
 		Stream::Ptr m_stream;
 	};
 
+	size_t ReadAppend(FileReader::Ptr reader, std::vector<uint8_t>& target, size_t count);
 	std::vector<uint8_t> ReadAll(FileReader::Ptr file);
 
 	uint32_t ReadNet32(FileReader::Ptr reader);
