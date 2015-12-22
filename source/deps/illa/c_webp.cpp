@@ -24,11 +24,11 @@ namespace Img {
 		}
 		Log << "Initialized libwebp\n";
 
-		/*if(file->Size() < HeaderSize)
+		if(file->Size() < HeaderSize)
 		{
 			Log << "File too small, probably not valid\n";
 			return false;
-		}*/
+		}
 		m_data.resize(HeaderSize);
 		file->ReadFull(&m_data[0], HeaderSize);
 		if(WebPGetFeatures(&m_data[0], m_data.size(), &m_config.input) != VP8_STATUS_OK) {
