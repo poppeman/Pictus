@@ -159,10 +159,12 @@
     <ClCompile Include="bmp_fileheader.cpp" />
     <ClCompile Include="bmp_header.cpp" />
     <ClCompile Include="c_bmp.cpp" />
+    <ClCompile Include="c_webp.cpp" />
     <ClCompile Include="filter_buffer.cpp" />
     <ClCompile Include="f_bmp.cpp" />
     <ClCompile Include="c_gif.cpp" />
     <ClCompile Include="f_gif.cpp" />
+    <ClCompile Include="f_webp.cpp" />
     <ClCompile Include="gif_stringtable.cpp" />
     <ClCompile Include="gif_imagedescriptor.cpp" />
     <ClCompile Include="gif_io.cpp" />
@@ -246,10 +248,12 @@
     <ClInclude Include="bmp_fileheader.h" />
     <ClInclude Include="bmp_header.h" />
     <ClInclude Include="c_bmp.h" />
+    <ClInclude Include="c_webp.h" />
     <ClInclude Include="filter_buffer.h" />
     <ClInclude Include="f_bmp.h" />
     <ClInclude Include="c_gif.h" />
     <ClInclude Include="f_gif.h" />
+    <ClInclude Include="f_webp.h" />
     <ClInclude Include="gif_stringtable.h" />
     <ClInclude Include="gif_imagedescriptor.h" />
     <ClInclude Include="gif_io.h" />
@@ -325,6 +329,9 @@
     <ProjectReference Include="..\libtiff\libtiff.vcxproj">
       <Project>{08bad763-8922-4054-994e-192ab6834dbe}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libwebp\libwebp.vcxproj">
+      <Project>{e7f3aa48-d551-4ed5-8677-d59adb491c47}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Metadata\Metadata.vcxproj">
       <Project>{f43ec854-1314-4297-837b-f2a7fbca4b26}</Project>

@@ -1,6 +1,7 @@
 #include "stream_file.h"
 #include "file_reader.h"
 #include "ByteOrder.h"
+#include <algorithm>
 
 namespace IO {
 	using std::mutex;
