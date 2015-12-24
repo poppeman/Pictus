@@ -34,6 +34,11 @@ set(dsp_SOURCES
 	dsp/yuv_sse2.c
 )
 
+set(mux_SOURCES
+	mux/muxedit.c
+	mux/muxinternal.c
+	mux/muxread.c)
+
 set(utils_SOURCES
 	utils/bit_reader.c
 	utils/bit_writer.c
@@ -51,3 +56,7 @@ set(utils_SOURCES
 
 add_library(webp STATIC ${dec_SOURCES} ${dsp_SOURCES} ${utils_SOURCES})
 target_link_libraries(webp m pthread)
+
+add_library(webpmux STATIC ${mux_SOURCES})
+target_link_libraries(webpmux m pthread)
+
