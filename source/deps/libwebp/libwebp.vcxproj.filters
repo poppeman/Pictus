@@ -150,6 +150,9 @@
     <ClCompile Include="src\utils\utils.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\demux\demux.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dec\alphai.h">

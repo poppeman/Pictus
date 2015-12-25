@@ -105,6 +105,11 @@ namespace IO {
 		return reader->Read(&target[pos], num, 1);
 	}
 
+	size_t ReadAppend(FileReader::Ptr reader, std::vector<uint8_t>& target) {
+		auto left = reader->Size() - reader->Position();
+		return ReadAppend(reader, target, left);
+	}
+
 	uint32_t ReadNet32(FileReader::Ptr reader) {
 		uint32_t pre;
 		if (reader->Read(&pre, 4, 1) != 1) throw std::runtime_error("EOF encountered");

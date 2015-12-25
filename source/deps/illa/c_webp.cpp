@@ -49,7 +49,7 @@ namespace Img {
 		}
 
 		// Most things in the API expects that all data is readily available in memory.
-		IO::ReadAppend(file, m_data, ChunkSize);
+		IO::ReadAppend(file, m_data);
 		WebPDataInit(&m_wpdata);
 		m_wpdata.bytes = &m_data[0];
 		m_wpdata.size = m_data.size();
@@ -100,14 +100,22 @@ namespace Img {
 			}
 
 			WebPIterator wpIter;
-			WebPDemuxGetFrame(m_mux, m_currFrame + 1, &wpIter);
+			if (WebPDemuxGetFrame(m_mux, m_currFrame + 1, &wpIter) == 0)
+			{
+				Log << "Failed getting frame\n";
+				return LoadStatus::Failed;
+			}
 
-			auto lock = m_frames[m_currFrame].Surface->LockSurface();
-			m_config.output.u.RGBA.rgba = lock->Buffer();
-			m_config.output.u.RGBA.stride = lock->Stride();
-			m_config.output.u.RGBA.size = lock->Size();
+			{
+				auto lock = m_frames[m_currFrame].Surface->LockSurface();
+				m_config.output.u.RGBA.rgba = lock->Buffer();
+				m_config.output.u.RGBA.stride = lock->Stride();
+				m_config.output.u.RGBA.size = lock->Size();
 
-			WebPIDecode(wpIter.fragment.bytes, wpIter.fragment.size, &m_config);
+				WebPDecode(wpIter.fragment.bytes, wpIter.fragment.size, &m_config);
+			}
+			m_frames[m_currFrame].Delay = wpIter.duration;
+			WebPDemuxReleaseIterator(&wpIter);
 
 			m_composer->SendFrame(m_frames[m_currFrame++]);
 		}

@@ -29,6 +29,7 @@
     <ClCompile Include="src\dec\vp8.c" />
     <ClCompile Include="src\dec\vp8l.c" />
     <ClCompile Include="src\dec\webp.c" />
+    <ClCompile Include="src\demux\demux.c" />
     <ClCompile Include="src\dsp\alpha_processing.c" />
     <ClCompile Include="src\dsp\alpha_processing_sse2.c" />
     <ClCompile Include="src\dsp\cpu.c" />

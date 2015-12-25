@@ -24,6 +24,7 @@ namespace Img {
 
 		std::vector<WebpFrame> m_frames;
 		std::mutex m_mutFrames;
+		size_t m_currFrame;
 	};
 }
 

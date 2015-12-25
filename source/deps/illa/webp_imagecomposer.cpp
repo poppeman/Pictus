@@ -7,7 +7,8 @@ namespace Img {
 		m_frames.push_back(frame);
 	}
 
-	WebpImageComposer::WebpImageComposer()
+	WebpImageComposer::WebpImageComposer():
+		m_currFrame(0)
 	{
 	}
 
@@ -15,17 +16,33 @@ namespace Img {
 	{}
 
 	Surface::Ptr WebpImageComposer::ComposeCurrentSurface() {
-		return m_frames[0].Surface;
+		std::lock_guard<std::mutex> l(m_mutFrames);
+		if (m_frames.empty())
+		{
+			return nullptr;
+		}
+		return m_frames[m_currFrame].Surface;
 	}
 
-	void WebpImageComposer::OnAdvance() {}
+	void WebpImageComposer::OnAdvance() {
+		std::lock_guard<std::mutex> l(m_mutFrames);
+		m_currFrame++;
+		if (m_currFrame >= m_frames.size()) {
+			m_currFrame = 0;
+		}
+	}
 
 	int WebpImageComposer::OnDelay() {
-		return 0;
+		std::lock_guard<std::mutex> l(m_mutFrames);
+		if (m_currFrame >= m_frames.size()) {
+			return 10;
+		}
+		return m_frames[m_currFrame].Delay;
 	}
 
 	void WebpImageComposer::OnRestart() {
-
+		std::lock_guard<std::mutex> l(m_mutFrames);
+		m_currFrame = 0;
 	}
 }
 

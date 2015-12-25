@@ -230,6 +230,7 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imagecomposer.cpp" />
     <ClCompile Include="imagecomposer_static.cpp" />
+    <ClCompile Include="webp_imagecomposer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="color.h" />
@@ -316,6 +317,7 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="imagecomposer.h" />
     <ClInclude Include="imagecomposer_static.h" />
+    <ClInclude Include="webp_imagecomposer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libjpeg\libjpeg.vcxproj">

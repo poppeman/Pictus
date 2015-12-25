@@ -339,6 +339,9 @@
     <ClCompile Include="f_webp.cpp">
       <Filter>Codecs\WEBP</Filter>
     </ClCompile>
+    <ClCompile Include="webp_imagecomposer.cpp">
+      <Filter>Codecs\WEBP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c_factory.h">
@@ -591,6 +594,9 @@
       <Filter>Codecs\WEBP</Filter>
     </ClInclude>
     <ClInclude Include="f_webp.h">
+      <Filter>Codecs\WEBP</Filter>
+    </ClInclude>
+    <ClInclude Include="webp_imagecomposer.h">
       <Filter>Codecs\WEBP</Filter>
     </ClInclude>
   </ItemGroup>
