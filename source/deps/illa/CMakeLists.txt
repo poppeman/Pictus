@@ -6,4 +6,4 @@ FILE(GLOB ALL_CPP_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 include_directories(${DEPS_DIRECTORY})
 
 add_library(illa STATIC ${ALL_CPP_SRCS} ${ALL_HEADER_SRCS})
-target_link_libraries(illa orz tiff jpeg png webp Metadata ${Boost_LIBRARIES})
+target_link_libraries(illa orz tiff jpeg png webp webpdemux Metadata ${Boost_LIBRARIES})

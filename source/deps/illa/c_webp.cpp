@@ -1,13 +1,23 @@
 #include "c_webp.h"
 #include "orz/logger.h"
 #include "illa/surface_locked_area.h"
+#include "surfacemgr.h"
+#include <type_traits>
 
 namespace Img {
-	static const FileInt HeaderSize = 30;
+	static const FileInt HeaderSize = 12;
 	static const FileInt ChunkSize = 1024;
 
+	ImageComposer::Ptr CodecWebp::RequestImageComposer() {
+		return m_composer;
+	}
+
 	CodecWebp::CodecWebp():
-		m_decoder(nullptr)
+		m_composer(std::make_shared<Img::WebpImageComposer>()),
+		m_decoder(nullptr),
+		m_mux(nullptr),
+		m_currFrame(0),
+		m_numFrames(0)
 	{}
 	CodecWebp::~CodecWebp() {
 		if(m_decoder != nullptr)
@@ -18,6 +28,8 @@ namespace Img {
 	}
 
 	bool CodecWebp::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {
+		static_assert(HeaderSize >= 12, "HeaderSize must be at least 12");
+
 		if(WebPInitDecoderConfig(&m_config) == 0) {
 			Log << "Failed initializing libwebp\n";
 			return false;
@@ -31,22 +43,47 @@ namespace Img {
 		}
 		m_data.resize(HeaderSize);
 		file->ReadFull(&m_data[0], HeaderSize);
-		if(WebPGetFeatures(&m_data[0], m_data.size(), &m_config.input) != VP8_STATUS_OK) {
-			Log << "Failed fetching WebP features, probably not a WebP image\n";
+		if(strncmp(reinterpret_cast<char*>(&m_data[0]), "RIFF", 4) || strncmp(reinterpret_cast<char*>(&m_data[8]), "WEBP", 4))
+		{
 			return false;
 		}
 
+		// Most things in the API expects that all data is readily available in memory.
+		IO::ReadAppend(file, m_data, ChunkSize);
+		WebPDataInit(&m_wpdata);
+		m_wpdata.bytes = &m_data[0];
+		m_wpdata.size = m_data.size();
+
+		m_mux = WebPDemux(&m_wpdata);
+		info.Dimensions = Geom::SizeInt
+		{
+			static_cast<int>(WebPDemuxGetI(m_mux, WEBP_FF_CANVAS_WIDTH)),
+			static_cast<int>(WebPDemuxGetI(m_mux, WEBP_FF_CANVAS_HEIGHT))
+		};
+		auto flags = WebPDemuxGetI(m_mux, WEBP_FF_FORMAT_FLAGS);
+
+		info.SurfaceFormat = (flags & ALPHA_FLAG) ? Img::Format::ARGB8888 : Img::Format::XRGB8888;
+
+		if(WebPGetFeatures(&m_data[0], m_data.size(), &m_config.input) != VP8_STATUS_OK)
+		{
+			return false;
+		}
+
+		m_numFrames = WebPDemuxGetI(m_mux, WEBP_FF_FRAME_COUNT);
+
 		info.Dimensions = {m_config.input.width, m_config.input.height};
-		info.SurfaceFormat = m_config.input.has_alpha ? Img::Format::ARGB8888 : Img::Format::XRGB8888;
 
 		return true;
 	}
 
 	AbstractCodec::AllocationStatus CodecWebp::PerformAllocate()
 	{
-		m_decoder = WebPIDecode(nullptr, 0, &m_config);
-
-		GetSurface()->CreateSurface(GetSize(), GetFormat());
+		for(auto i=0u; i < m_numFrames; i++)
+		{
+			auto currSurface = CreateNewSurface();
+			currSurface->CreateSurface(GetSize(), GetFormat());
+			m_frames.push_back({100, currSurface});
+		}
 		return AllocationStatus::Ok;
 	}
 
@@ -55,24 +92,30 @@ namespace Img {
 		m_config.output.colorspace = MODE_BGRA;
 		m_config.output.is_external_memory = 1;
 
-		while (DoTerminate() == false) {
-			auto lock = GetSurface()->LockSurface();
+		while(DoTerminate() == false)
+		{
+			if(m_currFrame >= m_numFrames)
+			{
+				return AbstractCodec::LoadStatus::Finished;
+			}
+
+			WebPIterator wpIter;
+			WebPDemuxGetFrame(m_mux, m_currFrame + 1, &wpIter);
+
+			auto lock = m_frames[m_currFrame].Surface->LockSurface();
 			m_config.output.u.RGBA.rgba = lock->Buffer();
 			m_config.output.u.RGBA.stride = lock->Stride();
 			m_config.output.u.RGBA.size = lock->Size();
 
-			if (file->Position() < file->Size()) {
-				std::cout << "Reading " << ChunkSize << " at " << file->Position() << "\n";
-				IO::ReadAppend(file, m_data, ChunkSize);
-				auto status = WebPIUpdate(m_decoder, &m_data[0], m_data.size());
-				WebPIDecGetRGB(m_decoder, nullptr, nullptr, nullptr, nullptr);
-				if (status != VP8_STATUS_SUSPENDED)
-				{
-					break;
-				}
-			}
+			WebPIDecode(wpIter.fragment.bytes, wpIter.fragment.size, &m_config);
+
+			m_composer->SendFrame(m_frames[m_currFrame++]);
 		}
 
 		return LoadStatus::Aborted;
+	}
+	size_t CodecWebp::PerformEstimateMemory()
+	{
+		return GetSize().Width * GetSize().Height * 4 * m_numFrames;
 	}
 }
