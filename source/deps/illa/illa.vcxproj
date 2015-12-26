@@ -161,6 +161,7 @@
     <ClCompile Include="c_bmp.cpp" />
     <ClCompile Include="c_webp.cpp" />
     <ClCompile Include="filter_buffer.cpp" />
+    <ClCompile Include="filter_crossblend.cpp" />
     <ClCompile Include="f_bmp.cpp" />
     <ClCompile Include="c_gif.cpp" />
     <ClCompile Include="f_gif.cpp" />

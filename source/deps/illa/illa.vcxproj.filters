@@ -342,6 +342,9 @@
     <ClCompile Include="webp_imagecomposer.cpp">
       <Filter>Codecs\WEBP</Filter>
     </ClCompile>
+    <ClCompile Include="filter_crossblend.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c_factory.h">

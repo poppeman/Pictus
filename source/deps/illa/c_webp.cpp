@@ -72,6 +72,7 @@ namespace Img {
 		m_numFrames = WebPDemuxGetI(m_mux, WEBP_FF_FRAME_COUNT);
 
 		info.Dimensions = {m_config.input.width, m_config.input.height};
+		m_composer->SetCanvasSize(info.Dimensions);
 
 		return true;
 	}
@@ -115,6 +116,10 @@ namespace Img {
 				WebPDecode(wpIter.fragment.bytes, wpIter.fragment.size, &m_config);
 			}
 			m_frames[m_currFrame].Delay = wpIter.duration;
+			m_frames[m_currFrame].Offset.X = wpIter.x_offset;
+			m_frames[m_currFrame].Offset.Y = wpIter.y_offset;
+			m_frames[m_currFrame].BlendMethod = wpIter.blend_method == WEBP_MUX_BLEND ? WebpBlendMethod::Alpha : WebpBlendMethod::None;
+			m_frames[m_currFrame].DisposeMethod = wpIter.dispose_method == WEBP_MUX_DISPOSE_BACKGROUND ? WebpDispose::BackgroundColor : WebpDispose::None;
 			WebPDemuxReleaseIterator(&wpIter);
 
 			m_composer->SendFrame(m_frames[m_currFrame++]);
