@@ -50,6 +50,10 @@ namespace Img {
 			{
 				m_currentSurface->BlitSurfaceAlpha(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
 			}
+			else if (m_frames[m_currFrame].BlendMethod == WebpBlendMethod::None)
+			{
+				m_currentSurface->CopySurface(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
+			}
 		}
 
 		return m_currentSurface;
