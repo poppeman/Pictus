@@ -7,6 +7,11 @@ namespace Img {
 		m_dims = newSize;
 	}
 
+	void WebpImageComposer::SetBackgroundColor(Img::Color backgroundColor)
+	{
+		m_backgroundColor = backgroundColor;
+	}
+
 	void WebpImageComposer::SendFrame(WebpFrame frame)
 	{
 		std::lock_guard<std::mutex> l(m_mutFrames);
@@ -35,9 +40,16 @@ namespace Img {
 		{
 			m_currentSurface->CopySurface(m_frames[0].Surface);
 		}
-		else if (m_frames[m_currFrame].BlendMethod == WebpBlendMethod::Alpha)
+		else
 		{
-			m_currentSurface->BlitSurfaceAlpha(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
+			if (m_frames[m_currFrame].DisposeMethod == WebpDispose::BackgroundColor)
+			{
+				m_currentSurface->ClearSurface(m_backgroundColor);
+			}
+			if (m_frames[m_currFrame].BlendMethod == WebpBlendMethod::Alpha)
+			{
+				m_currentSurface->BlitSurfaceAlpha(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
+			}
 		}
 
 		return m_currentSurface;
