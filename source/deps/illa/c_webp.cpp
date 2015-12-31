@@ -83,7 +83,7 @@ namespace Img {
 		{
 			auto currSurface = CreateNewSurface();
 			currSurface->CreateSurface(GetSize(), GetFormat());
-			m_frames.push_back({100, currSurface});
+			m_frames.push_back({100, currSurface, WebpDispose::None, WebpBlendMethod::None, {0, 0}});
 		}
 		return AllocationStatus::Ok;
 	}
