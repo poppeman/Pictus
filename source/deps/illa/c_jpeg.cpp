@@ -7,9 +7,13 @@ namespace Img {
 	using namespace Geom;
 
 	void CodecJPEG::jpeg_error_exit(j_common_ptr cinfo) {
-		//our_error* err=(our_error*)cinfo->err;
-		// TODO: Try to extract information from cinfo
-		DO_THROW(Err::CodecError, "Error loading JPEG.");
+		auto err = reinterpret_cast<CodecJPEG::JpegError*>(cinfo->err);
+
+		std::string msg;
+		msg.resize(JMSG_LENGTH_MAX);
+		cinfo->err->format_message(cinfo, &msg[0]);
+		err->pCodec->m_lastError = msg;
+		longjmp(err->setjmp_buf, 1);
 	}
 
 	bool CodecJPEG::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {
@@ -74,7 +78,7 @@ namespace Img {
 	std::shared_ptr<Metadata::Document> CodecJPEG::PerformLoadMetadata() {
 		jpeg_saved_marker_ptr currentMarker = m_decInfo.marker_list;
 		auto doc = std::make_shared<Metadata::Document>();
-		
+
 		while(currentMarker) {
 			if (currentMarker->marker == (JPEG_APP0 + 1) && IsExifMarker(currentMarker->data, currentMarker->data_length)) {
 				Metadata::Merge(doc, Metadata::Exif::Decode(currentMarker->data + 6, currentMarker->data_length - 6));
@@ -155,6 +159,10 @@ namespace Img {
 
 	AbstractCodec::LoadStatus CodecJPEG::PerformLoadImageData(IO::FileReader::Ptr) {
 		try {
+			if(setjmp(m_decErr.setjmp_buf)) {
+				DO_THROW(Err::CodecError, m_lastError);
+			}
+
 			while (DoTerminate() == false) {
 				if (m_decInfo.output_scanline >= m_decInfo.output_height) {
 					FinalizeSurface();
@@ -315,6 +323,10 @@ namespace Img {
 		m_decInfo.err	= jpeg_std_error(&m_decErr.pub);
 		m_decErr.pCodec	= this;
 		m_decErr.pub.error_exit = jpeg_error_exit;
+
+		if(setjmp(m_decErr.setjmp_buf)) {
+			DO_THROW(Err::CodecError, m_lastError);
+		}
 
 		jpeg_create_decompress(&m_decInfo);
 		m_isInit = true;

@@ -8,6 +8,8 @@
 #ifndef _TIFFCONF_
 #define _TIFFCONF_
 
+#include <stdint.h>
+
 /* Signed 16-bit type */
 #define TIFF_INT16_T signed short
 
@@ -15,7 +17,7 @@
 #define TIFF_INT32_T signed int
 
 /* Signed 64-bit type */
-#define TIFF_INT64_T signed long
+#define TIFF_INT64_T int64_t
 
 /* Signed 8-bit type */
 #define TIFF_INT8_T signed char
@@ -27,7 +29,7 @@
 #define TIFF_UINT32_T unsigned int
 
 /* Unsigned 64-bit type */
-#define TIFF_UINT64_T unsigned long
+#define TIFF_UINT64_T uint64_t
 
 /* Unsigned 8-bit type */
 #define TIFF_UINT8_T unsigned char
