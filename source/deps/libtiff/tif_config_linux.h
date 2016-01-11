@@ -310,7 +310,7 @@
 #define TIFF_INT64_FORMAT "%ld"
 
 /* Signed 64-bit type */
-#define TIFF_INT64_T signed long
+#define TIFF_INT64_T int64_t
 
 /* Signed 8-bit type */
 #define TIFF_INT8_T signed char
@@ -346,7 +346,7 @@
 #define TIFF_UINT64_FORMAT "%lu"
 
 /* Unsigned 64-bit type */
-#define TIFF_UINT64_T unsigned long
+#define TIFF_UINT64_T uint64_t
 
 /* Unsigned 8-bit type */
 #define TIFF_UINT8_T unsigned char
