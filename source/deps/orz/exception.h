@@ -37,10 +37,7 @@ namespace Err {
 
 std::string DoThrowBuildDescription(const char* filename, int line, const char* functionName, const std::string& description);
 
-#ifdef _MSC_VER
-#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(__FILE__, __LINE__, __FUNCTION__, description))
-#else
-#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription("UNK_FILE", 0, "UNK_FUNC", std::string(description)))
-#endif
+// Works on MSVC, Clang, GCC
+#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(__FILE__, __LINE__, __FUNCTION__, std::string(description)))
 
 #endif
