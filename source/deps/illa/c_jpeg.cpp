@@ -21,6 +21,11 @@ namespace Img {
 			m_file = file;
 			PrepareLibJpeg(file);
 
+			if(setjmp(m_decErr.setjmp_buf))
+			{
+				DO_THROW(Err::CodecError, m_lastError);
+			}
+
 			info.SurfaceFormat = Img::Format::Undefined;
 
 			switch (m_decInfo.out_color_space) {
@@ -136,12 +141,10 @@ namespace Img {
 			PrepareLibJpeg(m_file);
 		}
 
-		try {
-			jpeg_start_decompress(&m_decInfo);
-		}
-		catch(Err::Exception&) {
+		if(setjmp(m_decErr.setjmp_buf)) {
 			return AllocationStatus::Failed;
 		}
+		jpeg_start_decompress(&m_decInfo);
 
 		GetSurface()->CreateSurface(Geom::SizeInt(m_decInfo.output_width, m_decInfo.output_height), GetFormat());
 		GetSurface()->ClearSurface(Img::Color(0xff, 0xff, 0xff, 0xff));
@@ -253,6 +256,10 @@ namespace Img {
 	}
 
 	void CodecJPEG::destroy() {
+                if(setjmp(m_decErr.setjmp_buf)) {
+                        DO_THROW(Err::CodecError, m_lastError);
+                }
+
 		if (m_isInit && !IsFinished()) {
 			jpeg_abort_decompress(&m_decInfo);
 			jpeg_destroy_decompress(&m_decInfo);

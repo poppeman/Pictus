@@ -3,6 +3,7 @@
 #include "surface_locked_area.h"
 #include "surfacemgr.h"
 #include "orz/logger.h"
+#include <cassert>
 
 namespace Img {
 	using namespace Geom;
@@ -12,6 +13,7 @@ namespace Img {
 		std::stringstream ss;
 		ss << "(CodecPNG::libpng_error) " << message << "\n";
 		auto codec = reinterpret_cast<CodecPNG*>(png_get_error_ptr(png));
+		assert(codec != nullptr);
 		codec->m_lastError = ss.str();
 		longjmp(codec->m_setjmpBuf, 1);
 	}
@@ -148,6 +150,10 @@ namespace Img {
 
 	AbstractCodec::LoadStatus CodecPNG::PerformLoadImageData(IO::FileReader::Ptr) {
 		try {
+                        if(setjmp(m_setjmpBuf)) {
+                                DO_THROW(Err::CodecError, m_lastError);
+                        }
+
 			int height = GetSize().Height;
 			int width = GetSize().Width;
 
