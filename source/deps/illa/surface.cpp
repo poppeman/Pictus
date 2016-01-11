@@ -30,7 +30,8 @@ namespace Img {
 		if (format >= Format::Num) {
 			DO_THROW(Err::InvalidParam, "Invalid format");
 		}
-		auto bytesToConsume = static_cast<size_t>(size.Width) * static_cast<size_t>(size.Height) * static_cast<size_t>(EstimatePixelSize(format));
+		// TODO: Properly avoid overflow here rather than half-assing it
+		auto bytesToConsume = static_cast<uint64_t>(size.Width) * static_cast<uint64_t>(size.Height) * static_cast<uint64_t>(EstimatePixelSize(format));
 		if (bytesToConsume > MaxSurfaceBytes) {
 			Log << "Surface would consume " << ToAString(bytesToConsume) << " which would be greater than the safety limit of " << ToAString(MaxSurfaceBytes) << " bytes\n";
 			throw std::bad_alloc();
