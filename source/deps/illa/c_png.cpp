@@ -222,6 +222,9 @@ namespace Img {
 
 	void CodecPNG::libpng_user_read_data( png_structp png_ptr, png_bytep data, png_size_t length ) {
 		IO::FileReader* file = reinterpret_cast<IO::FileReader*>(png_get_io_ptr(png_ptr));
-		file->ReadFull(data, length);
+		if (file->Read(data, 1, length) != length)
+		{
+			png_error(png_ptr, "EOF encountered");
+		}
 	}
 }
