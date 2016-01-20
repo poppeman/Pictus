@@ -85,7 +85,7 @@ namespace Img {
 			WebPIterator wpIter;
 			WebPDemuxGetFrame(m_mux, i + 1, &wpIter);
 			auto currSurface = CreateNewSurface();
-			currSurface->CreateSurface({ wpIter.width, wpIter.height }, GetFormat());
+			currSurface->CreateSurface({ wpIter.width, wpIter.height }, wpIter.has_alpha ? Img::Format::ARGB8888 : Img::Format::XRGB8888);
 			m_frames.push_back({
 				wpIter.duration,
 				currSurface,
