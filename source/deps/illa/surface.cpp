@@ -192,17 +192,11 @@ namespace Img {
 
 	void Surface::onBlitSurfaceAlpha(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft)
 	{
-		if (source->GetFormat() != Format::ARGB8888)
-		{
-			DO_THROW(Err::InvalidParam, "onBlitSurfaceAlpha source-type != ARGB8888 Not yet supported");
-		}
 		if (GetFormat() != Format::ARGB8888)
 		{
 			DO_THROW(Err::InvalidParam, "onBlitSurfaceAlpha dest-type != ARGB8888 Not yet supported");
 		}
 
-		auto croppedRegion = sourceAreaToCopy.Crop(RectInt(destinationTopLeft, GetSize()));
-		sourceAreaToCopy.Dimensions(croppedRegion.Dimensions());
 		
 		LockedArea::Ptr lockedSource = source->LockSurface();
 		LockedArea::Ptr lockedDestination = LockSurface();

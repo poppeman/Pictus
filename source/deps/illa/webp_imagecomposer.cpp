@@ -4,12 +4,20 @@
 namespace Img {
 	void WebpImageComposer::SetCanvasSize(Geom::SizeInt newSize)
 	{
+		std::lock_guard<std::mutex> l(m_mutFrames);
 		m_dims = newSize;
 	}
 
 	void WebpImageComposer::SetBackgroundColor(Img::Color backgroundColor)
 	{
+		std::lock_guard<std::mutex> l(m_mutFrames);
 		m_backgroundColor = backgroundColor;
+	}
+
+	void WebpImageComposer::SetFrameCount(size_t numFrames)
+	{
+		std::lock_guard<std::mutex> l(m_mutFrames);
+		m_numFrames = numFrames;
 	}
 
 	void WebpImageComposer::SendFrame(WebpFrame frame)
@@ -19,7 +27,8 @@ namespace Img {
 	}
 
 	WebpImageComposer::WebpImageComposer():
-		m_currFrame(0)
+		m_currFrame(0),
+		m_numFrames(0)
 	{
 	}
 
@@ -44,7 +53,7 @@ namespace Img {
 		{
 			m_currentSurface->BlitSurfaceAlpha(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
 		}
-		else if (m_frames[m_currFrame].BlendMethod == WebpBlendMethod::None || m_currFrame == 0)
+		else
 		{
 			m_currentSurface->CopySurface(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
 		}
@@ -54,8 +63,10 @@ namespace Img {
 
 	void WebpImageComposer::OnAdvance() {
 		std::lock_guard<std::mutex> l(m_mutFrames);
-		m_currFrame++;
-		if (m_currFrame >= m_frames.size()) {
+		if (m_currFrame + 1 < m_frames.size() && m_currentSurface != nullptr) {
+			m_currFrame++;
+		}
+		else if (m_currFrame + 1 == m_numFrames) {
 			m_currFrame = 0;
 		}
 	}

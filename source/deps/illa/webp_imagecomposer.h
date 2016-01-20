@@ -26,6 +26,7 @@ namespace Img {
 	public:
 		void SetCanvasSize(Geom::SizeInt newSize);
 		void SetBackgroundColor(Img::Color backgroundColor);
+		void SetFrameCount(size_t numFrames);
 		void SendFrame(WebpFrame frame);
 
 		WebpImageComposer();
@@ -40,6 +41,7 @@ namespace Img {
 		std::vector<WebpFrame> m_frames;
 		std::mutex m_mutFrames;
 		size_t m_currFrame;
+		size_t m_numFrames;
 		std::shared_ptr<Img::Surface> m_currentSurface;
 		Geom::SizeInt m_dims;
 		Img::Color m_backgroundColor;

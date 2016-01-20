@@ -3,6 +3,8 @@
 namespace Filter {
 	namespace Alpha {
 		void Crossblend(const FilterBuffer& a, Geom::PointInt topLeftA, const FilterBuffer& b, Geom::PointInt topLeftB, Geom::SizeInt sourceAreaSize, FilterBuffer& dest, Geom::PointInt& destTopLeft) {
+			// TODO: Validate arguments, possible buffer overruns below!
+
 			if (a.BufferData == nullptr || b.BufferData == nullptr || dest.BufferData == nullptr) {
 				DO_THROW(Err::InvalidParam, "Null buffer not allowed.");
 			}

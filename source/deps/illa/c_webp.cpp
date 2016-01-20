@@ -74,7 +74,7 @@ namespace Img {
 		info.Dimensions = {m_config.input.width, m_config.input.height};
 		m_composer->SetCanvasSize(info.Dimensions);
 		m_composer->SetBackgroundColor(Img::Color::FromDWord(WebPDemuxGetI(m_mux, WEBP_FF_BACKGROUND_COLOR)));
-
+		m_composer->SetFrameCount(m_numFrames);
 		return true;
 	}
 
