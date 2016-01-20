@@ -82,9 +82,18 @@ namespace Img {
 	{
 		for(auto i=0u; i < m_numFrames; i++)
 		{
+			WebPIterator wpIter;
+			WebPDemuxGetFrame(m_mux, i + 1, &wpIter);
 			auto currSurface = CreateNewSurface();
-			currSurface->CreateSurface(GetSize(), GetFormat());
-			m_frames.push_back({100, currSurface, WebpDispose::None, WebpBlendMethod::None, {0, 0}});
+			currSurface->CreateSurface({ wpIter.width, wpIter.height }, GetFormat());
+			m_frames.push_back({
+				wpIter.duration,
+				currSurface,
+				wpIter.dispose_method == WEBP_MUX_DISPOSE_BACKGROUND ? WebpDispose::BackgroundColor : WebpDispose::None,
+				wpIter.blend_method == WEBP_MUX_BLEND ? WebpBlendMethod::Alpha : WebpBlendMethod::None,
+				{ wpIter.x_offset, wpIter.y_offset }});
+
+			WebPDemuxReleaseIterator(&wpIter);
 		}
 		return AllocationStatus::Ok;
 	}
@@ -116,11 +125,6 @@ namespace Img {
 
 				WebPDecode(wpIter.fragment.bytes, wpIter.fragment.size, &m_config);
 			}
-			m_frames[m_currFrame].Delay = wpIter.duration;
-			m_frames[m_currFrame].Offset.X = wpIter.x_offset;
-			m_frames[m_currFrame].Offset.Y = wpIter.y_offset;
-			m_frames[m_currFrame].BlendMethod = wpIter.blend_method == WEBP_MUX_BLEND ? WebpBlendMethod::Alpha : WebpBlendMethod::None;
-			m_frames[m_currFrame].DisposeMethod = wpIter.dispose_method == WEBP_MUX_DISPOSE_BACKGROUND ? WebpDispose::BackgroundColor : WebpDispose::None;
 			WebPDemuxReleaseIterator(&wpIter);
 
 			m_composer->SendFrame(m_frames[m_currFrame++]);

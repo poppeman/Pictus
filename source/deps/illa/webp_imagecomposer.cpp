@@ -36,24 +36,17 @@ namespace Img {
 		{
 			m_currentSurface = CreateNewSurface(m_dims, Img::Format::ARGB8888);
 		}
-		if (m_currFrame == 0)
+		if (m_frames[m_currFrame].DisposeMethod == WebpDispose::BackgroundColor)
 		{
-			m_currentSurface->CopySurface(m_frames[0].Surface);
+			m_currentSurface->ClearSurface(m_backgroundColor);
 		}
-		else
+		if (m_frames[m_currFrame].BlendMethod == WebpBlendMethod::Alpha)
 		{
-			if (m_frames[m_currFrame].DisposeMethod == WebpDispose::BackgroundColor)
-			{
-				m_currentSurface->ClearSurface(m_backgroundColor);
-			}
-			if (m_frames[m_currFrame].BlendMethod == WebpBlendMethod::Alpha)
-			{
-				m_currentSurface->BlitSurfaceAlpha(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
-			}
-			else if (m_frames[m_currFrame].BlendMethod == WebpBlendMethod::None)
-			{
-				m_currentSurface->CopySurface(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
-			}
+			m_currentSurface->BlitSurfaceAlpha(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
+		}
+		else if (m_frames[m_currFrame].BlendMethod == WebpBlendMethod::None)
+		{
+			m_currentSurface->CopySurface(m_frames[m_currFrame].Surface, m_frames[m_currFrame].Offset);
 		}
 
 		return m_currentSurface;
