@@ -313,7 +313,7 @@ namespace Geom {
 		/*
 			Determine the intersection rect between two existing rects.
 			TODO: Rename and move to a free function.
-		*/		
+		*/
 		Rect<T> Crop(const Rect<T> &toCrop) const {
 			Rect<T> r(toCrop);
 			r.TopLeft(Maximum(toCrop.TopLeft(), TopLeft()));

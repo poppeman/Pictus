@@ -2,7 +2,7 @@
 #define PCX_HEADER_H
 
 #include "orz/file_reader.h"
-#include "geom.h"
+#include "orz/geom.h"
 #include "types.h"
 
 namespace Img {

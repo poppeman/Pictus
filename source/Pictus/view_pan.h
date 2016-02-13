@@ -1,7 +1,7 @@
 #ifndef VIEW_PAN_H
 #define VIEW_PAN_H
 
-#include "illa/geom.h"
+#include "orz/geom.h"
 
 namespace App {
 	class ViewPan {

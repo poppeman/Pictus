@@ -1,9 +1,12 @@
 #ifndef PICTUS_ZOOM_MODE_H
 #define PICTUS_ZOOM_MODE_H
 
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4512)
 #pragma warning(disable: 4503)
+#endif
+
 #include <boost/assign.hpp>
 #include <boost/bimap.hpp>
 
@@ -21,6 +24,8 @@ namespace App {
 		("ZoomFullSize", App::ZoomFullSize)
 		;
 }
+#ifdef _MSC_VER
 #pragma warning(pop)
+#endif
 
 #endif
