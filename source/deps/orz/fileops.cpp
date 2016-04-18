@@ -125,7 +125,12 @@ namespace IO {
 
 	std::string GetPath(const std::string& s) {
 #ifdef _WIN32
-		return boost::filesystem::path(s).make_preferred().parent_path().string() + "\\";
+		auto parent_path = boost::filesystem::path(s).make_preferred().parent_path().string();
+		if (*parent_path.rbegin() != '\\')
+		{
+			return parent_path + "\\";
+		}
+		return parent_path;
 #else
 		return boost::filesystem::path(s).make_preferred().parent_path().string() + "/";
 #endif
