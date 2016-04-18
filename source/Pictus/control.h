@@ -1,7 +1,7 @@
 #ifndef PICTUS_CONTROL_H
 #define PICTUS_CONTROL_H
 
-#include "illa/geom.h"
+#include "orz/geom.h"
 #include <boost/optional.hpp>
 #include <map>
 #include <memory>

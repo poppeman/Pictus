@@ -1,7 +1,7 @@
 #ifndef ILLA_FILTER_BUFFER_H
 #define ILLA_FILTER_BUFFER_H
 
-#include "geom.h"
+#include "orz/geom.h"
 #include "palette.h"
 
 namespace Filter

@@ -1,9 +1,11 @@
 #ifndef PICTUS_RESIZE_BEHAVIOR_H
 #define PICTUS_RESIZE_BEHAVIOR_H
 
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4512)
 #pragma warning(disable: 4503)
+#endif
 #include <boost/assign.hpp>
 #include <boost/bimap.hpp>
 
@@ -22,6 +24,8 @@ namespace App {
 		;
 }
 
+#ifdef _MSC_VER
 #pragma warning(pop)
+#endif
 
 #endif

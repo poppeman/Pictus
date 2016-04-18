@@ -39,7 +39,7 @@ namespace Img
 #include "color.h"
 #include "color_conv.h"
 #include "filter_buffer.h"
-#include "geom.h"
+#include "orz/geom.h"
 #include "palette.h"
 
 

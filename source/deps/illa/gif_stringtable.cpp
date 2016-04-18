@@ -1,5 +1,5 @@
 #include "gif_stringtable.h"
-#include "geom.h"
+#include "orz/geom.h"
 #include "surface_locked_area.h"
 
 namespace Img {

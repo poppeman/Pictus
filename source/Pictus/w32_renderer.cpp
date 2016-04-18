@@ -1,5 +1,5 @@
 #include "w32_renderer.h"
-#include "illa/geom.h"
+#include "orz/geom.h"
 #include "D3DWrap/d3d_math.h"
 #include "illa/swsurface.h"
 #include "d3d_ddsurface.h"
