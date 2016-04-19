@@ -59,7 +59,7 @@ Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> re
 	return nullptr;
 }
 
-int performLoad(const std::string& filename, const std::string& ext, bool autoDetect, Img::CodecFactoryStore& g_cfs, size_t max_size)
+int performLoad(const std::string& filename, const std::string& ext, bool autoDetect, Img::CodecFactoryStore& g_cfs, size_t max_size, bool showInfo)
 {
 	auto f = std::make_shared<IO::FileReader>(filename);
 	if(!f->Open())
@@ -72,6 +72,11 @@ int performLoad(const std::string& filename, const std::string& ext, bool autoDe
 	{
 		std::cout << "No codec!" << std::endl;
 		return EXIT_FAILURE;
+	}
+	if(showInfo)
+	{
+		std::cout << "Dimensions: " << pCodec->GetSize() << "\n"
+				  << "Format: " << pCodec->GetFormat() << std::endl;
 	}
 	if(max_size > 0)
 	{
@@ -158,7 +163,7 @@ int realMain(const std::vector<std::string>& args) {
 
 		for (int i = 0; i < Warmups; ++i)
 		{
-			if (performLoad(filename, ext, autoDetect, g_cfs, max_size) == EXIT_FAILURE)
+			if (performLoad(filename, ext, autoDetect, g_cfs, max_size, i==0) == EXIT_FAILURE)
 			{
 				std::cout << "Failed during warmup, exiting ..." << std::endl;
 				return EXIT_FAILURE;
@@ -168,7 +173,7 @@ int realMain(const std::vector<std::string>& args) {
 		sw.Start();
 		for (int i = 0; i < NumRuns; ++i)
 		{
-			performLoad(filename, ext, autoDetect, g_cfs, max_size);
+			performLoad(filename, ext, autoDetect, g_cfs, max_size, false);
 		}
 		int time = sw.Stop();
 
@@ -180,7 +185,7 @@ int realMain(const std::vector<std::string>& args) {
 #ifdef __AFL_HAVE_MANUAL_CONTROL
 			__AFL_INIT();
 #endif
-			return performLoad(filename, ext, autoDetect, g_cfs, max_size);
+			return performLoad(filename, ext, autoDetect, g_cfs, max_size, true);
 		}
 		catch (std::bad_alloc &e) {
 			std::cout << "Ran out of memory, that's no good!\n";

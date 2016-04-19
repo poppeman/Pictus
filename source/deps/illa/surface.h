@@ -24,6 +24,9 @@ namespace Img {
 		void CopySurface(Surface::Ptr source, Geom::PointInt destinationTopLeft);
 		void CopySurface(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft);
 
+		void BlitSurfaceAlpha(Surface::Ptr source, Geom::PointInt destinationTopLeft);
+		void BlitSurfaceAlpha(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft);
+
 		void BlitSurfaceColorKey(Surface::Ptr source, Geom::PointInt destinationTopLeft, uint8_t colorKeyIndex);
 		void BlitSurfaceColorKey(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft, uint8_t colorKeyIndex);
 
@@ -63,6 +66,7 @@ namespace Img {
 		virtual void onCreateSurface()=0;
 		virtual void onClearSurface(const Img::Color& col);
 		virtual void onCopySurface(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft);
+		virtual void onBlitSurfaceAlpha(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft);
 		virtual void onFillRect(const Geom::RectInt& areaToFill, const Color& colorToSet);
 		virtual void onBlitSurfaceColorKey(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft, uint8_t colorKeyIndex);
 

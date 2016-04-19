@@ -52,6 +52,7 @@ Name: "assoc_psp"; Description: "{cm:AssocFileExtension,{#ShortName},.psp}"; Fla
 Name: "assoc_tga"; Description: "{cm:AssocFileExtension,{#ShortName},.tga}"
 Name: "assoc_tif"; Description: "{cm:AssocFileExtension,{#ShortName},.tiff}"
 Name: "assoc_wbmp"; Description: "{cm:AssocFileExtension,{#ShortName},.wbmp}"
+Name: "assoc_webp"; Description: "{cm:AssocFileExtension,{#ShortName},.webp}"
 Name: "assoc_xyz"; Description: "{cm:AssocFileExtension,{#ShortName},.xyz}"
 
 
@@ -78,6 +79,7 @@ Root: HKLM; Subkey: "SOFTWARE\Poppeman\Pictus\Capabilities\FileAssociations"; Va
 Root: HKLM; Subkey: "SOFTWARE\Poppeman\Pictus\Capabilities\FileAssociations"; ValueType: string; ValueName: ".tiff"; ValueData: "Pictus.TIF"; Flags: uninsdeletekey
 Root: HKLM; Subkey: "SOFTWARE\Poppeman\Pictus\Capabilities\FileAssociations"; ValueType: string; ValueName: ".wbm"; ValueData: "Pictus.WBMP"; Flags: uninsdeletekey
 Root: HKLM; Subkey: "SOFTWARE\Poppeman\Pictus\Capabilities\FileAssociations"; ValueType: string; ValueName: ".wbmp"; ValueData: "Pictus.WBMP"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "SOFTWARE\Poppeman\Pictus\Capabilities\FileAssociations"; ValueType: string; ValueName: ".webp"; ValueData: "Pictus.WEBP"; Flags: uninsdeletekey
 Root: HKLM; Subkey: "SOFTWARE\Poppeman\Pictus\Capabilities\FileAssociations"; ValueType: string; ValueName: ".xif"; ValueData: "Pictus.TIF"; Flags: uninsdeletekey
 Root: HKLM; Subkey: "SOFTWARE\Poppeman\Pictus\Capabilities\FileAssociations"; ValueType: string; ValueName: ".xyz"; ValueData: "Pictus.XYZ"; Flags: uninsdeletekey
 Root: HKLM; Subkey: "SOFTWARE\RegisteredApplications"; ValueType: string; ValueName: "Pictus Image Viewer"; ValueData: "SOFTWARE\Poppeman\Pictus\Capabilities"; Flags: uninsdeletevalue
@@ -102,6 +104,8 @@ Root: HKCR; Subkey: "Pictus.TIF"; ValueType: string; ValueData: "TIFF image"; Fl
 Root: HKCR; Subkey: "Pictus.TIF\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.WBMP"; ValueType: string; ValueData: "Wireless bitmap image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.WBMP\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.WEBP"; ValueType: string; ValueData: "Wireless bitmap image"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Pictus.WEBP\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.XYZ"; ValueType: string; ValueData: "XYZ image"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Pictus.XYZ\shell\open\command"; ValueType: string; ValueData: """{app}\Pictus.exe"" ""%1"""; Flags: uninsdeletekey
 
@@ -121,6 +125,7 @@ Root: HKCR; Subkey: ".tif"; ValueType: String; ValueData: "Pictus.TIF"; Flags: u
 Root: HKCR; Subkey: ".tiff"; ValueType: String; ValueData: "Pictus.TIF"; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: assoc_tif
 Root: HKCR; Subkey: ".wbm"; ValueType: String; ValueData: "Pictus.WBMP"; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: assoc_wbmp
 Root: HKCR; Subkey: ".wbmp"; ValueType: String; ValueData: "Pictus.WBMP"; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: assoc_wbmp
+Root: HKCR; Subkey: ".webp"; ValueType: String; ValueData: "Pictus.WEBP"; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: assoc_webp
 Root: HKCR; Subkey: ".xif"; ValueType: String; ValueData: "Pictus.TIF"; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: assoc_tif
 Root: HKCR; Subkey: ".xyz"; ValueType: String; ValueData: "Pictus.XYZ"; Flags: uninsdeletevalue uninsdeletekeyifempty; Tasks: assoc_xyz
 

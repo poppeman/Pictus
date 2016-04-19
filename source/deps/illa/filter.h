@@ -37,6 +37,8 @@ namespace Filter {
 		void SolidColor(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& sourceRegion, const Geom::PointInt& destPos, const Img::Color& bgrColor);
 		void IndexedColorKey(const FilterBuffer& source, FilterBuffer& dest, const Geom::RectInt& sourceRegion, const Geom::PointInt& destPos, Img::Format sourceFormat, uint8_t colorKeyIndex);
 
+		void Crossblend(const FilterBuffer& a, Geom::PointInt topLeftA, const FilterBuffer& b, Geom::PointInt topLeftB, Geom::SizeInt sourceAreaSize, FilterBuffer& dest, Geom::PointInt& destTopLeft);
+
 		// Precondition: Buffer must be ARGB8888
 		void PremultiplyAlphaBuffer(const FilterBuffer& source);
 		// Precondition: Buffer must be ARGB8888 or XRGB8888

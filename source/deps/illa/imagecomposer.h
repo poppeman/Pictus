@@ -1,5 +1,5 @@
-#ifndef IMAGECOMPOSER_H
-#define IMAGECOMPOSER_H
+#ifndef ILLA_IMAGECOMPOSER_H
+#define ILLA_IMAGECOMPOSER_H
 
 #include "surface.h"
 #include <mutex>

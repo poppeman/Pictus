@@ -24,6 +24,7 @@ $RECYCLE.BIN/
 build/
 *.sdf
 *.opensdf
+*.opendb
 **/ipch/*
 **/Debug/*
 **/Release/*
