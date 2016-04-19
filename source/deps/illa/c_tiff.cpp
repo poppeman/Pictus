@@ -7,9 +7,9 @@
 
 #include "orz/logger.h"
 
-struct InternalTIFFException:public Err::Exception {
+struct InternalTIFFException:public std::runtime_error {
 	InternalTIFFException():
-		Err::Exception("numpty")
+		std::runtime_error("numpty")
 	{}
 };
 

@@ -5,32 +5,27 @@
 #include <stdexcept>
 
 namespace Err {
-	struct Exception:public std::runtime_error {
-		Exception(const std::string& msg);
-		virtual ~Exception();
-	};
-
-	struct Unsupported:public Exception {
+	struct Unsupported:public std::runtime_error {
 		Unsupported(const std::string& msg);
 	};
 
-	struct DuplicateInstance:public Exception {
+	struct DuplicateInstance:public std::runtime_error {
 		DuplicateInstance();
 	};
 
-	struct CriticalError:public Exception {
+	struct CriticalError:public std::runtime_error {
 		CriticalError(const std::string& msg);
 	};
 
-	struct InvalidCall:public Exception {
+	struct InvalidCall:public std::runtime_error {
 		InvalidCall(const std::string& msg);
 	};
 
-	struct InvalidParam:public Exception {
+	struct InvalidParam:public std::runtime_error {
 		InvalidParam(const std::string& msg);
 	};
 
-	struct NotYetImplemented:public Exception {
+	struct NotYetImplemented:public std::runtime_error {
 		NotYetImplemented(const std::string& msg);
 	};
 }

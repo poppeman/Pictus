@@ -152,7 +152,7 @@ _Use_decl_annotations_ IFACEMETHODIMP CPictusThumbnailProvider::GetThumbnail(UIN
 
 		return S_OK;
 	}
-	catch(Err::Exception& e) {
+	catch(std::exception& e) {
 		Log << "PictThumb: " << e.what() << "\n";
 	}
 	catch (...) { 

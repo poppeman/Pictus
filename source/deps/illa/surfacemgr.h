@@ -6,7 +6,7 @@
 #include "surfacefactory.h"
 
 namespace Img {
-	struct FactoryNotSet:public Err::Exception {
+	struct FactoryNotSet:public std::runtime_error {
 		FactoryNotSet(const std::string&);
 	};
 

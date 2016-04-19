@@ -228,7 +228,7 @@ namespace App {
 			ViewportBuilder b;
 			b.BuildViewport(m_viewPort, this, m_cfg);
 		}
-		catch(Err::Exception& e) {
+		catch(std::exception& e) {
 			MessageBox(0, (UTF8ToWString(GetString(SIDErrorDirectX)) + std::wstring(L"\n\n") + UTF8ToWString(e.what())).c_str(), 0, MB_OK);
 			return false;
 		}
