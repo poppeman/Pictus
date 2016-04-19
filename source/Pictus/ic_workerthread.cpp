@@ -49,9 +49,6 @@ wait:
 				m_wl.ReturnPackage();
 			}
 		}
-		catch (Err::Exception& error) {
-			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, error.what());
-		}
 		catch (std::exception& error) {
 			SendNotification(Img::MessageReceiver::LoadErrorCritical, 0, error.what());
 		}
@@ -83,7 +80,7 @@ wait:
 			if(image->Error())
 				SendNotification(Img::MessageReceiver::LoadErrorImage, image->GetImage());
 		}
-		catch(Err::Exception& e) {
+		catch(std::exception& e) {
 			SendNotification(Img::MessageReceiver::LoadErrorImage, image->GetImage(), e.what());
 		}
 	}

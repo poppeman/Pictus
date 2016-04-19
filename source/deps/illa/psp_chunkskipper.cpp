@@ -16,7 +16,7 @@ namespace Img {
 			{
 				m_reader->Seek(m_end, IO::SeekMethod::Begin);
 			}
-			catch (std::runtime_error& e)
+			catch (std::exception& e)
 			{
 				Log << "(ChunkSkipper::~ChunkSkipper) " << e.what() << "\n";
 			}

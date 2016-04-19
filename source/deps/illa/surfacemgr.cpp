@@ -5,7 +5,7 @@
 namespace Img {
 
 	FactoryNotSet::FactoryNotSet(const std::string&):
-		Err::Exception("Surface Factory class not set. ")
+		std::runtime_error("Surface Factory class not set. ")
 	{}
 
 

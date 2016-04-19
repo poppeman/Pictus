@@ -35,7 +35,7 @@ namespace Img {
 				return true;
 			}
 		}
-		catch (Err::Exception& ex) {
+		catch (std::exception& ex) {
 			m_file.reset();
 
 			Log << "(AbstractCodec::LoadHeader) " << ex.what() << "\n";
@@ -62,7 +62,7 @@ namespace Img {
 		try {
 			return PerformLoadMetadata();
 		}
-		catch (std::runtime_error& e) {
+		catch (std::exception& e) {
 			Log << "(AbstractCodec::LoadMetadata) " << e.what() << "\n";
 			return nullptr;
 		}
@@ -81,7 +81,7 @@ namespace Img {
 			Log << "(AbstractCodec::Allocate) " << e.what() << "\n";
 			return AllocationStatus::Failed;
 		}
-		catch (Err::Exception& e) {
+		catch (std::exception& e) {
 			Log << "(AbstractCodec::Allocate) " << e.what() << "\n";
 			return AllocationStatus::Failed;
 		}
@@ -104,7 +104,7 @@ namespace Img {
 			l = PerformLoadImageData(m_file);
 			m_isFinished = (l != LoadStatus::Aborted);
 		}
-		catch (Err::Exception& e) {
+		catch (std::exception& e) {
 			Log << "(AbstractCodec::LoadImageData) " << e.what() << "\n";
 			l = LoadStatus::Finished;
 			m_isFinished = true;

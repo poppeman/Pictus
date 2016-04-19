@@ -331,7 +331,7 @@ namespace Win {
 				try {
 					return pWin->wndProc(hwnd, msg, wParam, lParam);
 				}
-				catch (Err::Exception &e) {
+				catch (std::exception &e) {
 					pWin->m_exceptionDescription = e.what();
 					pWin->m_exceptionOcurred = true;
 					PostQuitMessage(0);

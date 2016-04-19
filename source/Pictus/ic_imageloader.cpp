@@ -52,7 +52,7 @@ namespace Img {
 			m_state = ILLoadedHeader;
 			m_sw.Stop();
 		}
-		catch(Err::Exception&) {
+		catch(std::exception&) {
 			FailState();
 		}
 	}

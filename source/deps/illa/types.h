@@ -5,8 +5,8 @@
 #include <cstdint>
 
 namespace Err {
-	struct CodecError:public Exception {
-		CodecError(const std::string& msg):Exception("Codec error: " + msg) {}
+	struct CodecError:public std::runtime_error {
+		CodecError(const std::string& msg):std::runtime_error("Codec error: " + msg) {}
 	};
 
 	struct InvalidHeader:public CodecError {

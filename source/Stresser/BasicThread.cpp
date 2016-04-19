@@ -39,9 +39,6 @@ void BasicThread::threadWrapper() {
 	try {
 		ThreadMain();
 	}
-	catch(Err::Exception& e) {
-		SignalError("Thread: " + ToAString(m_id) + "\n" + e.what());
-	}
 	catch(std::exception& e) {
 		SignalError("Thread: " + ToAString(m_id) + "\n" + e.what());
 	}

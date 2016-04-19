@@ -141,7 +141,7 @@ SUITE(CodecTests) {
 			if(l1.err == ErrFileNotFound) return false;
 			if(l1.err == ErrNoError) return false;
 		}
-		catch (Err::Exception) { return true; }
+		catch (std::exception&) { return true; }
 		return true;
 	}
 
@@ -202,7 +202,7 @@ SUITE(CodecTests) {
 						}
 				}
 			}
-			catch(Err::Exception& e) {
+			catch(std::exception& e) {
 				DECORATIVE_FAIL(e.what());
 			}
 		}

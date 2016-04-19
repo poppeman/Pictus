@@ -7,33 +7,27 @@ std::string DoThrowBuildDescription(const char* filename, int lineNum, const cha
 }
 
 namespace Err {
-	Exception::Exception(const std::string& msg):
-		std::runtime_error(msg)
-	{}
-
-	Exception::~Exception() {}
-
 	Unsupported::Unsupported(const std::string& msg):
-		Exception("Unsupported operation: " + msg)
+		std::runtime_error("Unsupported operation: " + msg)
 	{}
 
 	DuplicateInstance::DuplicateInstance():
-		Exception("DuplicateInstance")
+		std::runtime_error("DuplicateInstance")
 	{}
 
 	CriticalError::CriticalError(const std::string& msg):
-		Exception("Critical error: " + msg)
+		std::runtime_error("Critical error: " + msg)
 	{}
 
 	InvalidCall::InvalidCall(const std::string& msg):
-		Exception("Invalid call: " + msg)
+		std::runtime_error("Invalid call: " + msg)
 	{}
 
 	InvalidParam::InvalidParam(const std::string& msg):
-		Exception("Invalid param: " + msg)
+		std::runtime_error("Invalid param: " + msg)
 	{}
 
 	NotYetImplemented::NotYetImplemented(const std::string& msg):
-		Exception("Not yet implemented:" + msg)
+		std::runtime_error("Not yet implemented:" + msg)
 	{}
 }
