@@ -11,9 +11,9 @@ namespace App {
 		case Win::Middle:
 			return MouseAction(cfg.OnMouseMiddle);
 		case Win::Extra1:
-			return MouseAction(cfg.OnMouseWheelUp);
+			return MouseAction(cfg.OnMouseExtra1);
 		case Win::Extra2:
-			return MouseAction(cfg.OnMouseWheelDown);
+			return MouseAction(cfg.OnMouseExtra2);
 		default:
 			// Might be a scrollwheel action
 			if (e.WheelTicks > 0) {
@@ -36,6 +36,10 @@ namespace App {
 				return MouseAction(cfg.OnMouseRightDbl);
 			case Win::Middle:
 				return MouseAction(cfg.OnMouseMiddleDbl);
+			case Win::Extra1:
+				return MouseAction(cfg.OnMouseExtra1Dbl);
+			case Win::Extra2:
+				return MouseAction(cfg.OnMouseExtra2Dbl);
 			default:
 				return MouseUndefined;
 		}
