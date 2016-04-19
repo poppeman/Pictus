@@ -62,7 +62,7 @@ namespace Img {
 		try {
 			return PerformLoadMetadata();
 		}
-		catch (Err::Exception& e) {
+		catch (std::runtime_error& e) {
 			Log << "(AbstractCodec::LoadMetadata) " << e.what() << "\n";
 			return nullptr;
 		}
