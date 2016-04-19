@@ -56,8 +56,8 @@ namespace Reg {
 		cfg.Mouse.OnMouseWheelUp = pt.get<App::MouseAction>("Settings.OnMouseWheelUp", App::MouseAction::MousePrevImage);
 		cfg.Mouse.OnMouseExtra1 = pt.get<App::MouseAction>("Settings.OnMouseExtra1", App::MouseAction::MousePrevImage);
 		cfg.Mouse.OnMouseExtra2 = pt.get<App::MouseAction>("Settings.OnMouseExtra2", App::MouseAction::MouseNextImage);
-		cfg.Mouse.OnMouseExtra1Dbl = pt.get<App::MouseAction>("Settings.OnMouseExtra1Dbl", App::MouseAction::MouseUndefined);
-		cfg.Mouse.OnMouseExtra2Dbl = pt.get<App::MouseAction>("Settings.OnMouseExtra2Dbl", App::MouseAction::MouseUndefined);
+		cfg.Mouse.OnMouseExtra1Dbl = pt.get<App::MouseAction>("Settings.OnMouseExtra1Dbl", App::MouseAction::MouseDisable);
+		cfg.Mouse.OnMouseExtra2Dbl = pt.get<App::MouseAction>("Settings.OnMouseExtra2Dbl", App::MouseAction::MouseDisable);
 
 		cfg.Mouse.OnMouseRight = pt.get<App::MouseAction>("Settings.OnMouseRight", App::MouseAction::MouseContext);
 
