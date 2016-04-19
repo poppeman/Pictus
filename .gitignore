@@ -28,6 +28,7 @@ build/
 **/ipch/*
 **/Debug/*
 **/Release/*
+*.VC.db
 
 # IDE gunk
 **/.idea/*
