@@ -321,6 +321,14 @@
 				"English": "Right mouse button",
 				"Swedish": "Höger knapp"
 			},
+			"Extra1Mouse": {
+				"English": "Extra mouse button 1",
+				"Swedish": "Extra knapp 1"
+			},
+			"Extra2Mouse": {
+				"English": "Extra mouse button 2",
+				"Swedish": "Extra knapp 2"
+			},
 			"WheelUp": {
 				"English": "Mouse wheel up",
 				"Swedish": "Scrollhjul up"

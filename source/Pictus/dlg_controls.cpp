@@ -8,6 +8,24 @@ namespace App {
 	bool SetControls::PerformOnInitPage() {
 		Caption(SIDSettingsControls);
 
+		ControlText(IDC_GROUP_CLICK, SIDSettingsControlsClick);
+		ControlText(IDC_TEXT_CTRL_LMOUSECLICK, SIDSettingsControlsLeftMouse);
+		ControlText(IDC_TEXT_CTRL_MMOUSECLICK, SIDSettingsControlsMiddleMouse);
+		ControlText(IDC_TEXT_CTRL_RMOUSECLICK, SIDSettingsControlsRightMouse);
+		ControlText(IDC_TEXT_CTRL_XMOUSE1CLICK, SIDSettingsControlsExtra1Mouse);
+		ControlText(IDC_TEXT_CTRL_XMOUSE2CLICK, SIDSettingsControlsExtra2Mouse);
+
+		ControlText(IDC_GROUP_DOUBLECLICK, SIDSettingsControlsDoubleClick);
+		ControlText(IDC_TEXT_CTRL_LMOUSEDOUBLECLICK, SIDSettingsControlsLeftMouse);
+		ControlText(IDC_TEXT_CTRL_MMOUSEDOUBLECLICK, SIDSettingsControlsMiddleMouse);
+		ControlText(IDC_TEXT_CTRL_RMOUSEDOUBLECLICK, SIDSettingsControlsRightMouse);
+		ControlText(IDC_TEXT_CTRL_XMOUSE1DOUBLECLICK, SIDSettingsControlsExtra1Mouse);
+		ControlText(IDC_TEXT_CTRL_XMOUSE2DOUBLECLICK, SIDSettingsControlsExtra2Mouse);
+
+		ControlText(IDC_GROUP_MWHEEL, SIDSettingsControlsScrollWheel);
+		ControlText(IDC_TEXT_CTRL_MWHEELUP, SIDSettingsControlsWheelUp);
+		ControlText(IDC_TEXT_CTRL_MWHEELDOWN, SIDSettingsControlsWheelDown);
+
 		m_cbLeftMouse = CreateComboBox(IDC_COMBO_CTRL_LMOUSE);
 		m_cbMiddleMouse = CreateComboBox(IDC_COMBO_CTRL_MMOUSE);
 		m_cbRightMouse = CreateComboBox(IDC_COMBO_CTRL_RMOUSE);
