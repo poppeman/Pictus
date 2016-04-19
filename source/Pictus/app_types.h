@@ -38,6 +38,7 @@ namespace App {
 		CloseApplication,
 		OpenSettings,
 		CopyImage,
+		ToggleFullSizeDefaultZoom
 	};
 
 	struct KeyboardPress {
