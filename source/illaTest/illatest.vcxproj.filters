@@ -64,9 +64,6 @@
     <ClInclude Include="share_filterbuffer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="common_codec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
