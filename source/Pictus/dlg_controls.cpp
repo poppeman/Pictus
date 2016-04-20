@@ -119,13 +119,20 @@ namespace App {
 		ctrl->AddItem(SIDActionFullscreen, MouseFullscreen);
 		ctrl->AddItem(SIDActionNextImage, MouseNextImage);
 		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
+		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
+		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
 	}
 
 	void SetControls::initMouseDblList(Win::ComboBox* ctrl) {
 		ctrl->Reset();
 		ctrl->AddItem(SIDActionDisable, MouseDisable);
+		ctrl->AddItem(SIDActionContextMenu, MouseContext);
 		ctrl->AddItem(SIDActionToggleFullSizeDefaultZoom, MouseToggleFullSizeDefaultZoom);
 		ctrl->AddItem(SIDActionFullscreen, MouseFullscreen);
+		ctrl->AddItem(SIDActionNextImage, MouseNextImage);
+		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
+		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
+		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
 	}
 
 	void SetControls::initMouseWheelList(Win::ComboBox* ctrl) {
