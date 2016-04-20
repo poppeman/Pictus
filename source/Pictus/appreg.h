@@ -19,8 +19,8 @@ namespace App {
 		MouseZoomIn,
 		MouseZoomOut,
 		MouseFullscreen,
-		MouseFullscreenPreviewNoClick,
-		MouseFullscreenPreviewClick,
+		MouseFullscreenPreviewNoClick,   // Not used
+		MouseFullscreenPreviewClick,     // Not used
 		MouseUndefined,
 	};
 }
@@ -64,6 +64,10 @@ namespace Reg {
 		App::MouseAction OnMouseRightDbl;
 		App::MouseAction OnMouseWheelUp;
 		App::MouseAction OnMouseWheelDown;
+		App::MouseAction OnMouseExtra1;
+		App::MouseAction OnMouseExtra2;
+		App::MouseAction OnMouseExtra1Dbl;
+		App::MouseAction OnMouseExtra2Dbl;
 	};
 
 	struct KeyboardBinding {
