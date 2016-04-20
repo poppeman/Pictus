@@ -33,7 +33,7 @@ build/
 # IDE gunk
 **/.idea/*
 *.user
-
+**/.vs/*
 
 # =========================
 # Operating System Files
