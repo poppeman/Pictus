@@ -19,8 +19,8 @@ namespace App {
 		MouseZoomIn,
 		MouseZoomOut,
 		MouseFullscreen,
-		MouseFullscreenPreviewNoClick,
-		MouseFullscreenPreviewClick,
+		MouseFullscreenPreviewNoClick,   // Not used
+		MouseFullscreenPreviewClick,     // Not used
 		MouseUndefined,
 	};
 }
