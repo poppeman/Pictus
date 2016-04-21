@@ -121,6 +121,8 @@ namespace App {
 		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
 		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
 		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
+		ctrl->AddItem(SIDActionRotateLeft, MouseRotateLeft);
+		ctrl->AddItem(SIDActionRotateRight, MouseRotateRight);
 	}
 
 	void SetControls::initMouseDblList(Win::ComboBox* ctrl) {
@@ -133,6 +135,8 @@ namespace App {
 		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
 		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
 		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
+		ctrl->AddItem(SIDActionRotateLeft, MouseRotateLeft);
+		ctrl->AddItem(SIDActionRotateRight, MouseRotateRight);
 	}
 
 	void SetControls::initMouseWheelList(Win::ComboBox* ctrl) {
@@ -142,5 +146,7 @@ namespace App {
 		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
 		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
 		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
+		ctrl->AddItem(SIDActionRotateLeft, MouseRotateLeft);
+		ctrl->AddItem(SIDActionRotateRight, MouseRotateRight);
 	}
 }

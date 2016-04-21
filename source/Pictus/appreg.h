@@ -21,7 +21,9 @@ namespace App {
 		MouseFullscreen,
 		MouseFullscreenPreviewNoClick,   // Not used
 		MouseFullscreenPreviewClick,     // Not used
-		MouseUndefined,
+		MouseRotateLeft,
+		MouseRotateRight,
+		MouseUndefined
 	};
 }
 
