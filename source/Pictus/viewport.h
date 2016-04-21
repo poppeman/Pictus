@@ -53,6 +53,7 @@ namespace App {
 		void ResizeBehaviour(App::ResizeBehaviour newResizeBehaviour);
 
 		void Rotate(Filter::RotationAngle r);
+		Filter::RotationAngle Rotation() const;
 
 		void Brightness(int newLevel);
 		int Brightness() const;
@@ -103,7 +104,6 @@ namespace App {
 		Filter::Mode ActiveFilterMode() const;
 
 		void setSurface();
-
 		Win::Timer m_hideTimer;
 		Win::Timer m_animationTimer;
 		Win::WinRenderTarget m_renderTarget;

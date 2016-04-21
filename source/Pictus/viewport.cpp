@@ -135,6 +135,10 @@ namespace App {
 		OnSize(GetSize());
 	}
 
+	Filter::RotationAngle ViewPort::Rotation() const {
+		return m_props.RequestedAngle;
+	}
+
 	void ViewPort::ActiveCursorMode(const CursorMode m) {
 		m_cursorMode = m;
 		updateCursor();
