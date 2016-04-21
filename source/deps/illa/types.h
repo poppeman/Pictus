@@ -73,6 +73,9 @@ std::string ToAString(const Filter::RotationAngle& angle);
 std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Filter::RotationAngle& c);
 
 namespace Img {
+	Filter::RotationAngle RotateLeft(Filter::RotationAngle in);
+	Filter::RotationAngle RotateRight(Filter::RotationAngle in);
+
 	struct Properties {
 		int						Brightness;
 		int						Contrast;

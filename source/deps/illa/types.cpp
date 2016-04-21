@@ -73,6 +73,10 @@ namespace Img {
 		DO_THROW(Err::InvalidParam, "(Img::RotateRight) Input angle not valid");
 	}
 
+	Filter::RotationAngle RotateLeft(Filter::RotationAngle in) {
+		return RotateRight(RotateRight(RotateRight(in)));
+	}
+
 	Filter::RotationAngle Mirror(Filter::RotationAngle in) {
 		switch (in)
 		{
@@ -139,9 +143,9 @@ namespace Img {
 		case Filter::RotationAngle::Rotate180:
 			return RotateRight(RotateRight(MetaAngle));
 		case Filter::RotationAngle::Rotate270:
-			return RotateRight(RotateRight(RotateRight(MetaAngle)));
+			return RotateLeft(MetaAngle);
 		case Filter::RotationAngle::Rotate270FlipY:
-			return Flip(RotateRight(RotateRight(RotateRight(MetaAngle))));
+			return Flip(RotateLeft(MetaAngle));
 		}
 		DO_THROW(Err::InvalidCall, "(Properties::FinalAngle) Unhandled angle state.");
 	}
