@@ -525,6 +525,14 @@
 		"Disable": {
 			"English": "Disable",
 			"Swedish": "Använd ej"
+		},
+		"RotateLeft": {
+			"English": "Rotate left",
+			"Swedish": "Rotera vänster"
+		},
+		"RotateRight": {
+			"English": "Rotate right",
+			"Swedish": "Rotera höger"
 		}
 	},
 	"Unit": {

@@ -34,6 +34,8 @@ namespace App {
 		("ZoomFull", KeyAction::ZoomFull)
 		("CopyImage", KeyAction::CopyImage)
 		("ToggleFullSizeDefaultZoom", KeyAction::ToggleFullSizeDefaultZoom)
+		("RotateLeft", KeyAction::RotateLeft)
+		("RotateRight", KeyAction::RotateRight)
 		;
 
 	const std::map<KeyAction, App::StringID> ActionSids = {
@@ -61,7 +63,9 @@ namespace App {
 		{ App::KeyAction::ZoomFree, SIDActionZoomFree },
 		{ App::KeyAction::ZoomFull, SIDActionZoomFullSize },
 		{ App::KeyAction::CopyImage, SIDActionCopyToClipboard },
-		{ App::KeyAction::ToggleFullSizeDefaultZoom, SIDActionToggleFullSizeDefaultZoom }
+		{ App::KeyAction::ToggleFullSizeDefaultZoom, SIDActionToggleFullSizeDefaultZoom },
+		{ App::KeyAction::RotateLeft, SIDActionRotateLeft },
+		{ App::KeyAction::RotateRight, SIDActionRotateRight }
 	};
 
 	const std::map<wchar_t, App::StringID> cg_keySids = {
