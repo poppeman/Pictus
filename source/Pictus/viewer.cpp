@@ -605,6 +605,14 @@ namespace App {
 		m_viewPort.ImageUpdated();
 	}
 
+	void Viewer::RotateLeft() {
+		Rotate(Img::RotateLeft(m_viewPort.Rotation()));
+	}
+
+	void Viewer::RotateRight() {
+		Rotate(Img::RotateRight(m_viewPort.Rotation()));
+	}
+
 	void Viewer::ToStart() {
 		ActiveImage(m_cacher.FirstImage());
 	}

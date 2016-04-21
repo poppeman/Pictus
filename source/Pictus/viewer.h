@@ -140,6 +140,8 @@ namespace App {
 		void PanLeft();
 
 		void Rotate(Filter::RotationAngle r);
+		void RotateLeft();
+		void RotateRight();
 
 		void ToStart();
 		void ImagePrev(unsigned numSteps = 1);
