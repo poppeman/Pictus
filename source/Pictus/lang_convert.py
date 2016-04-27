@@ -62,7 +62,7 @@ with open("../deps/orz/intl_language.h", mode="w") as langf:
         langf.write("		" + enum + " = " + str(idx) + ",\n")
     langf.write("		Undefined = " + str(len(flattened["langs"])) + ",\n")
     langf.write("	};\n")
-    langf.write("};\n\n")
+    langf.write("}\n\n")
     langf.write("#endif\n")
 
 with open('lang_enum.h', 'w') as enf:

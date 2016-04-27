@@ -7,9 +7,9 @@
 
 #include "orz/logger.h"
 
-struct InternalTIFFException:public Err::Exception {
+struct InternalTIFFException:public std::runtime_error {
 	InternalTIFFException():
-		Err::Exception("numpty")
+		std::runtime_error("numpty")
 	{}
 };
 
@@ -48,35 +48,46 @@ tsize_t myTIFFReadProc(thandle_t handle, tdata_t data, tsize_t size) {
 }
 
 tsize_t myTIFFWriteProc(thandle_t, tdata_t, tsize_t) {
-	DO_THROW(Err::Unsupported, "Attempted to write.");
+	Log << "myTIFFWriteProc called, should never happen\n";
+	return 0;
 }
 
 int myTIFFMapFileProc(thandle_t, tdata_t*, toff_t*) {
-	DO_THROW(Err::Unsupported, "Mapping not supported.");
+	Log << "myTIFFMapFileProc called, should never happen\n";
+	return -1;
 }
 
 void myTIFFUnmapFileProc(thandle_t, tdata_t, toff_t) {
-	DO_THROW(Err::Unsupported, "Unmapping not supported.");
+	Log << "myTIFFUnmapFileProc called, should never happen\n";
 }
 
 static toff_t myTIFFSeekProc(thandle_t handle, toff_t offset, int whence) {
-	auto* reader = reinterpret_cast<IO::FileReader*>(handle);
-	IO::SeekMethod m;
-	switch(whence) {
-		case SEEK_SET:
-			m = IO::SeekMethod::Begin;
-			break;
-		case SEEK_CUR:
-			m = IO::SeekMethod::Current;
-			break;
-		case SEEK_END:
-			m = IO::SeekMethod::End;
-			break;
-		default:
-			DO_THROW(Err::InvalidParam, "Invalid whence: " + ToAString(whence));
+	try
+	{
+		auto* reader = reinterpret_cast<IO::FileReader*>(handle);
+		IO::SeekMethod m;
+		switch(whence)
+		{
+			case SEEK_SET:
+				m = IO::SeekMethod::Begin;
+				break;
+			case SEEK_CUR:
+				m = IO::SeekMethod::Current;
+				break;
+			case SEEK_END:
+				m = IO::SeekMethod::End;
+				break;
+			default:
+				DO_THROW(Err::InvalidParam, "Invalid whence: " + ToAString(whence));
+		}
+		reader->Seek(offset, m);
+		return static_cast<toff_t>(reader->Position());
 	}
-	reader->Seek(offset, m);
-	return static_cast<toff_t>(reader->Position());
+	catch(std::exception& e)
+	{
+		Log << "Exception in myTIFFSeekProc: " << e.what() << "\n";
+		return -1;
+	}
 }
 
 static toff_t myTIFFSizeProc(thandle_t handle) {
@@ -192,7 +203,7 @@ namespace Img {
 
 				info.SurfaceFormat = numExtraSample > 0?Img::Format::ARGB8888:Img::Format::XRGB8888;
 			}
-	
+
 			if (info.SurfaceFormat == Img::Format::Undefined) {
 				return false;
 			}

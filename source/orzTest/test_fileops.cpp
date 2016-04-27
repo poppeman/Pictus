@@ -10,6 +10,7 @@ SUITE(PathString)
 #ifdef _WIN32
 		CHECK_EQUAL("c:\\temp\\lol\\", IO::GetPath("c:\\temp/lol/dsfargeg.txt"));
 		CHECK_EQUAL("c:\\temp\\", IO::GetPath("c:\\temp\\\\\\\\"));
+		CHECK_EQUAL("c:\\", IO::GetPath("c:\\test.txt"));
 #else
 		CHECK_EQUAL("/temp/lol/", IO::GetPath("/temp/lol/dsfargeg.txt"));
 		CHECK_EQUAL("/temp/", IO::GetPath("/temp////"));

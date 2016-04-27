@@ -73,6 +73,9 @@
     <Filter Include="Image\Composer">
       <UniqueIdentifier>{6011c797-e3b8-4666-8012-9a29926b0c72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Codecs\WEBP">
+      <UniqueIdentifier>{3f574b3e-4f3e-41e7-89fe-7f00b388b734}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="c_factory.cpp">
@@ -330,6 +333,18 @@
     <ClCompile Include="c_bmp_rle.cpp">
       <Filter>Codecs\BMP</Filter>
     </ClCompile>
+    <ClCompile Include="c_webp.cpp">
+      <Filter>Codecs\WEBP</Filter>
+    </ClCompile>
+    <ClCompile Include="f_webp.cpp">
+      <Filter>Codecs\WEBP</Filter>
+    </ClCompile>
+    <ClCompile Include="webp_imagecomposer.cpp">
+      <Filter>Codecs\WEBP</Filter>
+    </ClCompile>
+    <ClCompile Include="filter_crossblend.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c_factory.h">
@@ -577,6 +592,15 @@
     </ClInclude>
     <ClInclude Include="c_bmp_rle.h">
       <Filter>Codecs\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="c_webp.h">
+      <Filter>Codecs\WEBP</Filter>
+    </ClInclude>
+    <ClInclude Include="f_webp.h">
+      <Filter>Codecs\WEBP</Filter>
+    </ClInclude>
+    <ClInclude Include="webp_imagecomposer.h">
+      <Filter>Codecs\WEBP</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

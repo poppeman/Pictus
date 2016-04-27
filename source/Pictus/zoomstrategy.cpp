@@ -1,5 +1,5 @@
 #include "zoomstrategy.h"
-#include "illa/geom.h"
+#include "orz/geom.h"
 #include "orz/sysinfo.h"
 
 namespace App {
@@ -29,7 +29,11 @@ namespace App {
 		return false;
 	}
 
-	ZoomStrategy::ZoomStrategy():m_lastFitSize(1.0f), m_zoomMode(ZoomFree), m_zoomLevel(DefaultZoomLevel) {}
+	ZoomStrategy::ZoomStrategy():
+		m_zoomMode(ZoomFree),
+		m_zoomLevel(DefaultZoomLevel),
+		m_lastFitSize(1.0f)
+	{}
 
 	bool ZoomStrategy::ZoomOut() {
 		if (ZoomMode() == App::ZoomFullSize) {

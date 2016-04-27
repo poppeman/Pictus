@@ -30,7 +30,8 @@ namespace Img {
 		if (format >= Format::Num) {
 			DO_THROW(Err::InvalidParam, "Invalid format");
 		}
-		auto bytesToConsume = static_cast<size_t>(size.Width) * static_cast<size_t>(size.Height) * static_cast<size_t>(EstimatePixelSize(format));
+		// TODO: Properly avoid overflow here rather than half-assing it
+		auto bytesToConsume = static_cast<uint64_t>(size.Width) * static_cast<uint64_t>(size.Height) * static_cast<uint64_t>(EstimatePixelSize(format));
 		if (bytesToConsume > MaxSurfaceBytes) {
 			Log << "Surface would consume " << ToAString(bytesToConsume) << " which would be greater than the safety limit of " << ToAString(MaxSurfaceBytes) << " bytes\n";
 			throw std::bad_alloc();
@@ -67,7 +68,17 @@ namespace Img {
 		onCopySurface(source, sourceAreaToCopy, destinationTopLeft);
 	}
 
-	void Surface::BlitSurfaceColorKey( Surface::Ptr source, PointInt destinationTopLeft, uint8_t colorKeyIndex ) {
+	void Surface::BlitSurfaceAlpha(Surface::Ptr source, Geom::PointInt destinationTopLeft)
+	{
+		BlitSurfaceAlpha(source, RectInt{ PointInt{0, 0}, source->GetSize() }, destinationTopLeft);
+	}
+
+	void Surface::BlitSurfaceAlpha(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft)
+	{
+		onBlitSurfaceAlpha(source, sourceAreaToCopy, destinationTopLeft);
+	}
+
+	void Surface::BlitSurfaceColorKey(Surface::Ptr source, PointInt destinationTopLeft, uint8_t colorKeyIndex) {
 		BlitSurfaceColorKey(source, RectInt(PointInt(0, 0), source->GetSize()), destinationTopLeft, colorKeyIndex);
 	}
 
@@ -178,6 +189,32 @@ namespace Img {
 		else if (GetFormat() == Img::Format::ARGB8888 || GetFormat() == Img::Format::XRGB8888) {
 			copyConvertAnyTo32(source, sourceAreaToCopy, destinationTopLeft);
 		}
+	}
+
+	void Surface::onBlitSurfaceAlpha(Surface::Ptr source, Geom::RectInt sourceAreaToCopy, Geom::PointInt destinationTopLeft)
+	{
+		if (GetFormat() != Format::ARGB8888)
+		{
+			DO_THROW(Err::InvalidParam, "onBlitSurfaceAlpha dest-type != ARGB8888 Not yet supported");
+		}
+
+		
+		LockedArea::Ptr lockedSource = source->LockSurface();
+		LockedArea::Ptr lockedDestination = LockSurface();
+
+		Filter::FilterBuffer src(
+			source->GetSize(),
+			source->PixelSize(),
+			lockedSource->Buffer(),
+			lockedSource->Stride(),
+			source->GetPalette());
+		Filter::FilterBuffer dst(
+			GetSize(),
+			PixelSize(),
+			lockedDestination->Buffer(),
+			lockedDestination->Stride());
+
+		Filter::Alpha::Crossblend(src, sourceAreaToCopy.TopLeft(), dst, destinationTopLeft, sourceAreaToCopy.Dimensions(), dst, destinationTopLeft);
 	}
 
 	void Surface::copyNoConversion(Surface::Ptr source, RectInt &sourceAreaToCopy, PointInt destinationTopLeft) {

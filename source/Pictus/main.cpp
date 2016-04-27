@@ -47,7 +47,7 @@ int start_app(const std::string& params) {
 	catch(Err::DuplicateInstance&) {
 		// This is not something out of the ordinary.
 	}
-	catch(Err::Exception& e) {
+	catch(std::exception& e) {
 		Log << "Exception caught:\n" << e.what() << "\n";
 		MessageBoxW(nullptr, (L"An error occurred: " + UTF8ToWString(e.what())).c_str(), L"Pictus Error", MB_OK);
 		//throw;	// Good for debugging

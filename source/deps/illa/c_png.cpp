@@ -3,16 +3,19 @@
 #include "surface_locked_area.h"
 #include "surfacemgr.h"
 #include "orz/logger.h"
+#include <cassert>
 
 namespace Img {
 	using namespace Geom;
 
-	void CodecPNG::libpng_error(png_structp, png_const_charp message) {
+	void CodecPNG::libpng_error(png_structp png, png_const_charp message) {
 		// setjmp/getjmp should be put where the sun doesn't shine.
 		std::stringstream ss;
 		ss << "(CodecPNG::libpng_error) " << message << "\n";
-		// Not sure if this is safe but oh well.
-		DO_THROW(Err::CodecError, ss.str());
+		auto codec = reinterpret_cast<CodecPNG*>(png_get_error_ptr(png));
+		assert(codec != nullptr);
+		codec->m_lastError = ss.str();
+		longjmp(codec->m_setjmpBuf, 1);
 	}
 
 	bool CodecPNG::PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) {
@@ -39,10 +42,12 @@ namespace Img {
 				return false;
 			}
 
-			png_set_error_fn(m_png_ptr, 0, libpng_error, 0);
+			png_set_error_fn(m_png_ptr, this, libpng_error, 0);
 
-			// Yay, void only :/
-//			png_init_io(m_png_ptr, (FILE*)file->GetInternalPtr());
+			if(setjmp(m_setjmpBuf)) {
+				DO_THROW(Err::CodecError, m_lastError);
+			}
+
 			png_set_read_fn(m_png_ptr, reinterpret_cast<void*>(file.get()), libpng_user_read_data);
 			png_set_sig_bytes(m_png_ptr, 8);
 			png_read_info(m_png_ptr, m_info_ptr);
@@ -145,6 +150,10 @@ namespace Img {
 
 	AbstractCodec::LoadStatus CodecPNG::PerformLoadImageData(IO::FileReader::Ptr) {
 		try {
+                        if(setjmp(m_setjmpBuf)) {
+                                DO_THROW(Err::CodecError, m_lastError);
+                        }
+
 			int height = GetSize().Height;
 			int width = GetSize().Width;
 
@@ -219,6 +228,9 @@ namespace Img {
 
 	void CodecPNG::libpng_user_read_data( png_structp png_ptr, png_bytep data, png_size_t length ) {
 		IO::FileReader* file = reinterpret_cast<IO::FileReader*>(png_get_io_ptr(png_ptr));
-		file->ReadFull(data, length);
+		if (file->Read(data, 1, length) != length)
+		{
+			png_error(png_ptr, "EOF encountered");
+		}
 	}
 }

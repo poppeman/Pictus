@@ -5,42 +5,34 @@
 #include <stdexcept>
 
 namespace Err {
-	struct Exception:public std::runtime_error {
-		Exception(const std::string& msg);
-		virtual ~Exception();
-	};
-
-	struct Unsupported:public Exception {
+	struct Unsupported:public std::runtime_error {
 		Unsupported(const std::string& msg);
 	};
 
-	struct DuplicateInstance:public Exception {
+	struct DuplicateInstance:public std::runtime_error {
 		DuplicateInstance();
 	};
 
-	struct CriticalError:public Exception {
+	struct CriticalError:public std::runtime_error {
 		CriticalError(const std::string& msg);
 	};
 
-	struct InvalidCall:public Exception {
+	struct InvalidCall:public std::runtime_error {
 		InvalidCall(const std::string& msg);
 	};
 
-	struct InvalidParam:public Exception {
+	struct InvalidParam:public std::runtime_error {
 		InvalidParam(const std::string& msg);
 	};
 
-	struct NotYetImplemented:public Exception {
+	struct NotYetImplemented:public std::runtime_error {
 		NotYetImplemented(const std::string& msg);
 	};
 }
 
 std::string DoThrowBuildDescription(const char* filename, int line, const char* functionName, const std::string& description);
 
-#ifdef _MSC_VER
-#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(__FILE__, __LINE__, __FUNCTION__, description))
-#else
-#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription("UNK_FILE", 0, "UNK_FUNC", std::string(description)))
-#endif
+// Works on MSVC, Clang, GCC
+#define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(__FILE__, __LINE__, __FUNCTION__, std::string(description)))
 
 #endif

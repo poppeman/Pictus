@@ -21,10 +21,14 @@ namespace App {
 		Win::ComboBox* m_cbLeftMouse;
 		Win::ComboBox* m_cbMiddleMouse;
 		Win::ComboBox* m_cbRightMouse;
+		Win::ComboBox* m_cbExtra1Mouse;
+		Win::ComboBox* m_cbExtra2Mouse;
 
 		Win::ComboBox* m_cbLeftMouseDoubleClick;
 		Win::ComboBox* m_cbMiddleMouseDoubleClick;
 		Win::ComboBox* m_cbRightMouseDoubleClick;
+		Win::ComboBox* m_cbExtra1MouseDoubleClick;
+		Win::ComboBox* m_cbExtra2MouseDoubleClick;
 
 		Win::ComboBox* m_cbWheelUp;
 		Win::ComboBox* m_cbWheelDown;

@@ -82,6 +82,9 @@ namespace App {
 					case KeyAction::CopyImage:
 						m_owner->CopyToClipboard();
 						break;
+					case KeyAction::ToggleFullSizeDefaultZoom:
+						m_owner->ZoomToggleFullSizeDefaultZoom();
+						break;
 					}
 					return true;
 				}

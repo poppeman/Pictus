@@ -6,8 +6,8 @@
 #include "types.h"
 
 namespace Err {
-	struct IOException:public Exception {
-		IOException(const std::string& msg) :Exception("IO: " + msg) {}
+	struct IOException:public std::runtime_error {
+		IOException(const std::string& msg) :std::runtime_error("IO: " + msg) {}
 	};
 
 	struct FileNotOpen:public IOException {

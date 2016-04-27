@@ -3,6 +3,7 @@
 
 #include "codec_static.h"
 #include "../libpng/png.h"
+#include <setjmp.h>
 
 namespace Img {
 	class CodecPNG:public StaticCodec {
@@ -25,6 +26,9 @@ namespace Img {
 			ChunkRows = 8,
 			SignBytes = 8,
 		};
+
+		jmp_buf m_setjmpBuf;
+		std::string m_lastError;
 
 		Palette m_palette;
 		int m_bitdepth;

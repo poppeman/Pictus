@@ -47,5 +47,5 @@ namespace Img {
 	}
 
 	ImageComposer::ImageComposer():m_recompose(false) {}
-    ImageComposer::~ImageComposer() {}
+	ImageComposer::~ImageComposer() {}
 }

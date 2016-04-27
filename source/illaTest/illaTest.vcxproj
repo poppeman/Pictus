@@ -196,7 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="share_filterbuffer.h" />
-    <ClInclude Include="common_codec.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

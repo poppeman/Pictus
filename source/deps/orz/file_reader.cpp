@@ -1,6 +1,7 @@
 #include "stream_file.h"
 #include "file_reader.h"
 #include "ByteOrder.h"
+#include <algorithm>
 
 namespace IO {
 	using std::mutex;
@@ -94,6 +95,19 @@ namespace IO {
 		std::vector<uint8_t> vec(sz);
 		file->ReadFull(&vec[0], sz);
 		return vec;
+	}
+
+	size_t ReadAppend(FileReader::Ptr reader, std::vector<uint8_t>& target, size_t count) {
+		auto left = reader->Size() - reader->Position();
+		auto num = std::min<size_t>(left, count);
+		auto pos = target.size();
+		target.resize(pos + num);
+		return reader->Read(&target[pos], num, 1);
+	}
+
+	size_t ReadAppend(FileReader::Ptr reader, std::vector<uint8_t>& target) {
+		auto left = reader->Size() - reader->Position();
+		return ReadAppend(reader, target, left);
 	}
 
 	uint32_t ReadNet32(FileReader::Ptr reader) {

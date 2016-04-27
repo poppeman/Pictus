@@ -12,6 +12,7 @@
 #include "f_png.h"
 #include "f_tga.h"
 #include "f_wbmp.h"
+#include "f_webp.h"
 #include "f_tiff.h"
 #include "f_psp.h"
 #include "f_psd.h"
@@ -78,6 +79,7 @@ namespace Img {
 	}
 
 	void CodecFactoryStore::AddBuiltinCodecs() {
+		AddCodecFactory(new Img::FactoryWebp());
 		AddCodecFactory(new Img::FactoryBMP());
 		AddCodecFactory(new Img::FactoryGIF());
 		AddCodecFactory(new Img::FactoryJPEG());
@@ -91,7 +93,7 @@ namespace Img {
 		AddCodecFactory(new Img::FactoryXYZ());
 	}
 
-	CodecFactoryStore::CodecFactoryStore() {
+	CodecFactoryStore::~CodecFactoryStore() {
 		m_info.clear();
 		m_factories.clear();
 		m_ext.clear();

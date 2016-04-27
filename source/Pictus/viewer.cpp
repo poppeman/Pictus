@@ -49,7 +49,13 @@ namespace App {
 		m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
 		OnMouseButtonDown.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
 		OnMouseWheel.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
-		OnMouseButtonDoubleClick.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseDblEvent(e, m_cfg.Mouse), e); });
+		OnMouseButtonDoubleClick.connect([this](Win::MouseEvent e) {
+			auto ev = MouseDblEvent(e, m_cfg.Mouse);
+			if (ev == MouseAction::MouseUndefined || ev == MouseAction::MouseDisable) {
+				ev = MouseStandardEvent(e, m_cfg.Mouse);
+			}
+			return m_mouseMap.Execute(ev, e);
+		});
 		OnTaskbarButton.connect([this](int id) { PerformOnTaskbarButton(id); });
 
 		m_mouseMap.AddAction(MouseFullscreen, [this](Win::MouseEvent) { ToggleFullscreenMode(); });
@@ -228,7 +234,7 @@ namespace App {
 			ViewportBuilder b;
 			b.BuildViewport(m_viewPort, this, m_cfg);
 		}
-		catch(Err::Exception& e) {
+		catch(std::exception& e) {
 			MessageBox(0, (UTF8ToWString(GetString(SIDErrorDirectX)) + std::wstring(L"\n\n") + UTF8ToWString(e.what())).c_str(), 0, MB_OK);
 			return false;
 		}

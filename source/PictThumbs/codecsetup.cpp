@@ -6,6 +6,7 @@
 #include "illa/f_psd.h"
 #include "illa/f_psp.h"
 #include "illa/f_tiff.h"
+#include "illa/f_webp.h"
 #include "illa/f_xyz.h"
 
 void CodecManagerSetup(Img::CodecFactoryStore* cfs) {
@@ -22,5 +23,6 @@ void CodecManagerSetup(Img::CodecFactoryStore* cfs) {
 	// Still somewhat flaky, don't enable until it's awesome
 	//cfs->AddCodecFactory(new Img::FactoryTIFF());
 	cfs->AddCodecFactory(new Img::FactoryPSD());
+	cfs->AddCodecFactory(new Img::FactoryWebp());
 	cfs->AddCodecFactory(new Img::FactoryXYZ());
 }

@@ -10,6 +10,8 @@ extern "C" {
 	#include "libjpeg/jpeglib.h"
 }
 
+#include <setjmp.h>
+
 namespace Img {
 	class CodecJPEG:public StaticCodec {
 	public:
@@ -39,6 +41,12 @@ namespace Img {
 	private:
 		static void jpeg_error_exit(j_common_ptr cinfo);
 
+	        struct JpegError {
+			struct jpeg_error_mgr pub;
+			jmp_buf setjmp_buf;
+			CodecJPEG* pCodec;
+	        };
+
 		struct SourceModule {
 			jpeg_source_mgr pub;
 			IO::FileReader::Ptr file;
@@ -56,15 +64,11 @@ namespace Img {
 		struct jpeg_decompress_struct	m_decInfo;
 		bool m_isInit;
 
+		std::string m_lastError;
+
 		JSAMPROW m_pRow[ChunkRows];
 
-		// Error handling 
-		struct our_error {
-			jpeg_error_mgr pub;
-			CodecJPEG* pCodec;
-		};
-
-		our_error m_decErr;
+		JpegError m_decErr;
 		bool m_isError;
 
 		IO::FileReader::Ptr m_file;

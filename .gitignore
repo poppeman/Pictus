@@ -24,14 +24,16 @@ $RECYCLE.BIN/
 build/
 *.sdf
 *.opensdf
+*.opendb
 **/ipch/*
 **/Debug/*
 **/Release/*
+*.VC.db
 
 # IDE gunk
 **/.idea/*
 *.user
-
+**/.vs/*
 
 # =========================
 # Operating System Files

@@ -54,7 +54,10 @@ namespace Reg {
 		cfg.Mouse.OnMouseRightDbl = pt.get<App::MouseAction>("Settings.OnMouseRightDbl", App::MouseAction::MouseDisable);
 		cfg.Mouse.OnMouseWheelDown = pt.get<App::MouseAction>("Settings.OnMouseWheelDown", App::MouseAction::MouseNextImage);
 		cfg.Mouse.OnMouseWheelUp = pt.get<App::MouseAction>("Settings.OnMouseWheelUp", App::MouseAction::MousePrevImage);
-
+		cfg.Mouse.OnMouseExtra1 = pt.get<App::MouseAction>("Settings.OnMouseExtra1", App::MouseAction::MousePrevImage);
+		cfg.Mouse.OnMouseExtra2 = pt.get<App::MouseAction>("Settings.OnMouseExtra2", App::MouseAction::MouseNextImage);
+		cfg.Mouse.OnMouseExtra1Dbl = pt.get<App::MouseAction>("Settings.OnMouseExtra1Dbl", App::MouseAction::MouseDisable);
+		cfg.Mouse.OnMouseExtra2Dbl = pt.get<App::MouseAction>("Settings.OnMouseExtra2Dbl", App::MouseAction::MouseDisable);
 
 		cfg.Mouse.OnMouseRight = pt.get<App::MouseAction>("Settings.OnMouseRight", App::MouseAction::MouseContext);
 
@@ -167,9 +170,10 @@ namespace Reg {
 		pt.put("Settings.OnMouseRightDbl", settings.Mouse.OnMouseRightDbl);
 		pt.put("Settings.OnMouseWheelDown", settings.Mouse.OnMouseWheelDown);
 		pt.put("Settings.OnMouseWheelUp", settings.Mouse.OnMouseWheelUp);
-
-
-		pt.put("Settings.OnMouseRight", settings.Mouse.OnMouseRight);
+		pt.put("Settings.OnMouseExtra1", settings.Mouse.OnMouseExtra1);
+		pt.put("Settings.OnMouseExtra2", settings.Mouse.OnMouseExtra2);
+		pt.put("Settings.OnMouseExtra1Dbl", settings.Mouse.OnMouseExtra1Dbl);
+		pt.put("Settings.OnMouseExtra2Dbl", settings.Mouse.OnMouseExtra2Dbl);
 
 		pt.put("Settings.BackgroundColor", settings.Render.BackgroundColor);
 		pt.put("Settings.MagFilter", settings.Render.MagFilter);
