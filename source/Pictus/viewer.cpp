@@ -65,6 +65,8 @@ namespace App {
 		m_mouseMap.AddAction(MouseZoomIn, [this](Win::MouseEvent) { ZoomIn(); });
 		m_mouseMap.AddAction(MouseZoomOut, [this](Win::MouseEvent) { ZoomOut(); });
 		m_mouseMap.AddAction(MouseContext, [this](Win::MouseEvent e) { ShowContextMenu(e); });
+		m_mouseMap.AddAction(MouseRotateLeft, [this](Win::MouseEvent) { RotateLeft(); });
+		m_mouseMap.AddAction(MouseRotateRight, [this](Win::MouseEvent) { RotateRight(); });
 
 		m_contextMenu.Construct(this);
 		m_keys.Construct(this);
@@ -603,6 +605,14 @@ namespace App {
 		UpdateImageInformation();
 		ImageChanged();
 		m_viewPort.ImageUpdated();
+	}
+
+	void Viewer::RotateLeft() {
+		Rotate(Img::RotateLeft(m_viewPort.Rotation()));
+	}
+
+	void Viewer::RotateRight() {
+		Rotate(Img::RotateRight(m_viewPort.Rotation()));
 	}
 
 	void Viewer::ToStart() {

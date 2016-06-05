@@ -85,6 +85,12 @@ namespace App {
 					case KeyAction::ToggleFullSizeDefaultZoom:
 						m_owner->ZoomToggleFullSizeDefaultZoom();
 						break;
+					case KeyAction::RotateLeft:
+						m_owner->RotateLeft();
+						break;
+					case KeyAction::RotateRight:
+						m_owner->RotateRight();
+						break;
 					}
 					return true;
 				}

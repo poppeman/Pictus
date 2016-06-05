@@ -38,7 +38,9 @@ namespace App {
 		CloseApplication,
 		OpenSettings,
 		CopyImage,
-		ToggleFullSizeDefaultZoom
+		ToggleFullSizeDefaultZoom,
+		RotateLeft,
+		RotateRight
 	};
 
 	struct KeyboardPress {
