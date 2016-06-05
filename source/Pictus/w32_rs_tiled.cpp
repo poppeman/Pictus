@@ -46,6 +46,10 @@ namespace Win {
 		auto delta = m_currPosition - pan;
 		auto sizeDelta = m_currentSize - client;
 
+		if (abs(delta.Width) > client.Width || abs(delta.Height) > client.Height) {
+			m_redrawNext = true;
+		}
+
 		if (m_redrawNext || surfaceToRender->IsDirty()) {
 			RenderArea(renderer, surfaceToRender, pan, { { 0, 0 }, client }, props);
 		}
