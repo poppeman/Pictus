@@ -40,7 +40,15 @@ namespace App {
 		CopyImage,
 		ToggleFullSizeDefaultZoom,
 		RotateLeft,
-		RotateRight
+		RotateRight,
+		PanScreenUp,
+		PanScreenDown,
+		PanScreenLeft,
+		PanScreenRight,
+		PanUpperEdge,
+		PanLowerEdge,
+		PanLeftEdge,
+		PanRightEdge
 	};
 
 	struct KeyboardPress {

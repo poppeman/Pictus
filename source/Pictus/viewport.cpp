@@ -453,4 +453,9 @@ namespace App {
 	void ViewPort::ResizeBehaviour(App::ResizeBehaviour newResizeBehaviour) {
 		m_zoom.ResizeBehaviour(newResizeBehaviour);
 	}
+
+	Geom::SizeInt ViewPort::GetVisibleImageSize() const
+	{
+		return m_pan.Viewport();
+	}
 }

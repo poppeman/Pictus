@@ -3,6 +3,14 @@
 #include "registry.h"
 
 namespace App {
+	Geom::SizeInt ActiveImageSize(Viewer* owner) {
+		auto img = owner->ActiveImage();
+		if (img)
+		{
+			return img->GetSize();
+		}
+		return{ 0, 0 };
+	}
 	void ViewerKeyboard::Construct(Viewer* owner) {
 		m_owner = owner;
 
@@ -29,16 +37,16 @@ namespace App {
 						m_owner->ImagePrev(Viewer::ShiftSkipLength);
 						break;
 					case KeyAction::PanDown:
-						m_owner->PanDown();
+						m_owner->PanVertical(Viewer::KeyPanSize);
 						break;
 					case KeyAction::PanUp:
-						m_owner->PanUp();
+						m_owner->PanVertical(-Viewer::KeyPanSize);
 						break;
 					case KeyAction::PanLeft:
-						m_owner->PanLeft();
+						m_owner->PanHorizontal(-Viewer::KeyPanSize);
 						break;
 					case KeyAction::PanRight:
-						m_owner->PanRight();
+						m_owner->PanHorizontal(Viewer::KeyPanSize);
 						break;
 					case KeyAction::RandomImage:
 						m_owner->ImageRandom();
@@ -90,6 +98,30 @@ namespace App {
 						break;
 					case KeyAction::RotateRight:
 						m_owner->RotateRight();
+						break;
+					case KeyAction::PanScreenUp:
+						m_owner->PanVertical(-m_owner->GetVisibleImageSize().Height);
+						break;
+					case KeyAction::PanScreenDown:
+						m_owner->PanVertical(m_owner->GetVisibleImageSize().Height);
+						break;
+					case KeyAction::PanScreenLeft:
+						m_owner->PanHorizontal(-m_owner->GetVisibleImageSize().Width);
+						break;
+					case KeyAction::PanScreenRight:
+						m_owner->PanHorizontal(m_owner->GetVisibleImageSize().Width);
+						break;
+					case KeyAction::PanUpperEdge:
+						m_owner->PanVertical(-ActiveImageSize(m_owner).Height);
+						break;
+					case KeyAction::PanLowerEdge:
+						m_owner->PanVertical(ActiveImageSize(m_owner).Height);
+						break;
+					case KeyAction::PanLeftEdge:
+						m_owner->PanHorizontal(-ActiveImageSize(m_owner).Width);
+						break;
+					case KeyAction::PanRightEdge:
+						m_owner->PanHorizontal(ActiveImageSize(m_owner).Width);
 						break;
 					}
 					return true;
