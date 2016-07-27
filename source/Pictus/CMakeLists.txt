@@ -4,7 +4,38 @@ project (Pictus)
 find_package(wxWidgets REQUIRED COMPONENTS core base)
 
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
-FILE(GLOB PICTUS_CPP_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+set(PICTUS_CPP_SRCS
+		app_types.cpp
+		appreg.cpp
+		d3d_ddsurface.cpp
+		filterstring.cpp
+		getevent.cpp
+		ic_backgroundprocessor.cpp
+		ic_imageloader.cpp
+		ic_queue.cpp
+		ic_workerthread.cpp
+		ic_worklist.cpp
+		ic_workpackage.cpp
+		imagecache.cpp
+		imagecache_fileentry.cpp
+		imagecache_workrequest.cpp
+		lang_val.cpp
+		reg_color_translator.cpp
+		reg_filter_mode_translator.cpp
+		reg_keyboard_binding_translator.cpp
+		reg_language_translator.cpp
+		reg_mouse_action_translator.cpp
+		reg_resize_behavior_translator.cpp
+		reg_resize_position_method_translator.cpp
+		reg_zoom_mode_translator.cpp
+		registry.cpp
+		view_pan.cpp
+		w32_renderer.cpp
+		w32_rs_tiled.cpp
+		w32_rs_tilemanager.cpp
+		wintypes.cpp
+		zoomstrategy.cpp
+)
 FILE(GLOB PICTUS_RC_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.rc)
 message(${wxWidgets_INCLUDE_DIRS})
 message(${wxWidgets_FOUND})
