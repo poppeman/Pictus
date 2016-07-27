@@ -9,6 +9,7 @@ FILE(GLOB PICTUS_RC_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.rc)
 message(${wxWidgets_INCLUDE_DIRS})
 message(${wxWidgets_FOUND})
 
+include(${wxWidgets_USE_FILE})
 include_directories(${DEPS_DIRECTORY} ${wxWidgets_INCLUDE_DIRS})
 link_directories(${illa_BINARY_DIR}/illa ${orz_BINARY_DIR}/orz)
 
