@@ -3,7 +3,9 @@
 
 #include "illa/surface.h"
 #include "w32_ddsurface.h"
-#include "D3DWrap/d3d_device.h"
+//#include "D3DWrap/d3d_device.h"
+#include <wx/window.h>
+#include "Hw3D/device.h"
 
 namespace Win {
 	class Renderer final {
@@ -17,7 +19,7 @@ namespace Win {
 		Geom::SizeInt Transform(Geom::SizeInt sz);
 		Geom::PointInt TransformPan(Geom::PointInt sz, Geom::SizeInt imageSize);
 
-		bool TargetWindow(HWND hwnd);
+		bool TargetWindow(wxWindow* hwnd);
 
 		enum class RenderStatus {
 			CurrentViewLost,
@@ -37,14 +39,14 @@ namespace Win {
 		typedef std::shared_ptr<Renderer> Ptr;
 
 	protected:
-		HWND TargetWindow();
+		wxWindow* TargetWindow();
 
 	private:
-		HWND m_hwnd;
+		wxWindow* m_hwnd;
 
 		enum {
 			MaximumTileEdgeLength = 512,
-			VbFmt = D3D::VFPositionXYZ | D3D::VFTex01,
+		//	VbFmt = D3D::VFPositionXYZ | D3D::VFTex01,
 		};
 
 		struct Vertex {
@@ -55,8 +57,8 @@ namespace Win {
 		void CreateTextures();
 		Geom::SizeInt RenderAreaSize();
 
-		D3D::Texture::Ptr m_softTex;
-		D3D::Device::Ptr m_direct3d;
+		std::shared_ptr<Hw3D::Texture> m_softTex;
+		std::shared_ptr<Hw3D::Device> m_direct3d;
 	};
 }
 

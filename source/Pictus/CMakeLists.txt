@@ -1,11 +1,15 @@
 cmake_minimum_required (VERSION 2.8)
 project (Pictus)
 
+find_package(wxWidgets REQUIRED COMPONENTS core base)
+
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 FILE(GLOB PICTUS_CPP_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 FILE(GLOB PICTUS_RC_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.rc)
+message(${wxWidgets_INCLUDE_DIRS})
+message(${wxWidgets_FOUND})
 
-include_directories(${DEPS_DIRECTORY})
+include_directories(${DEPS_DIRECTORY} ${wxWidgets_INCLUDE_DIRS})
 link_directories(${illa_BINARY_DIR}/illa ${orz_BINARY_DIR}/orz)
 
 if(MINGW)

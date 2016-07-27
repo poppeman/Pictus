@@ -18,12 +18,6 @@ namespace D3D {
 
 	D3DFORMAT ToD3DFORMAT(Img::Format format);
 
-	struct Vertex2D {
-		Geom::PointFloat Position;
-		Geom::PointFloat TexCoord;
-	};
-
-	void GenerateQuad(Geom::RectFloat position, Geom::RectFloat texCoords, Geom::SizeFloat adjustment, Geom::SizeInt targetSize, Filter::RotationAngle angle, D3D::Vertex2D& a, D3D::Vertex2D& b, D3D::Vertex2D& c, D3D::Vertex2D& d);
 
 	template<typename T> void ComRelease(T* obj) {
 		if (obj != nullptr) {

@@ -110,7 +110,6 @@ namespace Win {
 		auto ytiles = m_tiles.size();
 		RectInt view{ { 0, 0 }, m_viewSize };
 
-		auto ppAdj = SizeFloat{ -0.5f, -0.5f };
 		for (size_t y = 0; y < ytiles; ++y) {
 			for (size_t x = 0; x < xtiles; ++x) {
 				auto currUncropped = RectInt{ PointInt(x, y) * MaximumTileEdgeLength, SizeInt(1, 1) * MaximumTileEdgeLength };

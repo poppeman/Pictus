@@ -3,7 +3,7 @@
 #include <boost/scoped_array.hpp>
 
 namespace Win {
-	Geom::RectInt RECTToRect(const RECT& rect) {
+	/*Geom::RectInt RECTToRect(const RECT& rect) {
 		return Geom::RectInt(Geom::PointInt(rect.left, rect.top), Geom::SizeInt(rect.right-rect.left, rect.bottom-rect.top));
 	}
 
@@ -14,10 +14,10 @@ namespace Win {
 		out_rect.right	= rect.Right();
 		out_rect.top	= rect.Top();
 		return out_rect;
-	}
+	}*/
 
-	POINT PointToPOINT(const Geom::PointInt& point) {
-		POINT out_point;
+	wxPoint PointToWx(const Geom::PointInt& point) {
+		wxPoint out_point;
 		out_point.x = point.X;
 		out_point.y = point.Y;
 		return out_point;
@@ -40,6 +40,7 @@ namespace Win {
 			trimmedPath = path;
 		}
 
+#ifdef _WIN32
 		// Convert the (potentially) short path to a long one.
 		wchar_t single_char;
 		uint32_t len			= GetLongPathName(UTF8ToWString(trimmedPath).c_str(), &single_char, 1);
@@ -48,7 +49,7 @@ namespace Win {
 		// Function APPARENTLY can't handle long pathnames (surrounded by quotes)
 		// Here's a crazy idea. HOW ABOUT OUTPUTTING THE ORIGINAL PATH IF THE
 		// INPUT STRING ACTUALLY IS A LONG PATH!? ALSO, CAPS-LOCK IS CRUISE CONTROL FOR COOL!
-		
+
 		// A few years later, I still do not regret the previous comment
 		if (len != 0)
 		{
@@ -56,7 +57,9 @@ namespace Win {
 			GetLongPathName(UTF8ToWString(trimmedPath).c_str(), converted.get(), len);
 			return WStringToUTF8(converted.get());
 		}
+#else
 		return trimmedPath;
+#endif
 	}
 
 	bool KeyEvent::operator<(const KeyEvent& rhs) const {
@@ -69,7 +72,7 @@ namespace Win {
 		return (Key < rhs.Key);
 	}
 
-	KeyEvent::KeyEvent(WPARAM key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed):
+	KeyEvent::KeyEvent(wxKeyCode key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed):
 		Key(key),
 		AltPressed(isAltPressed),
 		CtrlPressed(isCtrlPressed),
@@ -82,7 +85,7 @@ namespace Win {
 
 	}
 
-	MouseEvent::MouseEvent(LPARAM lParam) : Position(static_cast<SHORT>(LOWORD(lParam)), static_cast<SHORT>(HIWORD(lParam))), WheelTicks(0)
+	MouseEvent::MouseEvent(wxMouseEvent evt) : Position(evt.GetPosition().x, evt.GetPosition().y), WheelTicks(0)
 	{
 
 	}
