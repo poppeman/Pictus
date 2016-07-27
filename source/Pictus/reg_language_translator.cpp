@@ -20,10 +20,10 @@ namespace Reg {
 
 		boost::optional<LanguageTranslator::internal_type> LanguageTranslator::put_value(external_type const& val) {
 			if (val == Intl::Language::English) {
-				return "English";
+				return std::string("English");
 			}
 			if (val == Intl::Language::Swedish) {
-				return "Swedish";
+				return std::string("Swedish");
 			}
 			return boost::none;
 		}
