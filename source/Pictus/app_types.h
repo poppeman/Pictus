@@ -3,6 +3,7 @@
 
 #include "illa/types.h"
 #include "resize_behavior.h"
+#include <wx/defs.h>
 
 namespace App {
 #include "lang_enum.h"
@@ -57,7 +58,7 @@ namespace App {
 	std::string KeyActionToIdentifier(KeyAction action);
 	KeyAction IdentifierToKeyAction(std::string identifier);
 
-	std::wstring GetKeyString(wchar_t key);
+	std::wstring GetKeyString(wxKeyCode key);
 }
 
 #endif

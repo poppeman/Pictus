@@ -222,7 +222,7 @@ namespace App {
 		return it->second;
 	}
 
-	std::wstring GetKeyString(wchar_t key) {
+	std::wstring GetKeyString(wxKeyCode key) {
 		using namespace Intl;
 		auto fancyKeySid = cg_keySids.find(key);
 		if (fancyKeySid != cg_keySids.end()) {
