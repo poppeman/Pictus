@@ -32,7 +32,7 @@ namespace Img {
 		m_workerThread->Terminate();
 	}
 
-	const size_t BackgroundProcessor::AllocatedMemory() const {
+	size_t BackgroundProcessor::AllocatedMemory() const {
 		return 0;
 	}
 

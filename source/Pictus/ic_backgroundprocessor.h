@@ -10,7 +10,7 @@ namespace Img {
 	class Image;
 }
 
-namespace Img { 
+namespace Img {
 	class BackgroundProcessor {
 	public:
 		void MessageTarget(MessageReceiver* pWatcher);
@@ -20,7 +20,7 @@ namespace Img {
 
 		IO::FileReader::Ptr GetFileReader(const std::string& filename);
 
-		const size_t AllocatedMemory() const;
+		size_t AllocatedMemory() const;
 		void MemoryLimit(size_t limit);
 
 		void SetMaximumResolutionHint(const Geom::SizeInt& maxRes);
