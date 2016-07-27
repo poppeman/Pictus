@@ -82,11 +82,11 @@ namespace Img {
 
 		FileList m_files;
 		size_t m_index;
+
+		MessageReceiver* m_pReceiver;
+		std::shared_ptr<BackgroundProcessor> m_decThread;
 		bool m_wentForward;
 		bool m_wrapAround;
-
-		std::auto_ptr<BackgroundProcessor> m_decThread;
-		MessageReceiver* m_pReceiver;
 
 		Img::CodecFactoryStore* m_cfs;
 	};

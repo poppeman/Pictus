@@ -3,16 +3,19 @@
 #include "illa/codecmgr.h"
 #include "orz/fileops.h"
 #include "orz/stream_file.h"
+#ifdef _WIN32
 #include <Shlwapi.h>
+#endif
 
 namespace Img {
 	using namespace Geom;
-
+#ifdef _WIN32
 	struct fnSortWinapiFile {
 		bool operator () (Internal::FileEntry& a, Internal::FileEntry& b) {
 			return (StrCmpLogicalW(UTF8ToWString(IO::GetFile(a.Name())).c_str(), UTF8ToWString(IO::GetFile(b.Name())).c_str())==-1);
 		}
 	};
+#endif
 
 	struct fnSortDateModified {
 		bool operator () (Internal::FileEntry& a, Internal::FileEntry& b) {	return (a.DateModified() < b.DateModified()); }
@@ -68,15 +71,19 @@ namespace Img {
 		}
 
 		switch (method) {
+#ifdef _WIN32
 		case SortMethod::SortFilename:
 			std::sort(m_files.begin(), m_files.end(), fnSortWinapiFile());
 			break;
+#endif
 		case SortMethod::SortDateModified:
 			std::sort(m_files.begin(), m_files.end(), fnSortDateModified());
 			break;
+#ifdef ENABLE_CREATED_TIME
 		case SortMethod::SortDateCreated:
 			std::sort(m_files.begin(), m_files.end(), fnSortDateCreated());
 			break;
+#endif
 		}
 
 		if (currentImageFile.empty() == false) {
@@ -312,7 +319,7 @@ namespace Img {
 	}
 
 	void Cacher::Stop() {
-		m_decThread.reset(0);
+		m_decThread.reset();
 	}
 
 	Cacher::Cacher()
