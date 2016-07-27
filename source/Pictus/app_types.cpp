@@ -70,14 +70,9 @@ namespace App {
 		{ App::KeyAction::RotateRight, SIDActionRotateRight }
 	};
 
-	const std::map<wchar_t, App::StringID> cg_keySids = {
+	const std::map<wxKeyCode, App::StringID> cg_keySids = {
 		//0x00
-		{ WXK_LBUTTON, SIDKeysMouseLeft },
-		{ WXK_RBUTTON, SIDKeysMouseRight},
 		{ WXK_CANCEL, SIDKeysCancel },
-		{ WXK_MBUTTON, SIDKeysMouseMiddle},
-		{ WXK_XBUTTON1, SIDKeysMouseX1 },
-		{ WXK_XBUTTON2, SIDKeysMouseX2 },
 		{ WXK_BACK, SIDKeysBackspace },
 		{ WXK_TAB, SIDKeysTab },
 		{ WXK_CLEAR, SIDKeysClear },
@@ -88,19 +83,11 @@ namespace App {
 		{ WXK_MENU, SIDKeysAlt },
 		{ WXK_PAUSE, SIDKeysPause },
 		{ WXK_CAPITAL, SIDKeysCapsLock },
-		{ WXK_KANA, SIDKeysIMEKana },
-		{ WXK_JUNJA, SIDKeysIMEJunja },
-		{ WXK_FINAL, SIDKeysIMEFinal },
-		{ WXK_KANJI, SIDKeysIMEKanji },
 		{ WXK_ESCAPE, SIDKeysEsc },
-		{ WXK_CONVERT, SIDKeysIMEConvert },
-		{ WXK_NONCONVERT, SIDKeysIMENoConvert },
-		{ WXK_ACCEPT, SIDKeysIMEAccept },
-		{ WXK_MODECHANGE, SIDKeysIMEModeChange },
 		// 0x20
 		{ WXK_SPACE, SIDKeysSpace },
-		{ WXK_PRIOR, SIDKeysPgUp },
-		{ WXK_NEXT, SIDKeysPgDown },
+		{ WXK_PAGEUP, SIDKeysPgUp },
+		{ WXK_PAGEDOWN, SIDKeysPgDown },
 		{ WXK_END, SIDKeysEnd },
 		{ WXK_HOME, SIDKeysHome },
 		{ WXK_LEFT, SIDKeysArrowLeft },
@@ -117,10 +104,10 @@ namespace App {
 		// Tons of numbers and characters (automatically handled)
 
 		// 0x50
-		{ WXK_LWIN, SIDKeysWinLeft },
-		{ WXK_RWIN, SIDKeysWinRight },
-		{ WXK_APPS, SIDKeysApps },
-		{ WXK_SLEEP, SIDKeysSleep },  // I hope nobody tries using this...
+		{ WXK_WINDOWS_LEFT, SIDKeysWinLeft },
+		{ WXK_WINDOWS_RIGHT, SIDKeysWinRight },
+		{ WXK_WINDOWS_MENU, SIDKeysApps },
+
 		// 0x60
 		{ WXK_NUMPAD0, SIDKeysNum0 },
 		{ WXK_NUMPAD1, SIDKeysNum1 },
@@ -168,12 +155,12 @@ namespace App {
 		{ WXK_NUMLOCK, SIDKeysNumLock },
 		{ WXK_SCROLL, SIDKeysScrollLock },
 		// 0xA0
-		{ WXK_LSHIFT, SIDKeysShiftLeft },
-		{ WXK_RSHIFT, SIDKeysShiftRight },
-		{ WXK_LCONTROL, SIDKeysControlLeft },
-		{ WXK_RCONTROL, SIDKeysControlRight },
-		{ WXK_LMENU, SIDKeysAltLeft },
-		{ WXK_RMENU, SIDKeysAltRight },
+		// TODO: Figure out if it's possible to handle left/right modifiers somewhat simply, otherwise update strings
+		{ WXK_SHIFT, SIDKeysShiftLeft },
+		{ WXK_CONTROL, SIDKeysControlLeft },
+		{ WXK_ALT, SIDKeysAltLeft },
+		// TODO: Figure out if these exist in non-windows-land
+/*
 		{ WXK_BROWSER_BACK, SIDKeysBrowserBack },
 		{ WXK_BROWSER_FORWARD, SIDKeysBrowserForward },
 		{ WXK_BROWSER_REFRESH, SIDKeysBrowserRefresh },
@@ -217,7 +204,7 @@ namespace App {
 		{ WXK_EREOF, SIDKeysEraseEOF },
 		{ WXK_PLAY, SIDKeysMediaPlay },
 		{ WXK_ZOOM, SIDKeysZoom },
-		{ WXK_PA1, SIDKeysPA1 },
+		{ WXK_PA1, SIDKeysPA1 },*/
 		{ WXK_CLEAR, SIDKeysOEMClear }
 	};
 
