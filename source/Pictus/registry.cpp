@@ -104,11 +104,11 @@ namespace Reg {
 				// Alt, shift, control
 				{ { WXK_F2, false, false, false }, KeyAction::RenameFile },
 				{ { WXK_ESCAPE, false, false, false }, KeyAction::CloseApplication },
-				{ { WXK_OEM_PLUS, false, false, false }, KeyAction::ZoomIn },
+				//{ { WXK_WXK_OEM_PLUS, false, false, false }, KeyAction::ZoomIn },
 				{ { WXK_ADD, false, false, false }, KeyAction::ZoomIn },
 				{ { WXK_NUMPAD0, false, false, false }, KeyAction::ZoomIn },
 
-				{ { WXK_OEM_MINUS, false, false, false }, KeyAction::ZoomOut },
+				//{ { WXK_OEM_MINUS, false, false, false }, KeyAction::ZoomOut },
 				{ { WXK_SUBTRACT, false, false, false }, KeyAction::ZoomOut },
 				{ { WXK_NUMPAD1, false, false, false }, KeyAction::ZoomOut },
 
@@ -125,17 +125,17 @@ namespace Reg {
 				{ { WXK_END, false, false, false }, KeyAction::LastImage },
 
 				{ { WXK_SPACE, false, false, false }, KeyAction::NextImage },
-				{ { WXK_NEXT, false, false, false }, KeyAction::NextImage },
+				{ { WXK_PAGEDOWN, false, false, false }, KeyAction::NextImage },
 
 				{ { WXK_SPACE, false, true, false }, KeyAction::NextSkipImage },
-				{ { WXK_NEXT, false, true, false }, KeyAction::NextSkipImage },
+				{ { WXK_PAGEDOWN, false, true, false }, KeyAction::NextSkipImage },
 				{ { WXK_RIGHT, true, false, false }, KeyAction::NextSkipImage },
 
 				{ { WXK_BACK, false, false, false }, KeyAction::PreviousImage },
-				{ { WXK_PRIOR, false, false, false }, KeyAction::PreviousImage },
+				{ { WXK_PAGEUP, false, false, false }, KeyAction::PreviousImage },
 
 				{ { WXK_BACK, false, true, false }, KeyAction::PreviousSkipImage },
-				{ { WXK_PRIOR, false, true, false }, KeyAction::PreviousSkipImage },
+				{ { WXK_PAGEUP, false, true, false }, KeyAction::PreviousSkipImage },
 				{ { WXK_LEFT, true, false, false }, KeyAction::PreviousSkipImage },
 
 				{ { WXK_DELETE, false, false, false }, KeyAction::RecycleCurrentFile },
