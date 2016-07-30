@@ -1,15 +1,14 @@
 #include "w32_assure_folder.h"
-#include "io.h"
 #include "orz/exception.h"
 #include "orz/fileops.h"
 #include "orz/types.h"
+#ifdef _WIN32
 #include <windows.h>
 #include <ShlObj.h>
+#endif
 
 std::string assure_folder(std::string name) {
-	auto path = IO::GetPath(name);
-	auto filename = IO::GetFile(name);
-
+#ifdef WIN32
 	// See if there is an ini next to the .exe-file. If so, use that one (Portable mode).
 	wchar_t wexePath[MAX_PATH];
 	if (GetModuleFileName(GetModuleHandle(nullptr), wexePath, MAX_PATH) != 0) {
@@ -46,4 +45,10 @@ std::string assure_folder(std::string name) {
 	while (index != std::string::npos);
 
 	return currentPath + filename;
+#else
+	// TODO: Implement
+	auto path = IO::GetPath(name);
+	auto filename = IO::GetFile(name);
+	return path + "/" + filename;
+#endif
 }
