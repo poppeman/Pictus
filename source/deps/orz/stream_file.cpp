@@ -20,8 +20,9 @@ namespace IO {
 		}
 		return ret;
 	}
+#endif
 
-	void StreamFile::Renamed(_In_ const std::string& newFilename) {
+	void StreamFile::Renamed(const std::string& newFilename) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_name = newFilename;
 
@@ -32,6 +33,7 @@ namespace IO {
 		performSeek(prevPos, SeekMethod::Begin);
 	}
 
+#ifdef _WIN32
 	bool StreamFile::Delete(bool doRecycle, HWND handle) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 
