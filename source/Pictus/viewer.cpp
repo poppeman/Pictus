@@ -7,9 +7,9 @@
 #include "imagecache.h"
 #include "illa/surfacemgr.h"
 
-#include "rename.h"
+//#include "rename.h"
 
-#include "gdiwrapper.h"
+//#include "gdiwrapper.h"
 #include "registry.h"
 
 #include "getevent.h"
@@ -18,16 +18,18 @@
 #include "config.h"
 #include "res_viewer.h"
 
-#include "win7taskbar.h"
+//#include "win7taskbar.h"
 
 #include "filterstring.h"
 #include "builder_viewport.h"
+#include "zoom_mode.h"
 
 #include <boost/date_time.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/format.hpp>
 #include <boost/scoped_array.hpp>
 #include <random>
+#include <wx/msgdlg.h>
 
 const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
 const wchar_t* App::Viewer::AppTitle = L"Pictus";
@@ -39,24 +41,26 @@ namespace App {
 	using namespace Geom;
 
 	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg, const std::string params):
-		m_singleMutex{ 0 },
-		m_doMaximize{ false },
-		m_screenMode{ SM_Normal },
-		m_codecs{ cfs },
+		//m_singleMutex{ 0 },
 		m_attemptToShow{ false },
+		m_screenMode{ SM_Normal },
+		m_doMaximize{ false },
+		m_viewPort{this},
+		m_codecs{ cfs },
 		m_cfg( cfg )
 	{
-		m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
-		OnMouseButtonDown.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
-		OnMouseWheel.connect([this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
-		OnMouseButtonDoubleClick.connect([this](Win::MouseEvent e) {
+		//m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
+		// TODO: Bind all events again
+		Bind(wxEVT_LEFT_DOWN, [this](wxMouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
+		Bind(wxEVT_MOUSEWHEEL, [this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
+		Bind(wxEVT_LEFT_DCLICK, [this](Win::MouseEvent e) {
 			auto ev = MouseDblEvent(e, m_cfg.Mouse);
 			if (ev == MouseAction::MouseUndefined || ev == MouseAction::MouseDisable) {
 				ev = MouseStandardEvent(e, m_cfg.Mouse);
 			}
 			return m_mouseMap.Execute(ev, e);
 		});
-		OnTaskbarButton.connect([this](int id) { PerformOnTaskbarButton(id); });
+		//OnTaskbarButton.connect([this](int id) { PerformOnTaskbarButton(id); });
 
 		m_mouseMap.AddAction(MouseFullscreen, [this](Win::MouseEvent) { ToggleFullscreenMode(); });
 		m_mouseMap.AddAction(MouseToggleFullSizeDefaultZoom, [&](Win::MouseEvent) { ZoomToggleFullSizeDefaultZoom(); });
@@ -68,25 +72,20 @@ namespace App {
 		m_mouseMap.AddAction(MouseRotateLeft, [this](Win::MouseEvent) { RotateLeft(); });
 		m_mouseMap.AddAction(MouseRotateRight, [this](Win::MouseEvent) { RotateRight(); });
 
-		m_contextMenu.Construct(this);
+		//m_contextMenu.Construct(this);
 		m_keys.Construct(this);
 		m_keys.SetBindings(m_cfg.Keyboard);
 
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateImageInformation(); });
 
-		m_settings = std::make_shared<Settings>();
+/*		m_settings = std::make_shared<Settings>();
 		m_settings->OnSettingsChanged.connect([&](Reg::Settings newSettings) {
 			m_cfg = newSettings;
 			SettingsChanged();
 		});
-		m_settings->SetSettings(m_cfg);
+		m_settings->SetSettings(m_cfg);*/
 
 		m_cacher.SetCodecFactoryStore(m_codecs);
-
-		m_shellTaskbarImageList.Load(IDB_THUMBTOOLBAR,
-			16,
-			0,
-			CLR_DEFAULT);
 
 		if ((params.length() > 0) && (params.at(0) != '-') && (IO::DoFileExist(params) || IO::DoPathExist(params))) {
 			m_sDirectory = params;
@@ -96,7 +95,7 @@ namespace App {
 		}
 
 		// Look for another process (disallow if the setting requires that)
-		m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
+		/*m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
 
 		if ((GetLastError() == ERROR_ALREADY_EXISTS) && (m_cfg.View.MultipleInstances == false)) {
 			if (HWND hwnd = ::FindWindow(ClassName, 0)) {
@@ -121,7 +120,7 @@ namespace App {
 
 				throw Err::DuplicateInstance();
 			}
-		}
+		}*/
 
 		UpdateViewportConfig();
 	}
@@ -130,17 +129,17 @@ namespace App {
 		m_folderMonitor.Close();
 		m_cacher.Stop();
 
-		UnregisterClass(ClassName, GetModuleHandle(0));
+/*		UnregisterClass(ClassName, GetModuleHandle(0));
 
 		ReleaseMutex(m_singleMutex);
 		CloseHandle(m_singleMutex);
 
 		if (UnhandledExceptionOcurred()) {
 			MessageBox(nullptr, UTF8ToWString(UnhandledExceptionDescription()).c_str(), L"Pictus error", MB_OK);
-		}
+		}*/
 	}
 
-	bool Viewer::Show(bool doShow) {
+	/*bool Viewer::Show(bool doShow) {
 		auto img = m_viewPort.Image();
 		auto allocated = IsPositive(m_viewPort.OptimalViewportSize());
 		auto defective = img?!img->IsHeaderInformationValid() && img->IsFinished():true;
@@ -156,7 +155,7 @@ namespace App {
 		}
 		m_attemptToShow = false;
 		return true;
-	}
+	}*/
 
 	void Viewer::ActiveImage(Img::Image::Ptr pImage) {
 		if (m_viewPort.Image() == pImage) {
@@ -185,7 +184,7 @@ namespace App {
 
 		m_cacher.WrapAround(m_cfg.View.BrowseWrapAround);
 
-		WNDCLASSEX wc;
+/*		WNDCLASSEX wc;
 		ZeroMemory(&wc, sizeof(wc));
 		wc.cbSize			= sizeof(wc);
 		wc.hCursor			= LoadCursor(0, IDC_ARROW);
@@ -205,7 +204,7 @@ namespace App {
 		if(!ConstructWindow(RectInt(PointInt(x, y), SizeInt(w, h)), WS_EX_ACCEPTFILES, ClassName, AppTitle, WS_OVERLAPPEDWINDOW)) return false;
 		m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);
 
-		AlwaysOnTop(m_cfg.View.AlwaysOnTop);
+		AlwaysOnTop(m_cfg.View.AlwaysOnTop);*/
 
 		ZoomMode(m_cfg.View.DefaultZoomMode);
 
@@ -213,11 +212,14 @@ namespace App {
 			m_doMaximize = true;
 		}
 
+		m_viewPort.Init();
+		m_viewPort.Show(true);
+
 		return true;
 	}
 
 	bool Viewer::PerformOnWindowCreate() {
-		m_statusBar = std::make_shared<Win::StatusBar>();
+		/*m_statusBar = std::make_shared<Win::StatusBar>();
 		Add(m_statusBar);
 		m_statusParts[StatusZoom].Width(StatFieldZoomWidth);
 		m_statusParts[StatusName].AutoSize(Win::StatusBarPart::AutoSizeShare);
@@ -230,14 +232,14 @@ namespace App {
 			m_statusBar->Add(m_statusParts[i]);
 		}
 
-		m_statusBar->Visible(m_cfg.View.ShowStatusBar);
+		m_statusBar->Visible(m_cfg.View.ShowStatusBar);*/
 
 		try {
 			ViewportBuilder b;
 			b.BuildViewport(m_viewPort, this, m_cfg);
 		}
 		catch(std::exception& e) {
-			MessageBox(0, (UTF8ToWString(GetString(SIDErrorDirectX)) + std::wstring(L"\n\n") + UTF8ToWString(e.what())).c_str(), 0, MB_OK);
+			wxMessageBox((UTF8ToWString(GetString(SIDErrorDirectX)) + std::wstring(L"\n\n") + UTF8ToWString(e.what())).c_str(), L"Error",  wxOK);
 			return false;
 		}
 
@@ -248,7 +250,7 @@ namespace App {
 	}
 
 	bool Viewer::PerformOnClose() {
-		SizeInt sz	= GetSize();
+		SizeInt sz	= wxToSize(GetSize());
 		PointInt pt	= PositionScreen();
 
 		if(m_screenMode == SM_Fullscreen) {
@@ -257,7 +259,7 @@ namespace App {
 		}
 
 		// Store un-maximized values instead!
-		WINDOWPLACEMENT wp = { 0 };
+		/*WINDOWPLACEMENT wp = { 0 };
 		GetWindowPlacement(Handle(), &wp);
 		if (IsZoomed(Handle())) {
 			RectInt normalRect(RECTToRect(wp.rcNormalPosition));
@@ -273,7 +275,7 @@ namespace App {
 			m_cfg.View.WindowPosY = pt.Y;
 		};
 
-		m_cfg.View.Maximized = IsZoomed(Handle()) != 0;
+		m_cfg.View.Maximized = IsZoomed(Handle()) != 0;*/
 
 		Reg::Save(cg_SettingsLocation, m_cfg);
 
@@ -281,7 +283,7 @@ namespace App {
 	}
 
 	bool Viewer::CopyToClipboard() {
-		Img::Image::Ptr pImg = m_viewPort.Image();
+		/*Img::Image::Ptr pImg = m_viewPort.Image();
 		if (!pImg.get()) return false;
 		if (pImg->IsFinished() == false) return false;
 
@@ -331,7 +333,7 @@ namespace App {
 		if (!CloseClipboard() || !hClipData)
 			return false;
 
-		ReleaseDC(Handle(), hDC);
+		ReleaseDC(Handle(), hDC);*/
 
 		return true;
 	}
@@ -340,17 +342,20 @@ namespace App {
 		if (ViewportMode() == SM_Fullscreen)
 			return false;
 
-		if (!IsZoomed(Handle()) && !IsIconic(Handle()))
-			m_previousNonMaximizedWindowRegion = WindowRect();
+		/*if (!IsZoomed(Handle()) && !IsIconic(Handle()))
+			m_previousNonMaximizedWindowRegion = WindowRect();*/
 
 		RectInt client = ClientRect();
 
-		if (m_statusBar->Visible()) {
+		/*if (m_statusBar->Visible()) {
 			m_viewPort.Resize(SizeInt(client.Width(), client.Height() - m_statusBar->Position().Height()));
 			UpdateImageInformation();
 		}
-		else
-			m_viewPort.Resize(client.Dimensions());
+		else*/
+		{
+			//m_viewPort.Resize(client.Dimensions());
+			m_viewPort.SetSize(0, 0, client.Dimensions().Width, client.Dimensions().Height);
+		}
 
 		return true;
 	}
@@ -365,7 +370,7 @@ namespace App {
 		}
 
 		AnchorTL(PositionScreen());
-		AnchorCenter(PositionScreen() + RoundCast(GetSize() * 0.5f));
+		AnchorCenter(PositionScreen() + RoundCast(wxToSize(GetSize()) * 0.5f));
 
 		return true;
 	}
@@ -388,7 +393,7 @@ namespace App {
 		return{ m_cfg.View.WindowAnchorCenterX, m_cfg.View.WindowAnchorCenterY };
 	}
 
-	bool Viewer::PerformOnDropFiles(const StringVector& files) {
+/*	bool Viewer::PerformOnDropFiles(const StringVector& files) {
 		if(files.size() == 0) return false;
 
 		SetImageLocation(files[0]);
@@ -412,31 +417,33 @@ namespace App {
 
 		SetImageLocation(WStringToUTF8(reinterpret_cast<wchar_t*>(pcds->lpData)));
 		return true;
-	}
+	}*/
 
 	bool Viewer::ApplyWallpaper(Win::Wallpaper::Mode orientation) {
-		Img::Image::Ptr pImage(m_viewPort.Image());
+		/*Img::Image::Ptr pImage(m_viewPort.Image());
 		if (pImage == 0) {
 			return false;
 		}
 
-		return Wallpaper::ApplyWallpaper(m_cacher.CurrentImageFilename(), orientation);
+		return Wallpaper::ApplyWallpaper(m_cacher.CurrentImageFilename(), orientation);*/
+		return false;
 	}
 
 	void Viewer::UpdateImageInformation() {
-		if (!m_statusBar) {
+/*		if (!m_statusBar) {
 			return;
 		}
 
 		if (ViewportMode() == SM_Fullscreen) {
 			return m_statusBar->Visible(false);
-		}
+		}*/
 
 		Img::Image::Ptr image(m_viewPort.Image());
-		m_statusParts[StatusProgress].Text(UII_LoadProgress(image));
-		m_statusParts[StatusResolution].Text(UII_ImageResolution(image));
+		/*m_statusParts[StatusProgress].Text(UII_LoadProgress(image));
+		m_statusParts[StatusResolution].Text(UII_ImageResolution(image));*/
+		SetTitle(wxString::FromUTF8(((image ? IO::GetFile(m_cacher.CurrentImageFilename()) + " - ":"") + WStringToUTF8(AppTitle)).c_str()));
 
-		Caption((image ? IO::GetFile(m_cacher.CurrentImageFilename()) + " - ":"") + WStringToUTF8(AppTitle));
+		/*Caption((image ? IO::GetFile(m_cacher.CurrentImageFilename()) + " - ":"") + WStringToUTF8(AppTitle));
 
 		if (image == 0) {
 			for (int i = 0; i < StatusNumParts; ++i) {
@@ -455,7 +462,7 @@ namespace App {
 				m_statusParts[StatusZoom].Text(ToAString(RoundCast(m_viewPort.ZoomLevel() * 100.0f)) + "%");
 				m_statusParts[StatusLastModified].Text(UII_LastModified(m_cacher.CurrentImageLastModifiedDate()));
 			}
-		}
+		}*/
 	}
 
 	std::string Viewer::UII_MemoryUsage(FileInt size) {
@@ -503,14 +510,14 @@ namespace App {
 
 	void Viewer::ZoomIn() {
 		m_viewPort.ZoomIn();
-		m_contextMenu.Zoomed(std::fabs(m_viewPort.ZoomLevel() - 1.0f) < std::numeric_limits<float>::epsilon());
+		//m_contextMenu.Zoomed(std::fabs(m_viewPort.ZoomLevel() - 1.0f) < std::numeric_limits<float>::epsilon());
 		ImageChanged();
 		UpdateImageInformation();
 	}
 
 	void Viewer::ZoomOut() {
 		m_viewPort.ZoomOut();
-		m_contextMenu.Zoomed(std::fabs(m_viewPort.ZoomLevel() - 1.0) < std::numeric_limits<float>::epsilon());
+		//m_contextMenu.Zoomed(std::fabs(m_viewPort.ZoomLevel() - 1.0) < std::numeric_limits<float>::epsilon());
 		ImageChanged();
 		UpdateImageInformation();
 	}
@@ -520,7 +527,7 @@ namespace App {
 			ZoomMode(m_cfg.View.DefaultZoomMode);
 		}
 		else {
-			ZoomMode(ZoomMode::ZoomFullSize);
+			ZoomMode(ZoomFullSize);
 		}
 	}
 
@@ -528,12 +535,12 @@ namespace App {
 		m_viewPort.ZoomMode(mode);
 		switch (mode) {
 			case App::ZoomFitImage:
-				m_contextMenu.FitImage();
+				//m_contextMenu.FitImage();
 				break;
 
 			case App::ZoomFullSize:
 			case App::ZoomFree:
-				m_contextMenu.Zoomed(true);
+				//m_contextMenu.Zoomed(true);
 				break;
 		}
 
@@ -556,7 +563,7 @@ namespace App {
 		m_screenMode = newMode;
 
 		if (newMode == Viewer::SM_Fullscreen) {
-			const Win::Monitor* mon = Win::FindMonitorAt(CenterPositionScreen());
+			/*const Win::Monitor* mon = Win::FindMonitorAt(CenterPositionScreen());
 
 			m_statusBar->Visible(false);
 			m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);
@@ -565,18 +572,18 @@ namespace App {
 			MoveResize(mon->Region());
 			m_viewPort.MoveResize(RectInt(PointInt(0, 0), mon->Region().Dimensions()));
 			m_viewPort.ActiveCursorMode(ViewPort::CursorHideAutomatic);
-			SetForegroundWindow(Handle());
+			SetForegroundWindow(Handle());*/
 		}
 		else {
-			SetWindowLongPtr(Handle(), GWL_STYLE, m_previousWindowStyle);
+			/*SetWindowLongPtr(Handle(), GWL_STYLE, m_previousWindowStyle);
 			m_statusBar->Visible(m_cfg.View.ShowStatusBar);
 			MoveResize(m_previousWindowRegion);
-			m_viewPort.ActiveCursorMode(ViewPort::CursorShow);
+			m_viewPort.ActiveCursorMode(ViewPort::CursorShow);*/
 		}
 
 		// Make sure that the settings and adjust dialogs are on top (if running)
-		if (m_settings->IsModelessVisible()) ShowSettings();
-		if (m_adjust.IsModelessVisible()) ShowAdjust();
+		//if (m_settings->IsModelessVisible()) ShowSettings();
+		//if (m_adjust.IsModelessVisible()) ShowAdjust();
 
 		ImageChanged();
 		UpdateImageInformation();
@@ -658,7 +665,7 @@ namespace App {
 		auto old_name(m_cacher.CurrentImageFilename());
 		auto extension = IO::GetExtension(old_name);
 
-		Rename ren(IO::GetTitle(old_name));
+		/*Rename ren(IO::GetTitle(old_name));
 
 		if (ren.DoModal(this)) {
 			auto new_name = IO::GetPath(old_name) + ren.Name() + "." + extension;
@@ -670,7 +677,7 @@ namespace App {
 			m_cacher.RenamedImage(old_name, resulting_name);
 
 			UpdateImageInformation();
-		}
+		}*/
 	}
 
 
@@ -695,21 +702,21 @@ namespace App {
 			return;
 		}
 
-		auto f = dynamic_cast<IO::StreamFile*>(reader->GetStream());
+		/*auto f = dynamic_cast<IO::StreamFile*>(reader->GetStream());
 		if (f->Delete((op == RemoveRecycle), Handle()))
 		{
 			ActiveImage(m_cacher.RemoveCurrentImage());
-		}
+		}*/
 
 		UpdateImageInformation();
 	}
 
 	void Viewer::OpenFolder() {
 		FilterString s(m_codecs);
-		auto file = OpenFileDialog(GetString(SIDOpen), s.GetFilterString(), s.FilterCount());
+		/*auto file = OpenFileDialog(GetString(SIDOpen), s.GetFilterString(), s.FilterCount());
 		if (file.empty() == false) {
 			SetImageLocation(file);
-		}
+		}*/
 	}
 
 	void Viewer::OnLoadMessage(Img::MessageReceiver::LoadMessage msg, Img::Image* pImage, const std::string& desc) {
@@ -727,16 +734,16 @@ namespace App {
 		l.unlock();
 
 		if(notification.message == Img::MessageReceiver::LoadErrorCritical) {
-			m_exceptionDescription = notification.desc;
+			/*m_exceptionDescription = notification.desc;
 			m_exceptionOcurred = true;
-			PostMessage(Handle(), WM_CLOSE, 0, 0);
+			PostMessage(Handle(), WM_CLOSE, 0, 0);*/
 		}
 		if (notification.image == m_viewPort.Image().get()) {
 			switch (notification.message) {
 				case Img::MessageReceiver::LoadDone:
 					m_viewPort.ImageUpdated();
 					UpdateImageInformation();
-					m_viewPort.Redraw();
+					m_viewPort.Refresh();
 					break;
 				case Img::MessageReceiver::LoadAllocated:
 					m_viewPort.ImageUpdated();
@@ -792,7 +799,7 @@ namespace App {
 		m_cacheNotifications.push_back(notification);
 		l.unlock();
 
-		QueueMessage(WM_APP + ViewerImageLoadEvent, 0, 0);
+		//QueueMessage(WM_APP + ViewerImageLoadEvent, 0, 0);
 	}
 
 	void Viewer::AddNotification(const IO::FileEvent& notification) {
@@ -800,7 +807,7 @@ namespace App {
 		m_folderNotifications.push_back(notification);
 		l.unlock();
 
-		QueueMessage(WM_APP + ViewerListUpdate, 0, 0);
+		//QueueMessage(WM_APP + ViewerListUpdate, 0, 0);
 	}
 
 	void Viewer::UpdateMemoryLimits() {
@@ -811,7 +818,7 @@ namespace App {
 	}
 
 	void Viewer::ImageChanged() {
-		if (IsZoomed(Handle()) || m_viewPort.Image() == nullptr) {
+		if (/*IsZoomed(Handle()) || */m_viewPort.Image() == nullptr) {
 			return;
 		}
 
@@ -821,16 +828,17 @@ namespace App {
 			if (m_cfg.View.ResizeWindow) {
 				// The window should be resized some way.
 				SizeInt newSize;
-				SizeInt windowEdges = GetSize() - ClientRect().Dimensions();
+				SizeInt windowEdges = wxToSize(GetSize()) - ClientRect().Dimensions();
 
-				if (m_cfg.View.ShowStatusBar) {
+				/*if (m_cfg.View.ShowStatusBar) {
 					windowEdges.Height += m_statusBar->Position().Height();
-				}
+				}*/
 
 				if (m_viewPort.ZoomMode() == App::ZoomFitImage) {
 					// The image should _also_ be resized to fit some way.
 					// Make the viewer as large as possible (and needed).
-					const RectInt& rtDesktop = Win::FindMonitorAt(PositionScreen())->WorkArea();
+					//const RectInt& rtDesktop = Win::FindMonitorAt(PositionScreen())->WorkArea();
+					RectInt rtDesktop(PointInt(0, 0), SizeInt(2560, 1440));
 
 					float xratio = static_cast<float>(rtDesktop.Width() - windowEdges.Width) / imageSize.Width;
 					float yratio = static_cast<float>(rtDesktop.Height() - windowEdges.Height) / imageSize.Height;
@@ -844,11 +852,11 @@ namespace App {
 
 				PointInt newTopLeft = calculateWindowTopLeft(m_cfg.View.ResizePositionMethod, newSize);
 
-				MoveResize(newTopLeft, newSize);
+				SetSize(newTopLeft.X, newTopLeft.Y, newSize.Width, newSize.Height);
 
 			}
 			else {
-				OnSize(GetSize());	// Adjust to the current window
+				PerformOnSize(wxToSize(GetSize()));	// Adjust to the current window
 			}
 		}
 
@@ -856,7 +864,8 @@ namespace App {
 	}
 
 	App::PointInt Viewer::calculateWindowTopLeft(ResizePositionMethod method, const SizeInt &newSize ) {
-		const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
+		//const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
+		const RectInt& rtDesktop	= RectInt(PointInt(0, 0), SizeInt(2560, 1440));
 
 		switch (method) {
 		case ResizePositionMethod::PositionToScreen:
@@ -910,7 +919,8 @@ namespace App {
 	}
 
 	SizeInt Viewer::calculateImageSize( ResizeBehaviour mode, float xratio, float yratio, const SizeInt &imageSize, const SizeInt &windowEdges ) {
-		const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
+		//const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
+		const RectInt& rtDesktop	= RectInt(PointInt(0, 0), SizeInt(2560, 1440));
 
 		// The image is larger than the desktop. The image is not supposed
 		// to be downscaled so fill the screen.
@@ -928,7 +938,8 @@ namespace App {
 	}
 
 	SizeInt Viewer::calculateCappedImageSize( const SizeInt& imageSize, const SizeInt &windowEdges ) {
-		const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
+		//const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
+		const RectInt& rtDesktop	= RectInt(PointInt(0, 0), SizeInt(2560, 1440));
 
 		return SizeInt(
 			std::max<int>(MinWindowWidth,  std::min<int>(rtDesktop.Width(), imageSize.Width + windowEdges.Width)),
@@ -950,41 +961,18 @@ namespace App {
 		return ss.str();
 	}
 
-	bool Viewer::PerformOnCreateTaskbar() {
-		Win::Win7Taskbar taskbar;
-		taskbar.AddButton(0, 0);
-		taskbar.AddButton(1, 1);
-		taskbar.SetImageList(m_shellTaskbarImageList.Handle());
-		taskbar.Create(Handle());
-		return true;
-	}
-
-	bool Viewer::PerformOnTaskbarButton(int id) {
-		switch(id) {
-			case 0:
-				ImagePrev(1);
-				break;
-			case 1:
-				ImageNext(1);
-				break;
-			default:
-				return false;
-		}
-		return true;
-	}
-
 	void Viewer::AdjustChange(int brightness, int contrast, int gamma) {
 		m_viewPort.Brightness(brightness);
 		m_viewPort.Contrast(contrast);
 		m_viewPort.Gamma(gamma);
-		m_viewPort.Redraw();
+		m_viewPort.Refresh();
 	}
 
 	void Viewer::ShowAdjust() {
-		m_adjust.DoModeless(this);
+		/*m_adjust.DoModeless(this);
 		m_adjust.Brightness(m_viewPort.Brightness());
 		m_adjust.Contrast(m_viewPort.Contrast());
-		m_adjust.Gamma(m_viewPort.Gamma());
+		m_adjust.Gamma(m_viewPort.Gamma());*/
 	}
 
 	void Viewer::SetImageLocation(const std::string& path) {
@@ -1023,14 +1011,14 @@ namespace App {
 		// Disable automatic hiding while the context menu is visible
 		ViewPort::CursorMode m=m_viewPort.ActiveCursorMode();
 		m_viewPort.ActiveCursorMode(ViewPort::CursorShow);
-		m_contextMenu.Display(e.Position);
+		//m_contextMenu.Display(e.Position);
 
 		// Return to whatever it was originally
 		m_viewPort.ActiveCursorMode(m);
 	}
 
 	void Viewer::ShowSettings() {
-		m_settings->DoModeless(this);
+		//m_settings->DoModeless(this);
 	}
 
 	void Viewer::OpenDirectoryInExplorer() {
@@ -1044,7 +1032,7 @@ namespace App {
 		std::wstring cmd(L"explorer /e,/select,\"" + UTF8ToWString(m_cacher.CurrentImageFilename()) + L"\"");
 
 		// Start the new process
-		STARTUPINFO si;
+		/*STARTUPINFO si;
 		PROCESS_INFORMATION pi;
 		ZeroMemory(&si, sizeof(si));
 		si.cb=sizeof(si);
@@ -1058,7 +1046,7 @@ namespace App {
 		// Finally, launch explorer.exe with the nifty params
 		CreateProcess(0, tmpStr.get(), 0, 0, false, 0, 0, 0, &si, &pi);
 		CloseHandle(pi.hProcess);
-		CloseHandle(pi.hThread);
+		CloseHandle(pi.hThread);*/
 	}
 
 	void Viewer::Sort(Img::Cacher::SortMethod m) {
@@ -1071,15 +1059,15 @@ namespace App {
 		m_cacher.WrapAround(m_cfg.View.BrowseWrapAround);
 		m_keys.SetBindings(m_cfg.Keyboard);
 
-		m_statusBar->Visible(m_cfg.View.ShowStatusBar && ViewportMode() != SM_Fullscreen);
+		//m_statusBar->Visible(m_cfg.View.ShowStatusBar && ViewportMode() != SM_Fullscreen);
 		RecalculateViewportSize();
 
 		UpdateViewportConfig();
 
 		UpdateMemoryLimits();
-		m_viewPort.Redraw();
+		m_viewPort.Refresh();
 
-		AlwaysOnTop(m_cfg.View.AlwaysOnTop);
+		//AlwaysOnTop(m_cfg.View.AlwaysOnTop);
 		ImageChanged();
 	}
 
@@ -1095,6 +1083,24 @@ namespace App {
 		m_viewPort.ResetPan(m_cfg.View.ResetPan);
 		m_viewPort.MouseConfig(m_cfg.Mouse);
 		m_viewPort.BackgroundColor(m_cfg.Render.BackgroundColor);
+	}
+
+	Geom::PointInt Viewer::PositionScreen()
+	{
+		return Win::wxToPoint(GetPosition());
+		//return Geom::Rect<int>(Geom::PointInt(rect.x, rect.y), Geom::SizeInt(rect.width, rect.height));
+	}
+
+	Geom::RectInt Viewer::ClientRect()
+	{
+		auto rect = GetClientRect();
+		return Geom::Rect<int>(Geom::PointInt(rect.x, rect.y), Geom::SizeInt(rect.width, rect.height));
+	}
+
+	bool Viewer::Init()
+	{
+		Create(nullptr, -1, L"Pictus", wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE);
+		return PerformOnCreate();
 	}
 
 }

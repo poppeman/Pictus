@@ -62,6 +62,16 @@ namespace Win {
 #endif
 	}
 
+	::Geom::SizeInt wxToSize(::wxSize sz)
+	{
+		return {sz.x, sz.y};
+	}
+
+	Geom::PointInt wxToPoint(wxPoint pt)
+	{
+		return Geom::Point<int>(pt.x, pt.y);
+	}
+
 	bool KeyEvent::operator<(const KeyEvent& rhs) const {
 		if(!AltPressed && rhs.AltPressed) return true;
 		if(AltPressed && !rhs.AltPressed) return false;
@@ -78,6 +88,11 @@ namespace Win {
 		CtrlPressed(isCtrlPressed),
 		ShiftPressed(isShiftPressed)
 	{
+	}
+
+	KeyEvent::KeyEvent(wxKeyEvent evt)
+	{
+		KeyEvent((wxKeyCode)evt.GetKeyCode(), evt.AltDown(), evt.CmdDown(), evt.ShiftDown());
 	}
 
 	MouseEvent::MouseEvent() : Button(Left), Position(0, 0), WheelTicks(0)

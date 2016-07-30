@@ -7,10 +7,9 @@
 #include "imagecache.h"
 
 #include "w32_rendertarget.h"
-#include "window.h"
 
-#include "adjust.h"
-#include "settings.h"
+//#include "adjust.h"
+//#include "settings.h"
 #include "viewport.h"
 
 #include "wallpaper.h"
@@ -18,24 +17,26 @@
 #include "illa/codecmgr.h"
 #include "appreg.h"
 
-#include "viewer_contextmenu.h"
+//#include "viewer_contextmenu.h"
 #include "viewer_keyboard.h"
 #include "actionmap.h"
-#include "ctrl_statusbar.h"
-#include "imagelist.h"
+//#include "ctrl_statusbar.h"
 
 #include <random>
 
 #include <ctime>
+#include <wx/frame.h>
 
 namespace App {
-	class Viewer:public Win::Window, public Img::MessageReceiver {
+	class Viewer:public wxFrame, public Img::MessageReceiver {
 	public:
 		static const wchar_t* ClassName;
 		static const wchar_t* AppTitle;
 
-		bool Show(bool doShow);
+		//bool Show(bool doShow);
 		void ActiveImage(Img::Image::Ptr pImage);
+
+		bool Init();
 
 		Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config, const std::string params = "");
 		~Viewer();
@@ -97,13 +98,13 @@ namespace App {
 
 		bool PerformOnSize(const Geom::SizeInt& sz);
 		bool PerformOnMove(const Geom::PointInt& pt, bool byUser);
-		bool PerformOnDropFiles(const StringVector& files);
+		//bool PerformOnDropFiles(const StringVector& files);
 
-		bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
+		//bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
 
 		void SetImageLocation(const std::string& path);
 
-		bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
+		//bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
 		bool PerformOnCreateTaskbar();
 		bool PerformOnTaskbarButton(int id);
 
@@ -197,7 +198,7 @@ namespace App {
 
 		boost::signals2::connection m_lang;
 
-		LONG_PTR m_previousWindowStyle;
+		//LONG_PTR m_previousWindowStyle;
 		Geom::RectInt m_previousWindowRegion;
 		Geom::RectInt m_previousNonMaximizedWindowRegion;
 
@@ -210,13 +211,13 @@ namespace App {
 		bool m_doMaximize;
 
 		// Settings, adjust, stuff like that
-		Settings::Ptr m_settings;
-		Adjust m_adjust;
+		//Settings::Ptr m_settings;
+		//Adjust m_adjust;
 
 		ViewPort m_viewPort;
 
-		Win::StatusBar::Ptr m_statusBar;
-		Win::StatusBarPart m_statusParts[StatusNumParts];
+		//Win::StatusBar::Ptr m_statusBar;
+		//Win::StatusBarPart m_statusParts[StatusNumParts];
 
 		std::mutex m_mutexNotification;
 
@@ -227,11 +228,10 @@ namespace App {
 
 		Img::CodecFactoryStore* m_codecs;
 
-		ViewerContextMenu m_contextMenu;
+		//ViewerContextMenu m_contextMenu;
 		ViewerKeyboard m_keys;
-		Win::ImageList m_shellTaskbarImageList;
 
-		HANDLE m_singleMutex;
+		//HANDLE m_singleMutex;
 
 		typedef ActionMapParam<MouseAction, Win::MouseEvent> MouseActionMap;
 		MouseActionMap m_mouseMap;
@@ -239,6 +239,9 @@ namespace App {
 		std::default_random_engine m_random;
 
 		Reg::Settings m_cfg;
+
+		Geom::PointInt PositionScreen();
+		Geom::RectInt ClientRect();
 	};
 }
 

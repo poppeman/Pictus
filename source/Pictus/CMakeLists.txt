@@ -1,15 +1,17 @@
 cmake_minimum_required (VERSION 2.8)
 project (Pictus)
 
-find_package(wxWidgets REQUIRED COMPONENTS core base)
+find_package(wxWidgets COMPONENTS core base REQUIRED)
 
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(PICTUS_CPP_SRCS
 		app_types.cpp
 		appreg.cpp
+		builder_viewport.cpp
 		d3d_ddsurface.cpp
 		filterstring.cpp
 		getevent.cpp
+		factory_renderer.cpp
 		ic_backgroundprocessor.cpp
 		ic_imageloader.cpp
 		ic_queue.cpp
@@ -20,6 +22,7 @@ set(PICTUS_CPP_SRCS
 		imagecache_fileentry.cpp
 		imagecache_workrequest.cpp
 		lang_val.cpp
+		main.cpp
 		reg_color_translator.cpp
 		reg_filter_mode_translator.cpp
 		reg_keyboard_binding_translator.cpp
@@ -29,8 +32,16 @@ set(PICTUS_CPP_SRCS
 		reg_resize_position_method_translator.cpp
 		reg_zoom_mode_translator.cpp
 		registry.cpp
+		timer.cpp
 		view_pan.cpp
+		viewer.cpp
+		viewer_keyboard.cpp
+		viewport.cpp
+		w32_assure_folder.cpp
+		w32_ddsurface.cpp
+		w32_redrawstrategy.cpp
 		w32_renderer.cpp
+		w32_rendertarget.cpp
 		w32_rs_tiled.cpp
 		w32_rs_tilemanager.cpp
 		wintypes.cpp
@@ -51,5 +62,5 @@ if(MINGW)
 endif(MINGW)
 
 add_executable(Pictus ${PICTUS_CPP_SRCS} ${PICTUS_RC_SRCS} ${DEPS_DIRECTORY})
-target_link_libraries(Pictus illa orz d3dwrap comctl32 ${Boost_LIBRARIES})
+target_link_libraries(Pictus illa orz hw3d ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
 add_dependencies(Pictus orzTest illaTest pictusTest)

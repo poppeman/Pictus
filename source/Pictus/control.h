@@ -39,7 +39,7 @@ namespace Win {
 
 	private:
 		void AttachTo(Window* owner);
-		
+
 		virtual boost::optional<LRESULT> PerformOnNotify(LPNMHDR lParam);
 		virtual HWND PerformDynamicCreate();
 

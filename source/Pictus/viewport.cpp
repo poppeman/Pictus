@@ -6,31 +6,41 @@
 
 const wchar_t* App::ViewPort::ClassName = L"Pictus ViewPort";
 
+BEGIN_EVENT_TABLE(App::ViewPort, wxWindow)
+END_EVENT_TABLE()
+
 namespace App {
 	using Geom::RectInt;
 	using Geom::PointInt;
 	using Geom::SizeInt;
 
-	ViewPort::ViewPort():
+	ViewPort::ViewPort(wxWindow* parent):
 		m_isCursorVisible(true),
 		m_cursorMode(CursorShow),
 		m_displayZoom(1.0f),
 		m_imageZoom(1.0f),
-		m_currentPanMonitor(nullptr),
+		//m_currentPanMonitor(nullptr),
 		m_isPanning(false),
-		m_resetPan(false)
+		m_resetPan(false),
+		m_parent(parent)
 	{
 		Img::SurfaceFactory(&m_renderTarget);
-		OnMouseMove.connect([&](Win::MouseEvent e) { return HandleMouseMove(e); });
-		OnMouseButtonDown.connect([&](Win::MouseEvent e) { return HandleMouseDown(e); });
-		OnMouseButtonUp.connect([&](Win::MouseEvent e) { return HandleMouseUp(e); });
 
-		m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
-		m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
+		Bind(wxEVT_MOTION, [&](wxMouseEvent e) { return HandleMouseMove(e); });
+		// TODO: Bind the other events
+		Bind(wxEVT_LEFT_DOWN, [&](Win::MouseEvent e) { return HandleMouseDown(e); });
+		Bind(wxEVT_LEFT_UP, [&](Win::MouseEvent e) { return HandleMouseUp(e); });
+
+		//m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
+		//m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
 	}
 
 	bool ViewPort::PerformOnCreate() {
-		m_hParent = Parent()->Handle();
+		Create(m_parent, 123);
+		SetPosition({0, 0});
+		SetSize(320, 200);
+		Show(true);
+		/*m_hParent = Parent()->Handle();
 
 		// Register the window class (if possible)
 		WNDCLASSEX wc;
@@ -44,7 +54,8 @@ namespace App {
 		RegisterClassEx(&wc);
 
 		// Create window without any nifty features
-		return ConstructWindow(RectInt(PointInt(0, 0), SizeInt(1, 1)), WS_EX_ACCEPTFILES, ClassName, L"", WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN);
+		return ConstructWindow(RectInt(PointInt(0, 0), SizeInt(1, 1)), WS_EX_ACCEPTFILES, ClassName, L"", WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN);*/
+		return true;
 	}
 
 	void ViewPort::setSurface() {
@@ -113,8 +124,9 @@ namespace App {
 
 		}
 
-		InvalidateRect(Handle(), 0, false);
-		OnSize(GetSize());
+		Refresh();
+		/*InvalidateRect(Handle(), 0, false);
+		OnSize(GetSize());*/
 	}
 
 	Img::Image::Ptr ViewPort::Image() const {
@@ -123,6 +135,7 @@ namespace App {
 
 	void ViewPort::BackgroundColor(const Img::Color& col) {
 		m_props.BackgroundColor = col;
+		SetBackgroundColour(wxColour(col.R, col.G, col.B, col.A));
 	}
 
 	const Img::Color& ViewPort::BackgroundColor() const {
@@ -132,7 +145,7 @@ namespace App {
 	void ViewPort::Rotate(Filter::RotationAngle r) {
 		m_props.RequestedAngle = r;
 
-		OnSize(GetSize());
+		PerformOnSize(Win::wxToSize(GetSize()));
 	}
 
 	Filter::RotationAngle ViewPort::Rotation() const {
@@ -160,7 +173,7 @@ namespace App {
 		if (m_image->Delay() != -1) {
 			m_image->NextFrame();
 			m_animationTimer.Create(m_image->Delay());
-			Redraw();
+			Refresh();
 		}
 		else {
 			if (m_image && m_image->IsHeaderInformationValid()) {
@@ -168,7 +181,7 @@ namespace App {
 			}
 
 			bool status = m_image->IsFinished();
-			Redraw();
+			Refresh();
 			if (status) {
 				m_animationTimer.Destroy();
 			}
@@ -179,7 +192,7 @@ namespace App {
 		setSurface();
 
 		// TODO: This may call BEFORE the surface is allocated, and will thus fail when attempting to lock.
-		if (m_image && m_image->IsHeaderInformationValid() && AreaNonZero(ZoomedImageSize()) && (AreaNonZero(GetSize()))) {
+		if (m_image && m_image->IsHeaderInformationValid() && AreaNonZero(ZoomedImageSize()) && (Geom::AreaNonZero(Win::wxToSize(GetSize())))) {
 			bool status = m_image->IsFinished();
 
 			m_props.ResampleFilter = ActiveFilterMode();
@@ -195,7 +208,7 @@ namespace App {
 
 			// Direct3D9 Ex (with FLIPEX) doesn't seem to validate the window the same way as vanilla D3D9.
 			// Therefore we do it ourselves to prevent WM_PAINT spam.
-			ValidateRect(Handle(), nullptr);
+			//ValidateRect(Handle(), nullptr);
 			return true;
 		}
 
@@ -215,19 +228,19 @@ namespace App {
 	}
 
 
-	bool ViewPort::PerformOnApp(int index, WPARAM wp, LPARAM lp) {
+	/*bool ViewPort::PerformOnApp(int index, WPARAM wp, LPARAM lp) {
 		if (Parent()) {
 			return Parent()->OnApp(index, wp, lp);
 		}
 		return false;
-	}
+	}*/
 
 	bool ViewPort::HandleMouseDown(Win::MouseEvent e) {
 		if (MouseStandardEvent(e, m_mouseConfig) == MousePan) {
 			m_isPanning = true;
 			m_oldMousePosition = MouseCursorPos();
-			m_currentPanMonitor = Win::FindMonitorAt(m_oldMousePosition);
-			SetCapture(Handle());
+			/*m_currentPanMonitor = Win::FindMonitorAt(m_oldMousePosition);*/
+			CaptureMouse();
 			return true;
 		}
 		return false;
@@ -235,7 +248,7 @@ namespace App {
 
 	bool ViewPort::HandleMouseUp(Win::MouseEvent) {
 		// Done panning, release mouse
-		ReleaseCapture();
+		ReleaseMouse();
 
 		m_isPanning = false;
 
@@ -249,14 +262,15 @@ namespace App {
 			return false;
 		}
 
-		if (m_currentPanMonitor == nullptr) {
+		/*if (m_currentPanMonitor == nullptr) {
 			DO_THROW(Err::CriticalError, "Current panning monitor not set.");
-		}
+		}*/
 
 		auto globalPosition = MouseCursorPos();
 		auto mousePosition = globalPosition;
 
-		const Geom::RectInt& screen = m_currentPanMonitor->Region();
+		// TODO: Reimplement snazzy screen wrapping
+		/*const Geom::RectInt& screen = m_currentPanMonitor->Region();
 
 		if (mousePosition.X >= (screen.Right() - 1)) {
 			mousePosition.X = screen.Left() + 1;
@@ -283,7 +297,7 @@ namespace App {
 			mousePosition.X = p.x; mousePosition.Y = p.y;
 
 			m_oldMousePosition = mousePosition;
-		}
+		}*/
 
 		SizeInt dPos(mousePosition - m_oldMousePosition);
 		if ((dPos.Width != 0) || (dPos.Height != 0)) {
@@ -297,9 +311,10 @@ namespace App {
 	}
 
 	void ViewPort::CursorHideCallback() {
-		if (GetForegroundWindow() == Parent()->Handle()) {
+		// TODO: Reimplement cursor hiding
+		/*if (GetForegroundWindow() == Parent()->Handle()) {
 			ShowCursor(false);
-		}
+		}*/
 	}
 
 	SizeInt ViewPort::OptimalViewportSize() {
@@ -313,7 +328,7 @@ namespace App {
 	bool ViewPort::PerformOnSize(const SizeInt& sz) {
 		// Make sure that the image is in a useful state
 		auto r = m_zoom.CalculateViewAreaSize(
-			GetSize(),
+			Win::wxToSize(GetSize()),
 			Img::CalculateUnzoomedSize(m_renderTarget.CurrentSurface(), m_props.FinalAngle()),
 			Img::CalculateUnzoomedSize(m_image, m_props.FinalAngle()));
 		m_displayZoom = r.ZoomImage;
@@ -342,15 +357,17 @@ namespace App {
 
 		//UpdateCursor();
 
-		if (Handle() != 0) {
+		Refresh();
+		/*if (Handle() != 0) {
 			InvalidateRect(Handle(), 0, false);
-		}
+		}*/
 	}
 
 	void ViewPort::updateCursor() {
 		m_hideTimer.Destroy();
 
-		switch(m_cursorMode) {
+		// TODO: Reimplement cursor hiding
+		/*switch(m_cursorMode) {
 			case CursorHide:
 				ShowCursor(false);
 				break;
@@ -366,7 +383,7 @@ namespace App {
 
 				m_hideTimer.Create(HideDelay);
 				break;
-		}
+		}*/
 	}
 
 	void ViewPort::Brightness(int newLevel) {
@@ -393,18 +410,18 @@ namespace App {
 		return m_props.Gamma;
 	}
 
-	bool ViewPort::PerformOnDropFiles( const StringVector& files ) {
+	/*bool ViewPort::PerformOnDropFiles( const StringVector& files ) {
 		auto parentWindow = dynamic_cast<Win::Window*>(Parent());
 		if (parentWindow == nullptr) {
 			DO_THROW(Err::CriticalError, "Parent window was not a proper window.");
 		}
 
 		return parentWindow->OnDropFiles(files);
-	}
+	}*/
 
 	bool ViewPort::SetRenderer( Win::Renderer::Ptr renderer ) {
 		m_renderTarget.SetRenderer(renderer);
-		return m_renderTarget.TargetWindow(Handle());
+		return m_renderTarget.TargetWindow(this);
 	}
 
 	void ViewPort::SetRedrawStrategy(Win::RedrawStrategy::Ptr strategy) {
@@ -424,7 +441,7 @@ namespace App {
 	}
 
 	void ViewPort::ZoomUpdated() {
-		OnSize(GetSize());
+		PerformOnSize(Win::wxToSize(GetSize()));
 	}
 
 	void ViewPort::ZoomIn() {
@@ -463,4 +480,17 @@ namespace App {
 	void ViewPort::ResizeBehaviour(App::ResizeBehaviour newResizeBehaviour) {
 		m_zoom.ResizeBehaviour(newResizeBehaviour);
 	}
+
+	PointInt ViewPort::MouseCursorPos()
+	{
+		auto state = wxGetMouseState();
+		auto pos = state.GetPosition();
+		return {pos.x, pos.y};
+	}
+
+	void ViewPort::Init()
+	{
+		PerformOnCreate();
+	}
+
 }

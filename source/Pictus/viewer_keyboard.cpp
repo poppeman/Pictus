@@ -6,7 +6,8 @@ namespace App {
 	void ViewerKeyboard::Construct(Viewer* owner) {
 		m_owner = owner;
 
-		m_owner->OnKeyDown.connect([&](Win::KeyEvent e) {
+		m_owner->Bind(wxEVT_KEY_DOWN, [&](wxKeyEvent& wxe) {
+			auto e = Win::KeyEvent(wxe);
 			for (auto x : m_cfg.Bindings) {
 				if (x.Key.Key == e.Key && x.Key.Alt == e.AltPressed && x.Key.Shift == e.ShiftPressed && x.Key.Ctrl == e.CtrlPressed) {
 					switch (x.Action) {

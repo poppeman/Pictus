@@ -35,12 +35,15 @@ namespace Win {
 		bool operator<(const KeyEvent &rhs) const;
 
 		KeyEvent(wxKeyCode key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed);
+		KeyEvent(wxKeyEvent evt);
 	};
 
 	std::string LongPath(const std::string &path);
 //	Geom::RectInt WxToRect(const RECT &rect);
 //	RECT RectToWx(const Geom::RectInt &rect);
 	wxPoint PointToWx(const Geom::PointInt &point);
+	Geom::PointInt wxToPoint(wxPoint pt);
+	::Geom::SizeInt wxToSize(::wxSize sz);
 }
 
 #endif

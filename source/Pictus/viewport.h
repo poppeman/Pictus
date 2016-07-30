@@ -1,9 +1,9 @@
 #ifndef VIEWPORT_H
 #define VIEWPORT_H
 
+#include <orz/geom.h>
 #include "illa/image.h"
 
-#include "window.h"
 #include "zoomstrategy.h"
 #include "timer.h"
 #include "view_pan.h"
@@ -12,11 +12,12 @@
 #include "w32_redrawstrategy.h"
 #include "w32_rendertarget.h"
 
-#include "monitor.h"
+//#include "monitor.h"
 #include "appreg.h"
+#include "wintypes.h"
 
 namespace App {
-	class ViewPort:public Win::Window {
+	class ViewPort:public wxWindow {
 	public:
 		enum {
 			HideDelay = 1000,
@@ -80,19 +81,24 @@ namespace App {
 		Geom::SizeInt OptimalViewportSize();
 		Geom::SizeInt ZoomedImageSize();
 
-		ViewPort();
+		void Init();
+
+		ViewPort(wxWindow* parent);
+		ViewPort()=delete;
 
 	private:
+		Geom::PointInt MouseCursorPos();
+
 		bool HandleMouseMove(Win::MouseEvent e);
 		bool HandleMouseDown(Win::MouseEvent e);
 		bool HandleMouseUp(Win::MouseEvent e);
 		void ImageRefreshCallback();
 		bool PerformOnCreate();
 
-		bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
+		//bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
 		bool PerformOnPaint();
 		bool PerformOnSize(const Geom::SizeInt& sz);
-		bool PerformOnDropFiles(const StringVector& files);
+		//bool PerformOnDropFiles(const StringVector& files);
 
 		void ZoomSet(const ZoomStrategy::Result& r);
 
@@ -111,25 +117,28 @@ namespace App {
 
 		Geom::PointInt m_oldMousePosition;
 		ViewPan m_pan;
-		bool m_isPanning;
-		const Win::Monitor* m_currentPanMonitor;
+		//const Win::Monitor* m_currentPanMonitor;
 
-		HWND m_hParent;
+		//HWND m_hParent;
 
-		HWND m_hOldParent;
-		CursorMode m_cursorMode;
-		RECT m_oldSize;
+		//HWND m_hOldParent;
 		bool m_isCursorVisible;
+		CursorMode m_cursorMode;
+		//RECT m_oldSize;
 		Img::Image::Ptr m_image;
 
 		Img::Properties m_props;
 
-		bool m_resetPan;
 
 		ZoomStrategy m_zoom;
 		float m_displayZoom;
 		float m_imageZoom;
+		bool m_isPanning;
+		bool m_resetPan;
 		Filter::Mode m_magFilter, m_minFilter;
+		wxWindow* m_parent;
+
+		wxDECLARE_EVENT_TABLE();
 	};
 }
 

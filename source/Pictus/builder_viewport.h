@@ -3,14 +3,10 @@
 
 #include "viewport.h"
 
-namespace Win {
-	class BaseWindow;
-}
-
 namespace App {
 	class ViewportBuilder {
 	public:
-		void BuildViewport(App::ViewPort& port, Win::BaseWindow* parent, Reg::Settings settings);
+		void BuildViewport(App::ViewPort& port, wxWindow* parent, Reg::Settings settings);
 	};
 }
 
