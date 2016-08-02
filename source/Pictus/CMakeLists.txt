@@ -6,7 +6,6 @@ find_package(wxWidgets COMPONENTS core base REQUIRED)
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(PICTUS_CPP_SRCS
 		app_types.cpp
-		appreg.cpp
 		builder_viewport.cpp
 		d3d_ddsurface.cpp
 		filterstring.cpp
@@ -32,6 +31,7 @@ set(PICTUS_CPP_SRCS
 		reg_resize_position_method_translator.cpp
 		reg_zoom_mode_translator.cpp
 		registry.cpp
+		resize_position_method.cpp
 		timer.cpp
 		view_pan.cpp
 		viewer.cpp

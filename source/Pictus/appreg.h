@@ -95,6 +95,5 @@ namespace Reg {
 	};
 }
 
-std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const App::ResizePositionMethod& fmt);
 
 #endif

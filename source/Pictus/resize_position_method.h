@@ -22,6 +22,8 @@ namespace App {
 		("PositionToCurrent", ResizePositionMethod::PositionToCurrent)
 		("PositionNothing", ResizePositionMethod::PositionNothing)
 		;
+
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const App::ResizePositionMethod& fmt);
 }
 
 #ifdef _MSC_VER
