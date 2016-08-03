@@ -38,14 +38,69 @@ namespace App {
 
 	using namespace Geom;
 
-	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg, const std::string params):
+	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg):
 		m_attemptToShow{ false },
 		m_screenMode{ SM_Normal },
 		m_doMaximize{ false },
-		m_viewPort{this},
+		m_viewPort{ this },
 		m_codecs{ cfs },
 		m_cfg( cfg )
 	{
+
+	}
+
+	Viewer::~Viewer() {
+		m_folderMonitor.Close();
+		m_cacher.Stop();
+
+		/*if (UnhandledExceptionOcurred()) {
+			MessageBox(nullptr, UTF8ToWString(UnhandledExceptionDescription()).c_str(), L"Pictus error", MB_OK);
+		}*/
+	}
+
+	/*bool Viewer::Show(bool doShow) {
+		auto img = m_viewPort.Image();
+		auto allocated = IsPositive(m_viewPort.OptimalViewportSize());
+		auto defective = img?!img->IsHeaderInformationValid() && img->IsFinished():true;
+		ImageChanged();
+		if (m_doMaximize == false && !allocated && !defective) {
+			m_attemptToShow = doShow;
+			return true;
+		}
+
+		ShowWindow(Handle(), (doShow ? (m_doMaximize ? SW_MAXIMIZE : SW_SHOW) : SW_HIDE));
+		if (doShow) {
+			m_doMaximize = false;
+		}
+		m_attemptToShow = false;
+		return true;
+	}*/
+
+	void Viewer::ActiveImage(Img::Image::Ptr pImage) {
+		if (m_viewPort.Image() == pImage) {
+			return;
+		}
+
+		m_viewPort.Image(pImage);
+
+		if (m_cfg.View.ResetZoom) {
+			ZoomMode(m_cfg.View.DefaultZoomMode);
+			UpdateImageInformation();
+		}
+		else {
+			ImageChanged();
+		}
+	}
+
+
+
+	bool Viewer::Init(const std::string params)
+	{
+		Create(nullptr, -1, L"Pictus", wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE);
+
+		ViewportBuilder b;
+		b.BuildViewport(m_viewPort, this, m_cfg);
+
 		//m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
 		// TODO: Bind all events again
 		Bind(wxEVT_LEFT_DOWN, [this](wxMouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
@@ -92,52 +147,7 @@ namespace App {
 		}
 
 		UpdateViewportConfig();
-	}
 
-	Viewer::~Viewer() {
-		m_folderMonitor.Close();
-		m_cacher.Stop();
-
-		/*if (UnhandledExceptionOcurred()) {
-			MessageBox(nullptr, UTF8ToWString(UnhandledExceptionDescription()).c_str(), L"Pictus error", MB_OK);
-		}*/
-	}
-
-	/*bool Viewer::Show(bool doShow) {
-		auto img = m_viewPort.Image();
-		auto allocated = IsPositive(m_viewPort.OptimalViewportSize());
-		auto defective = img?!img->IsHeaderInformationValid() && img->IsFinished():true;
-		ImageChanged();
-		if (m_doMaximize == false && !allocated && !defective) {
-			m_attemptToShow = doShow;
-			return true;
-		}
-
-		ShowWindow(Handle(), (doShow ? (m_doMaximize ? SW_MAXIMIZE : SW_SHOW) : SW_HIDE));
-		if (doShow) {
-			m_doMaximize = false;
-		}
-		m_attemptToShow = false;
-		return true;
-	}*/
-
-	void Viewer::ActiveImage(Img::Image::Ptr pImage) {
-		if (m_viewPort.Image() == pImage) {
-			return;
-		}
-
-		m_viewPort.Image(pImage);
-
-		if (m_cfg.View.ResetZoom) {
-			ZoomMode(m_cfg.View.DefaultZoomMode);
-			UpdateImageInformation();
-		}
-		else {
-			ImageChanged();
-		}
-	}
-
-	bool Viewer::PerformOnCreate() {
 		// Apply some settings that can't be set automatically
 		UpdateMemoryLimits();
 
@@ -198,15 +208,6 @@ namespace App {
 		}
 
 		m_statusBar->Visible(m_cfg.View.ShowStatusBar);*/
-
-		try {
-			ViewportBuilder b;
-			b.BuildViewport(m_viewPort, this, m_cfg);
-		}
-		catch(std::exception& e) {
-			wxMessageBox((UTF8ToWString(GetString(SIDErrorDirectX)) + std::wstring(L"\n\n") + UTF8ToWString(e.what())).c_str(), L"Error",  wxOK);
-			return false;
-		}
 
 		if ((m_sDirectory.length() > 0) && (m_sDirectory.at(0) != L'-'))
 			SetImageLocation(m_sDirectory);
@@ -1066,12 +1067,6 @@ namespace App {
 	{
 		auto rect = GetClientRect();
 		return Geom::Rect<int>(Geom::PointInt(rect.x, rect.y), Geom::SizeInt(rect.width, rect.height));
-	}
-
-	bool Viewer::Init()
-	{
-		Create(nullptr, -1, L"Pictus", wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE);
-		return PerformOnCreate();
 	}
 
 	void Viewer::AlwaysOnTop(bool doAlwaysOnTop)

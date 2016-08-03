@@ -33,6 +33,7 @@ namespace App {
 		};
 
 	public:
+		void SetCanvas(wxWindow* canvas);
 		bool SetRenderer(Win::Renderer::Ptr renderer);
 		void SetRedrawStrategy(Win::RedrawStrategy::Ptr strategy);
 

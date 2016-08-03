@@ -1,4 +1,5 @@
 #include "hw3d_opengl_device.h"
+#include "hw3d_opengl_context.h"
 #include "hw3d_opengl_texture.h"
 #include "hw3d_opengl_vertexbuffer.h"
 #include <GL/gl.h>
@@ -52,5 +53,10 @@ namespace Hw3D
 	bool OpenGlDevice::OnInitialize()
 	{
 		return false;
+	}
+
+	std::shared_ptr<Context> OpenGlDevice::CreateContext()
+	{
+		return std::make_shared<OpenGlContext>();
 	}
 }

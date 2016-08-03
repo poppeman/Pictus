@@ -12,6 +12,7 @@ namespace App {
 	using Geom::SizeInt;
 
 	ViewPort::ViewPort(wxWindow* parent):
+		m_canvas{nullptr},
 		m_isCursorVisible(true),
 		m_cursorMode(CursorShow),
 		m_displayZoom(1.0f),
@@ -22,23 +23,13 @@ namespace App {
 		m_parent(parent)
 	{
 		Img::SurfaceFactory(&m_renderTarget);
-
-		m_canvas->Bind(wxEVT_MOTION, [&](wxMouseEvent e) { return HandleMouseMove(e); });
-		// TODO: Bind the other events
-		m_canvas->Bind(wxEVT_LEFT_DOWN, [&](Win::MouseEvent e) { return HandleMouseDown(e); });
-		m_canvas->Bind(wxEVT_LEFT_UP, [&](Win::MouseEvent e) { return HandleMouseUp(e); });
-
-		m_canvas->Bind(wxEVT_PAINT, [&](wxPaintEvent& evt) { PerformOnPaint(); });
-
-		//m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
-		//m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
 	}
 
 	bool ViewPort::PerformOnCreate() {
-		m_canvas->Create(m_parent, 123);
 		m_canvas->SetPosition({0, 0});
 		m_canvas->SetSize(320, 200);
 		m_canvas->Show(true);
+		m_canvas->GetSize();
 		/*m_hParent = Parent()->Handle();
 
 		// Register the window class (if possible)
@@ -419,11 +410,7 @@ namespace App {
 
 	bool ViewPort::SetRenderer( Win::Renderer::Ptr renderer ) {
 		m_renderTarget.SetRenderer(renderer);
-		if(m_canvas)
-		{
-			delete m_canvas;
-		}
-		//m_canvas = m_renderTarget.InitializeCanvas(m_parent);
+		m_renderTarget.TargetWindow(m_canvas);
 		return true;
 	}
 
@@ -509,5 +496,27 @@ namespace App {
 	void ViewPort::Refresh()
 	{
 		m_canvas->Refresh();
+	}
+
+	void ViewPort::SetCanvas(wxWindow* canvas)
+	{
+		if(m_canvas != nullptr)
+		{
+			delete m_canvas;
+			m_canvas = nullptr;
+		}
+
+		m_canvas = canvas;
+		m_canvas->Bind(wxEVT_MOTION, [&](wxMouseEvent e) { return HandleMouseMove(e); });
+		// TODO: Bind the other events
+		m_canvas->Bind(wxEVT_LEFT_DOWN, [&](Win::MouseEvent e) { return HandleMouseDown(e); });
+		m_canvas->Bind(wxEVT_LEFT_UP, [&](Win::MouseEvent e) { return HandleMouseUp(e); });
+
+		m_canvas->Bind(wxEVT_PAINT, [&](wxPaintEvent& evt) { PerformOnPaint(); });
+
+		m_renderTarget.TargetWindow(m_canvas);
+
+		//m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
+		//m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
 	}
 }

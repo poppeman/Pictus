@@ -78,11 +78,10 @@ namespace Win {
 
 			for (auto& t : *r) {
 				if (t.surface == 0) {
-					t.surface = m_device->CreateDDSurface();
+					t.surface = m_device->CreateDDSurface(texDims);
 					if (t.surface == nullptr) {
 						DO_THROW(Err::CriticalError, "Failed to create surface.");
 					}
-					t.surface->Create(texDims);
 				}
 			}
 		}

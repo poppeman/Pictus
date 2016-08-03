@@ -8,6 +8,9 @@ namespace App {
 	class RendererFactory {
 	public:
 		Win::Renderer::Ptr CreateRenderer();
+
+		std::shared_ptr<Hw3D::Device> CreateDevice();
+		wxWindow* CreateCanvas(wxWindow* parent);
 	};
 }
 

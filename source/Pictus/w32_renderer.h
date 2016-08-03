@@ -2,7 +2,6 @@
 #define W32_RENDERER_H
 
 #include "illa/surface.h"
-#include "w32_ddsurface.h"
 #include <wx/window.h>
 #include "hw3d_device.h"
 
@@ -12,12 +11,13 @@ namespace Win {
 		Filter::RotationAngle Angle;
 
 		Img::Surface::Ptr CreateSurface();
-		DDSurface::Ptr CreateDDSurface();
+		std::shared_ptr<Hw3D::Texture> CreateDDSurface(Geom::SizeInt dims);
 
 		Geom::SizeInt TransformedRenderAreaSize();
 		Geom::SizeInt Transform(Geom::SizeInt sz);
 		Geom::PointInt TransformPan(Geom::PointInt sz, Geom::SizeInt imageSize);
 
+		void Device(std::shared_ptr<Hw3D::Device> device);
 		bool TargetWindow(wxWindow* hwnd);
 
 		enum class RenderStatus {
@@ -26,9 +26,9 @@ namespace Win {
 		};
 
 		RenderStatus BeginRender(Img::Color backgroundColor);
-		void RenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props);
+		void RenderToDDSurface(std::shared_ptr<Hw3D::Texture> dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props);
 
-		void PresentFromDDSurface(Geom::RectInt destRect, DDSurface::Ptr source, Geom::PointInt sourceTopLeft);
+		void PresentFromDDSurface(Geom::RectInt destRect, std::shared_ptr<Hw3D::Texture> source, Geom::PointInt sourceTopLeft);
 
 		void EndRender();
 

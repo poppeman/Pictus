@@ -36,9 +36,9 @@ namespace App {
 		//bool Show(bool doShow);
 		void ActiveImage(Img::Image::Ptr pImage);
 
-		bool Init();
+		bool Init(const std::string params);
 
-		Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config, const std::string params = "");
+		Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config);
 		~Viewer();
 
 	private:
@@ -90,8 +90,6 @@ namespace App {
 		void UpdateViewportConfig();
 
 		void Sort(Img::Cacher::SortMethod m);
-
-		bool PerformOnCreate();
 
 		bool PerformOnWindowCreate();
 		bool PerformOnClose();

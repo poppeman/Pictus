@@ -20,8 +20,7 @@ namespace Win {
 		}
 
 		m_hwnd = hwnd;
-		//return m_renderer->TargetWindow(hwnd);
-		return false;
+		return m_renderer->TargetWindow(hwnd);
 	}
 
 	void WinRenderTarget::Render( const Geom::PointInt& sourceZoomedTopLeft, const Img::Properties& props ) {

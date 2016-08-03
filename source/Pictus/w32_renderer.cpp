@@ -1,7 +1,6 @@
 #include "w32_renderer.h"
 #include "orz/matrix.h"
 #include "illa/swsurface.h"
-#include "d3d_ddsurface.h"
 #include "illa/render.h"
 #include "render_geometry.h"
 
@@ -63,19 +62,17 @@ namespace Win {
 		DO_THROW(Err::InvalidCall, "Unsupported angle");
 	}
 
-	/*bool Renderer::TargetWindow( wxWindow* hwnd ) {
+	void Renderer::Device(std::shared_ptr<Hw3D::Device> device)
+	{
+		m_direct3d = device;
+		m_context = m_direct3d->CreateContext();
+	}
+
+	bool Renderer::TargetWindow( wxWindow* hwnd )
+	{
 		m_hwnd = hwnd;
-
-		if (m_direct3d == nullptr) {
-			m_direct3d = std::make_shared<Hw3D::Device>();
-		}
-
-		if (!m_direct3d->Initialize(TargetWindow())) {
-			m_direct3d.reset();
-			return false;
-		}
 		return true;
-	}*/
+	}
 
 	Renderer::RenderStatus Renderer::BeginRender(Img::Color backgroundColor) {
 		if (m_hwnd == nullptr) {
@@ -124,8 +121,8 @@ namespace Win {
 
 	wxWindow* Renderer::TargetWindow() { return m_hwnd; }
 
-	DDSurface::Ptr Renderer::CreateDDSurface() {
-		return std::make_shared<DDSurfaceD3D>(m_direct3d);
+	std::shared_ptr<Hw3D::Texture> Renderer::CreateDDSurface(Geom::SizeInt dims) {
+		return m_direct3d->CreateTexture(dims, Hw3D::Format::X8R8G8B8, Hw3D::Pool::Default);
 	}
 
 	void Renderer::CreateTextures() {
@@ -138,8 +135,8 @@ namespace Win {
 		return std::make_shared<Img::SurfaceSoftware>();
 	}
 
-	void Renderer::RenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props) {
-		DDSurfaceD3D* ds = dynamic_cast<DDSurfaceD3D*>(dest.get());
+	void Renderer::RenderToDDSurface(std::shared_ptr<Hw3D::Texture> dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props) {
+		//DDSurfaceD3D* ds = dynamic_cast<DDSurfaceD3D*>(dest.get());
 
 		if (m_softTex == 0 || !m_softTex->GetSize().AtLeastInclusive(destinationArea.Dimensions())) {
 			m_softTex = m_direct3d->CreateTexture(destinationArea.Dimensions(), Hw3D::Format::X8R8G8B8, Hw3D::Pool::SystemMemory);
@@ -163,7 +160,7 @@ namespace Win {
 				m_softTex,
 				RectInt(PointInt(0, 0),
 				destinationArea.Dimensions()),
-				ds->GetTexture(),
+				dest,
 				destinationArea.TopLeft());
 		}
 		catch (...) {
@@ -172,16 +169,14 @@ namespace Win {
 		}
 	}
 
-	void Renderer::PresentFromDDSurface(Geom::RectInt destRect, DDSurface::Ptr source, Geom::PointInt sourceTopLeft) {
+	void Renderer::PresentFromDDSurface(Geom::RectInt destRect, std::shared_ptr<Hw3D::Texture> source, Geom::PointInt sourceTopLeft) {
 		SizeFloat ppAdj{ -0.5f, -0.5f };
 
-		auto* ds = dynamic_cast<DDSurfaceD3D*>(source.get());
-		auto tex = ds->GetTexture();
-		m_context->SetTexture(0, tex);
+		m_context->SetTexture(0, source);
 
 		Hw3D::Vertex2D a, b, c, d;
-		auto uvTL = sourceTopLeft.StaticCast<float>() / source->Dimensions().StaticCast<float>();
-		auto uvBR = (sourceTopLeft + destRect.Dimensions()).StaticCast<float>() / source->Dimensions().StaticCast<float>();
+		auto uvTL = sourceTopLeft.StaticCast<float>() / source->GetSize().StaticCast<float>();
+		auto uvBR = (sourceTopLeft + destRect.Dimensions()).StaticCast<float>() / source->GetSize().StaticCast<float>();
 		App::GenerateQuad(
 			destRect.StaticCast<float>(),
 			{ uvTL, uvBR },

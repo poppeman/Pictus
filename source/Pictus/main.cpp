@@ -112,10 +112,10 @@ private:
 			Intl::LanguageTable(c_lang_strings);
 			Intl::CurrentLanguage(cfg.View.Language);
 
-			m_viewer = new App::Viewer(&cfs, cfg, params.c_str());
+			m_viewer = new App::Viewer(&cfs, cfg);
 
 			// Attempt to display viewer
-			if (m_viewer->Init())
+			if (m_viewer->Init(params.c_str()))
 			{
 				m_viewer->Show(true);
 			}
