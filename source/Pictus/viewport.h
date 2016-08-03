@@ -17,7 +17,7 @@
 #include "wintypes.h"
 
 namespace App {
-	class ViewPort:public wxWindow {
+	class ViewPort {
 	public:
 		enum {
 			HideDelay = 1000,
@@ -83,10 +83,17 @@ namespace App {
 
 		void Init();
 
+		void Refresh();
+
+		Geom::SizeInt GetSize();
+		void SetRect(Geom::RectInt newRect);
+
 		ViewPort(wxWindow* parent);
 		ViewPort()=delete;
 
 	private:
+		::wxWindow* m_canvas;
+
 		Geom::PointInt MouseCursorPos();
 
 		bool HandleMouseMove(Win::MouseEvent e);
@@ -117,7 +124,6 @@ namespace App {
 
 		Geom::PointInt m_oldMousePosition;
 		ViewPan m_pan;
-		//const Win::Monitor* m_currentPanMonitor;
 
 		//HWND m_hParent;
 
@@ -133,12 +139,12 @@ namespace App {
 		ZoomStrategy m_zoom;
 		float m_displayZoom;
 		float m_imageZoom;
+		int m_currentPanMonitor;
+
 		bool m_isPanning;
 		bool m_resetPan;
 		Filter::Mode m_magFilter, m_minFilter;
 		wxWindow* m_parent;
-
-		wxDECLARE_EVENT_TABLE();
 	};
 }
 

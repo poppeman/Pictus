@@ -2,8 +2,8 @@
 #define D3D_DDSURFACE_H
 
 #include "w32_ddsurface.h"
-#include "Hw3D/device.h"
-#include "Hw3D/texture.h"
+#include "hw3d_device.h"
+#include "hw3d_texture.h"
 
 namespace Win {
 	class DDSurfaceD3D:public DDSurface {

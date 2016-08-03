@@ -241,7 +241,9 @@ namespace App {
 		Reg::Settings m_cfg;
 
 		Geom::PointInt PositionScreen();
+		Geom::PointInt CenterPositionScreen();
 		Geom::RectInt ClientRect();
+		void AlwaysOnTop(bool doAlwaysOnTop);
 	};
 }
 

@@ -39,7 +39,7 @@ namespace Win {
 	};
 
 	std::string LongPath(const std::string &path);
-//	Geom::RectInt WxToRect(const RECT &rect);
+	Geom::RectInt wxToRect(const wxRect &rect);
 //	RECT RectToWx(const Geom::RectInt &rect);
 	wxPoint PointToWx(const Geom::PointInt &point);
 	Geom::PointInt wxToPoint(wxPoint pt);

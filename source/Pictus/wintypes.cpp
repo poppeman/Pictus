@@ -3,11 +3,11 @@
 #include <boost/scoped_array.hpp>
 
 namespace Win {
-	/*Geom::RectInt RECTToRect(const RECT& rect) {
-		return Geom::RectInt(Geom::PointInt(rect.left, rect.top), Geom::SizeInt(rect.right-rect.left, rect.bottom-rect.top));
+	Geom::RectInt wxToRect(const wxRect& rect) {
+		return Geom::RectInt(Geom::PointInt(rect.GetLeft(), rect.GetTop()), Geom::SizeInt(rect.GetRight()-rect.GetLeft(), rect.GetBottom()-rect.GetTop()));
 	}
 
-	RECT RectToRECT(const Geom::RectInt& rect) {
+/*	RECT RectToRECT(const Geom::RectInt& rect) {
 		RECT out_rect;
 		out_rect.bottom	= rect.Bottom();
 		out_rect.left	= rect.Left();

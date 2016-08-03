@@ -9,7 +9,6 @@
 
 //#include "rename.h"
 
-//#include "gdiwrapper.h"
 #include "registry.h"
 
 #include "getevent.h"
@@ -17,8 +16,6 @@
 
 #include "config.h"
 #include "res_viewer.h"
-
-//#include "win7taskbar.h"
 
 #include "filterstring.h"
 #include "builder_viewport.h"
@@ -29,6 +26,7 @@
 #include <boost/format.hpp>
 #include <boost/scoped_array.hpp>
 #include <random>
+#include <wx/display.h>
 #include <wx/msgdlg.h>
 
 const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
@@ -41,7 +39,6 @@ namespace App {
 	using namespace Geom;
 
 	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg, const std::string params):
-		//m_singleMutex{ 0 },
 		m_attemptToShow{ false },
 		m_screenMode{ SM_Normal },
 		m_doMaximize{ false },
@@ -94,34 +91,6 @@ namespace App {
 			m_sDirectory = "";
 		}
 
-		// Look for another process (disallow if the setting requires that)
-		/*m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
-
-		if ((GetLastError() == ERROR_ALREADY_EXISTS) && (m_cfg.View.MultipleInstances == false)) {
-			if (HWND hwnd = ::FindWindow(ClassName, 0)) {
-				SetForegroundWindow(hwnd);
-				if (IsIconic(hwnd)) {
-					ShowWindow(hwnd, SW_RESTORE);
-				}
-
-				// Tell the instance to open the new location/file (if applicable)
-				if (params.empty() == false) {
-					auto wide = UTF8ToWString(params);
-
-					// Dodge const-incorrectness
-					boost::scoped_array<wchar_t> pStrData(new wchar_t[wide.length() + 1]);
-					wcscpy_s(pStrData.get(), (wide.length() + 1), wide.c_str());
-					COPYDATASTRUCT cds;
-					cds.dwData = 0;
-					cds.cbData = static_cast<DWORD>((params.length() + 1) * sizeof(wchar_t));
-					cds.lpData = reinterpret_cast<void*>(pStrData.get());
-					SendMessage(hwnd, WM_COPYDATA, (WPARAM)Handle(), (LPARAM)&cds);
-				}
-
-				throw Err::DuplicateInstance();
-			}
-		}*/
-
 		UpdateViewportConfig();
 	}
 
@@ -129,12 +98,7 @@ namespace App {
 		m_folderMonitor.Close();
 		m_cacher.Stop();
 
-/*		UnregisterClass(ClassName, GetModuleHandle(0));
-
-		ReleaseMutex(m_singleMutex);
-		CloseHandle(m_singleMutex);
-
-		if (UnhandledExceptionOcurred()) {
+		/*if (UnhandledExceptionOcurred()) {
 			MessageBox(nullptr, UTF8ToWString(UnhandledExceptionDescription()).c_str(), L"Pictus error", MB_OK);
 		}*/
 	}
@@ -202,9 +166,9 @@ namespace App {
 		int y = Util::Constrain<int>(0, m_cfg.View.WindowPosY, GetSystemMetrics(SM_CYVIRTUALSCREEN) - h);
 
 		if(!ConstructWindow(RectInt(PointInt(x, y), SizeInt(w, h)), WS_EX_ACCEPTFILES, ClassName, AppTitle, WS_OVERLAPPEDWINDOW)) return false;
-		m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);
+		m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);*/
 
-		AlwaysOnTop(m_cfg.View.AlwaysOnTop);*/
+		AlwaysOnTop(m_cfg.View.AlwaysOnTop);
 
 		ZoomMode(m_cfg.View.DefaultZoomMode);
 
@@ -213,7 +177,8 @@ namespace App {
 		}
 
 		m_viewPort.Init();
-		m_viewPort.Show(true);
+		PerformOnWindowCreate();
+		//m_viewPort.Show(true);
 
 		return true;
 	}
@@ -354,7 +319,7 @@ namespace App {
 		else*/
 		{
 			//m_viewPort.Resize(client.Dimensions());
-			m_viewPort.SetSize(0, 0, client.Dimensions().Width, client.Dimensions().Height);
+			m_viewPort.SetRect(client);
 		}
 
 		return true;
@@ -563,6 +528,7 @@ namespace App {
 		m_screenMode = newMode;
 
 		if (newMode == Viewer::SM_Fullscreen) {
+			//auto mon = wxDisplay::GetFromPoint(PointToWx(CenterPositionScreen()));
 			/*const Win::Monitor* mon = Win::FindMonitorAt(CenterPositionScreen());
 
 			m_statusBar->Visible(false);
@@ -1067,7 +1033,7 @@ namespace App {
 		UpdateMemoryLimits();
 		m_viewPort.Refresh();
 
-		//AlwaysOnTop(m_cfg.View.AlwaysOnTop);
+		AlwaysOnTop(m_cfg.View.AlwaysOnTop);
 		ImageChanged();
 	}
 
@@ -1088,7 +1054,12 @@ namespace App {
 	Geom::PointInt Viewer::PositionScreen()
 	{
 		return Win::wxToPoint(GetPosition());
-		//return Geom::Rect<int>(Geom::PointInt(rect.x, rect.y), Geom::SizeInt(rect.width, rect.height));
+	}
+
+	Geom::PointInt Viewer::CenterPositionScreen()
+	{
+		auto rect = wxToRect(GetScreenRect());
+		return { rect.Left() + rect.Width() / 2, rect.Top() + rect.Height() / 2 };
 	}
 
 	Geom::RectInt Viewer::ClientRect()
@@ -1103,4 +1074,17 @@ namespace App {
 		return PerformOnCreate();
 	}
 
+	void Viewer::AlwaysOnTop(bool doAlwaysOnTop)
+	{
+		auto style = GetWindowStyleFlag();
+		if (doAlwaysOnTop)
+		{
+			style |= wxSTAY_ON_TOP;
+		}
+		else
+		{
+			style &= ~(wxSTAY_ON_TOP);
+		}
+		SetWindowStyleFlag(style);
+	}
 }

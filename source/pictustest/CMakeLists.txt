@@ -16,6 +16,7 @@ add_executable(pictusTest
 	${ALL_CPP_SRCS}
 	${ALL_C_SRCS}
 	${DEPS_DIRECTORY}
+	${PSD}/render_geometry.cpp
 	${PSD}/view_pan.cpp
 	${PSD}/w32_rs_tilemanager.cpp
 	${PSD}/w32_renderer.cpp
@@ -25,6 +26,6 @@ add_executable(pictusTest
 	${PSD}/reg_color_translator.cpp
 	${PSD}/d3d_ddsurface.cpp
 	)
-target_link_libraries(pictusTest illa UnitTestPP hw3d ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
+target_link_libraries(pictusTest illa UnitTestPP ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
 
 add_custom_command(TARGET pictusTest POST_BUILD COMMAND pictusTest ${CMAKE_SOURCE_DIR}/bin/Test COMMENT "Running pictusTest...")

@@ -3,9 +3,8 @@
 
 #include "illa/surface.h"
 #include "w32_ddsurface.h"
-//#include "D3DWrap/d3d_device.h"
 #include <wx/window.h>
-#include "Hw3D/device.h"
+#include "hw3d_device.h"
 
 namespace Win {
 	class Renderer final {
@@ -59,6 +58,7 @@ namespace Win {
 
 		std::shared_ptr<Hw3D::Texture> m_softTex;
 		std::shared_ptr<Hw3D::Device> m_direct3d;
+		std::shared_ptr<Hw3D::Context> m_context;
 	};
 }
 

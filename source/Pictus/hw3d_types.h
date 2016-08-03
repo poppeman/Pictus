@@ -1,5 +1,5 @@
-#ifndef HW3D_HW3D_TYPES_H
-#define HW3D_HW3D_TYPES_H
+#ifndef PICTUS_HW3D_TYPES_H
+#define PICTUS_HW3D_TYPES_H
 
 namespace Hw3D
 {

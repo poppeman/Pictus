@@ -1,7 +1,8 @@
 cmake_minimum_required (VERSION 2.8)
 project (Pictus)
 
-find_package(wxWidgets COMPONENTS core base REQUIRED)
+find_package(wxWidgets COMPONENTS core base gl REQUIRED)
+find_package(OpenGL REQUIRED)
 
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(PICTUS_CPP_SRCS
@@ -10,6 +11,9 @@ set(PICTUS_CPP_SRCS
 		d3d_ddsurface.cpp
 		filterstring.cpp
 		getevent.cpp
+		hw3d_device.cpp
+		hw3d_opengl_context.cpp
+		hw3d_opengl_device.cpp
 		factory_renderer.cpp
 		ic_backgroundprocessor.cpp
 		ic_imageloader.cpp
@@ -31,6 +35,7 @@ set(PICTUS_CPP_SRCS
 		reg_resize_position_method_translator.cpp
 		reg_zoom_mode_translator.cpp
 		registry.cpp
+		render_geometry.cpp
 		resize_position_method.cpp
 		timer.cpp
 		view_pan.cpp
@@ -45,8 +50,8 @@ set(PICTUS_CPP_SRCS
 		w32_rs_tiled.cpp
 		w32_rs_tilemanager.cpp
 		wintypes.cpp
-		zoomstrategy.cpp
-)
+		zoomstrategy.cpp)
+
 FILE(GLOB PICTUS_RC_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.rc)
 message(${wxWidgets_INCLUDE_DIRS})
 message(${wxWidgets_FOUND})
@@ -62,5 +67,5 @@ if(MINGW)
 endif(MINGW)
 
 add_executable(Pictus ${PICTUS_CPP_SRCS} ${PICTUS_RC_SRCS} ${DEPS_DIRECTORY})
-target_link_libraries(Pictus illa orz hw3d ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
+target_link_libraries(Pictus illa orz ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES})
 add_dependencies(Pictus orzTest illaTest pictusTest)

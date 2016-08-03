@@ -9,6 +9,10 @@
 #include <wx/app.h>
 #include <wx/msgdlg.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 class MyApp:public wxApp
 {
 public:
@@ -24,9 +28,62 @@ public:
 		}
 	}
 
+	MyApp() {
+#ifdef _WIN32
+		m_singleMutex = nullptr;
+#endif
+	}
+
+	~MyApp() {
+#ifdef _WIN32
+		if (m_singleMutex != nullptr) {
+			ReleaseMutex(m_singleMutex);
+			CloseHandle(m_singleMutex);
+		}
+#endif
+	}
+
 private:
 	App::Viewer* m_viewer;
 	Img::CodecFactoryStore cfs;
+
+#ifdef _WIN32
+	HANDLE m_singleMutex;
+#endif
+
+	void EnsureSingleInstance() {
+               // Look for another process (disallow if the setting requires that)
+		#ifdef _WIN32
+       	        	m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
+
+        	        if ((GetLastError() == ERROR_ALREADY_EXISTS) && (cfg.View.MultipleInstances == false)) {
+	                        if (HWND hwnd = ::FindWindow(ClassName, 0)) {
+                        	        SetForegroundWindow(hwnd);
+                	                if (IsIconic(hwnd)) {
+        	                                ShowWindow(hwnd, SW_RESTORE);
+	                                }
+
+       	                	        // Tell the instance to open the new location/file (if applicable)
+                	                if (params.empty() == false) {
+        	                                auto wide = UTF8ToWString(params);
+
+	       	                                // Dodge const-incorrectness
+               	                        	boost::scoped_array<wchar_t> pStrData(new wchar_t[wide.length() + 1]);
+                       	        	        wcscpy_s(pStrData.get(), (wide.length() + 1), wide.c_str());
+                        	       	        COPYDATASTRUCT cds;
+                	                       	cds.dwData = 0;
+        	                                cds.cbData = static_cast<DWORD>((params.length() + 1) * sizeof(wchar_t));
+	       	                                cds.lpData = reinterpret_cast<void*>(pStrData.get());
+               	                	        SendMessage(hwnd, WM_COPYDATA, (WPARAM)Handle(), (LPARAM)&cds);
+                       		        }
+
+                	                throw Err::DuplicateInstance();
+       		                }
+	                }
+		#else
+			// TODO: Posix'ish implementation (pidfile)
+		#endif
+	}
 
 	int start_app(std::string params) {
 		if (params == "--cleanup") {
@@ -49,6 +106,8 @@ private:
 
 			// TODO: Control logging by some other mechanism, such as an .ini setting
 			//Log.SetOutput(assure_folder(App::cg_RunLogLocation));
+
+			EnsureSingleInstance();
 
 			Intl::LanguageTable(c_lang_strings);
 			Intl::CurrentLanguage(cfg.View.Language);

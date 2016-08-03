@@ -1,8 +1,9 @@
 #include "w32_renderer.h"
-#include "Hw3D/matrix.h"
+#include "orz/matrix.h"
 #include "illa/swsurface.h"
 #include "d3d_ddsurface.h"
 #include "illa/render.h"
+#include "render_geometry.h"
 
 #include <algorithm>
 
@@ -10,9 +11,6 @@ namespace Win {
 	using namespace Geom;
 
 	Geom::SizeInt Renderer::RenderAreaSize() {
-		//RECT cr;
-		//GetClientRect(TargetWindow(), &cr);
-		//return{ cr.right - cr.left, cr.bottom - cr.top };
 		int w, h;
 		TargetWindow()->GetClientSize(&w, &h);
 		return {w, h};
@@ -65,20 +63,19 @@ namespace Win {
 		DO_THROW(Err::InvalidCall, "Unsupported angle");
 	}
 
-	bool Renderer::TargetWindow( wxWindow* hwnd ) {
+	/*bool Renderer::TargetWindow( wxWindow* hwnd ) {
 		m_hwnd = hwnd;
 
 		if (m_direct3d == nullptr) {
 			m_direct3d = std::make_shared<Hw3D::Device>();
 		}
 
-		if (m_direct3d->Initialize(TargetWindow()) == false) {
+		if (!m_direct3d->Initialize(TargetWindow())) {
 			m_direct3d.reset();
 			return false;
 		}
 		return true;
-
-	}
+	}*/
 
 	Renderer::RenderStatus Renderer::BeginRender(Img::Color backgroundColor) {
 		if (m_hwnd == nullptr) {
@@ -102,11 +99,11 @@ namespace Win {
 
 		CreateTextures();
 
-		m_direct3d->BeginDraw();
-		m_direct3d->Clear(0xff, backgroundColor.R, backgroundColor.G, backgroundColor.B);
+		m_context->BeginDraw();
+		m_context->Clear(0xff, backgroundColor.R, backgroundColor.G, backgroundColor.B);
 
 		auto proj = Hw3D::OrthographicProjection({ { 0, 0 }, RenderAreaSize().StaticCast<float>() });
-		m_direct3d->SetMatrix(Hw3D::TransformState::Projection, proj);
+		m_context->SetMatrix(Hw3D::TransformState::Projection, proj);
 
 		return RenderStatus::OK;
 	}
@@ -119,7 +116,7 @@ namespace Win {
 			DO_THROW(Err::CriticalError, "Direct3D not yet initialized.");
 		}
 
-		m_direct3d->EndDraw();
+		m_context->EndDraw();
 	}
 
 	Renderer::Renderer():m_hwnd(0) {}
@@ -162,7 +159,7 @@ namespace Win {
 
 			m_softTex->UnlockRegion();
 
-			m_direct3d->SendTextureRect(
+			m_context->SendTextureRect(
 				m_softTex,
 				RectInt(PointInt(0, 0),
 				destinationArea.Dimensions()),
@@ -180,19 +177,19 @@ namespace Win {
 
 		auto* ds = dynamic_cast<DDSurfaceD3D*>(source.get());
 		auto tex = ds->GetTexture();
-		m_direct3d->SetTexture(0, tex);
+		m_context->SetTexture(0, tex);
 
 		Hw3D::Vertex2D a, b, c, d;
 		auto uvTL = sourceTopLeft.StaticCast<float>() / source->Dimensions().StaticCast<float>();
 		auto uvBR = (sourceTopLeft + destRect.Dimensions()).StaticCast<float>() / source->Dimensions().StaticCast<float>();
-		Hw3D::GenerateQuad(
+		App::GenerateQuad(
 			destRect.StaticCast<float>(),
 			{ uvTL, uvBR },
 			ppAdj,
 			RenderAreaSize(),
 			Angle,
 			a, b, c, d);
-		m_direct3d->RenderQuad(a, b, c, d);
+		m_context->RenderQuad(a, b, c, d);
 	}
 
 }
