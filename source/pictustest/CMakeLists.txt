@@ -20,11 +20,9 @@ add_executable(pictusTest
 	${PSD}/view_pan.cpp
 	${PSD}/w32_rs_tilemanager.cpp
 	${PSD}/w32_renderer.cpp
-	${PSD}/w32_ddsurface.cpp
 	${PSD}/wintypes.cpp
 	${PSD}/zoomstrategy.cpp
 	${PSD}/reg_color_translator.cpp
-	${PSD}/d3d_ddsurface.cpp
 	)
 target_link_libraries(pictusTest illa UnitTestPP ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
 

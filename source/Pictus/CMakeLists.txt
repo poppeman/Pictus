@@ -8,7 +8,6 @@ FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(PICTUS_CPP_SRCS
 		app_types.cpp
 		builder_viewport.cpp
-		d3d_ddsurface.cpp
 		filterstring.cpp
 		getevent.cpp
 		hw3d_device.cpp
@@ -43,7 +42,6 @@ set(PICTUS_CPP_SRCS
 		viewer_keyboard.cpp
 		viewport.cpp
 		w32_assure_folder.cpp
-		w32_ddsurface.cpp
 		w32_redrawstrategy.cpp
 		w32_renderer.cpp
 		w32_rendertarget.cpp
