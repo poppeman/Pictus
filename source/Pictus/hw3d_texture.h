@@ -20,6 +20,12 @@ namespace Hw3D {
 		Geom::SizeInt GetSize();
 
 		Format D3DFormat();
+
+		Texture(Geom::SizeInt dimensions, Format fmt);
+
+	private:
+		Geom::SizeInt m_size;
+		Format m_format;
 	};
 }
 

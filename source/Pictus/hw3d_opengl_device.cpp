@@ -9,12 +9,12 @@ namespace Hw3D
 {
 	std::shared_ptr<Texture> OpenGlDevice::CreateTexture(const Geom::SizeInt &dimensions, Format fmt, Pool pool)
 	{
-		return std::make_shared<OpenGlTexture>();
+		return std::make_shared<OpenGlTexture>(dimensions, fmt, pool);
 	}
 
 	std::shared_ptr<Texture> OpenGlDevice::CreateRenderTarget(const Geom::SizeInt &dimensions, Format fmt)
 	{
-		return std::make_shared<OpenGlTexture>();
+		return std::make_shared<OpenGlTexture>(dimensions, fmt, Pool::Default);
 	}
 
 	std::shared_ptr<VertexBuffer> OpenGlDevice::CreateVertexBuffer(size_t sizeInBytes, int fmt)

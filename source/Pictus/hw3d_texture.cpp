@@ -5,11 +5,17 @@ namespace Hw3D
 
 	Geom::SizeInt Texture::GetSize()
 	{
-		return Geom::SizeInt();
+		return m_size;
 	}
 
 	Format Texture::D3DFormat()
 	{
-		return Format::X8R8G8B8;
+		return m_format;
+	}
+
+	Texture::Texture(Geom::SizeInt dimensions, Format fmt):
+		m_size(dimensions),
+		m_format(fmt)
+	{
 	}
 }
