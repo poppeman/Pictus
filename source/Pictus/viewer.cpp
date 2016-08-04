@@ -112,6 +112,8 @@ namespace App {
 			}
 			return m_mouseMap.Execute(ev, e);
 		});
+		Bind(wxEVT_SIZE, [this](wxSizeEvent e) { return PerformOnSize(wxToSize(e.GetSize())); });
+		Bind(wxEVT_SIZING, [this](wxSizeEvent e) { return PerformOnSize(wxToSize(e.GetSize())); });
 		//OnTaskbarButton.connect([this](int id) { PerformOnTaskbarButton(id); });
 
 		m_mouseMap.AddAction(MouseFullscreen, [this](Win::MouseEvent) { ToggleFullscreenMode(); });
