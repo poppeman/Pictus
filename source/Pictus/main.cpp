@@ -52,37 +52,37 @@ private:
 #endif
 
 	void EnsureSingleInstance() {
-               // Look for another process (disallow if the setting requires that)
-		#ifdef _WIN32
-       	        	m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
+		// Look for another process (disallow if the setting requires that)
+#ifdef _WIN32
+		m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
 
-        	        if ((GetLastError() == ERROR_ALREADY_EXISTS) && (cfg.View.MultipleInstances == false)) {
-	                        if (HWND hwnd = ::FindWindow(ClassName, 0)) {
-                        	        SetForegroundWindow(hwnd);
-                	                if (IsIconic(hwnd)) {
-        	                                ShowWindow(hwnd, SW_RESTORE);
-	                                }
+		if ((GetLastError() == ERROR_ALREADY_EXISTS) && (cfg.View.MultipleInstances == false)) {
+				if (HWND hwnd = ::FindWindow(ClassName, 0)) {
+						SetForegroundWindow(hwnd);
+						if (IsIconic(hwnd)) {
+								ShowWindow(hwnd, SW_RESTORE);
+						}
 
-       	                	        // Tell the instance to open the new location/file (if applicable)
-                	                if (params.empty() == false) {
-        	                                auto wide = UTF8ToWString(params);
+						// Tell the instance to open the new location/file (if applicable)
+						if (params.empty() == false) {
+								auto wide = UTF8ToWString(params);
 
-	       	                                // Dodge const-incorrectness
-               	                        	boost::scoped_array<wchar_t> pStrData(new wchar_t[wide.length() + 1]);
-                       	        	        wcscpy_s(pStrData.get(), (wide.length() + 1), wide.c_str());
-                        	       	        COPYDATASTRUCT cds;
-                	                       	cds.dwData = 0;
-        	                                cds.cbData = static_cast<DWORD>((params.length() + 1) * sizeof(wchar_t));
-	       	                                cds.lpData = reinterpret_cast<void*>(pStrData.get());
-               	                	        SendMessage(hwnd, WM_COPYDATA, (WPARAM)Handle(), (LPARAM)&cds);
-                       		        }
+								// Dodge const-incorrectness
+								boost::scoped_array<wchar_t> pStrData(new wchar_t[wide.length() + 1]);
+								wcscpy_s(pStrData.get(), (wide.length() + 1), wide.c_str());
+								COPYDATASTRUCT cds;
+								cds.dwData = 0;
+								cds.cbData = static_cast<DWORD>((params.length() + 1) * sizeof(wchar_t));
+								cds.lpData = reinterpret_cast<void*>(pStrData.get());
+								SendMessage(hwnd, WM_COPYDATA, (WPARAM)Handle(), (LPARAM)&cds);
+						}
 
-                	                throw Err::DuplicateInstance();
-       		                }
-	                }
-		#else
-			// TODO: Posix'ish implementation (pidfile)
-		#endif
+						throw Err::DuplicateInstance();
+				}
+		}
+#else
+		// TODO: Posix'ish implementation (pidfile)
+#endif
 	}
 
 	int start_app(std::string params) {
