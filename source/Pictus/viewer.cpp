@@ -32,6 +32,8 @@
 const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
 const wchar_t* App::Viewer::AppTitle = L"Pictus";
 
+wxDEFINE_EVENT(ImageLoadEvent, wxCommandEvent);
+
 namespace App {
 	using namespace Win;
 	using namespace Intl;
@@ -114,6 +116,8 @@ namespace App {
 		});
 		Bind(wxEVT_SIZE, [this](wxSizeEvent e) { return PerformOnSize(wxToSize(e.GetSize())); });
 		Bind(wxEVT_SIZING, [this](wxSizeEvent e) { return PerformOnSize(wxToSize(e.GetSize())); });
+
+		Bind(ImageLoadEvent, [this](wxCommandEvent) { return HandleCacheNotification(); });
 		//OnTaskbarButton.connect([this](int id) { PerformOnTaskbarButton(id); });
 
 		m_mouseMap.AddAction(MouseFullscreen, [this](Win::MouseEvent) { ToggleFullscreenMode(); });
@@ -768,7 +772,7 @@ namespace App {
 		m_cacheNotifications.push_back(notification);
 		l.unlock();
 
-		//QueueMessage(WM_APP + ViewerImageLoadEvent, 0, 0);
+		QueueEvent(new wxCommandEvent(ImageLoadEvent));
 	}
 
 	void Viewer::AddNotification(const IO::FileEvent& notification) {
