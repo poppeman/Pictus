@@ -238,7 +238,10 @@ namespace App {
 
 	bool ViewPort::HandleMouseUp(Win::MouseEvent) {
 		// Done panning, release mouse
-		m_canvas->ReleaseMouse();
+		if(m_isPanning)
+		{
+			m_canvas->ReleaseMouse();
+		}
 
 		m_isPanning = false;
 
