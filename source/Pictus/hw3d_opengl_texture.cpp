@@ -1,6 +1,7 @@
 #include <GL/gl.h>
 #include <orz/exception.h>
 #include "hw3d_opengl_texture.h"
+#include "hw3d_opengl_common.h"
 
 namespace Hw3D
 {
@@ -23,6 +24,25 @@ namespace Hw3D
 		{
 			m_textureName = 0;
 			DO_THROW(Err::CriticalError, "Failed allocating texture");
+		}
+		glBindTexture(GL_TEXTURE_2D, m_textureName);
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			GetGlInternalFormat(fmt),
+			dimensions.Width,
+			dimensions.Height,
+			0,
+			GetGlFormat(fmt),
+			GetGlDataType(fmt),
+			nullptr
+		);
+
+		GLenum err;
+
+		if((err = glGetError()) != GL_NO_ERROR)
+		{
+			DO_THROW(Err::CriticalError, "glTexImage2D failed: " + GetGlErrorString(err));
 		}
 	}
 
