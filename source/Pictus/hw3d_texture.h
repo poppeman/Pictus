@@ -17,9 +17,9 @@ namespace Hw3D {
 		virtual Lock LockRegion(const Geom::RectInt& region, bool readOnly)=0;
 		virtual void UnlockRegion()=0;
 
-		virtual Geom::SizeInt GetSize()=0;
+		Geom::SizeInt GetSize();
 
-		virtual Format D3DFormat()=0;
+		Format D3DFormat();
 	};
 }
 

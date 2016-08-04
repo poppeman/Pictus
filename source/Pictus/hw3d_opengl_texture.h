@@ -7,7 +7,9 @@ namespace Hw3D
 {
 	class OpenGlTexture:public Texture
 	{
-
+	public:
+		Lock LockRegion(const Geom::RectInt& region, bool readOnly);
+		void UnlockRegion();
 	};
 }
 

@@ -11,8 +11,10 @@ set(PICTUS_CPP_SRCS
 		filterstring.cpp
 		getevent.cpp
 		hw3d_device.cpp
+		hw3d_texture.cpp
 		hw3d_opengl_context.cpp
 		hw3d_opengl_device.cpp
+		hw3d_opengl_texture.cpp
 		factory_renderer.cpp
 		ic_backgroundprocessor.cpp
 		ic_imageloader.cpp
