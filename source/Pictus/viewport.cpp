@@ -516,6 +516,8 @@ namespace App {
 		m_canvas->Bind(wxEVT_LEFT_UP, [&](Win::MouseEvent e) { return HandleMouseUp(e); });
 
 		m_canvas->Bind(wxEVT_PAINT, [&](wxPaintEvent& evt) { PerformOnPaint(); });
+		m_canvas->Bind(wxEVT_SIZE, [&](wxSizeEvent evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
+		m_canvas->Bind(wxEVT_SIZING, [&](wxSizeEvent evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
 
 		m_renderTarget.TargetWindow(m_canvas);
 
