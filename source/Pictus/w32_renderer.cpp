@@ -65,12 +65,13 @@ namespace Win {
 	void Renderer::Device(std::shared_ptr<Hw3D::Device> device)
 	{
 		m_direct3d = device;
-		m_context = m_direct3d->CreateContext();
+		m_context = nullptr;
 	}
 
 	bool Renderer::TargetWindow( wxWindow* hwnd )
 	{
 		m_hwnd = hwnd;
+		m_context = nullptr;
 		return true;
 	}
 
@@ -81,6 +82,11 @@ namespace Win {
 
 		if (m_direct3d == nullptr) {
 			DO_THROW(Err::CriticalError, "Direct3D not yet initialized.");
+		}
+
+		if(m_context == nullptr)
+		{
+			m_context = m_direct3d->CreateContext(TargetWindow());
 		}
 
 		if (m_direct3d->IsLost()) {
@@ -96,6 +102,7 @@ namespace Win {
 
 		CreateTextures();
 
+		m_context->Activate(TargetWindow());
 		m_context->BeginDraw();
 		m_context->Clear(0xff, backgroundColor.R, backgroundColor.G, backgroundColor.B);
 

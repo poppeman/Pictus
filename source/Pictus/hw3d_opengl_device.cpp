@@ -55,8 +55,8 @@ namespace Hw3D
 		return false;
 	}
 
-	std::shared_ptr<Context> OpenGlDevice::CreateContext()
+	std::shared_ptr<Context> OpenGlDevice::CreateContext(wxWindow* win)
 	{
-		return std::make_shared<OpenGlContext>();
+		return std::make_shared<OpenGlContext>(win);
 	}
 }

@@ -3,11 +3,15 @@
 
 #include "hw3d_context.h"
 #include <memory>
+#include <wx/window.h>
+#include <wx/glcanvas.h>
 
 namespace Hw3D
 {
 	class OpenGlContext:public Context
 	{
+	public:
+		void Activate(wxWindow* target) override;
 		void Clear(int a, int r, int g, int b) override;
 
 		void SetTexture(int stage, std::shared_ptr<Texture> texture) override;
@@ -22,6 +26,12 @@ namespace Hw3D
 		void SetMatrix(TransformState state, const Matrix& m) override ;
 
 		void SendTextureRect(std::shared_ptr<Texture> sourceTexture, const Geom::RectInt& sourceRect, std::shared_ptr<Texture> destinationTexture, const Geom::PointInt& destinationTopLeft) override ;
+
+		OpenGlContext(wxWindow* win);
+
+	private:
+		std::shared_ptr<wxGLContext> m_context;
+		wxGLCanvas* m_currentTarget;
 	};
 }
 

@@ -7,12 +7,14 @@
 #include "hw3d_vertexbuffer.h"
 #include "hw3d_vertex2d.h"
 #include "orz/matrix.h"
+#include <wx/window.h>
 
 namespace Hw3D
 {
 	class Context
 	{
 	public:
+		virtual void Activate(wxWindow* target)=0;
 		virtual void Clear(int a, int r, int g, int b)=0;
 
 		virtual void SetTexture(int stage, std::shared_ptr<Texture> texture)=0;
