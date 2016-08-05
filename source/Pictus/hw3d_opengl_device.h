@@ -17,7 +17,6 @@ namespace Hw3D
 		std::shared_ptr<Context> CreateContext(wxWindow* win) override;
 		std::shared_ptr<Texture> CreateTexture(const Geom::SizeInt& dimensions, Format fmt, Pool pool) override;
 		std::shared_ptr<Texture> CreateRenderTarget(const Geom::SizeInt& dimensions, Format fmt) override;
-		std::shared_ptr<VertexBuffer> CreateVertexBuffer(size_t sizeInBytes, int fmt) override;
 
 		bool IsLost() override;
 		bool Reset() override;

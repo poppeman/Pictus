@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "hw3d_texture.h"
-#include "hw3d_vertexbuffer.h"
 #include "hw3d_vertex2d.h"
 #include "orz/matrix.h"
 #include <wx/window.h>
@@ -19,7 +18,6 @@ namespace Hw3D
 
 		virtual void SetTexture(int stage, std::shared_ptr<Texture> texture)=0;
 		virtual void SetRenderTarget(std::shared_ptr<Texture> renderTarget)=0;
-		virtual void SetVertexBuffer(std::shared_ptr<VertexBuffer> vb, int stride)=0;
 
 		virtual void BeginDraw()=0;
 		virtual void RenderQuad(const Vertex2D& a, const Vertex2D& b, const Vertex2D& c, const Vertex2D& d)=0;

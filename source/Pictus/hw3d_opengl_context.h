@@ -16,7 +16,6 @@ namespace Hw3D
 
 		void SetTexture(int stage, std::shared_ptr<Texture> texture) override;
 		void SetRenderTarget(std::shared_ptr<Texture> renderTarget) override;
-		void SetVertexBuffer(std::shared_ptr<VertexBuffer> vb, int stride) override ;
 
 		void BeginDraw() override ;
 		void RenderQuad(const Vertex2D& a, const Vertex2D& b, const Vertex2D& c, const Vertex2D& d) override ;

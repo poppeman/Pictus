@@ -62,11 +62,6 @@ namespace Hw3D
 
 	}
 
-	void OpenGlContext::SetVertexBuffer(std::shared_ptr<VertexBuffer> vb, int stride)
-	{
-
-	}
-
 	void OpenGlContext::SetMatrix(TransformState state, const Matrix &m)
 	{
 
