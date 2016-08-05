@@ -16,6 +16,7 @@ namespace Hw3D
 
 	private:
 		GLuint m_textureName;
+		GLuint m_bufferObject;
 	};
 }
 
