@@ -59,11 +59,6 @@ namespace Hw3D
 		}
 	}
 
-	void OpenGlContext::RenderQuad(int index)
-	{
-
-	}
-
 	void OpenGlContext::EndDraw()
 	{
 		glFlush();

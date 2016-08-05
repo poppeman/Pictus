@@ -19,7 +19,6 @@ namespace Hw3D
 
 		void BeginDraw() override ;
 		void RenderQuad(const Vertex2D& a, const Vertex2D& b, const Vertex2D& c, const Vertex2D& d) override ;
-		void RenderQuad(int index) override ;
 		void EndDraw() override ;
 
 		void SetMatrix(TransformState state, const Matrix& m) override ;

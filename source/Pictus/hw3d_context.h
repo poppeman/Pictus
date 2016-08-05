@@ -21,7 +21,6 @@ namespace Hw3D
 
 		virtual void BeginDraw()=0;
 		virtual void RenderQuad(const Vertex2D& a, const Vertex2D& b, const Vertex2D& c, const Vertex2D& d)=0;
-		virtual void RenderQuad(int index)=0;
 		virtual void EndDraw()=0;
 
 		virtual void SetMatrix(TransformState state, const Matrix& m)=0;
