@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include "hw3d_opengl_context.h"
 #include "hw3d_opengl_texture.h"
+#include "hw3d_opengl_common.h"
 
 #include <GL/gl.h>
 #include <wx/glcanvas.h>
@@ -40,6 +41,22 @@ namespace Hw3D
 
 	void OpenGlContext::RenderQuad(const Vertex2D &a, const Vertex2D &b, const Vertex2D &c, const Vertex2D &d)
 	{
+		glBegin(GL_TRIANGLE_STRIP); //starts drawing of points
+		glVertex3f(a.Position.X, a.Position.Y, 0);
+		glTexCoord2f(a.TexCoord.X, a.TexCoord.Y);
+		glVertex3f(b.Position.X, b.Position.Y, 0);
+		glTexCoord2f(b.TexCoord.X, b.TexCoord.Y);
+		glVertex3f(c.Position.X, c.Position.Y, 0);
+		glTexCoord2f(c.TexCoord.X, c.TexCoord.Y);
+		glVertex3f(d.Position.X, d.Position.Y, 0);
+		glTexCoord2f(d.TexCoord.X, d.TexCoord.Y);
+		glEnd();
+
+		GLenum err;
+		if((err = glGetError()) != GL_NO_ERROR)
+		{
+			DO_THROW(Err::CriticalError, "Failed rendering quad: " + GetGlErrorString(err));
+		}
 	}
 
 	void OpenGlContext::RenderQuad(int index)
