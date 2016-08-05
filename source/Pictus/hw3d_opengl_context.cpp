@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include "hw3d_opengl_context.h"
+#include "hw3d_opengl_texture.h"
 
 #include <GL/gl.h>
 #include <wx/glcanvas.h>
@@ -54,7 +55,12 @@ namespace Hw3D
 
 	void OpenGlContext::SetTexture(int stage, std::shared_ptr<Texture> texture)
 	{
-
+		auto glTexture = std::dynamic_pointer_cast<OpenGlTexture>(texture);
+		if(glTexture == nullptr)
+		{
+			DO_THROW(Err::InvalidParam, "Texture object was not an OpenGlTexture");
+		}
+		glBindTexture(GL_TEXTURE_2D, glTexture->GetTextureName());
 	}
 
 	void OpenGlContext::SetRenderTarget(std::shared_ptr<Texture> renderTarget)

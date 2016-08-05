@@ -61,6 +61,11 @@ namespace Hw3D
 		glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
 	}
 
+	GLuint OpenGlTexture::GetTextureName()
+	{
+		return m_textureName;
+	}
+
 	OpenGlTexture::OpenGlTexture(Geom::SizeInt dimensions, Format fmt, Pool pool):
 		Texture(dimensions, fmt),
 		m_textureName(0),

@@ -11,6 +11,8 @@ namespace Hw3D
 		Lock LockRegion(const Geom::RectInt& region, bool readOnly);
 		void UnlockRegion();
 
+		GLuint GetTextureName();
+
 		OpenGlTexture(Geom::SizeInt dimensions, Format fmt, Pool pool);
 		~OpenGlTexture();
 
