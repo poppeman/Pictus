@@ -11,6 +11,7 @@ namespace Hw3D
 {
 	void OpenGlContext::Activate(wxWindow *target)
 	{
+		GLenum err;
 		if(target == nullptr)
 		{
 			DO_THROW(Err::CriticalError, "OpenGlContext::Activate: target was null");
@@ -27,6 +28,52 @@ namespace Hw3D
 		{
 			DO_THROW(Err::CriticalError, "Failed initializing GLEW");
 		}
+		glGenBuffers(1, &m_vbo);
+		if((err = glGetError()) != GL_NO_ERROR)
+		{
+			DO_THROW(Err::CriticalError, "glGenBuffers failed: " + GetGlErrorString(err));
+		}
+		const char* vertexShaderSource = "#version 150\n"
+			"\n"
+			"in vec3 position;\n"
+			"in vec2 tex;\n"
+			"out vec2 texCoord;\n"
+			"\n"
+			"void main()\n"
+			"{\n"
+			"	gl_Position = vec4(position, 1.0);\n"
+			"	texCoord = tex;"
+			"}";
+		const char* fragmentShaderSource = "#version 150\n"
+			"\n"
+			"in vec2 texCoord;\n"
+			"out vec4 col;\n"
+			"uniform sampler2D smp;\n"
+			"\n"
+			"void main()\n"
+			"{\n"
+			"	col = texture(smp, texCoord) + vec4(texCoord, texCoord);\n"
+			"}";
+		auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+		glCompileShader(vertexShader);
+		if((err = glGetError()) != GL_NO_ERROR)
+		{
+			DO_THROW(Err::CriticalError, "glCompileShader (vertex) failed: " + GetGlErrorString(err));
+		}
+
+		auto fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+		glCompileShader(fragmentShader);
+		if((err = glGetError()) != GL_NO_ERROR)
+		{
+			DO_THROW(Err::CriticalError, "glCompileShader (fragment) failed: " + GetGlErrorString(err));
+		}
+
+		m_program = glCreateProgram();
+		glAttachShader(m_program, vertexShader);
+		glAttachShader(m_program, fragmentShader);
+		glLinkProgram(m_program);
 	}
 
 	void OpenGlContext::Clear(int a, int r, int g, int b)
@@ -37,20 +84,32 @@ namespace Hw3D
 
 	void OpenGlContext::BeginDraw()
 	{
+		glUseProgram(m_program);
 	}
 
 	void OpenGlContext::RenderQuad(const Vertex2D &a, const Vertex2D &b, const Vertex2D &c, const Vertex2D &d)
 	{
-		glBegin(GL_TRIANGLE_STRIP); //starts drawing of points
-		glVertex3f(a.Position.X, a.Position.Y, 0);
-		glTexCoord2f(a.TexCoord.X, a.TexCoord.Y);
-		glVertex3f(b.Position.X, b.Position.Y, 0);
-		glTexCoord2f(b.TexCoord.X, b.TexCoord.Y);
-		glVertex3f(c.Position.X, c.Position.Y, 0);
-		glTexCoord2f(c.TexCoord.X, c.TexCoord.Y);
-		glVertex3f(d.Position.X, d.Position.Y, 0);
-		glTexCoord2f(d.TexCoord.X, d.TexCoord.Y);
-		glEnd();
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+		auto posAttrib = glGetAttribLocation(m_program, "position");
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
+		glEnableVertexAttribArray(posAttrib);
+		auto texAttrib = glGetAttribLocation(m_program, "tex");
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(sizeof(float) * 3));
+		glEnableVertexAttribArray(texAttrib);
+		/*float data[] = {
+			a.Position.X, a.Position.Y, 0,
+			b.Position.X, b.Position.Y, 0,
+			c.Position.X, c.Position.Y, 0,
+			d.Position.X, d.Position.Y, 0,
+		};*/
+		float data[] = {
+			0.0f, 1.5f, 0, 0, 0,
+			0.5f, -0.5f, 0, 1, 0,
+			-0.5f, -0.5f, 0, 0, 1,
+		};
+		glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STREAM_DRAW);
+
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		GLenum err;
 		if((err = glGetError()) != GL_NO_ERROR)
@@ -93,7 +152,8 @@ namespace Hw3D
 	}
 
 	OpenGlContext::OpenGlContext(wxWindow *win):
-		m_context{std::make_shared<wxGLContext>(dynamic_cast<wxGLCanvas*>(win))}
+		m_context{std::make_shared<wxGLContext>(dynamic_cast<wxGLCanvas*>(win))},
+		m_vbo(0)
 	{
 	}
 }
