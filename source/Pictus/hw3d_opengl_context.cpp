@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "hw3d_opengl_context.h"
 
 #include <GL/gl.h>
@@ -19,6 +20,11 @@ namespace Hw3D
 		}
 
 		m_context->SetCurrent(*m_currentTarget);
+
+		if (glewInit() != GLEW_OK)
+		{
+			DO_THROW(Err::CriticalError, "Failed initializing GLEW");
+		}
 	}
 
 	void OpenGlContext::Clear(int a, int r, int g, int b)

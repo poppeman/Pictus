@@ -3,6 +3,7 @@ project (Pictus)
 
 find_package(wxWidgets COMPONENTS core base gl REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
 
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(PICTUS_CPP_SRCS
@@ -58,7 +59,7 @@ message(${wxWidgets_INCLUDE_DIRS})
 message(${wxWidgets_FOUND})
 
 include(${wxWidgets_USE_FILE})
-include_directories(${DEPS_DIRECTORY} ${wxWidgets_INCLUDE_DIRS})
+include_directories(${DEPS_DIRECTORY} ${wxWidgets_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
 link_directories(${illa_BINARY_DIR}/illa ${orz_BINARY_DIR}/orz)
 
 if(MINGW)
@@ -68,5 +69,5 @@ if(MINGW)
 endif(MINGW)
 
 add_executable(Pictus ${PICTUS_CPP_SRCS} ${PICTUS_RC_SRCS} ${DEPS_DIRECTORY})
-target_link_libraries(Pictus illa orz ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES})
+target_link_libraries(Pictus illa orz ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 add_dependencies(Pictus orzTest illaTest pictusTest)
