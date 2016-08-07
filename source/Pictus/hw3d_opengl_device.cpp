@@ -1,19 +1,25 @@
 #include "hw3d_opengl_device.h"
 #include "hw3d_opengl_context.h"
-#include "hw3d_opengl_texture.h"
-#include <GL/gl.h>
-#include <GL/glx.h>
+#include "hw3d_opengl_texture_pbo.h"
+#include "hw3d_opengl_texture_simple.h"
 
 namespace Hw3D
 {
 	std::shared_ptr<Texture> OpenGlDevice::CreateTexture(const Geom::SizeInt &dimensions, Format fmt, Pool pool)
 	{
-		return std::make_shared<OpenGlTexture>(dimensions, fmt, pool);
+		if(GLEW_ARB_pixel_buffer_object)
+		{
+			return std::make_shared<OpenGlTexturePbo>(dimensions, fmt, pool);
+		}
+		else
+		{
+			return std::make_shared<OpenGlTextureSimple>(dimensions, fmt, pool);
+		}
 	}
 
 	std::shared_ptr<Texture> OpenGlDevice::CreateRenderTarget(const Geom::SizeInt &dimensions, Format fmt)
 	{
-		return std::make_shared<OpenGlTexture>(dimensions, fmt, Pool::Default);
+		return std::make_shared<OpenGlTexturePbo>(dimensions, fmt, Pool::Default);
 	}
 
 	bool OpenGlDevice::IsLost()

@@ -5,7 +5,7 @@
 
 namespace Hw3D
 {
-	class OpenGlTexture:public Texture
+	class OpenGlTexturePbo:public Texture
 	{
 	public:
 		Lock LockRegion(const Geom::RectInt& region, bool readOnly);
@@ -13,8 +13,8 @@ namespace Hw3D
 
 		GLuint GetTextureName();
 
-		OpenGlTexture(Geom::SizeInt dimensions, Format fmt, Pool pool);
-		~OpenGlTexture();
+		OpenGlTexturePbo(Geom::SizeInt dimensions, Format fmt, Pool pool);
+		~OpenGlTexturePbo();
 
 	private:
 		GLuint m_textureName;

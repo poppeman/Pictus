@@ -3,11 +3,7 @@
 
 #include "hw3d_device.h"
 
-#ifdef _WIN32
-#else
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#endif
+#include <GL/glew.h>
 
 namespace Hw3D
 {

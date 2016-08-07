@@ -1,6 +1,6 @@
 #include <GL/glew.h>
 #include "hw3d_opengl_context.h"
-#include "hw3d_opengl_texture.h"
+#include "hw3d_opengl_texture_pbo.h"
 #include "hw3d_opengl_common.h"
 
 #include <GL/gl.h>
@@ -48,11 +48,11 @@ namespace Hw3D
 			"\n"
 			"in vec2 texCoord;\n"
 			"out vec4 col;\n"
-			"uniform sampler2D smp;\n"
+			"uniform sampler2D semp;\n"
 			"\n"
 			"void main()\n"
 			"{\n"
-			"	col = texture(smp, texCoord) + vec4(texCoord, texCoord);\n"
+			"	col = texture(semp, texCoord) + vec4(texCoord, texCoord);\n"
 			"}";
 		auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -96,6 +96,8 @@ namespace Hw3D
 		auto texAttrib = glGetAttribLocation(m_program, "tex");
 		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(sizeof(float) * 3));
 		glEnableVertexAttribArray(texAttrib);
+
+
 		/*float data[] = {
 			a.Position.X, a.Position.Y, 0,
 			b.Position.X, b.Position.Y, 0,
@@ -126,12 +128,20 @@ namespace Hw3D
 
 	void OpenGlContext::SetTexture(int stage, std::shared_ptr<Texture> texture)
 	{
-		auto glTexture = std::dynamic_pointer_cast<OpenGlTexture>(texture);
+		auto glTexture = std::dynamic_pointer_cast<OpenGlTexturePbo>(texture);
 		if(glTexture == nullptr)
 		{
 			DO_THROW(Err::InvalidParam, "Texture object was not an OpenGlTexture");
 		}
+		auto u_tex = glGetUniformLocation(m_program, "semp");
+		if(glGetError() != GL_NO_ERROR)
+		{
+			DO_THROW(Err::InvalidParam, "No semp");
+		}
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, glTexture->GetTextureName());
+		glUniform1i(u_tex, 0);
+
 	}
 
 	void OpenGlContext::SetRenderTarget(std::shared_ptr<Texture> renderTarget)

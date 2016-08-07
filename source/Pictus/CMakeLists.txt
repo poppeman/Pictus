@@ -16,7 +16,8 @@ set(PICTUS_CPP_SRCS
 		hw3d_opengl_common.cpp
 		hw3d_opengl_context.cpp
 		hw3d_opengl_device.cpp
-		hw3d_opengl_texture.cpp
+		hw3d_opengl_texture_pbo.cpp
+		hw3d_opengl_texture_simple.cpp
 		factory_renderer.cpp
 		ic_backgroundprocessor.cpp
 		ic_imageloader.cpp
