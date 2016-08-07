@@ -13,11 +13,13 @@ namespace Hw3D
 		{
 			DO_THROW(Err::InvalidParam, "Attempted to lock a region with zero width or height");
 		}
+		m_lockedArea = region;
 
 		Texture::Lock l;
 		l.Pitch = GetSize().Width * 4;
 		auto bytesToLock = (region.Width() + (region.Height() - 1) * GetSize().Width) * 4;
 		auto offset = (region.Left() + region.Top() * GetSize().Width) * 4;
+		bytesToLock = GetSize().Width * GetSize().Height * 4;
 
 		GLenum err;
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, m_bufferObject);
@@ -26,18 +28,15 @@ namespace Hw3D
 			DO_THROW(Err::CriticalError, "Failed binding buffer: " + GetGlErrorString(err));
 		}
 
-		GLbitfield flags = GL_MAP_READ_BIT;
+		GLbitfield flags = 0;
 		if (!readOnly)
 		{
 			flags |= GL_MAP_WRITE_BIT;
 		}
 
-		glBindTexture(GL_TEXTURE_2D, m_textureName);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, GetSize().Width, GetSize().Height, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-
 		auto ptr = glMapBufferRange(
 			GL_PIXEL_UNPACK_BUFFER,
-			offset,
+			0,
 			bytesToLock,
 			flags);
 
@@ -51,7 +50,7 @@ namespace Hw3D
 			DO_THROW(Err::CriticalError, "Failed mapping buffer object");
 		}
 
-		l.Buffer = reinterpret_cast<uint8_t *>(ptr);
+		l.Buffer = reinterpret_cast<uint8_t *>(ptr) + offset;
 
 		return l;
 	}
@@ -65,10 +64,6 @@ namespace Hw3D
 		{
 			DO_THROW(Err::CriticalError, "Failed binding texture: " + GetGlErrorString(err));
 		}
-		if (m_textureName == GL_INVALID_VALUE)
-		{
-			DO_THROW(Err::CriticalError, "Buggy OpenGL driver, did not get a texture object");
-		}
 
 		glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
 		if ((err = glGetError()) != GL_NO_ERROR)
@@ -76,13 +71,13 @@ namespace Hw3D
 			DO_THROW(Err::CriticalError, "Failed unmapping buffer object: " + GetGlErrorString(err));
 		}
 
-		glTexImage2D(
+		glTexSubImage2D(
 			GL_TEXTURE_2D,
 			0,
-			GetGlInternalFormat(D3DFormat()),
+			0,
+			0,
 			GetSize().Width,
 			GetSize().Height,
-			0,
 			GetGlFormat(D3DFormat()),
 			GetGlDataType(D3DFormat()),
 			nullptr
@@ -99,47 +94,13 @@ namespace Hw3D
 		}
 	}
 
-	GLuint OpenGlTexturePbo::GetTextureName()
-	{
-		return m_textureName;
-	}
-
 	OpenGlTexturePbo::OpenGlTexturePbo(Geom::SizeInt dimensions, Format fmt, Pool pool):
-		Texture(dimensions, fmt),
-		m_textureName(0),
+		OpenGlTexture(dimensions, fmt, pool),
 		m_bufferObject(0)
 	{
 		GLenum err;
 
 		// Create texture
-		glGenTextures(1, &m_textureName);
-		if(m_textureName == GL_INVALID_VALUE)
-		{
-			m_textureName = 0;
-			DO_THROW(Err::CriticalError, "Failed allocating texture");
-		}
-		glBindTexture(GL_TEXTURE_2D, m_textureName);
-		if((err = glGetError()) != GL_NO_ERROR)
-		{
-			DO_THROW(Err::CriticalError, "glBindTexture failed: " + GetGlErrorString(err));
-		}
-		glTexImage2D(
-			GL_TEXTURE_2D,
-			0,
-			GetGlInternalFormat(fmt),
-			dimensions.Width,
-			dimensions.Height,
-			0,
-			GetGlFormat(fmt),
-			GetGlDataType(fmt),
-			nullptr
-		);
-
-		glTexParameteri(GL_TEXTURE_RECTANGLE, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_RECTANGLE, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_RECTANGLE, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_RECTANGLE, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
 		if((err = glGetError()) != GL_NO_ERROR)
 		{
 			DO_THROW(Err::CriticalError, "glTexImage2D failed: " + GetGlErrorString(err));
@@ -162,7 +123,6 @@ namespace Hw3D
 			DO_THROW(Err::CriticalError, "Failed allocating buffer data: " + GetGlErrorString(err));
 		}
 
-
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 		if((err = glGetError()) != GL_NO_ERROR)
 		{
@@ -173,6 +133,5 @@ namespace Hw3D
 	OpenGlTexturePbo::~OpenGlTexturePbo()
 	{
 		glDeleteBuffers(1, &m_bufferObject);
-		glDeleteTextures(1, &m_textureName);
 	}
 }

@@ -7,7 +7,7 @@ namespace Hw3D
 {
 	std::shared_ptr<Texture> OpenGlDevice::CreateTexture(const Geom::SizeInt &dimensions, Format fmt, Pool pool)
 	{
-		if(GLEW_ARB_pixel_buffer_object)
+		if(GLEW_ARB_pixel_buffer_object && false)
 		{
 			return std::make_shared<OpenGlTexturePbo>(dimensions, fmt, pool);
 		}

@@ -28,10 +28,13 @@ namespace Hw3D
 		OpenGlContext(wxWindow* win);
 
 	private:
+		void InitializeContext();
+
 		std::shared_ptr<wxGLContext> m_context;
 		wxGLCanvas* m_currentTarget;
 		GLuint m_vbo;
 		GLuint m_program;
+		bool m_isInitialized;
 	};
 }
 
