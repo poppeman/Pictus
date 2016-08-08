@@ -18,7 +18,7 @@ namespace Hw3D
 
 	std::shared_ptr<StagingTexture> OpenGlDevice::CreateStagingTexture(const Geom::SizeInt& dimensions, Format fmt)
 	{
-		if(GLEW_ARB_pixel_buffer_object && false)
+		if(GLEW_ARB_pixel_buffer_object)
 		{
 			return std::make_shared<OpenGlStagingTexturePbo>(dimensions, fmt);
 		}

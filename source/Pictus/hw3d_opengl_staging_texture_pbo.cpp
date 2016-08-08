@@ -19,7 +19,6 @@ namespace Hw3D
 		l.Pitch = GetSize().Width * 4;
 		auto bytesToLock = (region.Width() + (region.Height() - 1) * GetSize().Width) * 4;
 		auto offset = (region.Left() + region.Top() * GetSize().Width) * 4;
-		bytesToLock = GetSize().Width * GetSize().Height * 4;
 
 		GLenum err;
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, m_bufferObject);
@@ -36,7 +35,7 @@ namespace Hw3D
 
 		auto ptr = glMapBufferRange(
 			GL_PIXEL_UNPACK_BUFFER,
-			0,
+			offset,
 			bytesToLock,
 			flags);
 
@@ -50,7 +49,7 @@ namespace Hw3D
 			DO_THROW(Err::CriticalError, "Failed mapping buffer object");
 		}
 
-		l.Buffer = reinterpret_cast<uint8_t *>(ptr) + offset;
+		l.Buffer = reinterpret_cast<uint8_t *>(ptr);
 
 		return l;
 	}
@@ -70,6 +69,7 @@ namespace Hw3D
 	void OpenGlStagingTexturePbo::Transfer(Geom::RectInt sourceRect, Geom::PointInt destinationTopLeft)
 	{
 		GLenum err;
+		glPixelStorei(GL_UNPACK_ROW_LENGTH, GetSize().Width);
 
 		auto offset = (sourceRect.Top() + sourceRect.Left() * GetSize().Width) * 4;
 
