@@ -28,16 +28,21 @@ namespace Hw3D
 	{
 		GLenum err;
 
+		glPixelStorei(GL_UNPACK_ROW_LENGTH, GetSize().Width);
+		if ((err = glGetError()) != GL_NO_ERROR)
+		{
+			DO_THROW(Err::CriticalError, "Failed setting transfer row pitch: " + GetGlErrorString(err));
+		}
 		glTexSubImage2D(
 			GL_TEXTURE_2D,
 			0,
-			0,
-			0,
-			GetSize().Width,
-			GetSize().Height,
+			destTopLeft.X,
+			destTopLeft.Y,
+			sourceRect.Width(),
+			sourceRect.Height(),
 			GetGlFormat(D3DFormat()),
 			GetGlDataType(D3DFormat()),
-			&m_textureDataNonPBO[0]);
+			&m_textureDataNonPBO[(sourceRect.Left() + sourceRect.Top() * GetSize().Width) * 4]);
 		if ((err = glGetError()) != GL_NO_ERROR)
 		{
 			DO_THROW(Err::CriticalError, "Failed copying data to texture: " + GetGlErrorString(err));
