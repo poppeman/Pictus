@@ -1,6 +1,12 @@
 #include "stream_file.h"
 #include "fileops.h"
 
+#ifdef __linux__
+#include <sys/stat.h>
+#include <sys/types.h>
+#endif
+
+
 namespace IO {
 	using std::recursive_mutex;
 
@@ -83,7 +89,15 @@ namespace IO {
 		m_size = 0;
 #ifdef _WIN32
 		m_file = _wfsopen(UTF8ToWString(m_name).c_str(), L"rb", _SH_DENYWR);
-#else
+#elif __linux__
+		// Linux is evil and allows you to fopen folders. Thus we need to make sure this is a file manually
+		struct stat stats;
+		stat(m_name.c_str(), &stats);
+		if(S_ISDIR(stats.st_mode))
+		{
+			return false;
+		}
+
 		m_file = fopen(m_name.c_str(), "rb");
 #endif
 		if (m_file == 0) {
