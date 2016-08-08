@@ -13,6 +13,7 @@ namespace Hw3D
 		std::shared_ptr<Context> CreateContext(wxWindow* win) override;
 		std::shared_ptr<Texture> CreateTexture(const Geom::SizeInt& dimensions, Format fmt, Pool pool) override;
 		std::shared_ptr<Texture> CreateRenderTarget(const Geom::SizeInt& dimensions, Format fmt) override;
+		std::shared_ptr<StagingTexture> CreateStagingTexture(const Geom::SizeInt& dimensions, Format fmt) override;
 
 		bool IsLost() override;
 		bool Reset() override;
@@ -24,7 +25,7 @@ namespace Hw3D
 		~OpenGlDevice();
 
 	private:
-		bool OnInitialize();
+		bool OnInitialize() override;
 	};
 }
 

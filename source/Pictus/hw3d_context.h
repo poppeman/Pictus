@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "hw3d_texture.h"
+#include "hw3d_staging_texture.h"
 #include "hw3d_vertex2d.h"
 #include "orz/matrix.h"
 #include <wx/window.h>
@@ -25,7 +26,7 @@ namespace Hw3D
 
 		virtual void SetMatrix(TransformState state, const Matrix& m)=0;
 
-		virtual void SendTextureRect(std::shared_ptr<Texture> sourceTexture, const Geom::RectInt& sourceRect, std::shared_ptr<Texture> destinationTexture, const Geom::PointInt& destinationTopLeft)=0;
+		virtual void SendTextureRect(std::shared_ptr<StagingTexture> sourceTexture, const Geom::RectInt& sourceRect, std::shared_ptr<Texture> destinationTexture, const Geom::PointInt& destinationTopLeft)=0;
 	};
 }
 

@@ -5,7 +5,7 @@ namespace Hw3D
 {
 	GLint GetGlInternalFormat(Format fmt)
 	{
-		return GL_RGBA8;
+		return GL_RGBA;
 	}
 
 	GLenum GetGlFormat(Format)

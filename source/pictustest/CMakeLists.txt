@@ -17,6 +17,7 @@ add_executable(pictusTest
 	${ALL_C_SRCS}
 	${DEPS_DIRECTORY}
 	${PSD}/render_geometry.cpp
+	${PSD}/hw3d_staging_texture.cpp
 	${PSD}/hw3d_texture.cpp
 	${PSD}/view_pan.cpp
 	${PSD}/w32_rs_tilemanager.cpp

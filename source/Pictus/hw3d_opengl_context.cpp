@@ -1,7 +1,9 @@
 #include <GL/glew.h>
 #include "hw3d_opengl_context.h"
-#include "hw3d_opengl_texture_pbo.h"
+#include "hw3d_opengl_staging_texture.h"
+#include "hw3d_opengl_texture.h"
 #include "hw3d_opengl_common.h"
+#include "wintypes.h"
 
 #include <orz/exception.h>
 
@@ -32,6 +34,8 @@ namespace Hw3D
 
 	void OpenGlContext::BeginDraw()
 	{
+		auto rect = Win::wxToRect(m_currentTarget->GetClientRect());
+		glViewport(rect.Left(), rect.Top(), rect.Width(), rect.Height());
 		glUseProgram(m_program);
 	}
 
@@ -53,13 +57,14 @@ namespace Hw3D
 			d.Position.X, d.Position.Y, 0,
 		};*/
 		float data[] = {
-			0.0f, 1.5f, 0, 0, 0,
-			0.5f, -0.5f, 0, 1, 0,
+			-0.5f, 0.5f, 0, 0, 0,
+			0.5f, 0.5f, 0, 1, 0,
 			-0.5f, -0.5f, 0, 0, 1,
+			0.5f, -0.5f, 0, 1, 1,
 		};
 		glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STREAM_DRAW);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		GLenum err;
 		if((err = glGetError()) != GL_NO_ERROR)
@@ -91,11 +96,13 @@ namespace Hw3D
 			DO_THROW(Err::CriticalError, "Lying OpenGL driver, didn't get a valid uniform location");
 		}
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, glTexture->GetTextureName());
+		auto name = glTexture->GetTextureName();
+		glBindTexture(GL_TEXTURE_2D, name);
 		glUniform1i(u_tex, 0);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		if(name == GL_INVALID_VALUE)
+		{
+			DO_THROW(Err::InvalidParam, "Texture is broken");
+		}
 	}
 
 	void OpenGlContext::SetRenderTarget(std::shared_ptr<Texture> renderTarget)
@@ -108,11 +115,14 @@ namespace Hw3D
 
 	}
 
-	void OpenGlContext::SendTextureRect(std::shared_ptr<Texture> sourceTexture, const Geom::RectInt &sourceRect,
+	void OpenGlContext::SendTextureRect(std::shared_ptr<StagingTexture> sourceTexture, const Geom::RectInt &sourceRect,
 										std::shared_ptr<Texture> destinationTexture,
 										const Geom::PointInt &destinationTopLeft)
 	{
-
+		auto glStaging = std::dynamic_pointer_cast<OpenGlStagingTexture>(sourceTexture);
+		auto glDest = std::dynamic_pointer_cast<OpenGlTexture>(destinationTexture);
+		SetTexture(0, destinationTexture);
+		glStaging->Transfer(sourceRect, destinationTopLeft);
 	}
 
 	OpenGlContext::OpenGlContext(wxWindow *win):

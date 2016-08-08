@@ -23,7 +23,7 @@ namespace Hw3D
 
 		void SetMatrix(TransformState state, const Matrix& m) override ;
 
-		void SendTextureRect(std::shared_ptr<Texture> sourceTexture, const Geom::RectInt& sourceRect, std::shared_ptr<Texture> destinationTexture, const Geom::PointInt& destinationTopLeft) override ;
+		void SendTextureRect(std::shared_ptr<StagingTexture> sourceTexture, const Geom::RectInt& sourceRect, std::shared_ptr<Texture> destinationTexture, const Geom::PointInt& destinationTopLeft) override ;
 
 		OpenGlContext(wxWindow* win);
 

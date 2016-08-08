@@ -2,12 +2,12 @@
 #include <GL/gl.h>
 #include <orz/exception.h>
 #include <cstring>
-#include "hw3d_opengl_texture_pbo.h"
+#include "hw3d_opengl_staging_texture_pbo.h"
 #include "hw3d_opengl_common.h"
 
 namespace Hw3D
 {
-	Texture::Lock OpenGlTexturePbo::LockRegion(const Geom::RectInt &region, bool readOnly)
+	StagingTexture::Lock OpenGlStagingTexturePbo::LockRegion(const Geom::RectInt &region, bool readOnly)
 	{
 		if (region.Width() < 0 || region.Height() < 0)
 		{
@@ -15,7 +15,7 @@ namespace Hw3D
 		}
 		m_lockedArea = region;
 
-		Texture::Lock l;
+		StagingTexture::Lock l;
 		l.Pitch = GetSize().Width * 4;
 		auto bytesToLock = (region.Width() + (region.Height() - 1) * GetSize().Width) * 4;
 		auto offset = (region.Left() + region.Top() * GetSize().Width) * 4;
@@ -55,15 +55,9 @@ namespace Hw3D
 		return l;
 	}
 
-	void OpenGlTexturePbo::UnlockRegion()
+	void OpenGlStagingTexturePbo::UnlockRegion()
 	{
 		GLenum err;
-
-		glBindTexture(GL_TEXTURE_2D, m_textureName);
-		if ((err = glGetError()) != GL_NO_ERROR)
-		{
-			DO_THROW(Err::CriticalError, "Failed binding texture: " + GetGlErrorString(err));
-		}
 
 		glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
 		if ((err = glGetError()) != GL_NO_ERROR)
@@ -71,16 +65,24 @@ namespace Hw3D
 			DO_THROW(Err::CriticalError, "Failed unmapping buffer object: " + GetGlErrorString(err));
 		}
 
+	}
+
+	void OpenGlStagingTexturePbo::Transfer(Geom::RectInt sourceRect, Geom::PointInt destinationTopLeft)
+	{
+		GLenum err;
+
+		auto offset = (sourceRect.Top() + sourceRect.Left() * GetSize().Width) * 4;
+
 		glTexSubImage2D(
 			GL_TEXTURE_2D,
 			0,
-			0,
-			0,
-			GetSize().Width,
-			GetSize().Height,
+			destinationTopLeft.X,
+			destinationTopLeft.Y,
+			sourceRect.Width(),
+			sourceRect.Height(),
 			GetGlFormat(D3DFormat()),
 			GetGlDataType(D3DFormat()),
-			nullptr
+			reinterpret_cast<void*>(offset)
 		);
 		if ((err = glGetError()) != GL_NO_ERROR)
 		{
@@ -94,8 +96,8 @@ namespace Hw3D
 		}
 	}
 
-	OpenGlTexturePbo::OpenGlTexturePbo(Geom::SizeInt dimensions, Format fmt, Pool pool):
-		OpenGlTexture(dimensions, fmt, pool),
+	OpenGlStagingTexturePbo::OpenGlStagingTexturePbo(Geom::SizeInt dimensions, Format fmt):
+		OpenGlStagingTexture(dimensions, fmt),
 		m_bufferObject(0)
 	{
 		GLenum err;
@@ -130,7 +132,7 @@ namespace Hw3D
 		}
 	}
 
-	OpenGlTexturePbo::~OpenGlTexturePbo()
+	OpenGlStagingTexturePbo::~OpenGlStagingTexturePbo()
 	{
 		glDeleteBuffers(1, &m_bufferObject);
 	}

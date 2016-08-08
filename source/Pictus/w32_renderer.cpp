@@ -146,10 +146,10 @@ namespace Win {
 		//DDSurfaceD3D* ds = dynamic_cast<DDSurfaceD3D*>(dest.get());
 
 		if (m_softTex == 0 || !m_softTex->GetSize().AtLeastInclusive(destinationArea.Dimensions())) {
-			m_softTex = m_direct3d->CreateTexture(destinationArea.Dimensions(), Hw3D::Format::X8R8G8B8, Hw3D::Pool::SystemMemory);
+			m_softTex = m_direct3d->CreateStagingTexture(destinationArea.Dimensions(), Hw3D::Format::X8R8G8B8);
 		}
 
-		Hw3D::Texture::Lock l = m_softTex->LockRegion(RectInt(PointInt(0, 0), destinationArea.Dimensions()), false);
+		auto l = m_softTex->LockRegion(RectInt(PointInt(0, 0), destinationArea.Dimensions()), false);
 		try {
 			Filter::FilterBuffer dst(m_softTex->GetSize(), 4, l.Buffer, l.Pitch);
 

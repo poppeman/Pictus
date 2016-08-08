@@ -1,25 +1,31 @@
 #include "hw3d_opengl_device.h"
 #include "hw3d_opengl_context.h"
-#include "hw3d_opengl_texture_pbo.h"
-#include "hw3d_opengl_texture_simple.h"
+#include "hw3d_opengl_texture.h"
+#include "hw3d_opengl_staging_texture_pbo.h"
+#include "hw3d_opengl_staging_texture_simple.h"
 
 namespace Hw3D
 {
 	std::shared_ptr<Texture> OpenGlDevice::CreateTexture(const Geom::SizeInt &dimensions, Format fmt, Pool pool)
 	{
-		if(GLEW_ARB_pixel_buffer_object && false)
-		{
-			return std::make_shared<OpenGlTexturePbo>(dimensions, fmt, pool);
-		}
-		else
-		{
-			return std::make_shared<OpenGlTextureSimple>(dimensions, fmt, pool);
-		}
+		return std::make_shared<OpenGlTexture>(dimensions, fmt, pool);
 	}
 
 	std::shared_ptr<Texture> OpenGlDevice::CreateRenderTarget(const Geom::SizeInt &dimensions, Format fmt)
 	{
-		return std::make_shared<OpenGlTexturePbo>(dimensions, fmt, Pool::Default);
+		return std::make_shared<OpenGlTexture>(dimensions, fmt, Pool::Default);
+	}
+
+	std::shared_ptr<StagingTexture> OpenGlDevice::CreateStagingTexture(const Geom::SizeInt& dimensions, Format fmt)
+	{
+		if(GLEW_ARB_pixel_buffer_object && false)
+		{
+			return std::make_shared<OpenGlStagingTexturePbo>(dimensions, fmt);
+		}
+		else
+		{
+			return std::make_shared<OpenGlStagingTextureSimple>(dimensions, fmt);
+		}
 	}
 
 	bool OpenGlDevice::IsLost()

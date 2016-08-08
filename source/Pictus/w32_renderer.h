@@ -56,7 +56,7 @@ namespace Win {
 		void CreateTextures();
 		Geom::SizeInt RenderAreaSize();
 
-		std::shared_ptr<Hw3D::Texture> m_softTex;
+		std::shared_ptr<Hw3D::StagingTexture> m_softTex;
 		std::shared_ptr<Hw3D::Device> m_direct3d;
 		std::shared_ptr<Hw3D::Context> m_context;
 	};
