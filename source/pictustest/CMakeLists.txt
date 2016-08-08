@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
 
-find_package(wxWidgets REQUIRED COMPONENTS base)
+find_package(wxWidgets REQUIRED COMPONENTS core base)
 
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 FILE(GLOB ALL_CPP_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)

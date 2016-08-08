@@ -225,18 +225,19 @@ namespace App {
 		return false;
 	}*/
 
-	bool ViewPort::HandleMouseDown(Win::MouseEvent e) {
-		if (MouseStandardEvent(e, m_mouseConfig) == MousePan) {
+	void ViewPort::HandleMouseDown(wxMouseEvent& evt) {
+		if (MouseStandardEvent(Win::MouseEvent(evt), m_mouseConfig) == MousePan) {
 			m_isPanning = true;
 			m_oldMousePosition = MouseCursorPos();
 			m_currentPanMonitor = wxDisplay::GetFromPoint(Win::PointToWx(m_oldMousePosition));
 			m_canvas->CaptureMouse();
-			return true;
+			return;
 		}
-		return false;
+		evt.ResumePropagation(1);
+		evt.Skip();
 	}
 
-	bool ViewPort::HandleMouseUp(Win::MouseEvent) {
+	void ViewPort::HandleMouseUp(wxMouseEvent& evt) {
 		// Done panning, release mouse
 		if(m_isPanning)
 		{
@@ -245,14 +246,17 @@ namespace App {
 
 		m_isPanning = false;
 
-		return false;
+		evt.ResumePropagation(1);
+		evt.Skip();
 	}
 
-	bool ViewPort::HandleMouseMove(Win::MouseEvent e) {
+	void ViewPort::HandleMouseMove(wxMouseEvent& evt) {
 		updateCursor();
 
-		if (!((MouseStandardEvent(e, m_mouseConfig)) && m_isPanning == true)) {
-			return false;
+		if (!((MouseStandardEvent(evt, m_mouseConfig)) && m_isPanning == true)) {
+			evt.ResumePropagation(1);
+			evt.Skip();
+			return;
 		}
 
 		if (m_currentPanMonitor == wxNOT_FOUND) {
@@ -298,8 +302,6 @@ namespace App {
 
 			m_canvas->Update();
 		}
-
-		return true;
 	}
 
 	void ViewPort::CursorHideCallback() {
@@ -512,12 +514,18 @@ namespace App {
 		m_canvas = canvas;
 		m_canvas->Bind(wxEVT_MOTION, [&](wxMouseEvent e) { return HandleMouseMove(e); });
 		// TODO: Bind the other events
-		m_canvas->Bind(wxEVT_LEFT_DOWN, [&](Win::MouseEvent e) { return HandleMouseDown(e); });
-		m_canvas->Bind(wxEVT_LEFT_UP, [&](Win::MouseEvent e) { return HandleMouseUp(e); });
+		m_canvas->Bind(wxEVT_LEFT_DOWN, [&](wxMouseEvent& e) { HandleMouseDown(e); });
+		m_canvas->Bind(wxEVT_LEFT_UP, [&](wxMouseEvent& e) { HandleMouseUp(e); });
+		m_canvas->Bind(wxEVT_MOUSEWHEEL, [&](wxMouseEvent& e) { HandleMouseDown(e); });
 
 		m_canvas->Bind(wxEVT_PAINT, [&](wxPaintEvent& evt) { PerformOnPaint(); });
-		m_canvas->Bind(wxEVT_SIZE, [&](wxSizeEvent evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
-		m_canvas->Bind(wxEVT_SIZING, [&](wxSizeEvent evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
+		m_canvas->Bind(wxEVT_SIZE, [&](wxSizeEvent& evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
+		m_canvas->Bind(wxEVT_SIZING, [&](wxSizeEvent& evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
+
+		m_canvas->Bind(wxEVT_KEY_DOWN, [&](wxKeyEvent& e) {
+			e.ResumePropagation(1);
+			e.Skip();
+		});
 
 		m_renderTarget.TargetWindow(m_canvas);
 

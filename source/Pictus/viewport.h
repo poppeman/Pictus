@@ -97,9 +97,9 @@ namespace App {
 
 		Geom::PointInt MouseCursorPos();
 
-		bool HandleMouseMove(Win::MouseEvent e);
-		bool HandleMouseDown(Win::MouseEvent e);
-		bool HandleMouseUp(Win::MouseEvent e);
+		void HandleMouseMove(wxMouseEvent& e);
+		void HandleMouseDown(wxMouseEvent& e);
+		void HandleMouseUp(wxMouseEvent& e);
 		void ImageRefreshCallback();
 		bool PerformOnCreate();
 

@@ -105,9 +105,9 @@ namespace App {
 
 		//m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
 		// TODO: Bind all events again
-		Bind(wxEVT_LEFT_DOWN, [this](wxMouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
-		Bind(wxEVT_MOUSEWHEEL, [this](Win::MouseEvent e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
-		Bind(wxEVT_LEFT_DCLICK, [this](Win::MouseEvent e) {
+		Bind(wxEVT_LEFT_DOWN, [this](wxMouseEvent& e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
+		Bind(wxEVT_MOUSEWHEEL, [this](wxMouseEvent& e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
+		Bind(wxEVT_LEFT_DCLICK, [this](wxMouseEvent& e) {
 			auto ev = MouseDblEvent(e, m_cfg.Mouse);
 			if (ev == MouseAction::MouseUndefined || ev == MouseAction::MouseDisable) {
 				ev = MouseStandardEvent(e, m_cfg.Mouse);

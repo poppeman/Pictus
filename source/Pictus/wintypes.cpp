@@ -82,7 +82,7 @@ namespace Win {
 		return (Key < rhs.Key);
 	}
 
-	KeyEvent::KeyEvent(wxKeyCode key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed):
+	KeyEvent::KeyEvent(int key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed):
 		Key(key),
 		AltPressed(isAltPressed),
 		CtrlPressed(isCtrlPressed),
@@ -90,9 +90,9 @@ namespace Win {
 	{
 	}
 
-	KeyEvent::KeyEvent(wxKeyEvent evt)
+	KeyEvent::KeyEvent(wxKeyEvent& evt):
+		KeyEvent(evt.GetKeyCode(), evt.AltDown(), evt.CmdDown(), evt.ShiftDown())
 	{
-		KeyEvent((wxKeyCode)evt.GetKeyCode(), evt.AltDown(), evt.CmdDown(), evt.ShiftDown());
 	}
 
 	MouseEvent::MouseEvent() : Button(Left), Position(0, 0), WheelTicks(0)
@@ -100,8 +100,31 @@ namespace Win {
 
 	}
 
-	MouseEvent::MouseEvent(wxMouseEvent evt) : Position(evt.GetPosition().x, evt.GetPosition().y), WheelTicks(0)
+	MouseEvent::MouseEvent(wxMouseEvent& evt):
+		Button(MouseButton::NoButton),
+		Position(evt.GetPosition().x, evt.GetPosition().y),
+		WheelTicks(evt.GetWheelRotation())
 	{
+		if(evt.Button(wxMOUSE_BTN_LEFT))
+		{
+			Button = MouseButton::Left;
+		}
+		if(evt.Button(wxMOUSE_BTN_RIGHT))
+		{
+			Button = MouseButton::Right;
+		}
+		if(evt.Button(wxMOUSE_BTN_MIDDLE))
+		{
+			Button = MouseButton::Middle;
+		}
+		if(evt.Button(wxMOUSE_BTN_AUX1))
+		{
+			Button = MouseButton::Extra1;
+		}
+		if(evt.Button(wxMOUSE_BTN_AUX2))
+		{
+			Button = MouseButton::Extra2;
+		}
 
 	}
 

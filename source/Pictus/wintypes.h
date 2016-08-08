@@ -21,21 +21,21 @@ namespace Win {
 		int WheelTicks;
 
 		MouseEvent();
-		MouseEvent(wxMouseEvent evt);
+		MouseEvent(wxMouseEvent& evt);
 	};
 
 	class KeyEvent {
 	public:
 		//WPARAM Key;
-		wxKeyCode Key;
+		int Key;
 		bool AltPressed;
 		bool CtrlPressed;
 		bool ShiftPressed;
 
 		bool operator<(const KeyEvent &rhs) const;
 
-		KeyEvent(wxKeyCode key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed);
-		KeyEvent(wxKeyEvent evt);
+		KeyEvent(int key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed);
+		KeyEvent(wxKeyEvent& evt);
 	};
 
 	std::string LongPath(const std::string &path);

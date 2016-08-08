@@ -45,7 +45,7 @@ namespace App {
 	};
 
 	struct KeyboardPress {
-		wchar_t Key;
+		int Key;
 		bool Alt;
 		bool Shift;
 		bool Ctrl;
