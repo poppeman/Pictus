@@ -50,18 +50,13 @@ namespace Hw3D
 		glEnableVertexAttribArray(texAttrib);
 
 
-		/*float data[] = {
-			a.Position.X, a.Position.Y, 0,
-			b.Position.X, b.Position.Y, 0,
-			c.Position.X, c.Position.Y, 0,
-			d.Position.X, d.Position.Y, 0,
-		};*/
 		float data[] = {
-			-0.5f, 0.5f, 0, 0, 0,
-			0.5f, 0.5f, 0, 1, 0,
-			-0.5f, -0.5f, 0, 0, 1,
-			0.5f, -0.5f, 0, 1, 1,
+			a.Position.X, a.Position.Y, 0, a.TexCoord.X, a.TexCoord.Y,
+			b.Position.X, b.Position.Y, 0, b.TexCoord.X, b.TexCoord.Y,
+			c.Position.X, c.Position.Y, 0, c.TexCoord.X, c.TexCoord.Y,
+			d.Position.X, d.Position.Y, 0, d.TexCoord.X, d.TexCoord.Y
 		};
+
 		glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STREAM_DRAW);
 
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -112,7 +107,24 @@ namespace Hw3D
 
 	void OpenGlContext::SetMatrix(TransformState state, const Matrix &m)
 	{
-
+		if(state == TransformState::Projection)
+		{
+			auto mProjection = glGetUniformLocation(m_program, "projection");
+			if(mProjection == -1)
+			{
+				DO_THROW(Err::CriticalError, "Failed getting projection matrix location");
+			}
+			GLenum err;
+			if((err = glGetError()) != GL_NO_ERROR)
+			{
+				DO_THROW(Err::CriticalError, "Failed getting projection matrix location");
+			}
+			glUniformMatrix4fv(mProjection, 1, GL_FALSE, (GLfloat*)m.m);
+			if((err = glGetError()) != GL_NO_ERROR)
+			{
+				DO_THROW(Err::CriticalError, "Failed getting projection matrix location");
+			}
+		}
 	}
 
 	void OpenGlContext::SendTextureRect(std::shared_ptr<StagingTexture> sourceTexture, const Geom::RectInt &sourceRect,
@@ -153,13 +165,14 @@ namespace Hw3D
 		}
 		const char* vertexShaderSource = "#version 330 core\n"
 			"\n"
+			"uniform mat4 projection;\n"
 			"in vec3 position;\n"
 			"in vec2 tex;\n"
 			"out vec2 texCoord;\n"
 			"\n"
 			"void main()\n"
 			"{\n"
-			"	gl_Position = vec4(position, 1.0);\n"
+			"	gl_Position = projection * vec4(position, 1.0);\n"
 			"	texCoord = tex;"
 			"}";
 		const char* fragmentShaderSource = "#version 330 core\n"
@@ -170,7 +183,7 @@ namespace Hw3D
 			"\n"
 			"void main()\n"
 			"{\n"
-			"	col = texture2D(semp, texCoord) + 0.5 * vec4(texCoord, texCoord);\n"
+			"	col = texture2D(semp, texCoord);\n"
 			"}";
 		auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
