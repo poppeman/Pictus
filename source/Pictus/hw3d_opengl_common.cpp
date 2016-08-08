@@ -10,7 +10,7 @@ namespace Hw3D
 
 	GLenum GetGlFormat(Format)
 	{
-		return GL_RGBA;
+		return GL_BGRA;
 	}
 
 	GLenum GetGlDataType(Format)
