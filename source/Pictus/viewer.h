@@ -102,14 +102,9 @@ namespace App {
 		void OnMoveEvent(wxMoveEvent& e);
 		//bool PerformOnDropFiles(const StringVector& files);
 
-		//bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
-
 		void SetImageLocation(const std::string& path);
 
 		//bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
-		bool PerformOnCreateTaskbar();
-		bool PerformOnTaskbarButton(int id);
-
 		void UpdateImageInformation();
 
 		std::string UII_MemoryUsage(FileInt size);

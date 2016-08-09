@@ -30,21 +30,7 @@ namespace App {
 		m_canvas->SetSize(320, 200);
 		m_canvas->Show(true);
 		m_canvas->GetSize();
-		/*m_hParent = Parent()->Handle();
 
-		// Register the window class (if possible)
-		WNDCLASSEX wc;
-		ZeroMemory(&wc, sizeof(wc));
-		wc.cbSize			= sizeof(wc);					// Set structure size
-		wc.hCursor			= LoadCursor(0, IDC_ARROW);
-		wc.hInstance		= GetHINSTANCE();				// Current instance's handle
-		wc.lpfnWndProc		= WndProcDelegate;				// Use "delegate" as the wndproc
-		wc.lpszClassName	= ClassName;					// Class name
-		wc.style			= CS_DBLCLKS | CS_HREDRAW | CS_VREDRAW;	// Register double clicks and window resizes
-		RegisterClassEx(&wc);
-
-		// Create window without any nifty features
-		return ConstructWindow(RectInt(PointInt(0, 0), SizeInt(1, 1)), WS_EX_ACCEPTFILES, ClassName, L"", WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN);*/
 		return true;
 	}
 
@@ -487,11 +473,6 @@ namespace App {
 	Geom::SizeInt ViewPort::GetSize()
 	{
 		return Win::wxToSize(m_canvas->GetSize());
-	}
-
-	void ViewPort::SetRect(Geom::RectInt rect)
-	{
-		m_canvas->SetSize(rect.Left(), rect.Top(), rect.Width(), rect.Height());
 	}
 
 	void ViewPort::Refresh()

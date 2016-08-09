@@ -1,7 +1,6 @@
 ﻿#include "orz/stream_file.h"
 #include "orz/fileops.h"
 #include "orz/intl.h"
-#include "orz/orz_math.h"
 #include "orz/sysinfo.h"
 
 #include "imagecache.h"
@@ -15,17 +14,13 @@
 #include "viewer.h"
 
 #include "config.h"
-#include "res_viewer.h"
 
 #include "filterstring.h"
 #include "builder_viewport.h"
-#include "zoom_mode.h"
 
-#include <boost/date_time.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/format.hpp>
 #include <boost/scoped_array.hpp>
-#include <random>
 #include <wx/display.h>
 #include <wx/msgdlg.h>
 
@@ -173,7 +168,6 @@ namespace App {
 		b.BuildViewport(m_viewPort, this, m_cfg);
 
 		//m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
-		//OnTaskbarButton.connect([this](int id) { PerformOnTaskbarButton(id); });
 
 		m_mouseMap.AddAction(MouseFullscreen, [this](Win::MouseEvent) { ToggleFullscreenMode(); });
 		m_mouseMap.AddAction(MouseToggleFullSizeDefaultZoom, [&](Win::MouseEvent) { ZoomToggleFullSizeDefaultZoom(); });

@@ -12,7 +12,6 @@
 #include "w32_redrawstrategy.h"
 #include "w32_rendertarget.h"
 
-//#include "monitor.h"
 #include "appreg.h"
 #include "wintypes.h"
 
@@ -87,7 +86,6 @@ namespace App {
 		void Refresh();
 
 		Geom::SizeInt GetSize();
-		void SetRect(Geom::RectInt newRect);
 
 		ViewPort(wxWindow* parent);
 		ViewPort()=delete;
@@ -105,7 +103,6 @@ namespace App {
 		void ImageRefreshCallback();
 		bool PerformOnCreate();
 
-		//bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
 		bool PerformOnPaint();
 		bool PerformOnSize(const Geom::SizeInt& sz);
 		//bool PerformOnDropFiles(const StringVector& files);
