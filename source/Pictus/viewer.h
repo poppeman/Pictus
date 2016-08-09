@@ -100,7 +100,7 @@ namespace App {
 		bool PerformOnClose();
 
 		bool PerformOnSize(const Geom::SizeInt& sz);
-		bool PerformOnMove(const Geom::PointInt& pt, bool byUser);
+		void OnMoveEvent(wxMoveEvent& e);
 		//bool PerformOnDropFiles(const StringVector& files);
 
 		//bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
@@ -247,6 +247,8 @@ namespace App {
 		Geom::PointInt CenterPositionScreen();
 		Geom::RectInt ClientRect();
 		void AlwaysOnTop(bool doAlwaysOnTop);
+
+		unsigned int DisplayFromPointFallback(Geom::PointInt position);
 
 		wxDECLARE_EVENT_TABLE();
 	};

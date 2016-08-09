@@ -50,6 +50,7 @@ namespace App {
 		EVT_MOUSEWHEEL(Viewer::OnMouseStandardEvent)
 		EVT_SIZE(Viewer::OnSizeEvent)
 		EVT_SIZING(Viewer::OnSizeEvent)
+		EVT_MOVE(Viewer::OnMoveEvent)
 		EVT_COMMAND(wxID_ANY, ImageLoadEvent, Viewer::OnImageLoadEvent)
 	wxEND_EVENT_TABLE()
 
@@ -157,7 +158,7 @@ namespace App {
 		if(displayIndex != wxNOT_FOUND && displayIndex >= 0)
 		{
 			wxDisplay display(static_cast<unsigned int>(displayIndex));
-			auto displayGeometry = display.GetGeometry();
+			auto displayGeometry = display.GetClientArea();
 
 			int w = Util::Constrain<int>(MinWindowWidth, m_cfg.View.WindowSizeWidth, displayGeometry.GetWidth());
 			int h = Util::Constrain<int>(MinWindowHeight, m_cfg.View.WindowSizeHeight, displayGeometry.GetHeight());
@@ -372,15 +373,11 @@ namespace App {
 		return RecalculateViewportSize();
 	}
 
-	bool Viewer::PerformOnMove(const PointInt&, bool byUser) {
-		if (!byUser) {
-			return false;
-		}
-
+	void Viewer::OnMoveEvent(wxMoveEvent& e)
+	{
+		// TODO: Skip handling event for non-user-initiated moves
 		AnchorTL(PositionScreen());
 		AnchorCenter(PositionScreen() + RoundCast(wxToSize(GetSize()) * 0.5f));
-
-		return true;
 	}
 
 	void Viewer::AnchorTL(const PointInt& pt) {
@@ -847,7 +844,8 @@ namespace App {
 					// The image should _also_ be resized to fit some way.
 					// Make the viewer as large as possible (and needed).
 					//const RectInt& rtDesktop = Win::FindMonitorAt(PositionScreen())->WorkArea();
-					RectInt rtDesktop(PointInt(0, 0), SizeInt(2560, 1440));
+					wxDisplay display(DisplayFromPointFallback(PositionScreen()));
+					auto rtDesktop = wxToRect(display.GetClientArea());
 
 					float xratio = static_cast<float>(rtDesktop.Width() - windowEdges.Width) / imageSize.Width;
 					float yratio = static_cast<float>(rtDesktop.Height() - windowEdges.Height) / imageSize.Height;
@@ -873,8 +871,8 @@ namespace App {
 	}
 
 	App::PointInt Viewer::calculateWindowTopLeft(ResizePositionMethod method, const SizeInt &newSize ) {
-		//const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
-		const RectInt& rtDesktop	= RectInt(PointInt(0, 0), SizeInt(2560, 1440));
+		wxDisplay display(DisplayFromPointFallback(PositionScreen()));
+		auto rtDesktop = wxToRect(display.GetClientArea());
 
 		switch (method) {
 		case ResizePositionMethod::PositionToScreen:
@@ -928,14 +926,13 @@ namespace App {
 	}
 
 	SizeInt Viewer::calculateImageSize( ResizeBehaviour mode, float xratio, float yratio, const SizeInt &imageSize, const SizeInt &windowEdges ) {
-		//const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
-		const RectInt& rtDesktop	= RectInt(PointInt(0, 0), SizeInt(2560, 1440));
+		wxDisplay display(DisplayFromPointFallback(PositionScreen()));
+		auto rtDesktop = wxToRect(display.GetClientArea());
 
 		// The image is larger than the desktop. The image is not supposed
 		// to be downscaled so fill the screen.
 		if ((mode == ResizeEnlargeOnly) && (xratio < 1.0) && (yratio < 1.0))
 			return rtDesktop.Dimensions();
-
 		// The image is smaller than the desktop. It must not be made
 		// smaller needlessly so size the window after the image.
 		else if ((mode == ResizeReduceOnly) && (xratio > 1.0) && (yratio > 1.0))
@@ -947,8 +944,8 @@ namespace App {
 	}
 
 	SizeInt Viewer::calculateCappedImageSize( const SizeInt& imageSize, const SizeInt &windowEdges ) {
-		//const RectInt& rtDesktop	= Win::FindMonitorAt(PositionScreen())->WorkArea();
-		const RectInt& rtDesktop	= RectInt(PointInt(0, 0), SizeInt(2560, 1440));
+		wxDisplay display(DisplayFromPointFallback(PositionScreen()));
+		auto rtDesktop = wxToRect(display.GetClientArea());
 
 		return SizeInt(
 			std::max<int>(MinWindowWidth,  std::min<int>(rtDesktop.Width(), imageSize.Width + windowEdges.Width)),
@@ -1123,5 +1120,18 @@ namespace App {
 			style &= ~(wxSTAY_ON_TOP);
 		}
 		SetWindowStyleFlag(style);
+	}
+
+	unsigned int Viewer::DisplayFromPointFallback(Geom::PointInt position)
+	{
+		auto displayIndex = wxDisplay::GetFromPoint(PointToWx(position));
+		if(displayIndex < 0)
+		{
+			// We didn't find a display, but crashing here would be a bit frustrating for the user.
+			// We'll pick the first display and use that instead, which might cause the window to jump
+			// a bit but that should still be less frustrating.
+			displayIndex = 0;
+		}
+		return displayIndex;
 	}
 }
