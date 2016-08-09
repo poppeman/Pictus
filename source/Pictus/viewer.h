@@ -20,7 +20,6 @@
 //#include "viewer_contextmenu.h"
 #include "viewer_keyboard.h"
 #include "actionmap.h"
-//#include "ctrl_statusbar.h"
 
 #include <random>
 
@@ -73,12 +72,12 @@ namespace App {
 		};
 
 		enum {
-			StatFieldZoomWidth =	50,
-			StatFieldImageDimWidth= 80,
-			StatFieldPosWidth =		50,
+			StatFieldZoomWidth =	60,
+			StatFieldImageDimWidth= 100,
+			StatFieldPosWidth =		80,
 			StatFieldTimeWidth =	110,
 			StatFieldFileSizeWidth=	80,
-			StatFieldLastModified = 110,
+			StatFieldLastModified = 180,
 		};
 
 		void OnMouseStandardEvent(wxMouseEvent& e);
@@ -219,8 +218,7 @@ namespace App {
 
 		ViewPort m_viewPort;
 
-		//Win::StatusBar::Ptr m_statusBar;
-		//Win::StatusBarPart m_statusParts[StatusNumParts];
+		wxStatusBar* m_statusBar;
 
 		std::mutex m_mutexNotification;
 

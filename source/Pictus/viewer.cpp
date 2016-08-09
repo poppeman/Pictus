@@ -80,11 +80,7 @@ namespace App {
 
 	void Viewer::OnSizeEvent(wxSizeEvent &e)
 	{
-		if (PerformOnSize(wxToSize(e.GetSize())))
-		{
-			return;
-		}
-		e.ResumePropagation(1);
+		PerformOnSize(wxToSize(e.GetSize()));
 		e.Skip();
 	}
 
@@ -98,6 +94,7 @@ namespace App {
 		m_screenMode{ SM_Normal },
 		m_doMaximize{ false },
 		m_viewPort{ this },
+		m_statusBar{ nullptr },
 		m_codecs{ cfs },
 		m_cfg( cfg )
 	{
@@ -237,20 +234,21 @@ namespace App {
 	}
 
 	bool Viewer::PerformOnWindowCreate() {
-		/*m_statusBar = std::make_shared<Win::StatusBar>();
-		Add(m_statusBar);
-		m_statusParts[StatusZoom].Width(StatFieldZoomWidth);
-		m_statusParts[StatusName].AutoSize(Win::StatusBarPart::AutoSizeShare);
-		m_statusParts[StatusResolution].Width(StatFieldImageDimWidth);
-		m_statusParts[StatusPosition].Width(StatFieldPosWidth);
-		m_statusParts[StatusProgress].Width(StatFieldTimeWidth);
-		m_statusParts[StatusFileSize].Width(StatFieldFileSizeWidth);
-		m_statusParts[StatusLastModified].Width(StatFieldLastModified);
-		for (int i = 0; i < StatusNumParts; ++i) {
-			m_statusBar->Add(m_statusParts[i]);
-		}
+		m_statusBar = CreateStatusBar(7);
 
-		m_statusBar->Visible(m_cfg.View.ShowStatusBar);*/
+		int widths[] = {
+			StatFieldZoomWidth,
+			-1,
+			StatFieldImageDimWidth,
+			StatFieldPosWidth,
+			StatFieldTimeWidth,
+			StatFieldFileSizeWidth,
+			StatFieldLastModified
+		};
+
+		m_statusBar->SetStatusWidths(7, widths);
+
+		m_statusBar->Show(m_cfg.View.ShowStatusBar);
 
 		if ((m_sDirectory.length() > 0) && (m_sDirectory.at(0) != L'-'))
 			SetImageLocation(m_sDirectory);
@@ -354,16 +352,9 @@ namespace App {
 		/*if (!IsZoomed(Handle()) && !IsIconic(Handle()))
 			m_previousNonMaximizedWindowRegion = WindowRect();*/
 
-		RectInt client = ClientRect();
-
-		/*if (m_statusBar->Visible()) {
-			m_viewPort.Resize(SizeInt(client.Width(), client.Height() - m_statusBar->Position().Height()));
-			UpdateImageInformation();
-		}
-		else*/
+		if(m_statusBar != nullptr && m_statusBar->IsShown())
 		{
-			//m_viewPort.Resize(client.Dimensions());
-			m_viewPort.SetRect(client);
+			UpdateImageInformation();
 		}
 
 		return true;
@@ -435,39 +426,42 @@ namespace App {
 	}
 
 	void Viewer::UpdateImageInformation() {
-/*		if (!m_statusBar) {
+		if (m_statusBar == nullptr)
+		{
 			return;
 		}
 
 		if (ViewportMode() == SM_Fullscreen) {
-			return m_statusBar->Visible(false);
-		}*/
+			m_statusBar->Show(false);
+			return;
+		}
 
 		Img::Image::Ptr image(m_viewPort.Image());
-		/*m_statusParts[StatusProgress].Text(UII_LoadProgress(image));
-		m_statusParts[StatusResolution].Text(UII_ImageResolution(image));*/
+		m_statusBar->SetStatusText(UII_LoadProgress(image), StatusProgress);
+		m_statusBar->SetStatusText(UII_ImageResolution(image), StatusResolution);
 		SetTitle(wxString::FromUTF8(((image ? IO::GetFile(m_cacher.CurrentImageFilename()) + " - ":"") + WStringToUTF8(AppTitle)).c_str()));
 
-		/*Caption((image ? IO::GetFile(m_cacher.CurrentImageFilename()) + " - ":"") + WStringToUTF8(AppTitle));
-
-		if (image == 0) {
+		if (image == nullptr) {
 			for (int i = 0; i < StatusNumParts; ++i) {
-				m_statusParts[i].Text("");
+				m_statusBar->SetStatusText("", 0);
 			}
 		}
-		else {
-			m_statusParts[StatusName].Text(IO::GetFile(m_cacher.CurrentImageFilename()));
-			m_statusParts[StatusPosition].Text(ToAString(m_cacher.CurrentImageIndex() + 1) + "\\" + ToAString(m_cacher.ImageCount()));
-			m_statusParts[StatusFileSize].Text(UII_MemoryUsage(m_cacher.CurrentImageFileSize()));
+		else
+		{
+			m_statusBar->SetStatusText(IO::GetFile(m_cacher.CurrentImageFilename()), StatusName);
+			m_statusBar->SetStatusText(ToAString(m_cacher.CurrentImageIndex() + 1) + "\\" + ToAString(m_cacher.ImageCount()), StatusPosition);
+			m_statusBar->SetStatusText(UII_MemoryUsage(m_cacher.CurrentImageFileSize()), StatusFileSize);
 
-			if (image->IsHeaderInformationValid() == false && image->IsFinished()) {
-				m_statusParts[StatusZoom].Text("");
+			if (image->IsHeaderInformationValid() == false && image->IsFinished())
+			{
+				m_statusBar->SetStatusText("", StatusZoom);
 			}
-			else {
-				m_statusParts[StatusZoom].Text(ToAString(RoundCast(m_viewPort.ZoomLevel() * 100.0f)) + "%");
-				m_statusParts[StatusLastModified].Text(UII_LastModified(m_cacher.CurrentImageLastModifiedDate()));
+			else
+			{
+				m_statusBar->SetStatusText(ToAString(RoundCast(m_viewPort.ZoomLevel() * 100.0f)) + "%", StatusZoom);
+				m_statusBar->SetStatusText(UII_LastModified(m_cacher.CurrentImageLastModifiedDate()), StatusLastModified);
 			}
-		}*/
+		}
 	}
 
 	std::string Viewer::UII_MemoryUsage(FileInt size) {
@@ -569,10 +563,10 @@ namespace App {
 
 		if (newMode == Viewer::SM_Fullscreen) {
 			//auto mon = wxDisplay::GetFromPoint(PointToWx(CenterPositionScreen()));
-			/*const Win::Monitor* mon = Win::FindMonitorAt(CenterPositionScreen());
+			/*const Win::Monitor* mon = Win::FindMonitorAt(CenterPositionScreen());*/
 
-			m_statusBar->Visible(false);
-			m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);
+			m_statusBar->Show(false);
+			/*m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);
 			SetWindowLongPtr(Handle(), GWL_STYLE, WS_POPUP | WS_VISIBLE | WS_CLIPCHILDREN);
 			m_previousWindowRegion = WindowRect();
 			MoveResize(mon->Region());
@@ -581,9 +575,9 @@ namespace App {
 			SetForegroundWindow(Handle());*/
 		}
 		else {
-			/*SetWindowLongPtr(Handle(), GWL_STYLE, m_previousWindowStyle);
-			m_statusBar->Visible(m_cfg.View.ShowStatusBar);
-			MoveResize(m_previousWindowRegion);
+			/*SetWindowLongPtr(Handle(), GWL_STYLE, m_previousWindowStyle);*/
+			m_statusBar->Show(m_cfg.View.ShowStatusBar);
+			/*MoveResize(m_previousWindowRegion);
 			m_viewPort.ActiveCursorMode(ViewPort::CursorShow);*/
 		}
 
@@ -836,10 +830,6 @@ namespace App {
 				SizeInt newSize;
 				SizeInt windowEdges = wxToSize(GetSize()) - ClientRect().Dimensions();
 
-				/*if (m_cfg.View.ShowStatusBar) {
-					windowEdges.Height += m_statusBar->Position().Height();
-				}*/
-
 				if (m_viewPort.ZoomMode() == App::ZoomFitImage) {
 					// The image should _also_ be resized to fit some way.
 					// Make the viewer as large as possible (and needed).
@@ -1065,7 +1055,7 @@ namespace App {
 		m_cacher.WrapAround(m_cfg.View.BrowseWrapAround);
 		m_keys.SetBindings(m_cfg.Keyboard);
 
-		//m_statusBar->Visible(m_cfg.View.ShowStatusBar && ViewportMode() != SM_Fullscreen);
+		m_statusBar->Show(m_cfg.View.ShowStatusBar && ViewportMode() != SM_Fullscreen);
 		RecalculateViewportSize();
 
 		UpdateViewportConfig();
