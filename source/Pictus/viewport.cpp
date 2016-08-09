@@ -546,6 +546,6 @@ namespace App {
 		m_renderTarget.TargetWindow(m_canvas);
 
 		//m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
-		//m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
+		m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
 	}
 }
