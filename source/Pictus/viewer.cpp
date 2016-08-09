@@ -221,26 +221,6 @@ namespace App {
 
 		m_cacher.WrapAround(m_cfg.View.BrowseWrapAround);
 
-/*		WNDCLASSEX wc;
-		ZeroMemory(&wc, sizeof(wc));
-		wc.cbSize			= sizeof(wc);
-		wc.hCursor			= LoadCursor(0, IDC_ARROW);
-		wc.hIcon			= LoadIcon(GetHINSTANCE(), MAKEINTRESOURCE(IDI_APP_MAIN));
-		wc.hInstance		= GetHINSTANCE();
-		wc.lpfnWndProc		= WndProcDelegate;
-		wc.lpszClassName	= ClassName;
-		wc.style			= CS_DBLCLKS;
-		RegisterClassEx(&wc);
-
-		int w = Util::Constrain<int>(MinWindowWidth, m_cfg.View.WindowSizeWidth, GetSystemMetrics(SM_CXVIRTUALSCREEN));
-		int h = Util::Constrain<int>(MinWindowHeight, m_cfg.View.WindowSizeHeight, GetSystemMetrics(SM_CYVIRTUALSCREEN));
-
-		int x = Util::Constrain<int>(0, m_cfg.View.WindowPosX, GetSystemMetrics(SM_CXVIRTUALSCREEN) - w);
-		int y = Util::Constrain<int>(0, m_cfg.View.WindowPosY, GetSystemMetrics(SM_CYVIRTUALSCREEN) - h);
-
-		if(!ConstructWindow(RectInt(PointInt(x, y), SizeInt(w, h)), WS_EX_ACCEPTFILES, ClassName, AppTitle, WS_OVERLAPPEDWINDOW)) return false;
-		m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);*/
-
 		AlwaysOnTop(m_cfg.View.AlwaysOnTop);
 
 		ZoomMode(m_cfg.View.DefaultZoomMode);
@@ -251,7 +231,6 @@ namespace App {
 
 		m_viewPort.Init();
 		PerformOnWindowCreate();
-		//m_viewPort.Show(true);
 
 		return true;
 	}
