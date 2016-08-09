@@ -283,14 +283,13 @@ namespace App {
 		}
 
 		if (globalPosition != mousePosition) {
-			/*SetCursorPos(mousePosition.X, mousePosition.Y);
+			auto screenPos = m_canvas->ScreenToClient({mousePosition.X, mousePosition.Y});
+			m_canvas->WarpPointer(screenPos.x, screenPos.y);
+
 			// Fix for RDP and similar. Sometimes (often) SetCursorPos fails silently, so we need to check manually to
 			// see if it had any effect.
-			POINT p;
-			GetCursorPos(&p);
-			mousePosition.X = p.x; mousePosition.Y = p.y;
-
-			m_oldMousePosition = mousePosition;*/
+			mousePosition = MouseCursorPos();
+			m_oldMousePosition = mousePosition;
 		}
 
 		SizeInt dPos(mousePosition - m_oldMousePosition);
@@ -298,7 +297,7 @@ namespace App {
 			m_pan.Pan(-dPos);
 			m_oldMousePosition = mousePosition;
 
-			m_canvas->Update();
+			m_canvas->Refresh();
 		}
 	}
 
@@ -477,8 +476,7 @@ namespace App {
 	PointInt ViewPort::MouseCursorPos()
 	{
 		auto state = wxGetMouseState();
-		auto pos = state.GetPosition();
-		return {pos.x, pos.y};
+		return Win::wxToPoint(state.GetPosition());
 	}
 
 	void ViewPort::Init()
