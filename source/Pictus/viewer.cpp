@@ -150,7 +150,26 @@ namespace App {
 
 	bool Viewer::Init(const std::string params)
 	{
-		Create(nullptr, -1, L"Pictus", wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE);
+		auto winSize = wxDefaultSize;
+		auto winPos = wxDefaultPosition;
+
+		auto displayIndex = wxDisplay::GetFromPoint({m_cfg.View.WindowPosX, m_cfg.View.WindowPosY});
+		if(displayIndex != wxNOT_FOUND && displayIndex >= 0)
+		{
+			wxDisplay display(static_cast<unsigned int>(displayIndex));
+			auto displayGeometry = display.GetGeometry();
+
+			int w = Util::Constrain<int>(MinWindowWidth, m_cfg.View.WindowSizeWidth, displayGeometry.GetWidth());
+			int h = Util::Constrain<int>(MinWindowHeight, m_cfg.View.WindowSizeHeight, displayGeometry.GetHeight());
+
+			int x = Util::Constrain<int>(displayGeometry.GetLeft(), m_cfg.View.WindowPosX, displayGeometry.GetWidth() - w);
+			int y = Util::Constrain<int>(displayGeometry.GetRight(), m_cfg.View.WindowPosY, displayGeometry.GetHeight() - h);
+
+			winSize = {w, h};
+			winPos = {x, y};
+		}
+
+		Create(nullptr, -1, L"Pictus", winPos, winSize, wxDEFAULT_FRAME_STYLE);
 
 		ViewportBuilder b;
 		b.BuildViewport(m_viewPort, this, m_cfg);
