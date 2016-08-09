@@ -163,6 +163,7 @@ namespace App {
 		}
 
 		Create(nullptr, -1, L"Pictus", winPos, winSize, wxDEFAULT_FRAME_STYLE);
+		m_normalRect = wxToRect(GetRect());
 
 		ViewportBuilder b;
 		b.BuildViewport(m_viewPort, this, m_cfg);
@@ -260,23 +261,22 @@ namespace App {
 		}
 
 		// Store un-maximized values instead!
-		/*WINDOWPLACEMENT wp = { 0 };
-		GetWindowPlacement(Handle(), &wp);
-		if (IsZoomed(Handle())) {
-			RectInt normalRect(RECTToRect(wp.rcNormalPosition));
-			sz = normalRect.Dimensions();
-			pt = normalRect.TopLeft();
+		if(IsMaximized())
+		{
+			sz = m_normalRect.Dimensions();
+			pt = m_normalRect.TopLeft();
 		}
 
 		// Don't want to save bogus values!
-		if (!IsIconic(Handle())) {
+		if (!IsIconized())
+		{
 			m_cfg.View.WindowSizeWidth = sz.Width;
 			m_cfg.View.WindowSizeHeight = sz.Height;
 			m_cfg.View.WindowPosX = pt.X;
 			m_cfg.View.WindowPosY = pt.Y;
-		};
+		}
 
-		m_cfg.View.Maximized = IsZoomed(Handle()) != 0;*/
+		m_cfg.View.Maximized = IsMaximized();
 
 		Reg::Save(cg_SettingsLocation, m_cfg);
 
@@ -355,11 +355,20 @@ namespace App {
 	}
 
 	bool Viewer::PerformOnSize(const SizeInt&) {
+		if(!IsMaximized() && !IsIconized())
+		{
+			m_normalRect = wxToRect(GetRect());
+		}
 		return RecalculateViewportSize();
 	}
 
 	void Viewer::OnMoveEvent(wxMoveEvent& e)
 	{
+		if(!IsMaximized() && !IsIconized())
+		{
+			m_normalRect = wxToRect(GetRect());
+		}
+
 		// TODO: Skip handling event for non-user-initiated moves
 		AnchorTL(PositionScreen());
 		AnchorCenter(PositionScreen() + RoundCast(wxToSize(GetSize()) * 0.5f));

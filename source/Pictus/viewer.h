@@ -243,6 +243,8 @@ namespace App {
 
 		unsigned int DisplayFromPointFallback(Geom::PointInt position);
 
+		Geom::RectInt m_normalRect;
+
 		wxDECLARE_EVENT_TABLE();
 	};
 }
