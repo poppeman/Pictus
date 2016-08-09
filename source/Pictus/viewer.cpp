@@ -40,6 +40,58 @@ namespace App {
 
 	using namespace Geom;
 
+	wxBEGIN_EVENT_TABLE(Viewer, wxFrame)
+		EVT_LEFT_DOWN(Viewer::OnMouseStandardEvent)
+		EVT_LEFT_DCLICK(Viewer::OnMouseDoubleEvent)
+		EVT_MIDDLE_DOWN(Viewer::OnMouseStandardEvent)
+		EVT_MIDDLE_DCLICK(Viewer::OnMouseDoubleEvent)
+		EVT_RIGHT_DOWN(Viewer::OnMouseStandardEvent)
+		EVT_RIGHT_DCLICK(Viewer::OnMouseDoubleEvent)
+		EVT_MOUSEWHEEL(Viewer::OnMouseStandardEvent)
+		EVT_SIZE(Viewer::OnSizeEvent)
+		EVT_SIZING(Viewer::OnSizeEvent)
+		EVT_COMMAND(wxID_ANY, ImageLoadEvent, Viewer::OnImageLoadEvent)
+	wxEND_EVENT_TABLE()
+
+	void Viewer::OnMouseStandardEvent(wxMouseEvent &e)
+	{
+		if (!m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e))
+		{
+			e.ResumePropagation(1);
+			e.Skip();
+		}
+	}
+
+	void Viewer::OnMouseDoubleEvent(wxMouseEvent &e)
+	{
+		auto ev = MouseDblEvent(e, m_cfg.Mouse);
+		if (ev == MouseAction::MouseUndefined || ev == MouseAction::MouseDisable)
+		{
+			ev = MouseStandardEvent(e, m_cfg.Mouse);
+		}
+
+		if (!m_mouseMap.Execute(ev, e))
+		{
+			e.ResumePropagation(1);
+			e.Skip();
+		}
+	}
+
+	void Viewer::OnSizeEvent(wxSizeEvent &e)
+	{
+		if (PerformOnSize(wxToSize(e.GetSize())))
+		{
+			return;
+		}
+		e.ResumePropagation(1);
+		e.Skip();
+	}
+
+	void Viewer::OnImageLoadEvent(wxCommandEvent &e)
+	{
+		HandleCacheNotification();
+	}
+
 	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg):
 		m_attemptToShow{ false },
 		m_screenMode{ SM_Normal },
@@ -104,20 +156,6 @@ namespace App {
 		b.BuildViewport(m_viewPort, this, m_cfg);
 
 		//m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
-		// TODO: Bind all events again
-		Bind(wxEVT_LEFT_DOWN, [this](wxMouseEvent& e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
-		Bind(wxEVT_MOUSEWHEEL, [this](wxMouseEvent& e) { return m_mouseMap.Execute(MouseStandardEvent(e, m_cfg.Mouse), e); });
-		Bind(wxEVT_LEFT_DCLICK, [this](wxMouseEvent& e) {
-			auto ev = MouseDblEvent(e, m_cfg.Mouse);
-			if (ev == MouseAction::MouseUndefined || ev == MouseAction::MouseDisable) {
-				ev = MouseStandardEvent(e, m_cfg.Mouse);
-			}
-			return m_mouseMap.Execute(ev, e);
-		});
-		Bind(wxEVT_SIZE, [this](wxSizeEvent e) { return PerformOnSize(wxToSize(e.GetSize())); });
-		Bind(wxEVT_SIZING, [this](wxSizeEvent e) { return PerformOnSize(wxToSize(e.GetSize())); });
-
-		Bind(ImageLoadEvent, [this](wxCommandEvent) { return HandleCacheNotification(); });
 		//OnTaskbarButton.connect([this](int id) { PerformOnTaskbarButton(id); });
 
 		m_mouseMap.AddAction(MouseFullscreen, [this](Win::MouseEvent) { ToggleFullscreenMode(); });

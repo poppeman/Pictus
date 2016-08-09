@@ -81,6 +81,11 @@ namespace App {
 			StatFieldLastModified = 110,
 		};
 
+		void OnMouseStandardEvent(wxMouseEvent& e);
+		void OnMouseDoubleEvent(wxMouseEvent& e);
+		void OnSizeEvent(wxSizeEvent& e);
+		void OnImageLoadEvent(wxCommandEvent& e);
+
 		void AdjustChange(int brightness, int contrast, int gamma);
 		void ShowAdjust();
 		void ShowSettings();
@@ -242,6 +247,8 @@ namespace App {
 		Geom::PointInt CenterPositionScreen();
 		Geom::RectInt ClientRect();
 		void AlwaysOnTop(bool doAlwaysOnTop);
+
+		wxDECLARE_EVENT_TABLE();
 	};
 }
 
