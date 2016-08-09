@@ -217,14 +217,6 @@ namespace App {
 		return m_magFilter;
 	}
 
-
-	/*bool ViewPort::PerformOnApp(int index, WPARAM wp, LPARAM lp) {
-		if (Parent()) {
-			return Parent()->OnApp(index, wp, lp);
-		}
-		return false;
-	}*/
-
 	void ViewPort::HandleMouseDown(wxMouseEvent& evt) {
 		if (MouseStandardEvent(Win::MouseEvent(evt), m_mouseConfig) == MousePan) {
 			m_isPanning = true;
@@ -235,6 +227,12 @@ namespace App {
 		}
 		evt.ResumePropagation(1);
 		evt.Skip();
+	}
+
+	void ViewPort::HandleMouseDoubleClick(wxMouseEvent &e)
+	{
+		e.ResumePropagation(1);
+		e.Skip();
 	}
 
 	void ViewPort::HandleMouseUp(wxMouseEvent& evt) {
@@ -512,11 +510,29 @@ namespace App {
 		}
 
 		m_canvas = canvas;
-		m_canvas->Bind(wxEVT_MOTION, [&](wxMouseEvent e) { return HandleMouseMove(e); });
 		// TODO: Bind the other events
-		m_canvas->Bind(wxEVT_LEFT_DOWN, [&](wxMouseEvent& e) { HandleMouseDown(e); });
-		m_canvas->Bind(wxEVT_LEFT_UP, [&](wxMouseEvent& e) { HandleMouseUp(e); });
-		m_canvas->Bind(wxEVT_MOUSEWHEEL, [&](wxMouseEvent& e) { HandleMouseDown(e); });
+		m_canvas->Bind(wxEVT_LEFT_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_LEFT_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_LEFT_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_MIDDLE_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_MIDDLE_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_MIDDLE_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_RIGHT_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_RIGHT_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_RIGHT_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_AUX1_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_AUX1_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_AUX1_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_AUX2_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_AUX2_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_AUX2_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_MOTION, &ViewPort::HandleMouseMove, this);
+		m_canvas->Bind(wxEVT_MOUSEWHEEL, &ViewPort::HandleMouseDown, this);
 
 		m_canvas->Bind(wxEVT_PAINT, [&](wxPaintEvent& evt) { PerformOnPaint(); });
 		m_canvas->Bind(wxEVT_SIZE, [&](wxSizeEvent& evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
