@@ -264,7 +264,7 @@ namespace App {
 		auto globalPosition = MouseCursorPos();
 		auto mousePosition = globalPosition;
 
-		auto screen = Win::wxToRect(wxDisplay(m_currentPanMonitor).GetClientArea());
+		auto screen = Win::wxToRect(wxDisplay(m_currentPanMonitor).GetGeometry());
 
 		if (mousePosition.X >= (screen.Right() - 1)) {
 			mousePosition.X = screen.Left() + 1;
