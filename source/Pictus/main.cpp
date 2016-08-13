@@ -93,7 +93,7 @@ private:
 			return EXIT_SUCCESS;
 		}
 
-		params = "/home/pontus/test.jpg";
+		params = "/media/Misc/tmp/In/";
 
 		// Make sure that boost (and boost.filesystem) uses UTF-8 on Windows whenever possible.
 		std::locale::global(boost::locale::generator().generate(""));

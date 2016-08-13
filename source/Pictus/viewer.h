@@ -9,7 +9,7 @@
 #include "w32_rendertarget.h"
 
 //#include "adjust.h"
-//#include "settings.h"
+#include "settings.h"
 #include "viewport.h"
 
 #include "wallpaper.h"
@@ -208,7 +208,7 @@ namespace App {
 		bool m_doMaximize;
 
 		// Settings, adjust, stuff like that
-		//Settings::Ptr m_settings;
+		std::shared_ptr<Settings> m_settings;
 		//Adjust m_adjust;
 
 		ViewPort m_viewPort;

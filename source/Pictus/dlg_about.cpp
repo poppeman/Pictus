@@ -1,15 +1,33 @@
-#include "res_settings.h"
 #include "dlg_about.h"
 #include "version.h"
 #include "libpng/png.h"
 
 #include <boost/algorithm/string.hpp>
+#include <wx/stattext.h>
+#include <wx/textctrl.h>
+#include <wx/sizer.h>
 
 namespace App {
 	using namespace Intl;
 
-	bool SetAbout::PerformOnInitPage() {
-		Caption(App::SIDSettingsAbout);
+	std::string SetAbout::Caption()
+	{
+		return Intl::GetString(App::SIDSettingsAbout);
+	}
+
+	SetAbout::SetAbout(wxWindow* parent):
+		SettingsPage(parent)
+	{
+	/*
+    LTEXT           "Pictus",IDC_ABOUT_HEADER,6,0,242,81
+    LTEXT           "VERSION",IDC_TEXT_ABOUT_VERSION,6,84,240,8
+    LTEXT           "Copyright Pontus Mårdnäs",IDC_STATIC,6,96,240,8
+    EDITTEXT        IDC_EDIT_ABOUT_COPYRIGHT,6,108,242,144,ES_MULTILINE | ES_READONLY | WS_VSCROLL
+
+		 */
+		auto sizer = new wxBoxSizer(wxVERTICAL);
+		auto title = new wxStaticText(this, wxID_ANY, L"Pictus");
+		sizer->Add(title, wxSizerFlags(0).Expand());
 
 		std::string sep = "\r\n\r\n\r\n\r\n";
 
@@ -34,32 +52,28 @@ namespace App {
 				<< "IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND, OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE."
 				<< sep;
 
-		ControlText(IDC_EDIT_ABOUT_COPYRIGHT, license.str());
+		auto copyright = new wxTextCtrl(this, wxID_ANY, wxString::FromUTF8(license.str().c_str()), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY);
+		sizer->Add(copyright, wxSizerFlags(1).Expand());
 
 		std::stringstream version;
 		version << "Version " << ToAString(CurrentVersion);
 
-		ControlText(IDC_TEXT_ABOUT_VERSION, version.str());
+		SetSizerAndFit(sizer);
+
+		/*ControlText(IDC_TEXT_ABOUT_VERSION, version.str());
 
 		m_headerFont = CreateFont(128, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, ANSI_CHARSET, \
 			OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, \
 			DEFAULT_PITCH | FF_SWISS, L"Microsoft Sans Serif");
 
-		SendDlgItemMessage(Handle(), IDC_ABOUT_HEADER, WM_SETFONT, (WPARAM)m_headerFont, 0);
-
-		return true;
+		SendDlgItemMessage(Handle(), IDC_ABOUT_HEADER, WM_SETFONT, (WPARAM)m_headerFont, 0);*/
 	}
 
-	SetAbout::SetAbout():
-		App::SettingsPage(IDD_SET_ABOUT),
-		m_headerFont(0)
-	{}
-
 	SetAbout::~SetAbout() {
-		if (m_headerFont != 0) {
+		/*if (m_headerFont != 0) {
 			DeleteObject(m_headerFont);
 			m_headerFont = 0;
-		}
+		}*/
 	}
 
 	void SetAbout::onWriteSettings(Reg::Settings&)
@@ -71,5 +85,4 @@ namespace App {
 	{
 
 	}
-
 }

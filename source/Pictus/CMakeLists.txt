@@ -9,6 +9,7 @@ FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(PICTUS_CPP_SRCS
 		app_types.cpp
 		builder_viewport.cpp
+		dlg_about.cpp
 		filterstring.cpp
 		getevent.cpp
 		hw3d_device.cpp
@@ -33,6 +34,8 @@ set(PICTUS_CPP_SRCS
 		imagecache_workrequest.cpp
 		lang_val.cpp
 		main.cpp
+		settings.cpp
+		settings_page.cpp
 		reg_color_translator.cpp
 		reg_filter_mode_translator.cpp
 		reg_keyboard_binding_translator.cpp
@@ -45,6 +48,7 @@ set(PICTUS_CPP_SRCS
 		render_geometry.cpp
 		resize_position_method.cpp
 		timer.cpp
+		version.cpp
 		view_pan.cpp
 		viewer.cpp
 		viewer_keyboard.cpp
