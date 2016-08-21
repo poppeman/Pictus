@@ -2,15 +2,16 @@
 #include <wx/sizer.h>
 
 // Pages
-/*#include "settings_page.h"
+//#include "settings_page.h"
 #include "dlg_view.h"
-#include "dlg_interface.h"
+/*#include "dlg_interface.h"
 #include "dlg_color.h"
 #include "dlg_language.h"
 #include "dlg_controls.h"
 #include "dlg_advanced.h"
 #include "dlg_cache.h"*/
 #include "dlg_about.h"
+#include "wintypes.h"
 /*#include "dlg_keyboard.h"
 
 #include "ctrl_button.h"
@@ -47,15 +48,15 @@ namespace App
 	}
 
 	Settings::Settings(wxWindow *parent) :
-		wxDialog(parent, wxID_ANY, wxString::FromUTF8(Intl::GetString(SIDSettings)))
+		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
 		m_tree = new wxTreeCtrl(this, wxID_ANY, {0, 0}, {110, 252}, wxTR_HIDE_ROOT);
 		m_sizer = new wxBoxSizer(wxHORIZONTAL);
 		m_sizer->Add(m_tree, wxSizerFlags(0).Expand());
 
-		/*m_pages.push_back(std::make_shared<SetView>());
-		m_pages.push_back(std::make_shared<SetInterface>());
+		m_pages.push_back(std::make_shared<SetView>(this));
+		/*m_pages.push_back(std::make_shared<SetInterface>());
 		m_pages.push_back(std::make_shared<SetColor>());
 		m_pages.push_back(std::make_shared<SetLanguage>());
 		m_pages.push_back(std::make_shared<SetControls>());

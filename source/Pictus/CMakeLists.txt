@@ -10,6 +10,7 @@ set(PICTUS_CPP_SRCS
 		app_types.cpp
 		builder_viewport.cpp
 		dlg_about.cpp
+		dlg_view.cpp
 		filterstring.cpp
 		getevent.cpp
 		hw3d_device.cpp
