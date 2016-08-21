@@ -18,6 +18,11 @@ class MyApp:public wxApp
 public:
 	bool OnInit() override
 	{
+		if(!wxApp::OnInit())
+		{
+			return false;
+		}
+
 		if(argc > 1)
 		{
 			return start_app(std::string(argv[1].mbc_str())) == EXIT_SUCCESS;
