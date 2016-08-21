@@ -44,6 +44,8 @@ namespace Win {
 	wxPoint PointToWx(const Geom::PointInt &point);
 	Geom::PointInt wxToPoint(wxPoint pt);
 	::Geom::SizeInt wxToSize(::wxSize sz);
+
+	wxString GetStringWx(int id);
 }
 
 #endif

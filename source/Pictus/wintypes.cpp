@@ -1,6 +1,7 @@
 #include "wintypes.h"
 
 #include <boost/scoped_array.hpp>
+#include <orz/intl.h>
 
 namespace Win {
 	Geom::RectInt wxToRect(const wxRect& rect) {
@@ -70,6 +71,11 @@ namespace Win {
 	Geom::PointInt wxToPoint(wxPoint pt)
 	{
 		return Geom::Point<int>(pt.x, pt.y);
+	}
+
+	wxString GetStringWx(int id)
+	{
+		return wxString::FromUTF8(Intl::GetString(id));
 	}
 
 	bool KeyEvent::operator<(const KeyEvent& rhs) const {
