@@ -1,5 +1,5 @@
 #define PICTUS_VER_MAJOR		1
-#define PICTUS_VER_MINOR		6
+#define PICTUS_VER_MINOR		7
 #define PICTUS_VER_REVISION		0
 #define PICTUS_VER_BUILD		0
 
