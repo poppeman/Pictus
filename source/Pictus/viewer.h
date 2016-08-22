@@ -77,7 +77,7 @@ namespace App {
 			StatFieldZoomWidth =	60,
 			StatFieldImageDimWidth= 100,
 			StatFieldPosWidth =		80,
-			StatFieldTimeWidth =	110,
+			StatFieldTimeWidth =	170,
 			StatFieldFileSizeWidth=	80,
 			StatFieldLastModified = 180,
 		};
