@@ -5,6 +5,19 @@
 namespace Win {
 	using namespace Geom;
 
+	bool IsFullScreenPan(int panDelta, int sizeDelta, int client)
+	{
+		if (abs(panDelta) > client)
+		{
+			return true;
+		}
+		if ((panDelta < 0) && ((panDelta + sizeDelta) < 0))
+		{
+			return true;
+		}
+		return false;
+	}
+
 	void RedrawStrategyTiled::OnRender(Renderer::Ptr renderer, Img::Surface::Ptr surfaceToRender, Geom::PointInt pan, Img::Properties props) {
 		if (surfaceToRender == nullptr) {
 			return;
@@ -46,9 +59,9 @@ namespace Win {
 		auto delta = m_currPosition - pan;
 		auto sizeDelta = m_currentSize - client;
 
-		if (abs(delta.Width) > client.Width || abs(delta.Height) > client.Height) {
-			m_redrawNext = true;
-		}
+		// Always do a full redraw if the pan/size changes are big enough to invalidate all existing rendered data.
+		m_redrawNext |= IsFullScreenPan(delta.Width, sizeDelta.Width, client.Width);
+		m_redrawNext |= IsFullScreenPan(delta.Height, sizeDelta.Height, client.Height);
 
 		if (m_redrawNext || surfaceToRender->IsDirty()) {
 			RenderArea(renderer, surfaceToRender, pan, { { 0, 0 }, client }, props);
