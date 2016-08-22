@@ -1,10 +1,6 @@
 set(DEPS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set(DEPS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 
-add_subdirectory (zlib)
-add_subdirectory (libtiff)
-add_subdirectory (libjpeg)
-add_subdirectory (libpng)
 add_subdirectory (libwebp)
 add_subdirectory (orz)
 add_subdirectory (Metadata)

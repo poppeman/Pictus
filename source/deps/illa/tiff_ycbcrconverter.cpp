@@ -1,11 +1,11 @@
 #include "tiff_ycbcrconverter.h"
 #include "orz/types.h"
-#include "libtiff/tiffiop.h"
+#include <tiffio.h>
 #include <cstddef>
 
 namespace Img {
 	void TiffYCbCrConverter::PerformCreate() {
-		m_ycbcrToRgb = (TIFFYCbCrToRGB*)_TIFFmalloc(TIFFroundup_64(sizeof(TIFFYCbCrToRGB), sizeof(long))
+		m_ycbcrToRgb = (TIFFYCbCrToRGB*)_TIFFmalloc(sizeof(TIFFYCbCrToRGB) * sizeof(long)
 			+ 4*256*sizeof(TIFFRGBValue)
 			+ 2*256*sizeof(int)
 			+ 3*256*sizeof(int32));

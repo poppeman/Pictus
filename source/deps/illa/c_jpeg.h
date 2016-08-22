@@ -7,7 +7,7 @@
 #undef FAR
 #endif
 extern "C" {
-	#include "libjpeg/jpeglib.h"
+	#include <jpeglib.h>
 }
 
 #include <setjmp.h>
