@@ -45,6 +45,8 @@ namespace App {
 
 		void MouseConfig(const Reg::MouseSettings mouseConfig);
 
+		Geom::SizeInt GetVisibleImageSize() const;
+
 		void ZoomIn();
 		void ZoomOut();
 		void ZoomMode(App::ZoomMode mode);

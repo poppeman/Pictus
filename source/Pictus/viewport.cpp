@@ -310,16 +310,6 @@ namespace App {
 			Img::CalculateUnzoomedSize(m_image, m_props.FinalAngle()));
 		m_displayZoom = r.ZoomImage;
 
-		Geom::RectInt newRect(Geom::PointInt(0, 0), r.ZoomedSize);
-
-		if (r.ZoomedSize.Width < sz.Width)	{
-			newRect.Left((sz.Width - r.ZoomedSize.Width) / 2);
-		}
-
-		if (r.ZoomedSize.Height < sz.Height) {
-			newRect.Top((sz.Height - r.ZoomedSize.Height) / 2);
-		}
-
 		ZoomSet(r);
 
 		return true;
@@ -526,5 +516,10 @@ namespace App {
 
 		//m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
 		m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
+	}
+
+	Geom::SizeInt ViewPort::GetVisibleImageSize() const
+	{
+		return m_pan.Viewport();
 	}
 }

@@ -38,6 +38,14 @@ namespace App {
 		("ToggleFullSizeDefaultZoom", KeyAction::ToggleFullSizeDefaultZoom)
 		("RotateLeft", KeyAction::RotateLeft)
 		("RotateRight", KeyAction::RotateRight)
+		("PanScreenUp", KeyAction::PanScreenUp)
+		("PanScreenDown", KeyAction::PanScreenDown)
+		("PanScreenLeft", KeyAction::PanScreenLeft)
+		("PanScreenRight", KeyAction::PanScreenRight)
+		("PanUpperEdge", KeyAction::PanUpperEdge)
+		("PanLowerEdge", KeyAction::PanLowerEdge)
+		("PanLeftEdge", KeyAction::PanLeftEdge)
+		("PanRightEdge", KeyAction::PanRightEdge)
 		;
 
 	const std::map<KeyAction, App::StringID> ActionSids = {
@@ -67,7 +75,16 @@ namespace App {
 		{ App::KeyAction::CopyImage, SIDActionCopyToClipboard },
 		{ App::KeyAction::ToggleFullSizeDefaultZoom, SIDActionToggleFullSizeDefaultZoom },
 		{ App::KeyAction::RotateLeft, SIDActionRotateLeft },
-		{ App::KeyAction::RotateRight, SIDActionRotateRight }
+		{ App::KeyAction::RotateRight, SIDActionRotateRight },
+		{ App::KeyAction::PanScreenUp, SIDActionPanScreenUp },
+		{ App::KeyAction::PanScreenDown, SIDActionPanScreenDown },
+		{ App::KeyAction::PanScreenLeft, SIDActionPanScreenLeft },
+		{ App::KeyAction::PanScreenRight, SIDActionPanScreenRight },
+		{ App::KeyAction::PanUpperEdge, SIDActionPanEdgeUp },
+		{ App::KeyAction::PanLowerEdge, SIDActionPanEdgeDown },
+		{ App::KeyAction::PanLeftEdge, SIDActionPanEdgeLeft },
+		{ App::KeyAction::PanRightEdge, SIDActionPanEdgeRight }
+
 	};
 
 	const std::map<wxKeyCode, App::StringID> cg_keySids = {
@@ -219,6 +236,9 @@ namespace App {
 
 	KeyAction IdentifierToKeyAction(std::string identifier) {
 		auto it = cg_actionIdentifiers.left.find(identifier);
+		if (it == cg_actionIdentifiers.left.end()) {
+			return KeyAction::Undefined;
+		}
 		return it->second;
 	}
 
@@ -228,7 +248,6 @@ namespace App {
 		if (fancyKeySid != cg_keySids.end()) {
 			return UTF8ToWString(GetString(fancyKeySid->second));
 		}
-
 
 		std::wstring tmp;
 		tmp += key;

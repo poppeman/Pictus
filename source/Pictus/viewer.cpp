@@ -123,6 +123,11 @@ namespace App {
 		return true;
 	}*/
 
+	Img::Image::Ptr Viewer::ActiveImage() const
+	{
+		return m_viewPort.Image();
+	}
+
 	void Viewer::ActiveImage(Img::Image::Ptr pImage) {
 		if (m_viewPort.Image() == pImage) {
 			return;
@@ -596,17 +601,12 @@ namespace App {
 		return m_screenMode;
 	}
 
-	void Viewer::PanUp() {
-		m_viewPort.Pan(SizeInt(0, -KeyPanSize));
+	void Viewer::PanVertical(int length) {
+		m_viewPort.Pan(SizeInt(0, length));
 	}
-	void Viewer::PanRight() {
-		m_viewPort.Pan(SizeInt(KeyPanSize, 0));
-	}
-	void Viewer::PanDown() {
-		m_viewPort.Pan(SizeInt(0, KeyPanSize));
-	}
-	void Viewer::PanLeft() {
-		m_viewPort.Pan(SizeInt(-KeyPanSize, 0));
+
+	void Viewer::PanHorizontal(int length) {
+		m_viewPort.Pan(SizeInt(length, 0));
 	}
 
 	void Viewer::Rotate(Filter::RotationAngle r) {
@@ -821,6 +821,8 @@ namespace App {
 	}
 
 	void Viewer::ImageChanged() {
+		UpdateImageInformation();
+
 		if (/*IsZoomed(Handle()) || */m_viewPort.Image() == nullptr) {
 			return;
 		}
@@ -859,8 +861,6 @@ namespace App {
 				PerformOnSize(wxToSize(GetSize()));	// Adjust to the current window
 			}
 		}
-
-		UpdateImageInformation();
 	}
 
 	App::PointInt Viewer::calculateWindowTopLeft(ResizePositionMethod method, const SizeInt &newSize ) {
@@ -1126,5 +1126,10 @@ namespace App {
 			displayIndex = 0;
 		}
 		return displayIndex;
+	}
+
+	Geom::SizeInt Viewer::GetVisibleImageSize() const
+	{
+		return m_viewPort.GetVisibleImageSize();
 	}
 }

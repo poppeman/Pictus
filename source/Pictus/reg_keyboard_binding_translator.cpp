@@ -33,6 +33,11 @@ namespace Reg {
 				binding.Action = App::IdentifierToKeyAction(strs[2]);
 			}
 
+			if (binding.Action == App::KeyAction::Undefined)
+			{
+				return boost::none;
+			}
+
 			return binding;
 		}
 

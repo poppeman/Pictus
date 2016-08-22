@@ -33,6 +33,8 @@ namespace App {
 		static const wchar_t* AppTitle;
 
 		//bool Show(bool doShow);
+		Img::Image::Ptr ActiveImage() const;
+
 		void ActiveImage(Img::Image::Ptr pImage);
 
 		bool Init(const std::string params);
@@ -132,10 +134,10 @@ namespace App {
 		ScreenMode ViewportMode() const;
 		ScreenMode m_screenMode;
 
-		void PanUp();
-		void PanRight();
-		void PanDown();
-		void PanLeft();
+		void PanVertical(int length);
+		void PanHorizontal(int length);
+
+		Geom::SizeInt GetVisibleImageSize() const;
 
 		void Rotate(Filter::RotationAngle r);
 		void RotateLeft();

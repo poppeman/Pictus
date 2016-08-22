@@ -444,21 +444,61 @@
 			"English": "Hide image",
 			"Swedish": "Dölj bild"
 		},
-		"PanUp": {
-			"English": "Pan up",
-			"Swedish": "Panorera upp"
-		},
-		"PanDown": {
-			"English": "Pan down",
-			"Swedish": "Panorera ner"
-		},
-		"PanLeft": {
-			"English": "Pan left",
-			"Swedish": "Panorera vänster"
-		},
-		"PanRight": {
-			"English": "Pan right",
-			"Swedish": "Panorera höger"
+		"Pan": {
+			"English": "Pan",
+			"Swedish": "Scrolla",
+			"Up": {
+				"English": "Pan up",
+				"Swedish": "Panorera upp"
+			},
+			"Down": {
+				"English": "Pan down",
+				"Swedish": "Panorera ner"
+			},
+			"Left": {
+				"English": "Pan left",
+				"Swedish": "Panorera vänster"
+			},
+			"Right": {
+				"English": "Pan right",
+				"Swedish": "Panorera höger"
+			},
+			"Screen": {
+				"Up": {
+					"English": "Pan up (screen)",
+					"Swedish": "Panorera upp (skärm)"
+				},
+				"Down": {
+					"English": "Pan down (screen)",
+					"Swedish": "Panorera ner (skärm)"
+				},
+				"Left": {
+					"English": "Pan left (screen)",
+					"Swedish": "Panorera vänster (skärm)"
+				},
+				"Right": {
+					"English": "Pan right (screen)",
+					"Swedish": "Panorera höger (skärm)"
+				}
+			},
+			"Edge": {
+				"Up": {
+					"English": "Pan to top",
+					"Swedish": "Panorera till toppen"
+				},
+				"Down": {
+					"English": "Pan to bottom",
+					"Swedish": "Panorera till botten"
+				},
+				"Left": {
+					"English": "Pan to left edge",
+					"Swedish": "Panorera längst till vänster"
+				},
+				"Right": {
+					"English": "Pan to right edge",
+					"Swedish": "Panorera längst till höger"
+				}
+			}
 		},
 		"ToggleFullscreen": {
 			"English": "Toggle fullscreen",
@@ -505,10 +545,6 @@
 				"English": "Free zoom",
 				"Swedish": "Fri zoom"
 			}
-		},
-		"Pan": {
-			"English": "Pan",
-			"Swedish": "Scrolla"
 		},
 		"ContextMenu": {
 			"English": "Context menu",
