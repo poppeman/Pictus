@@ -811,6 +811,8 @@ namespace App {
 	}
 
 	void Viewer::ImageChanged() {
+		UpdateImageInformation();
+
 		if (IsZoomed(Handle()) || m_viewPort.Image() == nullptr) {
 			return;
 		}
@@ -851,8 +853,6 @@ namespace App {
 				OnSize(GetSize());	// Adjust to the current window
 			}
 		}
-
-		UpdateImageInformation();
 	}
 
 	App::PointInt Viewer::calculateWindowTopLeft(ResizePositionMethod method, const SizeInt &newSize ) {
