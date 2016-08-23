@@ -177,7 +177,11 @@ namespace Win {
 	}
 
 	void Renderer::PresentFromDDSurface(Geom::RectInt destRect, std::shared_ptr<Hw3D::Texture> source, Geom::PointInt sourceTopLeft) {
-		SizeFloat ppAdj{ -0.5f, -0.5f };
+		//SizeFloat ppAdj{ -0.5f, -0.5f };
+		SizeFloat ppAdj{ 0.0f, 0.0f };
+		//SizeFloat ppAdj{ +0.5f, +0.5f };
+
+		//SizeFloat ppAdj{ -50.0f, -123.0f };
 
 		m_context->SetTexture(0, source);
 
