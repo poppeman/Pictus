@@ -22,7 +22,7 @@ namespace Img {
 
 			std::time_t DateModified();
 			std::time_t DateCreated();
-			std::time_t FileSize();
+			FileInt FileSize();
 
 			FileEntry(std::string fullname);
 
