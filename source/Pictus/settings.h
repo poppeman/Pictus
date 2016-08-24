@@ -16,7 +16,7 @@ namespace App
 		boost::signals2::signal<void(Reg::Settings)> OnSettingsChanged;
 
 		void SetSettings(Reg::Settings settings);
-		Settings(wxWindow* parent);
+		Settings(wxWindow* parent, Reg::Settings settings);
 
 		typedef std::shared_ptr<Settings> Ptr;
 

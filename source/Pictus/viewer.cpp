@@ -191,7 +191,7 @@ namespace App {
 
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateImageInformation(); });
 
-		m_settings = std::make_shared<Settings>(this);
+		m_settings = std::make_shared<Settings>(this, m_cfg);
 		m_settings->OnSettingsChanged.connect([&](Reg::Settings newSettings) {
 			m_cfg = newSettings;
 			SettingsChanged();

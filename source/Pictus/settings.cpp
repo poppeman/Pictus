@@ -47,8 +47,9 @@ namespace App
 		}
 	}
 
-	Settings::Settings(wxWindow *parent) :
-		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
+	Settings::Settings(wxWindow *parent, Reg::Settings settings) :
+		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
+		m_settings(settings)
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
 		m_tree = new wxTreeCtrl(this, wxID_ANY, {0, 0}, {110, 252}, wxTR_HIDE_ROOT);
