@@ -16,6 +16,8 @@ namespace App
 
 	private:
 		//void ToggleResizeWindow();
+		wxSizer* CreateZoomBox();
+		wxSizer* CreateViewerBox();
 
 		void PerformUpdateFromSettings(const Reg::Settings &settings) override;
 		void onWriteSettings(Reg::Settings &settings) override;
@@ -31,9 +33,11 @@ namespace App
 		wxCheckBox* m_wrapAround;
 		wxCheckBox* m_resetZoom;
 		wxCheckBox* m_resetPan;
-		wxCheckBox* m_sizeToImage;
+		wxCheckBox* m_adaptWindowSize;
 
 		wxRadioBox* m_positionMethod;
+		wxSizer *CreateResizeAlgoSizer(wxWindow* parent);
+		wxSizer *CreateModeSizer(wxWindow* parent);
 	};
 }
 
