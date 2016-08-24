@@ -18,6 +18,8 @@ class MyApp:public wxApp
 public:
 	bool OnInit() override
 	{
+		SetVendorName("Poppeman");
+
 		if(!wxApp::OnInit())
 		{
 			return false;
