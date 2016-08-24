@@ -21,11 +21,6 @@ namespace App
 		return Intl::GetString(App::SIDSettingsViewer);
 	}
 
-	/*void SetView::ToggleResizeWindow()
-	{
-		DoToggleResizeWindow(IsDlgButtonChecked(Handle(), IDC_SIZETOIMAGE) != 0);
-	}*/
-
 	void SetView::PerformUpdateFromSettings(const Reg::Settings &settings)
 	{
 		m_cbDefaultZoom->SetSelection(settings.View.DefaultZoomMode);
@@ -89,10 +84,6 @@ namespace App
 	void SetView::DoToggleResizeWindow(bool newState)
 	{
 		m_positionMethod->Enable(newState);
-		/*SetCheckBox(IDC_SIZETOIMAGE, newState);
-		EnableWindow(GetDlgItem(Handle(), IDC_SIZETO_SCREEN), newState);
-		EnableWindow(GetDlgItem(Handle(), IDC_SIZETO_CURRENT), newState);
-		EnableWindow(GetDlgItem(Handle(), IDC_SIZETO_NOTHING), newState);*/
 	}
 
 	wxChoice* SetView::SetupFilterBox(wxWindow* parent)
@@ -111,11 +102,6 @@ namespace App
 		m_cbMinFilter{nullptr},
 		m_cbMagFilter{nullptr}
 	{
-		//CreateButton(IDC_SIZETOIMAGE)->OnClick.connect([this]() { ToggleResizeWindow(); });
-		/*m_cbDefaultZoom->Reset();
-		m_cbDefaultZoom->AddItem(SIDActionZoomFree, ZoomFree);
-		m_cbDefaultZoom->AddItem(SIDActionZoomFitImage, ZoomFitImage);*/
-
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
 		topSizer->Add(CreateZoomBox(), wxSizerFlags(0).Expand().Border(wxBOTTOM, Padding / 2));
 		topSizer->Add(CreateViewerBox(), wxSizerFlags(0).Expand().Border(wxTOP, Padding / 2));
