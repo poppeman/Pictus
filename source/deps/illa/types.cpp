@@ -18,6 +18,35 @@ namespace Filter {
 			return defaultDims;
 		}
 	}
+
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Filter::Mode& m)
+	{
+		switch (m)
+		{
+			case Mode::Undefined:
+				in << "Undefined";
+				break;
+			case Mode::DirectCopy:
+				in << "Direct copy";
+				break;
+			case Mode::NearestNeighbor:
+				in << "Nearest neighbor";
+				break;
+			case Mode::Bilinear:
+				in << "Bilinear";
+				break;
+			case Mode::Lanczos3:
+				in << "Lanczos3";
+				break;
+			case Mode::Num:
+				in << "NUM";
+				break;
+			default:
+				in << "INVALID";
+				break;
+		}
+		return in;
+	}
 }
 
 
