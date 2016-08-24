@@ -16,6 +16,8 @@ namespace App
 
 	private:
 		//void ToggleResizeWindow();
+		void OnClickAdaptWindowSize(wxCommandEvent& event);
+
 		wxSizer* CreateZoomBox();
 		wxSizer* CreateViewerBox();
 
@@ -38,6 +40,8 @@ namespace App
 		wxRadioBox* m_positionMethod;
 		wxSizer *CreateResizeAlgoSizer(wxWindow* parent);
 		wxSizer *CreateModeSizer(wxWindow* parent);
+
+		DECLARE_EVENT_TABLE()
 	};
 }
 

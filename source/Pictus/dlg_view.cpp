@@ -8,6 +8,14 @@ namespace App
 {
 	const int Padding = 10;
 
+	enum {
+		AdaptWindowSizeId
+	};
+
+	wxBEGIN_EVENT_TABLE(SetView, wxPanel)
+		EVT_CHECKBOX(AdaptWindowSizeId, SetView::OnClickAdaptWindowSize)
+	wxEND_EVENT_TABLE()
+
 	std::string SetView::Caption()
 	{
 		return Intl::GetString(App::SIDSettingsViewer);
@@ -80,6 +88,7 @@ namespace App
 
 	void SetView::DoToggleResizeWindow(bool newState)
 	{
+		m_positionMethod->Enable(newState);
 		/*SetCheckBox(IDC_SIZETOIMAGE, newState);
 		EnableWindow(GetDlgItem(Handle(), IDC_SIZETO_SCREEN), newState);
 		EnableWindow(GetDlgItem(Handle(), IDC_SIZETO_CURRENT), newState);
@@ -111,6 +120,11 @@ namespace App
 		topSizer->Add(CreateZoomBox(), wxSizerFlags(0).Expand().Border(wxBOTTOM, Padding / 2));
 		topSizer->Add(CreateViewerBox(), wxSizerFlags(0).Expand().Border(wxTOP, Padding / 2));
 		SetSizerAndFit(topSizer);
+	}
+
+	void SetView::OnClickAdaptWindowSize(wxCommandEvent &event)
+	{
+		DoToggleResizeWindow(m_adaptWindowSize->GetValue());
 	}
 
 	wxSizer* SetView::CreateZoomBox()
@@ -176,7 +190,7 @@ namespace App
 
 		m_wrapAround = new wxCheckBox(viewerBox->GetStaticBox(), wxID_ANY, wxString::FromUTF8(Intl::GetString(SIDSettingsViewerWrapAround)));
 		m_resetPan = new wxCheckBox(viewerBox->GetStaticBox(), wxID_ANY, wxString::FromUTF8(Intl::GetString(SIDSettingsViewerResetPan)));
-		m_adaptWindowSize = new wxCheckBox(viewerBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsViewerAdaptWindowSize));
+		m_adaptWindowSize = new wxCheckBox(viewerBox->GetStaticBox(), AdaptWindowSizeId, Win::GetStringWx(SIDSettingsViewerAdaptWindowSize));
 
 		viewerBox->Add(m_wrapAround, wxSizerFlags(0).Expand().Border(wxLEFT|wxRIGHT|wxTOP, Padding));
 		viewerBox->Add(m_resetPan, wxSizerFlags(0).Expand().Border(wxLEFT|wxRIGHT, Padding));
@@ -185,4 +199,5 @@ namespace App
 
 		return viewerBox;
 	}
+
 }
