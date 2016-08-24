@@ -101,8 +101,8 @@ namespace App {
 		}
 
 		m_canvas->Refresh();
-		/*InvalidateRect(Handle(), 0, false);
-		OnSize(GetSize());*/
+		/*InvalidateRect(Handle(), 0, false);*/
+		PerformOnSize(GetSize());
 	}
 
 	Img::Image::Ptr ViewPort::Image() const {
