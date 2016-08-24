@@ -17,6 +17,8 @@ namespace App
 	private:
 		//void ToggleResizeWindow();
 		void OnClickAdaptWindowSize(wxCommandEvent& event);
+		Filter::Mode GetFilterBoxValue(wxChoice* box);
+		void SetFilterBoxValue(wxChoice* box, Filter::Mode mode);
 
 		wxSizer* CreateZoomBox();
 		wxSizer* CreateViewerBox();

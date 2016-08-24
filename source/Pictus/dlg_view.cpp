@@ -12,6 +12,14 @@ namespace App
 		AdaptWindowSizeId
 	};
 
+	class FilterModeClientData:public wxClientData
+	{
+	public:
+		Filter::Mode Mode;
+
+		FilterModeClientData(Filter::Mode mode):Mode(mode) {}
+	};
+
 	wxBEGIN_EVENT_TABLE(SetView, wxPanel)
 		EVT_CHECKBOX(AdaptWindowSizeId, SetView::OnClickAdaptWindowSize)
 	wxEND_EVENT_TABLE()
@@ -25,8 +33,8 @@ namespace App
 	{
 		m_cbDefaultZoom->SetSelection(settings.View.DefaultZoomMode);
 		m_cbResizeBehavior->SetSelection(settings.View.ResizeBehaviour);
-		m_cbMagFilter->SetSelection(static_cast<int>(settings.Render.MagFilter));
-		m_cbMinFilter->SetSelection(static_cast<int>(settings.Render.MinFilter));
+		SetFilterBoxValue(m_cbMagFilter, settings.Render.MagFilter);
+		SetFilterBoxValue(m_cbMinFilter, settings.Render.MinFilter);
 
 		m_wrapAround->SetValue(settings.View.BrowseWrapAround);
 		m_resetZoom->SetValue(settings.View.ResetZoom);
@@ -59,8 +67,8 @@ namespace App
 		settings.View.ResetZoom = m_resetZoom->GetValue();
 		settings.View.ResetPan = m_resetPan->GetValue();
 		settings.View.ResizeWindow = m_adaptWindowSize->GetValue();
-		settings.Render.MinFilter = Filter::Mode(m_cbMinFilter->GetSelection());
-		settings.Render.MagFilter = Filter::Mode(m_cbMagFilter->GetSelection());
+		settings.Render.MinFilter = GetFilterBoxValue(m_cbMinFilter);
+		settings.Render.MagFilter = GetFilterBoxValue(m_cbMagFilter);
 
 		settings.View.DefaultZoomMode = App::ZoomMode(m_cbDefaultZoom->GetSelection());
 		settings.View.ResizeBehaviour = App::ResizeBehaviour(m_cbResizeBehavior->GetSelection());
@@ -88,11 +96,27 @@ namespace App
 
 	wxChoice* SetView::SetupFilterBox(wxWindow* parent)
 	{
-		wxArrayString choices;
-		choices.Add(Win::GetStringWx(SIDResampleModeNearestNeighbor));
-		choices.Add(Win::GetStringWx(SIDResampleModeBilinear));
-		choices.Add(Win::GetStringWx(SIDResampleModeLanczos3));
-		return new wxChoice(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, choices);
+		auto box = new wxChoice(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+		box->Append(Win::GetStringWx(SIDResampleModeNearestNeighbor), new FilterModeClientData(Filter::Mode::NearestNeighbor));
+		box->Append(Win::GetStringWx(SIDResampleModeBilinear), new FilterModeClientData(Filter::Mode::Bilinear));
+		box->Append(Win::GetStringWx(SIDResampleModeLanczos3), new FilterModeClientData(Filter::Mode::Lanczos3));
+		return box;
+	}
+
+	Filter::Mode SetView::GetFilterBoxValue(wxChoice* filterBox)
+	{
+		auto index = filterBox->GetSelection();
+		if(index < 0)
+		{
+			DO_THROW(Err::CriticalError, "Filter box had no selection, this should not be possible!");
+		}
+
+		auto data = dynamic_cast<FilterModeClientData*>(filterBox->GetClientObject(index));
+		if(data == nullptr)
+		{
+			DO_THROW(Err::CriticalError, "Filter box selection did not have any data.");
+		}
+		return data->Mode;
 	}
 
 	SetView::SetView(wxWindow* parent) :
@@ -184,6 +208,24 @@ namespace App
 		viewerBox->Add(m_positionMethod, wxSizerFlags(0).Expand().Border(wxLEFT|wxRIGHT|wxBOTTOM, Padding));
 
 		return viewerBox;
+	}
+
+	void SetView::SetFilterBoxValue(wxChoice* filterBox, Filter::Mode mode)
+	{
+		for(unsigned i=0;i<filterBox->GetCount();i++)
+		{
+			auto data = dynamic_cast<FilterModeClientData*>(filterBox->GetClientObject(i));
+			if(data == nullptr)
+			{
+				DO_THROW(Err::CriticalError, "Filter box selection did not have any data.");
+			}
+			if(data->Mode == mode)
+			{
+				filterBox->SetSelection(i);
+				return;
+			}
+		}
+		DO_THROW(Err::CriticalError, ("Filter box did not contain filter mode: " + ToAString(mode)).c_str());
 	}
 
 }
