@@ -53,7 +53,7 @@ namespace App
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
 		m_tree = new wxTreeCtrl(this, wxID_ANY, {0, 0}, {110, 252}, wxTR_HIDE_ROOT);
 		m_sizer = new wxBoxSizer(wxHORIZONTAL);
-		m_sizer->Add(m_tree, wxSizerFlags(0).Expand());
+		m_sizer->Add(m_tree, wxSizerFlags(0).Expand().Border(wxRIGHT, 10));
 
 		m_pages.push_back(std::make_shared<SetView>(this));
 		/*m_pages.push_back(std::make_shared<SetInterface>());
