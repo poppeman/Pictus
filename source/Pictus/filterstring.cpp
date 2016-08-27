@@ -31,9 +31,9 @@ namespace App {
 				match_all += "*." + exts[j];
 				filters += "*." + exts[j];
 			}
-			pretty_filter << filters << ")" << 0 << filters << 0;
+			pretty_filter << filters << ")" << (char)0 << filters << (char)0;
 		}
-		pretty_filter << Intl::GetString(App::SIDOpenAllImages) << " (" << match_all << ")" << 0 << match_all << 0 << 0;
+		pretty_filter << Intl::GetString(App::SIDOpenAllImages) << " (" << match_all << ")" << (char)0 << match_all << (char)0 << (char)0;
 
 		return pretty_filter.str();
 	}
