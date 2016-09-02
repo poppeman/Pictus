@@ -78,6 +78,11 @@ namespace Win {
 		return wxString::FromUTF8(Intl::GetString(id));
 	}
 
+	wxString GetStringWx(int id, Intl::Language lang)
+	{
+		return wxString::FromUTF8(Intl::GetStringLang(id, lang));
+	}
+
 	bool KeyEvent::operator<(const KeyEvent& rhs) const {
 		if(!AltPressed && rhs.AltPressed) return true;
 		if(AltPressed && !rhs.AltPressed) return false;

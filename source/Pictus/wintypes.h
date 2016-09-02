@@ -3,6 +3,7 @@
 
 #include "app_types.h"
 #include <wx/event.h>
+#include <orz/intl_language.h>
 
 namespace Win {
 	enum MouseButton {
@@ -46,6 +47,7 @@ namespace Win {
 	::Geom::SizeInt wxToSize(::wxSize sz);
 
 	wxString GetStringWx(int id);
+	wxString GetStringWx(int id, Intl::Language lang);
 }
 
 #endif
