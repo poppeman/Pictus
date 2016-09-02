@@ -36,6 +36,7 @@ namespace App
 		EVT_BUTTON(ButtonOkId, Settings::OnOk)
 		EVT_BUTTON(ButtonCancelId, Settings::OnCancel)
 		EVT_BUTTON(ButtonApplyId, Settings::OnApply)
+		EVT_TREE_SEL_CHANGED(TreeCtrlId, Settings::OnTreeItemSelected)
 	END_EVENT_TABLE()
 
 	void Settings::SetSettings(Reg::Settings settings)
@@ -52,7 +53,7 @@ namespace App
 		m_settings(settings)
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
-		m_tree = new wxTreeCtrl(this, wxID_ANY, {0, 0}, {110, 252}, wxTR_HIDE_ROOT);
+		m_tree = new wxTreeCtrl(this, TreeCtrlId, {0, 0}, {110, 252}, wxTR_HIDE_ROOT);
 		m_sizer = new wxBoxSizer(wxHORIZONTAL);
 		m_sizer->Add(m_tree, wxSizerFlags(0).Expand().Border(wxRIGHT, 10));
 
@@ -194,5 +195,14 @@ namespace App
 	void Settings::OnCancel(wxCommandEvent& evt)
 	{
 		Hide();
+	}
+
+	void Settings::OnTreeItemSelected(wxTreeEvent &evt)
+	{
+		auto itemData = dynamic_cast<TreeItemData*>(m_tree->GetItemData(evt.GetItem()));
+		if(itemData != nullptr)
+		{
+			ActivatePage(itemData->Index);
+		}
 	}
 }

@@ -24,6 +24,7 @@ namespace App
 		void OnOk(wxCommandEvent& evt);
 		void OnApply(wxCommandEvent& evt);
 		void OnCancel(wxCommandEvent& evt);
+		void OnTreeItemSelected(wxTreeEvent& evt);
 
 		wxTreeItemId AddSettingsPage(const std::string &name, int index, wxTreeItemId hRoot);
 		void ActivatePage(int index);
@@ -44,7 +45,8 @@ namespace App
 		enum {
 			ButtonOkId = wxID_HIGHEST + 1,
 			ButtonCancelId = wxID_HIGHEST + 2,
-			ButtonApplyId = wxID_HIGHEST + 3
+			ButtonApplyId = wxID_HIGHEST + 3,
+			TreeCtrlId
 		};
 
 		DECLARE_EVENT_TABLE()
