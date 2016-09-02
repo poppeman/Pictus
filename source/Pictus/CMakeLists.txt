@@ -10,6 +10,7 @@ set(PICTUS_CPP_SRCS
 		app_types.cpp
 		builder_viewport.cpp
 		dlg_about.cpp
+		dlg_interface.cpp dlg_interface.h
 		dlg_language.cpp dlg_language.h
 		dlg_view.cpp
 		filterstring.cpp

@@ -4,8 +4,8 @@
 // Pages
 //#include "settings_page.h"
 #include "dlg_view.h"
-/*#include "dlg_interface.h"
-#include "dlg_color.h"*/
+#include "dlg_interface.h"
+/*#include "dlg_color.h"*/
 #include "dlg_language.h"
 /*#include "dlg_controls.h"
 #include "dlg_advanced.h"
@@ -58,8 +58,8 @@ namespace App
 		m_sizer->Add(m_tree, wxSizerFlags(0).Expand().Border(wxRIGHT, 10));
 
 		m_pages.push_back(std::make_shared<SetView>(this));
-		/*m_pages.push_back(std::make_shared<SetInterface>());
-		m_pages.push_back(std::make_shared<SetColor>());*/
+		m_pages.push_back(std::make_shared<SetInterface>(this));
+		/*m_pages.push_back(std::make_shared<SetColor>());*/
 		m_pages.push_back(std::make_shared<SetLanguage>(this));
 		/*m_pages.push_back(std::make_shared<SetControls>());
 		m_pages.push_back(std::make_shared<SetKeyboard>());
