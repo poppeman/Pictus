@@ -11,6 +11,7 @@ set(PICTUS_CPP_SRCS
 		builder_viewport.cpp
 		dlg_about.cpp
 		dlg_advanced.cpp dlg_advanced.h
+		dlg_cache.cpp dlg_cache.h
 		dlg_interface.cpp dlg_interface.h
 		dlg_language.cpp dlg_language.h
 		dlg_view.cpp
