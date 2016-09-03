@@ -36,7 +36,7 @@ namespace App
 		pickerPart->Add(m_saturation, wxSizerFlags(0).Expand().Right());
 
 		auto previewBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsBackgroundColorPreview));
-		m_previewPanel = new ControlColorPreview(previewBox->GetStaticBox(), wxID_ANY, {0, 0}, {128, 128});
+		m_previewPanel = new ControlColorPreview(previewBox->GetStaticBox(), wxID_ANY, {0, 0}, {80, 128});
 		previewBox->Add(m_previewPanel, wxSizerFlags(0));
 
 
