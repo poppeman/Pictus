@@ -18,15 +18,13 @@ namespace App {
 
 	void ViewerContextMenu::Construct(Viewer* v)
 	{
-		m_viewer = v;
-
 		m_menuMap.AddAction(DoAddMenuItem(this, SIDMenuOpen), [=]() { v->OpenFolder(); });
 
 		auto pZoom = DoAddSubMenu(SIDMenuZoom);
-		m_idZoomFitImage = pZoom->Append(SIDActionZoomFitImage, Win::GetStringWx(SIDActionZoomFitImage));
-		m_menuMap.AddAction(m_idZoomFitImage->GetId(), [=]() { v->ZoomMode(ZoomFitImage); });
-		m_idZoomFullSize = pZoom->Append(SIDActionZoomFullSize, Win::GetStringWx(SIDActionZoomFitImage));
-		m_menuMap.AddAction(m_idZoomFullSize->GetId(), [=]() { v->ZoomMode(ZoomFullSize); });
+		m_zoomFitImage = pZoom->AppendCheckItem(SIDActionZoomFitImage, Win::GetStringWx(SIDActionZoomFitImage));
+		m_menuMap.AddAction(m_zoomFitImage->GetId(), [=]() { v->ZoomMode(ZoomFitImage); });
+		m_zoomFullSize = pZoom->AppendCheckItem(SIDActionZoomFullSize, Win::GetStringWx(SIDActionZoomFullSize));
+		m_menuMap.AddAction(m_zoomFullSize->GetId(), [=]() { v->ZoomMode(ZoomFullSize); });
 
 		pZoom->AppendSeparator();
 		m_menuMap.AddAction(DoAddMenuItem(pZoom, SIDActionZoomIn), [=]() { v->ZoomIn(); });
@@ -47,6 +45,7 @@ namespace App {
 		m_menuMap.AddAction(DoAddMenuItem(pSort, SIDMenuSortByDateModified), [=]() { v->Sort(Img::Cacher::SortMethod::SortDateModified); });
 		m_menuMap.AddAction(DoAddMenuItem(pSort, SIDMenuSortByDateCreated), [=]() { v->Sort(Img::Cacher::SortMethod::SortDateCreated); });
 
+		// TODO: Reimplement wallpaper support (based on platform capabilities)
 		/*auto pWall = DoAddSubMenu(SIDMenuSetWallpaper));
 
 		if (IsWindows7OrGreater())
@@ -70,30 +69,23 @@ namespace App {
 		m_menuMap.AddAction(DoAddMenuItem(this, SIDMenuSettings), [=]() { v->ShowSettings(); });
 	}
 
-	/*void ViewerContextMenu::Display(Geom::PointInt pos)
-	{
-		m_menuMap.Execute(m_menu.Display(m_viewer, pos));
-	}*/
-
 	void ViewerContextMenu::Zoomed(bool fullSize)
 	{
-		//m_menu.CheckMenuItem(m_idZoomFitImage, false);
-		//m_menu.CheckMenuItem(m_idZoomFullSize, fullSize);
+		m_zoomFitImage->Check(false);
+		m_zoomFullSize->Check(fullSize);
 	}
 
 	void ViewerContextMenu::FitImage()
 	{
-		//m_menu.CheckMenuItem(m_idZoomFitImage, true);
-		//m_menu.CheckMenuItem(m_idZoomFullSize, false);
+		m_zoomFitImage->Check(true);
+		m_zoomFullSize->Check(false);
 	}
 
-	ViewerContextMenu::ViewerContextMenu():
-		m_viewer{ nullptr }
-	{}
+	ViewerContextMenu::ViewerContextMenu() {}
 
 	wxMenu* ViewerContextMenu::DoAddSubMenu(StringID label)
 	{
-		auto menu = new wxMenu(Win::GetStringWx(label));
+		auto menu = new wxMenu();
 		AppendSubMenu(menu, Win::GetStringWx(label));
 		menu->Bind(wxEVT_MENU, [=](wxCommandEvent &evt) { OnMenu(evt); });
 		return menu;
