@@ -4,6 +4,7 @@
 
 #include <wx/statbox.h>
 #include <wx/sizer.h>
+#include <wx/stattext.h>
 
 wxDEFINE_EVENT(COLOR_CHANGED_HLS, wxCommandEvent);
 
@@ -18,13 +19,15 @@ namespace App
 	ControlColorHls::ControlColorHls(wxWindow* parent, wxWindowID winid):
 		wxStaticBox(parent, winid, Win::GetStringWx(SIDSettingsBackgroundColorHLS))
 	{
-		auto sizer = new wxBoxSizer(wxVERTICAL);
-
+		auto sizer = new  wxFlexGridSizer(2, 5, 5);
 		m_h = new wxSpinCtrl(this, HId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::HueCap, 0);
 		m_l = new wxSpinCtrl(this, LId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::LumCap * 100, 0);
 		m_s = new wxSpinCtrl(this, SId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::SatCap * 100, 0);
+		sizer->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorHue)));
 		sizer->Add(m_h, wxSizerFlags(0));
+		sizer->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorLuminance)));
 		sizer->Add(m_l, wxSizerFlags(0));
+		sizer->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorSaturation)));
 		sizer->Add(m_s, wxSizerFlags(0));
 
 		SetSizerAndFit(sizer);
