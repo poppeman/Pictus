@@ -7,9 +7,9 @@
 #include "dlg_interface.h"
 /*#include "dlg_color.h"*/
 #include "dlg_language.h"
-/*#include "dlg_controls.h"
+//#include "dlg_controls.h"
 #include "dlg_advanced.h"
-#include "dlg_cache.h"*/
+//#include "dlg_cache.h"
 #include "dlg_about.h"
 #include "wintypes.h"
 /*#include "dlg_keyboard.h"
@@ -59,12 +59,12 @@ namespace App
 
 		m_pages.push_back(std::make_shared<SetView>(this));
 		m_pages.push_back(std::make_shared<SetInterface>(this));
-		/*m_pages.push_back(std::make_shared<SetColor>());*/
+		//m_pages.push_back(std::make_shared<SetColor>());
 		m_pages.push_back(std::make_shared<SetLanguage>(this));
-		/*m_pages.push_back(std::make_shared<SetControls>());
-		m_pages.push_back(std::make_shared<SetKeyboard>());
-		m_pages.push_back(std::make_shared<SetAdvanced>());
-		m_pages.push_back(std::make_shared<SetPageCache>());*/
+		//m_pages.push_back(std::make_shared<SetControls>());
+		//m_pages.push_back(std::make_shared<SetKeyboard>());
+		m_pages.push_back(std::make_shared<SetAdvanced>(this));
+		//m_pages.push_back(std::make_shared<SetPageCache>());
 		m_pages.push_back(std::make_shared<SetAbout>(this));
 
 		wxTreeItemId hPrev = 0;
