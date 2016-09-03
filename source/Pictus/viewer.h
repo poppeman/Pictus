@@ -17,7 +17,7 @@
 #include "illa/codecmgr.h"
 #include "appreg.h"
 
-//#include "viewer_contextmenu.h"
+#include "viewer_contextmenu.h"
 #include "viewer_keyboard.h"
 #include "actionmap.h"
 
@@ -226,7 +226,7 @@ namespace App {
 
 		Img::CodecFactoryStore* m_codecs;
 
-		//ViewerContextMenu m_contextMenu;
+		ViewerContextMenu m_contextMenu;
 		ViewerKeyboard m_keys;
 
 		//HANDLE m_singleMutex;

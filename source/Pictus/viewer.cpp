@@ -185,7 +185,7 @@ namespace App {
 		m_mouseMap.AddAction(MouseRotateLeft, [this](Win::MouseEvent) { RotateLeft(); });
 		m_mouseMap.AddAction(MouseRotateRight, [this](Win::MouseEvent) { RotateRight(); });
 
-		//m_contextMenu.Construct(this);
+		m_contextMenu.Construct(this);
 		m_keys.Construct(this);
 		m_keys.SetBindings(m_cfg.Keyboard);
 
@@ -517,14 +517,14 @@ namespace App {
 
 	void Viewer::ZoomIn() {
 		m_viewPort.ZoomIn();
-		//m_contextMenu.Zoomed(std::fabs(m_viewPort.ZoomLevel() - 1.0f) < std::numeric_limits<float>::epsilon());
+		m_contextMenu.Zoomed(std::fabs(m_viewPort.ZoomLevel() - 1.0f) < std::numeric_limits<float>::epsilon());
 		ImageChanged();
 		UpdateImageInformation();
 	}
 
 	void Viewer::ZoomOut() {
 		m_viewPort.ZoomOut();
-		//m_contextMenu.Zoomed(std::fabs(m_viewPort.ZoomLevel() - 1.0) < std::numeric_limits<float>::epsilon());
+		m_contextMenu.Zoomed(std::fabs(m_viewPort.ZoomLevel() - 1.0) < std::numeric_limits<float>::epsilon());
 		ImageChanged();
 		UpdateImageInformation();
 	}
@@ -542,12 +542,12 @@ namespace App {
 		m_viewPort.ZoomMode(mode);
 		switch (mode) {
 			case App::ZoomFitImage:
-				//m_contextMenu.FitImage();
+				m_contextMenu.FitImage();
 				break;
 
 			case App::ZoomFullSize:
 			case App::ZoomFree:
-				//m_contextMenu.Zoomed(true);
+				m_contextMenu.Zoomed(true);
 				break;
 		}
 
@@ -1010,7 +1010,7 @@ namespace App {
 		// Disable automatic hiding while the context menu is visible
 		ViewPort::CursorMode m=m_viewPort.ActiveCursorMode();
 		m_viewPort.ActiveCursorMode(ViewPort::CursorShow);
-		//m_contextMenu.Display(e.Position);
+		PopupMenu(&m_contextMenu, e.Position.X, e.Position.Y);
 
 		// Return to whatever it was originally
 		m_viewPort.ActiveCursorMode(m);

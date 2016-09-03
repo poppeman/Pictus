@@ -1,36 +1,39 @@
 #ifndef VIEWER_CONTEXTMENU_H
 #define VIEWER_CONTEXTMENU_H
 
-#include "menu.h"
 #include "actionmap.h"
+#include "app_types.h"
 
-namespace Win {
-	class BaseWindow;
-}
+#include <wx/menu.h>
 
-namespace App {
+namespace App
+{
 	class Viewer;
 
-	class ViewerContextMenu {
+	class ViewerContextMenu:public wxMenu
+	{
 	public:
-		void Display(Geom::PointInt pos);
-
 		void Zoomed(bool fullSize);
 		void FitImage();
 
-		void Construct(Viewer* v);
+		void Construct(Viewer*v);
 
 		ViewerContextMenu();
+		~ViewerContextMenu();
 
 	private:
-		Win::Menu m_menu;
+		void OnMenu(wxCommandEvent &evt);
+
+		wxMenu* DoAddSubMenu(StringID label);
+
+		wxMenuItem *m_idZoomFitImage, *m_idZoomFullSize;
 
 		Viewer* m_viewer;
 
-		uint32_t m_idZoomFitImage, m_idZoomFullSize;
-
-		typedef ActionMapNoParam<DWORD> MenuActionMap;
+		typedef ActionMapNoParam<int> MenuActionMap;
 		MenuActionMap m_menuMap;
+
+		DECLARE_EVENT_TABLE()
 	};
 }
 
