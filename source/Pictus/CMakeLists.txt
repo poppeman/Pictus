@@ -9,9 +9,14 @@ FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(PICTUS_CPP_SRCS
 		app_types.cpp
 		builder_viewport.cpp
+		cnt_color_hls.cpp cnt_color_hls.h
+		cnt_color_rgb.cpp cnt_color_rgb.h
+		cnt_colorpick.cpp cnt_colorpick.h
+		cnt_colorpreview.cpp cnt_colorpreview.h
 		dlg_about.cpp
 		dlg_advanced.cpp dlg_advanced.h
 		dlg_cache.cpp dlg_cache.h
+		dlg_color.cpp dlg_color.h
 		dlg_controls.cpp dlg_controls.h
 		dlg_interface.cpp dlg_interface.h
 		dlg_language.cpp dlg_language.h

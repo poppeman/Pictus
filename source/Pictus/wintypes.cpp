@@ -2,6 +2,7 @@
 
 #include <boost/scoped_array.hpp>
 #include <orz/intl.h>
+#include <wx/colour.h>
 
 namespace Win {
 	Geom::RectInt wxToRect(const wxRect& rect) {
@@ -81,6 +82,11 @@ namespace Win {
 	wxString GetStringWx(int id, Intl::Language lang)
 	{
 		return wxString::FromUTF8(Intl::GetStringLang(id, lang));
+	}
+
+	wxColor ColorToWx(Img::Color c)
+	{
+		return wxColor(c.R, c.G, c.B);
 	}
 
 	bool KeyEvent::operator<(const KeyEvent& rhs) const {

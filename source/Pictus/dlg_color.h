@@ -2,30 +2,49 @@
 #define DLG_COLOR_H
 
 #include "settings_page.h"
+#include "cnt_color_hls.h"
+#include "cnt_color_rgb.h"
+#include "cnt_colorpick.h"
+#include "cnt_colorpreview.h"
+#include <wx/slider.h>
 
-namespace App {
-	class SetColor:public App::SettingsPage {
+namespace App
+{
+	class SetColor:public App::SettingsPage
+	{
 	public:
 		bool IsRootPage() const override;
-
-		SetColor();
-
-	private:
-		void RegisterWindowClasses();
-		void PerformOnCreate();
-		bool PerformOnCommand(int id, WPARAM wp, LPARAM lp);
-		bool PerformOnVScroll(WPARAM wp, LPARAM lp);
-		bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
-
-		bool PerformOnInitPage() override;
-		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
-		void onWriteSettings(Reg::Settings& settings) override;
-
-		void updatePreviewColor();
+		SetColor(wxWindow *parent);
+		std::string Caption() override;
 
 	private:
-		DWORD m_currCol;
-		bool m_isUpdating;
+		void PerformUpdateFromSettings(const Reg::Settings &settings) override;
+		void onWriteSettings(Reg::Settings &settings) override;
+
+		void OnSaturationEvent(wxCommandEvent& evt);
+		void OnColorPicker(wxCommandEvent& evt);
+		void OnRgb(wxCommandEvent& evt);
+		void OnHls(wxCommandEvent& evt);
+
+		void UpdateControls();
+
+	private:
+		ControlColorPicker* m_colorPicker;
+		wxSlider* m_saturation;
+		ControlColorPreview* m_previewPanel;
+
+		ControlColorRgb* m_rgb;
+		ControlColorHls* m_hls;
+
+		enum
+		{
+			SaturationId = wxID_HIGHEST + 1,
+			ColorPickerId,
+			RgbId,
+			HlsId
+		};
+
+		DECLARE_EVENT_TABLE()
 	};
 }
 

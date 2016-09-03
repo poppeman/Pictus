@@ -1,68 +1,56 @@
 #ifndef CNT_COLORPICK_H
 #define CNT_COLORPICK_H
 
-#include "dialog.h"
+#include <wx/panel.h>
+#include <illa/color.h>
+#include <orz/geom.h>
 
-namespace App {
+wxDECLARE_EVENT(COLOR_CHANGED, wxCommandEvent);
+
+namespace App
+{
 	// TODO: Make DPI aware
-	class ControlColorPicker:public Win::BaseWindow {
+	class ControlColorPicker:public wxPanel
+	{
 	public:
-		static const wchar_t*		ClassName;
+		static const wchar_t* ClassName;
 
-		enum {
-			CursorSpace=2,
-			CursorLength=6,
-		};
-
-		enum Messages {
-			MsgSetHue = WM_APP+1,
-			MsgSetLuminance,
-			MsgSetSaturation,
-
-			MsgSetRGB,
-			MsgGetRGB,
-
-			MsgGetHue,
-			MsgGetLuminance,
-			MsgGetSaturation,
-		};
-
-		enum Notifications {
-			NotValueChanged=1
+		enum
+		{
+			CursorSpace = 2,
+			CursorLength = 6,
 		};
 
 	public:
-		static void RegisterClass(HINSTANCE hInstance);
-		LRESULT wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		ControlColorPicker(wxWindow *parent, wxWindowID winid, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize);
 
-		ControlColorPicker();
-		~ControlColorPicker();
+		void SetRgb(Img::Color col);
+		Img::Color GetRgb();
+
+		void SetHls(Img::HLSTriplet col);
+		Img::HLSTriplet GetHls() const;
 
 	private:
-		bool HandleMouseMove(Win::MouseEvent e);
-		bool HandleMouseClick(Win::MouseEvent e);
+		void OnPaint(wxPaintEvent& paintEvent);
+
+		void HandleMouseMove(wxMouseEvent& e);
+		void HandleMouseClick(wxMouseEvent& e);
 
 		void CreateColorBitmap();
+		void SetColorMapPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b);
 
-		void SetCursorPosition(const Geom::PointInt& pos);
-		void SetRGB(DWORD col);
+		void SetCursorPosition(const Geom::PointInt &pos);
 
-		DWORD GetRGB();
-
-		void notifyChange();
+		void NotifyChange();
 
 		// Color in HLS and RGB version
 		Img::HLSTriplet m_colorHLS;
 		Img::Color m_colorRGB;
 
+		wxImage m_colorMap;
 		bool m_useRGB;
 
-		// Palette bitmap
-		HBITMAP m_hColors;
-		HDC m_hdcMem;
-
-	private:
-		static LRESULT WINAPI wndProc_delegate(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		DECLARE_EVENT_TABLE()
 	};
 }
 

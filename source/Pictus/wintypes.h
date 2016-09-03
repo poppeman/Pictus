@@ -4,6 +4,7 @@
 #include "app_types.h"
 #include <wx/event.h>
 #include <orz/intl_language.h>
+#include <wx/colour.h>
 
 namespace Win {
 	enum MouseButton {
@@ -45,6 +46,7 @@ namespace Win {
 	wxPoint PointToWx(const Geom::PointInt &point);
 	Geom::PointInt wxToPoint(wxPoint pt);
 	::Geom::SizeInt wxToSize(::wxSize sz);
+	wxColor ColorToWx(Img::Color c);
 
 	wxString GetStringWx(int id);
 	wxString GetStringWx(int id, Intl::Language lang);
