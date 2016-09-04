@@ -18,6 +18,7 @@
 #include "appreg.h"
 
 #include "viewer_contextmenu.h"
+#include "viewer_droptarget.h"
 #include "viewer_keyboard.h"
 #include "actionmap.h"
 
@@ -36,6 +37,7 @@ namespace App {
 		Img::Image::Ptr ActiveImage() const;
 
 		void ActiveImage(Img::Image::Ptr pImage);
+		void SetImageLocation(const std::string& path);
 
 		bool Init(const std::string params);
 
@@ -103,8 +105,6 @@ namespace App {
 		bool PerformOnSize(const Geom::SizeInt& sz);
 		void OnMoveEvent(wxMoveEvent& e);
 		//bool PerformOnDropFiles(const StringVector& files);
-
-		void SetImageLocation(const std::string& path);
 
 		//bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
 		void UpdateImageInformation();
@@ -228,6 +228,7 @@ namespace App {
 
 		ViewerContextMenu m_contextMenu;
 		ViewerKeyboard m_keys;
+		DropTarget m_dropTarget;
 
 		//HANDLE m_singleMutex;
 

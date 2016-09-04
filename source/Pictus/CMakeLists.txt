@@ -63,6 +63,7 @@ set(PICTUS_CPP_SRCS
 		view_pan.cpp
 		viewer.cpp
 		viewer_contextmenu.cpp viewer_contextmenu.h
+		viewer_droptarget.cpp viewer_droptarget.h
 		viewer_keyboard.cpp
 		viewport.cpp
 		w32_assure_folder.cpp

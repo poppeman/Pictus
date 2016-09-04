@@ -91,6 +91,7 @@ namespace App {
 		m_viewPort{ this },
 		m_statusBar{ nullptr },
 		m_codecs{ cfs },
+		m_dropTarget{ this },
 		m_cfg( cfg )
 	{
 
@@ -229,6 +230,8 @@ namespace App {
 
 		m_viewPort.Init();
 		PerformOnWindowCreate();
+
+		SetDropTarget(&m_dropTarget);
 
 		return true;
 	}
@@ -975,18 +978,18 @@ namespace App {
 	}
 
 	void Viewer::SetImageLocation(const std::string& path) {
-		auto fixedPath = path;
+		auto fixedPath = boost::filesystem::path(path);
 		if (IO::DoPathExist(path))
 		{
-			fixedPath += "\\";
+			fixedPath += boost::filesystem::path::preferred_separator;
 		}
-		else if (IO::DoFileExist(fixedPath) == false)
+		else if (IO::DoFileExist(fixedPath.string()) == false)
 		{
 			return;
 		}
 
 		m_folderMonitor.Close();
-		if (m_folder.Path(IO::GetPath(fixedPath)) == false)
+		if (m_folder.Path(IO::GetPath(fixedPath.string())) == false)
 		{
 			return;
 		}
