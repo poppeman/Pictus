@@ -2,43 +2,42 @@
 #define PICTUS_DLG_KEYBOARD_H
 
 #include "settings_page.h"
-#include "ctrl_combobox.h"
-#include "ctrl_listview.h"
 #include "ctrl_keypress.h"
 #include "appreg.h"
 
 #include <map>
+#include <wx/button.h>
+#include <wx/choice.h>
+#include <wx/listctrl.h>
 
-#include <CommCtrl.h>
-
-namespace App {
-	class SetKeyboard :public App::SettingsPage {
+namespace App
+{
+	class SetKeyboard:public App::SettingsPage
+	{
 	public:
 		bool IsRootPage() const override;
+		std::string Caption() override;
 
-		SetKeyboard();
+		SetKeyboard(wxWindow* parent);
 
 	private:
-		void AddShortcut(int& row, LPARAM& id);
-		void SetShortcutFunction(KeyAction action, LPARAM id);
+		void AddShortcut(int &row, int &id);
+		void SetShortcutFunction(KeyAction action, int id);
 		void OnSetShortcutCombo(KeyboardPress kp);
-		void SetShortcutCombo(KeyboardPress kp, LPARAM id);
-
-		bool PerformOnInitPage() override;
-
+		void SetShortcutCombo(KeyboardPress kp, int id);
 		void AddAction(KeyAction action, StringID actionSid);
-
 		void UpdateControlStyles();
+		void PerformUpdateFromSettings(const Reg::Settings &settings) override;
+		void onWriteSettings(Reg::Settings &settings) override;
 
-		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
-		void onWriteSettings(Reg::Settings& settings) override;
+		wxButton *m_removeAssigned;
+		wxChoice *m_functions;
+		wxListView *m_assigned;
+		App::Keypress *m_keypress;
 
-		Win::ComboBox* m_functions;
-		Win::ListView* m_assigned;
-		App::Keypress* m_keypress;
-
-		std::map<LPARAM, Reg::KeyboardBinding> m_shortcuts;
-		LPARAM m_currentId;
+		std::map<int, Reg::KeyboardBinding> m_shortcuts;
+		int m_currentId;
+		void ResetAssigned() const;
 	};
 }
 

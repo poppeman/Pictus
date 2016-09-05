@@ -13,12 +13,14 @@ set(PICTUS_CPP_SRCS
 		cnt_color_rgb.cpp cnt_color_rgb.h
 		cnt_colorpick.cpp cnt_colorpick.h
 		cnt_colorpreview.cpp cnt_colorpreview.h
+		ctrl_keypress.cpp ctrl_keypress.h
 		dlg_about.cpp
 		dlg_advanced.cpp dlg_advanced.h
 		dlg_cache.cpp dlg_cache.h
 		dlg_color.cpp dlg_color.h
 		dlg_controls.cpp dlg_controls.h
 		dlg_interface.cpp dlg_interface.h
+		dlg_keyboard.cpp dlg_keyboard.h
 		dlg_language.cpp dlg_language.h
 		dlg_view.cpp
 		filterstring.cpp

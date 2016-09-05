@@ -365,6 +365,10 @@
 				"English": "Add",
 				"Swedish": "Lägg till"
 			},
+			"Remove": {
+				"English": "Remove",
+				"Swedish": "Ta bort"
+			},
 			"NotSet": {
 				"English": "<not set>",
 				"Swedish": "<ej satt>"
