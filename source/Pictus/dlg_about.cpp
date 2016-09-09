@@ -1,6 +1,6 @@
 #include "dlg_about.h"
 #include "version.h"
-#include "libpng/png.h"
+#include <png.h>
 
 #include <boost/algorithm/string.hpp>
 #include <wx/stattext.h>
