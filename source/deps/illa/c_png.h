@@ -2,7 +2,7 @@
 #define C_PNG_H
 
 #include "codec_static.h"
-#include "../libpng/png.h"
+#include <png.h>
 #include <setjmp.h>
 
 namespace Img {
