@@ -53,7 +53,7 @@ namespace App
 		m_settings(settings)
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
-		m_tree = new wxTreeCtrl(this, TreeCtrlId, {0, 0}, {110, 252}, wxTR_HIDE_ROOT);
+		m_tree = new wxTreeCtrl(this, TreeCtrlId, {0, 0}, {150, 252}, wxTR_HIDE_ROOT);
 		m_sizer = new wxBoxSizer(wxHORIZONTAL);
 		m_sizer->Add(m_tree, wxSizerFlags(0).Expand().Border(wxRIGHT, 10));
 
@@ -91,6 +91,7 @@ namespace App
 				firstIndex = static_cast<int>(i);
 			}
 		}
+		m_tree->ExpandAll();
 
 		ActivatePage(firstIndex);
 
