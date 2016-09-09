@@ -204,26 +204,19 @@
     <Text Include="license_sv.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="appreg.cpp" />
     <ClCompile Include="app_types.cpp" />
-    <ClCompile Include="ctrl_combobox_entry.cpp" />
-    <ClCompile Include="ctrl_keypress.cpp" />
     <ClCompile Include="dlg_about.cpp" />
     <ClCompile Include="dlg_advanced.cpp" />
     <ClCompile Include="dlg_cache.cpp" />
     <ClCompile Include="dlg_controls.cpp" />
-    <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
-    <ClCompile Include="gdiwrapper.cpp" />
     <ClCompile Include="imagecache_workrequest.cpp" />
-    <ClCompile Include="imenu_item.cpp" />
     <ClCompile Include="lang_val.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="menu_item.cpp" />
     <ClCompile Include="reg_color_translator.cpp" />
     <ClCompile Include="reg_filter_mode_translator.cpp" />
     <ClCompile Include="reg_keyboard_binding_translator.cpp" />
@@ -232,7 +225,6 @@
     <ClCompile Include="reg_resize_behavior_translator.cpp" />
     <ClCompile Include="reg_resize_position_method_translator.cpp" />
     <ClCompile Include="reg_zoom_mode_translator.cpp" />
-    <ClCompile Include="separator.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="settings_page.cpp" />
     <ClCompile Include="dlg_color.cpp" />
@@ -240,11 +232,9 @@
     <ClCompile Include="dlg_view.cpp" />
     <ClCompile Include="cnt_colorpick.cpp" />
     <ClCompile Include="cnt_colorpreview.cpp" />
-    <ClCompile Include="adjust.cpp" />
     <ClCompile Include="filterstring.cpp" />
     <ClCompile Include="getevent.cpp" />
     <ClCompile Include="rename.cpp" />
-    <ClCompile Include="sub_menu.cpp" />
     <ClCompile Include="viewer.cpp" />
     <ClCompile Include="viewer_contextmenu.cpp" />
     <ClCompile Include="viewer_keyboard.cpp" />
@@ -253,25 +243,11 @@
     <ClCompile Include="zoomstrategy.cpp" />
     <ClCompile Include="builder_viewport.cpp" />
     <ClCompile Include="factory_renderer.cpp" />
-    <ClCompile Include="imagelist.cpp" />
-    <ClCompile Include="monitor.cpp" />
     <ClCompile Include="notification.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="w32_main.cpp" />
     <ClCompile Include="wallpaper.cpp" />
-    <ClCompile Include="win7taskbar.cpp" />
     <ClCompile Include="wintypes.cpp" />
-    <ClCompile Include="basewin.cpp" />
-    <ClCompile Include="window.cpp" />
-    <ClCompile Include="menu.cpp" />
-    <ClCompile Include="dialog.cpp" />
-    <ClCompile Include="control.cpp" />
-    <ClCompile Include="ctrl_button.cpp" />
-    <ClCompile Include="ctrl_combobox.cpp" />
-    <ClCompile Include="ctrl_editbox.cpp" />
-    <ClCompile Include="ctrl_listview.cpp" />
-    <ClCompile Include="ctrl_statusbar.cpp" />
-    <ClCompile Include="ctrl_statusbar_part.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="version.cpp" />
     <ClCompile Include="registry.cpp" />
@@ -293,20 +269,14 @@
     <ClCompile Include="ic_workpackage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ctrl_combobox_entry.h" />
-    <ClInclude Include="ctrl_keypress.h" />
     <ClInclude Include="dlg_about.h" />
     <ClInclude Include="dlg_advanced.h" />
     <ClInclude Include="dlg_cache.h" />
     <ClInclude Include="dlg_controls.h" />
-    <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
-    <ClInclude Include="gdiwrapper.h" />
     <ClInclude Include="imagecache_workrequest.h" />
-    <ClInclude Include="imenu_item.h" />
     <ClInclude Include="lang_enum.h" />
     <ClInclude Include="lang_val.h" />
-    <ClInclude Include="menu_item.h" />
     <ClInclude Include="reg_color_translator.h" />
     <ClInclude Include="reg_filter_mode_translator.h" />
     <ClInclude Include="reg_keyboard_binding_translator.h" />
@@ -317,7 +287,6 @@
     <ClInclude Include="reg_zoom_mode_translator.h" />
     <ClInclude Include="resize_behavior.h" />
     <ClInclude Include="resize_position_method.h" />
-    <ClInclude Include="separator.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="settings_page.h" />
     <ClInclude Include="dlg_color.h" />
@@ -326,13 +295,11 @@
     <ClInclude Include="cnt_colorpick.h" />
     <ClInclude Include="cnt_colorpreview.h" />
     <ClInclude Include="actionmap.h" />
-    <ClInclude Include="adjust.h" />
     <ClInclude Include="filterstring.h" />
     <ClInclude Include="getevent.h" />
     <ClInclude Include="rename.h" />
     <ClInclude Include="res_settings.h" />
     <ClInclude Include="res_viewer.h" />
-    <ClInclude Include="sub_menu.h" />
     <ClInclude Include="viewer.h" />
     <ClInclude Include="viewer_contextmenu.h" />
     <ClInclude Include="viewer_keyboard.h" />
@@ -342,24 +309,10 @@
     <ClInclude Include="builder_viewport.h" />
     <ClInclude Include="factory_renderer.h" />
     <ClInclude Include="cursor.h" />
-    <ClInclude Include="imagelist.h" />
-    <ClInclude Include="monitor.h" />
     <ClInclude Include="notification.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="wallpaper.h" />
-    <ClInclude Include="win7taskbar.h" />
     <ClInclude Include="wintypes.h" />
-    <ClInclude Include="basewin.h" />
-    <ClInclude Include="window.h" />
-    <ClInclude Include="menu.h" />
-    <ClInclude Include="dialog.h" />
-    <ClInclude Include="control.h" />
-    <ClInclude Include="ctrl_button.h" />
-    <ClInclude Include="ctrl_combobox.h" />
-    <ClInclude Include="ctrl_editbox.h" />
-    <ClInclude Include="ctrl_listview.h" />
-    <ClInclude Include="ctrl_statusbar.h" />
-    <ClInclude Include="ctrl_statusbar_part.h" />
     <ClInclude Include="app_types.h" />
     <ClInclude Include="appreg.h" />
     <ClInclude Include="config.h" />
@@ -423,10 +376,6 @@
     <Image Include="Res\thumbtoolbar96.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\deps\D3DWrap\D3DWrap.vcxproj">
-      <Project>{1041595a-f33c-497d-80bd-d3723da0c9ad}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\deps\illa\illa.vcxproj">
       <Project>{f4fb9d4b-8041-4c4e-8ea3-7ea57b7cb1ba}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

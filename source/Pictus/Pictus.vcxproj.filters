@@ -19,18 +19,6 @@
     <Filter Include="WinAPI">
       <UniqueIdentifier>{64f35c09-45b9-4f3c-938c-d17f4b2fee5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WinAPI\Windows">
-      <UniqueIdentifier>{a0447e1e-34a0-4284-8e80-48d6f3830bd0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WinAPI\Menu">
-      <UniqueIdentifier>{03c9a4cd-0267-4a62-9675-6c19fbff4a89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WinAPI\Dialog">
-      <UniqueIdentifier>{93ac0789-88dd-460e-9233-bac6325d68ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WinAPI\Controls">
-      <UniqueIdentifier>{11590de9-887e-4686-8df7-28c580b5819a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shared">
       <UniqueIdentifier>{29afe672-ad1c-44c2-ae20-5ef9b8a435e1}</UniqueIdentifier>
     </Filter>
@@ -69,9 +57,6 @@
     </Filter>
     <Filter Include="Installer">
       <UniqueIdentifier>{3d4a53a5-3477-40b8-9f62-dad1ae06ce6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Imaging\Renderer\GDI">
-      <UniqueIdentifier>{20404d52-ea0c-4ec8-af9f-cd2f87bcc8eb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shared\Registry\Translators">
       <UniqueIdentifier>{0ad784a0-de92-4730-819d-a2b7dcfe6865}</UniqueIdentifier>
@@ -122,9 +107,6 @@
     <ClCompile Include="cnt_colorpreview.cpp">
       <Filter>Settings\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="adjust.cpp">
-      <Filter>Viewer</Filter>
-    </ClCompile>
     <ClCompile Include="filterstring.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
@@ -158,12 +140,6 @@
     <ClCompile Include="factory_renderer.cpp">
       <Filter>Viewer\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="imagelist.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="monitor.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
     <ClCompile Include="notification.cpp">
       <Filter>WinAPI</Filter>
     </ClCompile>
@@ -176,44 +152,8 @@
     <ClCompile Include="wallpaper.cpp">
       <Filter>WinAPI</Filter>
     </ClCompile>
-    <ClCompile Include="win7taskbar.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
     <ClCompile Include="wintypes.cpp">
       <Filter>WinAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="basewin.cpp">
-      <Filter>WinAPI\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="window.cpp">
-      <Filter>WinAPI\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="menu.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="dialog.cpp">
-      <Filter>WinAPI\Dialog</Filter>
-    </ClCompile>
-    <ClCompile Include="control.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_button.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_combobox.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_editbox.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_listview.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_statusbar.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_statusbar_part.cpp">
-      <Filter>WinAPI\Controls</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Shared</Filter>
@@ -272,23 +212,11 @@
     <ClCompile Include="w32_assure_folder.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
-    <ClCompile Include="gdiwrapper.cpp">
-      <Filter>Imaging\Renderer\GDI</Filter>
-    </ClCompile>
-    <ClCompile Include="appreg.cpp">
-      <Filter>Shared</Filter>
-    </ClCompile>
     <ClCompile Include="dlg_controls.cpp">
-      <Filter>Settings\Pages\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="dlg_keyboard.cpp">
       <Filter>Settings\Pages\Controls</Filter>
     </ClCompile>
     <ClCompile Include="app_types.cpp">
       <Filter>Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_keypress.cpp">
-      <Filter>Settings\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="reg_language_translator.cpp">
       <Filter>Shared\Registry\Translators</Filter>
@@ -316,21 +244,6 @@
     </ClCompile>
     <ClCompile Include="reg_zoom_mode_translator.cpp">
       <Filter>Shared\Registry\Translators</Filter>
-    </ClCompile>
-    <ClCompile Include="menu_item.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="imenu_item.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="sub_menu.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="separator.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_combobox_entry.cpp">
-      <Filter>WinAPI\Controls</Filter>
     </ClCompile>
     <ClCompile Include="dlg_about.cpp">
       <Filter>Settings\Pages</Filter>
@@ -371,9 +284,6 @@
       <Filter>Settings\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="actionmap.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="adjust.h">
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="filterstring.h">
@@ -418,12 +328,6 @@
     <ClInclude Include="cursor.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
-    <ClInclude Include="imagelist.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="monitor.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
     <ClInclude Include="notification.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
@@ -433,44 +337,8 @@
     <ClInclude Include="wallpaper.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
-    <ClInclude Include="win7taskbar.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
     <ClInclude Include="wintypes.h">
       <Filter>WinAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="basewin.h">
-      <Filter>WinAPI\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="window.h">
-      <Filter>WinAPI\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="menu.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="dialog.h">
-      <Filter>WinAPI\Dialog</Filter>
-    </ClInclude>
-    <ClInclude Include="control.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_button.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_combobox.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_editbox.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_listview.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_statusbar.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_statusbar_part.h">
-      <Filter>WinAPI\Controls</Filter>
     </ClInclude>
     <ClInclude Include="app_types.h">
       <Filter>Shared</Filter>
@@ -544,17 +412,8 @@
     <ClInclude Include="w32_assure_folder.h">
       <Filter>Shared</Filter>
     </ClInclude>
-    <ClInclude Include="gdiwrapper.h">
-      <Filter>Imaging\Renderer\GDI</Filter>
-    </ClInclude>
     <ClInclude Include="dlg_controls.h">
       <Filter>Settings\Pages\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="dlg_keyboard.h">
-      <Filter>Settings\Pages\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_keypress.h">
-      <Filter>Settings\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="reg_language_translator.h">
       <Filter>Shared\Registry\Translators</Filter>
@@ -594,21 +453,6 @@
     </ClInclude>
     <ClInclude Include="zoom_mode.h">
       <Filter>Types</Filter>
-    </ClInclude>
-    <ClInclude Include="menu_item.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="imenu_item.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="sub_menu.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="separator.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_combobox_entry.h">
-      <Filter>WinAPI\Controls</Filter>
     </ClInclude>
     <ClInclude Include="dlg_about.h">
       <Filter>Settings\Pages</Filter>
