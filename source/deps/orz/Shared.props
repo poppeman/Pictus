@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>C:\wxWidgets-3.1.0\include;C:\wxWidgets-3.1.0\include\msvc;C:\Boost\include\boost-1_59;$(SolutionDir)\3rdparty\glew\src\include;$(SolutionDir)\3rdparty\zlib\src;$(SolutionDir)\3rdparty\libjpeg\src;$(SolutionDir)\3rdparty\libpng\src;$(SolutionDir)\3rdparty\libtiff\src\libtiff;$(IncludePath)</IncludePath>
+    <IncludePath>C:\wxWidgets-3.1.0\include;C:\wxWidgets-3.1.0\include\msvc;C:\Boost\include\boost-1_59;$(SolutionDir)\3rdparty\glew\src\include;$(SolutionDir)\3rdparty\zlib\src;$(SolutionDir)\3rdparty\libjpeg\src;$(SolutionDir)\3rdparty\libpng\src;$(SolutionDir)\3rdparty\libtiff\src\libtiff;$(SolutionDir)\3rdparty\libwebp\src\src;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='x64'">
