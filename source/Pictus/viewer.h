@@ -229,7 +229,7 @@ namespace App {
 
 		ViewerContextMenu m_contextMenu;
 		ViewerKeyboard m_keys;
-		DropTarget m_dropTarget;
+		DropTarget* m_dropTarget;
 
 		//HANDLE m_singleMutex;
 

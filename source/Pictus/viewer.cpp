@@ -91,7 +91,7 @@ namespace App {
 		m_viewPort{ this },
 		m_statusBar{ nullptr },
 		m_codecs{ cfs },
-		m_dropTarget{ this },
+		m_dropTarget{ nullptr },
 		m_cfg( cfg )
 	{
 
@@ -172,6 +172,7 @@ namespace App {
 
 	bool Viewer::Init(const std::string params)
 	{
+		m_dropTarget = new DropTarget(this);
 		m_normalRect = wxToRect(GetRect());
 
 		ViewportBuilder b;
@@ -234,7 +235,7 @@ namespace App {
 		m_viewPort.Init();
 		PerformOnWindowCreate();
 
-		SetDropTarget(&m_dropTarget);
+		SetDropTarget(m_dropTarget);
 
 		return true;
 	}
