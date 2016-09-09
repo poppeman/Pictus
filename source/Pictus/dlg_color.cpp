@@ -32,8 +32,8 @@ namespace App
 		auto pickerPart = new wxBoxSizer(wxHORIZONTAL);
 		m_colorPicker = new ControlColorPicker(this, ColorPickerId, {0, 0}, {256, 256});
 		m_saturation = new wxSlider(this, SaturationId, 1, 1, Img::SatCap * 100, wxDefaultPosition, wxDefaultSize, wxVERTICAL);
-		pickerPart->Add(m_colorPicker, wxSizerFlags(0));
-		pickerPart->Add(m_saturation, wxSizerFlags(0).Expand().Right());
+		pickerPart->Add(m_colorPicker, wxSizerFlags(1).Expand());
+		pickerPart->Add(m_saturation, wxSizerFlags(0).Expand());
 
 		auto previewBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsBackgroundColorPreview));
 		m_previewPanel = new ControlColorPreview(previewBox->GetStaticBox(), wxID_ANY, {0, 0}, {80, 128});
