@@ -2,6 +2,7 @@
 #define CNT_COLORPICK_H
 
 #include <wx/panel.h>
+#include <wx/image.h>
 #include <illa/color.h>
 #include <orz/geom.h>
 
