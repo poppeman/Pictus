@@ -243,7 +243,6 @@
     <ClCompile Include="zoomstrategy.cpp" />
     <ClCompile Include="builder_viewport.cpp" />
     <ClCompile Include="factory_renderer.cpp" />
-    <ClCompile Include="notification.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="w32_main.cpp" />
     <ClCompile Include="wallpaper.cpp" />
@@ -253,9 +252,7 @@
     <ClCompile Include="registry.cpp" />
     <ClCompile Include="w32_assure_folder.cpp" />
     <ClCompile Include="w32_rendertarget.cpp" />
-    <ClCompile Include="w32_ddsurface.cpp" />
     <ClCompile Include="w32_renderer.cpp" />
-    <ClCompile Include="d3d_ddsurface.cpp" />
     <ClCompile Include="w32_redrawstrategy.cpp" />
     <ClCompile Include="w32_rs_tiled.cpp" />
     <ClCompile Include="w32_rs_tilemanager.cpp" />
@@ -309,7 +306,6 @@
     <ClInclude Include="builder_viewport.h" />
     <ClInclude Include="factory_renderer.h" />
     <ClInclude Include="cursor.h" />
-    <ClInclude Include="notification.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="wallpaper.h" />
     <ClInclude Include="wintypes.h" />
@@ -322,9 +318,7 @@
     <ClInclude Include="registry.h" />
     <ClInclude Include="w32_assure_folder.h" />
     <ClInclude Include="w32_rendertarget.h" />
-    <ClInclude Include="w32_ddsurface.h" />
     <ClInclude Include="w32_renderer.h" />
-    <ClInclude Include="d3d_ddsurface.h" />
     <ClInclude Include="w32_redrawstrategy.h" />
     <ClInclude Include="w32_rs_tiled.h" />
     <ClInclude Include="w32_rs_tilemanager.h" />

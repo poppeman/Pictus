@@ -43,9 +43,6 @@
     <Filter Include="Imaging\Renderer">
       <UniqueIdentifier>{b30132ba-6562-4fd6-b151-d64ba54a8b65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Imaging\Renderer\Direct3D">
-      <UniqueIdentifier>{a1ec9bf1-5ba8-4062-9b4e-96c3e3770f83}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Imaging\Renderer\Strategy">
       <UniqueIdentifier>{4dd8f0e9-0591-4b93-90dd-d46010d31c2f}</UniqueIdentifier>
     </Filter>
@@ -140,9 +137,6 @@
     <ClCompile Include="factory_renderer.cpp">
       <Filter>Viewer\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="notification.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
     <ClCompile Include="timer.cpp">
       <Filter>WinAPI</Filter>
     </ClCompile>
@@ -167,14 +161,8 @@
     <ClCompile Include="w32_rendertarget.cpp">
       <Filter>Imaging</Filter>
     </ClCompile>
-    <ClCompile Include="w32_ddsurface.cpp">
-      <Filter>Imaging\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="w32_renderer.cpp">
       <Filter>Imaging\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="d3d_ddsurface.cpp">
-      <Filter>Imaging\Renderer\Direct3D</Filter>
     </ClCompile>
     <ClCompile Include="w32_redrawstrategy.cpp">
       <Filter>Imaging\Renderer\Strategy</Filter>
@@ -328,9 +316,6 @@
     <ClInclude Include="cursor.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
-    <ClInclude Include="notification.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
     <ClInclude Include="timer.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
@@ -364,14 +349,8 @@
     <ClInclude Include="w32_rendertarget.h">
       <Filter>Imaging</Filter>
     </ClInclude>
-    <ClInclude Include="w32_ddsurface.h">
-      <Filter>Imaging\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="w32_renderer.h">
       <Filter>Imaging\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="d3d_ddsurface.h">
-      <Filter>Imaging\Renderer\Direct3D</Filter>
     </ClInclude>
     <ClInclude Include="w32_redrawstrategy.h">
       <Filter>Imaging\Renderer\Strategy</Filter>
