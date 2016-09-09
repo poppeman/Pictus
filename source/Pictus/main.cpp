@@ -6,11 +6,13 @@
 //#include "control.h"
 #include "orz/logger.h"
 #include <boost/locale.hpp>
+#include <boost/scoped_array.hpp>
 #include <wx/app.h>
 #include <wx/msgdlg.h>
 
 #ifdef _WIN32
 #include <windows.h>
+const wchar_t* ClassName = L"PictusMainMutex";
 #endif
 
 class MyApp:public wxApp
@@ -58,12 +60,12 @@ private:
 	HANDLE m_singleMutex;
 #endif
 
-	void EnsureSingleInstance() {
+	void EnsureSingleInstance(std::string params, App::Viewer* viewer) {
 		// Look for another process (disallow if the setting requires that)
 #ifdef _WIN32
 		m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
 
-		if ((GetLastError() == ERROR_ALREADY_EXISTS) && (cfg.View.MultipleInstances == false)) {
+		if ((GetLastError() == ERROR_ALREADY_EXISTS)) {
 				if (HWND hwnd = ::FindWindow(ClassName, 0)) {
 						SetForegroundWindow(hwnd);
 						if (IsIconic(hwnd)) {
@@ -81,7 +83,7 @@ private:
 								cds.dwData = 0;
 								cds.cbData = static_cast<DWORD>((params.length() + 1) * sizeof(wchar_t));
 								cds.lpData = reinterpret_cast<void*>(pStrData.get());
-								SendMessage(hwnd, WM_COPYDATA, (WPARAM)Handle(), (LPARAM)&cds);
+								SendMessageW(hwnd, WM_COPYDATA, (WPARAM)viewer->GetHWND(), (LPARAM)&cds);
 						}
 
 						throw Err::DuplicateInstance();
@@ -114,12 +116,15 @@ private:
 			// TODO: Control logging by some other mechanism, such as an .ini setting
 			//Log.SetOutput(assure_folder(App::cg_RunLogLocation));
 
-			EnsureSingleInstance();
-
 			Intl::LanguageTable(c_lang_strings);
 			Intl::CurrentLanguage(cfg.View.Language);
 
 			m_viewer = new App::Viewer(&cfs, cfg);
+			m_viewer->CreateWindow();
+			if (cfg.View.MultipleInstances == false)
+			{
+				EnsureSingleInstance(params, m_viewer);
+			}
 
 			// Attempt to display viewer
 			if (m_viewer->Init(params.c_str()))

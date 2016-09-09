@@ -77,9 +77,6 @@
     <ClCompile Include="..\Pictus\ic_workpackage.cpp">
       <Filter>Pictus\Cacher\Background</Filter>
     </ClCompile>
-    <ClCompile Include="..\Pictus\w32_ddsurface.cpp">
-      <Filter>Pictus\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Pictus\view_pan.cpp">
       <Filter>Pictus\Viewer\Viewport</Filter>
     </ClCompile>
@@ -129,9 +126,6 @@
     </ClInclude>
     <ClInclude Include="..\Pictus\ic_workpackage.h">
       <Filter>Pictus\Cacher\Background</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Pictus\w32_ddsurface.h">
-      <Filter>Pictus\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\Pictus\view_pan.h">
       <Filter>Pictus\Viewer\Viewport</Filter>

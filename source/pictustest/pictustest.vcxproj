@@ -192,7 +192,6 @@
     <ClCompile Include="..\Pictus\ic_workerthread.cpp" />
     <ClCompile Include="..\Pictus\ic_worklist.cpp" />
     <ClCompile Include="..\Pictus\ic_workpackage.cpp" />
-    <ClCompile Include="..\Pictus\w32_ddsurface.cpp" />
     <ClCompile Include="..\Pictus\view_pan.cpp" />
     <ClCompile Include="..\Pictus\zoomstrategy.cpp" />
     <ClCompile Include="..\Pictus\wintypes.cpp" />
@@ -210,7 +209,6 @@
     <ClInclude Include="..\Pictus\ic_workerthread.h" />
     <ClInclude Include="..\Pictus\ic_worklist.h" />
     <ClInclude Include="..\Pictus\ic_workpackage.h" />
-    <ClInclude Include="..\Pictus\w32_ddsurface.h" />
     <ClInclude Include="..\Pictus\view_pan.h" />
     <ClInclude Include="..\Pictus\zoomstrategy.h" />
     <ClInclude Include="..\Pictus\wintypes.h" />

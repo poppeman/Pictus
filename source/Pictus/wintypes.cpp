@@ -4,6 +4,10 @@
 #include <orz/intl.h>
 #include <wx/colour.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 namespace Win {
 	Geom::RectInt wxToRect(const wxRect& rect) {
 		return Geom::RectInt(Geom::PointInt(rect.GetLeft(), rect.GetTop()), Geom::SizeInt(rect.GetRight()-rect.GetLeft(), rect.GetBottom()-rect.GetTop()));

@@ -39,6 +39,7 @@ namespace App {
 		void ActiveImage(Img::Image::Ptr pImage);
 		void SetImageLocation(const std::string& path);
 
+		void CreateWindow();
 		bool Init(const std::string params);
 
 		Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config);
