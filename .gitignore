@@ -21,6 +21,7 @@ source/3rdparty/libtiff/src/libtiff/*
 source/3rdparty/zlib/src/*
 source/3rdparty/libpng/src/*
 !source/3rdparty/libpng/src/pnglibconf.h
+source/3rdparty/glew/src/*
 
 
 # Windows image file caches

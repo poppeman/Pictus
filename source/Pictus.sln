@@ -55,6 +55,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtiff", "3rdparty\libtiff
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libwebp", "3rdparty\libwebp\libwebp.vcxproj", "{E4AB566E-3439-41DE-9E9A-F8D577844DFB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew", "3rdparty\glew\glew.vcxproj", "{CF762811-28F6-418A-85FA-3DB6891F3DB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -223,6 +225,14 @@ Global
 		{E4AB566E-3439-41DE-9E9A-F8D577844DFB}.Release|Win32.Build.0 = Release|Win32
 		{E4AB566E-3439-41DE-9E9A-F8D577844DFB}.Release|x64.ActiveCfg = Release|x64
 		{E4AB566E-3439-41DE-9E9A-F8D577844DFB}.Release|x64.Build.0 = Release|x64
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6}.Debug|Win32.Build.0 = Debug|Win32
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6}.Debug|x64.ActiveCfg = Debug|x64
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6}.Debug|x64.Build.0 = Debug|x64
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6}.Release|Win32.ActiveCfg = Release|Win32
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6}.Release|Win32.Build.0 = Release|Win32
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6}.Release|x64.ActiveCfg = Release|x64
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -248,6 +258,7 @@ Global
 		{15071DB1-867F-4F3E-AE63-2A03713C8784} = {2668DB26-54D6-4D52-A34D-115B9EB0A8C8}
 		{ED1F9F50-9D05-404D-8B7F-CECD41E76BB5} = {2668DB26-54D6-4D52-A34D-115B9EB0A8C8}
 		{E4AB566E-3439-41DE-9E9A-F8D577844DFB} = {2668DB26-54D6-4D52-A34D-115B9EB0A8C8}
+		{CF762811-28F6-418A-85FA-3DB6891F3DB6} = {2668DB26-54D6-4D52-A34D-115B9EB0A8C8}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

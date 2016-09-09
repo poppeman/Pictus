@@ -205,11 +205,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app_types.cpp" />
+    <ClCompile Include="cnt_color_hls.cpp" />
+    <ClCompile Include="cnt_color_rgb.cpp" />
     <ClCompile Include="dlg_about.cpp" />
     <ClCompile Include="dlg_advanced.cpp" />
     <ClCompile Include="dlg_cache.cpp" />
     <ClCompile Include="dlg_controls.cpp" />
     <ClCompile Include="dlg_language.cpp" />
+    <ClCompile Include="hw3d_device.cpp" />
+    <ClCompile Include="hw3d_opengl_common.cpp" />
+    <ClCompile Include="hw3d_opengl_context.cpp" />
+    <ClCompile Include="hw3d_opengl_device.cpp" />
+    <ClCompile Include="hw3d_opengl_staging_texture.cpp" />
+    <ClCompile Include="hw3d_opengl_staging_texture_pbo.cpp" />
+    <ClCompile Include="hw3d_opengl_staging_texture_simple.cpp" />
+    <ClCompile Include="hw3d_opengl_texture.cpp" />
+    <ClCompile Include="hw3d_staging_texture.cpp" />
+    <ClCompile Include="hw3d_texture.cpp" />
     <ClCompile Include="imagecache_workrequest.cpp" />
     <ClCompile Include="lang_val.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -225,6 +237,8 @@
     <ClCompile Include="reg_resize_behavior_translator.cpp" />
     <ClCompile Include="reg_resize_position_method_translator.cpp" />
     <ClCompile Include="reg_zoom_mode_translator.cpp" />
+    <ClCompile Include="render_geometry.cpp" />
+    <ClCompile Include="resize_position_method.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="settings_page.cpp" />
     <ClCompile Include="dlg_color.cpp" />
@@ -234,9 +248,9 @@
     <ClCompile Include="cnt_colorpreview.cpp" />
     <ClCompile Include="filterstring.cpp" />
     <ClCompile Include="getevent.cpp" />
-    <ClCompile Include="rename.cpp" />
     <ClCompile Include="viewer.cpp" />
     <ClCompile Include="viewer_contextmenu.cpp" />
+    <ClCompile Include="viewer_droptarget.cpp" />
     <ClCompile Include="viewer_keyboard.cpp" />
     <ClCompile Include="view_pan.cpp" />
     <ClCompile Include="viewport.cpp" />
@@ -244,7 +258,6 @@
     <ClCompile Include="builder_viewport.cpp" />
     <ClCompile Include="factory_renderer.cpp" />
     <ClCompile Include="timer.cpp" />
-    <ClCompile Include="w32_main.cpp" />
     <ClCompile Include="wallpaper.cpp" />
     <ClCompile Include="wintypes.cpp" />
     <ClCompile Include="main.cpp" />
@@ -266,11 +279,26 @@
     <ClCompile Include="ic_workpackage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cnt_color_hls.h" />
+    <ClInclude Include="cnt_color_rgb.h" />
     <ClInclude Include="dlg_about.h" />
     <ClInclude Include="dlg_advanced.h" />
     <ClInclude Include="dlg_cache.h" />
     <ClInclude Include="dlg_controls.h" />
     <ClInclude Include="dlg_language.h" />
+    <ClInclude Include="hw3d_context.h" />
+    <ClInclude Include="hw3d_device.h" />
+    <ClInclude Include="hw3d_opengl_common.h" />
+    <ClInclude Include="hw3d_opengl_context.h" />
+    <ClInclude Include="hw3d_opengl_device.h" />
+    <ClInclude Include="hw3d_opengl_staging_texture.h" />
+    <ClInclude Include="hw3d_opengl_staging_texture_pbo.h" />
+    <ClInclude Include="hw3d_opengl_staging_texture_simple.h" />
+    <ClInclude Include="hw3d_opengl_texture.h" />
+    <ClInclude Include="hw3d_staging_texture.h" />
+    <ClInclude Include="hw3d_texture.h" />
+    <ClInclude Include="hw3d_types.h" />
+    <ClInclude Include="hw3d_vertex2d.h" />
     <ClInclude Include="imagecache_workrequest.h" />
     <ClInclude Include="lang_enum.h" />
     <ClInclude Include="lang_val.h" />
@@ -282,6 +310,7 @@
     <ClInclude Include="reg_resize_behavior_translator.h" />
     <ClInclude Include="reg_resize_position_method_translator.h" />
     <ClInclude Include="reg_zoom_mode_translator.h" />
+    <ClInclude Include="render_geometry.h" />
     <ClInclude Include="resize_behavior.h" />
     <ClInclude Include="resize_position_method.h" />
     <ClInclude Include="settings.h" />
@@ -294,11 +323,11 @@
     <ClInclude Include="actionmap.h" />
     <ClInclude Include="filterstring.h" />
     <ClInclude Include="getevent.h" />
-    <ClInclude Include="rename.h" />
     <ClInclude Include="res_settings.h" />
     <ClInclude Include="res_viewer.h" />
     <ClInclude Include="viewer.h" />
     <ClInclude Include="viewer_contextmenu.h" />
+    <ClInclude Include="viewer_droptarget.h" />
     <ClInclude Include="viewer_keyboard.h" />
     <ClInclude Include="view_pan.h" />
     <ClInclude Include="viewport.h" />
@@ -370,6 +399,9 @@
     <Image Include="Res\thumbtoolbar96.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\3rdparty\glew\glew.vcxproj">
+      <Project>{cf762811-28f6-418a-85fa-3db6891f3db6}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\deps\illa\illa.vcxproj">
       <Project>{f4fb9d4b-8041-4c4e-8ea3-7ea57b7cb1ba}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

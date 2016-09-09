@@ -37,6 +37,9 @@
     <Filter Include="Sys\Info\Win32">
       <UniqueIdentifier>{2dd0aa43-c743-468c-89ba-0182a9eb52df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{efc531b0-b7da-4ef3-97fa-cc685cbd1ec6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bitconvert.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="Win32\stream_windows.h">
       <Filter>IO\Win32</Filter>
     </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp">
@@ -190,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="Win32\sysinfo_win.cpp">
       <Filter>Sys\Info\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

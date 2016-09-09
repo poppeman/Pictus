@@ -73,6 +73,9 @@
     <Filter Include="Settings\Pages\Advanced">
       <UniqueIdentifier>{a407ee55-6be8-43b8-82a5-c4ffcba306b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hw3D">
+      <UniqueIdentifier>{d66fae7f-09a8-4eae-acb4-470147825249}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license_en.txt">
@@ -110,9 +113,6 @@
     <ClCompile Include="getevent.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
-    <ClCompile Include="rename.cpp">
-      <Filter>Viewer</Filter>
-    </ClCompile>
     <ClCompile Include="viewer.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
@@ -138,9 +138,6 @@
       <Filter>Viewer\Factory</Filter>
     </ClCompile>
     <ClCompile Include="timer.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="w32_main.cpp">
       <Filter>WinAPI</Filter>
     </ClCompile>
     <ClCompile Include="wallpaper.cpp">
@@ -248,6 +245,51 @@
     <ClCompile Include="imagecache_workrequest.cpp">
       <Filter>Imaging\Cacher</Filter>
     </ClCompile>
+    <ClCompile Include="cnt_color_hls.cpp">
+      <Filter>Settings\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="cnt_color_rgb.cpp">
+      <Filter>Settings\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_device.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_common.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_context.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_device.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_staging_texture.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_staging_texture_pbo.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_staging_texture_simple.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_texture.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_staging_texture.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_texture.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="viewer_droptarget.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="resize_position_method.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="render_geometry.cpp">
+      <Filter>Imaging\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -278,9 +320,6 @@
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="getevent.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="rename.h">
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="res_settings.h">
@@ -447,6 +486,57 @@
     </ClInclude>
     <ClInclude Include="imagecache_workrequest.h">
       <Filter>Imaging\Cacher</Filter>
+    </ClInclude>
+    <ClInclude Include="cnt_color_hls.h">
+      <Filter>Settings\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="cnt_color_rgb.h">
+      <Filter>Settings\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_context.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_device.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_common.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_context.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_device.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_staging_texture.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_staging_texture_pbo.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_staging_texture_simple.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_texture.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_staging_texture.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_texture.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_types.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_vertex2d.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="viewer_droptarget.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="render_geometry.h">
+      <Filter>Imaging\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
