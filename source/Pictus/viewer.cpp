@@ -23,6 +23,7 @@
 #include <boost/scoped_array.hpp>
 #include <wx/display.h>
 #include <wx/msgdlg.h>
+#include <wx/filedlg.h>
 
 const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
 const wchar_t* App::Viewer::AppTitle = L"Pictus";
@@ -723,10 +724,21 @@ namespace App {
 
 	void Viewer::OpenFolder() {
 		FilterString s(m_codecs);
-		/*auto file = OpenFileDialog(GetString(SIDOpen), s.GetFilterString(), s.FilterCount());
-		if (file.empty() == false) {
-			SetImageLocation(file);
-		}*/
+		wxFileDialog openDialog(
+			this,
+			Win::GetStringWx(SIDOpen),
+			wxEmptyString,
+			wxEmptyString,
+			s.GetFilterString(),
+			wxFD_DEFAULT_STYLE,
+			wxDefaultPosition,
+			wxDefaultSize,
+			wxFileDialogNameStr);
+
+		if (openDialog.ShowModal() != wxID_CANCEL)
+		{
+			SetImageLocation(ToAString(openDialog.GetPath()));
+		}
 	}
 
 	void Viewer::OnLoadMessage(Img::MessageReceiver::LoadMessage msg, Img::Image* pImage, const std::string& desc) {
