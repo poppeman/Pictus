@@ -79,7 +79,7 @@ namespace IO {
 		return m_stream->IsOpen();
 	}
 
-	FileReader::FileReader(const std::string& name ):
+	FileReader::FileReader(std::string name ):
 		m_stream(std::make_shared<StreamFile>(name))
 	{}
 

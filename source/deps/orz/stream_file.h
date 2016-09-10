@@ -11,7 +11,7 @@
 namespace IO {
 	class StreamFile:public Stream {
 	public:
-		StreamFile(const std::string& filename);
+		StreamFile(std::string filename);
 		~StreamFile();
 
 #ifdef _WIN32

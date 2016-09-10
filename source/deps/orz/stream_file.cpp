@@ -88,7 +88,13 @@ namespace IO {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_size = 0;
 #ifdef _WIN32
-		m_file = _wfsopen(UTF8ToWString(m_name).c_str(), L"rb", _SH_DENYWR);
+		// _wfsopen fails on paths surrounded by quotes, and assure_folder can output just that
+		auto fn = m_name;
+		if (fn.length() > 2 && fn[0] == '"' && fn[fn.length() - 1] == '"')
+		{
+			fn = fn.substr(1, fn.length() - 2);
+		}
+		m_file = _wfsopen(UTF8ToWString(fn).c_str(), L"rb", _SH_DENYWR);
 #elif __linux__
 		// Linux is evil and allows you to fopen folders. Thus we need to make sure this is a file manually
 		struct stat stats;
@@ -165,7 +171,7 @@ namespace IO {
 		return m_name;
 	}
 
-	StreamFile::StreamFile(const std::string& filename):
+	StreamFile::StreamFile(std::string filename):
 		m_file(0),
 		m_name(filename),
 		m_size(0),
