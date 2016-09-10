@@ -24,6 +24,7 @@
 #include <wx/display.h>
 #include <wx/msgdlg.h>
 #include <wx/filedlg.h>
+#include <wx/clipbrd.h>
 
 const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
 const wchar_t* App::Viewer::AppTitle = L"Pictus";
@@ -298,7 +299,7 @@ namespace App {
 	}
 
 	bool Viewer::CopyToClipboard() {
-		/*Img::Image::Ptr pImg = m_viewPort.Image();
+		Img::Image::Ptr pImg = m_viewPort.Image();
 		if (!pImg.get()) return false;
 		if (pImg->IsFinished() == false) return false;
 
@@ -308,48 +309,72 @@ namespace App {
 			return false;
 
 		// Signal an error here
-		if (!OpenClipboard(Handle()) || !EmptyClipboard())
-			return false;
+		if (wxTheClipboard->Open())
+		{
+			unsigned char* rgb = nullptr;
+			unsigned char* alpha = nullptr;
+			try
+			{
+				// TODO: Handle rotation
+				rgb = (unsigned char*)malloc(size.Width * size.Height * 3);
+				if (HasAlpha(surface->GetFormat()))
+				{
+					alpha = (unsigned char*)malloc(size.Width * size.Height);
+				}
 
-		HDC hDC = GetDC(Handle());
+				auto prgb = rgb;
+				auto palpha = alpha;
 
-		HBITMAP hBitmap = CreateCompatibleBitmap(hDC, size.Width, size.Height);
+				// wxWidgets wants the data split into RGB and alpha. This isn't very efficient, but not much to do other than hacking wxWidgets
+				boost::scoped_array<uint8_t> pBuf(new uint8_t[size.Width * 4]);
+				for (auto y = 0; y < size.Height; y++) {
+					auto iidx = 0;
+					surface->CopyRectToBuffer(
+						pBuf.get(),
+						size.Width * 4,
+						RectInt(PointInt(0, y), SizeInt(size.Width, 1)),
+						m_viewPort.BackgroundColor(),
+						m_viewPort.Brightness(),
+						m_viewPort.Contrast(),
+						m_viewPort.Gamma(), false);
+					for (auto x = 0; x < size.Width; x++)
+					{
+						auto r = pBuf[iidx++];
+						auto g = pBuf[iidx++];
+						auto b = pBuf[iidx++];
+						auto a = pBuf[iidx++];
+						*prgb++ = b;
+						*prgb++ = g;
+						*prgb++ = r;
+						if (palpha != nullptr)
+						{
+							*palpha++ = a;
+						}
+					}
+				}
+				wxImage img({ size.Width, size.Height }, rgb, alpha, false);
+				rgb = nullptr;
+				alpha = nullptr;
 
-		Win::SharedDC dc;
-		dc.SelectObject(hBitmap);
+				wxTheClipboard->SetData(new wxBitmapDataObject(img));
 
-		boost::scoped_array<uint8_t> pBuf(new uint8_t[size.Width * 4]);
+			}
+			catch (...)
+			{
+				wxTheClipboard->Close();
+				if (rgb != nullptr)
+				{
+					free(rgb);
+				}
+				if (alpha != nullptr)
+				{
+					free(alpha);
+				}
+				throw;
+			}
 
-		BITMAPINFO bmi;
-		bmi.bmiHeader.biSize = sizeof(bmi.bmiHeader);
-		bmi.bmiHeader.biWidth = size.Width;
-		bmi.bmiHeader.biHeight = size.Height;
-		bmi.bmiHeader.biBitCount = 4 * 8;
-		bmi.bmiHeader.biCompression = BI_RGB;
-		bmi.bmiHeader.biPlanes = 1;
-
-		for (int i = 0; i < (size.Height); ++i) {
-			surface->CopyRectToBuffer(
-				pBuf.get(),
-				size.Width * 4,
-				RectInt(PointInt(0, i), SizeInt(size.Width, 1)),
-				m_viewPort.BackgroundColor(),
-				m_viewPort.Brightness(),
-				m_viewPort.Contrast(),
-				m_viewPort.Gamma(), false);
-			// TODO: Consider some sort of error handling here
-			SetDIBitsToDevice(dc, 0, i, size.Width, 1, 0, 0, 0, 1, pBuf.get(), &bmi, 0);
+			wxTheClipboard->Close();
 		}
-
-		HANDLE hClipData = SetClipboardData(CF_BITMAP, hBitmap);
-		DeleteObject(hBitmap);
-
-		// Signal an error here
-		if (!CloseClipboard() || !hClipData)
-			return false;
-
-		ReleaseDC(Handle(), hDC);*/
-
 		return true;
 	}
 
