@@ -15,8 +15,7 @@ namespace App
 	public:
 		boost::signals2::signal<void(Reg::Settings)> OnSettingsChanged;
 
-		void SetSettings(Reg::Settings settings);
-		Settings(wxWindow* parent, Reg::Settings settings);
+		Settings(wxWindow* parent, Reg::Settings& settings);
 
 		typedef std::shared_ptr<Settings> Ptr;
 
@@ -40,7 +39,7 @@ namespace App
 		typedef std::vector<PagePtr> PageList;
 
 		PageList m_pages;
-		Reg::Settings m_settings;
+		Reg::Settings& m_settings;
 
 		enum {
 			ButtonOkId = wxID_HIGHEST + 1,

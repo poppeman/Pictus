@@ -202,7 +202,6 @@ namespace App {
 			m_cfg = newSettings;
 			SettingsChanged();
 		});
-		m_settings->SetSettings(m_cfg);
 
 		m_cacher.SetCodecFactoryStore(m_codecs);
 

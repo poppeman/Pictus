@@ -39,16 +39,7 @@ namespace App
 		EVT_TREE_SEL_CHANGED(TreeCtrlId, Settings::OnTreeItemSelected)
 	END_EVENT_TABLE()
 
-	void Settings::SetSettings(Reg::Settings settings)
-	{
-		m_settings = settings;
-		for (auto page : m_pages)
-		{
-			page->UpdateFromSettings(m_settings);
-		}
-	}
-
-	Settings::Settings(wxWindow *parent, Reg::Settings settings) :
+	Settings::Settings(wxWindow *parent, Reg::Settings& settings) :
 		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
 		m_settings(settings)
 	{
