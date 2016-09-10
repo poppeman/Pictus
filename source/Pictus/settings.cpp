@@ -74,8 +74,6 @@ namespace App
 
 		for (size_t i = 0; i < m_pages.size(); ++i)
 		{
-			//m_pages[i]->DoModeless(this);
-			//m_pages[i]->Move(m_pagePos);
 			m_pages[i]->UpdateFromSettings(m_settings);
 			if (m_pages[i]->IsRootPage())
 			{
@@ -107,24 +105,8 @@ namespace App
 		topSizer->Add(buttonSizer, wxSizerFlags(0).Border(wxALL, 10).Right());
 
 		SetSizerAndFit(topSizer);
-
-		/*Caption(SIDSettings);
-		ControlText(IDOK, SIDDialogOK);
-		ControlText(IDCANCEL, SIDDialogCancel);
-		ControlText(IDC_APPLY, SIDDialogApply);
-
-		CreateButton(IDOK)->OnClick.connect([this]()
-											{ OnOk(); });
-		CreateButton(IDC_APPLY)->OnClick.connect([this]()
-												 { OnApply(); });
-		CreateButton(IDCANCEL)->OnClick.connect([this]()
-												{ OnCancel(); });*/
 	}
 
-/*
-	HTREEITEM Settings::AddSettingsPageRoot(const std::string& name, int index, HTREEITEM hPrev) {
-		return AddSettingsPageChild(name, index, TVI_ROOT, hPrev);
-	}*/
 
 	wxTreeItemId Settings::AddSettingsPage(const std::string &name, int index, wxTreeItemId hRoot)
 	{
@@ -146,35 +128,6 @@ namespace App
 		m_sizer->Layout();
 	}
 
-/*
-	bool Settings::UpdateTreeList() {
-		HWND hView = GetDlgItem(Handle(), IDC_TREE_NAV);
-		HTREEITEM hRoot = TreeView_GetRoot(hView);
-		updateTreeItem(hRoot);
-		return true;
-	}
-
-	void Settings::updateTreeItem(HTREEITEM hItem) {
-		auto hView = GetDlgItem(Handle(), IDC_TREE_NAV);
-
-		if (hItem) {
-			TVITEM tvi;
-			tvi.hItem = hItem;
-			tvi.mask = TVIF_PARAM | TVIF_HANDLE;
-			TreeView_GetItem(hView, &tvi);
-
-			tvi.mask = TVIF_TEXT | TVIF_HANDLE;
-			// Make a scoped copy of the string, or TreeView_SetItem will end up playing with a deleted string.
-			auto wName = UTF8ToWString(m_pages[tvi.lParam]->Caption());
-			tvi.pszText = const_cast<LPWSTR>(wName.c_str());
-			tvi.cchTextMax = static_cast<int>(wName.length());
-			TreeView_SetItem(hView, &tvi);
-
-			updateTreeItem(TreeView_GetChild(hView, hItem));
-			updateTreeItem(TreeView_GetNextSibling(hView, hItem));
-		}
-	}
-*/
 	void Settings::OnOk(wxCommandEvent &evt)
 	{
 		OnApply(evt);
