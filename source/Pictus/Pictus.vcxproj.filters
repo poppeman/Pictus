@@ -79,6 +79,9 @@
     <Filter Include="Hw3D\OpenGL">
       <UniqueIdentifier>{17129333-676e-4259-aa65-921eadc365ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hw3D\Direct3D">
+      <UniqueIdentifier>{ca7db4e0-8a1c-49e5-9875-ac24091c3e38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license_en.txt">
@@ -292,6 +295,21 @@
     </ClCompile>
     <ClCompile Include="hw3d_opengl_texture.cpp">
       <Filter>Hw3D\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_context.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_device.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_texture.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_staging_texture.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_common.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -540,6 +558,21 @@
     </ClInclude>
     <ClInclude Include="hw3d_opengl_texture.h">
       <Filter>Hw3D\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_context.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_device.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_texture.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_staging_texture.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_common.h">
+      <Filter>Hw3D\Direct3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

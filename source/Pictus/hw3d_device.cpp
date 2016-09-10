@@ -2,11 +2,6 @@
 
 namespace Hw3D
 {
-	bool Device::Initialize()
-	{
-		return OnInitialize();
-	}
-
 	Device::Device()
 	{
 

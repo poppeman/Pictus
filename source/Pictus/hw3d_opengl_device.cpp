@@ -11,11 +11,6 @@ namespace Hw3D
 		return std::make_shared<OpenGlTexture>(dimensions, fmt, pool);
 	}
 
-	std::shared_ptr<Texture> OpenGlDevice::CreateRenderTarget(const Geom::SizeInt &dimensions, Format fmt)
-	{
-		return std::make_shared<OpenGlTexture>(dimensions, fmt, Pool::Default);
-	}
-
 	std::shared_ptr<StagingTexture> OpenGlDevice::CreateStagingTexture(const Geom::SizeInt& dimensions, Format fmt)
 	{
 		if(GLEW_ARB_pixel_buffer_object)
@@ -54,11 +49,6 @@ namespace Hw3D
 
 	OpenGlDevice::~OpenGlDevice()
 	{
-	}
-
-	bool OpenGlDevice::OnInitialize()
-	{
-		return false;
 	}
 
 	std::shared_ptr<Context> OpenGlDevice::CreateContext(wxWindow* win)

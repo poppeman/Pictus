@@ -13,11 +13,8 @@ namespace Hw3D
 	class Device
 	{
 	public:
-		bool Initialize();
-
 		virtual std::shared_ptr<Context> CreateContext(wxWindow* win)=0;
 		virtual std::shared_ptr<Texture> CreateTexture(const Geom::SizeInt& dimensions, Format fmt, Pool pool)=0;
-		virtual std::shared_ptr<Texture> CreateRenderTarget(const Geom::SizeInt& dimensions, Format fmt)=0;
 
 		virtual std::shared_ptr<StagingTexture> CreateStagingTexture(const Geom::SizeInt& dimensions, Format fmt)=0;
 
@@ -29,9 +26,6 @@ namespace Hw3D
 
 		Device();
 		virtual ~Device();
-
-	private:
-		virtual bool OnInitialize()=0;
 	};
 }
 

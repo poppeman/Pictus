@@ -18,7 +18,6 @@ namespace Hw3D
 		virtual void Clear(int a, int r, int g, int b)=0;
 
 		virtual void SetTexture(int stage, std::shared_ptr<Texture> texture)=0;
-		virtual void SetRenderTarget(std::shared_ptr<Texture> renderTarget)=0;
 
 		virtual void BeginDraw()=0;
 		virtual void RenderQuad(const Vertex2D& a, const Vertex2D& b, const Vertex2D& c, const Vertex2D& d)=0;

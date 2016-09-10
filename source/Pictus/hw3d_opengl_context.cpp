@@ -100,11 +100,6 @@ namespace Hw3D
 		}
 	}
 
-	void OpenGlContext::SetRenderTarget(std::shared_ptr<Texture> renderTarget)
-	{
-
-	}
-
 	void OpenGlContext::SetMatrix(TransformState state, const Matrix &m)
 	{
 		if(state == TransformState::Projection)
@@ -127,9 +122,7 @@ namespace Hw3D
 		}
 	}
 
-	void OpenGlContext::SendTextureRect(std::shared_ptr<StagingTexture> sourceTexture, const Geom::RectInt &sourceRect,
-										std::shared_ptr<Texture> destinationTexture,
-										const Geom::PointInt &destinationTopLeft)
+	void OpenGlContext::SendTextureRect(std::shared_ptr<StagingTexture> sourceTexture, const Geom::RectInt &sourceRect, std::shared_ptr<Texture> destinationTexture, const Geom::PointInt &destinationTopLeft)
 	{
 		auto glStaging = std::dynamic_pointer_cast<OpenGlStagingTexture>(sourceTexture);
 		auto glDest = std::dynamic_pointer_cast<OpenGlTexture>(destinationTexture);
