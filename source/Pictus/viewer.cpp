@@ -160,8 +160,8 @@ namespace App {
 			int w = Util::Constrain<int>(MinWindowWidth, m_cfg.View.WindowSizeWidth, displayGeometry.GetWidth());
 			int h = Util::Constrain<int>(MinWindowHeight, m_cfg.View.WindowSizeHeight, displayGeometry.GetHeight());
 
-			int x = Util::Constrain<int>(displayGeometry.GetLeft(), m_cfg.View.WindowPosX, displayGeometry.GetWidth() - w);
-			int y = Util::Constrain<int>(displayGeometry.GetRight(), m_cfg.View.WindowPosY, displayGeometry.GetHeight() - h);
+			int x = Util::Constrain<int>(displayGeometry.GetLeft(), m_cfg.View.WindowPosX, displayGeometry.GetRight() - w);
+			int y = Util::Constrain<int>(displayGeometry.GetTop(), m_cfg.View.WindowPosY, displayGeometry.GetBottom() - h);
 
 			winSize = { w, h };
 			winPos = { x, y };
@@ -175,6 +175,8 @@ namespace App {
 	{
 		m_dropTarget = new DropTarget(this);
 		m_normalRect = wxToRect(GetRect());
+
+		Bind(wxEVT_CLOSE_WINDOW, [&](wxCloseEvent& evt) { PerformOnClose(); evt.Skip(); });
 
 		ViewportBuilder b;
 		b.BuildViewport(m_viewPort, this, m_cfg);
