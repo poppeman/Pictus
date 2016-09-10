@@ -22,11 +22,6 @@ public:
 	{
 		SetVendorName("Poppeman");
 
-		if(!wxApp::OnInit())
-		{
-			return false;
-		}
-
 		if(argc > 1)
 		{
 			return start_app(std::string(argv[1].mbc_str())) == EXIT_SUCCESS;
@@ -101,8 +96,6 @@ private:
 			// This applies when 1.1.4.0 or older was installed.
 			return EXIT_SUCCESS;
 		}
-
-		params = "/media/Misc/tmp/In/";
 
 		// Make sure that boost (and boost.filesystem) uses UTF-8 on Windows whenever possible.
 		std::locale::global(boost::locale::generator().generate(""));
