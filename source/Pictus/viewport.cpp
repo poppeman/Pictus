@@ -512,6 +512,8 @@ namespace App {
 			e.Skip();
 		});
 
+		m_canvas->Bind(wxEVT_ERASE_BACKGROUND, [&](wxEraseEvent& evt) {});
+
 		m_renderTarget.TargetWindow(m_canvas);
 
 		//m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
