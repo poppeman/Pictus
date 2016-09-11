@@ -22,7 +22,12 @@ source/3rdparty/zlib/src/*
 source/3rdparty/libpng/src/*
 !source/3rdparty/libpng/src/pnglibconf.h
 source/3rdparty/glew/src/*
-
+source/3rdparty/wxWidgets/src/*
+!source/3rdparty/wxWidgets/src/custom_build
+source/3rdparty/wxWidgets/src/custom_build/msw/vc_mswu
+source/3rdparty/wxWidgets/src/custom_build/msw/vc_mswud
+source/3rdparty/wxWidgets/src/custom_build/msw/vc_x64_mswu
+source/3rdparty/wxWidgets/src/custom_build/msw/vc_x64_mswud
 
 # Windows image file caches
 Thumbs.db
