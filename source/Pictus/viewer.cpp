@@ -431,26 +431,7 @@ namespace App {
 		return{ m_cfg.View.WindowAnchorCenterX, m_cfg.View.WindowAnchorCenterY };
 	}
 
-/*	bool Viewer::PerformOnDropFiles(const StringVector& files) {
-		if(files.size() == 0) return false;
-
-		SetImageLocation(files[0]);
-		return true;
-	}
-
-	bool Viewer::PerformOnApp(int index, WPARAM, LPARAM) {
-		switch(index) {
-			case ViewerImageLoadEvent:
-				HandleCacheNotification();
-				return true;
-			case ViewerListUpdate:
-				HandleFolderNotification();
-				return true;
-		}
-		return false;
-	}
-
-	bool Viewer::PerformOnCopyData(const COPYDATASTRUCT* pcds) {
+/*	bool Viewer::PerformOnCopyData(const COPYDATASTRUCT* pcds) {
 		if (pcds->dwData != 0) return false;
 
 		SetImageLocation(WStringToUTF8(reinterpret_cast<wchar_t*>(pcds->lpData)));
@@ -458,13 +439,7 @@ namespace App {
 	}*/
 
 	bool Viewer::ApplyWallpaper(Win::Wallpaper::Mode orientation) {
-		/*Img::Image::Ptr pImage(m_viewPort.Image());
-		if (pImage == 0) {
-			return false;
-		}
-
-		return Wallpaper::ApplyWallpaper(m_cacher.CurrentImageFilename(), orientation);*/
-		return false;
+		return Wallpaper::ApplyWallpaper(m_cacher.CurrentImageFilename(), orientation);
 	}
 
 	void Viewer::UpdateImageInformation() {

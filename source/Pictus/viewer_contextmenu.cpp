@@ -1,6 +1,9 @@
 #include "viewer_contextmenu.h"
 #include "viewer.h"
-//#include <VersionHelpers.h>
+#ifdef _WIN32
+#include "wallpaper.h"
+#include <VersionHelpers.h>
+#endif
 
 namespace App {
 	using namespace Win;
@@ -45,23 +48,25 @@ namespace App {
 		m_menuMap.AddAction(DoAddMenuItem(pSort, SIDMenuSortByDateModified), [=]() { v->Sort(Img::Cacher::SortMethod::SortDateModified); });
 		m_menuMap.AddAction(DoAddMenuItem(pSort, SIDMenuSortByDateCreated), [=]() { v->Sort(Img::Cacher::SortMethod::SortDateCreated); });
 
+#ifdef _WIN32
 		// TODO: Reimplement wallpaper support (based on platform capabilities)
-		/*auto pWall = DoAddSubMenu(SIDMenuSetWallpaper));
+		auto pWall = DoAddSubMenu(SIDMenuSetWallpaper);
 
 		if (IsWindows7OrGreater())
 		{
-			m_menuMap.AddAction(pWall->AddItem(SIDMenuSetWallpaperCropFill), [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::FillCrop); });
-			m_menuMap.AddAction(pWall->AddItem(SIDMenuSetWallpaperPadFill), [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::FillPad); });
+			m_menuMap.AddAction(DoAddMenuItem(pWall, SIDMenuSetWallpaperCropFill), [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::FillCrop); });
+			m_menuMap.AddAction(DoAddMenuItem(pWall, SIDMenuSetWallpaperPadFill), [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::FillPad); });
 		}
 
 		if (IsWindows8OrGreater())
 		{
-			m_menuMap.AddAction(pWall->AddItem(SIDMenuSetWallpaperSpan), [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::Span); });
+			m_menuMap.AddAction(DoAddMenuItem(pWall, SIDMenuSetWallpaperSpan), [=] { v->ApplyWallpaper(Win::Wallpaper::Mode::Span); });
 		}
 
-		m_menuMap.AddAction(pWall->AddItem(SIDMenuSetWallpaperStretch), [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Stretch); });
-		m_menuMap.AddAction(pWall->AddItem(SIDMenuSetWallpaperCenter), [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Center); });
-		m_menuMap.AddAction(pWall->AddItem(SIDMenuSetWallpaperTile), [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Tile); });*/
+		m_menuMap.AddAction(DoAddMenuItem(pWall, SIDMenuSetWallpaperStretch), [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Stretch); });
+		m_menuMap.AddAction(DoAddMenuItem(pWall, SIDMenuSetWallpaperCenter), [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Center); });
+		m_menuMap.AddAction(DoAddMenuItem(pWall, SIDMenuSetWallpaperTile), [=]() { v->ApplyWallpaper(Win::Wallpaper::Mode::Tile); });
+#endif
 
 		m_menuMap.AddAction(DoAddMenuItem(this, SIDMenuShowExplorer), [=]() { v->OpenDirectoryInExplorer(); });
 		m_menuMap.AddAction(DoAddMenuItem(this, SIDMenuAdjust), [=]() { v->ShowAdjust(); });

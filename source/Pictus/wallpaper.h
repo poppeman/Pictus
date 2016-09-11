@@ -3,9 +3,12 @@
 
 #include <string>
 
-namespace Win {
-	namespace Wallpaper {
-		enum class Mode {
+namespace Win
+{
+	namespace Wallpaper
+	{
+		enum class Mode
+		{
 			Stretch,
 			Tile,
 			Center,
