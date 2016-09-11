@@ -110,7 +110,7 @@
 #define CCITT_SUPPORT 1
 
 /* Support JPEG compression (requires IJG JPEG library) */
-/* #undef JPEG_SUPPORT */
+#define JPEG_SUPPORT
 
 /* Support JBIG compression (requires JBIG-KIT library) */
 /* #undef JBIG_SUPPORT */
@@ -138,7 +138,7 @@
 #define THUNDER_SUPPORT 1
 
 /* Support Deflate compression */
-/* #undef ZIP_SUPPORT */
+#define ZIP_SUPPORT
 
 /* Support strip chopping (whether or not to convert single-strip uncompressed
    images to mutiple strips of ~8Kb to reduce memory usage) */
