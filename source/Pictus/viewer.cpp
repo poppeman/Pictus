@@ -439,7 +439,11 @@ namespace App {
 	}*/
 
 	bool Viewer::ApplyWallpaper(Win::Wallpaper::Mode orientation) {
+#ifdef _WIN32
 		return Wallpaper::ApplyWallpaper(m_cacher.CurrentImageFilename(), orientation);
+#else
+		return false;
+#endif
 	}
 
 	void Viewer::UpdateImageInformation() {
