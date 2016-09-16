@@ -79,6 +79,9 @@
     <Filter Include="Hw3D\Direct3D">
       <UniqueIdentifier>{ca7db4e0-8a1c-49e5-9875-ac24091c3e38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{322f6f09-c3aa-41f6-a437-385df12ba963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="license_en.txt">
@@ -313,6 +316,9 @@
     </ClCompile>
     <ClCompile Include="ctrl_keypress.cpp">
       <Filter>Settings\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="rename.cpp">
+      <Filter>Dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -576,6 +582,9 @@
     </ClInclude>
     <ClInclude Include="ctrl_keypress.h">
       <Filter>Settings\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="rename.h">
+      <Filter>Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

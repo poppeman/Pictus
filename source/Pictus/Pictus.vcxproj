@@ -244,6 +244,7 @@
     <ClCompile Include="reg_resize_behavior_translator.cpp" />
     <ClCompile Include="reg_resize_position_method_translator.cpp" />
     <ClCompile Include="reg_zoom_mode_translator.cpp" />
+    <ClCompile Include="rename.cpp" />
     <ClCompile Include="render_geometry.cpp" />
     <ClCompile Include="resize_position_method.cpp" />
     <ClCompile Include="settings.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="reg_resize_behavior_translator.h" />
     <ClInclude Include="reg_resize_position_method_translator.h" />
     <ClInclude Include="reg_zoom_mode_translator.h" />
+    <ClInclude Include="rename.h" />
     <ClInclude Include="render_geometry.h" />
     <ClInclude Include="resize_behavior.h" />
     <ClInclude Include="resize_position_method.h" />

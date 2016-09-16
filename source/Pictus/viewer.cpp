@@ -6,7 +6,7 @@
 #include "imagecache.h"
 #include "illa/surfacemgr.h"
 
-//#include "rename.h"
+#include "rename.h"
 
 #include "registry.h"
 
@@ -681,19 +681,20 @@ namespace App {
 		auto old_name(m_cacher.CurrentImageFilename());
 		auto extension = IO::GetExtension(old_name);
 
-		/*Rename ren(IO::GetTitle(old_name));
+		auto ren = new Rename(this, IO::GetTitle(old_name));
 
-		if (ren.DoModal(this)) {
-			auto new_name = IO::GetPath(old_name) + ren.Name() + "." + extension;
+		if (ren->ShowModal())
+		{
+			auto new_name = IO::GetPath(old_name) + ren->Name() + "." + extension;
 			auto reader = m_cacher.CurrentImageFileReader();
 			if (reader == nullptr) {
 				return;
 			}
-			auto resulting_name = dynamic_cast<IO::StreamFile*>(reader->GetStream())->Rename(new_name, Handle());
+			auto resulting_name = dynamic_cast<IO::StreamFile*>(reader->GetStream())->Rename(new_name, GetHandle());
 			m_cacher.RenamedImage(old_name, resulting_name);
 
 			UpdateImageInformation();
-		}*/
+		}
 	}
 
 
