@@ -720,11 +720,11 @@ namespace App {
 			return;
 		}
 
-		/*auto f = dynamic_cast<IO::StreamFile*>(reader->GetStream());
-		if (f->Delete((op == RemoveRecycle), Handle()))
+		auto f = dynamic_cast<IO::StreamFile*>(reader->GetStream());
+		if (f->Delete((op == RemoveRecycle), GetHandle()))
 		{
 			ActiveImage(m_cacher.RemoveCurrentImage());
-		}*/
+		}
 
 		UpdateImageInformation();
 	}
