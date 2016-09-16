@@ -34,9 +34,6 @@
     <Filter Include="Resources\Cursors">
       <UniqueIdentifier>{6e5e458d-7de5-4ed2-a1b2-67365856b148}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Bitmaps">
-      <UniqueIdentifier>{ebc164f3-3934-482e-9164-eebc2a90c3e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Imaging">
       <UniqueIdentifier>{9b2d8456-9d4a-4803-8aff-e3c729fe5ad4}</UniqueIdentifier>
     </Filter>
@@ -349,12 +346,6 @@
     <ClInclude Include="getevent.h">
       <Filter>Viewer</Filter>
     </ClInclude>
-    <ClInclude Include="res_settings.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="res_viewer.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
     <ClInclude Include="viewer.h">
       <Filter>Viewer</Filter>
     </ClInclude>
@@ -588,12 +579,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res_settings.rc">
-      <Filter>Viewer</Filter>
-    </ResourceCompile>
-    <ResourceCompile Include="res_viewer.rc">
-      <Filter>Viewer</Filter>
-    </ResourceCompile>
     <ResourceCompile Include="version.rc">
       <Filter>Shared</Filter>
     </ResourceCompile>
@@ -627,9 +612,6 @@
     </Image>
     <Image Include="Res\icon_app1.ico">
       <Filter>Resources\Icons</Filter>
-    </Image>
-    <Image Include="Res\thumbtoolbar96.bmp">
-      <Filter>Resources\Bitmaps</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

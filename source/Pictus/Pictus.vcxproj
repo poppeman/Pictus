@@ -337,8 +337,6 @@
     <ClInclude Include="actionmap.h" />
     <ClInclude Include="filterstring.h" />
     <ClInclude Include="getevent.h" />
-    <ClInclude Include="res_settings.h" />
-    <ClInclude Include="res_viewer.h" />
     <ClInclude Include="viewer.h" />
     <ClInclude Include="viewer_contextmenu.h" />
     <ClInclude Include="viewer_droptarget.h" />
@@ -377,10 +375,6 @@
     <ClInclude Include="zoom_mode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res_settings.rc" />
-    <ResourceCompile Include="res_viewer.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="lang_convert.py" />
     <CustomBuild Include="Res\lang.json">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -410,7 +404,6 @@
   <ItemGroup>
     <Image Include="Res\document.ico" />
     <Image Include="Res\icon_app1.ico" />
-    <Image Include="Res\thumbtoolbar96.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\3rdparty\glew\glew.vcxproj">
