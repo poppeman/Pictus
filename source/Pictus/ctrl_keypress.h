@@ -4,6 +4,7 @@
 #include "app_types.h"
 
 #include <wx/panel.h>
+#include <wx/textctrl.h>
 
 namespace App
 {
@@ -14,6 +15,9 @@ namespace App
 		void SetCombo(App::KeyboardPress kp);
 
 		Keypress(wxWindow* parent);
+
+	private:
+		wxTextCtrl* m_edit;
 	};
 }
 

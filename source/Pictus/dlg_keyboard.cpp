@@ -93,7 +93,9 @@ namespace App
 
 		auto actionBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsKeyboardAction));
 		m_functions = new wxChoice(actionBox->GetStaticBox(), wxID_ANY);
+		m_keypress = new Keypress(actionBox->GetStaticBox());
 		actionBox->Add(m_functions, wxSizerFlags(0).Expand());
+		actionBox->Add(m_keypress, wxSizerFlags(0).Expand());
 
 		for (const auto &kas : App::ActionSids)
 		{
@@ -106,21 +108,21 @@ namespace App
 			auto action= dynamic_cast<ActionClientData*>(m_functions->GetClientObject(m_functions->GetSelection()))->Action;
 			SetShortcutFunction(action, index);
 		});
+		m_keypress->OnNewCombo = [=](App::KeyboardPress kp)
+		{
+			OnSetShortcutCombo(kp);
+		};
+
+
 
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
 		topSizer->Add(assignedBox, wxSizerFlags(0).Expand());
 		topSizer->Add(actionBox, wxSizerFlags(0).Expand());
 
 		SetSizerAndFit(topSizer);
-
-
-		/*m_keypress = Keypress::CreateKeypress(IDC_EDIT_KEYBOARD_KEY, Handle());
-		m_keypress->OnNewCombo = [=](App::KeyboardPress kp)
-		{
-			OnSetShortcutCombo(kp);
-		};
-
 		UpdateControlStyles();
+
+		/*UpdateControlStyles();
 
 		SetWindowTheme(m_functions->Handle(), L"Explorer", 0);
 

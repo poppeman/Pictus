@@ -207,10 +207,12 @@
     <ClCompile Include="app_types.cpp" />
     <ClCompile Include="cnt_color_hls.cpp" />
     <ClCompile Include="cnt_color_rgb.cpp" />
+    <ClCompile Include="ctrl_keypress.cpp" />
     <ClCompile Include="dlg_about.cpp" />
     <ClCompile Include="dlg_advanced.cpp" />
     <ClCompile Include="dlg_cache.cpp" />
     <ClCompile Include="dlg_controls.cpp" />
+    <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
     <ClCompile Include="hw3d_device.cpp" />
     <ClCompile Include="hw3d_direct3d9_common.cpp" />
@@ -286,10 +288,12 @@
   <ItemGroup>
     <ClInclude Include="cnt_color_hls.h" />
     <ClInclude Include="cnt_color_rgb.h" />
+    <ClInclude Include="ctrl_keypress.h" />
     <ClInclude Include="dlg_about.h" />
     <ClInclude Include="dlg_advanced.h" />
     <ClInclude Include="dlg_cache.h" />
     <ClInclude Include="dlg_controls.h" />
+    <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
     <ClInclude Include="hw3d_context.h" />
     <ClInclude Include="hw3d_device.h" />

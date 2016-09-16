@@ -46,6 +46,16 @@ namespace App {
 		OnNewCombo{ nullptr }
 	{
 		//m_prevEditWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(Handle(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(FilterEditWndProc)));
+		m_edit = new wxTextCtrl(this, wxID_ANY, L"");
+		m_edit->Bind(wxEVT_KEY_DOWN, [&](wxKeyEvent& evt) {
+			auto kc = evt.GetUnicodeKey();
+			KeyboardPress kp = { kc, evt.AltDown(), evt.ShiftDown(), evt.ControlDown() };
+			SetCombo(kp);
+
+			if (kc != 0 && OnNewCombo != nullptr) {
+				OnNewCombo(kp);
+			}
+		});
 	}
 
 	void Keypress::SetCombo(App::KeyboardPress kp) {
@@ -62,6 +72,7 @@ namespace App {
 		items.push_back(tmp);
 
 		auto wstr = Implode(items, L" + ");
+		m_edit->SetValue(wstr.c_str());
 
 		//SendMessage(Handle(), WM_SETTEXT, 0, (LPARAM)wstr.c_str());
 	}

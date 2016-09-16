@@ -311,6 +311,12 @@
     <ClCompile Include="hw3d_direct3d9_common.cpp">
       <Filter>Hw3D\Direct3D</Filter>
     </ClCompile>
+    <ClCompile Include="dlg_keyboard.cpp">
+      <Filter>Settings\Pages\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="ctrl_keypress.cpp">
+      <Filter>Settings\Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -573,6 +579,12 @@
     </ClInclude>
     <ClInclude Include="hw3d_direct3d9_common.h">
       <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="dlg_keyboard.h">
+      <Filter>Settings\Pages\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="ctrl_keypress.h">
+      <Filter>Settings\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
