@@ -736,7 +736,7 @@ namespace App {
 			Win::GetStringWx(SIDOpen),
 			wxEmptyString,
 			wxEmptyString,
-			s.GetFilterString(),
+			wxString::FromUTF8(s.GetFilterString().c_str()),
 			wxFD_DEFAULT_STYLE,
 			wxDefaultPosition,
 			wxDefaultSize,
