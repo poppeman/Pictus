@@ -320,6 +320,9 @@
     <ClCompile Include="rename.cpp">
       <Filter>Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="adjust.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -584,6 +587,9 @@
       <Filter>Settings\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="rename.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="adjust.h">
       <Filter>Dialogs</Filter>
     </ClInclude>
   </ItemGroup>

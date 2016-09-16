@@ -8,7 +8,7 @@
 
 #include "w32_rendertarget.h"
 
-//#include "adjust.h"
+#include "adjust.h"
 #include "settings.h"
 #include "viewport.h"
 
@@ -212,7 +212,7 @@ namespace App {
 
 		// Settings, adjust, stuff like that
 		std::shared_ptr<Settings> m_settings;
-		//Adjust m_adjust;
+		std::shared_ptr<Adjust> m_adjust;
 
 		ViewPort m_viewPort;
 

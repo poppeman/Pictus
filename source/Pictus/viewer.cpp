@@ -182,7 +182,8 @@ namespace App {
 		ViewportBuilder b;
 		b.BuildViewport(m_viewPort, this, m_cfg);
 
-		//m_adjust.OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
+		m_adjust = std::make_shared<Adjust>(this);
+		m_adjust->OnChange.connect([this](int a, int b, int c) { AdjustChange(a, b, c); });
 
 		m_mouseMap.AddAction(MouseFullscreen, [this](Win::MouseEvent) { ToggleFullscreenMode(); });
 		m_mouseMap.AddAction(MouseToggleFullSizeDefaultZoom, [&](Win::MouseEvent) { ZoomToggleFullSizeDefaultZoom(); });
@@ -993,10 +994,10 @@ namespace App {
 	}
 
 	void Viewer::ShowAdjust() {
-		/*m_adjust.DoModeless(this);
-		m_adjust.Brightness(m_viewPort.Brightness());
-		m_adjust.Contrast(m_viewPort.Contrast());
-		m_adjust.Gamma(m_viewPort.Gamma());*/
+		m_adjust->Show();
+		m_adjust->Brightness(m_viewPort.Brightness());
+		m_adjust->Contrast(m_viewPort.Contrast());
+		m_adjust->Gamma(m_viewPort.Gamma());
 	}
 
 	void Viewer::SetImageLocation(const std::string& path) {
