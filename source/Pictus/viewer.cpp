@@ -378,8 +378,10 @@ namespace App {
 		if (ViewportMode() == SM_Fullscreen)
 			return false;
 
-		/*if (!IsZoomed(Handle()) && !IsIconic(Handle()))
-			m_previousNonMaximizedWindowRegion = WindowRect();*/
+		if (!IsMaximized() && !IsIconized())
+		{
+			m_previousNonMaximizedWindowRegion = wxToRect(GetRect());
+		}
 
 		if(m_statusBar != nullptr && m_statusBar->IsShown())
 		{
@@ -852,7 +854,8 @@ namespace App {
 	void Viewer::ImageChanged() {
 		UpdateImageInformation();
 
-		if (/*IsZoomed(Handle()) || */m_viewPort.Image() == nullptr) {
+		if (IsMaximized() || m_viewPort.Image() == nullptr)
+		{
 			return;
 		}
 
