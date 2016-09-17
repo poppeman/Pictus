@@ -1066,11 +1066,12 @@ namespace App {
 			return;
 		}
 
+#ifdef _WIN32
 		// Construct command line string
 		std::wstring cmd(L"explorer /e,/select,\"" + UTF8ToWString(m_cacher.CurrentImageFilename()) + L"\"");
 
 		// Start the new process
-		/*STARTUPINFO si;
+		STARTUPINFO si;
 		PROCESS_INFORMATION pi;
 		ZeroMemory(&si, sizeof(si));
 		si.cb=sizeof(si);
@@ -1084,7 +1085,10 @@ namespace App {
 		// Finally, launch explorer.exe with the nifty params
 		CreateProcess(0, tmpStr.get(), 0, 0, false, 0, 0, 0, &si, &pi);
 		CloseHandle(pi.hProcess);
-		CloseHandle(pi.hThread);*/
+		CloseHandle(pi.hThread);
+#else
+		wxMessageBox(L"Not yet implemented! ", L"Pictus Error", wxOK);
+#endif
 	}
 
 	void Viewer::Sort(Img::Cacher::SortMethod m) {
