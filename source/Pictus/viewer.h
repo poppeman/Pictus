@@ -198,7 +198,7 @@ namespace App {
 
 		boost::signals2::connection m_lang;
 
-		//LONG_PTR m_previousWindowStyle;
+		long m_previousWindowStyle;
 		Geom::RectInt m_previousWindowRegion;
 		Geom::RectInt m_previousNonMaximizedWindowRegion;
 

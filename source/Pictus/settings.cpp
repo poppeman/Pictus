@@ -34,7 +34,7 @@ namespace App
 	END_EVENT_TABLE()
 
 	Settings::Settings(wxWindow *parent, Reg::Settings& settings) :
-		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
+		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxSTAY_ON_TOP),
 		m_settings(settings)
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);

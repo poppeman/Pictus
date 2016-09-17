@@ -50,7 +50,7 @@ namespace App
 	}
 
 	Adjust::Adjust(wxWindow* parent):
-		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDAdjust), wxDefaultPosition,wxDefaultSize, wxDEFAULT_DIALOG_STYLE)
+		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDAdjust), wxDefaultPosition,wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxSTAY_ON_TOP)
 	{
 		auto applyFunc = [this](wxCommandEvent& evt) { Apply(); };
 		auto closeFunc = [this](wxCommandEvent& evt) { Close(); };

@@ -580,32 +580,42 @@ namespace App {
 			ViewportMode(Viewer::SM_Normal);
 	}
 
-	void Viewer::ViewportMode(ScreenMode newMode) {
+	void Viewer::ViewportMode(ScreenMode newMode)
+	{
 		m_screenMode = newMode;
 
-		if (newMode == Viewer::SM_Fullscreen) {
-			//auto mon = wxDisplay::GetFromPoint(PointToWx(CenterPositionScreen()));
-			/*const Win::Monitor* mon = Win::FindMonitorAt(CenterPositionScreen());*/
+		if (newMode == Viewer::SM_Fullscreen)
+		{
+			wxDisplay mon(DisplayFromPointFallback(PositionScreen()));
 
 			m_statusBar->Show(false);
-			/*m_previousWindowStyle = GetWindowLongPtr(Handle(), GWL_STYLE);
-			SetWindowLongPtr(Handle(), GWL_STYLE, WS_POPUP | WS_VISIBLE | WS_CLIPCHILDREN);
-			m_previousWindowRegion = WindowRect();
-			MoveResize(mon->Region());
-			m_viewPort.MoveResize(RectInt(PointInt(0, 0), mon->Region().Dimensions()));
+			m_previousWindowStyle = GetWindowStyle();
+			SetWindowStyleFlag(wxBORDER_NONE);
+			m_previousWindowRegion = wxToRect(GetRect());
+			auto monRegion = wxToRect(mon.GetClientArea());
+
+			SetSize(monRegion.Left(), monRegion.Top(), monRegion.Width(), monRegion.Height());
 			m_viewPort.ActiveCursorMode(ViewPort::CursorHideAutomatic);
-			SetForegroundWindow(Handle());*/
+			Raise();
 		}
-		else {
-			/*SetWindowLongPtr(Handle(), GWL_STYLE, m_previousWindowStyle);*/
+		else
+		{
+			SetWindowStyleFlag(m_previousWindowStyle);
 			m_statusBar->Show(m_cfg.View.ShowStatusBar);
-			/*MoveResize(m_previousWindowRegion);
-			m_viewPort.ActiveCursorMode(ViewPort::CursorShow);*/
+			SetSize(m_previousWindowRegion.Left(), m_previousWindowRegion.Top(), m_previousWindowRegion.Width(), m_previousWindowRegion.Height());
+			m_viewPort.ActiveCursorMode(ViewPort::CursorShow);
 		}
 
 		// Make sure that the settings and adjust dialogs are on top (if running)
-		//if (m_settings->IsModelessVisible()) ShowSettings();
-		//if (m_adjust.IsModelessVisible()) ShowAdjust();
+		if (m_settings->IsVisible())
+		{
+			ShowSettings();
+		}
+
+		if (m_adjust->IsVisible())
+		{
+			ShowAdjust();
+		}
 
 		ImageChanged();
 		UpdateImageInformation();
@@ -995,6 +1005,7 @@ namespace App {
 
 	void Viewer::ShowAdjust() {
 		m_adjust->Show();
+		m_adjust->Raise();
 		m_adjust->Brightness(m_viewPort.Brightness());
 		m_adjust->Contrast(m_viewPort.Contrast());
 		m_adjust->Gamma(m_viewPort.Gamma());
@@ -1042,8 +1053,10 @@ namespace App {
 		m_viewPort.ActiveCursorMode(m);
 	}
 
-	void Viewer::ShowSettings() {
+	void Viewer::ShowSettings()
+	{
 		m_settings->Show(true);
+		m_settings->Raise();
 	}
 
 	void Viewer::OpenDirectoryInExplorer() {
