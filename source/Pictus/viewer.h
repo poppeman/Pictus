@@ -30,10 +30,8 @@
 namespace App {
 	class Viewer:public wxFrame, public Img::MessageReceiver {
 	public:
-		static const wchar_t* ClassName;
 		static const wchar_t* AppTitle;
 
-		//bool Show(bool doShow);
 		Img::Image::Ptr ActiveImage() const;
 
 		void ActiveImage(Img::Image::Ptr pImage);
@@ -105,7 +103,6 @@ namespace App {
 
 		bool PerformOnSize(const Geom::SizeInt& sz);
 		void OnMoveEvent(wxMoveEvent& e);
-		//bool PerformOnDropFiles(const StringVector& files);
 
 		//bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
 		void UpdateImageInformation();
@@ -230,8 +227,6 @@ namespace App {
 		ViewerContextMenu m_contextMenu;
 		ViewerKeyboard m_keys;
 		DropTarget* m_dropTarget;
-
-		//HANDLE m_singleMutex;
 
 		typedef ActionMapParam<MouseAction, Win::MouseEvent> MouseActionMap;
 		MouseActionMap m_mouseMap;

@@ -26,7 +26,6 @@
 #include <wx/filedlg.h>
 #include <wx/clipbrd.h>
 
-const wchar_t* App::Viewer::ClassName = L"Pictus Viewer";
 const wchar_t* App::Viewer::AppTitle = L"Pictus";
 
 wxDEFINE_EVENT(ImageLoadEvent, wxCommandEvent);
@@ -102,10 +101,6 @@ namespace App {
 	Viewer::~Viewer() {
 		m_folderMonitor.Close();
 		m_cacher.Stop();
-
-		/*if (UnhandledExceptionOcurred()) {
-			MessageBox(nullptr, UTF8ToWString(UnhandledExceptionDescription()).c_str(), L"Pictus error", MB_OK);
-		}*/
 	}
 
 	/*bool Viewer::Show(bool doShow) {
@@ -845,8 +840,6 @@ namespace App {
 		std::unique_lock<std::mutex> l(m_mutexNotification);
 		m_folderNotifications.push_back(notification);
 		l.unlock();
-
-		//QueueMessage(WM_APP + ViewerListUpdate, 0, 0);
 	}
 
 	void Viewer::UpdateMemoryLimits() {
