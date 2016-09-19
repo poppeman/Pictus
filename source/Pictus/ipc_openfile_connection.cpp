@@ -12,6 +12,10 @@ namespace IPC
 	}
 	void OpenFileConnection::SendOpenFile(std::string path)
 	{
+		if (path == "")
+		{
+			path = " ";
+		}
 		Poke(L"OPEN", path.c_str(), path.size());
 	}
 }

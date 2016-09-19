@@ -35,7 +35,7 @@ namespace App {
 		Img::Image::Ptr ActiveImage() const;
 
 		void ActiveImage(Img::Image::Ptr pImage);
-		void SetImageLocation(const std::string& path);
+		void SetImageLocation(std::string path);
 
 		void CreateWindow();
 		bool Init(const std::string params);
@@ -98,7 +98,6 @@ namespace App {
 
 		void Sort(Img::Cacher::SortMethod m);
 
-		bool PerformOnWindowCreate();
 		bool PerformOnClose();
 
 		bool PerformOnSize(const Geom::SizeInt& sz);

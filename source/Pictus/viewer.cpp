@@ -204,13 +204,6 @@ namespace App {
 
 		m_cacher.SetCodecFactoryStore(m_codecs);
 
-		if ((params.length() > 0) && (params.at(0) != '-') && (IO::DoFileExist(params) || IO::DoPathExist(params))) {
-			m_sDirectory = params;
-		}
-		else {
-			m_sDirectory = "";
-		}
-
 		UpdateViewportConfig();
 
 		// Apply some settings that can't be set automatically
@@ -232,14 +225,6 @@ namespace App {
 		}
 
 		m_viewPort.Init();
-		PerformOnWindowCreate();
-
-		SetDropTarget(m_dropTarget);
-
-		return true;
-	}
-
-	bool Viewer::PerformOnWindowCreate() {
 		m_statusBar = CreateStatusBar(7);
 
 		int widths[] = {
@@ -256,8 +241,9 @@ namespace App {
 
 		m_statusBar->Show(m_cfg.View.ShowStatusBar);
 
-		if ((m_sDirectory.length() > 0) && (m_sDirectory.at(0) != L'-'))
-			SetImageLocation(m_sDirectory);
+		SetImageLocation(params);
+
+		SetDropTarget(m_dropTarget);
 
 		return true;
 	}
@@ -1007,7 +993,7 @@ namespace App {
 		m_adjust->Gamma(m_viewPort.Gamma());
 	}
 
-	void Viewer::SetImageLocation(const std::string& path) {
+	void Viewer::SetImageLocation(std::string path) {
 		auto fixedPath = boost::filesystem::path(path);
 		if (IO::DoPathExist(path))
 		{

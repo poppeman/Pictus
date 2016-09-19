@@ -24,7 +24,16 @@ public:
 
 		if(argc > 1)
 		{
-			return start_app(std::string(argv[1].mbc_str())) == EXIT_SUCCESS;
+			// Workaround for bug or weird wxWidgets behavior.
+			// "something.exe" "some long argument" results in the following:
+			//    argv[0] = something.exe
+			//    argv[1] = some long argument"
+			std::string params = ToAString(argv[1]);
+			if (params[params.size() - 1] == '"' && params[0] != '"') {
+				params = params.substr(0, params.size() - 1);
+			}
+
+			return start_app(params) == EXIT_SUCCESS;
 		}
 		else
 		{
