@@ -544,7 +544,7 @@
 #define wxUSE_DYNAMIC_LOADER  1
 
 // Set to 1 to use socket classes
-#define wxUSE_SOCKETS       1
+#define wxUSE_SOCKETS       0
 
 // Set to 1 to use ipv6 socket classes (requires wxUSE_SOCKETS)
 //

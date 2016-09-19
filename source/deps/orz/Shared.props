@@ -15,7 +15,7 @@
   <ItemDefinitionGroup>
     <ClCompile />
     <ClCompile>
-      <PreprocessorDefinitions>GLEW_STATIC;HAVE_SNPRINTF;NOMINMAX;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;HAVE_SNPRINTF;NOMINMAX;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;__WINDOWS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4100;4503;4512</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>

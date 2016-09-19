@@ -323,6 +323,15 @@
     <ClCompile Include="adjust.cpp">
       <Filter>Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="ipc_openfile_connection.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="ipc_server.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="ipc_client.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -591,6 +600,15 @@
     </ClInclude>
     <ClInclude Include="adjust.h">
       <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="ipc_openfile_connection.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="ipc_server.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="ipc_client.h">
+      <Filter>Viewer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

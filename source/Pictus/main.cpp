@@ -5,15 +5,15 @@
 #include "config.h"
 //#include "control.h"
 #include "orz/logger.h"
+#include "ipc_client.h"
+#include "ipc_server.h"
 #include <boost/locale.hpp>
 #include <boost/scoped_array.hpp>
 #include <wx/app.h>
 #include <wx/msgdlg.h>
+#include <wx/snglinst.h>
 
-#ifdef _WIN32
-#include <windows.h>
 const wchar_t* ClassName = L"PictusMainMutex";
-#endif
 
 class MyApp:public wxApp
 {
@@ -32,62 +32,17 @@ public:
 		}
 	}
 
-	MyApp() {
-#ifdef _WIN32
-		m_singleMutex = nullptr;
-#endif
-	}
+	MyApp():
+		m_singleMutex(ClassName)
+	{}
 
-	~MyApp() {
-#ifdef _WIN32
-		if (m_singleMutex != nullptr) {
-			ReleaseMutex(m_singleMutex);
-			CloseHandle(m_singleMutex);
-		}
-#endif
-	}
+	~MyApp() {}
 
 private:
 	App::Viewer* m_viewer;
 	Img::CodecFactoryStore cfs;
-
-#ifdef _WIN32
-	HANDLE m_singleMutex;
-#endif
-
-	void EnsureSingleInstance(std::string params, App::Viewer* viewer) {
-		// Look for another process (disallow if the setting requires that)
-#ifdef _WIN32
-		m_singleMutex = CreateMutex(0, true, (std::wstring(L"Local\\") + ClassName).c_str());
-
-		if ((GetLastError() == ERROR_ALREADY_EXISTS)) {
-				if (HWND hwnd = ::FindWindow(ClassName, 0)) {
-						SetForegroundWindow(hwnd);
-						if (IsIconic(hwnd)) {
-								ShowWindow(hwnd, SW_RESTORE);
-						}
-
-						// Tell the instance to open the new location/file (if applicable)
-						if (params.empty() == false) {
-								auto wide = UTF8ToWString(params);
-
-								// Dodge const-incorrectness
-								boost::scoped_array<wchar_t> pStrData(new wchar_t[wide.length() + 1]);
-								wcscpy_s(pStrData.get(), (wide.length() + 1), wide.c_str());
-								COPYDATASTRUCT cds;
-								cds.dwData = 0;
-								cds.cbData = static_cast<DWORD>((params.length() + 1) * sizeof(wchar_t));
-								cds.lpData = reinterpret_cast<void*>(pStrData.get());
-								SendMessageW(hwnd, WM_COPYDATA, (WPARAM)viewer->GetHWND(), (LPARAM)&cds);
-						}
-
-						throw Err::DuplicateInstance();
-				}
-		}
-#else
-		// TODO: Posix'ish implementation (pidfile)
-#endif
-	}
+	wxSingleInstanceChecker m_singleMutex;
+	std::shared_ptr<IPC::OpenFileServer> m_server;
 
 	int start_app(std::string params) {
 		if (params == "--cleanup") {
@@ -114,10 +69,20 @@ private:
 
 			m_viewer = new App::Viewer(&cfs, cfg);
 			m_viewer->CreateWindow();
-			if (cfg.View.MultipleInstances == false)
+			if (cfg.View.MultipleInstances == false && m_singleMutex.IsAnotherRunning())
 			{
-				EnsureSingleInstance(params, m_viewer);
+				auto client = std::make_shared<IPC::OpenFileClient>();
+				auto con = dynamic_cast<IPC::OpenFileConnection*>(client->MakeConnection(L"localhost", ClassName, L"OPENFILE"));
+				if (con != nullptr)
+				{
+					con->SendOpenFile(params);
+					con->Disconnect();
+				}
+				return EXIT_FAILURE;
 			}
+
+			m_server = std::make_shared<IPC::OpenFileServer>(m_viewer);
+			m_server->Create(ClassName);
 
 			// Attempt to display viewer
 			if (m_viewer->Init(params.c_str()))
