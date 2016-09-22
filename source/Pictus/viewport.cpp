@@ -5,6 +5,7 @@
 #include "getevent.h"
 #include <wx/display.h>
 #include <wx/glcanvas.h>
+#include <wx/dcclient.h>
 
 namespace App {
 	using Geom::RectInt;
@@ -503,7 +504,7 @@ namespace App {
 		m_canvas->Bind(wxEVT_MOTION, &ViewPort::HandleMouseMove, this);
 		m_canvas->Bind(wxEVT_MOUSEWHEEL, &ViewPort::HandleMouseDown, this);
 
-		m_canvas->Bind(wxEVT_PAINT, [&](wxPaintEvent& evt) { PerformOnPaint(); });
+		m_canvas->Bind(wxEVT_PAINT, [&](wxPaintEvent& evt) { wxPaintDC dc(m_canvas); PerformOnPaint(); });
 		m_canvas->Bind(wxEVT_SIZE, [&](wxSizeEvent& evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
 		m_canvas->Bind(wxEVT_SIZING, [&](wxSizeEvent& evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
 
