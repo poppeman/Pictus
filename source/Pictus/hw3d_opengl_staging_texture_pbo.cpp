@@ -27,7 +27,7 @@ namespace Hw3D
 			DO_THROW(Err::CriticalError, "Failed binding buffer: " + GetGlErrorString(err));
 		}
 
-		GLbitfield flags = 0;
+		GLbitfield flags = GL_MAP_READ_BIT;
 		if (!readOnly)
 		{
 			flags |= GL_MAP_WRITE_BIT;
