@@ -332,6 +332,9 @@
     <ClCompile Include="ipc_client.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
+    <ClCompile Include="settings_layout.cpp">
+      <Filter>Settings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -609,6 +612,9 @@
     </ClInclude>
     <ClInclude Include="ipc_client.h">
       <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="settings_layout.h">
+      <Filter>Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

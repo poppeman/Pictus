@@ -3,6 +3,7 @@
 #include "dlg_interface.h"
 #include "registry.h"
 #include "wintypes.h"
+#include "settings_layout.h"
 
 namespace App
 {
@@ -24,10 +25,10 @@ namespace App
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
 		auto statusBox = new wxStaticBoxSizer(wxHORIZONTAL, this, Win::GetStringWx(SIDSettingsInterfaceStatusBar));
 		m_showStatusBar = new wxCheckBox(statusBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsInterfaceShowStatusBar));
-		statusBox->Add(m_showStatusBar, wxSizerFlags(0).Expand());
+		statusBox->Add(m_showStatusBar, StaticBoxInnerPadding(0));
 		m_alwaysOnTop = new wxCheckBox(this, wxID_ANY, Win::GetStringWx(SIDSettingsInterfaceAlwaysOnTop));
 
-		topSizer->Add(statusBox, wxSizerFlags(0).Expand());
+		topSizer->Add(statusBox, StaticBoxOuterPadding(0));
 		topSizer->Add(m_alwaysOnTop, wxSizerFlags(0).Expand());
 		SetSizerAndFit(topSizer);
 	}

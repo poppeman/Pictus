@@ -3,11 +3,10 @@
 #include "wintypes.h"
 #include <wx/sizer.h>
 #include <wx/statbox.h>
+#include "settings_layout.h"
 
 namespace App
 {
-	const int Padding = 10;
-
 	enum {
 		AdaptWindowSizeId
 	};
@@ -127,8 +126,8 @@ namespace App
 		m_cbMagFilter{nullptr}
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
-		topSizer->Add(CreateZoomBox(), wxSizerFlags(0).Expand().Border(wxBOTTOM, Padding / 2));
-		topSizer->Add(CreateViewerBox(), wxSizerFlags(0).Expand().Border(wxTOP, Padding / 2));
+		topSizer->Add(CreateZoomBox(), StaticBoxOuterPadding(0));
+		topSizer->Add(CreateViewerBox(), StaticBoxOuterPadding(0));
 		SetSizerAndFit(topSizer);
 	}
 
@@ -142,9 +141,9 @@ namespace App
 		auto topmostBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsViewerZoom));
 		m_resetZoom = new wxCheckBox(topmostBox->GetStaticBox(), wxID_ANY, wxString::FromUTF8(Intl::GetString(SIDSettingsViewerResetZoom)));
 
-		topmostBox->Add(CreateResizeAlgoSizer(topmostBox->GetStaticBox()), wxSizerFlags(0).Expand().Border(wxALL, Padding));
-		topmostBox->Add(m_resetZoom, wxSizerFlags(0).Expand().Border(wxLEFT | wxRIGHT, Padding));
-		topmostBox->Add(CreateModeSizer(topmostBox->GetStaticBox()), wxSizerFlags(0).Expand().Border(wxALL, Padding));
+		topmostBox->Add(CreateResizeAlgoSizer(topmostBox->GetStaticBox()), StaticBoxInnerPadding(0));
+		topmostBox->Add(m_resetZoom, HorizontalPadding(0));
+		topmostBox->Add(CreateModeSizer(topmostBox->GetStaticBox()), StaticBoxInnerPadding(0));
 
 		return topmostBox;
 	}
@@ -156,11 +155,11 @@ namespace App
 		auto magBox= new wxStaticBoxSizer(wxVERTICAL, parent, Win::GetStringWx(SIDSettingsViewerMagnification));
 		auto minBox= new wxStaticBoxSizer(wxVERTICAL, parent, Win::GetStringWx(SIDSettingsViewerMinification));
 		m_cbMagFilter = SetupFilterBox(magBox->GetStaticBox());
-		magBox->Add(m_cbMagFilter, wxSizerFlags(1).Expand().Border(wxALL, Padding));
+		magBox->Add(m_cbMagFilter, StaticBoxInnerPadding(1));
 		m_cbMinFilter = SetupFilterBox(minBox->GetStaticBox());
-		minBox->Add(m_cbMinFilter, wxSizerFlags(1).Expand().Border(wxALL, Padding));
-		topmostSizer->Add(magBox, wxSizerFlags(1).Expand().Border(wxRIGHT, Padding / 2));
-		topmostSizer->Add(minBox, wxSizerFlags(1).Expand().Border(wxLEFT, Padding / 2));
+		minBox->Add(m_cbMinFilter, StaticBoxInnerPadding(1));
+		topmostSizer->Add(magBox, wxSizerFlags(1).Expand().Border(wxRIGHT, GetPadding() / 2));
+		topmostSizer->Add(minBox, wxSizerFlags(1).Expand().Border(wxLEFT, GetPadding() / 2));
 		return topmostSizer;
 	}
 
@@ -174,17 +173,17 @@ namespace App
 		zoomChoices.Add(Win::GetStringWx(SIDActionZoomFree));
 		zoomChoices.Add(Win::GetStringWx(SIDActionZoomFitImage));
 		m_cbDefaultZoom = new wxChoice(defaultZoomModeBoxer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, zoomChoices);
-		defaultZoomModeBoxer->Add(m_cbDefaultZoom, wxSizerFlags(1).Expand().Border(wxALL, Padding));
+		defaultZoomModeBoxer->Add(m_cbDefaultZoom, StaticBoxInnerPadding(1));
 
 		wxArrayString behaviors;
 		behaviors.Add(Win::GetStringWx(SIDSettingsViewerReduceOrEnlarge));
 		behaviors.Add(Win::GetStringWx(SIDSettingsViewerEnlargeOnly));
 		behaviors.Add(Win::GetStringWx(SIDSettingsViewerReduceOnly));
 		m_cbResizeBehavior = new wxChoice(resizeBox->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, behaviors);
-		resizeBox->Add(m_cbResizeBehavior, wxSizerFlags(1).Expand().Border(wxALL, Padding));
+		resizeBox->Add(m_cbResizeBehavior, StaticBoxInnerPadding(1));
 
-		topmostSizer->Add(defaultZoomModeBoxer, wxSizerFlags(1).Expand().Border(wxRIGHT, Padding / 2));
-		topmostSizer->Add(resizeBox, wxSizerFlags(1).Expand().Border(wxLEFT, Padding / 2));
+		topmostSizer->Add(defaultZoomModeBoxer, wxSizerFlags(1).Expand().Border(wxRIGHT, GetPadding() / 2));
+		topmostSizer->Add(resizeBox, wxSizerFlags(1).Expand().Border(wxLEFT, GetPadding() / 2));
 		return topmostSizer;
 	}
 
@@ -202,10 +201,10 @@ namespace App
 		m_resetPan = new wxCheckBox(viewerBox->GetStaticBox(), wxID_ANY, wxString::FromUTF8(Intl::GetString(SIDSettingsViewerResetPan)));
 		m_adaptWindowSize = new wxCheckBox(viewerBox->GetStaticBox(), AdaptWindowSizeId, Win::GetStringWx(SIDSettingsViewerAdaptWindowSize));
 
-		viewerBox->Add(m_wrapAround, wxSizerFlags(0).Expand().Border(wxLEFT|wxRIGHT|wxTOP, Padding));
-		viewerBox->Add(m_resetPan, wxSizerFlags(0).Expand().Border(wxLEFT|wxRIGHT, Padding));
-		viewerBox->Add(m_adaptWindowSize, wxSizerFlags(0).Expand().Border(wxLEFT|wxRIGHT, Padding));
-		viewerBox->Add(m_positionMethod, wxSizerFlags(0).Expand().Border(wxLEFT|wxRIGHT|wxBOTTOM, Padding));
+		viewerBox->Add(m_wrapAround, HorizontalPaddingFirst(0));
+		viewerBox->Add(m_resetPan, HorizontalPadding(0));
+		viewerBox->Add(m_adaptWindowSize, HorizontalPadding(0));
+		viewerBox->Add(m_positionMethod, HorizontalPaddingLast(0));
 
 		return viewerBox;
 	}

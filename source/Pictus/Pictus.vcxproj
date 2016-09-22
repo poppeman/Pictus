@@ -252,6 +252,7 @@
     <ClCompile Include="render_geometry.cpp" />
     <ClCompile Include="resize_position_method.cpp" />
     <ClCompile Include="settings.cpp" />
+    <ClCompile Include="settings_layout.cpp" />
     <ClCompile Include="settings_page.cpp" />
     <ClCompile Include="dlg_color.cpp" />
     <ClCompile Include="dlg_interface.cpp" />
@@ -338,6 +339,7 @@
     <ClInclude Include="resize_behavior.h" />
     <ClInclude Include="resize_position_method.h" />
     <ClInclude Include="settings.h" />
+    <ClInclude Include="settings_layout.h" />
     <ClInclude Include="settings_page.h" />
     <ClInclude Include="dlg_color.h" />
     <ClInclude Include="dlg_interface.h" />

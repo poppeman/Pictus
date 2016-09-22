@@ -3,6 +3,7 @@
 #include "wintypes.h"
 #include <wx/statbox.h>
 #include <wx/stattext.h>
+#include "settings_layout.h"
 
 namespace App
 {
@@ -55,9 +56,9 @@ namespace App
 		m_cbWheelDown = initMouseWheelList(mouseWheelGroup, SIDSettingsControlsWheelDown);
 
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
-		topSizer->Add(clickGroup, wxSizerFlags(0));
-		topSizer->Add(dblClickGroup, wxSizerFlags(0));
-		topSizer->Add(mouseWheelGroup, wxSizerFlags(0));
+		topSizer->Add(clickGroup, StaticBoxOuterPadding(0));
+		topSizer->Add(dblClickGroup, StaticBoxOuterPadding(0));
+		topSizer->Add(mouseWheelGroup, StaticBoxOuterPadding(0));
 
 		SetSizerAndFit(topSizer);
 	}
@@ -135,7 +136,7 @@ namespace App
 		row->Add(ctrl, wxSizerFlags(0));
 		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
 
-		parent->Add(row, wxSizerFlags(0));
+		parent->Add(row, StaticBoxInnerPadding(0));
 		return ctrl;
 	}
 
@@ -157,7 +158,7 @@ namespace App
 		row->Add(ctrl, wxSizerFlags(0));
 		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
 
-		parent->Add(row, wxSizerFlags(0));
+		parent->Add(row, StaticBoxInnerPadding(0));
 		return ctrl;
 	}
 
@@ -176,7 +177,7 @@ namespace App
 		row->Add(ctrl, wxSizerFlags(0));
 		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
 
-		parent->Add(row, wxSizerFlags(0));
+		parent->Add(row, StaticBoxInnerPadding(0));
 		return ctrl;
 	}
 }
