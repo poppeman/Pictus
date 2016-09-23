@@ -4,8 +4,11 @@
 #include "orz/types.h"
 #include "wintypes.h"
 
+#include "settings_layout.h"
+
 #include <wx/sizer.h>
 #include <wx/statbox.h>
+#include <wx/stattext.h>
 #include <wx/button.h>
 
 namespace App
@@ -36,7 +39,7 @@ namespace App
 	{
 		auto assignedBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsKeyboardAssigned));
 		m_assigned = new wxListView(assignedBox->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize);
-		assignedBox->Add(m_assigned, wxSizerFlags(0).Expand());
+		assignedBox->Add(m_assigned, StaticBoxInnerPadding(0));
 		ResetAssigned();
 		//m_assigned->Style(LVS_EX_FULLROWSELECT | LVS_EX_DOUBLEBUFFER | LVS_EX_LABELTIP | LVS_EX_ONECLICKACTIVATE);
 		m_assigned->Bind(wxEVT_LIST_ITEM_SELECTED, [&](wxListEvent& evt)
@@ -87,15 +90,16 @@ namespace App
 
 		auto buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 		buttonSizer->Add(addButton, wxSizerFlags(0));
-		buttonSizer->Add(m_removeAssigned, wxSizerFlags(0));
+		buttonSizer->Add(m_removeAssigned, ButtonPadding());
 
-		assignedBox->Add(buttonSizer, wxSizerFlags(0));
+		assignedBox->Add(buttonSizer, ButtonToolbarPadding());
 
 		auto actionBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsKeyboardAction));
 		m_functions = new wxChoice(actionBox->GetStaticBox(), wxID_ANY);
 		m_keypress = new Keypress(actionBox->GetStaticBox());
-		actionBox->Add(m_functions, wxSizerFlags(0).Expand());
-		actionBox->Add(m_keypress, wxSizerFlags(0).Expand());
+		actionBox->Add(m_functions, StaticBoxInnerPadding(0));
+		actionBox->Add(new wxStaticText(actionBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsKeyboardKeys)), StaticBoxInnerPadding(0));
+		actionBox->Add(m_keypress, StaticBoxInnerPadding(0));
 
 		for (const auto &kas : App::ActionSids)
 		{

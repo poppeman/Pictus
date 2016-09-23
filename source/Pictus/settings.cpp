@@ -10,6 +10,8 @@
 #include "dlg_keyboard.h"
 #include "wintypes.h"
 
+#include "settings_layout.h"
+
 #include <wx/sizer.h>
 
 namespace App
@@ -34,7 +36,7 @@ namespace App
 	END_EVENT_TABLE()
 
 	Settings::Settings(wxWindow *parent, Reg::Settings& settings) :
-		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxSTAY_ON_TOP),
+		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, { 650, 650 }, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxSTAY_ON_TOP),
 		m_settings(settings)
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
@@ -83,13 +85,13 @@ namespace App
 		m_cancel = new wxButton(this, ButtonCancelId, Intl::GetString(SIDDialogCancel));
 		m_apply = new wxButton(this, ButtonApplyId, Intl::GetString(SIDDialogApply));
 		buttonSizer->Add(m_ok, wxSizerFlags(0));
-		buttonSizer->Add(m_cancel, wxSizerFlags(0).Border(wxLEFT, 20));
-		buttonSizer->Add(m_apply, wxSizerFlags(0).Border(wxLEFT, 20));
+		buttonSizer->Add(m_cancel, ButtonPadding());
+		buttonSizer->Add(m_apply, ButtonPadding());
 
 		topSizer->Add(m_sizer, wxSizerFlags(1).Expand().Border(wxALL, 10));
 		topSizer->Add(buttonSizer, wxSizerFlags(0).Border(wxALL, 10).Right());
 
-		SetSizerAndFit(topSizer);
+		SetSizer(topSizer);
 	}
 
 

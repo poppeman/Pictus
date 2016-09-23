@@ -1,6 +1,7 @@
 #include "dlg_cache.h"
 #include "registry.h"
 #include "wintypes.h"
+#include "settings_layout.h"
 #include <wx/sizer.h>
 #include <wx/statbox.h>
 #include <wx/stattext.h>
@@ -32,13 +33,13 @@ namespace App
 
 		m_autoLimit = new wxCheckBox(cacheBox->GetStaticBox(), AutoLimitId, Win::GetStringWx(SIDSettingsCacheAutomaticLimit));
 
-		cacheBox->Add(m_autoLimit, wxSizerFlags(0).Expand());
+		cacheBox->Add(m_autoLimit, StaticBoxInnerPadding(0));
 
 		auto validator = wxIntegerValidator<unsigned int>();
 		m_cacheSize = new wxTextCtrl(cacheBox->GetStaticBox(), CacheSizeId, "", wxDefaultPosition, wxDefaultSize, 0, validator);
 		auto sizeSizer = new wxBoxSizer(wxHORIZONTAL);
-		sizeSizer->Add(m_cacheSize, wxSizerFlags(0));
-		sizeSizer->Add(new wxStaticText(cacheBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDUnitMB)), wxSizerFlags(0));
+		sizeSizer->Add(m_cacheSize, StaticBoxInnerPadding(0));
+		sizeSizer->Add(new wxStaticText(cacheBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDUnitMB)), StaticBoxInnerPadding(0));
 		cacheBox->Add(sizeSizer, wxSizerFlags(0));
 
 		SetSizerAndFit(cacheBox);

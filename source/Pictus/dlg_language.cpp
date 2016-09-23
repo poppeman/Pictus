@@ -3,6 +3,7 @@
 #include "dlg_language.h"
 #include "registry.h"
 #include "wintypes.h"
+#include "settings_layout.h"
 
 namespace App
 {
@@ -40,6 +41,7 @@ namespace App
 	{
 		auto langBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsLanguage));
 		m_cbLang = new wxChoice(langBox->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize);
+		langBox->Add(m_cbLang, StaticBoxInnerPadding(0));
 
 		for (auto i = 0; i < static_cast<int>(Intl::Language::Undefined); ++i)
 		{
@@ -49,7 +51,7 @@ namespace App
 		SetSelection(Intl::CurrentLanguage());
 
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
-		topSizer->Add(langBox, wxSizerFlags(1).Expand());
+		topSizer->Add(langBox, wxSizerFlags(0).Expand());
 
 		SetSizerAndFit(topSizer);
 	}

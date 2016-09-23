@@ -11,6 +11,9 @@ namespace App
 	wxSizerFlags StaticBoxInnerPadding(int ratio);
 	wxSizerFlags StaticBoxOuterPadding(int ratio);
 
+	wxSizerFlags ButtonToolbarPadding();
+	wxSizerFlags ButtonPadding();
+
 	wxSizerFlags HorizontalPaddingFirst(int ratio);
 	wxSizerFlags HorizontalPadding(int ratio);
 	wxSizerFlags HorizontalPaddingLast(int ratio);

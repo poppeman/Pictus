@@ -133,7 +133,7 @@ namespace App
 		ctrl->Append(Win::GetStringWx(SIDActionRotateRight), new MouseActionClientData(MouseRotateRight));
 
 		auto row = new wxBoxSizer(wxHORIZONTAL);
-		row->Add(ctrl, wxSizerFlags(0));
+		row->Add(ctrl, wxSizerFlags(0).Border(wxRIGHT, GetPadding()));
 		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
 
 		parent->Add(row, StaticBoxInnerPadding(0));
@@ -155,7 +155,7 @@ namespace App
 		ctrl->Append(Win::GetStringWx(SIDActionRotateRight), new MouseActionClientData(MouseRotateRight));
 
 		auto row = new wxBoxSizer(wxHORIZONTAL);
-		row->Add(ctrl, wxSizerFlags(0));
+		row->Add(ctrl, wxSizerFlags(0).Border(wxRIGHT, GetPadding()));
 		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
 
 		parent->Add(row, StaticBoxInnerPadding(0));
@@ -174,7 +174,7 @@ namespace App
 		ctrl->Append(Win::GetStringWx(SIDActionRotateRight), new MouseActionClientData(MouseRotateRight));
 
 		auto row = new wxBoxSizer(wxHORIZONTAL);
-		row->Add(ctrl, wxSizerFlags(0));
+		row->Add(ctrl, wxSizerFlags(0).Border(wxRIGHT, GetPadding()));
 		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
 
 		parent->Add(row, StaticBoxInnerPadding(0));

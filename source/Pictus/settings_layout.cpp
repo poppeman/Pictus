@@ -19,6 +19,16 @@ namespace App
 		return wxSizerFlags(ratio).Expand().Border(wxBOTTOM, ComponentPadding);
 	}
 
+	wxSizerFlags ButtonToolbarPadding()
+	{
+		return wxSizerFlags(0).Border(wxLEFT | wxRIGHT | wxBOTTOM, SizerInnerPadding).Right();
+	}
+
+	wxSizerFlags ButtonPadding()
+	{
+		return wxSizerFlags(0).Border(wxLEFT, 20);
+	}
+
 	wxSizerFlags HorizontalPaddingFirst(int ratio)
 	{
 		return wxSizerFlags(ratio).Expand().Border(wxLEFT | wxRIGHT | wxTOP, SizerInnerPadding);
