@@ -42,7 +42,9 @@ namespace App
 		sizeSizer->Add(new wxStaticText(cacheBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDUnitMB)), StaticBoxInnerPadding(0));
 		cacheBox->Add(sizeSizer, wxSizerFlags(0));
 
-		SetSizerAndFit(cacheBox);
+		auto topSizer = new wxBoxSizer(wxVERTICAL);
+		topSizer->Add(cacheBox, StaticBoxOuterPadding(0));
+		SetSizerAndFit(topSizer);
 		UpdateControls();
 	}
 
