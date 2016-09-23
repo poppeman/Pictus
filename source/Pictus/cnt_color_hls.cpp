@@ -43,6 +43,7 @@ namespace App
 		m_h->SetValue(col.H);
 		m_l->SetValue((int) (col.L * 100));
 		m_s->SetValue((int) (col.S * 100));
+		Update();
 	}
 
 	Img::HLSTriplet ControlColorHls::GetHls()

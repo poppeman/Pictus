@@ -9,9 +9,9 @@ namespace App
 	using Img::Color;
 
 	BEGIN_EVENT_TABLE(ControlColorPicker, wxPanel)
-			EVT_MOTION(ControlColorPicker::HandleMouseMove)
-			EVT_LEFT_DOWN(ControlColorPicker::HandleMouseClick)
-			EVT_PAINT(ControlColorPicker::OnPaint)
+		EVT_MOTION(ControlColorPicker::HandleMouseMove)
+		EVT_LEFT_DOWN(ControlColorPicker::HandleMouseClick)
+		EVT_PAINT(ControlColorPicker::OnPaint)
 	END_EVENT_TABLE()
 
 	ControlColorPicker::ControlColorPicker(wxWindow*parent, wxWindowID winid, const wxPoint &pos, const wxSize &size):
@@ -30,55 +30,21 @@ namespace App
 	{
 		wxPaintDC dc(this);
 		dc.DrawBitmap(wxBitmap(m_colorMap), 0, 0, false);
+
+		dc.SetPen(wxPen(wxColor(255, 255, 0)));
+
+		// Draw cursor
+		int w = GetSize().x;
+		int h = GetSize().y;
+
+		Geom::PointInt m_pos((int)(m_colorHLS.H * (w / 360.0f)), (int)(m_colorHLS.L * h));
+		dc.DrawLine(m_pos.X - CursorSpace - CursorLength, m_pos.Y, m_pos.X - CursorSpace, m_pos.Y);
+		dc.DrawLine(m_pos.X + CursorSpace + CursorLength, m_pos.Y, m_pos.X + CursorSpace, m_pos.Y);
+
+		dc.DrawLine(m_pos.X, m_pos.Y - CursorSpace - CursorLength, m_pos.X, m_pos.Y - CursorSpace);
+		dc.DrawLine(m_pos.X, m_pos.Y + CursorSpace + CursorLength, m_pos.X, m_pos.Y + CursorSpace);
 	}
 
-
-	/*LRESULT ControlColorPicker::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-		switch (msg) {
-			case MsgSetHue:			// Change hue
-				m_useRGB		= false;
-				m_colorHLS.H	= static_cast<float>(lParam);
-				InvalidateRect(Handle(), 0, false);
-				notifyChange();
-				return 0;
-
-			case MsgSetLuminance:	// Change luminance
-				m_useRGB		= false;
-				m_colorHLS.L	= lParam/100.0f;
-				InvalidateRect(Handle(), 0, false);
-				notifyChange();
-				return 0;
-
-			case MsgSetSaturation:	// Change saturation
-				m_useRGB=false;
-				m_colorHLS.S=lParam/100.0f;;
-				CreateColorBitmap();
-				InvalidateRect(Handle(), 0, false);
-				notifyChange();
-				return 0;
-
-			case MsgSetRGB:			// Set RGB color
-				{
-					SetRGB(static_cast<DWORD>(wParam));
-					InvalidateRect(Handle(), 0, false);
-					notifyChange();
-					return 0;
-			   }
-			case MsgGetRGB:	// Get RGB color
-				return GetRGB();
-
-			case MsgGetHue:
-				return static_cast<LRESULT>(m_colorHLS.H);
-
-			case MsgGetLuminance:
-				return static_cast<LRESULT>((m_colorHLS.L + 0.005f) * 100.0f);
-
-			case MsgGetSaturation:
-				return static_cast<LRESULT>((m_colorHLS.S + 0.005f) * 100.0f);
-		}
-		return baseWndProc(hwnd, msg, wParam, lParam, true);
-	}
-*/
 	void ControlColorPicker::HandleMouseClick(wxMouseEvent &evt)
 	{
 		SetCursorPosition(Win::wxToPoint(evt.GetPosition()));
@@ -111,25 +77,6 @@ namespace App
 		}
 
 		m_colorMap = wxImage(w, h, &pData[0]);
-
-		// Draw cursor
-		Geom::PointInt m_pos((int) (m_colorHLS.H * (w / 360.0f)), (int) (m_colorHLS.L * h));
-		for (int x = 0; x < CursorLength; x++)
-		{
-			SetColorMapPixel(x + m_pos.X - CursorSpace - CursorLength, m_pos.Y, 255, 255, 0);
-		}
-		for (int x = 0; x < CursorLength; x++)
-		{
-			SetColorMapPixel(1 + x + m_pos.X + CursorSpace, m_pos.Y, 255, 255, 0);
-		}
-		for (int y = 0; y < CursorLength; y++)
-		{
-			SetColorMapPixel(m_pos.X, y + m_pos.Y - CursorSpace - CursorLength, 255, 255, 0);
-		}
-		for (int y = 0; y < CursorLength; y++)
-		{
-			SetColorMapPixel(m_pos.X, 1 + y + m_pos.Y + CursorSpace, 255, 255, 0);
-		}
 	}
 
 	void ControlColorPicker::SetColorMapPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b)
@@ -187,14 +134,13 @@ namespace App
 		m_colorHLS.H = Img::HueCap * p.X / w;
 		m_colorHLS.L = Img::LumCap * p.Y / h;
 
-		CreateColorBitmap();
 		Refresh();
 		NotifyChange();
 	}
 
 	void ControlColorPicker::NotifyChange()
 	{
-		auto evt = new wxCommandEvent(COLOR_CHANGED, GetId());
-		wxQueueEvent(this, evt);
+		wxCommandEvent evt(COLOR_CHANGED, GetId());
+		ProcessEvent(evt);
 	}
 }

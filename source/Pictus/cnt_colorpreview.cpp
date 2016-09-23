@@ -11,6 +11,7 @@ namespace App
 	{
 		SetBackgroundColour(Win::ColorToWx(color));
 		Refresh();
+		Update();
 	}
 
 	ControlColorPreview::ControlColorPreview(wxWindow *parent, wxWindowID winid, const wxPoint& pos, const wxSize& size):

@@ -43,6 +43,7 @@ namespace App
 		m_r->SetValue(col.R);
 		m_g->SetValue(col.G);
 		m_b->SetValue(col.B);
+		Update();
 	}
 
 	Img::Color ControlColorRgb::GetRGB()
