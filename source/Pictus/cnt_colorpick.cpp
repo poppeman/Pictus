@@ -23,6 +23,7 @@ namespace App
 		auto sizeEvent = [=](wxSizeEvent& evt) { CreateColorBitmap(); Refresh(false); };
 		Bind(wxEVT_SIZING, sizeEvent);
 		Bind(wxEVT_SIZE, sizeEvent);
+		Bind(wxEVT_ERASE_BACKGROUND, [=](wxEraseEvent& evt) { });
 	}
 
 	void ControlColorPicker::OnPaint(wxPaintEvent &paintEvent)
