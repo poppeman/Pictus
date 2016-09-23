@@ -93,7 +93,8 @@ namespace App {
 		m_statusBar{ nullptr },
 		m_codecs{ cfs },
 		m_dropTarget{ nullptr },
-		m_cfg( cfg )
+		m_cfg( cfg ),
+		m_userInitiatedMove{ true }
 	{
 
 	}
@@ -392,9 +393,11 @@ namespace App {
 			m_normalRect = wxToRect(GetRect());
 		}
 
-		// TODO: Skip handling event for non-user-initiated moves
-		AnchorTL(PositionScreen());
-		AnchorCenter(PositionScreen() + RoundCast(wxToSize(GetSize()) * 0.5f));
+		if (m_userInitiatedMove)
+		{
+			AnchorTL(PositionScreen());
+			AnchorCenter(PositionScreen() + RoundCast(wxToSize(GetSize()) * 0.5f));
+		}
 	}
 
 	void Viewer::AnchorTL(const PointInt& pt) {
@@ -577,7 +580,9 @@ namespace App {
 			m_previousWindowRegion = wxToRect(GetRect());
 			auto monRegion = wxToRect(mon.GetClientArea());
 
+			m_userInitiatedMove = false;
 			SetSize(monRegion.Left(), monRegion.Top(), monRegion.Width(), monRegion.Height());
+			m_userInitiatedMove = true;
 			m_viewPort.ActiveCursorMode(ViewPort::CursorHideAutomatic);
 			Raise();
 		}
@@ -585,7 +590,9 @@ namespace App {
 		{
 			SetWindowStyleFlag(m_previousWindowStyle);
 			m_statusBar->Show(m_cfg.View.ShowStatusBar);
+			m_userInitiatedMove = false;
 			SetSize(m_previousWindowRegion.Left(), m_previousWindowRegion.Top(), m_previousWindowRegion.Width(), m_previousWindowRegion.Height());
+			m_userInitiatedMove = true;
 			m_viewPort.ActiveCursorMode(ViewPort::CursorShow);
 		}
 
@@ -872,8 +879,9 @@ namespace App {
 
 				PointInt newTopLeft = calculateWindowTopLeft(m_cfg.View.ResizePositionMethod, newSize);
 
+				m_userInitiatedMove = false;
 				SetSize(newTopLeft.X, newTopLeft.Y, newSize.Width, newSize.Height);
-
+				m_userInitiatedMove = true;
 			}
 			else {
 				PerformOnSize(wxToSize(GetSize()));	// Adjust to the current window
