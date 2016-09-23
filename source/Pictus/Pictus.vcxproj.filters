@@ -338,6 +338,9 @@
     <ClCompile Include="clipboard.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
+    <ClCompile Include="filemanager.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -620,6 +623,9 @@
       <Filter>Settings</Filter>
     </ClInclude>
     <ClInclude Include="clipboard.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="filemanager.h">
       <Filter>Viewer</Filter>
     </ClInclude>
   </ItemGroup>

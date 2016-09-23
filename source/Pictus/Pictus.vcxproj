@@ -216,6 +216,7 @@
     <ClCompile Include="dlg_controls.cpp" />
     <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
+    <ClCompile Include="filemanager.cpp" />
     <ClCompile Include="hw3d_device.cpp" />
     <ClCompile Include="hw3d_direct3d9_common.cpp" />
     <ClCompile Include="hw3d_direct3d9_context.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="dlg_controls.h" />
     <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
+    <ClInclude Include="filemanager.h" />
     <ClInclude Include="hw3d_context.h" />
     <ClInclude Include="hw3d_device.h" />
     <ClInclude Include="hw3d_direct3d9_common.h" />
