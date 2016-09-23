@@ -15,8 +15,8 @@ namespace App
 	wxSizerFlags ButtonPadding();
 
 	wxSizerFlags HorizontalPaddingFirst(int ratio);
-	wxSizerFlags HorizontalPadding(int ratio);
-	wxSizerFlags HorizontalPaddingLast(int ratio);
+	wxSizerFlags HorizontalPadding(int ratio, bool extra=false);
+	wxSizerFlags HorizontalPaddingLast(int ratio, bool extra = false);
 }
 
 #endif

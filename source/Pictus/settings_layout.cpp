@@ -34,12 +34,12 @@ namespace App
 		return wxSizerFlags(ratio).Expand().Border(wxLEFT | wxRIGHT | wxTOP, SizerInnerPadding);
 	}
 
-	wxSizerFlags HorizontalPadding(int ratio)
+	wxSizerFlags HorizontalPadding(int ratio, bool extra)
 	{
-		return wxSizerFlags(ratio).Expand().Border(wxLEFT | wxRIGHT, SizerInnerPadding);
+		return wxSizerFlags(ratio).Expand().Border(wxLEFT | wxRIGHT, SizerInnerPadding * (extra ? 3 : 1));
 	}
-	wxSizerFlags HorizontalPaddingLast(int ratio)
+	wxSizerFlags HorizontalPaddingLast(int ratio, bool extra)
 	{
-		return wxSizerFlags(ratio).Expand().Border(wxLEFT | wxRIGHT | wxBOTTOM, SizerInnerPadding);
+		return wxSizerFlags(ratio).Expand().Border(wxLEFT | wxRIGHT | wxBOTTOM, SizerInnerPadding * (extra ? 3 : 1));
 	}
 }

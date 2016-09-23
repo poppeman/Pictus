@@ -46,17 +46,17 @@ namespace App
 		auto posmethod = settings.View.ResizePositionMethod;
 		if (posmethod == ResizePositionMethod::PositionToScreen)
 		{
-			m_positionMethod->SetSelection(0);
+			m_positionMethod[0]->SetValue(true);
 		}
 
 		if (posmethod == ResizePositionMethod::PositionToCurrent)
 		{
-			m_positionMethod->SetSelection(1);
+			m_positionMethod[1]->SetValue(true);
 		}
 
 		if (posmethod == ResizePositionMethod::PositionNothing)
 		{
-			m_positionMethod->SetSelection(2);
+			m_positionMethod[2]->SetValue(true);
 		}
 	}
 
@@ -73,16 +73,17 @@ namespace App
 		settings.View.ResizeBehaviour = App::ResizeBehaviour(m_cbResizeBehavior->GetSelection());
 
 		auto posmethod = settings.View.ResizePositionMethod;
-		switch(m_positionMethod->GetSelection()) {
-			case 0:
-				posmethod = ResizePositionMethod::PositionToScreen;
-				break;
-			case 1:
-				posmethod = ResizePositionMethod::PositionToCurrent;
-				break;
-			case 2:
-				posmethod = ResizePositionMethod::PositionNothing;
-				break;
+		if (m_positionMethod[0]->GetValue())
+		{
+			posmethod = ResizePositionMethod::PositionToScreen;
+		}
+		else if (m_positionMethod[1]->GetValue())
+		{
+			posmethod = ResizePositionMethod::PositionToCurrent;
+		}
+		else
+		{
+			posmethod = ResizePositionMethod::PositionNothing;
 		}
 
 		settings.View.ResizePositionMethod = posmethod;
@@ -90,7 +91,10 @@ namespace App
 
 	void SetView::DoToggleResizeWindow(bool newState)
 	{
-		m_positionMethod->Enable(newState);
+		for (auto pm : m_positionMethod)
+		{
+			pm->Enable(newState);
+		}
 	}
 
 	wxChoice* SetView::SetupFilterBox(wxWindow* parent)
@@ -142,7 +146,7 @@ namespace App
 		m_resetZoom = new wxCheckBox(topmostBox->GetStaticBox(), wxID_ANY, wxString::FromUTF8(Intl::GetString(SIDSettingsViewerResetZoom)));
 
 		topmostBox->Add(CreateResizeAlgoSizer(topmostBox->GetStaticBox()), StaticBoxInnerPadding(0));
-		topmostBox->Add(m_resetZoom, HorizontalPadding(0));
+		topmostBox->Add(m_resetZoom, StaticBoxInnerPadding(0));
 		topmostBox->Add(CreateModeSizer(topmostBox->GetStaticBox()), StaticBoxInnerPadding(0));
 
 		return topmostBox;
@@ -191,11 +195,9 @@ namespace App
 	{
 		auto viewerBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsViewer));
 
-		wxArrayString positionMethods;
-		positionMethods.Add(wxString::FromUTF8(Intl::GetString(SIDSettingsViewerCenterScreen)));
-		positionMethods.Add(wxString::FromUTF8(Intl::GetString(SIDSettingsViewerCenterPosition)));
-		positionMethods.Add(wxString::FromUTF8(Intl::GetString(SIDSettingsViewerNoReposition)));
-		m_positionMethod = new wxRadioBox(viewerBox->GetStaticBox(), wxID_ANY, wxString(""), wxDefaultPosition, wxDefaultSize, positionMethods, 0, wxVERTICAL);
+		m_positionMethod.push_back(new wxRadioButton(viewerBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsViewerCenterScreen)));
+		m_positionMethod.push_back(new wxRadioButton(viewerBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsViewerCenterPosition)));
+		m_positionMethod.push_back(new wxRadioButton(viewerBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsViewerNoReposition)));
 
 		m_wrapAround = new wxCheckBox(viewerBox->GetStaticBox(), wxID_ANY, wxString::FromUTF8(Intl::GetString(SIDSettingsViewerWrapAround)));
 		m_resetPan = new wxCheckBox(viewerBox->GetStaticBox(), wxID_ANY, wxString::FromUTF8(Intl::GetString(SIDSettingsViewerResetPan)));
@@ -204,7 +206,9 @@ namespace App
 		viewerBox->Add(m_wrapAround, HorizontalPaddingFirst(0));
 		viewerBox->Add(m_resetPan, HorizontalPadding(0));
 		viewerBox->Add(m_adaptWindowSize, HorizontalPadding(0));
-		viewerBox->Add(m_positionMethod, HorizontalPaddingLast(0));
+		viewerBox->Add(m_positionMethod[0], HorizontalPadding(0, true));
+		viewerBox->Add(m_positionMethod[1], HorizontalPadding(0, true));
+		viewerBox->Add(m_positionMethod[2], HorizontalPaddingLast(0, true));
 
 		return viewerBox;
 	}

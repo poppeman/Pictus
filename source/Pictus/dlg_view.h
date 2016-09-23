@@ -4,7 +4,7 @@
 #include "settings_page.h"
 #include <wx/choice.h>
 #include <wx/checkbox.h>
-#include <wx/radiobox.h>
+#include <wx/radiobut.h>
 
 namespace App
 {
@@ -39,7 +39,7 @@ namespace App
 		wxCheckBox* m_resetPan;
 		wxCheckBox* m_adaptWindowSize;
 
-		wxRadioBox* m_positionMethod;
+		std::vector<wxRadioButton*> m_positionMethod;
 		wxSizer *CreateResizeAlgoSizer(wxWindow* parent);
 		wxSizer *CreateModeSizer(wxWindow* parent);
 
