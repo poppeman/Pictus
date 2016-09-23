@@ -4,14 +4,13 @@
 #include <wx/panel.h>
 #include <illa/color.h>
 #include <orz/geom.h>
-#include <wx/statbox.h>
 #include <wx/spinctrl.h>
 
 wxDECLARE_EVENT(COLOR_CHANGED_RGB, wxCommandEvent);
 
 namespace App
 {
-	class ControlColorRgb:public wxStaticBox
+	class ControlColorRgb:public wxPanel
 	{
 	public:
 		ControlColorRgb(wxWindow *parent, wxWindowID winid);

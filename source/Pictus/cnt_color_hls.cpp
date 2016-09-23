@@ -2,6 +2,8 @@
 #include "app_types.h"
 #include "wintypes.h"
 
+#include "settings_layout.h"
+
 #include <wx/statbox.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
@@ -17,20 +19,23 @@ namespace App
     END_EVENT_TABLE()
 
 	ControlColorHls::ControlColorHls(wxWindow* parent, wxWindowID winid):
-		wxStaticBox(parent, winid, Win::GetStringWx(SIDSettingsBackgroundColorHLS))
+		wxPanel(parent, winid)
 	{
+		auto box = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsBackgroundColorHLS));
 		auto sizer = new  wxFlexGridSizer(2, 5, 5);
-		m_h = new wxSpinCtrl(this, HId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::HueCap, 0);
-		m_l = new wxSpinCtrl(this, LId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::LumCap * 100, 0);
-		m_s = new wxSpinCtrl(this, SId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::SatCap * 100, 0);
-		sizer->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorHue)));
-		sizer->Add(m_h, wxSizerFlags(0));
-		sizer->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorLuminance)));
-		sizer->Add(m_l, wxSizerFlags(0));
-		sizer->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorSaturation)));
-		sizer->Add(m_s, wxSizerFlags(0));
+		sizer->AddGrowableCol(1, 1);
+		box->Add(sizer, StaticBoxInnerPadding(1));
+		m_h = new wxSpinCtrl(box->GetStaticBox(), HId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::HueCap, 0);
+		m_l = new wxSpinCtrl(box->GetStaticBox(), LId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::LumCap * 100, 0);
+		m_s = new wxSpinCtrl(box->GetStaticBox(), SId, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT, 0, Img::SatCap * 100, 0);
+		sizer->Add(new wxStaticText(box->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorHue)));
+		sizer->Add(m_h, wxSizerFlags(1).Expand());
+		sizer->Add(new wxStaticText(box->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorLuminance)));
+		sizer->Add(m_l, wxSizerFlags(1).Expand());
+		sizer->Add(new wxStaticText(box->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorSaturation)));
+		sizer->Add(m_s, wxSizerFlags(1).Expand());
 
-		SetSizerAndFit(sizer);
+		SetSizerAndFit(box);
 	}
 
 	void ControlColorHls::SetHls(Img::HLSTriplet col)

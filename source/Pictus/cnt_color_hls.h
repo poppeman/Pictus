@@ -5,13 +5,12 @@
 #include <illa/color.h>
 #include <orz/geom.h>
 #include <wx/spinctrl.h>
-#include <wx/statbox.h>
 
 wxDECLARE_EVENT(COLOR_CHANGED_HLS, wxCommandEvent);
 
 namespace App
 {
-	class ControlColorHls:public wxStaticBox
+	class ControlColorHls:public wxPanel
 	{
 	public:
 		ControlColorHls(wxWindow *parent, wxWindowID winid);
@@ -24,7 +23,8 @@ namespace App
 
 		void OnChange(wxSpinEvent& evt);
 
-		enum {
+		enum
+		{
 			HId,
 			LId,
 			SId

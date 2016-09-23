@@ -1,7 +1,9 @@
 #include "dlg_color.h"
 #include "registry.h"
 #include "wintypes.h"
+#include "settings_layout.h"
 #include <wx/sizer.h>
+#include <wx/stattext.h>
 
 namespace App
 {
@@ -32,24 +34,28 @@ namespace App
 		auto pickerPart = new wxBoxSizer(wxHORIZONTAL);
 		m_colorPicker = new ControlColorPicker(this, ColorPickerId, {0, 0}, {256, 256});
 		m_saturation = new wxSlider(this, SaturationId, 1, 1, Img::SatCap * 100, wxDefaultPosition, wxDefaultSize, wxVERTICAL);
-		pickerPart->Add(m_colorPicker, wxSizerFlags(1).Expand());
-		pickerPart->Add(m_saturation, wxSizerFlags(0).Expand());
+		pickerPart->Add(m_colorPicker, wxSizerFlags(1).Expand().Border(wxRIGHT, GetPadding()));
+
+		auto satColumn = new wxBoxSizer(wxVERTICAL);
+		satColumn->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDSettingsBackgroundColorSaturation)), wxSizerFlags(0));
+		satColumn->Add(m_saturation, wxSizerFlags(1));
+		pickerPart->Add(satColumn, wxSizerFlags(0).Expand());
 
 		auto previewBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsBackgroundColorPreview));
-		m_previewPanel = new ControlColorPreview(previewBox->GetStaticBox(), wxID_ANY, {0, 0}, {80, 128});
-		previewBox->Add(m_previewPanel, wxSizerFlags(0));
+		m_previewPanel = new ControlColorPreview(previewBox->GetStaticBox(), wxID_ANY, { 0, 0 }, { 100, wxDefaultCoord });
+		previewBox->Add(m_previewPanel, StaticBoxInnerPadding(1));
 
 
 		m_hls = new ControlColorHls(this, HlsId);
 		m_rgb = new ControlColorRgb(this, RgbId);
 
 		auto editPart = new wxBoxSizer(wxHORIZONTAL);
-		editPart->Add(previewBox, wxSizerFlags(0));
-		editPart->Add(m_rgb, wxSizerFlags(0).Expand());
-		editPart->Add(m_hls, wxSizerFlags(0).Expand());
+		editPart->Add(previewBox, StaticBoxInnerPadding(0));
+		editPart->Add(m_rgb, StaticBoxInnerPadding(1));
+		editPart->Add(m_hls, StaticBoxInnerPadding(1));
 
-		topSizer->Add(pickerPart, wxSizerFlags(0));
-		topSizer->Add(editPart);
+		topSizer->Add(pickerPart, StaticBoxOuterPadding(0));
+		topSizer->Add(editPart, StaticBoxOuterPadding(0));
 
 		SetSizerAndFit(topSizer);
 	}

@@ -19,6 +19,10 @@ namespace App
 		m_useRGB{false}
 	{
 		CreateColorBitmap();
+
+		auto sizeEvent = [=](wxSizeEvent& evt) { CreateColorBitmap(); Refresh(false); };
+		Bind(wxEVT_SIZING, sizeEvent);
+		Bind(wxEVT_SIZE, sizeEvent);
 	}
 
 	void ControlColorPicker::OnPaint(wxPaintEvent &paintEvent)
