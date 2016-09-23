@@ -40,6 +40,8 @@ namespace App {
 
 		Img::Image::Ptr Image() const;
 
+		Img::Properties Properties() const;
+
 		void BackgroundColor(const Img::Color& col);
 		const Img::Color& BackgroundColor() const;
 

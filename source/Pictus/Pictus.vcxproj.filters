@@ -335,6 +335,9 @@
     <ClCompile Include="settings_layout.cpp">
       <Filter>Settings</Filter>
     </ClCompile>
+    <ClCompile Include="clipboard.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -615,6 +618,9 @@
     </ClInclude>
     <ClInclude Include="settings_layout.h">
       <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="clipboard.h">
+      <Filter>Viewer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

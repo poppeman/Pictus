@@ -206,6 +206,7 @@
   <ItemGroup>
     <ClCompile Include="adjust.cpp" />
     <ClCompile Include="app_types.cpp" />
+    <ClCompile Include="clipboard.cpp" />
     <ClCompile Include="cnt_color_hls.cpp" />
     <ClCompile Include="cnt_color_rgb.cpp" />
     <ClCompile Include="ctrl_keypress.cpp" />
@@ -293,6 +294,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adjust.h" />
+    <ClInclude Include="clipboard.h" />
     <ClInclude Include="cnt_color_hls.h" />
     <ClInclude Include="cnt_color_rgb.h" />
     <ClInclude Include="ctrl_keypress.h" />

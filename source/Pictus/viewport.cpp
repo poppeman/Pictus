@@ -110,6 +110,11 @@ namespace App {
 		return m_image;
 	}
 
+	Img::Properties ViewPort::Properties() const
+	{
+		return m_props;
+	}
+
 	void ViewPort::BackgroundColor(const Img::Color& col) {
 		m_props.BackgroundColor = col;
 		m_canvas->SetBackgroundColour(wxColour(col.R, col.G, col.B, col.A));
