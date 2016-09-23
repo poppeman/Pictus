@@ -183,7 +183,6 @@ namespace App {
 		void HandleFolderNotification();
 
 		void AddNotification(const CacheNotification& notification);
-		void HandleCacheNotification();
 
 		Geom::PointInt calculateWindowTopLeft( ResizePositionMethod method, const Geom::SizeInt &newSize );
 		Geom::SizeInt calculateImageSize( ResizeBehaviour mode, float xratio, float yratio, const Geom::SizeInt &imageSize, const Geom::SizeInt &windowEdges );

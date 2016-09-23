@@ -85,7 +85,43 @@ namespace App {
 
 	void Viewer::OnImageLoadEvent(wxCommandEvent &e)
 	{
-		HandleCacheNotification();
+		std::unique_lock<std::mutex> l(m_mutexNotification);
+		if (m_cacheNotifications.empty()) {
+			DO_THROW(Err::CriticalError, "Notification queue is empty.");
+		}
+
+		CacheNotification notification = m_cacheNotifications.front();
+		m_cacheNotifications.pop_front();
+		l.unlock();
+
+		if (notification.message == Img::MessageReceiver::LoadErrorCritical) {
+			/*m_exceptionDescription = notification.desc;
+			m_exceptionOcurred = true;
+			PostMessage(Handle(), WM_CLOSE, 0, 0);*/
+		}
+		if (notification.image == m_viewPort.Image().get()) {
+			switch (notification.message) {
+			case Img::MessageReceiver::LoadDone:
+				m_viewPort.ImageUpdated();
+				UpdateImageInformation();
+				m_viewPort.Refresh();
+				break;
+			case Img::MessageReceiver::LoadAllocated:
+				m_viewPort.ImageUpdated();
+				ImageChanged();
+				break;
+			case Img::MessageReceiver::LoadHeader:
+				UpdateImageInformation();
+				break;
+			case Img::MessageReceiver::LoadErrorImage:
+				UpdateImageInformation();
+				break;
+			}
+
+			if (m_attemptToShow && notification.message >= Img::MessageReceiver::LoadAllocated) {
+				Show(true);
+			}
+		}
 	}
 
 	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg):
@@ -677,46 +713,6 @@ namespace App {
 
 	void Viewer::OnLoadMessage(Img::MessageReceiver::LoadMessage msg, Img::Image* pImage, const std::string& desc) {
 		AddNotification({pImage, msg, desc});
-	}
-
-	void Viewer::HandleCacheNotification() {
-		std::unique_lock<std::mutex> l(m_mutexNotification);
-		if (m_cacheNotifications.empty()) {
-			DO_THROW(Err::CriticalError, "Notification queue is empty.");
-		}
-
-		CacheNotification notification = m_cacheNotifications.front();
-		m_cacheNotifications.pop_front();
-		l.unlock();
-
-		if(notification.message == Img::MessageReceiver::LoadErrorCritical) {
-			/*m_exceptionDescription = notification.desc;
-			m_exceptionOcurred = true;
-			PostMessage(Handle(), WM_CLOSE, 0, 0);*/
-		}
-		if (notification.image == m_viewPort.Image().get()) {
-			switch (notification.message) {
-				case Img::MessageReceiver::LoadDone:
-					m_viewPort.ImageUpdated();
-					UpdateImageInformation();
-					m_viewPort.Refresh();
-					break;
-				case Img::MessageReceiver::LoadAllocated:
-					m_viewPort.ImageUpdated();
-					ImageChanged();
-					break;
-				case Img::MessageReceiver::LoadHeader:
-					UpdateImageInformation();
-					break;
-				case Img::MessageReceiver::LoadErrorImage:
-					UpdateImageInformation();
-					break;
-			}
-
-			if(m_attemptToShow && notification.message >= Img::MessageReceiver::LoadAllocated) {
-                Show(true);
-            }
-		}
 	}
 
 	void Viewer::HandleFolderNotification() {
