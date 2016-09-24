@@ -1,152 +1,183 @@
-#include "res_settings.h"
-#include "dlg_controls.h"
 #include "registry.h"
+#include "dlg_controls.h"
+#include "wintypes.h"
+#include <wx/statbox.h>
+#include <wx/stattext.h>
+#include "settings_layout.h"
 
-namespace App {
+namespace App
+{
 	using namespace Intl;
 
-	bool SetControls::PerformOnInitPage() {
-		Caption(SIDSettingsControls);
-
-		ControlText(IDC_GROUP_CLICK, SIDSettingsControlsClick);
-		ControlText(IDC_TEXT_CTRL_LMOUSECLICK, SIDSettingsControlsLeftMouse);
-		ControlText(IDC_TEXT_CTRL_MMOUSECLICK, SIDSettingsControlsMiddleMouse);
-		ControlText(IDC_TEXT_CTRL_RMOUSECLICK, SIDSettingsControlsRightMouse);
-		ControlText(IDC_TEXT_CTRL_XMOUSE1CLICK, SIDSettingsControlsExtra1Mouse);
-		ControlText(IDC_TEXT_CTRL_XMOUSE2CLICK, SIDSettingsControlsExtra2Mouse);
-
-		ControlText(IDC_GROUP_DOUBLECLICK, SIDSettingsControlsDoubleClick);
-		ControlText(IDC_TEXT_CTRL_LMOUSEDOUBLECLICK, SIDSettingsControlsLeftMouse);
-		ControlText(IDC_TEXT_CTRL_MMOUSEDOUBLECLICK, SIDSettingsControlsMiddleMouse);
-		ControlText(IDC_TEXT_CTRL_RMOUSEDOUBLECLICK, SIDSettingsControlsRightMouse);
-		ControlText(IDC_TEXT_CTRL_XMOUSE1DOUBLECLICK, SIDSettingsControlsExtra1Mouse);
-		ControlText(IDC_TEXT_CTRL_XMOUSE2DOUBLECLICK, SIDSettingsControlsExtra2Mouse);
-
-		ControlText(IDC_GROUP_MWHEEL, SIDSettingsControlsScrollWheel);
-		ControlText(IDC_TEXT_CTRL_MWHEELUP, SIDSettingsControlsWheelUp);
-		ControlText(IDC_TEXT_CTRL_MWHEELDOWN, SIDSettingsControlsWheelDown);
-
-		m_cbLeftMouse = CreateComboBox(IDC_COMBO_CTRL_LMOUSE);
-		m_cbMiddleMouse = CreateComboBox(IDC_COMBO_CTRL_MMOUSE);
-		m_cbRightMouse = CreateComboBox(IDC_COMBO_CTRL_RMOUSE);
-		m_cbExtra1Mouse = CreateComboBox(IDC_COMBO_CTRL_XMOUSE1);
-		m_cbExtra2Mouse = CreateComboBox(IDC_COMBO_CTRL_XMOUSE2);
-
-		m_cbLeftMouseDoubleClick = CreateComboBox(IDC_COMBO_CTRL_LMOUSEDBL);
-		m_cbMiddleMouseDoubleClick = CreateComboBox(IDC_COMBO_CTRL_MMOUSEDBL);
-		m_cbRightMouseDoubleClick = CreateComboBox(IDC_COMBO_CTRL_RMOUSEDBL);
-		m_cbExtra1MouseDoubleClick = CreateComboBox(IDC_COMBO_CTRL_XMOUSE1DBL);
-		m_cbExtra2MouseDoubleClick = CreateComboBox(IDC_COMBO_CTRL_XMOUSE2DBL);
-
-		m_cbWheelDown = CreateComboBox(IDC_COMBO_CTRL_MWHEELDOWN);
-		m_cbWheelUp = CreateComboBox(IDC_COMBO_CTRL_MWHEELUP);
-
-		initMouseButtonList(m_cbLeftMouse);
-		initMouseButtonList(m_cbMiddleMouse);
-		initMouseButtonList(m_cbRightMouse);
-		initMouseButtonList(m_cbExtra1Mouse);
-		initMouseButtonList(m_cbExtra2Mouse);
-
-		initMouseDblList(m_cbLeftMouseDoubleClick);
-		initMouseDblList(m_cbMiddleMouseDoubleClick);
-		initMouseDblList(m_cbRightMouseDoubleClick);
-		initMouseDblList(m_cbExtra1MouseDoubleClick);
-		initMouseDblList(m_cbExtra2MouseDoubleClick);
-
-		initMouseWheelList(m_cbWheelUp);
-		initMouseWheelList(m_cbWheelDown);
-
-		return true;
+	std::string App::SetControls::Caption()
+	{
+		return Intl::GetString(SIDSettingsControls);
 	}
 
-	void SetControls::PerformUpdateFromSettings(const Reg::Settings& settings) {
-		m_cbLeftMouse->SetSelection(settings.Mouse.OnMouseLeft);
-		m_cbMiddleMouse->SetSelection(settings.Mouse.OnMouseMiddle);
-		m_cbRightMouse->SetSelection(settings.Mouse.OnMouseRight);
-		m_cbExtra1Mouse->SetSelection(settings.Mouse.OnMouseExtra1);
-		m_cbExtra2Mouse->SetSelection(settings.Mouse.OnMouseExtra2);
+	class MouseActionClientData:public wxClientData
+	{
+	public:
+		MouseAction Action;
 
-		m_cbLeftMouseDoubleClick->SetSelection(settings.Mouse.OnMouseLeftDbl);
-		m_cbMiddleMouseDoubleClick->SetSelection(settings.Mouse.OnMouseMiddleDbl);
-		m_cbRightMouseDoubleClick->SetSelection(settings.Mouse.OnMouseRightDbl);
-		m_cbExtra1MouseDoubleClick->SetSelection(settings.Mouse.OnMouseExtra1Dbl);
-		m_cbExtra2MouseDoubleClick->SetSelection(settings.Mouse.OnMouseExtra2Dbl);
+		MouseActionClientData(MouseAction action):Action(action) {}
+	};
 
-		m_cbWheelUp->SetSelection(settings.Mouse.OnMouseWheelUp);
-		m_cbWheelDown->SetSelection(settings.Mouse.OnMouseWheelDown);
+	SetControls::SetControls(wxWindow *parent) :
+		App::SettingsPage{parent},
+		m_cbLeftMouse{nullptr},
+		m_cbMiddleMouse{nullptr},
+		m_cbRightMouse{nullptr},
+		m_cbExtra1Mouse{nullptr},
+		m_cbExtra2Mouse{nullptr},
+		m_cbLeftMouseDoubleClick{nullptr},
+		m_cbMiddleMouseDoubleClick{nullptr},
+		m_cbRightMouseDoubleClick{nullptr},
+		m_cbExtra1MouseDoubleClick{nullptr},
+		m_cbExtra2MouseDoubleClick{nullptr},
+		m_cbWheelUp{nullptr},
+		m_cbWheelDown{nullptr}
+	{
+		auto clickGroup = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsControlsClick));
+		m_cbLeftMouse = initMouseButtonList(clickGroup, SIDSettingsControlsLeftMouse);
+		m_cbMiddleMouse = initMouseButtonList(clickGroup, SIDSettingsControlsMiddleMouse);
+		m_cbRightMouse = initMouseButtonList(clickGroup, SIDSettingsControlsRightMouse);
+		m_cbExtra1Mouse = initMouseButtonList(clickGroup, SIDSettingsControlsExtra1Mouse);
+		m_cbExtra2Mouse = initMouseButtonList(clickGroup, SIDSettingsControlsExtra2Mouse);
+
+		auto dblClickGroup = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsControlsDoubleClick));
+		m_cbLeftMouseDoubleClick = initMouseDblList(dblClickGroup, SIDSettingsControlsLeftMouse);
+		m_cbMiddleMouseDoubleClick = initMouseDblList(dblClickGroup, SIDSettingsControlsMiddleMouse);
+		m_cbRightMouseDoubleClick = initMouseDblList(dblClickGroup, SIDSettingsControlsRightMouse);
+		m_cbExtra1MouseDoubleClick = initMouseDblList(dblClickGroup, SIDSettingsControlsExtra1Mouse);
+		m_cbExtra2MouseDoubleClick = initMouseDblList(dblClickGroup, SIDSettingsControlsExtra2Mouse);
+
+		auto mouseWheelGroup = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsControlsScrollWheel));
+		m_cbWheelUp = initMouseWheelList(mouseWheelGroup, SIDSettingsControlsWheelUp);
+		m_cbWheelDown = initMouseWheelList(mouseWheelGroup, SIDSettingsControlsWheelDown);
+
+		auto topSizer = new wxBoxSizer(wxVERTICAL);
+		topSizer->Add(clickGroup, StaticBoxOuterPadding(0));
+		topSizer->Add(dblClickGroup, StaticBoxOuterPadding(0));
+		topSizer->Add(mouseWheelGroup, StaticBoxOuterPadding(0));
+
+		SetSizerAndFit(topSizer);
+	}
+
+	void SetControls::PerformUpdateFromSettings(const Reg::Settings &settings)
+	{
+		SetComboAction(m_cbLeftMouse, settings.Mouse.OnMouseLeft);
+		SetComboAction(m_cbMiddleMouse, settings.Mouse.OnMouseMiddle);
+		SetComboAction(m_cbRightMouse, settings.Mouse.OnMouseRight);
+		SetComboAction(m_cbExtra1Mouse, settings.Mouse.OnMouseExtra1);
+		SetComboAction(m_cbExtra2Mouse, settings.Mouse.OnMouseExtra2);
+
+		SetComboAction(m_cbLeftMouseDoubleClick, settings.Mouse.OnMouseLeftDbl);
+		SetComboAction(m_cbMiddleMouseDoubleClick, settings.Mouse.OnMouseMiddleDbl);
+		SetComboAction(m_cbRightMouseDoubleClick, settings.Mouse.OnMouseRightDbl);
+		SetComboAction(m_cbExtra1MouseDoubleClick, settings.Mouse.OnMouseExtra1Dbl);
+		SetComboAction(m_cbExtra2MouseDoubleClick, settings.Mouse.OnMouseExtra2Dbl);
+
+		SetComboAction(m_cbWheelUp, settings.Mouse.OnMouseWheelUp);
+		SetComboAction(m_cbWheelDown, settings.Mouse.OnMouseWheelDown);
 	}
 
 
-	void SetControls::onWriteSettings(Reg::Settings& settings) {
-		settings.Mouse.OnMouseLeft = App::MouseAction(m_cbLeftMouse->GetSelectionData());
-		settings.Mouse.OnMouseMiddle = App::MouseAction(m_cbMiddleMouse->GetSelectionData());
-		settings.Mouse.OnMouseRight = App::MouseAction(m_cbRightMouse->GetSelectionData());
-		settings.Mouse.OnMouseExtra1 = App::MouseAction(m_cbExtra1Mouse->GetSelectionData());
-		settings.Mouse.OnMouseExtra2 = App::MouseAction(m_cbExtra2Mouse->GetSelectionData());
+	void SetControls::onWriteSettings(Reg::Settings &settings)
+	{
+		settings.Mouse.OnMouseLeft = GetComboAction(m_cbLeftMouse);
+		settings.Mouse.OnMouseMiddle = GetComboAction(m_cbMiddleMouse);
+		settings.Mouse.OnMouseRight = GetComboAction(m_cbRightMouse);
+		settings.Mouse.OnMouseExtra1 = GetComboAction(m_cbExtra1Mouse);
+		settings.Mouse.OnMouseExtra2 = GetComboAction(m_cbExtra2Mouse);
 
-		settings.Mouse.OnMouseLeftDbl = App::MouseAction(m_cbLeftMouseDoubleClick->GetSelectionData());
-		settings.Mouse.OnMouseMiddleDbl = App::MouseAction(m_cbMiddleMouseDoubleClick->GetSelectionData());
-		settings.Mouse.OnMouseRightDbl = App::MouseAction(m_cbRightMouseDoubleClick->GetSelectionData());
-		settings.Mouse.OnMouseExtra1Dbl = App::MouseAction(m_cbExtra1MouseDoubleClick->GetSelectionData());
-		settings.Mouse.OnMouseExtra2Dbl = App::MouseAction(m_cbExtra2MouseDoubleClick->GetSelectionData());
+		settings.Mouse.OnMouseLeftDbl = GetComboAction(m_cbLeftMouseDoubleClick);
+		settings.Mouse.OnMouseMiddleDbl = GetComboAction(m_cbMiddleMouseDoubleClick);
+		settings.Mouse.OnMouseRightDbl = GetComboAction(m_cbRightMouseDoubleClick);
+		settings.Mouse.OnMouseExtra1Dbl = GetComboAction(m_cbExtra1MouseDoubleClick);
+		settings.Mouse.OnMouseExtra2Dbl = GetComboAction(m_cbExtra2MouseDoubleClick);
 
-		settings.Mouse.OnMouseWheelUp = App::MouseAction(m_cbWheelUp->GetSelectionData());
-		settings.Mouse.OnMouseWheelDown = App::MouseAction(m_cbWheelDown->GetSelectionData());
+		settings.Mouse.OnMouseWheelUp = GetComboAction(m_cbWheelUp);
+		settings.Mouse.OnMouseWheelDown = GetComboAction(m_cbWheelDown);
 	}
 
-	SetControls::SetControls():
-		App::SettingsPage(IDD_SET_CTRL_MOUSE),
-		m_cbLeftMouse{ nullptr },
-		m_cbMiddleMouse{ nullptr },
-		m_cbRightMouse{ nullptr },
-		m_cbExtra1Mouse{ nullptr },
-		m_cbExtra2Mouse{ nullptr },
-		m_cbLeftMouseDoubleClick{ nullptr },
-		m_cbMiddleMouseDoubleClick{ nullptr },
-		m_cbRightMouseDoubleClick{ nullptr },
-		m_cbExtra1MouseDoubleClick{ nullptr },
-		m_cbExtra2MouseDoubleClick{ nullptr },
-		m_cbWheelUp{ nullptr },
-		m_cbWheelDown{ nullptr }
-	{}
-
-	void SetControls::initMouseButtonList(Win::ComboBox* ctrl) {
-		ctrl->Reset();
-		ctrl->AddItem(SIDActionDisable, MouseDisable);
-		ctrl->AddItem(SIDActionPan, MousePan);
-		ctrl->AddItem(SIDActionContextMenu, MouseContext);
-		ctrl->AddItem(SIDActionToggleFullSizeDefaultZoom, MouseToggleFullSizeDefaultZoom);
-		ctrl->AddItem(SIDActionFullscreen, MouseFullscreen);
-		ctrl->AddItem(SIDActionNextImage, MouseNextImage);
-		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
-		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
-		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
-		ctrl->AddItem(SIDActionRotateLeft, MouseRotateLeft);
-		ctrl->AddItem(SIDActionRotateRight, MouseRotateRight);
+	App::MouseAction SetControls::GetComboAction(wxChoice *cb)
+	{
+		return dynamic_cast<MouseActionClientData*>(cb->GetClientObject(cb->GetSelection()))->Action;
 	}
 
-	void SetControls::initMouseDblList(Win::ComboBox* ctrl) {
-		ctrl->Reset();
-		ctrl->AddItem(SIDActionDisable, MouseDisable);
-		ctrl->AddItem(SIDActionContextMenu, MouseContext);
-		ctrl->AddItem(SIDActionToggleFullSizeDefaultZoom, MouseToggleFullSizeDefaultZoom);
-		ctrl->AddItem(SIDActionFullscreen, MouseFullscreen);
-		ctrl->AddItem(SIDActionNextImage, MouseNextImage);
-		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
-		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
-		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
-		ctrl->AddItem(SIDActionRotateLeft, MouseRotateLeft);
-		ctrl->AddItem(SIDActionRotateRight, MouseRotateRight);
+	void SetControls::SetComboAction(wxChoice *cb, App::MouseAction action)
+	{
+		for(unsigned i=0; i < cb->GetCount(); i++)
+		{
+			if(dynamic_cast<MouseActionClientData*>(cb->GetClientObject(i))->Action == action)
+			{
+				cb->SetSelection(i);
+				return;
+			}
+		}
 	}
 
-	void SetControls::initMouseWheelList(Win::ComboBox* ctrl) {
-		ctrl->Reset();
-		ctrl->AddItem(SIDActionDisable, MouseDisable);
-		ctrl->AddItem(SIDActionNextImage, MouseNextImage);
-		ctrl->AddItem(SIDActionPreviousImage, MousePrevImage);
-		ctrl->AddItem(SIDActionZoomIn, MouseZoomIn);
-		ctrl->AddItem(SIDActionZoomOut, MouseZoomOut);
-		ctrl->AddItem(SIDActionRotateLeft, MouseRotateLeft);
-		ctrl->AddItem(SIDActionRotateRight, MouseRotateRight);
+	wxChoice* SetControls::initMouseButtonList(wxStaticBoxSizer* parent, StringID label)
+	{
+		auto ctrl = new wxChoice(parent->GetStaticBox(), wxID_ANY);
+		ctrl->Append(Win::GetStringWx(SIDActionDisable), new MouseActionClientData(MouseDisable));
+		ctrl->Append(Win::GetStringWx(SIDActionPan), new MouseActionClientData(MousePan));
+		ctrl->Append(Win::GetStringWx(SIDActionContextMenu), new MouseActionClientData(MouseContext));
+		ctrl->Append(Win::GetStringWx(SIDActionToggleFullSizeDefaultZoom), new MouseActionClientData(MouseToggleFullSizeDefaultZoom));
+		ctrl->Append(Win::GetStringWx(SIDActionFullscreen), new MouseActionClientData(MouseFullscreen));
+		ctrl->Append(Win::GetStringWx(SIDActionNextImage), new MouseActionClientData(MouseNextImage));
+		ctrl->Append(Win::GetStringWx(SIDActionPreviousImage), new MouseActionClientData(MousePrevImage));
+		ctrl->Append(Win::GetStringWx(SIDActionZoomIn), new MouseActionClientData(MouseZoomIn));
+		ctrl->Append(Win::GetStringWx(SIDActionZoomOut), new MouseActionClientData(MouseZoomOut));
+		ctrl->Append(Win::GetStringWx(SIDActionRotateLeft), new MouseActionClientData(MouseRotateLeft));
+		ctrl->Append(Win::GetStringWx(SIDActionRotateRight), new MouseActionClientData(MouseRotateRight));
+
+		auto row = new wxBoxSizer(wxHORIZONTAL);
+		row->Add(ctrl, wxSizerFlags(0).Border(wxRIGHT, GetPadding()));
+		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
+
+		parent->Add(row, StaticBoxInnerPadding(0));
+		return ctrl;
+	}
+
+	wxChoice* SetControls::initMouseDblList(wxStaticBoxSizer* parent, StringID label)
+	{
+		auto ctrl = new wxChoice(parent->GetStaticBox(), wxID_ANY);
+		ctrl->Append(Win::GetStringWx(SIDActionDisable), new MouseActionClientData(MouseDisable));
+		ctrl->Append(Win::GetStringWx(SIDActionContextMenu), new MouseActionClientData(MouseContext));
+		ctrl->Append(Win::GetStringWx(SIDActionToggleFullSizeDefaultZoom), new MouseActionClientData(MouseToggleFullSizeDefaultZoom));
+		ctrl->Append(Win::GetStringWx(SIDActionFullscreen), new MouseActionClientData(MouseFullscreen));
+		ctrl->Append(Win::GetStringWx(SIDActionNextImage), new MouseActionClientData(MouseNextImage));
+		ctrl->Append(Win::GetStringWx(SIDActionPreviousImage), new MouseActionClientData(MousePrevImage));
+		ctrl->Append(Win::GetStringWx(SIDActionZoomIn), new MouseActionClientData(MouseZoomIn));
+		ctrl->Append(Win::GetStringWx(SIDActionZoomOut), new MouseActionClientData(MouseZoomOut));
+		ctrl->Append(Win::GetStringWx(SIDActionRotateLeft), new MouseActionClientData(MouseRotateLeft));
+		ctrl->Append(Win::GetStringWx(SIDActionRotateRight), new MouseActionClientData(MouseRotateRight));
+
+		auto row = new wxBoxSizer(wxHORIZONTAL);
+		row->Add(ctrl, wxSizerFlags(0).Border(wxRIGHT, GetPadding()));
+		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
+
+		parent->Add(row, StaticBoxInnerPadding(0));
+		return ctrl;
+	}
+
+	wxChoice* SetControls::initMouseWheelList(wxStaticBoxSizer* parent, StringID label)
+	{
+		auto ctrl = new wxChoice(parent->GetStaticBox(), wxID_ANY);
+		ctrl->Append(Win::GetStringWx(SIDActionDisable), new MouseActionClientData(MouseDisable));
+		ctrl->Append(Win::GetStringWx(SIDActionNextImage), new MouseActionClientData(MouseNextImage));
+		ctrl->Append(Win::GetStringWx(SIDActionPreviousImage), new MouseActionClientData(MousePrevImage));
+		ctrl->Append(Win::GetStringWx(SIDActionZoomIn), new MouseActionClientData(MouseZoomIn));
+		ctrl->Append(Win::GetStringWx(SIDActionZoomOut), new MouseActionClientData(MouseZoomOut));
+		ctrl->Append(Win::GetStringWx(SIDActionRotateLeft), new MouseActionClientData(MouseRotateLeft));
+		ctrl->Append(Win::GetStringWx(SIDActionRotateRight), new MouseActionClientData(MouseRotateRight));
+
+		auto row = new wxBoxSizer(wxHORIZONTAL);
+		row->Add(ctrl, wxSizerFlags(0).Border(wxRIGHT, GetPadding()));
+		row->Add(new wxStaticText(parent->GetStaticBox(), wxID_ANY, Win::GetStringWx(label)), wxSizerFlags(0));
+
+		parent->Add(row, StaticBoxInnerPadding(0));
+		return ctrl;
 	}
 }

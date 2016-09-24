@@ -7,7 +7,6 @@
 #include "imagecache.h"
 
 #include "w32_rendertarget.h"
-#include "window.h"
 
 #include "adjust.h"
 #include "settings.h"
@@ -19,26 +18,29 @@
 #include "appreg.h"
 
 #include "viewer_contextmenu.h"
+#include "viewer_droptarget.h"
 #include "viewer_keyboard.h"
 #include "actionmap.h"
-#include "ctrl_statusbar.h"
-#include "imagelist.h"
 
 #include <random>
 
 #include <ctime>
+#include <wx/frame.h>
 
 namespace App {
-	class Viewer:public Win::Window, public Img::MessageReceiver {
+	class Viewer:public wxFrame, public Img::MessageReceiver {
 	public:
-		static const wchar_t* ClassName;
 		static const wchar_t* AppTitle;
 
-		bool Show(bool doShow);
 		Img::Image::Ptr ActiveImage() const;
-		void ActiveImage(Img::Image::Ptr pImage);
 
-		Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config, const std::string params = "");
+		void ActiveImage(Img::Image::Ptr pImage);
+		void SetImageLocation(std::string path);
+
+		void CreateWindow();
+		bool Init(const std::string params);
+
+		Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config);
 		~Viewer();
 
 	private:
@@ -73,13 +75,18 @@ namespace App {
 		};
 
 		enum {
-			StatFieldZoomWidth =	50,
-			StatFieldImageDimWidth= 80,
-			StatFieldPosWidth =		50,
-			StatFieldTimeWidth =	110,
+			StatFieldZoomWidth =	60,
+			StatFieldImageDimWidth= 100,
+			StatFieldPosWidth =		80,
+			StatFieldTimeWidth =	170,
 			StatFieldFileSizeWidth=	80,
-			StatFieldLastModified = 110,
+			StatFieldLastModified = 180,
 		};
+
+		void OnMouseStandardEvent(wxMouseEvent& e);
+		void OnMouseDoubleEvent(wxMouseEvent& e);
+		void OnSizeEvent(wxSizeEvent& e);
+		void OnImageLoadEvent(wxCommandEvent& e);
 
 		void AdjustChange(int brightness, int contrast, int gamma);
 		void ShowAdjust();
@@ -91,31 +98,17 @@ namespace App {
 
 		void Sort(Img::Cacher::SortMethod m);
 
-		bool PerformOnCreate();
-
-		bool PerformOnWindowCreate();
 		bool PerformOnClose();
 
-		bool PerformOnSize(const Geom::SizeInt& sz);
-		bool PerformOnMove(const Geom::PointInt& pt, bool byUser);
-		bool PerformOnDropFiles(const StringVector& files);
+		void OnMoveEvent(wxMoveEvent& e);
 
-		bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
-
-		void SetImageLocation(const std::string& path);
-
-		bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
-		bool PerformOnCreateTaskbar();
-		bool PerformOnTaskbarButton(int id);
-
+		//bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
 		void UpdateImageInformation();
 
 		std::string UII_MemoryUsage(FileInt size);
 		std::string UII_LoadProgress(Img::Image::Ptr image);
 		std::string UII_ImageResolution(Img::Image::Ptr image);
 		std::string UII_LastModified(std::time_t date);
-
-		bool RecalculateViewportSize();
 
 		void ZoomIn();
 		void ZoomOut();
@@ -187,7 +180,6 @@ namespace App {
 		void HandleFolderNotification();
 
 		void AddNotification(const CacheNotification& notification);
-		void HandleCacheNotification();
 
 		Geom::PointInt calculateWindowTopLeft( ResizePositionMethod method, const Geom::SizeInt &newSize );
 		Geom::SizeInt calculateImageSize( ResizeBehaviour mode, float xratio, float yratio, const Geom::SizeInt &imageSize, const Geom::SizeInt &windowEdges );
@@ -198,9 +190,8 @@ namespace App {
 
 		boost::signals2::connection m_lang;
 
-		LONG_PTR m_previousWindowStyle;
+		long m_previousWindowStyle;
 		Geom::RectInt m_previousWindowRegion;
-		Geom::RectInt m_previousNonMaximizedWindowRegion;
 
 		// Cacher
 		Img::Cacher m_cacher;
@@ -211,13 +202,12 @@ namespace App {
 		bool m_doMaximize;
 
 		// Settings, adjust, stuff like that
-		Settings::Ptr m_settings;
-		Adjust m_adjust;
+		std::shared_ptr<Settings> m_settings;
+		std::shared_ptr<Adjust> m_adjust;
 
 		ViewPort m_viewPort;
 
-		Win::StatusBar::Ptr m_statusBar;
-		Win::StatusBarPart m_statusParts[StatusNumParts];
+		wxStatusBar* m_statusBar;
 
 		std::mutex m_mutexNotification;
 
@@ -230,9 +220,7 @@ namespace App {
 
 		ViewerContextMenu m_contextMenu;
 		ViewerKeyboard m_keys;
-		Win::ImageList m_shellTaskbarImageList;
-
-		HANDLE m_singleMutex;
+		DropTarget* m_dropTarget;
 
 		typedef ActionMapParam<MouseAction, Win::MouseEvent> MouseActionMap;
 		MouseActionMap m_mouseMap;
@@ -240,6 +228,18 @@ namespace App {
 		std::default_random_engine m_random;
 
 		Reg::Settings m_cfg;
+
+		Geom::PointInt PositionScreen();
+		Geom::PointInt CenterPositionScreen();
+		Geom::RectInt ClientRect();
+		void AlwaysOnTop(bool doAlwaysOnTop);
+
+		unsigned int DisplayFromPointFallback(Geom::PointInt position);
+
+		Geom::RectInt m_normalRect;
+		bool m_userInitiatedMove;
+
+		wxDECLARE_EVENT_TABLE();
 	};
 }
 

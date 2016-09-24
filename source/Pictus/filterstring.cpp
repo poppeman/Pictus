@@ -20,7 +20,7 @@ namespace App {
 			const Img::CodecFactoryStore::Info::ExtensionVector& exts=curr.Extensions;
 			bool first = true;
 
-			pretty_filter << curr.Description << " (";
+			pretty_filter << "|" << curr.Description << " (";
 
 			std::string filters;
 
@@ -30,12 +30,15 @@ namespace App {
 
 				match_all += "*." + exts[j];
 				filters += "*." + exts[j];
+				first = false;
 			}
-			pretty_filter << filters << ")" << (char)0 << filters << (char)0;
+			pretty_filter << filters << ")" << "|" << filters;
 		}
-		pretty_filter << Intl::GetString(App::SIDOpenAllImages) << " (" << match_all << ")" << (char)0 << match_all << (char)0 << (char)0;
 
-		return pretty_filter.str();
+		std::stringstream full_filter;
+		full_filter << Intl::GetString(App::SIDOpenAllImages) << " (" << match_all << ")" << "|" << match_all << pretty_filter.str();
+
+		return full_filter.str();
 	}
 
 	size_t FilterString::FilterCount() {

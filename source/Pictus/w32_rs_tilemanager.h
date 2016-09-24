@@ -3,7 +3,6 @@
 
 #include "illa/types.h"
 
-#include "w32_ddsurface.h"
 #include "w32_renderer.h"
 
 #include <deque>
@@ -19,7 +18,7 @@ namespace Win {
 		void SetViewportSize(const Geom::SizeInt& dims);
 
 		struct RequestedArea {
-			DDSurface::Ptr Surface;
+			std::shared_ptr<Hw3D::Texture> Surface;
 			Geom::RectInt WriteableArea;
 		};
 		RequestedArea RequestDDSurface(const Geom::RectInt& areaToRequest) const;
@@ -32,7 +31,7 @@ namespace Win {
 
 	private:
 		struct Tile {
-			DDSurface::Ptr surface;
+			std::shared_ptr<Hw3D::Texture> surface;
 			Geom::RectInt dirtyRect;
 		};
 

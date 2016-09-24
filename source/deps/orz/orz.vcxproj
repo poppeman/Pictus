@@ -139,6 +139,7 @@
     <ClInclude Include="file_writer.h" />
     <ClInclude Include="intl_language.h" />
     <ClInclude Include="intl_table_entry.h" />
+    <ClInclude Include="matrix.h" />
     <ClInclude Include="orz_math.h" />
     <ClInclude Include="stopwatch.h" />
     <ClInclude Include="streamconv.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="ByteOrder.cpp" />
     <ClCompile Include="exception.cpp" />
     <ClCompile Include="file_writer.cpp" />
+    <ClCompile Include="matrix.cpp" />
     <ClCompile Include="orz_math.cpp" />
     <ClCompile Include="stopwatch.cpp" />
     <ClCompile Include="streamconv.cpp" />

@@ -1,49 +1,56 @@
 #include "rename.h"
-#include "res_viewer.h"
-#include "ctrl_button.h"
+#include "wintypes.h"
+#include <wx/sizer.h>
+#include <wx/stattext.h>
+#include <wx/button.h>
 
-namespace App {
-	using namespace Intl;
-
+namespace App
+{
 	const std::string& Rename::Name()
 	{
 		return m_name;
 	}
 
-
-	bool Rename::PerformOnInitDialog() {
-		CreateButton(IDOK)->OnClick.connect([this]() { OnOk(); });
-		CreateButton(IDCANCEL)->OnClick.connect([this]() { OnCancel(); });
-
-		m_filename = CreateEditBox(IDC_EDIT_RENAME_NAME);
-		m_filename->Filterchars(Win::EditBox::FilterInvalidFilename, SIDRenameInvalidChars);
-		m_filename->Text(m_name);
-
-		// Apply language
-		Caption(SIDRename);
-		ControlText(IDC_TEXT_RENAME_FILENAME, SIDRenameNewFilename);
-		SendMessage(Handle(), WM_NEXTDLGCTL, (WPARAM)GetDlgItem(Handle(), IDC_EDIT_RENAME_NAME), true);
-		SendDlgItemMessage(Handle(), IDC_EDIT_RENAME_NAME, EM_SETSEL, 0, -1);
-
-		// Shield icons
-		//SendMessage(GetDlgItem(Handle(), IDOK), BCM_SETSHIELD, 0, TRUE);
-		return false;
-	}
-
-	void Rename::OnOk() {
-		auto newName = m_filename->Text();
+	void Rename::OnOk()
+	{
+		auto newName = ToAString(m_filename->GetValue());
 		bool ret = (newName != m_name);
 
 		m_name = newName;
-		EndDialog(Handle(), ret);
+		EndModal(1);
 	}
 
-	void Rename::OnCancel() {
-		EndDialog(Handle(), 0);
+	void Rename::OnCancel()
+	{
+		EndModal(0);
 	}
 
-	Rename::Rename(const std::string& name):
-		Dialog{ IDD_RENAME },
+	Rename::Rename(wxWindow* parent, const std::string& name):
+		wxDialog{ parent, wxID_ANY, Win::GetStringWx(SIDRename), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE },
 		m_name( name )
-	{}
+	{
+		auto topSizer = new wxBoxSizer(wxVERTICAL);
+
+		auto upperSizer = new wxBoxSizer(wxHORIZONTAL);
+		upperSizer->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDRenameNewFilename)), wxSizerFlags(0));
+		m_filename = new wxTextCtrl(this, wxID_ANY, L"", wxDefaultPosition, { 400, wxDefaultCoord }, 0L, wxDefaultValidator);
+		upperSizer->Add(m_filename, wxSizerFlags(1).Border(wxLEFT, 20));
+
+		auto lowerSizer = new wxBoxSizer(wxHORIZONTAL);
+		auto okButton = new wxButton(this, wxID_ANY, Win::GetStringWx(SIDDialogOK));
+		okButton->Bind(wxEVT_BUTTON, [&](wxCommandEvent& evt) { OnOk();  });
+		auto cancelButton = new wxButton(this, wxID_ANY, Win::GetStringWx(SIDDialogCancel));
+		cancelButton->Bind(wxEVT_BUTTON, [&](wxCommandEvent& evt) { OnCancel(); });
+
+		lowerSizer->Add(okButton, wxSizerFlags(0));
+		lowerSizer->Add(cancelButton, wxSizerFlags(0).Border(wxLEFT, 20));
+
+		topSizer->Add(upperSizer, wxSizerFlags(0).Border(wxALL, 10));
+		topSizer->Add(lowerSizer, wxSizerFlags(0).Border(wxALL, 10).Right());
+
+
+		SetSizerAndFit(topSizer);
+
+		m_filename->SetValue(wxString::FromUTF8(m_name.c_str()));
+	}
 }

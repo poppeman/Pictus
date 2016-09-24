@@ -1,57 +1,73 @@
-#include "res_settings.h"
 #include "dlg_cache.h"
 #include "registry.h"
-#include "ctrl_button.h"
+#include "wintypes.h"
+#include "settings_layout.h"
+#include <wx/sizer.h>
+#include <wx/statbox.h>
+#include <wx/stattext.h>
+#include <wx/valnum.h>
 
-#include "orz/types.h"
-
-namespace App {
+namespace App
+{
 	using namespace Intl;
-	using namespace Win;
 
-	bool SetPageCache::IsRootPage() {
+	BEGIN_EVENT_TABLE (SetPageCache, wxPanel)
+		EVT_CHECKBOX(AutoLimitId, SetPageCache::OnAutoLimitChanged)
+	END_EVENT_TABLE()
+
+
+	bool SetPageCache::IsRootPage() const
+	{
 		return false;
 	}
 
-	bool SetPageCache::PerformOnInitPage() {
-		CreateButton(IDC_AUTOMEM)->OnClick.connect([this]() { UpdateControls(); });
-
-		Caption(SIDSettingsCache);
-		ControlText(IDC_GROUP_MEMORY, SIDSettingsCache);
-		ControlText(IDC_AUTOMEM, SIDSettingsCacheAutomaticLimit);
-		ControlText(IDC_MEM_MB, SIDUnitMB);
-
-		m_cacheSize = CreateEditBox(IDC_MEMLIMIT);
-		m_cacheSize->Filterchars(EditBox::FilterNotNumerical, SIDErrorOnlyNumeric);
-		UpdateControls();
-
-		return true;
+	std::string SetPageCache::Caption()
+	{
+		return Intl::GetString(SIDSettingsCache);
 	}
 
-	void SetPageCache::onWriteSettings(Reg::Settings& settings) {
-		settings.Cache.DoAutoMemoryLimit = GetCheckBox(IDC_AUTOMEM) != 0;
-		settings.Cache.ManualMemoryLimit = FromAString<int>(m_cacheSize->Text());
-	}
+	SetPageCache::SetPageCache(wxWindow* parent) :
+		App::SettingsPage{ parent }
+	{
+		auto cacheBox = new wxStaticBoxSizer(wxVERTICAL, this, Win::GetStringWx(SIDSettingsCache));
 
-	void SetPageCache::UpdateControls() {
-		EnableWindow(GetDlgItem(Handle(), IDC_AUTOMEM), true);
+		m_autoLimit = new wxCheckBox(cacheBox->GetStaticBox(), AutoLimitId, Win::GetStringWx(SIDSettingsCacheAutomaticLimit));
 
-		if (!IsDlgButtonChecked(Handle(), IDC_AUTOMEM)) {
-			EnableWindow(GetDlgItem(Handle(), IDC_MEMLIMIT), true);
-		}
-		else {
-			EnableWindow(GetDlgItem(Handle(), IDC_MEMLIMIT), false);
-		}
-	}
+		cacheBox->Add(m_autoLimit, StaticBoxInnerPadding(0));
 
-	void SetPageCache::PerformUpdateFromSettings(const Reg::Settings& settings) {
-		m_cacheSize->Text(ToAString(settings.Cache.ManualMemoryLimit));
-		SetCheckBox(IDC_AUTOMEM, settings.Cache.DoAutoMemoryLimit);
+		auto validator = wxIntegerValidator<unsigned int>();
+		m_cacheSize = new wxTextCtrl(cacheBox->GetStaticBox(), CacheSizeId, "", wxDefaultPosition, wxDefaultSize, 0, validator);
+		auto sizeSizer = new wxBoxSizer(wxHORIZONTAL);
+		sizeSizer->Add(m_cacheSize, StaticBoxInnerPadding(0));
+		sizeSizer->Add(new wxStaticText(cacheBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDUnitMB)), StaticBoxInnerPadding(0));
+		cacheBox->Add(sizeSizer, wxSizerFlags(0));
+
+		auto topSizer = new wxBoxSizer(wxVERTICAL);
+		topSizer->Add(cacheBox, StaticBoxOuterPadding(0));
+		SetSizerAndFit(topSizer);
 		UpdateControls();
 	}
 
+	void SetPageCache::onWriteSettings(Reg::Settings &settings)
+	{
+		settings.Cache.DoAutoMemoryLimit = m_autoLimit->GetValue();
+		settings.Cache.ManualMemoryLimit = FromAString<size_t>(ToAString(m_cacheSize->GetValue().c_str()));
+	}
 
-	SetPageCache::SetPageCache():
-		App::SettingsPage{ IDD_SET_MEMORY }
-	{}
+	void SetPageCache::UpdateControls()
+	{
+		m_cacheSize->Enable(!m_autoLimit->GetValue());
+	}
+
+	void SetPageCache::PerformUpdateFromSettings(const Reg::Settings &settings)
+	{
+		m_cacheSize->SetValue(ToAString(settings.Cache.ManualMemoryLimit));
+		m_autoLimit->SetValue(settings.Cache.DoAutoMemoryLimit);
+		UpdateControls();
+	}
+
+	void SetPageCache::OnAutoLimitChanged(wxCommandEvent &event)
+	{
+		UpdateControls();
+	}
 }

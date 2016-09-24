@@ -46,6 +46,8 @@ namespace Img {
 			StResuming,
 			StTerminating,
 		};
+
+		MessageReceiver* m_receiver;
 		State m_state;
 
 		std::mutex m_mxWorkList;
@@ -56,7 +58,6 @@ namespace Img {
 		bool m_isAlive;
 
 		WorkList m_wl;
-		MessageReceiver* m_receiver;
 		WorkPackage m_package;
 	};
 }

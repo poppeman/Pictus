@@ -1,30 +1,21 @@
-
 #ifndef CNT_COLORPREVIEW_H
 #define CNT_COLORPREVIEW_H
 
-#include "dialog.h"
+#include <wx/panel.h>
+#include <illa/color.h>
 
-namespace App {
-	// TODO: Make DPI aware
-	class ControlColorPreview:public Win::BaseWindow {
+namespace App
+{
+	class ControlColorPreview:public wxPanel
+	{
 	public:
-		static const wchar_t* ClassName;
+		void OnSysColor(wxSysColourChangedEvent& evt);
 
-		enum Messages {
-			MsgSetRGB=WM_APP+1,
-		};
+		void SetColor(Img::Color color);
+		ControlColorPreview(wxWindow *parent, wxWindowID winid, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize);
 
-		static void RegisterClass(HINSTANCE hInstance);
-		LRESULT wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-		ControlColorPreview();
-
-	private:
-		DWORD m_col;
-
-		static LRESULT WINAPI wndProc_delegate(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		DECLARE_EVENT_TABLE()
 	};
 }
 
 #endif
-

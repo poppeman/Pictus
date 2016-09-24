@@ -6,15 +6,26 @@
 #include <WinInet.h>
 #include <ShlObj.h>
 
-namespace Win {
-	namespace Wallpaper {
+namespace Win
+{
+	namespace Wallpaper
+	{
 		bool ApplyWallpaper(const std::string& file, Mode m) {
+			if (file == "")
+			{
+				return false;
+			}
+
 			IActiveDesktop *pActiveDesktop;
 			if (CoCreateInstance(CLSID_ActiveDesktop, NULL, CLSCTX_INPROC_SERVER, IID_IActiveDesktop, (void**)&pActiveDesktop) != S_OK)
+			{
 				return false;
+			}
 
-			if (pActiveDesktop == 0)
+			if (pActiveDesktop == nullptr)
+			{
 				return false;
+			}
 
 			WALLPAPEROPT wpOpt;
 			COMPONENTSOPT cOpt;
@@ -25,7 +36,8 @@ namespace Win {
 			pActiveDesktop->SetDesktopItemOptions(&cOpt, 0);
 
 			wpOpt.dwSize = sizeof(WALLPAPEROPT);
-			switch (m) {
+			switch (m)
+			{
 			case Mode::Stretch:
 				wpOpt.dwStyle = WPSTYLE_STRETCH;
 				break;
@@ -51,6 +63,7 @@ namespace Win {
 			pActiveDesktop->ApplyChanges(AD_APPLY_ALL);
 
 			pActiveDesktop->Release();
+
 			return true;
 		}
 	}

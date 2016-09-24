@@ -2,16 +2,21 @@
 #define DLG_ADVANCED_H
 
 #include "settings_page.h"
+#include <wx/checkbox.h>
 
-namespace App {
-	class SetAdvanced:public App::SettingsPage {
+namespace App
+{
+	class SetAdvanced : public App::SettingsPage
+	{
 	public:
-		SetAdvanced();
+		std::string Caption() override;
+		SetAdvanced(wxWindow* parent);
 
 	private:
-		bool PerformOnInitPage() override;
-		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
-		void onWriteSettings(Reg::Settings& settings) override;
+		void PerformUpdateFromSettings(const Reg::Settings &settings) override;
+		void onWriteSettings(Reg::Settings &settings) override;
+
+		wxCheckBox* m_allowMultipleInstances;
 	};
 }
 

@@ -6,20 +6,23 @@
 namespace App {
 	using namespace Win;
 
-	void ViewportBuilder::BuildViewport(App::ViewPort& port, Win::BaseWindow* parent, Reg::Settings settings) {
-		port.Create(parent);
-		port.BackgroundColor(settings.Render.BackgroundColor);
-
+	void ViewportBuilder::BuildViewport(App::ViewPort& port, wxWindow* parent, Reg::Settings settings) {
+		//port.Create(parent);
 		RendererFactory rf;
-		if (!port.SetRenderer(rf.CreateRenderer())) {
-			DO_THROW(Err::Unsupported, "Could not find a working renderer.");
-		}
+		auto device = rf.CreateDevice();
+		auto renderer = rf.CreateRenderer();
+		renderer->Device(device);
 
-		port.SetRedrawStrategy(RedrawStrategy::Ptr(new RedrawStrategyTiled));
+		port.SetCanvas(rf.CreateCanvas(parent));
+		port.SetRenderer(renderer);
+
+		port.BackgroundColor(settings.Render.BackgroundColor);
+		port.SetRedrawStrategy(std::make_shared<RedrawStrategyTiled>());
 
 		port.MinificationFilter(settings.Render.MinFilter);
 		port.MagnificationFilter(settings.Render.MagFilter);
 		port.ResetPan(settings.View.ResetPan);
 		port.ResizeBehaviour(settings.View.ResizeBehaviour);
+		port.Init();
 	}
 }

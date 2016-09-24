@@ -2,7 +2,7 @@
 #include "orz/types.h"
 
 namespace App {
-	LRESULT CALLBACK Keypress::FilterEditWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+/*	LRESULT CALLBACK Keypress::FilterEditWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		auto pCtrl = GetControl(hwnd);
 		if (pCtrl == nullptr) DO_THROW(Err::CriticalError, "Couldn't find control structure.");
 
@@ -39,23 +39,23 @@ namespace App {
 			}
 		}
 		return CallWindowProc(pEdit->m_prevEditWndProc, hwnd, msg, wParam, lParam);
-	}
+	}*/
 
-	Keypress::Keypress(int id, HWND hwnd):
-		Control{ id, hwnd },
-		m_prevEditWndProc{ nullptr },
-		OnNewCombo{ nullptr } {
+	Keypress::Keypress(wxWindow* parent):
+		wxPanel{ parent },
+		OnNewCombo{ nullptr }
+	{
+		//m_prevEditWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(Handle(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(FilterEditWndProc)));
+		m_edit = new wxTextCtrl(this, wxID_ANY, L"");
+		m_edit->Bind(wxEVT_KEY_DOWN, [&](wxKeyEvent& evt) {
+			auto kc = evt.GetUnicodeKey();
+			KeyboardPress kp = { kc, evt.AltDown(), evt.ShiftDown(), evt.ControlDown() };
+			SetCombo(kp);
 
-		m_prevEditWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(Handle(), GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(FilterEditWndProc)));
-	}
-
-	Keypress* Keypress::CreateKeypress(int id, HWND parent) {
-		auto p = Control::GetControl(GetDlgItem(parent, id));
-		if (p != nullptr) {
-			return dynamic_cast<Keypress*>(p.get());
-		}
-
-		return new Keypress(id, parent);
+			if (kc != 0 && OnNewCombo != nullptr) {
+				OnNewCombo(kp);
+			}
+		});
 	}
 
 	void Keypress::SetCombo(App::KeyboardPress kp) {
@@ -65,14 +65,15 @@ namespace App {
 		if (kp.Shift) items.push_back(L"Shift");
 		if (kp.Alt) items.push_back(L"Alt");
 
-		if (kp.Key == VK_CONTROL) kp.Key = 0;
-		if (kp.Key == VK_MENU) kp.Key = 0;
+		if (kp.Key == WXK_CONTROL) kp.Key = 0;
+		if (kp.Key == WXK_MENU) kp.Key = 0;
 		std::wstring tmp;
-		tmp += App::GetKeyString(kp.Key);
+		tmp += App::GetKeyString((wxKeyCode) kp.Key);
 		items.push_back(tmp);
 
 		auto wstr = Implode(items, L" + ");
+		m_edit->SetValue(wstr.c_str());
 
-		SendMessage(Handle(), WM_SETTEXT, 0, (LPARAM)wstr.c_str());
+		//SendMessage(Handle(), WM_SETTEXT, 0, (LPARAM)wstr.c_str());
 	}
 }

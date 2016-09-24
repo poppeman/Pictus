@@ -13,7 +13,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
-#include <windows.h>
+#include <wx/event.h>
 
 namespace Reg {
 	Settings Load(const std::string& name) {
@@ -102,49 +102,49 @@ namespace Reg {
 			using App::KeyAction;
 			cfg.Keyboard.Bindings = {
 				// Alt, shift, control
-				{ { VK_F2, false, false, false }, KeyAction::RenameFile },
-				{ { VK_ESCAPE, false, false, false }, KeyAction::CloseApplication },
-				{ { VK_OEM_PLUS, false, false, false }, KeyAction::ZoomIn },
-				{ { VK_ADD, false, false, false }, KeyAction::ZoomIn },
-				{ { VK_NUMPAD0, false, false, false }, KeyAction::ZoomIn },
+				{ { WXK_F2, false, false, false }, KeyAction::RenameFile },
+				{ { WXK_ESCAPE, false, false, false }, KeyAction::CloseApplication },
+				//{ { WXK_WXK_OEM_PLUS, false, false, false }, KeyAction::ZoomIn },
+				{ { WXK_ADD, false, false, false }, KeyAction::ZoomIn },
+				{ { WXK_NUMPAD0, false, false, false }, KeyAction::ZoomIn },
 
-				{ { VK_OEM_MINUS, false, false, false }, KeyAction::ZoomOut },
-				{ { VK_SUBTRACT, false, false, false }, KeyAction::ZoomOut },
-				{ { VK_NUMPAD1, false, false, false }, KeyAction::ZoomOut },
+				//{ { WXK_OEM_MINUS, false, false, false }, KeyAction::ZoomOut },
+				{ { WXK_SUBTRACT, false, false, false }, KeyAction::ZoomOut },
+				{ { WXK_NUMPAD1, false, false, false }, KeyAction::ZoomOut },
 
 				{ { L'0', false, false, false }, KeyAction::ZoomDefault },
 				{ { L'1', false, false, false }, KeyAction::ZoomFull },
-				{ { VK_MULTIPLY, false, false, false }, KeyAction::ZoomFree },
+				{ { WXK_MULTIPLY, false, false, false }, KeyAction::ZoomFree },
 
-				{ { VK_UP, false, false, false }, KeyAction::PanUp },
-				{ { VK_DOWN, false, false, false }, KeyAction::PanDown },
-				{ { VK_LEFT, false, false, false }, KeyAction::PanLeft },
-				{ { VK_RIGHT, false, false, false }, KeyAction::PanRight },
+				{ { WXK_UP, false, false, false }, KeyAction::PanUp },
+				{ { WXK_DOWN, false, false, false }, KeyAction::PanDown },
+				{ { WXK_LEFT, false, false, false }, KeyAction::PanLeft },
+				{ { WXK_RIGHT, false, false, false }, KeyAction::PanRight },
 
-				{ { VK_HOME, false, false, false }, KeyAction::FirstImage },
-				{ { VK_END, false, false, false }, KeyAction::LastImage },
-				
-				{ { VK_SPACE, false, false, false }, KeyAction::NextImage },
-				{ { VK_NEXT, false, false, false }, KeyAction::NextImage },
+				{ { WXK_HOME, false, false, false }, KeyAction::FirstImage },
+				{ { WXK_END, false, false, false }, KeyAction::LastImage },
 
-				{ { VK_SPACE, false, true, false }, KeyAction::NextSkipImage },
-				{ { VK_NEXT, false, true, false }, KeyAction::NextSkipImage },
-				{ { VK_RIGHT, true, false, false }, KeyAction::NextSkipImage },
+				{ { WXK_SPACE, false, false, false }, KeyAction::NextImage },
+				{ { WXK_PAGEDOWN, false, false, false }, KeyAction::NextImage },
 
-				{ { VK_BACK, false, false, false }, KeyAction::PreviousImage },
-				{ { VK_PRIOR, false, false, false }, KeyAction::PreviousImage },
+				{ { WXK_SPACE, false, true, false }, KeyAction::NextSkipImage },
+				{ { WXK_PAGEDOWN, false, true, false }, KeyAction::NextSkipImage },
+				{ { WXK_RIGHT, true, false, false }, KeyAction::NextSkipImage },
 
-				{ { VK_BACK, false, true, false }, KeyAction::PreviousSkipImage },
-				{ { VK_PRIOR, false, true, false }, KeyAction::PreviousSkipImage },
-				{ { VK_LEFT, true, false, false }, KeyAction::PreviousSkipImage },
+				{ { WXK_BACK, false, false, false }, KeyAction::PreviousImage },
+				{ { WXK_PAGEUP, false, false, false }, KeyAction::PreviousImage },
 
-				{ { VK_DELETE, false, false, false }, KeyAction::RecycleCurrentFile },
-				{ { VK_DELETE, false, true, false }, KeyAction::DeleteCurrentFile },
-				{ { VK_DELETE, false, false, true }, KeyAction::RemoveCurrentImage },
-				
+				{ { WXK_BACK, false, true, false }, KeyAction::PreviousSkipImage },
+				{ { WXK_PAGEUP, false, true, false }, KeyAction::PreviousSkipImage },
+				{ { WXK_LEFT, true, false, false }, KeyAction::PreviousSkipImage },
+
+				{ { WXK_DELETE, false, false, false }, KeyAction::RecycleCurrentFile },
+				{ { WXK_DELETE, false, true, false }, KeyAction::DeleteCurrentFile },
+				{ { WXK_DELETE, false, false, true }, KeyAction::RemoveCurrentImage },
+
 				{ { L'R', false, false, false }, KeyAction::RandomImage },
 				{ { L'O', false, false, false }, KeyAction::OpenSettings },
-				{ { VK_RETURN, true, false, false }, KeyAction::ToggleFullscreen },
+				{ { WXK_RETURN, true, false, false }, KeyAction::ToggleFullscreen },
 				{ { L'C', false, false, true}, KeyAction::CopyImage }
 			};
 		}

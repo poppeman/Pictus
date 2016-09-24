@@ -1,28 +1,49 @@
-#ifndef DLG_VIEW_H
-#define DLG_VIEW_H
+#ifndef PICTUS_DLG_VIEW_H
+#define PICTUS_DLG_VIEW_H
 
 #include "settings_page.h"
-#include "ctrl_combobox.h"
+#include <wx/choice.h>
+#include <wx/checkbox.h>
+#include <wx/radiobut.h>
 
-namespace App {
-	class SetView:public App::SettingsPage {
+namespace App
+{
+	class SetView : public App::SettingsPage
+	{
 	public:
-		SetView();
+		std::string Caption() override;
+		SetView(wxWindow* parent);
 
 	private:
-		void ToggleResizeWindow();
+		//void ToggleResizeWindow();
+		void OnClickAdaptWindowSize(wxCommandEvent& event);
+		Filter::Mode GetFilterBoxValue(wxChoice* box);
+		void SetFilterBoxValue(wxChoice* box, Filter::Mode mode);
 
-		bool PerformOnInitPage() override;
-		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
-		void onWriteSettings(Reg::Settings& settings) override;
+		wxSizer* CreateZoomBox();
+		wxSizer* CreateViewerBox();
+
+		void PerformUpdateFromSettings(const Reg::Settings &settings) override;
+		void onWriteSettings(Reg::Settings &settings) override;
 
 		void DoToggleResizeWindow(bool newState);
-		void SetupFilterBox(Win::ComboBox* ctrl);
+		wxChoice* SetupFilterBox(wxWindow* parent);
 
-		Win::ComboBox* m_cbDefaultZoom;
-		Win::ComboBox* m_cbResizeBehavior;
-		Win::ComboBox* m_cbMinFilter;
-		Win::ComboBox* m_cbMagFilter;
+		wxChoice* m_cbDefaultZoom;
+		wxChoice* m_cbResizeBehavior;
+		wxChoice* m_cbMinFilter;
+		wxChoice* m_cbMagFilter;
+
+		wxCheckBox* m_wrapAround;
+		wxCheckBox* m_resetZoom;
+		wxCheckBox* m_resetPan;
+		wxCheckBox* m_adaptWindowSize;
+
+		std::vector<wxRadioButton*> m_positionMethod;
+		wxSizer *CreateResizeAlgoSizer(wxWindow* parent);
+		wxSizer *CreateModeSizer(wxWindow* parent);
+
+		DECLARE_EVENT_TABLE()
 	};
 }
 

@@ -1,9 +1,9 @@
 #ifndef VIEWPORT_H
 #define VIEWPORT_H
 
+#include <orz/geom.h>
 #include "illa/image.h"
 
-#include "window.h"
 #include "zoomstrategy.h"
 #include "timer.h"
 #include "view_pan.h"
@@ -12,11 +12,11 @@
 #include "w32_redrawstrategy.h"
 #include "w32_rendertarget.h"
 
-#include "monitor.h"
 #include "appreg.h"
+#include "wintypes.h"
 
 namespace App {
-	class ViewPort:public Win::Window {
+	class ViewPort {
 	public:
 		enum {
 			HideDelay = 1000,
@@ -32,12 +32,15 @@ namespace App {
 		};
 
 	public:
+		void SetCanvas(wxWindow* canvas);
 		bool SetRenderer(Win::Renderer::Ptr renderer);
 		void SetRedrawStrategy(Win::RedrawStrategy::Ptr strategy);
 
 		void Image(Img::Image::Ptr pImage);
 
 		Img::Image::Ptr Image() const;
+
+		Img::Properties Properties() const;
 
 		void BackgroundColor(const Img::Color& col);
 		const Img::Color& BackgroundColor() const;
@@ -82,19 +85,31 @@ namespace App {
 		Geom::SizeInt OptimalViewportSize();
 		Geom::SizeInt ZoomedImageSize();
 
-		ViewPort();
+		void Init();
+
+		void Refresh();
+
+		Geom::SizeInt GetSize();
+
+		ViewPort(wxWindow* parent);
+		ViewPort()=delete;
 
 	private:
-		bool HandleMouseMove(Win::MouseEvent e);
-		bool HandleMouseDown(Win::MouseEvent e);
-		bool HandleMouseUp(Win::MouseEvent e);
+		::wxWindow* m_canvas;
+
+		Geom::PointInt MouseCursorPos();
+
+		void HandleMouseMove(wxMouseEvent& e);
+
+		void HandleMouseDown(wxMouseEvent& e);
+		void HandleMouseDoubleClick(wxMouseEvent& e);
+		void HandleMouseUp(wxMouseEvent& e);
 		void ImageRefreshCallback();
 		bool PerformOnCreate();
 
-		bool PerformOnApp(int index, WPARAM wParam, LPARAM lParam);
 		bool PerformOnPaint();
 		bool PerformOnSize(const Geom::SizeInt& sz);
-		bool PerformOnDropFiles(const StringVector& files);
+		//bool PerformOnDropFiles(const StringVector& files);
 
 		void ZoomSet(const ZoomStrategy::Result& r);
 
@@ -113,25 +128,27 @@ namespace App {
 
 		Geom::PointInt m_oldMousePosition;
 		ViewPan m_pan;
-		bool m_isPanning;
-		const Win::Monitor* m_currentPanMonitor;
 
-		HWND m_hParent;
+		//HWND m_hParent;
 
-		HWND m_hOldParent;
-		CursorMode m_cursorMode;
-		RECT m_oldSize;
+		//HWND m_hOldParent;
 		bool m_isCursorVisible;
+		CursorMode m_cursorMode;
+		//RECT m_oldSize;
 		Img::Image::Ptr m_image;
 
 		Img::Properties m_props;
 
-		bool m_resetPan;
 
 		ZoomStrategy m_zoom;
 		float m_displayZoom;
 		float m_imageZoom;
+		int m_currentPanMonitor;
+
+		bool m_isPanning;
+		bool m_resetPan;
 		Filter::Mode m_magFilter, m_minFilter;
+		wxWindow* m_parent;
 	};
 }
 

@@ -321,20 +321,17 @@
     <ClInclude Include="webp_imagecomposer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libjpeg\libjpeg.vcxproj">
-      <Project>{662a8e06-04fa-4fca-952e-3a8bfd34b377}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    <ProjectReference Include="..\..\3rdparty\libjpeg\libjpeg.vcxproj">
+      <Project>{ce043068-1dfc-4ee4-8807-b43c3e3fd32f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\libpng\libpng.vcxproj">
-      <Project>{f201d5d7-f12f-4487-9a1d-6f23c240ea53}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    <ProjectReference Include="..\..\3rdparty\libpng\libpng.vcxproj">
+      <Project>{15071db1-867f-4f3e-ae63-2a03713c8784}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\libtiff\libtiff.vcxproj">
-      <Project>{08bad763-8922-4054-994e-192ab6834dbe}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    <ProjectReference Include="..\..\3rdparty\libtiff\libtiff.vcxproj">
+      <Project>{ed1f9f50-9d05-404d-8b7f-cecd41e76bb5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\libwebp\libwebp.vcxproj">
-      <Project>{e7f3aa48-d551-4ed5-8677-d59adb491c47}</Project>
+    <ProjectReference Include="..\..\3rdparty\libwebp\libwebp.vcxproj">
+      <Project>{e4ab566e-3439-41de-9e9a-f8d577844dfb}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Metadata\Metadata.vcxproj">
       <Project>{f43ec854-1314-4297-837b-f2a7fbca4b26}</Project>

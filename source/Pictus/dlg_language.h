@@ -3,19 +3,25 @@
 
 #include "settings_page.h"
 #include "app_types.h"
-#include "ctrl_combobox.h"
 
-namespace App {
-	class SetLanguage:public App::SettingsPage {
+#include <wx/choice.h>
+
+namespace App
+{
+	class SetLanguage:public SettingsPage
+	{
 	public:
-		SetLanguage();
+		std::string Caption() override;
+		SetLanguage(wxWindow* parent);
 
 	private:
-		bool PerformOnInitPage() override;
 		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
 		void onWriteSettings(Reg::Settings& settings) override;
 
-		Win::ComboBox* m_cbLang;
+		void SetSelection(Intl::Language lang);
+		Intl::Language GetSelection();
+
+		wxChoice* m_cbLang;
 	};
 }
 

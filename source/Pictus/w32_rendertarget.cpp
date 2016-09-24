@@ -11,10 +11,10 @@ namespace Win {
 	}
 
 	WinRenderTarget::WinRenderTarget()
-		:m_hwnd(0)
+		:m_hwnd(nullptr)
 	{}
 
-	bool WinRenderTarget::TargetWindow( HWND hwnd ) {
+	bool WinRenderTarget::TargetWindow( wxWindow* hwnd ) {
 		if (m_renderer == nullptr) {
 			return false;
 		}

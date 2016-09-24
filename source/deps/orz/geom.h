@@ -1,7 +1,7 @@
 #ifndef ILLA_GEOM_H
 #define ILLA_GEOM_H
 
-#include "orz/types.h"
+#include "types.h"
 
 #include <algorithm>
 #include <string>

@@ -19,18 +19,6 @@
     <Filter Include="WinAPI">
       <UniqueIdentifier>{64f35c09-45b9-4f3c-938c-d17f4b2fee5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WinAPI\Windows">
-      <UniqueIdentifier>{a0447e1e-34a0-4284-8e80-48d6f3830bd0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WinAPI\Menu">
-      <UniqueIdentifier>{03c9a4cd-0267-4a62-9675-6c19fbff4a89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WinAPI\Dialog">
-      <UniqueIdentifier>{93ac0789-88dd-460e-9233-bac6325d68ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WinAPI\Controls">
-      <UniqueIdentifier>{11590de9-887e-4686-8df7-28c580b5819a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shared">
       <UniqueIdentifier>{29afe672-ad1c-44c2-ae20-5ef9b8a435e1}</UniqueIdentifier>
     </Filter>
@@ -46,17 +34,11 @@
     <Filter Include="Resources\Cursors">
       <UniqueIdentifier>{6e5e458d-7de5-4ed2-a1b2-67365856b148}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Bitmaps">
-      <UniqueIdentifier>{ebc164f3-3934-482e-9164-eebc2a90c3e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Imaging">
       <UniqueIdentifier>{9b2d8456-9d4a-4803-8aff-e3c729fe5ad4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Imaging\Renderer">
       <UniqueIdentifier>{b30132ba-6562-4fd6-b151-d64ba54a8b65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Imaging\Renderer\Direct3D">
-      <UniqueIdentifier>{a1ec9bf1-5ba8-4062-9b4e-96c3e3770f83}</UniqueIdentifier>
     </Filter>
     <Filter Include="Imaging\Renderer\Strategy">
       <UniqueIdentifier>{4dd8f0e9-0591-4b93-90dd-d46010d31c2f}</UniqueIdentifier>
@@ -69,9 +51,6 @@
     </Filter>
     <Filter Include="Installer">
       <UniqueIdentifier>{3d4a53a5-3477-40b8-9f62-dad1ae06ce6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Imaging\Renderer\GDI">
-      <UniqueIdentifier>{20404d52-ea0c-4ec8-af9f-cd2f87bcc8eb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shared\Registry\Translators">
       <UniqueIdentifier>{0ad784a0-de92-4730-819d-a2b7dcfe6865}</UniqueIdentifier>
@@ -90,6 +69,18 @@
     </Filter>
     <Filter Include="Settings\Pages\Advanced">
       <UniqueIdentifier>{a407ee55-6be8-43b8-82a5-c4ffcba306b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hw3D">
+      <UniqueIdentifier>{d66fae7f-09a8-4eae-acb4-470147825249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hw3D\OpenGL">
+      <UniqueIdentifier>{17129333-676e-4259-aa65-921eadc365ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hw3D\Direct3D">
+      <UniqueIdentifier>{ca7db4e0-8a1c-49e5-9875-ac24091c3e38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{322f6f09-c3aa-41f6-a437-385df12ba963}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -122,16 +113,10 @@
     <ClCompile Include="cnt_colorpreview.cpp">
       <Filter>Settings\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="adjust.cpp">
-      <Filter>Viewer</Filter>
-    </ClCompile>
     <ClCompile Include="filterstring.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
     <ClCompile Include="getevent.cpp">
-      <Filter>Viewer</Filter>
-    </ClCompile>
-    <ClCompile Include="rename.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
     <ClCompile Include="viewer.cpp">
@@ -158,62 +143,14 @@
     <ClCompile Include="factory_renderer.cpp">
       <Filter>Viewer\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="imagelist.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="monitor.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="notification.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
     <ClCompile Include="timer.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="w32_main.cpp">
       <Filter>WinAPI</Filter>
     </ClCompile>
     <ClCompile Include="wallpaper.cpp">
       <Filter>WinAPI</Filter>
     </ClCompile>
-    <ClCompile Include="win7taskbar.cpp">
-      <Filter>WinAPI</Filter>
-    </ClCompile>
     <ClCompile Include="wintypes.cpp">
       <Filter>WinAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="basewin.cpp">
-      <Filter>WinAPI\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="window.cpp">
-      <Filter>WinAPI\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="menu.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="dialog.cpp">
-      <Filter>WinAPI\Dialog</Filter>
-    </ClCompile>
-    <ClCompile Include="control.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_button.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_combobox.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_editbox.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_listview.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_statusbar.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_statusbar_part.cpp">
-      <Filter>WinAPI\Controls</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Shared</Filter>
@@ -227,14 +164,8 @@
     <ClCompile Include="w32_rendertarget.cpp">
       <Filter>Imaging</Filter>
     </ClCompile>
-    <ClCompile Include="w32_ddsurface.cpp">
-      <Filter>Imaging\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="w32_renderer.cpp">
       <Filter>Imaging\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="d3d_ddsurface.cpp">
-      <Filter>Imaging\Renderer\Direct3D</Filter>
     </ClCompile>
     <ClCompile Include="w32_redrawstrategy.cpp">
       <Filter>Imaging\Renderer\Strategy</Filter>
@@ -272,23 +203,11 @@
     <ClCompile Include="w32_assure_folder.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
-    <ClCompile Include="gdiwrapper.cpp">
-      <Filter>Imaging\Renderer\GDI</Filter>
-    </ClCompile>
-    <ClCompile Include="appreg.cpp">
-      <Filter>Shared</Filter>
-    </ClCompile>
     <ClCompile Include="dlg_controls.cpp">
-      <Filter>Settings\Pages\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="dlg_keyboard.cpp">
       <Filter>Settings\Pages\Controls</Filter>
     </ClCompile>
     <ClCompile Include="app_types.cpp">
       <Filter>Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_keypress.cpp">
-      <Filter>Settings\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="reg_language_translator.cpp">
       <Filter>Shared\Registry\Translators</Filter>
@@ -317,21 +236,6 @@
     <ClCompile Include="reg_zoom_mode_translator.cpp">
       <Filter>Shared\Registry\Translators</Filter>
     </ClCompile>
-    <ClCompile Include="menu_item.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="imenu_item.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="sub_menu.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="separator.cpp">
-      <Filter>WinAPI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="ctrl_combobox_entry.cpp">
-      <Filter>WinAPI\Controls</Filter>
-    </ClCompile>
     <ClCompile Include="dlg_about.cpp">
       <Filter>Settings\Pages</Filter>
     </ClCompile>
@@ -346,6 +250,96 @@
     </ClCompile>
     <ClCompile Include="imagecache_workrequest.cpp">
       <Filter>Imaging\Cacher</Filter>
+    </ClCompile>
+    <ClCompile Include="cnt_color_hls.cpp">
+      <Filter>Settings\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="cnt_color_rgb.cpp">
+      <Filter>Settings\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_device.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_staging_texture.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_texture.cpp">
+      <Filter>Hw3D</Filter>
+    </ClCompile>
+    <ClCompile Include="viewer_droptarget.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="resize_position_method.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="render_geometry.cpp">
+      <Filter>Imaging\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_common.cpp">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_context.cpp">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_device.cpp">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_staging_texture.cpp">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_staging_texture_pbo.cpp">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_staging_texture_simple.cpp">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_opengl_texture.cpp">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_context.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_device.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_texture.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_staging_texture.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hw3d_direct3d9_common.cpp">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="dlg_keyboard.cpp">
+      <Filter>Settings\Pages\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="ctrl_keypress.cpp">
+      <Filter>Settings\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="rename.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="adjust.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="ipc_openfile_connection.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="ipc_server.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="ipc_client.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_layout.cpp">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="clipboard.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="filemanager.cpp">
+      <Filter>Viewer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -373,22 +367,10 @@
     <ClInclude Include="actionmap.h">
       <Filter>Viewer</Filter>
     </ClInclude>
-    <ClInclude Include="adjust.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
     <ClInclude Include="filterstring.h">
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="getevent.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="rename.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="res_settings.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="res_viewer.h">
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="viewer.h">
@@ -418,59 +400,14 @@
     <ClInclude Include="cursor.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
-    <ClInclude Include="imagelist.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="monitor.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="notification.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
     <ClInclude Include="timer.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
     <ClInclude Include="wallpaper.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
-    <ClInclude Include="win7taskbar.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
     <ClInclude Include="wintypes.h">
       <Filter>WinAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="basewin.h">
-      <Filter>WinAPI\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="window.h">
-      <Filter>WinAPI\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="menu.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="dialog.h">
-      <Filter>WinAPI\Dialog</Filter>
-    </ClInclude>
-    <ClInclude Include="control.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_button.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_combobox.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_editbox.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_listview.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_statusbar.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_statusbar_part.h">
-      <Filter>WinAPI\Controls</Filter>
     </ClInclude>
     <ClInclude Include="app_types.h">
       <Filter>Shared</Filter>
@@ -496,14 +433,8 @@
     <ClInclude Include="w32_rendertarget.h">
       <Filter>Imaging</Filter>
     </ClInclude>
-    <ClInclude Include="w32_ddsurface.h">
-      <Filter>Imaging\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="w32_renderer.h">
       <Filter>Imaging\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="d3d_ddsurface.h">
-      <Filter>Imaging\Renderer\Direct3D</Filter>
     </ClInclude>
     <ClInclude Include="w32_redrawstrategy.h">
       <Filter>Imaging\Renderer\Strategy</Filter>
@@ -544,17 +475,8 @@
     <ClInclude Include="w32_assure_folder.h">
       <Filter>Shared</Filter>
     </ClInclude>
-    <ClInclude Include="gdiwrapper.h">
-      <Filter>Imaging\Renderer\GDI</Filter>
-    </ClInclude>
     <ClInclude Include="dlg_controls.h">
       <Filter>Settings\Pages\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="dlg_keyboard.h">
-      <Filter>Settings\Pages\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_keypress.h">
-      <Filter>Settings\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="reg_language_translator.h">
       <Filter>Shared\Registry\Translators</Filter>
@@ -595,21 +517,6 @@
     <ClInclude Include="zoom_mode.h">
       <Filter>Types</Filter>
     </ClInclude>
-    <ClInclude Include="menu_item.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="imenu_item.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="sub_menu.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="separator.h">
-      <Filter>WinAPI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="ctrl_combobox_entry.h">
-      <Filter>WinAPI\Controls</Filter>
-    </ClInclude>
     <ClInclude Include="dlg_about.h">
       <Filter>Settings\Pages</Filter>
     </ClInclude>
@@ -625,14 +532,104 @@
     <ClInclude Include="imagecache_workrequest.h">
       <Filter>Imaging\Cacher</Filter>
     </ClInclude>
+    <ClInclude Include="cnt_color_hls.h">
+      <Filter>Settings\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="cnt_color_rgb.h">
+      <Filter>Settings\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_context.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_device.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_staging_texture.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_texture.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_types.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_vertex2d.h">
+      <Filter>Hw3D</Filter>
+    </ClInclude>
+    <ClInclude Include="viewer_droptarget.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="render_geometry.h">
+      <Filter>Imaging\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_common.h">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_context.h">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_device.h">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_staging_texture.h">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_staging_texture_pbo.h">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_staging_texture_simple.h">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_opengl_texture.h">
+      <Filter>Hw3D\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_context.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_device.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_texture.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_staging_texture.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hw3d_direct3d9_common.h">
+      <Filter>Hw3D\Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="dlg_keyboard.h">
+      <Filter>Settings\Pages\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="ctrl_keypress.h">
+      <Filter>Settings\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="rename.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="adjust.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="ipc_openfile_connection.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="ipc_server.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="ipc_client.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="settings_layout.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="clipboard.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="filemanager.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res_settings.rc">
-      <Filter>Viewer</Filter>
-    </ResourceCompile>
-    <ResourceCompile Include="res_viewer.rc">
-      <Filter>Viewer</Filter>
-    </ResourceCompile>
     <ResourceCompile Include="version.rc">
       <Filter>Shared</Filter>
     </ResourceCompile>
@@ -666,9 +663,6 @@
     </Image>
     <Image Include="Res\icon_app1.ico">
       <Filter>Resources\Icons</Filter>
-    </Image>
-    <Image Include="Res\thumbtoolbar96.bmp">
-      <Filter>Resources\Bitmaps</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

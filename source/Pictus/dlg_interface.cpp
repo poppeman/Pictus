@@ -1,32 +1,47 @@
-#include "res_settings.h"
+#include <wx/sizer.h>
+#include <wx/statbox.h>
 #include "dlg_interface.h"
 #include "registry.h"
+#include "wintypes.h"
+#include "settings_layout.h"
 
-namespace App {
-	bool SetInterface::PerformOnInitPage() {
-		Caption(App::SIDSettingsInterface);
-
-		ControlText(IDC_GROUP_INTERFACE_STATUSBAR, SIDSettingsInterfaceStatusBar);
-		ControlText(IDC_CHECK_INTERFACE_SHOWSTATUSBAR, SIDSettingsInterfaceShowStatusBar);
-		ControlText(IDC_CHECK_INTERFACE_ALWAYSONTOP, SIDSettingsInterfaceAlwaysOnTop);
-		return true;
-	}
-
-	void SetInterface::PerformUpdateFromSettings(const Reg::Settings& settings) {
-		SetCheckBox(IDC_CHECK_INTERFACE_SHOWSTATUSBAR, settings.View.ShowStatusBar);
-		SetCheckBox(IDC_CHECK_INTERFACE_ALWAYSONTOP, settings.View.AlwaysOnTop);
-	}
-
-	void SetInterface::onWriteSettings(Reg::Settings& settings) {
-		settings.View.ShowStatusBar = GetCheckBox(IDC_CHECK_INTERFACE_SHOWSTATUSBAR);
-		settings.View.AlwaysOnTop = GetCheckBox(IDC_CHECK_INTERFACE_ALWAYSONTOP);
-	}
-
-	SetInterface::SetInterface():
-		App::SettingsPage{ IDD_SET_INTERFACE }
-	{}
-
-	bool SetInterface::IsRootPage() const {
+namespace App
+{
+	bool SetInterface::IsRootPage() const
+	{
 		return false;
+	}
+
+	std::string SetInterface::Caption()
+	{
+		return Intl::GetString(SIDSettingsInterface);
+	}
+
+	SetInterface::SetInterface(wxWindow *parent) :
+		App::SettingsPage{parent},
+		m_showStatusBar{nullptr},
+		m_alwaysOnTop{nullptr}
+	{
+		auto topSizer = new wxBoxSizer(wxVERTICAL);
+		auto statusBox = new wxStaticBoxSizer(wxHORIZONTAL, this, Win::GetStringWx(SIDSettingsInterfaceStatusBar));
+		m_showStatusBar = new wxCheckBox(statusBox->GetStaticBox(), wxID_ANY, Win::GetStringWx(SIDSettingsInterfaceShowStatusBar));
+		statusBox->Add(m_showStatusBar, StaticBoxInnerPadding(0));
+		m_alwaysOnTop = new wxCheckBox(this, wxID_ANY, Win::GetStringWx(SIDSettingsInterfaceAlwaysOnTop));
+
+		topSizer->Add(statusBox, StaticBoxOuterPadding(0));
+		topSizer->Add(m_alwaysOnTop, wxSizerFlags(0).Expand());
+		SetSizerAndFit(topSizer);
+	}
+
+	void SetInterface::PerformUpdateFromSettings(const Reg::Settings &settings)
+	{
+		m_showStatusBar->SetValue(settings.View.ShowStatusBar);
+		m_alwaysOnTop->SetValue(settings.View.AlwaysOnTop);
+	}
+
+	void SetInterface::onWriteSettings(Reg::Settings &settings)
+	{
+		settings.View.ShowStatusBar = m_showStatusBar->GetValue();
+		settings.View.AlwaysOnTop = m_alwaysOnTop->GetValue();
 	}
 }

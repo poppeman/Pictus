@@ -1,9 +1,8 @@
 #include "w32_renderer.h"
-#include "orz/geom.h"
-#include "D3DWrap/d3d_math.h"
+#include "orz/matrix.h"
 #include "illa/swsurface.h"
-#include "d3d_ddsurface.h"
 #include "illa/render.h"
+#include "render_geometry.h"
 
 #include <algorithm>
 
@@ -11,9 +10,9 @@ namespace Win {
 	using namespace Geom;
 
 	Geom::SizeInt Renderer::RenderAreaSize() {
-		RECT cr;
-		GetClientRect(TargetWindow(), &cr);
-		return{ cr.right - cr.left, cr.bottom - cr.top };
+		int w, h;
+		TargetWindow()->GetClientSize(&w, &h);
+		return {w, h};
 	}
 
 	Geom::SizeInt Renderer::TransformedRenderAreaSize() {
@@ -63,29 +62,31 @@ namespace Win {
 		DO_THROW(Err::InvalidCall, "Unsupported angle");
 	}
 
-	bool Renderer::TargetWindow( HWND hwnd ) {
+	void Renderer::Device(std::shared_ptr<Hw3D::Device> device)
+	{
+		m_direct3d = device;
+		m_context = nullptr;
+	}
+
+	bool Renderer::TargetWindow( wxWindow* hwnd )
+	{
 		m_hwnd = hwnd;
-
-		if (m_direct3d == nullptr) {
-			m_direct3d = std::make_shared<D3D::Device>();
-		}
-
-		if (m_direct3d->Initialize(TargetWindow()) == false) {
-			m_direct3d.reset();
-			return false;
-		}
+		m_context = nullptr;
 		return true;
-
 	}
 
 	Renderer::RenderStatus Renderer::BeginRender(Img::Color backgroundColor) {
-		static float a = 0.0f;
 		if (m_hwnd == nullptr) {
 			DO_THROW(Err::CriticalError, "Target window not set.");
 		}
 
 		if (m_direct3d == nullptr) {
 			DO_THROW(Err::CriticalError, "Direct3D not yet initialized.");
+		}
+
+		if(m_context == nullptr)
+		{
+			m_context = m_direct3d->CreateContext(TargetWindow());
 		}
 
 		if (m_direct3d->IsLost()) {
@@ -101,11 +102,12 @@ namespace Win {
 
 		CreateTextures();
 
-		m_direct3d->BeginDraw();
-		m_direct3d->Clear(0xff, backgroundColor.R, backgroundColor.G, backgroundColor.B);
+		m_context->Activate(TargetWindow());
+		m_context->BeginDraw();
+		m_context->Clear(0xff, backgroundColor.R, backgroundColor.G, backgroundColor.B);
 
-		auto proj = D3D::OrthographicProjection({ { 0, 0 }, RenderAreaSize().StaticCast<float>() });
-		m_direct3d->SetMatrix(D3DTS_PROJECTION, &proj);
+		auto proj = Hw3D::OrthographicProjection({ { 0, 0 }, RenderAreaSize().StaticCast<float>() });
+		m_context->SetMatrix(Hw3D::TransformState::Projection, proj);
 
 		return RenderStatus::OK;
 	}
@@ -118,16 +120,16 @@ namespace Win {
 			DO_THROW(Err::CriticalError, "Direct3D not yet initialized.");
 		}
 
-		m_direct3d->EndDraw();
+		m_context->EndDraw();
 	}
 
 	Renderer::Renderer():m_hwnd(0) {}
 	Renderer::~Renderer() {}
 
-	HWND Renderer::TargetWindow() { return m_hwnd; }
+	wxWindow* Renderer::TargetWindow() { return m_hwnd; }
 
-	DDSurface::Ptr Renderer::CreateDDSurface() {
-		return std::make_shared<DDSurfaceD3D>(m_direct3d);
+	std::shared_ptr<Hw3D::Texture> Renderer::CreateDDSurface(Geom::SizeInt dims) {
+		return m_direct3d->CreateTexture(dims, Hw3D::Format::X8R8G8B8, Hw3D::Pool::Default);
 	}
 
 	void Renderer::CreateTextures() {
@@ -140,14 +142,14 @@ namespace Win {
 		return std::make_shared<Img::SurfaceSoftware>();
 	}
 
-	void Renderer::RenderToDDSurface(DDSurface::Ptr dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props) {
-		DDSurfaceD3D* ds = dynamic_cast<DDSurfaceD3D*>(dest.get());
+	void Renderer::RenderToDDSurface(std::shared_ptr<Hw3D::Texture> dest, Img::Surface::Ptr source, const Geom::PointInt& zoomedImagePosition, const Geom::RectInt& destinationArea, const Img::Properties& props) {
+		//DDSurfaceD3D* ds = dynamic_cast<DDSurfaceD3D*>(dest.get());
 
 		if (m_softTex == 0 || !m_softTex->GetSize().AtLeastInclusive(destinationArea.Dimensions())) {
-			m_softTex = m_direct3d->CreateTexture(destinationArea.Dimensions(), D3DFMT_X8R8G8B8, D3DPOOL_SYSTEMMEM);
+			m_softTex = m_direct3d->CreateStagingTexture(destinationArea.Dimensions(), Hw3D::Format::X8R8G8B8);
 		}
 
-		D3D::Texture::Lock l = m_softTex->LockRegion(RectInt(PointInt(0, 0), destinationArea.Dimensions()), false);
+		auto l = m_softTex->LockRegion(RectInt(PointInt(0, 0), destinationArea.Dimensions()), false);
 		try {
 			Filter::FilterBuffer dst(m_softTex->GetSize(), 4, l.Buffer, l.Pitch);
 
@@ -161,11 +163,11 @@ namespace Win {
 
 			m_softTex->UnlockRegion();
 
-			m_direct3d->SendTextureRect(
+			m_context->SendTextureRect(
 				m_softTex,
 				RectInt(PointInt(0, 0),
 				destinationArea.Dimensions()),
-				ds->GetTexture(),
+				dest,
 				destinationArea.TopLeft());
 		}
 		catch (...) {
@@ -174,24 +176,26 @@ namespace Win {
 		}
 	}
 
-	void Renderer::PresentFromDDSurface(Geom::RectInt destRect, DDSurface::Ptr source, Geom::PointInt sourceTopLeft) {
-		SizeFloat ppAdj{ -0.5f, -0.5f };
+	void Renderer::PresentFromDDSurface(Geom::RectInt destRect, std::shared_ptr<Hw3D::Texture> source, Geom::PointInt sourceTopLeft) {
+		//SizeFloat ppAdj{ -0.5f, -0.5f };
+		SizeFloat ppAdj{ 0.0f, 0.0f };
+		//SizeFloat ppAdj{ +0.5f, +0.5f };
 
-		auto* ds = dynamic_cast<DDSurfaceD3D*>(source.get());
-		auto tex = ds->GetTexture();
-		m_direct3d->SetTexture(0, tex);
+		//SizeFloat ppAdj{ -50.0f, -123.0f };
 
-		D3D::Vertex2D a, b, c, d;
-		auto uvTL = sourceTopLeft.StaticCast<float>() / source->Dimensions().StaticCast<float>();
-		auto uvBR = (sourceTopLeft + destRect.Dimensions()).StaticCast<float>() / source->Dimensions().StaticCast<float>();
-		D3D::GenerateQuad(
+		m_context->SetTexture(0, source);
+
+		Hw3D::Vertex2D a, b, c, d;
+		auto uvTL = sourceTopLeft.StaticCast<float>() / source->GetSize().StaticCast<float>();
+		auto uvBR = (sourceTopLeft + destRect.Dimensions()).StaticCast<float>() / source->GetSize().StaticCast<float>();
+		App::GenerateQuad(
 			destRect.StaticCast<float>(),
 			{ uvTL, uvBR },
 			ppAdj,
 			RenderAreaSize(),
 			Angle,
 			a, b, c, d);
-		m_direct3d->RenderQuad(a, b, c, d);
+		m_context->RenderQuad(a, b, c, d);
 	}
 
 }

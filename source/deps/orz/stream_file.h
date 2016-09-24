@@ -11,12 +11,14 @@
 namespace IO {
 	class StreamFile:public Stream {
 	public:
-		StreamFile(const std::string& filename);
+		StreamFile(std::string filename);
 		~StreamFile();
 
 #ifdef _WIN32
 		std::string Rename(const std::string& newFilename, HWND handle);
+#endif
 		void Renamed(const std::string& newFilename);
+#ifdef _WIN32
 		bool Delete(bool doRecycle, HWND handle);
 #endif
 

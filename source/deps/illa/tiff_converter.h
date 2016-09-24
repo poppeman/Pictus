@@ -2,7 +2,7 @@
 #define TIFF_CONVERTER_H
 
 #include "types.h"
-#include "libtiff/tiffio.h"
+#include <tiffio.h>
 
 #include <memory>
 

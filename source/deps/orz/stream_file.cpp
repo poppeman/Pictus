@@ -1,6 +1,12 @@
 #include "stream_file.h"
 #include "fileops.h"
 
+#ifdef __linux__
+#include <sys/stat.h>
+#include <sys/types.h>
+#endif
+
+
 namespace IO {
 	using std::recursive_mutex;
 
@@ -20,8 +26,9 @@ namespace IO {
 		}
 		return ret;
 	}
+#endif
 
-	void StreamFile::Renamed(_In_ const std::string& newFilename) {
+	void StreamFile::Renamed(const std::string& newFilename) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_name = newFilename;
 
@@ -32,6 +39,7 @@ namespace IO {
 		performSeek(prevPos, SeekMethod::Begin);
 	}
 
+#ifdef _WIN32
 	bool StreamFile::Delete(bool doRecycle, HWND handle) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 
@@ -80,8 +88,22 @@ namespace IO {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		m_size = 0;
 #ifdef _WIN32
-		m_file = _wfsopen(UTF8ToWString(m_name).c_str(), L"rb", _SH_DENYWR);
-#else
+		// _wfsopen fails on paths surrounded by quotes, and assure_folder can output just that
+		auto fn = m_name;
+		if (fn.length() > 2 && fn[0] == '"' && fn[fn.length() - 1] == '"')
+		{
+			fn = fn.substr(1, fn.length() - 2);
+		}
+		m_file = _wfsopen(UTF8ToWString(fn).c_str(), L"rb", _SH_DENYWR);
+#elif __linux__
+		// Linux is evil and allows you to fopen folders. Thus we need to make sure this is a file manually
+		struct stat stats;
+		stat(m_name.c_str(), &stats);
+		if(S_ISDIR(stats.st_mode))
+		{
+			return false;
+		}
+
 		m_file = fopen(m_name.c_str(), "rb");
 #endif
 		if (m_file == 0) {
@@ -149,7 +171,7 @@ namespace IO {
 		return m_name;
 	}
 
-	StreamFile::StreamFile(const std::string& filename):
+	StreamFile::StreamFile(std::string filename):
 		m_file(0),
 		m_name(filename),
 		m_size(0),

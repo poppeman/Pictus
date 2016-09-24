@@ -1,11 +1,16 @@
-#ifndef ADJUST_H
-#define ADJUST_H
+#ifndef PICTUS_DIALOGS_ADJUST_H
+#define PICTUS_DIALOGS_ADJUST_H
 
-#include "dialog.h"
+#include <wx/checkbox.h>
+#include <wx/dialog.h>
+#include <wx/slider.h>
+#include <boost/signals2.hpp>
 #include "app_types.h"
 
-namespace App {
-	class Adjust:public Win::Dialog {
+namespace App
+{
+	class Adjust:public wxDialog
+	{
 	public:
 		boost::signals2::signal<void(int, int, int)> OnChange;
 
@@ -17,16 +22,15 @@ namespace App {
 		int Gamma() const;
 
 		void Apply();
-		void Close();
 		void Default();
 
-		Adjust();
+		Adjust(wxWindow* parent);
 
 	private:
-		bool PerformOnInitDialog();
-		bool PerformOnHScroll(WPARAM wp, LPARAM lp);
-
 		bool isAutoProof();
+
+		wxCheckBox *m_autoApply;
+		wxSlider *m_brightness, *m_contrast, *m_gamma;
 	};
 }
 

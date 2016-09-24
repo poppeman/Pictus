@@ -67,11 +67,10 @@ namespace Img {
 
 		Img::AbstractCodec* DetectAndLoadHeader(const std::shared_ptr<IO::FileReader> reader);
 
-		IO::FileReader::Ptr m_reader;
+		CodecFactoryStore* m_cfs;
 		Image* image;
 		AbstractCodec* codec;
 		Util::StopWatch m_sw;
-		CodecFactoryStore* m_cfs;
 
 		enum InternalLoadState {
 			ILUnprocessed,
@@ -83,8 +82,9 @@ namespace Img {
 			ILError,
 		};
 
-		InternalLoadState m_state;
 		bool m_maySkipFast;
+		InternalLoadState m_state;
+		IO::FileReader::Ptr m_reader;
 
 		static std::mutex m_mxHints;
 		static Geom::SizeInt m_maxRes;

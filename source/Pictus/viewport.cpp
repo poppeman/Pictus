@@ -3,48 +3,36 @@
 #include "illa/config.h"
 #include "illa/surfacemgr.h"
 #include "getevent.h"
-
-const wchar_t* App::ViewPort::ClassName = L"Pictus ViewPort";
+#include <wx/display.h>
+#include <wx/glcanvas.h>
+#include <wx/dcclient.h>
 
 namespace App {
 	using Geom::RectInt;
 	using Geom::PointInt;
 	using Geom::SizeInt;
 
-	ViewPort::ViewPort():
+	ViewPort::ViewPort(wxWindow* parent):
+		m_canvas{nullptr},
 		m_isCursorVisible(true),
 		m_cursorMode(CursorShow),
 		m_displayZoom(1.0f),
 		m_imageZoom(1.0f),
-		m_currentPanMonitor(nullptr),
+		m_currentPanMonitor(-1),
 		m_isPanning(false),
-		m_resetPan(false)
+		m_resetPan(false),
+		m_parent(parent)
 	{
 		Img::SurfaceFactory(&m_renderTarget);
-		OnMouseMove.connect([&](Win::MouseEvent e) { return HandleMouseMove(e); });
-		OnMouseButtonDown.connect([&](Win::MouseEvent e) { return HandleMouseDown(e); });
-		OnMouseButtonUp.connect([&](Win::MouseEvent e) { return HandleMouseUp(e); });
-
-		m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
-		m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
 	}
 
 	bool ViewPort::PerformOnCreate() {
-		m_hParent = Parent()->Handle();
+		m_canvas->SetPosition({0, 0});
+		m_canvas->SetSize(320, 200);
+		m_canvas->Show(true);
+		m_canvas->GetSize();
 
-		// Register the window class (if possible)
-		WNDCLASSEX wc;
-		ZeroMemory(&wc, sizeof(wc));
-		wc.cbSize			= sizeof(wc);					// Set structure size
-		wc.hCursor			= LoadCursor(0, IDC_ARROW);
-		wc.hInstance		= GetHINSTANCE();				// Current instance's handle
-		wc.lpfnWndProc		= WndProcDelegate;				// Use "delegate" as the wndproc
-		wc.lpszClassName	= ClassName;					// Class name
-		wc.style			= CS_DBLCLKS | CS_HREDRAW | CS_VREDRAW;	// Register double clicks and window resizes
-		RegisterClassEx(&wc);
-
-		// Create window without any nifty features
-		return ConstructWindow(RectInt(PointInt(0, 0), SizeInt(1, 1)), WS_EX_ACCEPTFILES, ClassName, L"", WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN);
+		return true;
 	}
 
 	void ViewPort::setSurface() {
@@ -113,16 +101,23 @@ namespace App {
 
 		}
 
-		InvalidateRect(Handle(), 0, false);
-		OnSize(GetSize());
+		m_canvas->Refresh();
+		/*InvalidateRect(Handle(), 0, false);*/
+		PerformOnSize(GetSize());
 	}
 
 	Img::Image::Ptr ViewPort::Image() const {
 		return m_image;
 	}
 
+	Img::Properties ViewPort::Properties() const
+	{
+		return m_props;
+	}
+
 	void ViewPort::BackgroundColor(const Img::Color& col) {
 		m_props.BackgroundColor = col;
+		m_canvas->SetBackgroundColour(wxColour(col.R, col.G, col.B, col.A));
 	}
 
 	const Img::Color& ViewPort::BackgroundColor() const {
@@ -132,7 +127,7 @@ namespace App {
 	void ViewPort::Rotate(Filter::RotationAngle r) {
 		m_props.RequestedAngle = r;
 
-		OnSize(GetSize());
+		PerformOnSize(GetSize());
 	}
 
 	Filter::RotationAngle ViewPort::Rotation() const {
@@ -151,7 +146,7 @@ namespace App {
 	void ViewPort::Pan(const SizeInt& deltaPan) {
 		m_pan.Pan(deltaPan);
 
-		Update();
+		m_canvas->Update();
 	}
 
 	void ViewPort::ImageRefreshCallback() {
@@ -160,7 +155,7 @@ namespace App {
 		if (m_image->Delay() != -1) {
 			m_image->NextFrame();
 			m_animationTimer.Create(m_image->Delay());
-			Redraw();
+			m_canvas->Refresh();
 		}
 		else {
 			if (m_image && m_image->IsHeaderInformationValid()) {
@@ -168,7 +163,7 @@ namespace App {
 			}
 
 			bool status = m_image->IsFinished();
-			Redraw();
+			m_canvas->Refresh();
 			if (status) {
 				m_animationTimer.Destroy();
 			}
@@ -179,7 +174,7 @@ namespace App {
 		setSurface();
 
 		// TODO: This may call BEFORE the surface is allocated, and will thus fail when attempting to lock.
-		if (m_image && m_image->IsHeaderInformationValid() && AreaNonZero(ZoomedImageSize()) && (AreaNonZero(GetSize()))) {
+		if (m_image && m_image->IsHeaderInformationValid() && AreaNonZero(ZoomedImageSize()) && (Geom::AreaNonZero(GetSize()))) {
 			bool status = m_image->IsFinished();
 
 			m_props.ResampleFilter = ActiveFilterMode();
@@ -195,7 +190,7 @@ namespace App {
 
 			// Direct3D9 Ex (with FLIPEX) doesn't seem to validate the window the same way as vanilla D3D9.
 			// Therefore we do it ourselves to prevent WM_PAINT spam.
-			ValidateRect(Handle(), nullptr);
+			//ValidateRect(Handle(), nullptr);
 			return true;
 		}
 
@@ -214,49 +209,54 @@ namespace App {
 		return m_magFilter;
 	}
 
-
-	bool ViewPort::PerformOnApp(int index, WPARAM wp, LPARAM lp) {
-		if (Parent()) {
-			return Parent()->OnApp(index, wp, lp);
-		}
-		return false;
-	}
-
-	bool ViewPort::HandleMouseDown(Win::MouseEvent e) {
-		if (MouseStandardEvent(e, m_mouseConfig) == MousePan) {
+	void ViewPort::HandleMouseDown(wxMouseEvent& evt) {
+		if (MouseStandardEvent(Win::MouseEvent(evt), m_mouseConfig) == MousePan) {
 			m_isPanning = true;
 			m_oldMousePosition = MouseCursorPos();
-			m_currentPanMonitor = Win::FindMonitorAt(m_oldMousePosition);
-			SetCapture(Handle());
-			return true;
+			m_currentPanMonitor = wxDisplay::GetFromPoint(Win::PointToWx(m_oldMousePosition));
+			m_canvas->CaptureMouse();
+			return;
 		}
-		return false;
+		evt.ResumePropagation(1);
+		evt.Skip();
 	}
 
-	bool ViewPort::HandleMouseUp(Win::MouseEvent) {
+	void ViewPort::HandleMouseDoubleClick(wxMouseEvent &e)
+	{
+		e.ResumePropagation(1);
+		e.Skip();
+	}
+
+	void ViewPort::HandleMouseUp(wxMouseEvent& evt) {
 		// Done panning, release mouse
-		ReleaseCapture();
+		if(m_isPanning)
+		{
+			m_canvas->ReleaseMouse();
+		}
 
 		m_isPanning = false;
 
-		return false;
+		evt.ResumePropagation(1);
+		evt.Skip();
 	}
 
-	bool ViewPort::HandleMouseMove(Win::MouseEvent e) {
+	void ViewPort::HandleMouseMove(wxMouseEvent& evt) {
 		updateCursor();
 
-		if (!((MouseStandardEvent(e, m_mouseConfig)) && m_isPanning == true)) {
-			return false;
+		if (!((MouseStandardEvent(evt, m_mouseConfig)) && m_isPanning == true)) {
+			evt.ResumePropagation(1);
+			evt.Skip();
+			return;
 		}
 
-		if (m_currentPanMonitor == nullptr) {
+		if (m_currentPanMonitor == wxNOT_FOUND) {
 			DO_THROW(Err::CriticalError, "Current panning monitor not set.");
 		}
 
 		auto globalPosition = MouseCursorPos();
 		auto mousePosition = globalPosition;
 
-		const Geom::RectInt& screen = m_currentPanMonitor->Region();
+		auto screen = Win::wxToRect(wxDisplay(m_currentPanMonitor).GetGeometry());
 
 		if (mousePosition.X >= (screen.Right() - 1)) {
 			mousePosition.X = screen.Left() + 1;
@@ -275,13 +275,12 @@ namespace App {
 		}
 
 		if (globalPosition != mousePosition) {
-			SetCursorPos(mousePosition.X, mousePosition.Y);
+			auto screenPos = m_canvas->ScreenToClient({mousePosition.X, mousePosition.Y});
+			m_canvas->WarpPointer(screenPos.x, screenPos.y);
+
 			// Fix for RDP and similar. Sometimes (often) SetCursorPos fails silently, so we need to check manually to
 			// see if it had any effect.
-			POINT p;
-			GetCursorPos(&p);
-			mousePosition.X = p.x; mousePosition.Y = p.y;
-
+			mousePosition = MouseCursorPos();
 			m_oldMousePosition = mousePosition;
 		}
 
@@ -290,16 +289,15 @@ namespace App {
 			m_pan.Pan(-dPos);
 			m_oldMousePosition = mousePosition;
 
-			Update();
+			m_canvas->Refresh();
 		}
-
-		return true;
 	}
 
 	void ViewPort::CursorHideCallback() {
-		if (GetForegroundWindow() == Parent()->Handle()) {
+		// TODO: Reimplement cursor hiding
+		/*if (GetForegroundWindow() == Parent()->Handle()) {
 			ShowCursor(false);
-		}
+		}*/
 	}
 
 	SizeInt ViewPort::OptimalViewportSize() {
@@ -332,15 +330,17 @@ namespace App {
 
 		//UpdateCursor();
 
-		if (Handle() != 0) {
+		m_canvas->Refresh();
+		/*if (Handle() != 0) {
 			InvalidateRect(Handle(), 0, false);
-		}
+		}*/
 	}
 
 	void ViewPort::updateCursor() {
 		m_hideTimer.Destroy();
 
-		switch(m_cursorMode) {
+		// TODO: Reimplement cursor hiding
+		/*switch(m_cursorMode) {
 			case CursorHide:
 				ShowCursor(false);
 				break;
@@ -356,7 +356,7 @@ namespace App {
 
 				m_hideTimer.Create(HideDelay);
 				break;
-		}
+		}*/
 	}
 
 	void ViewPort::Brightness(int newLevel) {
@@ -383,18 +383,19 @@ namespace App {
 		return m_props.Gamma;
 	}
 
-	bool ViewPort::PerformOnDropFiles( const StringVector& files ) {
+	/*bool ViewPort::PerformOnDropFiles( const StringVector& files ) {
 		auto parentWindow = dynamic_cast<Win::Window*>(Parent());
 		if (parentWindow == nullptr) {
 			DO_THROW(Err::CriticalError, "Parent window was not a proper window.");
 		}
 
 		return parentWindow->OnDropFiles(files);
-	}
+	}*/
 
 	bool ViewPort::SetRenderer( Win::Renderer::Ptr renderer ) {
 		m_renderTarget.SetRenderer(renderer);
-		return m_renderTarget.TargetWindow(Handle());
+		m_renderTarget.TargetWindow(m_canvas);
+		return true;
 	}
 
 	void ViewPort::SetRedrawStrategy(Win::RedrawStrategy::Ptr strategy) {
@@ -414,7 +415,7 @@ namespace App {
 	}
 
 	void ViewPort::ZoomUpdated() {
-		OnSize(GetSize());
+		PerformOnSize(GetSize());
 	}
 
 	void ViewPort::ZoomIn() {
@@ -452,6 +453,77 @@ namespace App {
 
 	void ViewPort::ResizeBehaviour(App::ResizeBehaviour newResizeBehaviour) {
 		m_zoom.ResizeBehaviour(newResizeBehaviour);
+	}
+
+	PointInt ViewPort::MouseCursorPos()
+	{
+		auto state = wxGetMouseState();
+		return Win::wxToPoint(state.GetPosition());
+	}
+
+	void ViewPort::Init()
+	{
+		PerformOnCreate();
+	}
+
+	Geom::SizeInt ViewPort::GetSize()
+	{
+		return Win::wxToSize(m_canvas->GetSize());
+	}
+
+	void ViewPort::Refresh()
+	{
+		m_canvas->Refresh();
+	}
+
+	void ViewPort::SetCanvas(wxWindow* canvas)
+	{
+		if(m_canvas != nullptr)
+		{
+			delete m_canvas;
+			m_canvas = nullptr;
+		}
+
+		m_canvas = canvas;
+		// TODO: Bind the other events
+		m_canvas->Bind(wxEVT_LEFT_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_LEFT_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_LEFT_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_MIDDLE_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_MIDDLE_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_MIDDLE_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_RIGHT_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_RIGHT_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_RIGHT_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_AUX1_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_AUX1_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_AUX1_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_AUX2_DOWN, &ViewPort::HandleMouseDown, this);
+		m_canvas->Bind(wxEVT_AUX2_DCLICK, &ViewPort::HandleMouseDoubleClick, this);
+		m_canvas->Bind(wxEVT_AUX2_UP, &ViewPort::HandleMouseUp, this);
+
+		m_canvas->Bind(wxEVT_MOTION, &ViewPort::HandleMouseMove, this);
+		m_canvas->Bind(wxEVT_MOUSEWHEEL, &ViewPort::HandleMouseDown, this);
+
+		m_canvas->Bind(wxEVT_PAINT, [&](wxPaintEvent& evt) { wxPaintDC dc(m_canvas); PerformOnPaint(); });
+		m_canvas->Bind(wxEVT_SIZE, [&](wxSizeEvent& evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
+		m_canvas->Bind(wxEVT_SIZING, [&](wxSizeEvent& evt) { PerformOnSize(Win::wxToSize(evt.GetSize())); });
+
+		m_canvas->Bind(wxEVT_KEY_DOWN, [&](wxKeyEvent& e) {
+			e.ResumePropagation(1);
+			e.Skip();
+		});
+
+		m_canvas->Bind(wxEVT_ERASE_BACKGROUND, [&](wxEraseEvent& evt) {});
+
+		m_renderTarget.TargetWindow(m_canvas);
+
+		//m_hideTimer.OnTick.connect([&]() { CursorHideCallback(); });
+		m_animationTimer.OnTick.connect([&]() { ImageRefreshCallback(); });
 	}
 
 	Geom::SizeInt ViewPort::GetVisibleImageSize() const

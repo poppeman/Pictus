@@ -101,14 +101,14 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>D3D_DEBUG_INFO;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;comctl32.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -128,11 +128,11 @@
       <AdditionalIncludeDirectories>../deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>D3D_DEBUG_INFO;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;comctl32.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -153,7 +153,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;comctl32.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -183,7 +183,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/NXCOMPAT %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>comctl32.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;comctl32.lib;UxTheme.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <TargetMachine>MachineX64</TargetMachine>
@@ -204,9 +204,11 @@
     <Text Include="license_sv.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="appreg.cpp" />
+    <ClCompile Include="adjust.cpp" />
     <ClCompile Include="app_types.cpp" />
-    <ClCompile Include="ctrl_combobox_entry.cpp" />
+    <ClCompile Include="clipboard.cpp" />
+    <ClCompile Include="cnt_color_hls.cpp" />
+    <ClCompile Include="cnt_color_rgb.cpp" />
     <ClCompile Include="ctrl_keypress.cpp" />
     <ClCompile Include="dlg_about.cpp" />
     <ClCompile Include="dlg_advanced.cpp" />
@@ -214,16 +216,32 @@
     <ClCompile Include="dlg_controls.cpp" />
     <ClCompile Include="dlg_keyboard.cpp" />
     <ClCompile Include="dlg_language.cpp" />
-    <ClCompile Include="gdiwrapper.cpp" />
+    <ClCompile Include="filemanager.cpp" />
+    <ClCompile Include="hw3d_device.cpp" />
+    <ClCompile Include="hw3d_direct3d9_common.cpp" />
+    <ClCompile Include="hw3d_direct3d9_context.cpp" />
+    <ClCompile Include="hw3d_direct3d9_device.cpp" />
+    <ClCompile Include="hw3d_direct3d9_staging_texture.cpp" />
+    <ClCompile Include="hw3d_direct3d9_texture.cpp" />
+    <ClCompile Include="hw3d_opengl_common.cpp" />
+    <ClCompile Include="hw3d_opengl_context.cpp" />
+    <ClCompile Include="hw3d_opengl_device.cpp" />
+    <ClCompile Include="hw3d_opengl_staging_texture.cpp" />
+    <ClCompile Include="hw3d_opengl_staging_texture_pbo.cpp" />
+    <ClCompile Include="hw3d_opengl_staging_texture_simple.cpp" />
+    <ClCompile Include="hw3d_opengl_texture.cpp" />
+    <ClCompile Include="hw3d_staging_texture.cpp" />
+    <ClCompile Include="hw3d_texture.cpp" />
     <ClCompile Include="imagecache_workrequest.cpp" />
-    <ClCompile Include="imenu_item.cpp" />
+    <ClCompile Include="ipc_client.cpp" />
+    <ClCompile Include="ipc_openfile_connection.cpp" />
+    <ClCompile Include="ipc_server.cpp" />
     <ClCompile Include="lang_val.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="menu_item.cpp" />
     <ClCompile Include="reg_color_translator.cpp" />
     <ClCompile Include="reg_filter_mode_translator.cpp" />
     <ClCompile Include="reg_keyboard_binding_translator.cpp" />
@@ -232,54 +250,37 @@
     <ClCompile Include="reg_resize_behavior_translator.cpp" />
     <ClCompile Include="reg_resize_position_method_translator.cpp" />
     <ClCompile Include="reg_zoom_mode_translator.cpp" />
-    <ClCompile Include="separator.cpp" />
+    <ClCompile Include="rename.cpp" />
+    <ClCompile Include="render_geometry.cpp" />
+    <ClCompile Include="resize_position_method.cpp" />
     <ClCompile Include="settings.cpp" />
+    <ClCompile Include="settings_layout.cpp" />
     <ClCompile Include="settings_page.cpp" />
     <ClCompile Include="dlg_color.cpp" />
     <ClCompile Include="dlg_interface.cpp" />
     <ClCompile Include="dlg_view.cpp" />
     <ClCompile Include="cnt_colorpick.cpp" />
     <ClCompile Include="cnt_colorpreview.cpp" />
-    <ClCompile Include="adjust.cpp" />
     <ClCompile Include="filterstring.cpp" />
     <ClCompile Include="getevent.cpp" />
-    <ClCompile Include="rename.cpp" />
-    <ClCompile Include="sub_menu.cpp" />
     <ClCompile Include="viewer.cpp" />
     <ClCompile Include="viewer_contextmenu.cpp" />
+    <ClCompile Include="viewer_droptarget.cpp" />
     <ClCompile Include="viewer_keyboard.cpp" />
     <ClCompile Include="view_pan.cpp" />
     <ClCompile Include="viewport.cpp" />
     <ClCompile Include="zoomstrategy.cpp" />
     <ClCompile Include="builder_viewport.cpp" />
     <ClCompile Include="factory_renderer.cpp" />
-    <ClCompile Include="imagelist.cpp" />
-    <ClCompile Include="monitor.cpp" />
-    <ClCompile Include="notification.cpp" />
     <ClCompile Include="timer.cpp" />
-    <ClCompile Include="w32_main.cpp" />
     <ClCompile Include="wallpaper.cpp" />
-    <ClCompile Include="win7taskbar.cpp" />
     <ClCompile Include="wintypes.cpp" />
-    <ClCompile Include="basewin.cpp" />
-    <ClCompile Include="window.cpp" />
-    <ClCompile Include="menu.cpp" />
-    <ClCompile Include="dialog.cpp" />
-    <ClCompile Include="control.cpp" />
-    <ClCompile Include="ctrl_button.cpp" />
-    <ClCompile Include="ctrl_combobox.cpp" />
-    <ClCompile Include="ctrl_editbox.cpp" />
-    <ClCompile Include="ctrl_listview.cpp" />
-    <ClCompile Include="ctrl_statusbar.cpp" />
-    <ClCompile Include="ctrl_statusbar_part.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="version.cpp" />
     <ClCompile Include="registry.cpp" />
     <ClCompile Include="w32_assure_folder.cpp" />
     <ClCompile Include="w32_rendertarget.cpp" />
-    <ClCompile Include="w32_ddsurface.cpp" />
     <ClCompile Include="w32_renderer.cpp" />
-    <ClCompile Include="d3d_ddsurface.cpp" />
     <ClCompile Include="w32_redrawstrategy.cpp" />
     <ClCompile Include="w32_rs_tiled.cpp" />
     <ClCompile Include="w32_rs_tilemanager.cpp" />
@@ -293,7 +294,10 @@
     <ClCompile Include="ic_workpackage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ctrl_combobox_entry.h" />
+    <ClInclude Include="adjust.h" />
+    <ClInclude Include="clipboard.h" />
+    <ClInclude Include="cnt_color_hls.h" />
+    <ClInclude Include="cnt_color_rgb.h" />
     <ClInclude Include="ctrl_keypress.h" />
     <ClInclude Include="dlg_about.h" />
     <ClInclude Include="dlg_advanced.h" />
@@ -301,12 +305,31 @@
     <ClInclude Include="dlg_controls.h" />
     <ClInclude Include="dlg_keyboard.h" />
     <ClInclude Include="dlg_language.h" />
-    <ClInclude Include="gdiwrapper.h" />
+    <ClInclude Include="filemanager.h" />
+    <ClInclude Include="hw3d_context.h" />
+    <ClInclude Include="hw3d_device.h" />
+    <ClInclude Include="hw3d_direct3d9_common.h" />
+    <ClInclude Include="hw3d_direct3d9_context.h" />
+    <ClInclude Include="hw3d_direct3d9_device.h" />
+    <ClInclude Include="hw3d_direct3d9_staging_texture.h" />
+    <ClInclude Include="hw3d_direct3d9_texture.h" />
+    <ClInclude Include="hw3d_opengl_common.h" />
+    <ClInclude Include="hw3d_opengl_context.h" />
+    <ClInclude Include="hw3d_opengl_device.h" />
+    <ClInclude Include="hw3d_opengl_staging_texture.h" />
+    <ClInclude Include="hw3d_opengl_staging_texture_pbo.h" />
+    <ClInclude Include="hw3d_opengl_staging_texture_simple.h" />
+    <ClInclude Include="hw3d_opengl_texture.h" />
+    <ClInclude Include="hw3d_staging_texture.h" />
+    <ClInclude Include="hw3d_texture.h" />
+    <ClInclude Include="hw3d_types.h" />
+    <ClInclude Include="hw3d_vertex2d.h" />
     <ClInclude Include="imagecache_workrequest.h" />
-    <ClInclude Include="imenu_item.h" />
+    <ClInclude Include="ipc_client.h" />
+    <ClInclude Include="ipc_openfile_connection.h" />
+    <ClInclude Include="ipc_server.h" />
     <ClInclude Include="lang_enum.h" />
     <ClInclude Include="lang_val.h" />
-    <ClInclude Include="menu_item.h" />
     <ClInclude Include="reg_color_translator.h" />
     <ClInclude Include="reg_filter_mode_translator.h" />
     <ClInclude Include="reg_keyboard_binding_translator.h" />
@@ -315,10 +338,12 @@
     <ClInclude Include="reg_resize_behavior_translator.h" />
     <ClInclude Include="reg_resize_position_method_translator.h" />
     <ClInclude Include="reg_zoom_mode_translator.h" />
+    <ClInclude Include="rename.h" />
+    <ClInclude Include="render_geometry.h" />
     <ClInclude Include="resize_behavior.h" />
     <ClInclude Include="resize_position_method.h" />
-    <ClInclude Include="separator.h" />
     <ClInclude Include="settings.h" />
+    <ClInclude Include="settings_layout.h" />
     <ClInclude Include="settings_page.h" />
     <ClInclude Include="dlg_color.h" />
     <ClInclude Include="dlg_interface.h" />
@@ -326,15 +351,11 @@
     <ClInclude Include="cnt_colorpick.h" />
     <ClInclude Include="cnt_colorpreview.h" />
     <ClInclude Include="actionmap.h" />
-    <ClInclude Include="adjust.h" />
     <ClInclude Include="filterstring.h" />
     <ClInclude Include="getevent.h" />
-    <ClInclude Include="rename.h" />
-    <ClInclude Include="res_settings.h" />
-    <ClInclude Include="res_viewer.h" />
-    <ClInclude Include="sub_menu.h" />
     <ClInclude Include="viewer.h" />
     <ClInclude Include="viewer_contextmenu.h" />
+    <ClInclude Include="viewer_droptarget.h" />
     <ClInclude Include="viewer_keyboard.h" />
     <ClInclude Include="view_pan.h" />
     <ClInclude Include="viewport.h" />
@@ -342,24 +363,9 @@
     <ClInclude Include="builder_viewport.h" />
     <ClInclude Include="factory_renderer.h" />
     <ClInclude Include="cursor.h" />
-    <ClInclude Include="imagelist.h" />
-    <ClInclude Include="monitor.h" />
-    <ClInclude Include="notification.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="wallpaper.h" />
-    <ClInclude Include="win7taskbar.h" />
     <ClInclude Include="wintypes.h" />
-    <ClInclude Include="basewin.h" />
-    <ClInclude Include="window.h" />
-    <ClInclude Include="menu.h" />
-    <ClInclude Include="dialog.h" />
-    <ClInclude Include="control.h" />
-    <ClInclude Include="ctrl_button.h" />
-    <ClInclude Include="ctrl_combobox.h" />
-    <ClInclude Include="ctrl_editbox.h" />
-    <ClInclude Include="ctrl_listview.h" />
-    <ClInclude Include="ctrl_statusbar.h" />
-    <ClInclude Include="ctrl_statusbar_part.h" />
     <ClInclude Include="app_types.h" />
     <ClInclude Include="appreg.h" />
     <ClInclude Include="config.h" />
@@ -369,9 +375,7 @@
     <ClInclude Include="registry.h" />
     <ClInclude Include="w32_assure_folder.h" />
     <ClInclude Include="w32_rendertarget.h" />
-    <ClInclude Include="w32_ddsurface.h" />
     <ClInclude Include="w32_renderer.h" />
-    <ClInclude Include="d3d_ddsurface.h" />
     <ClInclude Include="w32_redrawstrategy.h" />
     <ClInclude Include="w32_rs_tiled.h" />
     <ClInclude Include="w32_rs_tilemanager.h" />
@@ -385,10 +389,6 @@
     <ClInclude Include="ic_worklist.h" />
     <ClInclude Include="ic_workpackage.h" />
     <ClInclude Include="zoom_mode.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="res_settings.rc" />
-    <ResourceCompile Include="res_viewer.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lang_convert.py" />
@@ -420,12 +420,10 @@
   <ItemGroup>
     <Image Include="Res\document.ico" />
     <Image Include="Res\icon_app1.ico" />
-    <Image Include="Res\thumbtoolbar96.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\deps\D3DWrap\D3DWrap.vcxproj">
-      <Project>{1041595a-f33c-497d-80bd-d3723da0c9ad}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    <ProjectReference Include="..\3rdparty\glew\glew.vcxproj">
+      <Project>{cf762811-28f6-418a-85fa-3db6891f3db6}</Project>
     </ProjectReference>
     <ProjectReference Include="..\deps\illa\illa.vcxproj">
       <Project>{f4fb9d4b-8041-4c4e-8ea3-7ea57b7cb1ba}</Project>

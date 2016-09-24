@@ -3,18 +3,21 @@
 
 #include "settings_page.h"
 
-namespace App {
-	class SetAbout:public App::SettingsPage {
+namespace App
+{
+	class SetAbout : public SettingsPage
+	{
 	public:
-		SetAbout();
+		std::string Caption() override;
+		SetAbout(wxWindow* parent);
 		~SetAbout();
 
 	private:
-		bool PerformOnInitPage() override;
-		void PerformUpdateFromSettings(const Reg::Settings& settings) override;
-		void onWriteSettings(Reg::Settings& settings) override;
+		//bool PerformOnInitPage() override;
+		void PerformUpdateFromSettings(const Reg::Settings &settings) override;
+		void onWriteSettings(Reg::Settings &settings) override;
 
-		HFONT m_headerFont;
+		//HFONT m_headerFont;
 	};
 }
 

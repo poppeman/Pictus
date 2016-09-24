@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="dec">
+      <UniqueIdentifier>{6ee26165-9e67-438b-a119-4b4477b33648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="demux">
+      <UniqueIdentifier>{cdcda120-4274-487d-921a-ed9f66160300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dsp">
+      <UniqueIdentifier>{bb69264a-d426-4f40-90c1-84c51dce8924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{0c39dc1a-a48b-421f-b146-62b73d95f02a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="webp">
+      <UniqueIdentifier>{ead3d019-4aad-4d8f-88ba-98349ee7b8bc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\src\dec\alpha.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\buffer.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\frame.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\idec.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\io.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\quant.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\tree.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\webp.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\vp8.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dec\vp8l.c">
+      <Filter>dec</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\demux\anim_decode.c">
+      <Filter>demux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\demux\demux.c">
+      <Filter>demux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\alpha_processing.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\alpha_processing_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\alpha_processing_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\alpha_processing_sse41.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\argb.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\argb_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\argb_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\cost.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\cost_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\cost_mips32.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\cost_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\cpu.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\dec.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\dec_clip_tables.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\dec_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\dec_mips32.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\dec_msa.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\dec_neon.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\dec_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\dec_sse41.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\enc.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\enc_avx2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\enc_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\enc_mips32.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\enc_neon.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\enc_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\enc_sse41.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\filters.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\filters_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\filters_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_enc.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_enc_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_enc_mips32.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_enc_neon.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_enc_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_enc_sse41.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_neon.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\lossless_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\rescaler.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\rescaler_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\rescaler_mips32.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\rescaler_neon.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\rescaler_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\upsampling.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\upsampling_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\upsampling_neon.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\upsampling_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\yuv.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\yuv_mips_dsp_r2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\yuv_mips32.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\dsp\yuv_sse2.c">
+      <Filter>dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\bit_reader.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\bit_writer.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\color_cache.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\filters.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\huffman.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\huffman_encode.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\quant_levels.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\quant_levels_dec.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\random.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\rescaler.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\thread.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\utils\utils.c">
+      <Filter>utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\src\dec\alphai.h">
+      <Filter>dec</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dec\common.h">
+      <Filter>dec</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dec\decode_vp8.h">
+      <Filter>dec</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dec\webpi.h">
+      <Filter>dec</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dec\vp8i.h">
+      <Filter>dec</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dec\vp8li.h">
+      <Filter>dec</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dsp\common_sse2.h">
+      <Filter>dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dsp\dsp.h">
+      <Filter>dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dsp\lossless.h">
+      <Filter>dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dsp\mips_macro.h">
+      <Filter>dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dsp\msa_macro.h">
+      <Filter>dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dsp\neon.h">
+      <Filter>dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\dsp\yuv.h">
+      <Filter>dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\bit_reader.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\bit_reader_inl.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\bit_writer.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\color_cache.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\endian_inl.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\filters.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\huffman.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\huffman_encode.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\quant_levels.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\quant_levels_dec.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\random.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\rescaler.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\thread.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\utils\utils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\config.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\decode.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\demux.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\encode.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\extras.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\format_constants.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\mux.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\mux_types.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\src\webp\types.h">
+      <Filter>webp</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

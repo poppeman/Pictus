@@ -6,6 +6,11 @@
 
 #include <boost/date_time.hpp>
 
+#if _WIN32
+#define ENABLE_CREATED_TIME
+#endif
+
+
 namespace Img {
 	namespace Internal {
 		class FileEntry {
@@ -17,7 +22,7 @@ namespace Img {
 
 			std::time_t DateModified();
 			std::time_t DateCreated();
-			std::time_t FileSize();
+			FileInt FileSize();
 
 			FileEntry(std::string fullname);
 
@@ -26,9 +31,11 @@ namespace Img {
 
 			Img::Image::Ptr m_image;
 			std::string m_fullname;
-			bool m_hasQueriedFile;
+#ifdef ENABLE_CREATED_TIME
 			std::time_t m_dateCreate;
+#endif
 			std::time_t m_dateModified;
+			bool m_hasQueriedFile;
 			uintmax_t m_fileSize;
 
 		};

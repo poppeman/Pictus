@@ -1,25 +1,29 @@
 #include "dlg_advanced.h"
 #include "registry.h"
-#include "res_settings.h"
+#include "wintypes.h"
 
-namespace App {
+namespace App
+{
 	using namespace Intl;
 
-	bool SetAdvanced::PerformOnInitPage() {
-		Caption(SIDSettingsAdvanced);
-		ControlText(IDC_MULT_INSTANCE, SIDSettingsAdvancedAllowMultipleInstances);
-		return true;
+	std::string SetAdvanced::Caption()
+	{
+		return Intl::GetString(SIDSettingsAdvanced);
 	}
 
-	void SetAdvanced::PerformUpdateFromSettings(const Reg::Settings& settings) {
-		SetCheckBox(IDC_MULT_INSTANCE, settings.View.MultipleInstances);
+	SetAdvanced::SetAdvanced(wxWindow *parent) :
+		App::SettingsPage{parent}
+	{
+		m_allowMultipleInstances = new wxCheckBox(this, wxID_ANY, Win::GetStringWx(SIDSettingsAdvancedAllowMultipleInstances));
 	}
 
-	void SetAdvanced::onWriteSettings(Reg::Settings& settings) {
-		settings.View.MultipleInstances = GetCheckBox(IDC_MULT_INSTANCE);
+	void SetAdvanced::PerformUpdateFromSettings(const Reg::Settings &settings)
+	{
+		m_allowMultipleInstances->SetValue(settings.View.MultipleInstances);
 	}
 
-	SetAdvanced::SetAdvanced():
-		App::SettingsPage{ IDD_SET_ADVANCED }
-	{}
+	void SetAdvanced::onWriteSettings(Reg::Settings &settings)
+	{
+		settings.View.MultipleInstances = m_allowMultipleInstances->GetValue();
+	}
 }

@@ -1,8 +1,4 @@
 ﻿#include "settings.h"
-#include "res_settings.h"
-
-// Pages
-#include "settings_page.h"
 #include "dlg_view.h"
 #include "dlg_interface.h"
 #include "dlg_color.h"
@@ -12,186 +8,142 @@
 #include "dlg_cache.h"
 #include "dlg_about.h"
 #include "dlg_keyboard.h"
+#include "wintypes.h"
 
-#include "ctrl_button.h"
+#include "settings_layout.h"
 
-#include <Uxtheme.h>
+#include <wx/sizer.h>
 
-namespace App {
+namespace App
+{
 	using namespace Intl;
-	using Geom::PointInt;
 
-	void Settings::PerformOnCreate() {
-		Caption(SIDSettings);
-		ControlText(IDOK, SIDDialogOK);
-		ControlText(IDCANCEL, SIDDialogCancel);
-		ControlText(IDC_APPLY, SIDDialogApply);
-
-		CreateButton(IDOK)->OnClick.connect([this]() { OnOk(); });
-		CreateButton(IDC_APPLY)->OnClick.connect([this]() { OnApply(); });
-		CreateButton(IDCANCEL)->OnClick.connect([this]() { OnCancel(); });
-	}
-
-
-	bool Settings::PerformOnInitDialog() {
-		RECT rect;
-		GetWindowRect(GetDlgItem(Handle(), IDC_TREE_NAV), &rect);
-		POINT pt = {rect.right, rect.top};
-
-		ScreenToClient(Handle(), &pt);
-
-		auto m_pagePos = PointInt(pt.x, pt.y);
-
-		// Create treeview
-		HTREEITEM hPrev  = 0;
-		HTREEITEM hRoot  = 0;
-		HTREEITEM hFirst = 0;
-
-		for (auto i = 0; i < m_pages.size(); ++i) {
-			m_pages[i]->DoModeless(this);
-			m_pages[i]->Move(m_pagePos);
-			m_pages[i]->UpdateFromSettings(m_settings);
-			if (m_pages[i]->IsRootPage()) {
-				if (hRoot != 0)
-					hPrev = hRoot;
-
-				hPrev = AddSettingsPageRoot(m_pages[i]->Caption(), static_cast<int>(i), hPrev);
-				hRoot = 0;
-			}
-			else {
-				if (hRoot == 0) {
-					hRoot = hPrev;
-					hPrev = 0;
-				}
-
-				hPrev = AddSettingsPageChild(m_pages[i]->Caption(), static_cast<int>(i), hRoot, hPrev);
-			}
-
-			if (hFirst == 0)
-				hFirst = hPrev;
-		}
-
-		// Pick first page by default
-		TreeView_SelectItem(GetDlgItem(Handle(), IDC_TREE_NAV), hFirst);
-
-		SetWindowTheme(GetDlgItem(Handle(), IDC_TREE_NAV), L"Explorer", 0);
-
-		return true;
-	}
-
-	bool Settings::PerformOnNotify(DWORD id, LPNMHDR pnmh) {
-		switch(id) {
-			case IDC_TREE_NAV:
-				{
-					LPNMTREEVIEW pnmtv = (LPNMTREEVIEW)pnmh;
-					switch(pnmh->code) {
-						// Windows tends to send the wrong message, so look for either version
-						case TVN_SELCHANGEDW:
-						case TVN_SELCHANGEDA:
-							m_pages[pnmtv->itemOld.lParam]->Show(false);
-							m_pages[pnmtv->itemNew.lParam]->Show(true);
-							break;
-					}
-					break;
-				}
-			default:
-				return false;
-		}
-		return true;
-	}
-
-	void Settings::SetSettings(Reg::Settings settings) {
-		m_settings = settings;
-		for (auto page : m_pages) {
-			page->UpdateFromSettings(m_settings);
-		}
-	}
-
-	void Settings::FreeResources() {
-		TreeView_DeleteAllItems(GetDlgItem(Handle(), IDC_TREE_NAV));
-	}
-
-	Settings::Settings():
-		Win::Dialog(IDD_SETTINGS)
+	class TreeItemData : public wxTreeItemData
 	{
-		m_pages.push_back(std::make_shared<SetView>());
-		m_pages.push_back(std::make_shared<SetInterface>());
-		m_pages.push_back(std::make_shared<SetColor>());
-		m_pages.push_back(std::make_shared<SetLanguage>());
-		m_pages.push_back(std::make_shared<SetControls>());
-		m_pages.push_back(std::make_shared<SetKeyboard>());
-		m_pages.push_back(std::make_shared<SetAdvanced>());
-		m_pages.push_back(std::make_shared<SetPageCache>());
-		m_pages.push_back(std::make_shared<SetAbout>());
-	}
+	public:
+		int Index;
 
-	HTREEITEM Settings::AddSettingsPageRoot(const std::string& name, int index, HTREEITEM hPrev) {
-		return AddSettingsPageChild(name, index, TVI_ROOT, hPrev);
-	}
+		TreeItemData(int index) :
+			Index(index)
+		{}
+	};
 
-	HTREEITEM Settings::AddSettingsPageChild(const std::string& name, int index, HTREEITEM hRoot, HTREEITEM hPrev) {
-		TVINSERTSTRUCT	tvins;
+	BEGIN_EVENT_TABLE (Settings, wxDialog)
+		EVT_BUTTON(ButtonOkId, Settings::OnOk)
+		EVT_BUTTON(ButtonCancelId, Settings::OnCancel)
+		EVT_BUTTON(ButtonApplyId, Settings::OnApply)
+		EVT_TREE_SEL_CHANGED(TreeCtrlId, Settings::OnTreeItemSelected)
+	END_EVENT_TABLE()
 
-		auto wName = UTF8ToWString(name);
-		tvins.item.pszText = const_cast<LPWSTR>(wName.c_str());
-		tvins.item.cchTextMax = static_cast<int>(wName.length());
-		tvins.item.mask = TVIF_TEXT | TVIF_PARAM;
-		tvins.item.lParam = index;
-		tvins.hInsertAfter = hPrev;
-		tvins.hParent	= hRoot;
+	Settings::Settings(wxWindow *parent, Reg::Settings& settings) :
+		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, { 720, 650 }, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxSTAY_ON_TOP),
+		m_settings(settings)
+	{
+		auto topSizer = new wxBoxSizer(wxVERTICAL);
+		m_tree = new wxTreeCtrl(this, TreeCtrlId, {0, 0}, {150, 252}, wxTR_HIDE_ROOT);
+		m_sizer = new wxBoxSizer(wxHORIZONTAL);
+		m_sizer->Add(m_tree, wxSizerFlags(0).Expand().Border(wxRIGHT, 10));
 
-		HWND hView = GetDlgItem(Handle(), IDC_TREE_NAV);
-		HTREEITEM hItem = reinterpret_cast<HTREEITEM>(SendMessage(hView, TVM_INSERTITEM, 0, (LPARAM)&tvins));
-		TreeView_SetItemState(hView, hItem, TVIS_EXPANDED, TVIS_EXPANDED);
-		return hItem;
-	}
+		m_pages.push_back(std::make_shared<SetView>(this));
+		m_pages.push_back(std::make_shared<SetInterface>(this));
+		m_pages.push_back(std::make_shared<SetColor>(this));
+		m_pages.push_back(std::make_shared<SetLanguage>(this));
+		m_pages.push_back(std::make_shared<SetControls>(this));
+		m_pages.push_back(std::make_shared<SetKeyboard>(this));
+		m_pages.push_back(std::make_shared<SetAdvanced>(this));
+		m_pages.push_back(std::make_shared<SetPageCache>(this));
+		m_pages.push_back(std::make_shared<SetAbout>(this));
 
-	bool Settings::UpdateTreeList() {
-		HWND hView = GetDlgItem(Handle(), IDC_TREE_NAV);
-		HTREEITEM hRoot = TreeView_GetRoot(hView);
-		updateTreeItem(hRoot);
-		return true;
-	}
+		wxTreeItemId hPrev = 0;
+		int firstIndex = -1;
 
-	void Settings::updateTreeItem(HTREEITEM hItem) {
-		auto hView = GetDlgItem(Handle(), IDC_TREE_NAV);
+		auto root = m_tree->AddRoot(L"Dummy");
 
-		if (hItem) {
-			TVITEM tvi;
-			tvi.hItem = hItem;
-			tvi.mask = TVIF_PARAM | TVIF_HANDLE;
-			TreeView_GetItem(hView, &tvi);
+		for (size_t i = 0; i < m_pages.size(); ++i)
+		{
+			m_pages[i]->UpdateFromSettings(m_settings);
+			if (m_pages[i]->IsRootPage())
+			{
+				hPrev = AddSettingsPage(m_pages[i]->Caption(), static_cast<int>(i), root);
+			}
+			else
+			{
+				AddSettingsPage(m_pages[i]->Caption(), static_cast<int>(i), hPrev);
+			}
 
-			tvi.mask = TVIF_TEXT | TVIF_HANDLE;
-			// Make a scoped copy of the string, or TreeView_SetItem will end up playing with a deleted string.
-			auto wName = UTF8ToWString(m_pages[tvi.lParam]->Caption());
-			tvi.pszText = const_cast<LPWSTR>(wName.c_str());
-			tvi.cchTextMax = static_cast<int>(wName.length());
-			TreeView_SetItem(hView, &tvi);
-
-			updateTreeItem(TreeView_GetChild(hView, hItem));
-			updateTreeItem(TreeView_GetNextSibling(hView, hItem));
+			if (firstIndex == -1)
+			{
+				firstIndex = static_cast<int>(i);
+			}
 		}
+		m_tree->ExpandAll();
+
+		ActivatePage(firstIndex);
+
+		auto buttonSizer = new wxBoxSizer(wxHORIZONTAL);
+		m_ok = new wxButton(this, ButtonOkId, Intl::GetString(SIDDialogOK));
+		m_cancel = new wxButton(this, ButtonCancelId, Intl::GetString(SIDDialogCancel));
+		m_apply = new wxButton(this, ButtonApplyId, Intl::GetString(SIDDialogApply));
+		buttonSizer->Add(m_ok, wxSizerFlags(0));
+		buttonSizer->Add(m_cancel, ButtonPadding());
+		buttonSizer->Add(m_apply, ButtonPadding());
+
+		topSizer->Add(m_sizer, wxSizerFlags(1).Expand().Border(wxALL, 10));
+		topSizer->Add(buttonSizer, wxSizerFlags(0).Border(wxALL, 10).Right());
+
+		SetSizer(topSizer);
 	}
 
-	void Settings::OnOk() {
-		OnApply();
-		FreeResources();
-		DestroyWindow(Handle());
+
+	wxTreeItemId Settings::AddSettingsPage(const std::string &name, int index, wxTreeItemId hRoot)
+	{
+		return m_tree->AppendItem(hRoot, wxString::FromUTF8(name.c_str()), -1, -1, new TreeItemData(index));
 	}
 
-	void Settings::OnApply() {
+	void Settings::ActivatePage(int index)
+	{
+		auto count = static_cast<int>(m_sizer->GetItemCount());
+		if (count == 2)
+		{
+			auto lastItem = count - 1;
+			auto oldWin = m_sizer->GetItem(lastItem)->GetWindow();
+			oldWin->Hide();
+			m_sizer->Detach(oldWin);
+		}
+		m_sizer->Add(m_pages[index].get(), wxSizerFlags(1).Expand());
+		m_pages[index]->Show(true);
+		m_sizer->Layout();
+	}
+
+	void Settings::OnOk(wxCommandEvent &evt)
+	{
+		OnApply(evt);
+		Hide();
+	}
+
+	void Settings::OnApply(wxCommandEvent& evt)
+	{
 		// Store all pages data and update strings
-		for (size_t i = 0; i < m_pages.size(); ++i) {
+		for (size_t i = 0; i < m_pages.size(); ++i)
+		{
 			m_pages[i]->WriteSettings(m_settings);
 		}
 
-		UpdateTreeList();
+		//UpdateTreeList();
 		OnSettingsChanged(m_settings);
 	}
 
-	void Settings::OnCancel() {
-		FreeResources();
-		DestroyWindow(Handle());
+	void Settings::OnCancel(wxCommandEvent& evt)
+	{
+		Hide();
+	}
+
+	void Settings::OnTreeItemSelected(wxTreeEvent &evt)
+	{
+		auto itemData = dynamic_cast<TreeItemData*>(m_tree->GetItemData(evt.GetItem()));
+		if(itemData != nullptr)
+		{
+			ActivatePage(itemData->Index);
+		}
 	}
 }

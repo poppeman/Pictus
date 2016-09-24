@@ -64,10 +64,10 @@ namespace Filter {
 		Rotate270FlipY,
 		RotateUndefined
 	};
-	
-	Geom::SizeInt CalculateUnzoomedSize(Geom::SizeInt defaultDims, Filter::RotationAngle angle);
-}
 
+	Geom::SizeInt CalculateUnzoomedSize(Geom::SizeInt defaultDims, Filter::RotationAngle angle);
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Filter::Mode& m);
+}
 
 std::string ToAString(const Filter::RotationAngle& angle);
 std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, const Filter::RotationAngle& c);

@@ -30,11 +30,11 @@ namespace Reg {
 		boost::optional<FilterModeTranslator::internal_type> FilterModeTranslator::put_value(external_type const& val) {
 			switch (val) {
 			case Filter::Mode::NearestNeighbor:
-				return "Nearest";
+				return std::string("Nearest");
 			case Filter::Mode::Bilinear:
-				return "Bilinear";
+				return std::string("Bilinear");
 			case Filter::Mode::Lanczos3:
-				return "Lanczos3";
+				return std::string("Lanczos3");
 			}
 
 			return boost::none;

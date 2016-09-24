@@ -2,7 +2,9 @@
 #define PICTUS_WINTYPES_H
 
 #include "app_types.h"
-#include <windows.h>
+#include <wx/event.h>
+#include <orz/intl_language.h>
+#include <wx/colour.h>
 
 namespace Win {
 	enum MouseButton {
@@ -21,25 +23,33 @@ namespace Win {
 		int WheelTicks;
 
 		MouseEvent();
-		MouseEvent(LPARAM lParam);
+		MouseEvent(wxMouseEvent& evt);
 	};
 
 	class KeyEvent {
 	public:
-		WPARAM Key;
+		//WPARAM Key;
+		int Key;
 		bool AltPressed;
 		bool CtrlPressed;
 		bool ShiftPressed;
 
 		bool operator<(const KeyEvent &rhs) const;
 
-		KeyEvent(WPARAM key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed);
+		KeyEvent(int key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed);
+		KeyEvent(wxKeyEvent& evt);
 	};
 
 	std::string LongPath(const std::string &path);
-	Geom::RectInt RECTToRect(const RECT &rect);
-	RECT RectToRECT(const Geom::RectInt &rect);
-	POINT PointToPOINT(const Geom::PointInt &point);
+	Geom::RectInt wxToRect(const wxRect &rect);
+//	RECT RectToWx(const Geom::RectInt &rect);
+	wxPoint PointToWx(const Geom::PointInt &point);
+	Geom::PointInt wxToPoint(wxPoint pt);
+	::Geom::SizeInt wxToSize(::wxSize sz);
+	wxColor ColorToWx(Img::Color c);
+
+	wxString GetStringWx(int id);
+	wxString GetStringWx(int id, Intl::Language lang);
 }
 
 #endif

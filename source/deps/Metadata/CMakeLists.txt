@@ -6,8 +6,7 @@ set(Meta_SOURCES
 	Exif_Parser.cpp
 	Exif_ReadIfd.cpp
 	Metadata_Document.cpp
-	Metadata_Value.cpp
-)
+	Metadata_Value.cpp)
 
 add_library(Metadata STATIC ${Meta_SOURCES})
 target_link_libraries(Metadata orz ${Boost_LIBRARIES})

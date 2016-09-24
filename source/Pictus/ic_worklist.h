@@ -28,11 +28,11 @@ namespace Img {
 
 		typedef std::list<WorkPackage> PackageList;
 
-		CodecFactoryStore* m_cfs;
-		PackageList m_workPackages;
 		WorkPackage* m_currPackage;
 		size_t m_memoryLimit;
 		size_t m_newMemoryLimit;
+		CodecFactoryStore* m_cfs;
+		PackageList m_workPackages;
 	};
 }
 

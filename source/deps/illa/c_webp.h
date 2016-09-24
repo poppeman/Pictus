@@ -3,8 +3,8 @@
 
 #include "codec_static.h"
 #include "webp_imagecomposer.h"
-#include "../libwebp/src/webp/decode.h"
-#include "../libwebp/src/webp/demux.h"
+#include <webp/decode.h>
+#include <webp/demux.h>
 
 namespace Img {
 	class CodecWebp:public AbstractCodec {

@@ -17,7 +17,7 @@ namespace Win {
 		void Render(const Geom::PointInt& sourceZoomedTopLeft, const Img::Properties& props);
 		void Clear(Img::Color backgroundColor);
 		void SetSurface(Img::Surface::Ptr surface);
-		bool TargetWindow(HWND hwnd);
+		bool TargetWindow(wxWindow* hwnd);
 
 		Geom::SizeInt TransformedSize() const;
 
@@ -29,7 +29,7 @@ namespace Win {
 		Renderer::Ptr m_renderer;
 		RedrawStrategy::Ptr m_redrawStrategy;
 
-		HWND m_hwnd;
+		wxWindow* m_hwnd;
 		Img::Surface::Ptr m_surface;
 	};
 }

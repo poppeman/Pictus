@@ -1,21 +1,22 @@
-#ifndef RENAME_H
-#define RENAME_H
+#ifndef PICTUS_DIALOGS_RENAME_H
+#define PICTUS_DIALOGS_RENAME_H
 
-#include "dialog.h"
-#include "ctrl_editbox.h"
+#include <wx/dialog.h>
+#include <wx/textctrl.h>
 
-namespace App {
-	class Rename:public Win::Dialog {
+namespace App
+{
+	class Rename:public wxDialog
+	{
 	public:
 		const std::string& Name();
 
-		Rename(const std::string& currname);
+		Rename(wxWindow* parent, const std::string& currname);
 
 	private:
-		Win::EditBox* m_filename;
+		wxTextCtrl* m_filename;
 
 	private:
-		bool PerformOnInitDialog();
 		void OnOk();
 		void OnCancel();
 
