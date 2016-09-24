@@ -42,6 +42,5 @@ script:
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
   - ./bin/illaTest ../bin/Test
   - ./bin/orzTest ../bin/Test
-  - ./bin/LoadTest ../bin/Test
   - ./bin/pictusTest ../bin/Test
 
