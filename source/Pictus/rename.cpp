@@ -14,10 +14,9 @@ namespace App
 	void Rename::OnOk()
 	{
 		auto newName = ToAString(m_filename->GetValue());
-		bool ret = (newName != m_name);
 
 		m_name = newName;
-		EndModal(1);
+		EndModal((newName != m_name));
 	}
 
 	void Rename::OnCancel()

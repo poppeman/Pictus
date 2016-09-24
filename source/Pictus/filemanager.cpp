@@ -5,6 +5,7 @@
 #include <boost/scoped_array.hpp>
 #include <windows.h>
 #endif
+#include <wx/msgdlg.h>
 
 namespace App
 {

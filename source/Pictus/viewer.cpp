@@ -633,9 +633,11 @@ namespace App {
 			if (reader == nullptr) {
 				return;
 			}
+// TODO: Support on Linux
+#ifdef _WIN32
 			auto resulting_name = dynamic_cast<IO::StreamFile*>(reader->GetStream())->Rename(new_name, GetHandle());
 			m_cacher.RenamedImage(old_name, resulting_name);
-
+#endif
 			UpdateImageInformation();
 		}
 	}
@@ -662,11 +664,14 @@ namespace App {
 			return;
 		}
 
+// TODO: Support on Linux
+#ifdef _WIN32
 		auto f = dynamic_cast<IO::StreamFile*>(reader->GetStream());
 		if (f->Delete((op == RemoveRecycle), GetHandle()))
 		{
 			ActiveImage(m_cacher.RemoveCurrentImage());
 		}
+#endif
 
 		UpdateImageInformation();
 	}

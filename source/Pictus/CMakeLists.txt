@@ -1,14 +1,16 @@
 cmake_minimum_required (VERSION 2.8)
 project (Pictus)
 
-find_package(wxWidgets COMPONENTS core base gl REQUIRED)
+find_package(wxWidgets COMPONENTS core base gl net REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(PICTUS_CPP_SRCS
+		adjust.cpp adjust.h
 		app_types.cpp
 		builder_viewport.cpp
+		clipboard.cpp clipboard.h
 		cnt_color_hls.cpp cnt_color_hls.h
 		cnt_color_rgb.cpp cnt_color_rgb.h
 		cnt_colorpick.cpp cnt_colorpick.h
@@ -23,6 +25,7 @@ set(PICTUS_CPP_SRCS
 		dlg_keyboard.cpp dlg_keyboard.h
 		dlg_language.cpp dlg_language.h
 		dlg_view.cpp
+		filemanager.cpp filemanager.h
 		filterstring.cpp
 		getevent.cpp
 		hw3d_device.cpp
@@ -45,9 +48,13 @@ set(PICTUS_CPP_SRCS
 		imagecache.cpp
 		imagecache_fileentry.cpp
 		imagecache_workrequest.cpp
+		ipc_client.cpp ipc_client.h
+		ipc_openfile_connection.cpp ipc_openfile_connection.h
+		ipc_server.cpp ipc_server.h
 		lang_val.cpp
 		main.cpp
 		settings.cpp
+		settings_layout.cpp
 		settings_page.cpp
 		reg_color_translator.cpp
 		reg_filter_mode_translator.cpp
@@ -58,6 +65,7 @@ set(PICTUS_CPP_SRCS
 		reg_resize_position_method_translator.cpp
 		reg_zoom_mode_translator.cpp
 		registry.cpp
+		rename.cpp rename.h
 		render_geometry.cpp
 		resize_position_method.cpp
 		timer.cpp

@@ -2,6 +2,7 @@
 #define PICTUS_IPC_OPENFILE_CONNECTION_H
 
 #include <wx/ipc.h>
+#include <functional>
 
 namespace IPC
 {
