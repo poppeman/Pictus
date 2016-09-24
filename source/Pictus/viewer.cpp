@@ -79,7 +79,11 @@ namespace App {
 
 	void Viewer::OnSizeEvent(wxSizeEvent &e)
 	{
-		PerformOnSize(wxToSize(e.GetSize()));
+		if (!IsMaximized() && !IsIconized())
+		{
+			m_normalRect = wxToRect(GetRect());
+		}
+
 		e.Skip();
 	}
 
@@ -292,13 +296,8 @@ namespace App {
 		SizeInt sz	= wxToSize(GetSize());
 		PointInt pt	= PositionScreen();
 
-		if(m_screenMode == SM_Fullscreen) {
-			sz = m_previousNonMaximizedWindowRegion.Dimensions();
-			pt = m_previousNonMaximizedWindowRegion.TopLeft();
-		}
-
 		// Store un-maximized values instead!
-		if(IsMaximized())
+		if(m_screenMode == SM_Fullscreen || IsMaximized())
 		{
 			sz = m_normalRect.Dimensions();
 			pt = m_normalRect.TopLeft();
@@ -322,31 +321,6 @@ namespace App {
 
 	bool Viewer::CopyToClipboard() {
 		return ImageToClipboard(m_viewPort.Image(), m_viewPort.Properties());
-	}
-
-	bool Viewer::RecalculateViewportSize() {
-		if (ViewportMode() == SM_Fullscreen)
-			return false;
-
-		if (!IsMaximized() && !IsIconized())
-		{
-			m_previousNonMaximizedWindowRegion = wxToRect(GetRect());
-		}
-
-		if(m_statusBar != nullptr && m_statusBar->IsShown())
-		{
-			UpdateImageInformation();
-		}
-
-		return true;
-	}
-
-	bool Viewer::PerformOnSize(const SizeInt&) {
-		if(!IsMaximized() && !IsIconized())
-		{
-			m_normalRect = wxToRect(GetRect());
-		}
-		return RecalculateViewportSize();
 	}
 
 	void Viewer::OnMoveEvent(wxMoveEvent& e)
@@ -531,10 +505,16 @@ namespace App {
 
 	void Viewer::ViewportMode(ScreenMode newMode)
 	{
+		if (m_screenMode == newMode)
+		{
+			return;
+		}
+
 		m_screenMode = newMode;
 
 		if (newMode == Viewer::SM_Fullscreen)
 		{
+			m_userInitiatedMove = false;
 			wxDisplay mon(DisplayFromPointFallback(PositionScreen()));
 
 			m_statusBar->Show(false);
@@ -543,20 +523,19 @@ namespace App {
 			m_previousWindowRegion = wxToRect(GetRect());
 			auto monRegion = wxToRect(mon.GetClientArea());
 
-			m_userInitiatedMove = false;
 			SetSize(monRegion.Left(), monRegion.Top(), monRegion.Width(), monRegion.Height());
-			m_userInitiatedMove = true;
 			m_viewPort.ActiveCursorMode(ViewPort::CursorHideAutomatic);
 			Raise();
+			m_userInitiatedMove = true;
 		}
 		else
 		{
+			m_userInitiatedMove = false;
 			SetWindowStyleFlag(m_previousWindowStyle);
 			m_statusBar->Show(m_cfg.View.ShowStatusBar);
-			m_userInitiatedMove = false;
 			SetSize(m_previousWindowRegion.Left(), m_previousWindowRegion.Top(), m_previousWindowRegion.Width(), m_previousWindowRegion.Height());
-			m_userInitiatedMove = true;
 			m_viewPort.ActiveCursorMode(ViewPort::CursorShow);
+			m_userInitiatedMove = true;
 		}
 
 		// Make sure that the settings and adjust dialogs are on top (if running)
@@ -806,9 +785,6 @@ namespace App {
 				SetSize(newTopLeft.X, newTopLeft.Y, newSize.Width, newSize.Height);
 				m_userInitiatedMove = true;
 			}
-			else {
-				PerformOnSize(wxToSize(GetSize()));	// Adjust to the current window
-			}
 		}
 	}
 
@@ -993,7 +969,6 @@ namespace App {
 		m_keys.SetBindings(m_cfg.Keyboard);
 
 		m_statusBar->Show(m_cfg.View.ShowStatusBar && ViewportMode() != SM_Fullscreen);
-		RecalculateViewportSize();
 
 		UpdateViewportConfig();
 

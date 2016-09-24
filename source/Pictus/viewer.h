@@ -100,7 +100,6 @@ namespace App {
 
 		bool PerformOnClose();
 
-		bool PerformOnSize(const Geom::SizeInt& sz);
 		void OnMoveEvent(wxMoveEvent& e);
 
 		//bool PerformOnCopyData(const COPYDATASTRUCT* pcds);
@@ -110,8 +109,6 @@ namespace App {
 		std::string UII_LoadProgress(Img::Image::Ptr image);
 		std::string UII_ImageResolution(Img::Image::Ptr image);
 		std::string UII_LastModified(std::time_t date);
-
-		bool RecalculateViewportSize();
 
 		void ZoomIn();
 		void ZoomOut();
@@ -195,7 +192,6 @@ namespace App {
 
 		long m_previousWindowStyle;
 		Geom::RectInt m_previousWindowRegion;
-		Geom::RectInt m_previousNonMaximizedWindowRegion;
 
 		// Cacher
 		Img::Cacher m_cacher;
