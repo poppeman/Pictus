@@ -1,0 +1,49 @@
+matrix:
+  include:
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+      env: COMPILER=g++-5
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty
+          packages:
+            - clang-3.8
+      env: COMPILER=clang++-3.8
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty
+          packages:
+            - clang-3.8
+      env: COMPILER=clang++-3.8
+
+language: cpp
+sudo: required
+dist: trusty
+compiler:
+  - clang
+  - gcc
+os:
+- linux
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libjpeg8-turbo-dev libpng12-dev zlib1g-dev libtiff5-dev libboost1.55-all-dev libglew-dev libwxgtk3.0-dev libwebp-dev
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
+  - ./bin/illaTest ../bin
+  - ./bin/orzTest ../bin
+  - ./bin/LoadTest ../bin
+  - ./bin/pictusTest ../bin  
