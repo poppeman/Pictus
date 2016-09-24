@@ -17,18 +17,6 @@ find_package(Boost 1.55.0 COMPONENTS system thread locale filesystem REQUIRED)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 link_libraries(${Boost_LIBRARIES})
 
-ADD_CUSTOM_COMMAND(
-	OUTPUT
-		${CMAKE_CURRENT_BINARY_DIR}/deps/orz/intl_language.h
-		${CMAKE_CURRENT_BINARY_DIR}/Pictus/lang_val.h
-		${CMAKE_CURRENT_BINARY_DIR}/Pictus/lang_val.cpp
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Pictus
-	COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/Pictus/lang_convert.py
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Pictus/lang_convert.py
-)
-
-ADD_CUSTOM_TARGET(GenerateLang DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Pictus/lang_val.cpp)
-
 add_subdirectory (deps)
 add_subdirectory (orzTest)
 add_subdirectory (illaTest)
