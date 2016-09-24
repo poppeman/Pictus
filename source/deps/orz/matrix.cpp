@@ -1,5 +1,6 @@
-#include <cstring>
 #include "matrix.h"
+#include <cstring>
+#include <cmath>
 
 namespace Hw3D
 {

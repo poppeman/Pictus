@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <string>
+#include <cmath>
 
 namespace Geom {
 	template<typename T>
