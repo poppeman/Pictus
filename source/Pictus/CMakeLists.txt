@@ -45,7 +45,7 @@ set(PICTUS_CPP_SRCS
 		imagecache.cpp
 		imagecache_fileentry.cpp
 		imagecache_workrequest.cpp
-		lang_val.cpp
+		${CMAKE_CURRENT_BINARY_DIR}/lang_val.cpp
 		main.cpp
 		settings.cpp
 		settings_page.cpp
@@ -77,6 +77,8 @@ set(PICTUS_CPP_SRCS
 		wintypes.cpp
 		zoomstrategy.cpp)
 
+SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_BINARY_DIR}/lang_val.cpp PROPERTIES GENERATED 1)
+
 FILE(GLOB PICTUS_RC_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.rc)
 message(${wxWidgets_INCLUDE_DIRS})
 message(${wxWidgets_FOUND})
@@ -93,4 +95,4 @@ endif(MINGW)
 
 add_executable(Pictus ${PICTUS_CPP_SRCS} ${PICTUS_RC_SRCS} ${DEPS_DIRECTORY})
 target_link_libraries(Pictus illa orz ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
-add_dependencies(Pictus orzTest illaTest pictusTest)
+add_dependencies(Pictus orzTest illaTest pictusTest GenerateLang)

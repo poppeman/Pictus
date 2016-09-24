@@ -3,6 +3,8 @@ cmake_minimum_required (VERSION 2.8)
 FILE(GLOB ALL_HEADER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 FILE(GLOB ALL_CPP_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
+SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_BINARY_DIR}/intl_language.h PROPERTIES GENERATED 1)
+
 if(WIN32)
   list(APPEND ALL_CPP_SRCS Win32/sysinfo_win.cpp)
 else()
@@ -15,3 +17,4 @@ if(WIN32)
   list(APPEND libraries shlwapi)
 endif()
 target_link_libraries(orz ${libraries})
+ADD_DEPENDENCIES(orz GenerateLang)
