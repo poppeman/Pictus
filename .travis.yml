@@ -1,6 +1,6 @@
 language: cpp
 dist: trusty
-
+sudo: required
 compiler: gcc
 
 addons:
@@ -12,16 +12,9 @@ addons:
       - clang-3.7
       - g++-5
       - gcc-5
-      - libjpeg-turbo8-dev
-      - libpng12-dev
-      - zlib1g-dev
-      - libtiff5-dev
-      - libboost1.55-all-dev
-      - libglew-dev
-      - libwxgtk3.0-dev
-      - libwebp-dev
-
 script:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libjpeg-turbo8-dev libpng12-dev zlib1g-dev libtiff5-dev libboost1.55-all-dev libglew-dev libwxgtk3.0-dev libwebp-dev
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
   - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
   - mkdir build
