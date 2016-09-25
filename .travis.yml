@@ -30,6 +30,10 @@ before_install:
   - sudo apt-get install -y libjpeg-turbo8-dev libpng12-dev zlib1g-dev libtiff5-dev libboost1.55-all-dev libglew-dev libwxgtk3.0-dev libwebp-dev
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
   - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
+  - if [[ "${COVERITY_SCAN_BRANCH}" == 1 ]];
+      then
+        cov-configure --comtype gcc --compiler /usr/bin/g++-5
+    fi
   - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 script:
