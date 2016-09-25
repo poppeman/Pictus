@@ -21,8 +21,8 @@ addons:
       name: "poppeman/Pictus"
       description: "Build submitted via Travis CI"
     notification_email: pontus@mardnas.se
-    build_command_prepend: "mkdir coverity; cd coverity; cmake .."
-    build_command:   "make"
+    build_command_prepend: "cov-configure --comptype gcc --compiler /usr/bin/g++-5; mkdir coverity; cd coverity; cmake .."
+    build_command:   "make -j 4"
     branch_pattern: coverity_scan
 
 before_install:
@@ -30,7 +30,6 @@ before_install:
   - sudo apt-get install -y libjpeg-turbo8-dev libpng12-dev zlib1g-dev libtiff5-dev libboost1.55-all-dev libglew-dev libwxgtk3.0-dev libwebp-dev
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
   - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
-  - if [[ "${COVERITY_SCAN_BRANCH}" == 1 ]]; then cov-configure --comptype gcc --compiler /usr/bin/g++-5; fi
   - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 script:
@@ -41,7 +40,7 @@ script:
     fi
   - mkdir build
   - cd build
-  - cmake .. && make
+  - cmake .. && make -j 4
   - ./bin/illaTest ../bin/Test
   - ./bin/orzTest ../bin/Test
   - ./bin/pictusTest ../bin/Test
