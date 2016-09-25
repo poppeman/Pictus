@@ -53,7 +53,6 @@ namespace App
 		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDAdjust), wxDefaultPosition,wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxSTAY_ON_TOP)
 	{
 		auto applyFunc = [this](wxCommandEvent& evt) { Apply(); };
-		auto closeFunc = [this](wxCommandEvent& evt) { Close(); };
 		auto defaultFunc = [this](wxCommandEvent& evt) { Default(); };
 
 		auto onChange = [this](wxCommandEvent& evt) {
@@ -79,7 +78,7 @@ namespace App
 		m_autoApply = new wxCheckBox(this, wxID_ANY, Win::GetStringWx(SIDAdjustAutoApply));
 		auto applyButton = new wxButton(this, wxID_ANY, Win::GetStringWx(SIDDialogApply));
 		auto defaultButton = new wxButton(this, wxID_ANY, Win::GetStringWx(SIDAdjustDefault));
-		auto closeButton = new wxButton(this, wxID_ANY, Win::GetStringWx(SIDDialogClose));
+		auto closeButton = new wxButton(this, wxID_CANCEL, Win::GetStringWx(SIDDialogClose));
 
 		auto buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 		buttonSizer->Add(applyButton, wxSizerFlags(1));
@@ -92,7 +91,6 @@ namespace App
 		m_autoApply->Bind(wxEVT_CHECKBOX, applyFunc);
 		applyButton->Bind(wxEVT_BUTTON, applyFunc);
 		defaultButton->Bind(wxEVT_BUTTON, defaultFunc);
-		closeButton->Bind(wxEVT_BUTTON, closeFunc);
 
 		auto topmostSizer = new wxBoxSizer(wxVERTICAL);
 		topmostSizer->Add(brightnessBox, wxSizerFlags(0).Border(wxALL, 10).Expand());
