@@ -28,19 +28,13 @@ namespace App
 		{}
 	};
 
-	BEGIN_EVENT_TABLE (Settings, wxDialog)
-		EVT_BUTTON(ButtonOkId, Settings::OnOk)
-		EVT_BUTTON(ButtonCancelId, Settings::OnCancel)
-		EVT_BUTTON(ButtonApplyId, Settings::OnApply)
-		EVT_TREE_SEL_CHANGED(TreeCtrlId, Settings::OnTreeItemSelected)
-	END_EVENT_TABLE()
-
 	Settings::Settings(wxWindow *parent, Reg::Settings& settings) :
 		wxDialog(parent, wxID_ANY, Win::GetStringWx(SIDSettings), wxDefaultPosition, { 720, 650 }, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxSTAY_ON_TOP),
 		m_settings(settings)
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
-		m_tree = new wxTreeCtrl(this, TreeCtrlId, {0, 0}, {150, 252}, wxTR_HIDE_ROOT);
+		m_tree = new wxTreeCtrl(this, wxID_ANY, {0, 0}, {150, 252}, wxTR_HIDE_ROOT);
+		m_tree->Bind(wxEVT_TREE_SEL_CHANGED, &Settings::OnTreeItemSelected, this);
 		m_sizer = new wxBoxSizer(wxHORIZONTAL);
 		m_sizer->Add(m_tree, wxSizerFlags(0).Expand().Border(wxRIGHT, 10));
 
@@ -81,9 +75,12 @@ namespace App
 		ActivatePage(firstIndex);
 
 		auto buttonSizer = new wxBoxSizer(wxHORIZONTAL);
-		m_ok = new wxButton(this, ButtonOkId, Intl::GetString(SIDDialogOK));
-		m_cancel = new wxButton(this, ButtonCancelId, Intl::GetString(SIDDialogCancel));
-		m_apply = new wxButton(this, ButtonApplyId, Intl::GetString(SIDDialogApply));
+		m_ok = new wxButton(this, wxID_ANY, Intl::GetString(SIDDialogOK));
+		m_ok->Bind(wxEVT_BUTTON, &Settings::OnOk, this);
+		m_cancel = new wxButton(this, wxID_CANCEL, Intl::GetString(SIDDialogCancel));
+		m_cancel->Bind(wxEVT_BUTTON, &Settings::OnCancel, this);
+		m_apply = new wxButton(this, wxID_ANY, Intl::GetString(SIDDialogApply));
+		m_apply->Bind(wxEVT_BUTTON, &Settings::OnApply, this);
 		buttonSizer->Add(m_ok, wxSizerFlags(0));
 		buttonSizer->Add(m_cancel, ButtonPadding());
 		buttonSizer->Add(m_apply, ButtonPadding());
@@ -102,6 +99,12 @@ namespace App
 
 	void Settings::ActivatePage(int index)
 	{
+		// OnTreeItemSelected might trigger during destruction, after m_pages have been destroyed.
+		if (m_pages.empty())
+		{
+			return;
+		}
+
 		auto count = static_cast<int>(m_sizer->GetItemCount());
 		if (count == 2)
 		{

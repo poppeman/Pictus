@@ -40,15 +40,6 @@ namespace App
 
 		PageList m_pages;
 		Reg::Settings& m_settings;
-
-		enum {
-			ButtonOkId = wxID_HIGHEST + 1,
-			ButtonCancelId = wxID_HIGHEST + 2,
-			ButtonApplyId = wxID_HIGHEST + 3,
-			TreeCtrlId
-		};
-
-		DECLARE_EVENT_TABLE()
 	};
 }
 
