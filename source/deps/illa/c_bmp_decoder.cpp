@@ -25,12 +25,6 @@ namespace Img
 				row = m_destination->Height() - row - 1;
 			}
 			return m_destination->LockSurface({ PointInt{0, row}, SizeInt{m_destination->Width(), 1} }, Img::LockReadWrite);
-			auto area = m_destination->LockSurface({ PointInt{0, row}, SizeInt{m_destination->Width(), 1} }, Img::LockReadWrite);
-			if(area == nullptr)
-			{
-				DO_THROW(Err::CriticalError, "Could not get scanline ptr");
-			}
-			return area;
 		}
 	}
 }
