@@ -52,15 +52,15 @@ namespace Img {
 		DescriptorVectorPtr m_imageDescriptors;
 
 		// Global color table data
-		bool m_gctExist;
-		uint8_t m_colorRes;
-		bool m_gctSorted;
-		int m_gctSize;
+		bool m_gctExist = false;
+		uint8_t m_colorRes = 0;
+		bool m_gctSorted = false;
+		int m_gctSize = 0;
 		Img::Palette m_gctEntries;
-		uint8_t m_bgrColor;
+		uint8_t m_bgrColor = 0;
 
 		// Loading state
-		size_t m_currentImage;
+		size_t m_currentImage = 0;
 		std::unique_ptr<StringTable> m_pCurrTable;
 
 	};

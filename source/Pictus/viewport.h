@@ -95,7 +95,7 @@ namespace App {
 		ViewPort()=delete;
 
 	private:
-		::wxWindow* m_canvas;
+		::wxWindow* m_canvas = nullptr;
 
 		Geom::PointInt MouseCursorPos();
 
@@ -133,7 +133,7 @@ namespace App {
 
 		//HWND m_hOldParent;
 		bool m_isCursorVisible;
-		CursorMode m_cursorMode;
+		CursorMode m_cursorMode = CursorShow;
 		//RECT m_oldSize;
 		Img::Image::Ptr m_image;
 
@@ -141,14 +141,14 @@ namespace App {
 
 
 		ZoomStrategy m_zoom;
-		float m_displayZoom;
-		float m_imageZoom;
-		int m_currentPanMonitor;
+		float m_displayZoom = 1.0f;
+		float m_imageZoom = 1.0f;
+		int m_currentPanMonitor = 0;
 
-		bool m_isPanning;
-		bool m_resetPan;
-		Filter::Mode m_magFilter, m_minFilter;
-		wxWindow* m_parent;
+		bool m_isPanning = false;
+		bool m_resetPan = false;
+		Filter::Mode m_magFilter = Filter::Mode::Undefined, m_minFilter = Filter::Mode::Undefined;
+		wxWindow* m_parent = nullptr;
 	};
 }
 

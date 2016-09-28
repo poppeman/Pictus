@@ -135,11 +135,6 @@ namespace Img {
 		return LoadStatus::Aborted;
 	}
 
-	CodecPSP::CodecPSP():
-		m_isStructureParsed{ false },
-		m_currScanline{ 0 }
-	{}
-
 	std::wstring readVariableLengthString(IO::FileReader::Ptr file) {
 		uint16_t length;
 		file->ReadFull(&length, 2);

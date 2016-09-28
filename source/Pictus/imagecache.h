@@ -81,7 +81,7 @@ namespace Img {
 		typedef std::vector<Internal::FileEntry> FileList;
 
 		FileList m_files;
-		size_t m_index;
+		size_t m_index = 0;
 
 		MessageReceiver* m_pReceiver;
 		std::shared_ptr<BackgroundProcessor> m_decThread;

@@ -41,16 +41,16 @@ namespace Img {
 	private:
 		static void jpeg_error_exit(j_common_ptr cinfo);
 
-	        struct JpegError {
+		struct JpegError {
 			struct jpeg_error_mgr pub;
 			jmp_buf setjmp_buf;
-			CodecJPEG* pCodec;
-	        };
+			CodecJPEG* pCodec = nullptr;
+		};
 
 		struct SourceModule {
 			jpeg_source_mgr pub;
 			IO::FileReader::Ptr file;
-			uint8_t buffer[BytesPerBuffer];
+			uint8_t buffer[BytesPerBuffer] = { 0 };
 		};
 
 		static boolean fill_input_buffer(j_decompress_ptr cinfo);
@@ -62,14 +62,14 @@ namespace Img {
 
 	private:
 		struct jpeg_decompress_struct	m_decInfo;
-		bool m_isInit;
+		bool m_isInit = false;
 
 		std::string m_lastError;
 
 		JSAMPROW m_pRow[ChunkRows];
 
 		JpegError m_decErr;
-		bool m_isError;
+		bool m_isError = false;
 
 		IO::FileReader::Ptr m_file;
 	};

@@ -28,7 +28,7 @@ namespace Img {
 		void DecodeScanline(IO::FileReader::Ptr file, uint8_t* pDest, size_t maxBytes);
 
 		Internal::PCXHeader m_header;
-		int m_currScan;
+		int m_currScan = 0;
 		IO::FileReaderByteStreamer m_cache;
 	};
 }

@@ -13,8 +13,6 @@ namespace Img {
 			ScansPerChunk = 16
 		};
 
-		CodecPSP();
-
 	private:
 		bool PerformLoadHeader(IO::FileReader::Ptr file, ImageInfo& info) override;
 		AllocationStatus PerformAllocate() override;
@@ -87,16 +85,16 @@ namespace Img {
 
 		Layer m_layer;
 
-		uint8_t m_bitDepth;
+		uint8_t m_bitDepth = 0;
 
 		typedef std::vector<Channel> ChannelVector;
 
 		ChannelVector m_channels;
 
-		PSPCompression m_compression;
-		bool m_isStructureParsed;
+		PSPCompression m_compression = PSP_COMP_NONE;
+		bool m_isStructureParsed = false;
 
-		int m_currScanline;
+		int m_currScanline = 0;
 
 		IO::FileReaderByteStreamer m_fileStream;
 	};

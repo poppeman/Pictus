@@ -58,18 +58,18 @@ namespace Reg {
 	};
 
 	struct MouseSettings {
-		App::MouseAction OnMouseLeft;
-		App::MouseAction OnMouseMiddle;
-		App::MouseAction OnMouseRight;
-		App::MouseAction OnMouseLeftDbl;
-		App::MouseAction OnMouseMiddleDbl;
-		App::MouseAction OnMouseRightDbl;
-		App::MouseAction OnMouseWheelUp;
-		App::MouseAction OnMouseWheelDown;
-		App::MouseAction OnMouseExtra1;
-		App::MouseAction OnMouseExtra2;
-		App::MouseAction OnMouseExtra1Dbl;
-		App::MouseAction OnMouseExtra2Dbl;
+		App::MouseAction OnMouseLeft = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseMiddle = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseRight = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseLeftDbl = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseMiddleDbl = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseRightDbl = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseWheelUp = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseWheelDown = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseExtra1 = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseExtra2 = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseExtra1Dbl = App::MouseAction::MouseUndefined;
+		App::MouseAction OnMouseExtra2Dbl = App::MouseAction::MouseUndefined;
 	};
 
 	struct KeyboardBinding {
