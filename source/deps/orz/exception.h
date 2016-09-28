@@ -34,5 +34,6 @@ std::string DoThrowBuildDescription(const char* filename, int line, const char* 
 
 // Works on MSVC, Clang, GCC
 #define DO_THROW(exception, description) throw exception(DoThrowBuildDescription(__FILE__, __LINE__, __FUNCTION__, std::string(description)))
+#define EXCEPTION(exception, description) exception(DoThrowBuildDescription(__FILE__, __LINE__, __FUNCTION__, std::string(description)))
 
 #endif
