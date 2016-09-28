@@ -11,7 +11,7 @@ namespace Img {
 
 		typedef std::unique_ptr<uint8_t[]> ByteArray;
 		ByteArray					m_buffer;
-		TIFFYCbCrToRGB*				m_ycbcrToRgb;
+		TIFFYCbCrToRGB*				m_ycbcrToRgb = nullptr;
 	};
 }
 
