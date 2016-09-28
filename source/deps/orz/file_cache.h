@@ -6,7 +6,7 @@
 namespace IO {
 	class FileReaderByteStreamer {
 	public:
-		void SetFileReader(IO::FileReader::Ptr file) throw();
+		void SetFileReader(IO::FileReader::Ptr file);
 		uint8_t& ReadByte();
 		FileInt BytesLeft();
 		void SkipBytes(int numToSkip);

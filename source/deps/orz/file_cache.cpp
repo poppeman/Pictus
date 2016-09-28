@@ -7,7 +7,7 @@ namespace IO {
 		m_bytesLeft{0}
 	{}
 
-	void FileReaderByteStreamer::SetFileReader( IO::FileReader::Ptr file ) throw() {
+	void FileReaderByteStreamer::SetFileReader( IO::FileReader::Ptr file ) {
 		m_reader = file;
 		auto pos = file->Position();
 		auto size = file->Size();
