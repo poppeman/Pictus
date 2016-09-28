@@ -24,7 +24,7 @@ namespace Sys {
 
 			if (readlink("/proc/self/exe", dest, PATH_MAX) == -1)
 			{
-				DO_THROW(std::runtime_error, "readlink on /proc/self/exec failed");
+				throw EXCEPTION(std::runtime_error, "readlink on /proc/self/exec failed");
 			}
 			return std::string(dest);
 		}
