@@ -20,7 +20,7 @@ namespace Sys {
 		const std::string ExePath()
 		{
 			// For fuck sake, another os with a hard-coded path length limit?
-			char dest[PATH_MAX];
+			char dest[PATH_MAX] = {0};
 
 			if (readlink("/proc/self/exe", dest, PATH_MAX) == -1)
 			{
