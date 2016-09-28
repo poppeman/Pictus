@@ -11,7 +11,7 @@ std::string assure_folder(std::string name) {
 	wxStandardPaths::Get().UseAppInfo(wxStandardPaths::AppInfo_AppName | wxStandardPaths::AppInfo_VendorName);
 	auto currentExe = std::string(wxStandardPaths::Get().GetExecutablePath().ToUTF8());
 	auto exePath = boost::filesystem::path(currentExe).parent_path();
-	auto totalExe = ToAString(exePath / name).c_str();
+	auto totalExe = ToAString(exePath / name);
 	if(IO::DoFileExist(totalExe))
 	{
 		return totalExe;
