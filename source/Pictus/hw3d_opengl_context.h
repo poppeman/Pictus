@@ -30,10 +30,10 @@ namespace Hw3D
 		void InitializeContext();
 
 		std::shared_ptr<wxGLContext> m_context;
-		wxGLCanvas* m_currentTarget;
-		GLuint m_vbo;
-		GLuint m_program;
-		bool m_isInitialized;
+		wxGLCanvas* m_currentTarget = nullptr;
+		GLuint m_vbo = 0;
+		GLuint m_program = 0;
+		bool m_isInitialized = false;
 	};
 }
 

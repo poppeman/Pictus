@@ -19,7 +19,7 @@ namespace Img {
 	protected:
 		IO::FileReader::Ptr m_reader;
 		Img::Surface::Ptr m_surface;
-		const TGAHeader* m_header;
+		const TGAHeader* m_header = nullptr;
 
 		struct Batch {
 			int StartScan;
@@ -56,7 +56,7 @@ namespace Img {
 		Batch PrepareBatch( int rowsToProcess );
 		bool FinalizeBatch(Batch* batch);
 
-		int m_currentScanline;
+		int m_currentScanline = 0;
 	};
 }
 

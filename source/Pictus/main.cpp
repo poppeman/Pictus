@@ -48,7 +48,7 @@ public:
 	~MyApp() {}
 
 private:
-	App::Viewer* m_viewer;
+	App::Viewer* m_viewer = nullptr;
 	Img::CodecFactoryStore cfs;
 	wxSingleInstanceChecker m_singleMutex;
 	std::shared_ptr<IPC::OpenFileServer> m_server;

@@ -8,7 +8,6 @@
 namespace Img {
 	class CodecPNG:public StaticCodec {
 	public:
-		CodecPNG();
 		~CodecPNG();
 
 	private:
@@ -31,15 +30,15 @@ namespace Img {
 		std::string m_lastError;
 
 		Palette m_palette;
-		int m_bitdepth;
-		int m_chans;
+		int m_bitdepth = 0;
+		int m_chans = 0;
 
 		png_structp m_png_ptr;
 		png_infop m_info_ptr;
-		int m_passes;
+		int m_passes = 0;
 
-		int m_currScan;
-		int m_currPass;
+		int m_currScan = 0;
+		int m_currPass = 0;
 	};
 }
 

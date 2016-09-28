@@ -47,7 +47,7 @@ namespace Img {
 			StTerminating,
 		};
 
-		MessageReceiver* m_receiver;
+		MessageReceiver* m_receiver = nullptr;
 		State m_state;
 
 		std::mutex m_mxWorkList;
@@ -55,7 +55,7 @@ namespace Img {
 		std::condition_variable m_cdUpdated;
 		std::condition_variable m_cdRunning;
 
-		bool m_isAlive;
+		bool m_isAlive = false;
 
 		WorkList m_wl;
 		WorkPackage m_package;

@@ -195,15 +195,6 @@ namespace Img {
 		}
 	}
 
-	CodecPNG::CodecPNG():
-		m_bitdepth(0),
-		m_chans(0),
-		m_png_ptr(0),
-		m_info_ptr(0),
-		m_currScan(0),
-		m_currPass(0)
-	{}
-
 	CodecPNG::~CodecPNG() {
 		try
 		{

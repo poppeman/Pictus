@@ -25,8 +25,8 @@ namespace Img {
 		std::shared_ptr<WebpImageComposer> m_composer;
 
 		WebPDecoderConfig m_config;
-		WebPIDecoder* m_decoder;
-		WebPDemuxer* m_mux;
+		WebPIDecoder* m_decoder = nullptr;
+		WebPDemuxer* m_mux = nullptr;
 		WebPData m_wpdata;
 		std::vector<uint8_t> m_data;
 		size_t m_currFrame = 0;

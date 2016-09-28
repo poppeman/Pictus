@@ -190,7 +190,7 @@ namespace App {
 
 		boost::signals2::connection m_lang;
 
-		long m_previousWindowStyle;
+		long m_previousWindowStyle = 0;
 		Geom::RectInt m_previousWindowRegion;
 
 		// Cacher

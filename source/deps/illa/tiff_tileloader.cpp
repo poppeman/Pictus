@@ -3,12 +3,6 @@
 #include "orz/logger.h"
 
 namespace Img {
-	TiffTileLoader::TiffTileLoader():
-		m_currentTile(0),
-		m_positionCurrentX(0),
-		m_positionCurrentY(0)
-	{}
-
 	TiffChunkStatus TiffTileLoader::PerformLoadChunk() {
 		tsize_t currentTileSize = TIFFTileSize(m_tiff);
 		uint8_t* destination = m_converter->RequestDestinationBuffer(currentTileSize);

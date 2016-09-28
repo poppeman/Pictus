@@ -131,9 +131,7 @@ namespace Hw3D
 	}
 
 	OpenGlContext::OpenGlContext(wxWindow *win):
-		m_context{std::make_shared<wxGLContext>(dynamic_cast<wxGLCanvas*>(win))},
-		m_vbo(0),
-		m_isInitialized(0)
+		m_context{std::make_shared<wxGLContext>(dynamic_cast<wxGLCanvas*>(win))}
 	{
 		glEnable(GL_DEBUG_OUTPUT);
 	}

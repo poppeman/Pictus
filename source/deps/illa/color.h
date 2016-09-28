@@ -7,7 +7,7 @@
 namespace Img {
 	class Color {
 	public:
-		int A, R, G, B;
+		int A = 0, R = 0, G = 0, B = 0;
 
 		Color(int cA, int cR, int cG, int cB);
 
@@ -27,7 +27,7 @@ namespace Img {
 	static const float SatCap = 1.0f;
 
 	struct HLSTriplet {
-		float H, L, S;
+		float H=0.0f, L=0.0f, S=0.0f;
 		HLSTriplet();
 		HLSTriplet(const float _H, const float _L, const float _S);
 	};

@@ -24,28 +24,26 @@ namespace Img {
 			AT_AlphaPreMultiplied = 4,
 		};
 
-		uint8_t IdSize;
-		uint8_t ColorMapType;
-		TGAImageType ImageType;
+		uint8_t IdSize = 0;
+		uint8_t ColorMapType = 0;
+		TGAImageType ImageType = NoData;
 
-		unsigned short ColorMapStart;
-		unsigned short ColorMapLength;
-		uint8_t ColorMapBits;
+		unsigned short ColorMapStart = 0;
+		unsigned short ColorMapLength = 0;
+		uint8_t ColorMapBits = 0;
 
 		Geom::SizeInt Size;
 
-		uint8_t ColorDepth;
-		uint8_t AlphaBits;
-		AtributesType AttributesType;
+		uint8_t ColorDepth = 0;
+		uint8_t AlphaBits = 0;
+		AtributesType AttributesType = AT_UndefinedIgnore;
 
-		bool FlipHorizontal;
-		bool FlipVertical;
+		bool FlipHorizontal = false;
+		bool FlipVertical = false;
 
 		bool LoadHeader(IO::FileReader::Ptr file);
 
 		Img::Format SurfaceFormat();
-
-		TGAHeader();
 
 	private:
 		bool ReadExtensionArea(IO::FileReader::Ptr file);

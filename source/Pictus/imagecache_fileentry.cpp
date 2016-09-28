@@ -72,9 +72,7 @@ namespace Img {
 		}
 
 		FileEntry::FileEntry(std::string fullname):
-			m_fullname(fullname),
-			m_dateModified(boost::posix_time::not_a_date_time),
-			m_hasQueriedFile(false)
+			m_fullname(fullname)
 		{}
 
 		void FileEntry::Rename(const std::string& newName) {

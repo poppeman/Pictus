@@ -74,10 +74,6 @@ namespace Img {
 			p.Loader->GetImage()->Deallocate();
 	}
 
-	WorkList::WorkList():m_currPackage(0), m_memoryLimit(0), m_cfs(0)
-	{
-	}
-
 	void WorkList::MemoryLimit( size_t newLimit ) {
 		m_newMemoryLimit = newLimit;
 	}

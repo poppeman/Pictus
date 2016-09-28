@@ -105,18 +105,4 @@ namespace Img {
 
 		return Img::Format::Undefined;
 	}
-
-	TGAHeader::TGAHeader():
-		IdSize{ 0 },
-		ColorMapType{ 0 },
-		ImageType{ NoData },
-		ColorMapStart{ 0 },
-		ColorMapLength{ 0 },
-		ColorMapBits{ 0 },
-		Size{ 0, 0 },
-		ColorDepth{ 0 },
-		AlphaBits{ 0 },
-		FlipHorizontal{ false },
-		FlipVertical{ false }
-	{}
 }

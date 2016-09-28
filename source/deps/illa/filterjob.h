@@ -18,7 +18,7 @@ namespace Filter {
 		private:
 			FilterJob& operator=(const FilterJob& rhs);
 
-			Filter::Mode m_our_mode;
+			Filter::Mode m_our_mode = Filter::Mode::Undefined;
 			static Filter::Mode m_mode;
 			static const FilterBuffer* m_source;
 			static Img::Format m_format;

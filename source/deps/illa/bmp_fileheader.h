@@ -10,9 +10,9 @@ namespace Img {
 			void Load(IO::FileReader::Ptr file);
 			BMPFileHeader();
 
-			uint16_t type;
-			uint32_t size;
-			uint32_t offset;
+			uint16_t type = 0;
+			uint32_t size = 0;
+			uint32_t offset = 0;
 		};
 	}
 }

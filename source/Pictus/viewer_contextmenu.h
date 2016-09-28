@@ -26,7 +26,7 @@ namespace App
 
 		wxMenu* DoAddSubMenu(StringID label);
 
-		wxMenuItem *m_zoomFitImage, *m_zoomFullSize;
+		wxMenuItem *m_zoomFitImage = nullptr, *m_zoomFullSize = nullptr;
 
 		typedef ActionMapNoParam<int> MenuActionMap;
 		MenuActionMap m_menuMap;

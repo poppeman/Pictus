@@ -11,8 +11,8 @@ namespace Img {
 		Surface::Ptr PerformGetSurface();
 		uint32_t ReadUIntVar(IO::FileReader::Ptr file);
 
-		int m_currScan;
-		FileInt m_imageStart;
+		int m_currScan = 0;
+		FileInt m_imageStart = 0;
 	};
 }
 

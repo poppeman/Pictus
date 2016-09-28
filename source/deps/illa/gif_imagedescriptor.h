@@ -35,33 +35,30 @@ namespace Img {
 		Geom::PointInt TopLeft;
 		Geom::SizeInt ImageSize;
 
-		bool Interlace;
+		bool Interlace = false;
 
 		// Local Color Table
-		bool LCTExist;
-		bool LCTSorted;
-		short LCTSize;
+		bool LCTExist = false;
+		bool LCTSorted = false;
+		short LCTSize = 0;
 		Img::Palette LCTEntries;
 
 		// Surface for this frame.
 		Img::Surface::Ptr Surface;
 
 		// Location of image data.
-		FileInt FileOffset;
+		FileInt FileOffset = 0;
 
 		// Additional settings from extended block
-		int Delay;
-		uint8_t ColorKey;
-		bool IsTransparent;
-		DisposeMethod Dispose;
+		int Delay = DefaultDelay;
+		uint8_t ColorKey = 0;
+		bool IsTransparent = false;
+		DisposeMethod Dispose = DisposeUnknown;
 
 		bool ReadGraphicControlExtBlock(IO::FileReader::Ptr file);
 		bool ReadDescriptor(IO::FileReader::Ptr file);
 
 		typedef std::shared_ptr<ImageDescriptor> Ptr;
-
-		ImageDescriptor()
-			:Delay(DefaultDelay), ColorKey(0), IsTransparent(false), Dispose(DisposeUnknown) {}
 	};
 
 	typedef std::vector<ImageDescriptor::Ptr> DescriptorVector;

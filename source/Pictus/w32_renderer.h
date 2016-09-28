@@ -8,7 +8,7 @@
 namespace Win {
 	class Renderer final {
 	public:
-		Filter::RotationAngle Angle;
+		Filter::RotationAngle Angle = Filter::RotationAngle::RotateUndefined;
 
 		Img::Surface::Ptr CreateSurface();
 		std::shared_ptr<Hw3D::Texture> CreateDDSurface(Geom::SizeInt dims);
@@ -41,7 +41,7 @@ namespace Win {
 		wxWindow* TargetWindow();
 
 	private:
-		wxWindow* m_hwnd;
+		wxWindow* m_hwnd = nullptr;
 
 		enum {
 			MaximumTileEdgeLength = 512,

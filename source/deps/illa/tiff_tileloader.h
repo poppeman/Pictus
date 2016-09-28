@@ -5,20 +5,17 @@
 
 namespace Img {
 	class TiffTileLoader:public TiffLoader {
-	public:
-		TiffTileLoader();
-
 	private:
 		TiffChunkStatus PerformLoadChunk() override;
 		void PerformOnCreate() override;
 
 		void transferTileToBuffer(uint8_t* tileData, size_t bytes);
 
-		ttile_t m_currentTile;
-		ttile_t m_numberOfTiles;
+		ttile_t m_currentTile = 0;
+		ttile_t m_numberOfTiles = 0;
 
-		int m_positionCurrentX;
-		size_t m_positionCurrentY;
+		int m_positionCurrentX = 0;
+		size_t m_positionCurrentY = 0;
 	};
 }
 

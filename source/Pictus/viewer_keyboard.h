@@ -15,7 +15,7 @@ namespace App {
 
 	private:
 		Reg::KeyboardSettings m_cfg;
-		Viewer* m_owner;
+		Viewer* m_owner = nullptr;
 	};
 }
 

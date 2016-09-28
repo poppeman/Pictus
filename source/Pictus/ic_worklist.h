@@ -18,7 +18,6 @@ namespace Img {
 
 		void SetCodecFactoryStore(Img::CodecFactoryStore* cfs);
 
-		WorkList();
 		~WorkList();
 
 	private:
@@ -28,10 +27,10 @@ namespace Img {
 
 		typedef std::list<WorkPackage> PackageList;
 
-		WorkPackage* m_currPackage;
-		size_t m_memoryLimit;
-		size_t m_newMemoryLimit;
-		CodecFactoryStore* m_cfs;
+		WorkPackage* m_currPackage = nullptr;
+		size_t m_memoryLimit = 0;
+		size_t m_newMemoryLimit = 0;
+		CodecFactoryStore* m_cfs = nullptr;
 		PackageList m_workPackages;
 	};
 }

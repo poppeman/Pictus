@@ -32,12 +32,11 @@ namespace Img {
 			Img::Image::Ptr m_image;
 			std::string m_fullname;
 #ifdef ENABLE_CREATED_TIME
-			std::time_t m_dateCreate;
+			std::time_t m_dateCreate = boost::posix_time::not_a_date_time;
 #endif
-			std::time_t m_dateModified;
-			bool m_hasQueriedFile;
-			uintmax_t m_fileSize;
-
+			std::time_t m_dateModified = boost::posix_time::not_a_date_time;
+			bool m_hasQueriedFile = false;
+			uintmax_t m_fileSize = 0;
 		};
 	}
 }
