@@ -20,6 +20,8 @@ namespace Util {
 	{
 		std::lock_guard<std::mutex> l(m_mxTasks);
 		for (size_t i = 0; i < numThreads; i++) {
+			// False positive. thread_group will clean up all threads automatically on destruction
+			// coverity[RESOURCE_LEAK]
 			m_threads.create_thread([this]() { Worker(); });
 		}
 	}

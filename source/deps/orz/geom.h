@@ -14,6 +14,7 @@ namespace Geom {
 		T Width, Height;
 
 		Size<T> Flipped() const {
+			// coverity[SWAPPED_ARGUMENTS]
 			return Size<T>(Height, Width);
 		}
 
