@@ -76,12 +76,12 @@ namespace Img {
 
 		void ParseFileStructure(IO::FileReader::Ptr reader);
 
-		bool DecodeScanlines(IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination);
+		bool DecodeScanlines(IO::FileReader::Ptr reader, unsigned int scansToProcess, unsigned int width, size_t stride, size_t pixelSize, uint8_t* destination);
 
-		bool DecodeRawScanlines(IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination);
-		bool DecodeRLEScanlines(IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination);
+		bool DecodeRawScanlines(IO::FileReader::Ptr reader, unsigned int scansToProcess, unsigned int width, size_t stride, size_t pixelSize, uint8_t* destination);
+		bool DecodeRLEScanlines(IO::FileReader::Ptr reader, unsigned int scansToProcess, unsigned int width, size_t stride, size_t pixelSize, uint8_t* destination);
 
-		bool DecodeRLEChannel(IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination);
+		bool DecodeRLEChannel(IO::FileReader::Ptr reader, unsigned int scansToProcess, unsigned int width, size_t stride, size_t pixelSize, uint8_t* destination);
 
 		Layer m_layer;
 

@@ -308,7 +308,7 @@ namespace Img {
 		}
 	}
 
-	bool CodecPSP::DecodeScanlines(IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination) {
+	bool CodecPSP::DecodeScanlines(IO::FileReader::Ptr reader, unsigned int scansToProcess, unsigned int width, size_t stride, size_t pixelSize, uint8_t* destination) {
 		if (m_compression == PSP_COMP_NONE) {
 			return DecodeRawScanlines(reader, scansToProcess, width, stride, pixelSize, destination);
 		}
@@ -319,7 +319,7 @@ namespace Img {
 		return false;
 	}
 
-	bool CodecPSP::DecodeRawScanlines(IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination) {
+	bool CodecPSP::DecodeRawScanlines(IO::FileReader::Ptr reader, unsigned int scansToProcess, unsigned int width, size_t stride, size_t pixelSize, uint8_t* destination) {
 		if(m_channels.size() == 1 && (m_bitDepth == 4 || m_bitDepth == 1)) {
 			Channel& currChannel = m_channels.at(0);
 
@@ -329,7 +329,7 @@ namespace Img {
 			auto inputBuffer(std::make_unique<uint8_t[]>(bytesPerScanline));
 			reader->Seek(currChannel.PositionData + currChannel.CurrentSourcePosition, IO::SeekMethod::Begin);
 
-			for (int y = 0; y < scansToProcess; ++y) {
+			for (unsigned int y = 0; y < scansToProcess; ++y) {
 				reader->ReadFull(inputBuffer.get(), bytesPerScanline);
 
 				Util::ConvertToBytes(destination, inputBuffer.get(), m_bitDepth, width);
@@ -343,7 +343,7 @@ namespace Img {
 
 			reader->Seek(currChannel.PositionData + currChannel.CurrentSourcePosition, IO::SeekMethod::Begin);
 
-			for (int y = 0; y < scansToProcess; ++y) {
+			for (unsigned int y = 0; y < scansToProcess; ++y) {
 				reader->ReadFull(destination, width);
 				destination += stride;
 			}
@@ -353,18 +353,18 @@ namespace Img {
 		else if (m_channels.size() == 3 && m_bitDepth == 24) {
 			auto inputBuffer(std::make_unique<uint8_t[]>(width));
 
-			for (int channel = 0; channel < 3; ++channel) {
+			for (unsigned int channel = 0; channel < 3; ++channel) {
 				Channel& currChannel = m_channels.at(2 - channel);
 				reader->Seek(currChannel.PositionData + currChannel.CurrentSourcePosition, IO::SeekMethod::Begin);
 
 				uint8_t* currScanStart = destination + channel;
 
-				for (int y = 0; y < scansToProcess; ++y) {
+				for (unsigned int y = 0; y < scansToProcess; ++y) {
 					uint8_t* currPixel = currScanStart;
 
 					reader->ReadFull(inputBuffer.get(), width);
 
-					for (int x = 0; x < width; ++x) {
+					for (unsigned int x = 0; x < width; ++x) {
 						*currPixel = *(inputBuffer.get() + x);
 						currPixel += pixelSize;
 					}
@@ -383,7 +383,7 @@ namespace Img {
 	}
 
 	// Enabling unused parameter warnings in GCC (5.2.1) causes it to complain about "reader" below, so don't enable unused parameter warnings in GCC!
-	bool CodecPSP::DecodeRLEScanlines( IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination ) {
+	bool CodecPSP::DecodeRLEScanlines( IO::FileReader::Ptr reader, unsigned int scansToProcess, unsigned int width, size_t stride, size_t pixelSize, uint8_t* destination ) {
 		if (m_channels.size() == 1 && (m_bitDepth == 4 || m_bitDepth == 1)) {
 			Channel& currChannel = m_channels.at(0);
 
@@ -394,7 +394,7 @@ namespace Img {
 			reader->Seek(currChannel.PositionData + currChannel.CurrentSourcePosition, IO::SeekMethod::Begin);
 			m_fileStream.SetFileReader(reader);
 
-			for (int y = 0; y < scansToProcess; ++y) {
+			for (unsigned int y = 0; y < scansToProcess; ++y) {
 				DecodeRLEChannel(reader, 1, bytesPerScanline, stride, 1, inputBuffer.get());
 				Util::ConvertToBytes(destination, inputBuffer.get(), m_bitDepth, width);
 				destination += stride;
@@ -437,9 +437,9 @@ namespace Img {
 		return true;
 	}
 
-	bool CodecPSP::DecodeRLEChannel( IO::FileReader::Ptr reader, int scansToProcess, int width, size_t stride, size_t pixelSize, uint8_t* destination ) {
-		for (int y = 0; y < scansToProcess; ++y) {
-			int x = 0;
+	bool CodecPSP::DecodeRLEChannel( IO::FileReader::Ptr reader, unsigned int scansToProcess, unsigned int width, size_t stride, size_t pixelSize, uint8_t* destination ) {
+		for (unsigned int y = 0; y < scansToProcess; ++y) {
+			unsigned int x = 0;
 			while (x < width) {
 				uint8_t count = m_fileStream.ReadByte();
 				if (count > 128) {
