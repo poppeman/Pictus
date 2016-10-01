@@ -146,7 +146,7 @@ namespace Img {
 	}
 
 	size_t AbstractCodec::PerformEstimateMemory() {
-		return Area(GetSize()) * EstimatePixelSize(GetFormat());
+		return Area(GetSize().StaticCast<unsigned int>()) * EstimatePixelSize(GetFormat());
 	}
 
 	Img::Format AbstractCodec::GetFormat() const {
