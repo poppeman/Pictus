@@ -21,13 +21,13 @@ namespace Img {
 		return &m_buffer[0];
 	}
 
-	uint8_t* TiffYCbCrConverter::PerformReleaseDestinationBuffer(int widthInPixels, size_t bytesUsed, size_t* expandedSize) {
+	uint8_t* TiffYCbCrConverter::PerformReleaseDestinationBuffer(unsigned int widthInPixels, size_t bytesUsed, size_t* expandedSize) {
 		uint16_t subsamplingVert, subsamplingHoriz;
 		TIFFGetField(m_tiff, TIFFTAG_YCBCRSUBSAMPLING, &subsamplingHoriz, &subsamplingVert);
 
 		// FIXME: Do not assume striped data
 		if (subsamplingHoriz == 2 && subsamplingVert == 1) {
-			uint32_t h = bytesUsed / (widthInPixels * 2);
+			auto h = bytesUsed / (widthInPixels * 2);
 
 			*expandedSize = bytesUsed * 2;
 			ByteArray bufferRGB;
@@ -37,7 +37,7 @@ namespace Img {
 			uint32_t* dst = reinterpret_cast<uint32_t*>(&bufferRGB[0]);
 
 			for (size_t y = 0; y < h; ++y) {
-				for (int x = 0; x < (widthInPixels / 2); ++x) {
+				for (unsigned  x = 0; x < (widthInPixels / 2); ++x) {
 					int32 Cb = src[2];
 					int32 Cr = src[3];
 
@@ -64,7 +64,7 @@ namespace Img {
 			uint32_t* dstNext = dstCurr + widthInPixels;
 
 			for (int y = 0; y < (h / 2); ++y) {
-				for (int x = 0; x < (widthInPixels / 2); ++x) {
+				for (unsigned  x = 0; x < (widthInPixels / 2); ++x) {
 					int32 Cb = src[4];
 					int32 Cr = src[5];
 
@@ -88,7 +88,7 @@ namespace Img {
 			}
 
 			if ((h % 2) == 1) {
-				for (int x = 0; x < (widthInPixels / 2); ++x) {
+				for (unsigned int x = 0; x < (widthInPixels / 2); ++x) {
 					int32 Cb = src[4];
 					int32 Cr = src[5];
 					uint32 R, G, B;

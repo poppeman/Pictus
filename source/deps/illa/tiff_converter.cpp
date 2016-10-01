@@ -14,7 +14,7 @@ namespace Img {
 		return buffer;
 	}
 
-	uint8_t* TiffDataConverter::ReleaseDestinationBuffer( int widthInPixels, size_t bytesUsed, size_t* expandedSize ) {
+	uint8_t* TiffDataConverter::ReleaseDestinationBuffer( unsigned int widthInPixels, size_t bytesUsed, size_t* expandedSize ) {
 		return PerformReleaseDestinationBuffer(widthInPixels, bytesUsed, expandedSize);
 	}
 

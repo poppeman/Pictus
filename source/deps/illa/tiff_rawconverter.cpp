@@ -7,7 +7,7 @@ namespace Img {
 		return &m_buffer[0];
 	}
 
-	uint8_t* TiffRawConverter::PerformReleaseDestinationBuffer(int widthInPixels, size_t bytesUsed, size_t* expandedSize) {
+	uint8_t* TiffRawConverter::PerformReleaseDestinationBuffer(unsigned int widthInPixels, size_t bytesUsed, size_t* expandedSize) {
 		if (m_buffer.empty()) {
 			DO_THROW(Err::CriticalError, "Buffer not created.");
 		}

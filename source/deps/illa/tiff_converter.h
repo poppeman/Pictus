@@ -12,7 +12,7 @@ namespace Img {
 		void Create(TIFF* tiff, Format dataFormat);
 
 		uint8_t* RequestDestinationBuffer(size_t bytes);
-		uint8_t* ReleaseDestinationBuffer(int widthInPixels, size_t bytesUsed, size_t* expandedSize);
+		uint8_t* ReleaseDestinationBuffer(unsigned int widthInPixels, size_t bytesUsed, size_t* expandedSize);
 
 		virtual ~TiffDataConverter();
 
@@ -25,7 +25,7 @@ namespace Img {
 	private:
 		virtual void PerformCreate();
 		virtual uint8_t* PerformRequestDestinationBuffer(size_t bytes)=0;
-		virtual uint8_t* PerformReleaseDestinationBuffer(int widthInPixels, size_t bytesUsed, size_t* expandedSize)=0;
+		virtual uint8_t* PerformReleaseDestinationBuffer(unsigned int widthInPixels, size_t bytesUsed, size_t* expandedSize)=0;
 	};
 }
 

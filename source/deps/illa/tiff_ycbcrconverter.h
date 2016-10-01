@@ -6,8 +6,8 @@
 namespace Img {
 	class TiffYCbCrConverter:public TiffDataConverter {
 		void						PerformCreate();
-		uint8_t*						PerformRequestDestinationBuffer(size_t bytes);
-		uint8_t*						PerformReleaseDestinationBuffer(int widthInPixels, size_t bytesUsed, size_t* expandedSize);	
+		uint8_t*						PerformRequestDestinationBuffer(size_t bytes) override;
+		uint8_t*						PerformReleaseDestinationBuffer(unsigned int widthInPixels, size_t bytesUsed, size_t* expandedSize) override;
 
 		typedef std::unique_ptr<uint8_t[]> ByteArray;
 		ByteArray					m_buffer;

@@ -6,8 +6,8 @@
 
 namespace Img {
 	class TiffRawConverter:public TiffDataConverter {
-		uint8_t*						PerformRequestDestinationBuffer(size_t bytes);
-		uint8_t*						PerformReleaseDestinationBuffer(int widthInPixels, size_t bytesUsed, size_t* expandedSize);	
+		uint8_t*						PerformRequestDestinationBuffer(size_t bytes) override;
+		uint8_t*						PerformReleaseDestinationBuffer(unsigned int widthInPixels, size_t bytesUsed, size_t* expandedSize) override;
 
 		typedef std::vector<uint8_t> ByteArray;
 		ByteArray					m_buffer;
