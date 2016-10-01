@@ -26,8 +26,7 @@ namespace Sys {
 			{
 				throw EXCEPTION(std::runtime_error, "readlink on /proc/self/exec failed");
 			}
-			dest[written] = 0;
-			return std::string(dest);
+			return std::string(dest, written);
 		}
 	}
 }
