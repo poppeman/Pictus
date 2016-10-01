@@ -21,11 +21,12 @@ namespace Sys {
 		{
 			// For fuck sake, another os with a hard-coded path length limit?
 			char dest[PATH_MAX] = {0};
-
-			if (readlink("/proc/self/exe", dest, PATH_MAX) == -1)
+			auto written = readlink("/proc/self/exe", dest, PATH_MAX);
+			if (written == -1)
 			{
 				throw EXCEPTION(std::runtime_error, "readlink on /proc/self/exec failed");
 			}
+			dest[written] = 0;
 			return std::string(dest);
 		}
 	}

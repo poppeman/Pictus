@@ -39,7 +39,7 @@ namespace App {
 		static const float ZoomLevels[NumZoomLevels];
 
 		App::ZoomMode m_zoomMode;
-		App::ResizeBehaviour m_resizeBehaviour;
+		App::ResizeBehaviour m_resizeBehaviour = App::ResizeBehaviour::ResizeReduceOnly;
 		int m_zoomLevel;
 		float m_lastFitSize;
 	};

@@ -9,7 +9,6 @@
 namespace Img {
 	class CodecTIFF:public StaticCodec {
 	public:
-		CodecTIFF();
 		~CodecTIFF();
 
 	private:
@@ -21,8 +20,8 @@ namespace Img {
 		void endImageIO();
 
 	private:
-		TIFF* m_tiff;
-		uint16_t m_photometric;
+		TIFF* m_tiff = nullptr;
+		uint16_t m_photometric = 0;
 
 		TiffLoader::Ptr m_loader;
 		TiffDataConverter::Ptr m_converter;

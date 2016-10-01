@@ -61,7 +61,7 @@ namespace Img {
 		SourceModule m_decompressionSource;
 
 	private:
-		struct jpeg_decompress_struct	m_decInfo;
+		struct jpeg_decompress_struct m_decInfo = {};
 		bool m_isInit = false;
 
 		std::string m_lastError;

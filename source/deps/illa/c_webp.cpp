@@ -13,12 +13,9 @@ namespace Img {
 	}
 
 	CodecWebp::CodecWebp():
-		m_composer(std::make_shared<Img::WebpImageComposer>()),
-		m_decoder(nullptr),
-		m_mux(nullptr),
-		m_currFrame(0),
-		m_numFrames(0)
+		m_composer(std::make_shared<Img::WebpImageComposer>())
 	{}
+
 	CodecWebp::~CodecWebp() {
 		if(m_decoder != nullptr)
 		{

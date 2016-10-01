@@ -246,10 +246,6 @@ namespace Img {
 		}
 	}
 
-	CodecTIFF::CodecTIFF():
-		m_tiff{ nullptr }
-	{}
-
 	CodecTIFF::~CodecTIFF() {
 		endImageIO();
 	}
