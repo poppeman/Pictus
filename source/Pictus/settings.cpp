@@ -72,7 +72,7 @@ namespace App
 		}
 		m_tree->ExpandAll();
 
-		ActivatePage(firstIndex);
+		ActivatePage(std::max(0, firstIndex));
 
 		auto buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 		m_ok = new wxButton(this, wxID_ANY, Intl::GetString(SIDDialogOK));
