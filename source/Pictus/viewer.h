@@ -87,6 +87,7 @@ namespace App {
 		void OnMouseDoubleEvent(wxMouseEvent& e);
 		void OnSizeEvent(wxSizeEvent& e);
 		void OnImageLoadEvent(wxCommandEvent& e);
+		void OnFolderEvent(wxCommandEvent& e);
 
 		void AdjustChange(int brightness, int contrast, int gamma);
 		void ShowAdjust();
@@ -155,7 +156,6 @@ namespace App {
 		void OpenFolder();
 
 		void OnLoadMessage(Img::MessageReceiver::LoadMessage s, Img::Image* pImage, const std::string& desc);
-		void FolderEvent(IO::FileEvent e);
 
 		bool CopyToClipboard();
 
@@ -177,8 +177,6 @@ namespace App {
 		Geom::PointInt AnchorCenter() const;
 
 		void AddNotification(const IO::FileEvent& notification);
-		void HandleFolderNotification();
-
 		void AddNotification(const CacheNotification& notification);
 
 		Geom::PointInt calculateWindowTopLeft( ResizePositionMethod method, const Geom::SizeInt &newSize );

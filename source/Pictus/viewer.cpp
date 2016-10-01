@@ -32,6 +32,7 @@
 const wchar_t* App::Viewer::AppTitle = L"Pictus";
 
 wxDEFINE_EVENT(ImageLoadEvent, wxCommandEvent);
+wxDEFINE_EVENT(FolderEvent, wxCommandEvent);
 
 namespace App {
 	using namespace Win;
@@ -139,7 +140,7 @@ namespace App {
 		m_cfg( cfg ),
 		m_userInitiatedMove{ true }
 	{
-
+		Bind(FolderEvent, &Viewer::OnFolderEvent, this);
 	}
 
 	Viewer::~Viewer() {
@@ -256,7 +257,7 @@ namespace App {
 		m_cacher.MessageTarget(this);
 		// TODO: FIXME: This is very wrong, should be set to something that isn't hardcoded.
 		m_cacher.SetMaximumResolutionHint(Geom::SizeInt(25600, 25600));
-		m_folderMonitor.OnEvent.connect([this](IO::FileEvent e) { FolderEvent(e); });
+		m_folderMonitor.OnEvent.connect([this](IO::FileEvent e) { AddNotification(e); });
 
 		m_cacher.WrapAround(m_cfg.View.BrowseWrapAround);
 
@@ -699,7 +700,7 @@ namespace App {
 		AddNotification({pImage, msg, desc});
 	}
 
-	void Viewer::HandleFolderNotification() {
+	void Viewer::OnFolderEvent(wxCommandEvent& evt) {
 		std::unique_lock<std::mutex> l(m_mutexNotification);
 		if (m_folderNotifications.empty()) {
 			DO_THROW(Err::CriticalError, "Notification queue is empty.");
@@ -742,6 +743,8 @@ namespace App {
 		std::unique_lock<std::mutex> l(m_mutexNotification);
 		m_folderNotifications.push_back(notification);
 		l.unlock();
+
+		QueueEvent(new wxCommandEvent(FolderEvent));
 	}
 
 	void Viewer::UpdateMemoryLimits() {
@@ -982,10 +985,6 @@ namespace App {
 
 		AlwaysOnTop(m_cfg.View.AlwaysOnTop);
 		ImageChanged();
-	}
-
-	void Viewer::FolderEvent(IO::FileEvent e) {
-		AddNotification(e);
 	}
 
 	void Viewer::UpdateViewportConfig()
