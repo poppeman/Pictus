@@ -102,7 +102,12 @@ namespace App
 
 	App::MouseAction SetControls::GetComboAction(wxChoice *cb)
 	{
-		return dynamic_cast<MouseActionClientData*>(cb->GetClientObject(cb->GetSelection()))->Action;
+		auto clientData = dynamic_cast<MouseActionClientData*>(cb->GetClientObject(cb->GetSelection()));
+		if (clientData == nullptr)
+		{
+			throw EXCEPTION(Err::CriticalError, "Client data had wrong type");
+		}
+		return clientData->Action;
 	}
 
 	void SetControls::SetComboAction(wxChoice *cb, App::MouseAction action)

@@ -60,7 +60,12 @@ namespace App
 	{
 		for (unsigned i = 0; i < m_cbLang->GetCount(); i++)
 		{
-			if (dynamic_cast<IntClientData *>(m_cbLang->GetClientObject(i))->Data == static_cast<unsigned>(lang))
+			auto clientData = dynamic_cast<IntClientData *>(m_cbLang->GetClientObject(i));
+			if (clientData == nullptr)
+			{
+				throw EXCEPTION(Err::CriticalError, "Client data had wrong type");
+			}
+			if (clientData->Data == static_cast<unsigned>(lang))
 			{
 				m_cbLang->SetSelection(i);
 				return;

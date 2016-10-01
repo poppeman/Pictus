@@ -52,7 +52,12 @@ namespace App
 				{
 					for(unsigned i=0;i<m_functions->GetCount();i++)
 					{
-						if(dynamic_cast<ActionClientData*>(m_functions->GetClientObject(i))->Action == m_shortcuts[index].Action)
+						auto clientData = dynamic_cast<ActionClientData*>(m_functions->GetClientObject(i));
+						if (clientData == nullptr)
+						{
+							throw EXCEPTION(Err::CriticalError, "Client data had wrong type");
+						}
+						if(clientData->Action == m_shortcuts[index].Action)
 						{
 							m_functions->SetSelection(i);
 							break;
@@ -109,7 +114,12 @@ namespace App
 			auto row = m_assigned->GetFirstSelected();
 			auto index = m_assigned->GetItemData(row);
 
-			auto action= dynamic_cast<ActionClientData*>(m_functions->GetClientObject(m_functions->GetSelection()))->Action;
+			auto clientData = dynamic_cast<ActionClientData*>(m_functions->GetClientObject(m_functions->GetSelection()));
+			if (clientData == nullptr)
+			{
+				throw EXCEPTION(Err::CriticalError, "Client data had wrong type");
+			}
+			auto action= clientData->Action;
 			SetShortcutFunction(action, index);
 		});
 		m_keypress->OnNewCombo = [=](App::KeyboardPress kp)
