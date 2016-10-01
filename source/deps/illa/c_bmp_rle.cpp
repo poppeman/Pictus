@@ -4,7 +4,7 @@ namespace Img
 {
 	namespace Internal
 	{
-		BmpRleDecoder::BmpRleDecoder(std::shared_ptr<Img::Surface> destination, BMPHeader header) :
+		BmpRleDecoder::BmpRleDecoder(std::shared_ptr<Img::Surface> destination, const BMPHeader& header):
 			BmpDataDecoder{ destination, header },
 			m_currPix{ 0 },
 			m_row{ 0 }

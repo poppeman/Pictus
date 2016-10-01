@@ -2,7 +2,7 @@
 #include "surfacemgr.h"
 
 namespace Img {
-	Palette DeterminePalette(ImageDescriptor::Ptr currId, Palette globalPalette) {
+	Palette DeterminePalette(ImageDescriptor::Ptr currId, const Palette& globalPalette) {
 		auto currPal = (currId->LCTExist ? currId->LCTEntries : globalPalette);
 		int cKey = currId->ColorKey;
 		if (currId->IsTransparent) {

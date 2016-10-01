@@ -4,7 +4,7 @@ namespace Img
 {
 	namespace Internal
 	{
-		BmpRleDecoder4::BmpRleDecoder4(std::shared_ptr<Img::Surface> destination, BMPHeader header, std::shared_ptr<IO::FileReader> fileStream) :
+		BmpRleDecoder4::BmpRleDecoder4(std::shared_ptr<Img::Surface> destination, const BMPHeader& header, std::shared_ptr<IO::FileReader> fileStream) :
 			BmpRleDecoder{ destination, header },
 			m_reader{ fileStream }
 		{

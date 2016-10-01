@@ -11,7 +11,7 @@ namespace Img
 	{
 		class BmpRleDecoder :public BmpDataDecoder {
 		public:
-			BmpRleDecoder(std::shared_ptr<Img::Surface> destination, BMPHeader header);
+			BmpRleDecoder(std::shared_ptr<Img::Surface> destination, const BMPHeader& header);
 
 		protected:
 			enum {

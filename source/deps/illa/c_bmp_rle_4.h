@@ -9,7 +9,7 @@ namespace Img
 	{
 		class BmpRleDecoder4 :public BmpRleDecoder {
 		public:
-			BmpRleDecoder4(std::shared_ptr<Img::Surface> destination, BMPHeader header, std::shared_ptr<IO::FileReader> fileStream);
+			BmpRleDecoder4(std::shared_ptr<Img::Surface> destination, const BMPHeader& header, std::shared_ptr<IO::FileReader> fileStream);
 
 		private:
 			bool OnProcess() override;
