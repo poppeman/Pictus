@@ -13,7 +13,7 @@ namespace Img
 		public:
 			bool Process();
 
-			BmpDataDecoder(std::shared_ptr<Img::Surface> destination, BMPHeader header);
+			BmpDataDecoder(std::shared_ptr<Img::Surface> destination, const BMPHeader& header);
 
 		protected:
 			std::shared_ptr<Img::Surface::LockedArea> GetScanlinePtr(int row);

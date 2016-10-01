@@ -13,7 +13,7 @@ namespace Img
 		class BmpRawDecoder8 :public BmpDataDecoder
 		{
 		public:
-			BmpRawDecoder8(std::shared_ptr<Img::Surface> destination, BMPHeader header, std::shared_ptr<IO::FileReader> fileStream);
+			BmpRawDecoder8(std::shared_ptr<Img::Surface> destination, const BMPHeader& header, std::shared_ptr<IO::FileReader> fileStream);
 
 		private:
 			bool OnProcess() override;

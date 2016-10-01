@@ -11,7 +11,7 @@ namespace Img
 			return OnProcess();
 		}
 
-		BmpDataDecoder::BmpDataDecoder(std::shared_ptr<Img::Surface> destination, BMPHeader header):
+		BmpDataDecoder::BmpDataDecoder(std::shared_ptr<Img::Surface> destination, const BMPHeader& header):
 			m_header{ header },
 			m_destination{ destination }
 		{

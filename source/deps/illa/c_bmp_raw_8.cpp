@@ -6,7 +6,7 @@ namespace Img
 	namespace Internal
 	{
 
-		BmpRawDecoder8::BmpRawDecoder8(std::shared_ptr<Img::Surface> destination, BMPHeader header, std::shared_ptr<IO::FileReader> fileStream) :
+		BmpRawDecoder8::BmpRawDecoder8(std::shared_ptr<Img::Surface> destination, const BMPHeader& header, std::shared_ptr<IO::FileReader> fileStream) :
 			BmpDataDecoder{ destination, header },
 			m_reader{ fileStream },
 			m_row{ 0 }
