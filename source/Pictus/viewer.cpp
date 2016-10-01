@@ -128,7 +128,7 @@ namespace App {
 		}
 	}
 
-	Viewer::Viewer(Img::CodecFactoryStore* cfs, Reg::Settings cfg):
+	Viewer::Viewer(Img::CodecFactoryStore* cfs, const Reg::Settings& cfg):
 		m_attemptToShow{ false },
 		m_screenMode{ SM_Normal },
 		m_doMaximize{ false },

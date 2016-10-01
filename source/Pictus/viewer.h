@@ -40,7 +40,7 @@ namespace App {
 		void CreateWindow();
 		bool Init(const std::string params);
 
-		Viewer(Img::CodecFactoryStore* cfs, Reg::Settings config);
+		Viewer(Img::CodecFactoryStore* cfs, const Reg::Settings& config);
 		~Viewer();
 
 	private:

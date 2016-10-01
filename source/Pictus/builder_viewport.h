@@ -6,7 +6,7 @@
 namespace App {
 	class ViewportBuilder {
 	public:
-		void BuildViewport(App::ViewPort& port, wxWindow* parent, Reg::Settings settings);
+		void BuildViewport(App::ViewPort& port, wxWindow* parent, const Reg::Settings& settings);
 	};
 }
 

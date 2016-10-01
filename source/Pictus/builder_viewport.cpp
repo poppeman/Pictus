@@ -6,7 +6,7 @@
 namespace App {
 	using namespace Win;
 
-	void ViewportBuilder::BuildViewport(App::ViewPort& port, wxWindow* parent, Reg::Settings settings) {
+	void ViewportBuilder::BuildViewport(App::ViewPort& port, wxWindow* parent, const Reg::Settings& settings) {
 		//port.Create(parent);
 		RendererFactory rf;
 		auto device = rf.CreateDevice();
