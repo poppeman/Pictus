@@ -75,6 +75,11 @@ namespace App
 
 	Intl::Language SetLanguage::GetSelection()
 	{
-		return Intl::Language(dynamic_cast<IntClientData *>(m_cbLang->GetClientObject(m_cbLang->GetSelection()))->Data);
+		auto clientData = dynamic_cast<IntClientData *>(m_cbLang->GetClientObject(m_cbLang->GetSelection()));
+		if (clientData == nullptr)
+		{
+			throw EXCEPTION(Err::CriticalError, "Client data had wrong type");
+		}
+		return Intl::Language(clientData->Data);
 	}
 }

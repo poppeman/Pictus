@@ -114,7 +114,12 @@ namespace App
 	{
 		for(unsigned i=0; i < cb->GetCount(); i++)
 		{
-			if(dynamic_cast<MouseActionClientData*>(cb->GetClientObject(i))->Action == action)
+			auto clientData = dynamic_cast<MouseActionClientData*>(cb->GetClientObject(i));
+			if (clientData == nullptr)
+			{
+				throw EXCEPTION(Err::CriticalError, "Client data had wrong type");
+			}
+			if(clientData->Action == action)
 			{
 				cb->SetSelection(i);
 				return;
