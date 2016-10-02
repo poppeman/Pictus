@@ -9,5 +9,3 @@ link_directories(${illa_BINARY_DIR}/illa)
 
 add_executable(illaTest ${ALL_CPP_SRCS} ${ALL_C_SRCS} ${DEPS_DIRECTORY})
 target_link_libraries(illaTest illa UnitTestPP ${Boost_LIBRARIES})
-
-add_custom_command(TARGET illaTest POST_BUILD COMMAND illaTest ${CMAKE_SOURCE_DIR}/bin/Test COMMENT "Running illaTest...")

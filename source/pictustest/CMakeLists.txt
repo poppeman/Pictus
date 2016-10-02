@@ -27,5 +27,3 @@ add_executable(pictusTest
 	${PSD}/reg_color_translator.cpp
 	)
 target_link_libraries(pictusTest illa UnitTestPP ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
-
-add_custom_command(TARGET pictusTest POST_BUILD COMMAND pictusTest ${CMAKE_SOURCE_DIR}/bin/Test COMMENT "Running pictusTest...")
