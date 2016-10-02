@@ -110,6 +110,13 @@ SUITE(IO)
 		CHECK(f.IsOpen() == false);	// Shouldn't be open
 	}
 
+	TEST(FileReader_Directory)
+	{
+		IO::FileReader f(g_datapath);
+		CHECK(f.Open() == false);
+	}
+
+
 	TEST_FIXTURE(ReaderTestFixture, FileReader_OpenMany)
 	{
 		CHECK_THROW(file.Open(), Err::FileAlreadyOpen);

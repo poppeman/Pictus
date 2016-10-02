@@ -97,14 +97,21 @@ namespace IO {
 		m_file = _wfsopen(UTF8ToWString(fn).c_str(), L"rb", _SH_DENYWR);
 #elif __linux__
 		// Linux is evil and allows you to fopen folders. Thus we need to make sure this is a file manually
-		struct stat stats;
-		stat(m_name.c_str(), &stats);
-		if(S_ISDIR(stats.st_mode))
-		{
-			return false;
-		}
-
 		m_file = fopen(m_name.c_str(), "rb");
+		if(m_file != nullptr)
+		{
+			struct stat stats;
+			if (stat(m_name.c_str(), &stats) == -1)
+			{
+				performClose();
+				return false;
+			}
+			if (S_ISDIR(stats.st_mode))
+			{
+				performClose();
+				return false;
+			}
+		}
 #endif
 		if (m_file == 0) {
 			switch(errno) {
