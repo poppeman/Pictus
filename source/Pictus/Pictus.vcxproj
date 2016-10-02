@@ -342,6 +342,7 @@
     <ClInclude Include="render_geometry.h" />
     <ClInclude Include="resize_behavior.h" />
     <ClInclude Include="resize_position_method.h" />
+    <ClInclude Include="res_viewer.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="settings_layout.h" />
     <ClInclude Include="settings_page.h" />
@@ -406,6 +407,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">python lang_convert.py</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">lang_val.cpp;lang_val.h;lang_enum.h</Outputs>
     </CustomBuild>
+    <ResourceCompile Include="res_viewer.rc" />
     <ResourceCompile Include="version.rc" />
     <None Include="Res\cursor_app_pan2.cur" />
     <None Include="PictInst.iss" />

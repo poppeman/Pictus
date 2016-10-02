@@ -625,9 +625,15 @@
     <ClInclude Include="config_path.h">
       <Filter>Shared</Filter>
     </ClInclude>
+    <ClInclude Include="res_viewer.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="version.rc">
+      <Filter>Shared</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="res_viewer.rc">
       <Filter>Shared</Filter>
     </ResourceCompile>
   </ItemGroup>
