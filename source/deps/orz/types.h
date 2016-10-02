@@ -58,7 +58,7 @@ namespace Num {
 }
 
 template <typename C>
-std::basic_string<C> Implode(const std::vector<std::basic_string<C>> arr, const C* glue = 0) {
+std::basic_string<C> Implode(const std::vector<std::basic_string<C>>& arr, const C* glue = 0) {
 	std::basic_stringstream<C> toret;
 	bool first = true;
 	for (const auto& item : arr) {
