@@ -5,7 +5,7 @@
 
 namespace Hw3D {
 	struct Matrix {
-		float m[4][4];
+		float m[4][4] = { 0.0f };
 	};
 
 	Matrix OrthographicProjection(Geom::RectFloat zoomedArea);

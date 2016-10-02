@@ -35,6 +35,9 @@
     <ClCompile Include="test_fileops.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test_matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

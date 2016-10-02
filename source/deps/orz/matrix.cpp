@@ -9,7 +9,6 @@ namespace Hw3D
 	Matrix OrthographicProjection(RectFloat zoomedArea)
 	{
 		Matrix proj;
-		memset(&proj, 0, sizeof(proj));
 		proj.m[0][0] = 2.0f / (zoomedArea.Right() - zoomedArea.Left());
 		proj.m[1][1] = 2.0f / (zoomedArea.Top() - zoomedArea.Bottom());
 		proj.m[2][2] = 1 / (1 - 0);
@@ -26,7 +25,6 @@ namespace Hw3D
 		auto sinT = sin(angle);
 
 		Matrix rot;
-		memset(&rot, 0, sizeof(rot));
 		rot.m[0][0] = cosT;
 		rot.m[0][1] = -sinT;
 		rot.m[1][0] = sinT;
@@ -39,7 +37,6 @@ namespace Hw3D
 	Matrix Scale(const float x, const float y, const float z)
 	{
 		Matrix scale;
-		memset(&scale, 0, sizeof(scale));
 		scale.m[0][0] = x;
 		scale.m[1][1] = y;
 		scale.m[2][2] = z;
@@ -50,7 +47,6 @@ namespace Hw3D
 	Matrix Translate(float x, float y, float z)
 	{
 		Matrix out;
-		memset(&out, 0, sizeof(out));
 		out.m[0][0] = 1;
 		out.m[3][0] = x;
 		out.m[1][1] = 1;
@@ -64,7 +60,6 @@ namespace Hw3D
 	Matrix Identity()
 	{
 		Matrix out;
-		memset(&out, 0, sizeof(out));
 		out.m[0][0] = 1.0f;
 		out.m[1][1] = 1.0f;
 		out.m[2][2] = 1.0f;
