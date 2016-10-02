@@ -362,7 +362,6 @@
     <ClInclude Include="zoomstrategy.h" />
     <ClInclude Include="builder_viewport.h" />
     <ClInclude Include="factory_renderer.h" />
-    <ClInclude Include="cursor.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="wallpaper.h" />
     <ClInclude Include="wintypes.h" />

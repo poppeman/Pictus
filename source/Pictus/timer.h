@@ -21,12 +21,6 @@ namespace Win {
 
 	private:
 		void Notify() override;
-		//static VOID CALLBACK TimerCallback(HWND, UINT uMsg, UINT_PTR idEvent, DWORD dwTime);
-
-		//UINT_PTR m_timerId;
-
-		//typedef std::map<UINT_PTR, Timer*> TimerMap;
-		//static TimerMap m_timers;
 	};
 }
 

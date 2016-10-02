@@ -397,9 +397,6 @@
     <ClInclude Include="factory_renderer.h">
       <Filter>Viewer\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="cursor.h">
-      <Filter>WinAPI</Filter>
-    </ClInclude>
     <ClInclude Include="timer.h">
       <Filter>WinAPI</Filter>
     </ClInclude>
