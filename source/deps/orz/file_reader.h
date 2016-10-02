@@ -25,8 +25,8 @@ namespace IO {
 
 		typedef std::shared_ptr<FileReader> Ptr;
 
-		FileReader(std::string name);
-		FileReader(Stream::Ptr s);
+		explicit FileReader(std::string name);
+		explicit FileReader(Stream::Ptr s);
 
 	private:
 		FileReader(const FileReader& b)=delete;

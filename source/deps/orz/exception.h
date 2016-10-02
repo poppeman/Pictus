@@ -6,7 +6,7 @@
 
 namespace Err {
 	struct Unsupported:public std::runtime_error {
-		Unsupported(const std::string& msg);
+		explicit Unsupported(const std::string& msg);
 	};
 
 	struct DuplicateInstance:public std::runtime_error {
@@ -14,19 +14,19 @@ namespace Err {
 	};
 
 	struct CriticalError:public std::runtime_error {
-		CriticalError(const std::string& msg);
+		explicit CriticalError(const std::string& msg);
 	};
 
 	struct InvalidCall:public std::runtime_error {
-		InvalidCall(const std::string& msg);
+		explicit InvalidCall(const std::string& msg);
 	};
 
 	struct InvalidParam:public std::runtime_error {
-		InvalidParam(const std::string& msg);
+		explicit InvalidParam(const std::string& msg);
 	};
 
 	struct NotYetImplemented:public std::runtime_error {
-		NotYetImplemented(const std::string& msg);
+		explicit NotYetImplemented(const std::string& msg);
 	};
 }
 

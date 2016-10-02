@@ -25,7 +25,7 @@ namespace Util {
 
 		bool IsWordsLeft() const;
 
-		StreamConverter(uint8_t destBitCount = 8);
+		explicit StreamConverter(uint8_t destBitCount = 8);
 
 	private:
 		typedef std::deque<uint8_t> ByteStream;

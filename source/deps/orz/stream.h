@@ -7,19 +7,19 @@
 
 namespace Err {
 	struct IOException:public std::runtime_error {
-		IOException(const std::string& msg) :std::runtime_error("IO: " + msg) {}
+		explicit IOException(const std::string& msg) :std::runtime_error("IO: " + msg) {}
 	};
 
 	struct FileNotOpen:public IOException {
-		FileNotOpen(const std::string& msg) :IOException("FileNotOpen: " + msg) {}
+		explicit FileNotOpen(const std::string& msg) :IOException("FileNotOpen: " + msg) {}
 	};
 
 	struct FileAlreadyOpen:public IOException {
-		FileAlreadyOpen(const std::string& msg) :IOException("FileAlreadyOpen: " + msg) {}
+		explicit FileAlreadyOpen(const std::string& msg) :IOException("FileAlreadyOpen: " + msg) {}
 	};
 
 	struct EndOfFile:public IOException {
-		EndOfFile(const std::string& msg) :IOException("End of file: " + msg) {}
+		explicit EndOfFile(const std::string& msg) :IOException("End of file: " + msg) {}
 	};
 }
 

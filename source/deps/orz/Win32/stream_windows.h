@@ -9,8 +9,8 @@
 namespace IO {
 	class StreamWindows:public Stream {
 	public:
-		StreamWindows(IStream* i);
-		StreamWindows(const std::wstring& filename);
+		explicit StreamWindows(IStream* i);
+		explicit StreamWindows(const std::wstring& filename);
 		~StreamWindows();
 
 	private:

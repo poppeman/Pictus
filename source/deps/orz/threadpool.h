@@ -15,7 +15,7 @@ namespace Util {
 		void AddTask(Task func);
 		void JoinAll();
 
-		Threadpool(size_t numThreads);
+		explicit Threadpool(size_t numThreads);
 		~Threadpool();
 
 		Threadpool(const Threadpool&) = delete;
