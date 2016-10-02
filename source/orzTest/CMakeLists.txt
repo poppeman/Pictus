@@ -9,5 +9,3 @@ link_directories(${orz_BINARY_DIR}/orz)
 
 add_executable(orzTest ${ALL_CPP_SRCS} ${ALL_C_SRCS} ${DEPS_DIRECTORY})
 target_link_libraries(orzTest orz UnitTestPP ${Boost_LIBRARIES})
-
-add_custom_command(TARGET orzTest POST_BUILD COMMAND orzTest ${CMAKE_SOURCE_DIR}/bin/Test COMMENT "Running orzTest...")

@@ -13,6 +13,12 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-switch")
 endif()
 
+option(ENABLE_CODE_COVERAGE "Enable code coverage generation (if available)" OFF)
+if(ENABLE_CODE_COVERAGE)
+	add_compile_options(-fprofile-arcs -ftest-coverage)
+	link_libraries("gcov")
+endif()
+
 find_package(Boost 1.55.0 COMPONENTS system thread locale filesystem REQUIRED)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 link_libraries(${Boost_LIBRARIES})
