@@ -29,45 +29,6 @@ namespace Win {
 		return out_point;
 	}
 
-	std::string LongPath(const std::string& path) {
-		if (path.empty())
-		{
-			return path;
-		}
-
-		std::string trimmedPath;
-
-		if ((path[0] == '\"') && ((path[path.length() - 1]) == '\"'))
-		{
-			trimmedPath = path.substr(1, path.length() - 2);
-		}
-		else
-		{
-			trimmedPath = path;
-		}
-
-#ifdef _WIN32
-		// Convert the (potentially) short path to a long one.
-		wchar_t single_char;
-		uint32_t len			= GetLongPathName(UTF8ToWString(trimmedPath).c_str(), &single_char, 1);
-		boost::scoped_array<wchar_t> converted(0);
-
-		// Function APPARENTLY can't handle long pathnames (surrounded by quotes)
-		// Here's a crazy idea. HOW ABOUT OUTPUTTING THE ORIGINAL PATH IF THE
-		// INPUT STRING ACTUALLY IS A LONG PATH!? ALSO, CAPS-LOCK IS CRUISE CONTROL FOR COOL!
-
-		// A few years later, I still do not regret the previous comment
-		if (len != 0)
-		{
-			converted.reset(new wchar_t[len]);
-			GetLongPathName(UTF8ToWString(trimmedPath).c_str(), converted.get(), len);
-			return WStringToUTF8(converted.get());
-		}
-#else
-		return trimmedPath;
-#endif
-	}
-
 	::Geom::SizeInt wxToSize(::wxSize sz)
 	{
 		return {sz.x, sz.y};

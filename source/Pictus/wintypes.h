@@ -40,7 +40,6 @@ namespace Win {
 		KeyEvent(wxKeyEvent& evt);
 	};
 
-	std::string LongPath(const std::string &path);
 	Geom::RectInt wxToRect(const wxRect &rect);
 //	RECT RectToWx(const Geom::RectInt &rect);
 	wxPoint PointToWx(const Geom::PointInt &point);
