@@ -40,8 +40,8 @@ script:
     fi
   - mkdir build
   - cd build
-  - cmake .. -DENABLE_CODE_COVERAGE && make -j 4
-  - make
+  - cmake .. -DENABLE_CODE_COVERAGE=On
+  - make -j 4
   - make test
   - gcov-6 `find . -name *.gcno`
   - codecov
