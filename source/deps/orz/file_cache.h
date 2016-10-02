@@ -12,17 +12,15 @@ namespace IO {
 		void SkipBytes(int numToSkip);
 		FileInt VirtualFilePosition();
 
-		FileReaderByteStreamer();
-
 	private:
 		enum {
 			CacheSize = 4096
 		};
 
-		uint8_t m_cache[CacheSize];
-		size_t m_position;
-		size_t m_cacheSize;
-		FileInt m_bytesLeft;
+		uint8_t m_cache[CacheSize] = {};
+		size_t m_position = 0;
+		size_t m_cacheSize = 0;
+		FileInt m_bytesLeft = 0;
 		IO::FileReader::Ptr m_reader;
 	};
 }

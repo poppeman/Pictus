@@ -39,10 +39,6 @@ namespace IO {
 		return fwrite(buf, size, items, m_file);
 	}
 
-	FileWriter::FileWriter() :
-		m_file{ nullptr }
-	{}
-
 	FileWriter::~FileWriter()
 	{
 		Close();

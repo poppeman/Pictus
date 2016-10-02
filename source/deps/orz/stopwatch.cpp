@@ -36,8 +36,4 @@ namespace Util {
 		m_state = Default;
 		return time;
 	}
-
-	StopWatch::StopWatch():
-		m_state(Default)
-	{}
 }

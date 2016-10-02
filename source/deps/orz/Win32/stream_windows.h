@@ -23,7 +23,7 @@ namespace IO {
 		FileInt performPosition() const;
 		FileInt performSize();
 
-		IStream* m_pStream;
+		IStream* m_pStream = nullptr;
 		std::wstring m_filename;
 	};
 }

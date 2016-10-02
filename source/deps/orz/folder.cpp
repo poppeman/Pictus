@@ -5,8 +5,6 @@
 #include <iterator>
 
 namespace IO {
-	Folder::Folder() {}
-
 	bool Folder::Path(const std::string& path) {
 		std::lock_guard<std::mutex> l(m_mxCall);
 

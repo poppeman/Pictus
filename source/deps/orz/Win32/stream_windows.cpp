@@ -4,7 +4,7 @@
 namespace IO {
 	StreamWindows::StreamWindows(IStream* i) :m_pStream(i) {}
 
-	StreamWindows::StreamWindows(const std::wstring& filename) : m_filename(filename), m_pStream(nullptr) {}
+	StreamWindows::StreamWindows(const std::wstring& filename) : m_filename(filename) {}
 
 	StreamWindows::~StreamWindows() {
 		if (m_pStream) {

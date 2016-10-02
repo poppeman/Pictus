@@ -30,8 +30,8 @@ namespace Util {
 	private:
 		typedef std::deque<uint8_t> ByteStream;
 		ByteStream m_source;
-		unsigned int m_wordSize;
-		size_t m_srcPos;
+		unsigned int m_wordSize = 0;
+		size_t m_srcPos = 0;
 	};
 }
 

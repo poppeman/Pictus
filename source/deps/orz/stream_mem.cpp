@@ -56,5 +56,5 @@ namespace IO {
 		return "Memory buffer";
 	}
 
-	StreamMemory::StreamMemory(uint8_t* data, size_t size) :m_data(data), m_size(size), m_pos(0), m_isOpen(false) {}
+	StreamMemory::StreamMemory(uint8_t* data, size_t size) :m_data(data), m_size(size) {}
 }

@@ -1,12 +1,6 @@
 #include "file_cache.h"
 
 namespace IO {
-	FileReaderByteStreamer::FileReaderByteStreamer():
-		m_position{0},
-		m_cacheSize{0},
-		m_bytesLeft{0}
-	{}
-
 	void FileReaderByteStreamer::SetFileReader( IO::FileReader::Ptr file ) {
 		m_reader = file;
 		auto pos = file->Position();

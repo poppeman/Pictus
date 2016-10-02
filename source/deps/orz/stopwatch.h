@@ -10,8 +10,6 @@ namespace Util {
 		int Stop();
 		int Reset();
 
-		StopWatch();
-
 	private:
 		enum State {
 			Default,
@@ -20,7 +18,7 @@ namespace Util {
 		};
 
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_start, m_pause;
-		State m_state;
+		State m_state = Default;
 	};
 }
 

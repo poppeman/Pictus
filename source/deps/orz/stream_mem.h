@@ -21,10 +21,10 @@ namespace IO {
 
 		mutable std::recursive_mutex m_mutexAccess;
 
-		uint8_t* m_data;
-		FileInt m_size;
-		FileInt m_pos;
-		bool m_isOpen;
+		uint8_t* m_data = nullptr;
+		FileInt m_size = 0;
+		FileInt m_pos = 0;
+		bool m_isOpen = false;
 	};
 }
 

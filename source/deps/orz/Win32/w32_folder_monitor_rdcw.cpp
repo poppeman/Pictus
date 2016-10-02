@@ -14,9 +14,7 @@ namespace IO {
 	}
 
 	FolderMonitorWin32RDCW::FolderMonitorWin32RDCW(const std::string& path, ChangeEventCallback& ev):
-		FolderMonitorImplementation{ path, ev },
-		m_directory{ 0 },
-		m_ioComp{ 0 }
+		FolderMonitorImplementation{ path, ev }
 	{
 		std::wstring cropped = UTF8ToWString(path.substr(0, path.length()-1));
 		ZeroMemory(&m_ol, sizeof(m_ol));

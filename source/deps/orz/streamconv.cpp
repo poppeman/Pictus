@@ -116,7 +116,6 @@ namespace Util {
 	}
 
 	StreamConverter::StreamConverter(uint8_t destBitCount):
-		m_wordSize(destBitCount),
-		m_srcPos(0)
+		m_wordSize(destBitCount)
 	{}
 }

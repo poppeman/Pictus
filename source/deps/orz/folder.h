@@ -14,8 +14,6 @@ namespace IO {
 		boost::filesystem::directory_iterator CreateIterator() const;
 		IO::FileList CurrentContents() const;
 
-		Folder();
-
 	private:
 		mutable std::mutex m_mxCall;
 		FileList m_content;

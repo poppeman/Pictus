@@ -29,8 +29,8 @@ namespace Util {
 		std::condition_variable m_cdIdle;
 		std::list<Task> m_tasks;
 		boost::thread_group m_threads;
-		bool m_terminate;
-		size_t m_numRunning;
+		bool m_terminate = false;
+		size_t m_numRunning = 0;
 	};
 }
 

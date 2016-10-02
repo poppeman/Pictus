@@ -28,12 +28,12 @@ namespace IO {
 			NumEvents = 4096
 		};
 
-		uint8_t m_changes[NumEvents * sizeof(FILE_NOTIFY_INFORMATION)];
-		OVERLAPPED m_ol;
+		uint8_t m_changes[NumEvents * sizeof(FILE_NOTIFY_INFORMATION)] = {};
+		OVERLAPPED m_ol = {};
 
-		HANDLE m_directory;
+		HANDLE m_directory = nullptr;
 		std::shared_ptr<std::thread> m_thread;
-		HANDLE m_ioComp;
+		HANDLE m_ioComp = nullptr;
 		std::string m_oldName;
 	};
 }

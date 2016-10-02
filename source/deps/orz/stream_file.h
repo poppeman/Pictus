@@ -34,10 +34,10 @@ namespace IO {
 
 		mutable std::recursive_mutex m_mutexAccess;
 
-		std::FILE* m_file;
+		std::FILE* m_file = nullptr;
 		std::string m_name;
-		FileInt m_size;
-		OpenErrorCode m_error;
+		FileInt m_size = 0;
+		OpenErrorCode m_error = OpenErrorCode::Succeeded;
 	};
 }
 

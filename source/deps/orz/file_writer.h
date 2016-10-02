@@ -11,11 +11,10 @@ namespace IO {
 
 		size_t Write(const void* buf, size_t size, size_t items);
 
-		FileWriter();
 		~FileWriter();
 
 	private:
-		std::FILE* m_file;
+		std::FILE* m_file = nullptr;
 	};
 }
 

@@ -15,7 +15,7 @@ namespace IO {
 		void Write(const std::string& message);
 		void AttemptInitialize();
 		std::string m_filename;
-		bool m_wroteBOM;
+		bool m_wroteBOM = false;
 		std::string m_dbgCached;
 
 		template <typename T> friend  Logger& operator <<(Logger& log, T const& value);

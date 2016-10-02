@@ -14,9 +14,7 @@ namespace Util {
 		}
 	}
 
-	Threadpool::Threadpool(size_t numThreads):
-		m_terminate{ false },
-		m_numRunning{ 0 }
+	Threadpool::Threadpool(size_t numThreads)
 	{
 		std::lock_guard<std::mutex> l(m_mxTasks);
 		for (size_t i = 0; i < numThreads; i++) {
