@@ -1,7 +1,7 @@
 #include "orz/file_reader.h"
 #include "orz/logger.h"
 #include "registry.h"
-#include "w32_assure_folder.h"
+#include "config_path.h"
 #include "reg_color_translator.h"
 #include "reg_filter_mode_translator.h"
 #include "reg_keyboard_binding_translator.h"
@@ -18,7 +18,7 @@
 namespace Reg {
 	Settings Load(const std::string& name) {
 		Reg::Settings cfg;
-		auto full_name = assure_folder(name);
+		auto full_name = ConfigPath(name);
 
 		boost::property_tree::ptree pt;
 
@@ -153,7 +153,7 @@ namespace Reg {
 	}
 
 	void Save(const std::string& name, const Settings& settings) {
-		auto full_name = assure_folder(name);
+		auto full_name = ConfigPath(name);
 		std::stringstream ss;
 		//ss << (char)0xef << (char)0xbb << (char)(0xbf);
 		boost::property_tree::ptree pt;

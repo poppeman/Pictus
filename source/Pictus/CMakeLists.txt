@@ -15,6 +15,7 @@ set(PICTUS_CPP_SRCS
 		cnt_color_rgb.cpp cnt_color_rgb.h
 		cnt_colorpick.cpp cnt_colorpick.h
 		cnt_colorpreview.cpp cnt_colorpreview.h
+		config_path.cpp config_path.h
 		ctrl_keypress.cpp ctrl_keypress.h
 		dlg_about.cpp
 		dlg_advanced.cpp dlg_advanced.h
@@ -76,7 +77,6 @@ set(PICTUS_CPP_SRCS
 		viewer_droptarget.cpp viewer_droptarget.h
 		viewer_keyboard.cpp
 		viewport.cpp
-		w32_assure_folder.cpp
 		w32_redrawstrategy.cpp
 		w32_renderer.cpp
 		w32_rendertarget.cpp

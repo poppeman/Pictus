@@ -200,9 +200,6 @@
     <ClCompile Include="ic_workpackage.cpp">
       <Filter>Imaging\Cacher\Background</Filter>
     </ClCompile>
-    <ClCompile Include="w32_assure_folder.cpp">
-      <Filter>Shared</Filter>
-    </ClCompile>
     <ClCompile Include="dlg_controls.cpp">
       <Filter>Settings\Pages\Controls</Filter>
     </ClCompile>
@@ -341,6 +338,9 @@
     <ClCompile Include="filemanager.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
+    <ClCompile Include="config_path.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="settings.h">
@@ -468,9 +468,6 @@
     </ClInclude>
     <ClInclude Include="ic_workpackage.h">
       <Filter>Imaging\Cacher\Background</Filter>
-    </ClInclude>
-    <ClInclude Include="w32_assure_folder.h">
-      <Filter>Shared</Filter>
     </ClInclude>
     <ClInclude Include="dlg_controls.h">
       <Filter>Settings\Pages\Controls</Filter>
@@ -625,6 +622,9 @@
     <ClInclude Include="filemanager.h">
       <Filter>Viewer</Filter>
     </ClInclude>
+    <ClInclude Include="config_path.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="version.rc">
@@ -632,9 +632,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="values_dword.inc">
-      <Filter>Shared</Filter>
-    </None>
     <None Include="Res\cursor_app_pan2.cur">
       <Filter>Resources\Cursors</Filter>
     </None>

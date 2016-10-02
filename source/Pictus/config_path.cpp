@@ -1,4 +1,4 @@
-#include "w32_assure_folder.h"
+#include "config_path.h"
 #include "orz/exception.h"
 #include "orz/fileops.h"
 #include "orz/types.h"
@@ -6,12 +6,12 @@
 #include <wx/stdpaths.h>
 #include <boost/filesystem.hpp>
 
-std::string assure_folder(std::string name) {
+std::string ConfigPath(std::string filename) {
 	// See if there is an ini next to the .exe-file. If so, use that one (Portable mode).
 	wxStandardPaths::Get().UseAppInfo(wxStandardPaths::AppInfo_AppName | wxStandardPaths::AppInfo_VendorName);
 	auto currentExe = std::string(wxStandardPaths::Get().GetExecutablePath().ToUTF8());
 	auto exePath = boost::filesystem::path(currentExe).parent_path();
-	auto totalExe = ToAString(exePath / name);
+	auto totalExe = ToAString(exePath / filename);
 	if(IO::DoFileExist(totalExe))
 	{
 		return totalExe;
@@ -26,7 +26,7 @@ std::string assure_folder(std::string name) {
 
 	auto configPath = boost::filesystem::path(configDir);
 	boost::filesystem::create_directories(configPath);
-	auto totalConfig = configPath / name;
+	auto totalConfig = configPath / filename;
 
 	return ToAString(totalConfig).c_str();
 }

@@ -278,7 +278,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="version.cpp" />
     <ClCompile Include="registry.cpp" />
-    <ClCompile Include="w32_assure_folder.cpp" />
+    <ClCompile Include="config_path.cpp" />
     <ClCompile Include="w32_rendertarget.cpp" />
     <ClCompile Include="w32_renderer.cpp" />
     <ClCompile Include="w32_redrawstrategy.cpp" />
@@ -372,7 +372,7 @@
     <ClInclude Include="res_version.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="registry.h" />
-    <ClInclude Include="w32_assure_folder.h" />
+    <ClInclude Include="config_path.h" />
     <ClInclude Include="w32_rendertarget.h" />
     <ClInclude Include="w32_renderer.h" />
     <ClInclude Include="w32_redrawstrategy.h" />
@@ -406,7 +406,6 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">python lang_convert.py</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">lang_val.cpp;lang_val.h;lang_enum.h</Outputs>
     </CustomBuild>
-    <None Include="values_dword.inc" />
     <ResourceCompile Include="version.rc" />
     <None Include="Res\cursor_app_pan2.cur" />
     <None Include="PictInst.iss" />
