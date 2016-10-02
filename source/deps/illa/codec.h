@@ -70,6 +70,8 @@ namespace Img {
 		std::atomic<bool> m_isFinished;
 		std::atomic<bool> m_doAbort;
 	};
+
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, AbstractCodec::AllocationStatus st);
 }
 
 #endif

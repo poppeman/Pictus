@@ -177,4 +177,19 @@ namespace Img {
 	bool AbstractCodec::CanDetectFormat() const {
 		return true;
 	}
+
+	std::basic_ostream<char>& operator<<(std::basic_ostream<char>& in, AbstractCodec::AllocationStatus st)
+	{
+		switch (st) {
+		case AbstractCodec::AllocationStatus::Failed:
+			in << "AllocationStatus::Failed"; break;
+		case AbstractCodec::AllocationStatus::NotSupported:
+			in << "AllocationStatus::NotSupported"; break;
+		case AbstractCodec::AllocationStatus::Ok:
+			in << "AllocationStatus::Ok"; break;
+		default:
+			in << "AllocationStatus::UNKNOWN"; break;
+		}
+		return in;
+	}
 }

@@ -180,6 +180,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="share_filterbuffer.cpp" />
+    <ClCompile Include="test_abstractcodec.cpp" />
     <ClCompile Include="test_bilinear.cpp" />
     <ClCompile Include="test_color.cpp" />
     <ClCompile Include="test_filter.cpp" />

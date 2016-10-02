@@ -59,6 +59,9 @@
     <ClCompile Include="test_codecs.cpp">
       <Filter>Codec</Filter>
     </ClCompile>
+    <ClCompile Include="test_abstractcodec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="share_filterbuffer.h">
