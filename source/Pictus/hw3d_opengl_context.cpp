@@ -35,7 +35,7 @@ namespace Hw3D
 	void OpenGlContext::BeginDraw()
 	{
 		auto rect = Win::wxToRect(m_currentTarget->GetClientRect());
-		glViewport(rect.Left(), rect.Top(), rect.Width(), rect.Height());
+		glViewport(0, 0, rect.Width() + 1, rect.Height() + 1);
 		glUseProgram(m_program);
 	}
 
