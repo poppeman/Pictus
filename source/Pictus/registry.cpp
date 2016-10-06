@@ -106,11 +106,11 @@ namespace Reg {
 				{ { WXK_ESCAPE, false, false, false }, KeyAction::CloseApplication },
 				//{ { WXK_WXK_OEM_PLUS, false, false, false }, KeyAction::ZoomIn },
 				{ { WXK_ADD, false, false, false }, KeyAction::ZoomIn },
-				{ { WXK_NUMPAD0, false, false, false }, KeyAction::ZoomIn },
+				{ { WXK_NUMPAD_ADD, false, false, false }, KeyAction::ZoomIn },
 
 				//{ { WXK_OEM_MINUS, false, false, false }, KeyAction::ZoomOut },
 				{ { WXK_SUBTRACT, false, false, false }, KeyAction::ZoomOut },
-				{ { WXK_NUMPAD1, false, false, false }, KeyAction::ZoomOut },
+				{ { WXK_NUMPAD_SUBTRACT, false, false, false }, KeyAction::ZoomOut },
 
 				{ { L'0', false, false, false }, KeyAction::ZoomDefault },
 				{ { L'1', false, false, false }, KeyAction::ZoomFull },

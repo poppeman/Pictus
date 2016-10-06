@@ -49,6 +49,10 @@ namespace App {
 		m_edit = new wxTextCtrl(this, wxID_ANY, L"");
 		m_edit->Bind(wxEVT_KEY_DOWN, [&](wxKeyEvent& evt) {
 			auto kc = evt.GetUnicodeKey();
+			if (kc == 0)
+			{
+				kc = evt.GetKeyCode();
+			}
 			KeyboardPress kp = { kc, evt.AltDown(), evt.ShiftDown(), evt.ControlDown() };
 			SetCombo(kp);
 
