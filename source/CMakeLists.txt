@@ -28,6 +28,7 @@ add_subdirectory (orzTest)
 add_subdirectory (illaTest)
 add_subdirectory (MetadataTest)
 add_subdirectory (LoadTest)
+add_subdirectory (FilterTest)
 add_subdirectory (pictustest)
 add_subdirectory (Pictus)
 

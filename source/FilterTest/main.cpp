@@ -1,8 +1,8 @@
-#include "illa/filter.h"
-#include "illa/types.h"
-#include "orz/logger.h"
-#include "orz/stopwatch.h"
-#include "orz/types.h"
+#include <illa/filter.h>
+#include <illa/types.h>
+#include <orz/logger.h>
+#include <orz/stopwatch.h>
+#include <orz/types.h>
 #include <boost/locale.hpp>
 #include <random>
 
@@ -73,7 +73,7 @@ void TestNoResample(_T T)
 		T.Run(src.fb, dst.fb, region);
 	int time = sw.Stop();
 	std::cout << "Time: " << (time / NumRunsNoResample) << "\n";
-};
+}
 
 
 template< class _T>
@@ -96,7 +96,7 @@ void TestResample(_T T, Img::Format fmt)
 		T.Run(src.fb, dst.fb, region, fmt, DefaultZoom);
 	int time = sw.Stop();
 	std::cout << "Time: " << (time / NumRunsResample) << "\n";
-};
+}
 
 struct TestNearestNeighbor {
 	void Run(FilterBuffer& src, FilterBuffer& dst, const Geom::RectInt& region, Img::Format fmt, float zoom) {
@@ -141,14 +141,12 @@ struct TestBlendSolid {
 	}
 };
 
-int wmain(int argc, wchar_t* argv[])
+int realMain(std::string testToRun, std::string format)
 {
-	if (argc < 3) return EXIT_FAILURE;
-
 	std::locale::global(boost::locale::generator().generate(""));
 
-	auto testToRun(boost::locale::to_lower(WStringToUTF8(argv[1])));
-	auto format(boost::locale::to_lower(WStringToUTF8(argv[2])));
+	testToRun = boost::locale::to_lower(testToRun);
+	format = boost::locale::to_lower(format);
 
 	Img::Format fmt = Img::Format::Undefined;
 	if (format == "xrgb8888")		fmt = Img::Format::XRGB8888;
@@ -175,3 +173,16 @@ int wmain(int argc, wchar_t* argv[])
 
 	return EXIT_SUCCESS;
 }
+
+
+#ifdef _WIN32
+int wmain(int argc, wchar_t* argv[]) {
+	if(argc < 3) return EXIT_FAILURE;
+	return realMain(WStringToUTF8(argv[1]), WStringToUTF8(argv[2]));
+}
+#else
+int main(int argc, char* argv[]) {
+	if(argc < 3) return EXIT_FAILURE;
+	return realMain(argv[1], argv[2]);
+}
+#endif
