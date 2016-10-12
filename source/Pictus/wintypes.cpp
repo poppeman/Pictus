@@ -64,7 +64,7 @@ namespace Win {
 		return (Key < rhs.Key);
 	}
 
-	KeyEvent::KeyEvent(int key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed):
+	KeyEvent::KeyEvent(wchar_t key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed):
 		Key(key),
 		AltPressed(isAltPressed),
 		CtrlPressed(isCtrlPressed),

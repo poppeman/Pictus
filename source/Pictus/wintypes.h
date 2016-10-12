@@ -29,14 +29,14 @@ namespace Win {
 	class KeyEvent {
 	public:
 		//WPARAM Key;
-		int Key;
+		wchar_t Key;
 		bool AltPressed;
 		bool CtrlPressed;
 		bool ShiftPressed;
 
 		bool operator<(const KeyEvent &rhs) const;
 
-		KeyEvent(int key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed);
+		KeyEvent(wchar_t key, bool isAltPressed, bool isCtrlPressed, bool isShiftPressed);
 		KeyEvent(wxKeyEvent& evt);
 	};
 
