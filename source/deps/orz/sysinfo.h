@@ -8,6 +8,8 @@ namespace Sys {
 		uint64_t TotalPhysicalMemory();
 		Intl::Language SystemLanguage();
 		const std::string ExePath();
+
+		std::string InvalidFilenameCharacters();
 	}
 }
 

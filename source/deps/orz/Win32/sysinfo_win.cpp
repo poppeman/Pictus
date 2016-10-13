@@ -28,5 +28,10 @@ namespace Sys {
 			::GetModuleFileNameW(0, strExe, (sizeof(strExe) / sizeof(wchar_t)) - 1);
 			return WStringToUTF8(strExe);
 		}
+
+		std::string InvalidFilenameCharacters()
+		{
+			return "/\\:*?\"<>|";
+		}
 	}
 }

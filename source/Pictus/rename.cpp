@@ -1,5 +1,6 @@
 #include "rename.h"
 #include "wintypes.h"
+#include <orz/sysinfo.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
 #include <wx/button.h>
@@ -26,13 +27,16 @@ namespace App
 
 	Rename::Rename(wxWindow* parent, const std::string& name):
 		wxDialog{ parent, wxID_ANY, Win::GetStringWx(SIDRename), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE },
-		m_name( name )
+		m_name( name ),
+		m_validator{ new wxTextValidator(wxFILTER_EXCLUDE_CHAR_LIST) }
 	{
 		auto topSizer = new wxBoxSizer(wxVERTICAL);
 
 		auto upperSizer = new wxBoxSizer(wxHORIZONTAL);
 		upperSizer->Add(new wxStaticText(this, wxID_ANY, Win::GetStringWx(SIDRenameNewFilename)), wxSizerFlags(0));
-		m_filename = new wxTextCtrl(this, wxID_ANY, L"", wxDefaultPosition, { 400, wxDefaultCoord }, wxTE_PROCESS_ENTER, wxDefaultValidator);
+
+		m_validator->SetCharExcludes(wxString::FromUTF8(Sys::Info::InvalidFilenameCharacters().c_str()));
+		m_filename = new wxTextCtrl(this, wxID_ANY, L"", wxDefaultPosition, { 400, wxDefaultCoord }, wxTE_PROCESS_ENTER, *m_validator);
 		upperSizer->Add(m_filename, wxSizerFlags(1).Border(wxLEFT, 20));
 
 		auto lowerSizer = new wxBoxSizer(wxHORIZONTAL);

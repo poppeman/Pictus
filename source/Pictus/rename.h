@@ -3,6 +3,7 @@
 
 #include <wx/dialog.h>
 #include <wx/textctrl.h>
+#include <wx/valtext.h>
 
 namespace App
 {
@@ -21,6 +22,7 @@ namespace App
 		void OnCancel();
 
 		std::string m_name;
+		wxTextValidator* m_validator;
 	};
 }
 
