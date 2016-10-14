@@ -140,9 +140,6 @@
     <ClCompile Include="file_cache.cpp">
       <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="fileops.cpp">
-      <Filter>IO</Filter>
-    </ClCompile>
     <ClCompile Include="logger.cpp">
       <Filter>IO</Filter>
     </ClCompile>
@@ -199,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="matrix.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="fileops.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Win32\fileops_win.cpp">
+      <Filter>IO\Win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

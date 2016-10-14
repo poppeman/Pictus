@@ -1,8 +1,12 @@
 #include <GL/glew.h>
 #include <wx/glcanvas.h>
+#include <wx/panel.h>
 #include "factory_renderer.h"
 
 #include "w32_rendertarget.h"
+#ifdef _WIN32
+#include "hw3d_direct3d9_device.h"
+#endif
 #include "hw3d_opengl_device.h"
 
 namespace App {

@@ -7,6 +7,7 @@
 #include "Helper.h"
 
 #include <random>
+#include <windows.h>
 
 FolderManipulator::FolderManipulator(const std::string& folder, const std::string& sourceFolder):
 	m_folder(folder),

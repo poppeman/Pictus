@@ -10,8 +10,7 @@
 namespace IO {
 	using std::recursive_mutex;
 
-#ifdef _WIN32
-	std::string StreamFile::Rename(const std::string& newFilename, HWND handle) {
+	std::string StreamFile::Rename(const std::string& newFilename, wxWindow* handle) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 		bool wasOpen = IsOpen();
 		FileInt prevPos = (wasOpen?performPosition():0);
@@ -26,7 +25,6 @@ namespace IO {
 		}
 		return ret;
 	}
-#endif
 
 	void StreamFile::Renamed(const std::string& newFilename) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
@@ -39,8 +37,7 @@ namespace IO {
 		performSeek(prevPos, SeekMethod::Begin);
 	}
 
-#ifdef _WIN32
-	bool StreamFile::Delete(bool doRecycle, HWND handle) {
+	bool StreamFile::Delete(bool doRecycle, wxWindow* handle) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);
 
 		bool wasOpen = IsOpen();
@@ -58,7 +55,6 @@ namespace IO {
 		}
 		return false;
 	}
-#endif
 
 	size_t StreamFile::performRead(void* buf, size_t size, size_t items) {
 		std::lock_guard<std::recursive_mutex> l(m_mutexAccess);

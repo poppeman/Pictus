@@ -28,5 +28,10 @@ namespace Sys {
 			}
 			return std::string(dest, written);
 		}
+
+		std::string InvalidFilenameCharacters()
+		{
+			return "/";
+		}
 	}
 }

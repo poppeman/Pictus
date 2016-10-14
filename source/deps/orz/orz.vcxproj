@@ -166,6 +166,7 @@
     <ClCompile Include="bitconvert.cpp" />
     <ClCompile Include="ByteOrder.cpp" />
     <ClCompile Include="exception.cpp" />
+    <ClCompile Include="fileops.cpp" />
     <ClCompile Include="file_writer.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="orz_math.cpp" />
@@ -174,7 +175,6 @@
     <ClCompile Include="intl.cpp" />
     <ClCompile Include="file_reader.cpp" />
     <ClCompile Include="file_cache.cpp" />
-    <ClCompile Include="fileops.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="stream.cpp" />
     <ClCompile Include="stream_file.cpp" />
@@ -185,6 +185,7 @@
     <ClCompile Include="folder_monitor_imp.cpp" />
     <ClCompile Include="types.cpp" />
     <ClCompile Include="threadpool.cpp" />
+    <ClCompile Include="Win32\fileops_win.cpp" />
     <ClCompile Include="Win32\stream_windows.cpp" />
     <ClCompile Include="Win32\sysinfo_win.cpp" />
     <ClCompile Include="Win32\w32_folder_monitor_rdcw.cpp" />

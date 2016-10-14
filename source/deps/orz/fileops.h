@@ -1,9 +1,7 @@
 #ifndef ORZ_FILEOPS_H
 #define ORZ_FILEOPS_H
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
+#include <wx/window.h>
 
 #include <string>
 
@@ -11,11 +9,9 @@ namespace IO {
 	bool DoFileExist(const std::string& files);
 	bool DoPathExist(const std::string& file);
 
-#ifdef _WIN32
-	bool FileDelete(const std::string& file, HWND hwnd);
-	bool FileRecycle(const std::string& file, HWND hwnd);
-	std::string Rename(const std::string& old_name, const std::string& new_name, HWND hwnd);
-#endif
+	bool FileDelete(const std::string& file, wxWindow* parent);
+	bool FileRecycle(const std::string& file, wxWindow* parent);
+	std::string Rename(const std::string& old_name, const std::string& new_name, wxWindow* parent);
 
 	bool SupportRecycle();
 

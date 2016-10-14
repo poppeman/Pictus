@@ -4,9 +4,7 @@
 #include "stream.h"
 
 #include <mutex>
-#ifdef _WIN32
-#include <windows.h>
-#endif
+#include <wx/window.h>
 
 namespace IO {
 	class StreamFile:public Stream {
@@ -14,13 +12,9 @@ namespace IO {
 		explicit StreamFile(std::string filename);
 		~StreamFile();
 
-#ifdef _WIN32
-		std::string Rename(const std::string& newFilename, HWND handle);
-#endif
+		std::string Rename(const std::string& newFilename, wxWindow* handle);
 		void Renamed(const std::string& newFilename);
-#ifdef _WIN32
-		bool Delete(bool doRecycle, HWND handle);
-#endif
+		bool Delete(bool doRecycle, wxWindow* handle);
 
 	private:
 		std::string performName() const;

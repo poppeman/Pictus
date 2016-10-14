@@ -3,6 +3,8 @@
 #include "orz/folder.h"
 #include "orz/types.h"
 
+#include <windows.h>
+
 void copyFiles( const std::string& source, const std::string dest ) {
 	IO::Folder f;
 	f.Path(source.c_str());

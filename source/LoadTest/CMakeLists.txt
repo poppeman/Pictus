@@ -1,8 +1,10 @@
-cmake_minimum_required (VERSION 2.8)
-project (LoadTest)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-include_directories(${DEPS_DIRECTORY})
-link_directories(${illa_BINARY_DIR}/illa ${orz_BINARY_DIR}/orz)
+FIND_PACKAGE(wxWidgets COMPONENTS core base gl net REQUIRED)
 
-add_executable(LoadTest main.cpp)
-target_link_libraries(LoadTest illa orz ${Boost_LIBRARIES})
+INCLUDE_DIRECTORIES(${DEPS_DIRECTORY})
+INCLUDE(${wxWidgets_USE_FILE})
+LINK_DIRECTORIES(${illa_BINARY_DIR}/illa ${orz_BINARY_DIR}/orz ${wxWidgets_INCLUDE_DIRS})
+
+ADD_EXECUTABLE(LoadTest main.cpp)
+TARGET_LINK_LIBRARIES(LoadTest illa orz ${Boost_LIBRARIES})

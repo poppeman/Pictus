@@ -5,6 +5,7 @@
 #include "orz/fileops.h"
 
 #include <random>
+#include <windows.h>
 
 void CacheUser::ThreadMain() {
 	Output("Initializing CacheUser...");

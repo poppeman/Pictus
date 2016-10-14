@@ -16,6 +16,7 @@
 #include "Logger.h"
 #include "ThreadRunner.h"
 
+#include <windows.h>
 #include <boost/locale.hpp>
 
 ThreadRunner::Ptr g_runner;
