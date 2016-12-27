@@ -26,16 +26,25 @@ namespace IO {
 		FileList files;
 
 		for (auto x = iter; x != boost::filesystem::directory_iterator(); x++) {
-			FolderEntry toRet;
-			if (boost::filesystem::is_directory(*x)) {
-				toRet.Type = TypeFolder;
-			}
-			if (boost::filesystem::is_regular_file(*x)) {
-				toRet.Type = TypeFile;
-			}
+			try
+			{
+				FolderEntry toRet;
+				if (boost::filesystem::is_directory(*x)) {
+					toRet.Type = TypeFolder;
+				}
+				if (boost::filesystem::is_regular_file(*x)) {
+					toRet.Type = TypeFile;
+				}
 
-			toRet.Name = x->path().filename().string();
-			files.push_back(toRet);
+				toRet.Name = x->path().filename().string();
+				files.push_back(toRet);
+			}
+			catch (boost::filesystem::filesystem_error& err)
+			{
+				// Boost can throw exceptions in is_directory and probably is_regular_file for various reasons that are
+				// entirely uninteresting to us. Try to do the best of the situation and ignore files/folders that
+				// are causing issues.
+			}
 		}
 		return files;
 	}
