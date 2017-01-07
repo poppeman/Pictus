@@ -28,7 +28,7 @@ public:
 			// "something.exe" "some long argument" results in the following:
 			//    argv[0] = something.exe
 			//    argv[1] = some long argument"
-			std::string params = ToAString(argv[1]);
+			std::string params = argv[1].ToUTF8();
 			if (params[params.size() - 1] == '"' && params[0] != '"') {
 				params = params.substr(0, params.size() - 1);
 			}
