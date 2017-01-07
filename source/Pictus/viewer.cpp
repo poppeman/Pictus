@@ -63,6 +63,18 @@ namespace App {
 		}
 	}
 
+	void Viewer::InitDialogs()
+	{
+		if (m_settings == nullptr)
+		{
+			m_settings = std::make_shared<Settings>(this, m_cfg);
+			m_settings->OnSettingsChanged.connect([&](Reg::Settings newSettings) {
+				m_cfg = newSettings;
+				SettingsChanged();
+			});
+		}
+	}
+
 	void Viewer::OnMouseDoubleEvent(wxMouseEvent &e)
 	{
 		auto ev = MouseDblEvent(e, m_cfg.Mouse);
@@ -240,12 +252,6 @@ namespace App {
 		m_keys.SetBindings(m_cfg.Keyboard);
 
 		m_lang = Intl::OnLanguageChanged.connect([&]() { UpdateImageInformation(); });
-
-		m_settings = std::make_shared<Settings>(this, m_cfg);
-		m_settings->OnSettingsChanged.connect([&](Reg::Settings newSettings) {
-			m_cfg = newSettings;
-			SettingsChanged();
-		});
 
 		m_cacher.SetCodecFactoryStore(m_codecs);
 
@@ -540,6 +546,7 @@ namespace App {
 		}
 
 		// Make sure that the settings and adjust dialogs are on top (if running)
+		InitDialogs();
 		if (m_settings->IsVisible())
 		{
 			ShowSettings();
@@ -948,6 +955,7 @@ namespace App {
 
 	void Viewer::ShowSettings()
 	{
+		InitDialogs();
 		m_settings->Show(true);
 		m_settings->Raise();
 	}

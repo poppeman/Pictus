@@ -83,6 +83,8 @@ namespace App {
 			StatFieldLastModified = 180,
 		};
 
+		void InitDialogs();
+
 		void OnMouseStandardEvent(wxMouseEvent& e);
 		void OnMouseDoubleEvent(wxMouseEvent& e);
 		void OnSizeEvent(wxSizeEvent& e);
