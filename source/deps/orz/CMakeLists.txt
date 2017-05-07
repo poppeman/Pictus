@@ -5,13 +5,14 @@ FIND_PACKAGE(wxWidgets COMPONENTS core base gl net REQUIRED)
 SET(
 	ORZ_SRC
 	bitconvert.cpp bitconvert.h
+	boost_folder.cpp boost_folder.h
 	ByteOrder.cpp ByteOrder.h 
 	exception.cpp exception.h
 	fileops.cpp fileops.h
 	file_cache.cpp file_cache.h
 	file_reader.cpp file_reader.h
 	file_writer.cpp file_writer.h
-	folder.cpp folder.h
+	folder.h
 	folder_monitor.cpp folder_monitor.h
 	folder_monitor_imp.cpp folder_monitor_imp.h
 	folder_types.cpp folder_types.h
