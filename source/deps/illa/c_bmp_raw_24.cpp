@@ -19,15 +19,18 @@ namespace Img
 			auto pData32 = reinterpret_cast<uint32_t*>(area->Buffer());
 
 			auto bytes = m_header.ColorDepth / 8;
+			auto scanBytes = bytes * m_header.Size.Width;
+			std::vector<uint8_t> scan(scanBytes);
+			m_reader->ReadFull(&scan[0], scanBytes);
 
 			// Prettier to use 32-bit arrays for 32-bit buffers
+			size_t srcIndex = 0;
 			for (int currX = 0; currX < m_header.Size.Width; currX++) {
 				uint32_t currentPixel = 0;
 				uint8_t* pByteCurrentPixel = reinterpret_cast<uint8_t*>(&currentPixel);
 
-				for (int b = 0; b < bytes; b++)
-				{
-					m_reader->ReadFull(&pByteCurrentPixel[b], 1);
+				for (int i = 0; i < bytes; i++) {
+					pByteCurrentPixel[i] = scan[srcIndex++];
 				}
 
 				// Convert pixel data and store in the surface
