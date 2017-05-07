@@ -28,8 +28,6 @@ namespace Img {
 				file->ReadFull(&Width, 4);
 				file->ReadFull(&Height, 4);
 			}
-			Size.Width	= Width;
-			Size.Height	= Height;
 
 			if (Height < 0) {
 				FlipVertical	= false;
@@ -38,6 +36,9 @@ namespace Img {
 			else {
 				FlipVertical = true;
 			}
+
+			Size.Width = Width;
+			Size.Height = Height;
 
 			uint16_t planes = 0;
 			file->ReadFull(&planes, sizeof(planes));
