@@ -22,6 +22,7 @@
 #include "filemanager.h"
 
 #include <boost/date_time/c_local_time_adjustor.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 #include <boost/scoped_array.hpp>
 #include <wx/display.h>

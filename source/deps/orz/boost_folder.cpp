@@ -1,11 +1,11 @@
-#include "folder.h"
+#include "boost_folder.h"
 #include "exception.h"
 #include "fileops.h"
 #include "types.h"
 #include <iterator>
 
 namespace IO {
-	bool Folder::Path(const std::string& path) {
+	bool BoostFolder::Path(const std::string& path) {
 		std::lock_guard<std::mutex> l(m_mxCall);
 
 		if (!IO::DoPathExist(path)) {
@@ -16,12 +16,12 @@ namespace IO {
 		return true;
 	}
 
-	std::string Folder::Path() const {
+	std::string BoostFolder::Path() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
 		return m_path;
 	}
 
-	FileList Folder::CurrentContents() const {
+	FileList BoostFolder::CurrentContents() const {
 		auto iter = CreateIterator();
 		FileList files;
 
@@ -29,6 +29,7 @@ namespace IO {
 			try
 			{
 				FolderEntry toRet;
+
 				if (boost::filesystem::is_directory(*x)) {
 					toRet.Type = TypeFolder;
 				}
@@ -49,7 +50,7 @@ namespace IO {
 		return files;
 	}
 
-	boost::filesystem::directory_iterator  Folder::CreateIterator() const {
+	boost::filesystem::directory_iterator  BoostFolder::CreateIterator() const {
 		std::lock_guard<std::mutex> l(m_mxCall);
 		return boost::filesystem::directory_iterator(m_path);
 	}

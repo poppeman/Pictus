@@ -1,24 +1,10 @@
 #ifndef ORZ_FOLDER_H
 #define ORZ_FOLDER_H
 
-#include "folder_types.h"
-#include <mutex>
-#include <boost/filesystem.hpp>
-
-namespace IO {
-	class Folder:boost::noncopyable {
-	public:
-		bool Path(const std::string& filename);
-		std::string Path() const;
-
-		boost::filesystem::directory_iterator CreateIterator() const;
-		IO::FileList CurrentContents() const;
-
-	private:
-		mutable std::mutex m_mxCall;
-		FileList m_content;
-		std::string m_path;
-	};
-}
+#ifdef _WIN32
+#include "w32_folder.h"
+#else
+#include "boost_folder.h"
+#endif
 
 #endif

@@ -7,6 +7,7 @@
 #include "orz/logger.h"
 #include "ipc_client.h"
 #include "ipc_server.h"
+#include <boost/filesystem.hpp>
 #include <boost/locale.hpp>
 #include <boost/scoped_array.hpp>
 #include <wx/app.h>

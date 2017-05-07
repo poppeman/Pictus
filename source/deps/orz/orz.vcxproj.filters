@@ -72,9 +72,6 @@
     <ClInclude Include="stream_mem.h">
       <Filter>IO</Filter>
     </ClInclude>
-    <ClInclude Include="folder.h">
-      <Filter>IO\Folder</Filter>
-    </ClInclude>
     <ClInclude Include="folder_monitor.h">
       <Filter>IO\Folder</Filter>
     </ClInclude>
@@ -123,6 +120,18 @@
     <ClInclude Include="matrix.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="w32_folder.h">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="boost_folder.h">
+      <Filter>IO\Folder</Filter>
+    </ClInclude>
+    <ClInclude Include="folder.h">
+      <Filter>IO\Folder</Filter>
+    </ClInclude>
+    <ClInclude Include="w32_folder_iterator.h">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitconvert.cpp">
@@ -151,9 +160,6 @@
     </ClCompile>
     <ClCompile Include="stream_mem.cpp">
       <Filter>IO</Filter>
-    </ClCompile>
-    <ClCompile Include="folder.cpp">
-      <Filter>IO\Folder</Filter>
     </ClCompile>
     <ClCompile Include="folder_monitor.cpp">
       <Filter>IO\Folder</Filter>
@@ -202,6 +208,15 @@
     </ClCompile>
     <ClCompile Include="Win32\fileops_win.cpp">
       <Filter>IO\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="boost_folder.cpp">
+      <Filter>IO\Folder</Filter>
+    </ClCompile>
+    <ClCompile Include="w32_folder.cpp">
+      <Filter>IO\Folder\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="w32_folder_iterator.cpp">
+      <Filter>IO\Folder\Win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

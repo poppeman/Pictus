@@ -137,6 +137,7 @@
     <ClInclude Include="bitconvert.h" />
     <ClInclude Include="ByteOrder.h" />
     <ClInclude Include="file_writer.h" />
+    <ClInclude Include="folder.h" />
     <ClInclude Include="intl_language.h" />
     <ClInclude Include="intl_table_entry.h" />
     <ClInclude Include="matrix.h" />
@@ -151,7 +152,7 @@
     <ClInclude Include="stream.h" />
     <ClInclude Include="stream_file.h" />
     <ClInclude Include="stream_mem.h" />
-    <ClInclude Include="folder.h" />
+    <ClInclude Include="boost_folder.h" />
     <ClInclude Include="folder_monitor.h" />
     <ClInclude Include="folder_types.h" />
     <ClInclude Include="folder_monitor_imp.h" />
@@ -159,6 +160,8 @@
     <ClInclude Include="types.h" />
     <ClInclude Include="sysinfo.h" />
     <ClInclude Include="threadpool.h" />
+    <ClInclude Include="w32_folder.h" />
+    <ClInclude Include="w32_folder_iterator.h" />
     <ClInclude Include="Win32\stream_windows.h" />
     <ClInclude Include="Win32\w32_folder_monitor_rdcw.h" />
   </ItemGroup>
@@ -179,12 +182,14 @@
     <ClCompile Include="stream.cpp" />
     <ClCompile Include="stream_file.cpp" />
     <ClCompile Include="stream_mem.cpp" />
-    <ClCompile Include="folder.cpp" />
+    <ClCompile Include="boost_folder.cpp" />
     <ClCompile Include="folder_monitor.cpp" />
     <ClCompile Include="folder_types.cpp" />
     <ClCompile Include="folder_monitor_imp.cpp" />
     <ClCompile Include="types.cpp" />
     <ClCompile Include="threadpool.cpp" />
+    <ClCompile Include="w32_folder.cpp" />
+    <ClCompile Include="w32_folder_iterator.cpp" />
     <ClCompile Include="Win32\fileops_win.cpp" />
     <ClCompile Include="Win32\stream_windows.cpp" />
     <ClCompile Include="Win32\sysinfo_win.cpp" />
