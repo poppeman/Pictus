@@ -112,9 +112,11 @@ namespace Img {
 				file->ReadFull(&BlueMask, 4);
 			}
 			else if (biSize == 12) {
+				file->Seek(pos + biSize, IO::SeekMethod::Begin);
 				LoadPalette(Palette, *file, 0, NumColors, Img::LoadBGR); // OS2 format
 			}
-			else if (biSize == 40) {
+			else {
+				file->Seek(pos + biSize, IO::SeekMethod::Begin);
 				LoadPalette(Palette, *file, 0, NumColors, Img::LoadBGRX); // Normal format
 			}
 
